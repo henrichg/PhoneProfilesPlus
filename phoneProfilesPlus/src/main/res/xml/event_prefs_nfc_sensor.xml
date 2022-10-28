@@ -9,7 +9,7 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.NFCTagPreferenceX
+    <sk.henrichg.phoneprofilesplus.NFCTagPreference
         app:defaultValue="@string/empty_string"
         app:key="eventNFCTags"
         app:title="@string/event_preferences_nfc_nfcTags"
@@ -22,7 +22,7 @@
         app:defaultValue="true"
         app:dependency="eventNFCEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventNFCDuration"
         app:summary="@string/event_preferences_duration"
         app:title="@string/event_preferences_duration"

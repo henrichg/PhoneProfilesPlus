@@ -13,13 +13,13 @@
         app:ppEntryValues="@array/changeWallpaperValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.WallpaperViewPreferenceX
+    <sk.henrichg.phoneprofilesplus.WallpaperViewPreference
         app:defaultValue="-"
         app:key="prf_pref_deviceWallpaper"
         app:title="@string/profile_preferences_deviceImageWallpaper"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.WallpaperFolderPreferenceX
+    <sk.henrichg.phoneprofilesplus.WallpaperFolderPreference
         app:defaultValue="-"
         app:key="prf_pref_deviceWallpaperFolder"
         app:title="@string/profile_preferences_deviceWallpaperFolder"
@@ -34,7 +34,7 @@
         app:ppEntryValues="@array/wallpaperForValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.LiveWallpapersDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.LiveWallpapersDialogPreference
         app:title="@string/profile_preferences_deviceLiveWallpaper"
         app:key="prf_pref_deviceLiveWallpaper"
         app:defaultValue=""

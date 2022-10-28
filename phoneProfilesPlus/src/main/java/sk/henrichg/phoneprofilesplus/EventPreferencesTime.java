@@ -120,9 +120,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
 
-        String sDays = preferences.getString(PREF_EVENT_TIME_DAYS, DaysOfWeekPreferenceX.allValue);
+        String sDays = preferences.getString(PREF_EVENT_TIME_DAYS, DaysOfWeekPreference.allValue);
         String[] splits = sDays.split("\\|");
-        if (splits[0].equals(DaysOfWeekPreferenceX.allValue))
+        if (splits[0].equals(DaysOfWeekPreference.allValue))
         {
             this._sunday = true;
             this._monday = true;

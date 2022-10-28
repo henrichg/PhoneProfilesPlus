@@ -121,13 +121,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         case Configuration.UI_MODE_NIGHT_YES:
                             applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                             applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                             applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                             break;
                     }
                 }
@@ -483,14 +483,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
                             break;
                     }

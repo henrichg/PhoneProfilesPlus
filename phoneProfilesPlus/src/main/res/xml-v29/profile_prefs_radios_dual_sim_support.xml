@@ -27,7 +27,7 @@
         app:ppEntryValues="@array/onOffSIMValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreference
         app:key="prf_pref_deviceDefaultSIMCards"
         app:defaultValue="0|0|0"
         app:title="@string/profile_preferences_deviceDefaultSIM"

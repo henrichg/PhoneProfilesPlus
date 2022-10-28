@@ -21,7 +21,7 @@
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.LocationGeofencePreferenceX
+    <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
         app:defaultValue="0"
         app:key="applicationEventLocationsEditor"
         app:title="@string/phone_profiles_pref_applicationEventLocationsEditor"
@@ -38,7 +38,7 @@
             app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
             app:dependency="applicationEventLocationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationEventLocationUpdateInterval"
             app:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
@@ -82,13 +82,13 @@
             app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventLocationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventLocationScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom"
             app:dependency="applicationEventLocationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventLocationScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo"

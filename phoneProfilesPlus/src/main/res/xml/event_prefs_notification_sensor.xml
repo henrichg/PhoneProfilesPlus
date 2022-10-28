@@ -35,7 +35,7 @@
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="eventNotificationApplications"
         app:title="@string/event_preferences_notifications_applications"
@@ -50,13 +50,13 @@
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
         app:key="eventNotificationContactGroups"
         app:defaultValue="@string/empty_string"
         app:title="@string/event_preferences_notifications_contact_groups"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
         app:key="eventNotificationContacts"
         app:defaultValue="@string/empty_string"
         app:title="@string/event_preferences_notifications_contacts"
@@ -79,7 +79,7 @@
         app:defaultValue="false"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.SearchStringPreferenceX
+    <sk.henrichg.phoneprofilesplus.SearchStringPreference
         app:key="eventNotificationText"
         app:summary="@string/event_preferences_notifications_text"
         app:title="@string/event_preferences_notifications_text"
@@ -99,7 +99,7 @@
         app:defaultValue="true"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />-->
-    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventNotificationDuration"
         app:summary="@string/event_preferences_notifications_duration"
         app:title="@string/event_preferences_notifications_duration"

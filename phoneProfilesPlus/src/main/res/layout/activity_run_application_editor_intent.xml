@@ -8,7 +8,7 @@
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false"
-    tools:context=".RunApplicationEditorIntentActivityX">
+    tools:context=".RunApplicationEditorIntentActivity">
 
     <RelativeLayout
         android:id="@+id/application_editor_intent_buttons"

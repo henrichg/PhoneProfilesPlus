@@ -24,7 +24,7 @@
             app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
             app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationEventPeriodicScanningScanInterval"
             app:summary="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInterval"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInterval"
@@ -68,13 +68,13 @@
             app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventPeriodicScanningScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom"
             app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventPeriodicScanningScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo"

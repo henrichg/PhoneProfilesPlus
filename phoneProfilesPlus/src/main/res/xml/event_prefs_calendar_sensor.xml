@@ -9,7 +9,7 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
         app:key="eventCalendarCalendars"
         app:defaultValue="@string/empty_string"
         app:title="@string/event_preferences_calendar_calendars"
@@ -43,7 +43,7 @@
             app:ppEntryValues="@array/eventCalendarSearchFieldValues"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.SearchStringPreferenceX
+        <sk.henrichg.phoneprofilesplus.SearchStringPreference
             app:key="eventCalendarSearchString"
             app:summary="@string/event_preferences_calendar_search_string"
             app:title="@string/event_preferences_calendar_search_string"
@@ -89,7 +89,7 @@
         app:key="eventCalendarOtherParametersCategory"
         app:title="@string/event_preferences_other_parameters"
         app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             app:key="eventCalendarStartBeforeEvent"
             app:summary="@string/event_preferences_startBeforeEvent"
             app:title="@string/event_preferences_startBeforeEvent"

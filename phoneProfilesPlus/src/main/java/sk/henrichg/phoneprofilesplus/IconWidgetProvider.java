@@ -128,7 +128,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
+                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                             applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
@@ -139,7 +139,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
+                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "0";
                             applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black

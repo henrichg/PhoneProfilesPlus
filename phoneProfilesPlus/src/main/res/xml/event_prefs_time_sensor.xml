@@ -9,7 +9,7 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.DaysOfWeekPreferenceX
+    <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
         app:key="eventTimeDays"
         app:defaultValue="@string/empty_string"
         app:title="@string/event_preferences_time_timeDays"
@@ -24,7 +24,7 @@
         app:ppEntryValues="@array/eventTimeTypeValues"
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.TimeDialogPreference
         app:key="eventTimeStartTime"
         app:defaultValue="0"
         app:title="@string/event_preferences_time_startTime"
@@ -38,7 +38,7 @@
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     -->
-    <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.TimeDialogPreference
         app:key="eventTimeEndTime"
         app:defaultValue="0"
         app:title="@string/event_preferences_time_endTime"

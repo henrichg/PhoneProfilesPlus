@@ -300,7 +300,7 @@ class EventPreferencesApplication extends EventPreferences {
                 final boolean accessibilityEnabled =
                         PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
                                 /*, "EventPreferencesApplication.checkPreferences"*/);
-                ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+                ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
                 if (applicationsPreference != null) {
                     applicationsPreference.setEnabled(accessibilityEnabled);
                     applicationsPreference.setSummaryAMSDP();

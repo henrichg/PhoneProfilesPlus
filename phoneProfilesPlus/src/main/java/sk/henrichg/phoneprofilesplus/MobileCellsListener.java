@@ -389,7 +389,7 @@ class MobileCellsListener extends PhoneStateListener {
     void rescanMobileCells() {
         //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
         if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
-                MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
+                MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart) {
 
 //            PPApplication.logE("[TEST BATTERY] MobileCellsListener.rescanMobileCells", "******** ### *******");
 
@@ -869,7 +869,7 @@ class MobileCellsListener extends PhoneStateListener {
             }*/
 
             //if (forceStart) {
-            if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
+            if (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart) {
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 //                PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(2)");
                     // broadcast for event preferences

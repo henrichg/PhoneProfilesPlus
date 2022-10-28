@@ -3665,7 +3665,7 @@ class ActivateProfileHelper {
             if (intentId > 0) {
                 PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
                 if (ppIntent != null) {
-                    appIntent = RunApplicationEditorIntentActivityX.createIntent(ppIntent);
+                    appIntent = RunApplicationEditorIntentActivity.createIntent(ppIntent);
                     if (appIntent != null) {
                         if (ppIntent._intentType == 0) {
                             /*boolean vpnConnected = false;

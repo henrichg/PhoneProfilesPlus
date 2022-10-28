@@ -50,7 +50,7 @@
             app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
             app:dependency="applicationEventWifiEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationEventWifiScanInterval"
             app:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
             app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
@@ -94,13 +94,13 @@
             app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventWifiEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventWifiScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom"
             app:dependency="applicationEventWifiEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventWifiScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo"

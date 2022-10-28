@@ -134,7 +134,7 @@ class Permissions {
     //static ContactsMultiSelectDialogPreference contactsMultiSelectDialogPreference = null;
     //static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
     //static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
-    //static BrightnessDialogPreferenceX brightnessDialogPreference = null;
+    //static BrightnessDialogPreference brightnessDialogPreference = null;
     //static MobileCellsPreference mobileCellsPreference = null;
     //static MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference = null;
     //static RingtonePreference ringtonePreference = null;

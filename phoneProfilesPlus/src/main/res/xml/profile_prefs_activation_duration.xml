@@ -18,7 +18,7 @@
         app:ppEntryValues="@array/endOfProfileActivationTypeValues"
         app:dependency="prf_pref_askForDuration"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="prf_pref_duration"
         app:summary="@string/profile_preferences_duration"
         app:title="@string/profile_preferences_duration"
@@ -27,7 +27,7 @@
         app:dMin="0"
         app:dMax="86400"
         app:dependency="prf_pref_askForDuration" />
-    <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.TimeDialogPreference
         app:key="prf_pref_endOfActivationTime"
         app:defaultValue="0"
         app:title="@string/profile_preferences_exactTime"
@@ -42,7 +42,7 @@
         app:ppEntryValues="@array/afterProfileDurationDoValues"
         app:dependency="prf_pref_askForDuration"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+    <sk.henrichg.phoneprofilesplus.ProfilePreference
         app:defaultValue="-999"
         app:key="prf_pref_afterDurationProfile"
         app:title="@string/profile_preferences_afterDurationProfile"
@@ -64,7 +64,7 @@
 <!--            app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
 <!--            app:layout="@layout/mp_preference_material_widget"-->
 <!--            app:widgetLayout="@layout/widget_info_preference" />-->
-        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        <sk.henrichg.phoneprofilesplus.RingtonePreference
             app:key="prf_pref_durationNotificationSound"
             app:summary="@string/ringtone_preference_not_set"
             app:title="@string/profile_preferences_durationNotificationSound"

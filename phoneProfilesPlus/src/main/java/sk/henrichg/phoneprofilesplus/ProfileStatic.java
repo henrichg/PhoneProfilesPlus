@@ -557,7 +557,7 @@ public class ProfileStatic {
         return value;
     }
 
-    static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreferenceX preference) {
+    static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreference preference) {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
         try {
             if (preference != null) {

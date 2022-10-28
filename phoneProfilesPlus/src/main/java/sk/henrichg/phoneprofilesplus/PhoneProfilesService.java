@@ -2232,7 +2232,7 @@ public class PhoneProfilesService extends Service
 
     private void registerBluetoothStateChangedBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
+        if (!forceRegister && BluetoothNamePreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.bluetoothStateChangedBroadcastReceiver != null) {
@@ -2248,7 +2248,7 @@ public class PhoneProfilesService extends Service
             if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                 boolean allowed;
                 boolean eventsExists = false;
-                if (BluetoothNamePreferenceX.forceRegister)
+                if (BluetoothNamePreference.forceRegister)
                     allowed = true;
                 else {
                     allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
@@ -2291,7 +2291,7 @@ public class PhoneProfilesService extends Service
 
     private void registerBluetoothScannerReceivers(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
+        if (!forceRegister && BluetoothNamePreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.bluetoothScanReceiver != null) {
@@ -2312,10 +2312,10 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventBluetoothEnableScanning || BluetoothNamePreferenceX.forceRegister) {
+            if (ApplicationPreferences.applicationEventBluetoothEnableScanning || BluetoothNamePreference.forceRegister) {
                 boolean allowed = false;
                 boolean eventsExists = false;
-                if (BluetoothNamePreferenceX.forceRegister)
+                if (BluetoothNamePreference.forceRegister)
                     allowed = true;
                 else {
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)) {
@@ -2353,7 +2353,7 @@ public class PhoneProfilesService extends Service
 
     private void registerWifiAPStateChangeBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
+        if (!forceRegister && WifiSSIDPreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.wifiAPStateChangeBroadcastReceiver != null) {
@@ -2366,10 +2366,10 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreferenceX.forceRegister) {
+            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreference.forceRegister) {
                 boolean allowed = false;
                 boolean eventsExists = false;
-                if (WifiSSIDPreferenceX.forceRegister)
+                if (WifiSSIDPreference.forceRegister)
                     allowed = true;
                 else {
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
@@ -2401,7 +2401,7 @@ public class PhoneProfilesService extends Service
 
     private void registerWifiScannerReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
+        if (!forceRegister && WifiSSIDPreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.wifiScanReceiver != null) {
@@ -2414,10 +2414,10 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreferenceX.forceRegister) {
+            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreference.forceRegister) {
                 boolean allowed = false;
                 boolean eventsExists = false;
-                if (WifiSSIDPreferenceX.forceRegister)
+                if (WifiSSIDPreference.forceRegister)
                     allowed = true;
                 else {
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
@@ -2706,7 +2706,7 @@ public class PhoneProfilesService extends Service
     void scheduleWifiWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
 
-        if (/*!forceStart &&*/ WifiSSIDPreferenceX.forceRegister)
+        if (/*!forceStart &&*/ WifiSSIDPreference.forceRegister)
             return;
 
         //if (schedule) {
@@ -2759,7 +2759,7 @@ public class PhoneProfilesService extends Service
     private void scheduleBluetoothWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
 
-        if (/*!forceStart &&*/ BluetoothNamePreferenceX.forceRegister)
+        if (/*!forceStart &&*/ BluetoothNamePreference.forceRegister)
             return;
 
         //if (schedule) {
@@ -2869,7 +2869,7 @@ public class PhoneProfilesService extends Service
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(() -> {
-                if (!forceStart && (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart))
+                if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
                     return;
                 if (stop) {
                     if (isMobileCellsScannerStarted()) {
@@ -2879,11 +2879,11 @@ public class PhoneProfilesService extends Service
                 if (start) {
                     //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
-                            MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
+                            MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart) {
 //                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### *******");
                         boolean eventAllowed = false;
                         boolean eventsExists = false;
-                        if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart)
+                        if (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart)
                             eventAllowed = true;
                         else {
                             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)) {
@@ -4625,7 +4625,7 @@ public class PhoneProfilesService extends Service
                                         ppService.startMobileCellsScanner(true, false, dataWrapper, true, false);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
 
-                                        if (MobileCellsPreferenceX.forceStart) {
+                                        if (MobileCellsPreference.forceStart) {
                                             Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView");
                                             LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                         }

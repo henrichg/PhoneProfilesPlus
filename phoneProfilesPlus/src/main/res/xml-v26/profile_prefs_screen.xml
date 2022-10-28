@@ -28,7 +28,7 @@
         app:ppEntryValues="@array/screenOnPermanentValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.BrightnessDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
         app:key="prf_pref_deviceBrightness"
         app:bNoChange="1"
         app:bAutomatic="0"

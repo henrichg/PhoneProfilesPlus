@@ -364,7 +364,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     currentLightValuePreference.setEnabled(hasLight);
                     //GlobalGUIRoutines.setPreferenceTitleStyleX(currentLightValuePreference, true, false, false, false, false);
                 }
-                BetterNumberPickerPreferenceX minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
+                BetterNumberPickerPreference minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
@@ -383,7 +383,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     currentLightValuePreference.setEnabled(false);
                     //GlobalGUIRoutines.setPreferenceTitleStyleX(currentLightValuePreference, true, false, false, false, false);
                 }
-                BetterNumberPickerPreferenceX minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
+                BetterNumberPickerPreference minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
@@ -794,7 +794,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
                 enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
                         /*, "EventPreferencesOrientation.checkPreferences"*/);
-                ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
+                ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
                 if (applicationsPreference != null) {
                     applicationsPreference.setEnabled(enabled);
                     applicationsPreference.setSummaryAMSDP();

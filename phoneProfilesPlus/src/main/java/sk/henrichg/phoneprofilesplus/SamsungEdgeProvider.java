@@ -71,7 +71,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = true; // background type = color
-                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
+                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
                             //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
                             applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
@@ -81,7 +81,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = true; // background type = not color
-                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
+                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
                             //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
                             applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful

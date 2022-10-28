@@ -18,7 +18,7 @@
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
         app:key="eventBatteryLevelLow"
         app:summary="@string/event_preferences_battery_level_low"
         app:title="@string/event_preferences_battery_level_low"
@@ -27,7 +27,7 @@
         app:max="100"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
         app:key="eventBatteryLevelHight"
         app:summary="@string/event_preferences_battery_level_hight"
         app:title="@string/event_preferences_battery_level_hight"

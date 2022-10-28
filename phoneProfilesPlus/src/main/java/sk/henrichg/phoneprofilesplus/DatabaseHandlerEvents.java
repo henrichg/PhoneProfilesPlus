@@ -607,7 +607,7 @@ public class DatabaseHandlerEvents {
                 if (daysOfWeek != null)
                 {
                     String[] splits = daysOfWeek.split("\\|");
-                    if (splits[0].equals(DaysOfWeekPreferenceX.allValue))
+                    if (splits[0].equals(DaysOfWeekPreference.allValue))
                     {
                         eventPreferences._sunday = true;
                         eventPreferences._monday = true;

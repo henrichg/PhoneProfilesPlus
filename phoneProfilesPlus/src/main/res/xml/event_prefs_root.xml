@@ -38,7 +38,7 @@
         app:title="@string/event_preferences_category_startOfEvent"
         app:key="eventStartCategory"
         app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
             app:defaultValue="0"
             app:key="eventProfileStart"
             app:title="@string/event_preferences_eventProfileStart"
@@ -71,7 +71,7 @@
         app:title="@string/event_preferences_category_endOfEvent"
         app:key="eventEndCategory"
         app:layout="@layout/mp_preference_category">
-        <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
             app:defaultValue="-999"
             app:key="eventProfileEnd"
             app:title="@string/event_preferences_eventProfileEnd"
@@ -109,7 +109,7 @@
         app:title="@string/event_preferences_category_sensors"
         app:key="eventEventsCategory"
         app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreference
             app:key="eventSensorsInfo"
             app:title="@string/event_preferences_sensorsInfo_title"
             app:summary="@string/info_preference_click_here"

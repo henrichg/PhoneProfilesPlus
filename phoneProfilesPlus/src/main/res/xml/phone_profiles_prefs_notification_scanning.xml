@@ -55,13 +55,13 @@
             app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
             app:dependency="applicationEventNotificationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventNotificationScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom"
             app:dependency="applicationEventNotificationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventNotificationScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo"

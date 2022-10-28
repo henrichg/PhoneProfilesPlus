@@ -138,7 +138,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
 
         Intent intent = getIntent();
-        geofenceId = intent.getLongExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, 0);
+        geofenceId = intent.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
 
         if (geofenceId > 0) {
             geofence = DatabaseHandler.getInstance(getApplicationContext()).getGeofence(geofenceId);
@@ -379,7 +379,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                 DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
 
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofence._id);
+                returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }

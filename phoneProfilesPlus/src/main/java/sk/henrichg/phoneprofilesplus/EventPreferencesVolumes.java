@@ -275,7 +275,7 @@ class EventPreferencesVolumes extends EventPreferences {
         event._eventPreferencesVolumes.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesVolumes.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_VOLUMES_ENABLED, false);
-        VolumeDialogPreferenceX preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE);
+        VolumeDialogPreference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));

@@ -20,7 +20,7 @@
         app:title="@string/phone_profiles_pref_applicationGridLayout"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"
         app:key="applicationWidgetListBackground"
@@ -32,14 +32,14 @@
         app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
         app:summary="0%%"
         app:key="applicationWidgetListLightnessB"
         app:defaultValue="0"
         app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreference
         app:title="@string/phone_profiles_pref_applicationWidgetColorB"
         app:key="applicationWidgetListBackgroundColor"
         app:defaultValue="-1"
@@ -49,7 +49,7 @@
         app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
         app:summary="100%%"
         app:key="applicationWidgetListLightnessBorder"
@@ -62,7 +62,7 @@
 <!--        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"-->
 <!--        app:defaultValue="true"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
         app:key="applicationWidgetListRoundedCornersRadius"
         app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"
         app:title="@string/phone_profiles_pref_applicationWidgetCornerRadius"
@@ -71,7 +71,7 @@
         app:max="15"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
         app:summary="100%%"
         app:key="applicationWidgetListLightnessT"
@@ -87,7 +87,7 @@
         app:ppEntries="@array/widgetColorArray"
         app:ppEntryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
         app:key="applicationWidgetListIconLightness"
@@ -106,7 +106,7 @@
         app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForWidget_summary"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
         app:summary="50%%"
         app:key="applicationWidgetListPrefIndicatorLightness"

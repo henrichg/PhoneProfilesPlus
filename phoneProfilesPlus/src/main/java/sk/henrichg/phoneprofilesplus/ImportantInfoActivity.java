@@ -57,7 +57,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager2 viewPager = findViewById(R.id.activity_important_info_pager);
-        ImportantInfoActivityFragmentStateAdapterX adapter = new ImportantInfoActivityFragmentStateAdapterX(getSupportFragmentManager(), getLifecycle());
+        ImportantInfoActivityFragmentStateAdapter adapter = new ImportantInfoActivityFragmentStateAdapter(getSupportFragmentManager(), getLifecycle());
         viewPager.setAdapter(adapter);
         // this fixes cropped fragment in Quick guide
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

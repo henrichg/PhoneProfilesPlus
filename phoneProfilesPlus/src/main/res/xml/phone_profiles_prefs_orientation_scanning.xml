@@ -24,7 +24,7 @@
             app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
             app:dependency="applicationEventOrientationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationEventOrientationScanInterval"
             app:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             app:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
@@ -68,13 +68,13 @@
             app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventOrientationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventOrientationScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom"
             app:dependency="applicationEventOrientationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventOrientationScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo"

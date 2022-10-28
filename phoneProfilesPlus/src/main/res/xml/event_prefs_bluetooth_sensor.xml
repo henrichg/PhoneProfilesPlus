@@ -43,7 +43,7 @@
         app:dependency="eventBluetoothEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     -->
-    <sk.henrichg.phoneprofilesplus.BluetoothNamePreferenceX
+    <sk.henrichg.phoneprofilesplus.BluetoothNamePreference
         app:key="eventBluetoothAdapterNAME"
         app:summary="@string/event_preferences_bluetooth_adapter_name"
         app:title="@string/event_preferences_bluetooth_adapter_name"

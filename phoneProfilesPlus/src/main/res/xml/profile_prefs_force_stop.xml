@@ -17,7 +17,7 @@
         app:ppEntries="@array/forceStopApplicationArray"
         app:ppEntryValues="@array/forceStopApplicationValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="prf_pref_deviceForceStopApplicationPackageName"
         app:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"

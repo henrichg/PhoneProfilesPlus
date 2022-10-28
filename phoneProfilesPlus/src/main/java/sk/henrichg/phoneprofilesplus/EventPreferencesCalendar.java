@@ -181,7 +181,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";
-                descr = descr + "<b>" + CalendarsMultiSelectDialogPreferenceX.getSummary(_calendars, context) + "</b> • ";
+                descr = descr + "<b>" + CalendarsMultiSelectDialogPreference.getSummary(_calendars, context) + "</b> • ";
 
                 if (this._dayContainsEvent > 0) {
                     descr = descr + context.getString(R.string.event_preferences_calendar_day_contains_event) + ": ";

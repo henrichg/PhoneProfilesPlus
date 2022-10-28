@@ -895,7 +895,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_PROFILE_START) || key.equals(PREF_EVENT_PROFILE_END))
         {
-            ProfilePreferenceX preference = prefMng.findPreference(key);
+            ProfilePreference preference = prefMng.findPreference(key);
             if (preference != null) {
                 long lProfileId;
                 try {
@@ -912,7 +912,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
-            ProfileMultiSelectPreferenceX preference = prefMng.findPreference(key);
+            ProfileMultiSelectPreference preference = prefMng.findPreference(key);
             if (preference != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }

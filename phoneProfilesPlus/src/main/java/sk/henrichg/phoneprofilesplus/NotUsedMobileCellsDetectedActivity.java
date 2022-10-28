@@ -29,7 +29,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     private TextView lastConnectTimeTextView;
     TextView cellNameTextView;
     private ListView lastRunningEventsListView;
-    private MobileCellNamesDialogX mMobileCellNamesDialog;
+    private MobileCellNamesDialog mMobileCellNamesDialog;
 
     private int mobileCellId = Integer.MAX_VALUE;
     private long lastConnectedTime = 0;
@@ -259,7 +259,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         cellNameTextView = layout.findViewById(R.id.not_used_mobile_cells_dlg_cells_name);
         lastRunningEventsListView = layout.findViewById(R.id.not_used_mobile_cells_dlg_last_running_events_listview);
 
-        mMobileCellNamesDialog = new MobileCellNamesDialogX(this, null, false);
+        mMobileCellNamesDialog = new MobileCellNamesDialog(this, null, false);
         cellNameTextView.setOnClickListener(view -> {
             if (!isFinishing())
                 mMobileCellNamesDialog.show();

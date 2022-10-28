@@ -114,7 +114,7 @@
             app:ppEntryValues="@array/notificationBackgroundColorValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <sk.henrichg.phoneprofilesplus.CustomColorDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.CustomColorDialogPreference
             app:key="notificationBackgroundCustomColor"
             app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
             app:defaultValue="@color/notification_background_color_default"
@@ -150,7 +150,7 @@
             app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationProfileIconLightness"
             app:summary="100%%"
             app:key="notificationProfileIconLightness"
@@ -176,7 +176,7 @@
             app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
             app:summary="50%%"
             app:key="notificationPrefIndicatorLightness"

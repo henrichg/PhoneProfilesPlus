@@ -12,7 +12,7 @@
         app:ppEntries="@array/widgetColorArray"
         app:ppEntryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
         app:key="applicationShortcutIconLightness"

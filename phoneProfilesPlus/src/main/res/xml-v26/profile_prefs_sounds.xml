@@ -20,7 +20,7 @@
         app:ppEntries="@array/soundChangeArray"
         app:ppEntryValues="@array/soundChangeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
         app:key="prf_pref_soundRingtone"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_soundRingtone"
@@ -37,7 +37,7 @@
         app:ppEntries="@array/soundChangeArray"
         app:ppEntryValues="@array/soundChangeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
         app:key="prf_pref_soundNotification"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_soundNotification"
@@ -62,7 +62,7 @@
         app:ppEntries="@array/soundChangeArray"
         app:ppEntryValues="@array/soundChangeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
         app:key="prf_pref_soundAlarm"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_soundAlarm"

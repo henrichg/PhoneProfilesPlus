@@ -201,10 +201,10 @@ class EventPreferencesNotification extends EventPreferences {
                         descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_checkContacts) + "</b>: ";
 
                         descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
-                        descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreferenceX.getSummary(_contactGroups, context) + "</b> • ";
+                        descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context) + "</b> • ";
 
                         descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
-                        descr = descr + "<b>" + ContactsMultiSelectDialogPreferenceX.getSummary(_contacts, true, context) + "</b> • ";
+                        descr = descr + "<b>" + ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context) + "</b> • ";
 
                         descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
                         String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
@@ -501,7 +501,7 @@ class EventPreferencesNotification extends EventPreferences {
                 boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
                         PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
                 Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
-                ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+                ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
                 Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
                 Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
                 SwitchPreferenceCompat checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);

@@ -132,98 +132,98 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof DurationDialogPreferenceX)
+        if (preference instanceof DurationDialogPreference)
         {
-            ((DurationDialogPreferenceX)preference).fragment = new DurationDialogPreferenceFragmentX();
-            dialogFragment = ((DurationDialogPreferenceX)preference).fragment;
+            ((DurationDialogPreference)preference).fragment = new DurationDialogPreferenceFragment();
+            dialogFragment = ((DurationDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof ProfilePreferenceX)
+        if (preference instanceof ProfilePreference)
         {
-            ((ProfilePreferenceX)preference).fragment = new ProfilePreferenceFragmentX();
-            dialogFragment = ((ProfilePreferenceX)preference).fragment;
+            ((ProfilePreference)preference).fragment = new ProfilePreferenceFragment();
+            dialogFragment = ((ProfilePreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof RingtonePreferenceX)
+        if (preference instanceof RingtonePreference)
         {
-            ((RingtonePreferenceX)preference).fragment = new RingtonePreferenceFragmentX();
-            dialogFragment = ((RingtonePreferenceX)preference).fragment;
+            ((RingtonePreference)preference).fragment = new RingtonePreferenceFragment();
+            dialogFragment = ((RingtonePreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof LocationGeofencePreferenceX)
+        if (preference instanceof LocationGeofencePreference)
         {
-            ((LocationGeofencePreferenceX)preference).fragment = new LocationGeofencePreferenceFragmentX();
-            dialogFragment = ((LocationGeofencePreferenceX)preference).fragment;
+            ((LocationGeofencePreference)preference).fragment = new LocationGeofencePreferenceFragment();
+            dialogFragment = ((LocationGeofencePreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof BetterNumberPickerPreferenceX)
+        if (preference instanceof BetterNumberPickerPreference)
         {
-            ((BetterNumberPickerPreferenceX)preference).fragment = new BetterNumberPickerPreferenceFragmentX();
-            dialogFragment = ((BetterNumberPickerPreferenceX)preference).fragment;
+            ((BetterNumberPickerPreference)preference).fragment = new BetterNumberPickerPreferenceFragment();
+            dialogFragment = ((BetterNumberPickerPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof ColorChooserPreferenceX)
+        if (preference instanceof ColorChooserPreference)
         {
-            ((ColorChooserPreferenceX)preference).fragment = new ColorChooserPreferenceFragmentX();
-            dialogFragment = ((ColorChooserPreferenceX)preference).fragment;
+            ((ColorChooserPreference)preference).fragment = new ColorChooserPreferenceFragment();
+            dialogFragment = ((ColorChooserPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof CustomColorDialogPreferenceX)
+        if (preference instanceof CustomColorDialogPreference)
         {
-            ((CustomColorDialogPreferenceX)preference).fragment = new CustomColorDialogPreferenceFragmentX();
-            dialogFragment = ((CustomColorDialogPreferenceX)preference).fragment;
+            ((CustomColorDialogPreference)preference).fragment = new CustomColorDialogPreferenceFragment();
+            dialogFragment = ((CustomColorDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof TimeDialogPreferenceX) {
-            ((TimeDialogPreferenceX) preference).fragment = new TimeDialogPreferenceFragmentX();
-            dialogFragment = ((TimeDialogPreferenceX) preference).fragment;
+        if (preference instanceof TimeDialogPreference) {
+            ((TimeDialogPreference) preference).fragment = new TimeDialogPreferenceFragment();
+            dialogFragment = ((TimeDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof OpaquenessLightingPreferenceX) {
-            ((OpaquenessLightingPreferenceX) preference).fragment = new OpaquenessLightingPreferenceFragmentX();
-            dialogFragment = ((OpaquenessLightingPreferenceX) preference).fragment;
+        if (preference instanceof OpaquenessLightingPreference) {
+            ((OpaquenessLightingPreference) preference).fragment = new OpaquenessLightingPreferenceFragment();
+            dialogFragment = ((OpaquenessLightingPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof InfoDialogPreferenceX)
+        if (preference instanceof InfoDialogPreference)
         {
-            ((InfoDialogPreferenceX)preference).fragment = new InfoDialogPreferenceFragmentX();
-            dialogFragment = ((InfoDialogPreferenceX)preference).fragment;
+            ((InfoDialogPreference)preference).fragment = new InfoDialogPreferenceFragment();
+            dialogFragment = ((InfoDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
-        if (preference instanceof RestartEventsIconColorChooserPreferenceX)
+        if (preference instanceof RestartEventsIconColorChooserPreference)
         {
-            ((RestartEventsIconColorChooserPreferenceX)preference).fragment = new RestartEventsIconColorChooserPreferenceFragmentX();
-            dialogFragment = ((RestartEventsIconColorChooserPreferenceX)preference).fragment;
+            ((RestartEventsIconColorChooserPreference)preference).fragment = new RestartEventsIconColorChooserPreferenceFragment();
+            dialogFragment = ((RestartEventsIconColorChooserPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -1664,7 +1664,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 29) {
-            InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("applicationEventWifiScanThrottlingInfo");
+            InfoDialogPreference infoDialogPreference = prefMng.findPreference("applicationEventWifiScanThrottlingInfo");
             if (infoDialogPreference != null) {
 
                 String url;
@@ -1975,9 +1975,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS);
         }
 
-        if (requestCode == LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR) {
+        if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
-                LocationGeofencePreferenceX preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
+                LocationGeofencePreference preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
                 if (preference != null) {
                     preference.setGeofenceFromEditor(/*geofenceId*/);
                 }
@@ -1992,7 +1992,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }*/
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE)) {
-            RingtonePreferenceX preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
+            RingtonePreference preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
             preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND);
@@ -3294,7 +3294,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         // Do not bind toggles.
-        if (preference instanceof TimeDialogPreferenceX) {
+        if (preference instanceof TimeDialogPreference) {
             return;
         }
 
@@ -3307,7 +3307,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             } catch (Exception e) {
                 lProfileId = 0;
             }
-            ProfilePreferenceX profilePreference = (ProfilePreferenceX) preference;
+            ProfilePreference profilePreference = (ProfilePreference) preference;
             profilePreference.setSummary(lProfileId);
 
         } else if (preference instanceof PPListPreference) {
@@ -3330,17 +3330,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //    setTitleStyle(preference, true, false);
         } else
         //noinspection StatementWithEmptyBody
-        if (preference instanceof RingtonePreferenceX) {
+        if (preference instanceof RingtonePreference) {
             // keep summary from preference
         }
         else
         //noinspection StatementWithEmptyBody
-        if (preference instanceof ColorChooserPreferenceX) {
+        if (preference instanceof ColorChooserPreference) {
             // keep summary from preference
         }
         else
         //noinspection StatementWithEmptyBody
-        if (preference instanceof RestartEventsIconColorChooserPreferenceX) {
+        if (preference instanceof RestartEventsIconColorChooserPreference) {
             // keep summary from preference
         }
         else {

@@ -120,7 +120,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         if (key.equals(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE) ||
             key.equals(PREF_EVENT_ACTIVATED_PROFILE_END_PROFILE))
         {
-            ProfilePreferenceX preference = prefMng.findPreference(key);
+            ProfilePreference preference = prefMng.findPreference(key);
             if (preference != null) {
                 long lProfileId;
                 try {
@@ -138,7 +138,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         event._eventPreferencesActivatedProfile.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesActivatedProfile.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, false);
-        ProfilePreferenceX preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE);
+        ProfilePreference preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_ACTIVATED_PROFILE_START_PROFILE, "0").equals("0");
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);

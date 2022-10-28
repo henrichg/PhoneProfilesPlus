@@ -18,7 +18,7 @@
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
         app:key="eventPeriodicMultipleInterval"
         app:summary="@string/pref_event_periodic_multiple_interval"
         app:title="@string/pref_event_periodic_multiple_interval"
@@ -36,7 +36,7 @@
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventPeriodicDuration"
         app:summary="@string/event_preferences_duration"
         app:title="@string/event_preferences_duration"

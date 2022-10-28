@@ -134,7 +134,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
                             applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
@@ -146,7 +146,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
                             applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black

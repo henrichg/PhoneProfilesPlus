@@ -404,7 +404,7 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".RunApplicationEditorIntentActivityX"
+            android:name=".RunApplicationEditorIntentActivity"
             android:label="@string/intent_editor_title"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>

@@ -13,7 +13,7 @@
         app:ppEntryValues="@array/themeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.RestartEventsIconColorChooserPreferenceX
+    <sk.henrichg.phoneprofilesplus.RestartEventsIconColorChooserPreference
         app:title="@string/phone_profiles_pref_applicationRestartEventsIconColor"
         app:key="applicationRestartEventsIconColor"
         app:defaultValue="-1"

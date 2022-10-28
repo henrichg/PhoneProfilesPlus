@@ -208,7 +208,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_DURATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_ALARM_CLOCK_APPLICATIONS, preferences, context);
 
-        InfoDialogPreferenceX preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS);
+        InfoDialogPreference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS);
         if (preference != null) {
             String supportedApps = "<ul>" +
                     "<li>Google Clock</li>" +

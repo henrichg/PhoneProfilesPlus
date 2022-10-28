@@ -37,7 +37,7 @@
             app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
             app:dependency="applicationEventBluetoothEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationEventBluetoothScanInterval"
             app:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
@@ -46,7 +46,7 @@
             app:max="300"
             app:dependency="applicationEventBluetoothEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationEventBluetoothLEScanDuration"
             app:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             app:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
@@ -90,13 +90,13 @@
             app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventBluetoothEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventBluetoothScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom"
             app:dependency="applicationEventBluetoothEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventBluetoothScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo"

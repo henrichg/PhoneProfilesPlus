@@ -21,7 +21,7 @@
         app:ppEntries="@array/runApplicationArray"
         app:ppEntryValues="@array/runApplicationValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RunApplicationsDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.RunApplicationsDialogPreference
         app:defaultValue="-"
         app:key="prf_pref_deviceRunApplicationPackageName"
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
@@ -55,7 +55,7 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsForceStopApplications" />
 
-    <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreference
         app:defaultValue="0|0||"
         app:key="prf_pref_generateNotification"
         app:title="@string/profile_preferences_generateNotification"
