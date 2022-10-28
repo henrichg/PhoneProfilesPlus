@@ -64,13 +64,13 @@
         app:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventWifiScanInPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
             app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
             app:defaultValue="1"
-            app:entries="@array/scanInPowerSaveModeArray"
-            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:ppEntries="@array/scanInPowerSaveModeArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventWifiEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -85,13 +85,13 @@
         app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiply"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventWifiScanInTimeMultiply"
             app:title="@string/phone_profiles_pref_applicationEventWifiScanTimeMultiply"
             app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             app:defaultValue="0"
-            app:entries="@array/scanInPowerSaveModeArray"
-            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:ppEntries="@array/scanInPowerSaveModeArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventWifiEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX

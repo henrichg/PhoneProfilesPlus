@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -173,7 +172,7 @@ class EventPreferencesRoaming extends EventPreferences {
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
                         hasSIMCard = simExists;
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(value);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;

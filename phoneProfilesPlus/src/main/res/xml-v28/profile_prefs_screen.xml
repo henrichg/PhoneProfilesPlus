@@ -10,22 +10,22 @@
         app:summary="@string/empty_string"
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceScreenTimeout"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceScreenTimeout"
         app:defaultValue="0"
-        app:entries="@array/screenTimeoutArray"
-        app:entryValues="@array/screenTimeoutValues"
+        app:ppEntries="@array/screenTimeoutArray"
+        app:ppEntryValues="@array/screenTimeoutValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceScreenOnPermanent"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_screenOnPermanent"
         app:defaultValue="0"
-        app:entries="@array/screenOnPermanentArray"
-        app:entryValues="@array/screenOnPermanentValues"
+        app:ppEntries="@array/screenOnPermanentArray"
+        app:ppEntryValues="@array/screenOnPermanentValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.BrightnessDialogPreferenceX
@@ -58,13 +58,13 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsWallpaper" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceKeyguard"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceKeyguard"
         app:defaultValue="0"
-        app:entries="@array/keyguardArray"
-        app:entryValues="@array/keyguardValues"
+        app:ppEntries="@array/keyguardArray"
+        app:ppEntryValues="@array/keyguardValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
@@ -74,13 +74,13 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_headsUpNotifications"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_headsUpNotifications"
         app:defaultValue="0"
-        app:entries="@array/headsUpNotificationsArray"
-        app:entryValues="@array/headsUpNotificationsValues"
+        app:ppEntries="@array/headsUpNotificationsArray"
+        app:ppEntryValues="@array/headsUpNotificationsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
@@ -89,13 +89,13 @@
         app:summary="@string/profile_preferences_notificationLedInfo_summary"
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_alwaysOnDisplay"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_alwaysOnDisplay"
         app:defaultValue="0"
-        app:entries="@array/alwaysOnDisplayArray"
-        app:entryValues="@array/alwaysOnDisplayValues"
+        app:ppEntries="@array/alwaysOnDisplayArray"
+        app:ppEntryValues="@array/alwaysOnDisplayValues"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

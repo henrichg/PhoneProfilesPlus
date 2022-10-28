@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -87,7 +86,7 @@ class EventPreferencesVPN extends EventPreferences {
 
         if (key.equals(PREF_EVENT_VPN_CONNECTION_STATUS))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -100,7 +99,7 @@ class EventPreferencesVPN extends EventPreferences {
         event._eventPreferencesVPN.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesVPN.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_VPN_ENABLED, false);
-        ListPreference preference = prefMng.findPreference(PREF_EVENT_VPN_CONNECTION_STATUS);
+        PPListPreference preference = prefMng.findPreference(PREF_EVENT_VPN_CONNECTION_STATUS);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);

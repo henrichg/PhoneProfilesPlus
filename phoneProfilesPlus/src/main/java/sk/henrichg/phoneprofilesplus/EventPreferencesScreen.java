@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -111,7 +110,7 @@ class EventPreferencesScreen extends EventPreferences {
 
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;

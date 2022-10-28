@@ -52,13 +52,13 @@
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_mobile_cells_forSimCard"
         app:summary="@string/event_preferences_forSimCard_bothCards"
         app:key="eventMobileCellsForSimCard"
         app:defaultValue="0"
-        app:entries="@array/eventMobileCellsForSimCardArray"
-        app:entryValues="@array/eventMobileCellsForSimCardValues"
+        app:ppEntries="@array/eventMobileCellsForSimCardArray"
+        app:ppEntryValues="@array/eventMobileCellsForSimCardValues"
         app:dependency="eventMobileCellsEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

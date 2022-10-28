@@ -11,7 +11,6 @@ import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.CharacterStyle;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -405,7 +404,7 @@ class EventPreferencesTime extends EventPreferences {
         }
 
         if (key.equals(PREF_EVENT_TIME_TYPE)) {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;

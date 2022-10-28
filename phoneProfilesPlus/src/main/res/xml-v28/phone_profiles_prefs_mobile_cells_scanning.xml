@@ -31,13 +31,13 @@
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventMobileCellScanInPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
             app:summary="@string/array_pref_scanInPowerSaveMode_scan"
             app:defaultValue="1"
-            app:entries="@array/scanInPowerSaveModeMobileCellsArray"
-            app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
             app:dependency="applicationEventMobileCellEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -52,13 +52,13 @@
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventMobileCellScanInTimeMultiply"
             app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply"
             app:summary="@string/array_pref_scanInPowerSaveMode_scan"
             app:defaultValue="1"
-            app:entries="@array/scanInPowerSaveModeMobileCellsArray"
-            app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
             app:dependency="applicationEventMobileCellEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX

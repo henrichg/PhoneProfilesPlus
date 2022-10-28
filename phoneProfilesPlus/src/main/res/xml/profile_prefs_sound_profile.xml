@@ -24,21 +24,21 @@
 <!--        app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary_notification_access"-->
 <!--        app:widgetLayout="@layout/widget_start_activity_preference"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_volumeZenModeM"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_volumeZenMode"
         app:defaultValue="1"
-        app:entries="@array/zenModeArray"
-        app:entryValues="@array/zenModeValues"
+        app:ppEntries="@array/zenModeArray"
+        app:ppEntryValues="@array/zenModeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_vibrateWhenRinging"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_vibrateWhenRinging"
         app:defaultValue="0"
-        app:entries="@array/vibrateWhenRingingArray"
-        app:entryValues="@array/vibrateWhenRingingValues"
+        app:ppEntries="@array/vibrateWhenRingingArray"
+        app:ppEntryValues="@array/vibrateWhenRingingValues"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

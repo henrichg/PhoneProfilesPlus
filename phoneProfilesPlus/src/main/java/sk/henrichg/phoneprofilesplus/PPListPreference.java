@@ -5,14 +5,13 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 
 public class PPListPreference extends DialogPreference {
 
-    PPListPreferenceFragmentX fragment;
+    PPListPreferenceFragment fragment;
 
     private final Context prefContext;
 
@@ -80,7 +79,6 @@ public class PPListPreference extends DialogPreference {
     }
 
     void persistValue() {
-        Log.e("PPListPreference.persistValue", "value="+value);
         persistString(value);
         setSummarySTSDP();
         notifyChanged();

@@ -4,13 +4,13 @@
     app:key="categorySamsungEdgePanel"
     app:title="@string/phone_profiles_pref_category_samsung_edge_panel">
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/phone_profiles_pref_applicationSamsungEdgeVerticalPosition"
         app:summary="@string/array_pref_samsungEdgeVerticalPosition_top"
         app:key="applicationSamsungEdgeVerticalPosition"
         app:defaultValue="0"
-        app:entries="@array/samsungEdgeVerticalPositionArray"
-        app:entryValues="@array/samsungEdgeVerticalPositionValues"
+        app:ppEntries="@array/samsungEdgeVerticalPositionArray"
+        app:ppEntryValues="@array/samsungEdgeVerticalPositionValues"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationSamsungEdgeHeader"
@@ -66,13 +66,13 @@
         app:defaultValue="100"
         app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"
         app:key="applicationSamsungEdgeIconColor"
         app:defaultValue="0"
-        app:entries="@array/widgetColorArray"
-        app:entryValues="@array/widgetColorValues"
+        app:ppEntries="@array/widgetColorArray"
+        app:ppEntryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"

@@ -19,7 +19,6 @@ import android.telephony.TelephonyManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.work.ExistingWorkPolicy;
@@ -941,7 +940,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_PRIORITY))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
                 if (applicationEventUsePriority) {
@@ -958,7 +957,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;

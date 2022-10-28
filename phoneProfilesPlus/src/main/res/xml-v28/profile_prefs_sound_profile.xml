@@ -36,29 +36,29 @@
         app:summary="@string/profile_preferences_volumeZenModeMInfo_summary"
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_volumeZenModeM"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_volumeZenMode"
         app:defaultValue="1"
-        app:entries="@array/zenModeArray"
-        app:entryValues="@array/zenModeValues"
+        app:ppEntries="@array/zenModeArray"
+        app:ppEntryValues="@array/zenModeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_vibrateWhenRinging"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_vibrateWhenRinging"
         app:defaultValue="0"
-        app:entries="@array/vibrateWhenRingingArray"
-        app:entryValues="@array/vibrateWhenRingingValues"
+        app:ppEntries="@array/vibrateWhenRingingArray"
+        app:ppEntryValues="@array/vibrateWhenRingingValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_vibrateNotifications"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_vibrateNotifications"
         app:defaultValue="0"
-        app:entries="@array/vibrateNotificationsArray"
-        app:entryValues="@array/vibrateNotificationsValues"
+        app:ppEntries="@array/vibrateNotificationsArray"
+        app:ppEntryValues="@array/vibrateNotificationsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

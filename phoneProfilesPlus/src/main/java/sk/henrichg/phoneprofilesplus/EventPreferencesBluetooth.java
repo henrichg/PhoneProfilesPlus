@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -283,7 +282,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         }*/
         if (key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -298,7 +297,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 boolean btLESupported = BluetoothScanner.bluetoothLESupported(/*context*/);
 

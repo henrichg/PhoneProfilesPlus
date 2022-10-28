@@ -39,7 +39,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
@@ -135,7 +134,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (preference instanceof PPListPreference)
         {
-            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragment();
             dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
@@ -446,7 +445,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ringerModePreference.setEntries(entries);
             setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
 
-            ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+            PPListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
             if (zenModePreference != null) {
                 if (!((vibrator != null) && vibrator.hasVibrator())) {
                     zenModePreference.setEntries(R.array.zenModeNotVibratorArray);
@@ -468,7 +467,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         );*/
                 final boolean canEnableZenMode1 = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
 
-                ListPreference _zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+                PPListPreference _zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
                 if (_zenModePreference != null) {
                     _zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode1);
 
@@ -516,7 +515,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-            ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
                 preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
@@ -525,7 +524,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
         }
-        ListPreference vibrateNotificationsPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
+        PPListPreference vibrateNotificationsPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
         if (vibrateNotificationsPreference != null)
         {
             vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
@@ -863,7 +862,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                  (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)));
                     }
 
-                    ListPreference listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1);
+                    PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1);
                     if (listPreference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, preferences, true, context);
 
@@ -1136,7 +1135,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            ListPreference listPreference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
+            PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
             if (listPreference != null) {
                 listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
                 listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
@@ -3804,7 +3803,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     alsoSetZenMode = true;
                     //setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, zenModeValue);
                 } else {
-                    ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+                    PPListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
                     if (zenModePreference != null) {
                         zenModePreference.setEnabled(false);
                         Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
@@ -3827,7 +3826,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (!canEnableZenMode)
             {
-                ListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+                PPListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
                 if (listPreference != null) {
                     listPreference.setEnabled(false);
                     listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
@@ -3843,7 +3842,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else
             {
                 String sValue = value.toString();
-                ListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+                PPListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
                 if (listPreference != null) {
                     int iValue = Integer.parseInt(sValue);
                     int index = listPreference.findIndexOfValue(sValue);
@@ -3901,7 +3900,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO))
         {
             String sValue = value.toString();
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -3993,7 +3992,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4021,7 +4020,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT))
         {
             String sValue = value.toString();
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4106,27 +4105,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else {
                 String sValue = value.toString();
-                Preference preference = null;
-                CharSequence summary = "";
-                int index = 0;
-                if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE) ||
-                    key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
-                    key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
-                    PPListPreference listPreference = prefMng.findPreference(key);
-                    if (listPreference !=  null) {
-                        index = listPreference.findIndexOfValue(sValue);
-                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                        preference = listPreference;
-                    }
-                } else {
-                    ListPreference listPreference = prefMng.findPreference(key);
-                    if (listPreference !=  null) {
-                        index = listPreference.findIndexOfValue(sValue);
-                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                        preference = listPreference;
-                    }
-                }
-                if (preference != null) {
+                PPListPreference preference = prefMng.findPreference(key);
+                if (preference !=  null) {
+                    int index = preference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? preference.getEntries()[index] : null;
                     preference.setSummary(summary);
 
                     boolean _permissionGranted = true;
@@ -4170,7 +4152,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4206,7 +4188,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY) ||
                 key.equals(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4314,7 +4296,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING) ||
                 key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4365,7 +4347,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             int index;
             String sValue;
 
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 boolean ok = true;
                 CharSequence changeSummary = "";
@@ -4568,7 +4550,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             } else {
                 String sValue = value.toString();
-                ListPreference listPreference = prefMng.findPreference(key);
+                PPListPreference listPreference = prefMng.findPreference(key);
                 if (listPreference != null) {
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4587,7 +4569,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE))
         {
             String sValue = value.toString();
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4630,7 +4612,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE))
         {
             String sValue = value.toString();
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4713,7 +4695,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         String sValue = value.toString();
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(sValue);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4752,7 +4734,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         String sValue = value.toString();
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(sValue);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4815,7 +4797,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         String sValue = value.toString();
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(sValue);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4876,26 +4858,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else
             {
                 String sValue = value.toString();
-                Preference preference = null;
-                CharSequence summary = "";
-                int index = 0;
-                if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                    key.equals(Profile.PREF_PROFILE_DEVICE_WIFI)) {
-                    PPListPreference listPreference = prefMng.findPreference(key);
-                    if (listPreference !=  null) {
-                        index = listPreference.findIndexOfValue(sValue);
-                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                        preference = listPreference;
-                    }
-                } else {
-                    ListPreference listPreference = prefMng.findPreference(key);
-                    if (listPreference !=  null) {
-                        index = listPreference.findIndexOfValue(sValue);
-                        summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                        preference = listPreference;
-                    }
-                }
-                if (preference != null) {
+                PPListPreference preference = prefMng.findPreference(key);
+                if (preference !=  null) {
+                    int index = preference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? preference.getEntries()[index] : null;
                     preference.setEnabled(true);
                     preference.setSummary(summary);
 
@@ -4943,7 +4909,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(true);
 
                     String sValue = value.toString();
-                    ListPreference listPreference = prefMng.findPreference(key);
+                    PPListPreference listPreference = prefMng.findPreference(key);
                     if (listPreference != null) {
                         int index = listPreference.findIndexOfValue(sValue);
                         CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -5063,7 +5029,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         String sValue = value.toString();
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             listPreference.setEnabled(true);
 
@@ -5182,7 +5148,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         String sValue = value.toString();
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             listPreference.setEnabled(true);
 
@@ -5521,7 +5487,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         enabled = true;
                 }
             }
-            ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null) {
                 if (!enabled)
                     preference.setValue(Profile.NO_CHANGE_VALUE_STR);

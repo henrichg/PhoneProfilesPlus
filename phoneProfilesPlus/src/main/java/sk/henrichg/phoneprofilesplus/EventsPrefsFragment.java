@@ -115,7 +115,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         if (preference instanceof PPListPreference)
         {
-            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragment();
             dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());

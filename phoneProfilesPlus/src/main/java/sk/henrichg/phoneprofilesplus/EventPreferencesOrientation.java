@@ -18,7 +18,6 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -340,7 +339,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -458,7 +457,7 @@ class EventPreferencesOrientation extends EventPreferences {
             boolean bold = sides.length() > 0;
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
         }
-        ListPreference distancePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
+        PPListPreference distancePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (distancePreference != null) {
             int index = distancePreference.findIndexOfValue(distancePreference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, false, true, !isRunnable);

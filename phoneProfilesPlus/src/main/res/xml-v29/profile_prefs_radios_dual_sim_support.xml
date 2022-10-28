@@ -10,21 +10,21 @@
         app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceOnOff_SIM1"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceOnOffSIM1"
         app:defaultValue="0"
-        app:entries="@array/onOffSIMArray"
-        app:entryValues="@array/onOffSIMValues"
+        app:ppEntries="@array/onOffSIMArray"
+        app:ppEntryValues="@array/onOffSIMValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceOnOff_SIM2"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceOnOffSIM2"
         app:defaultValue="0"
-        app:entries="@array/onOffSIMArray"
-        app:entryValues="@array/onOffSIMValues"
+        app:ppEntries="@array/onOffSIMArray"
+        app:ppEntryValues="@array/onOffSIMValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreferenceX
@@ -35,21 +35,21 @@
         app:layout="@layout/mp_preference_material_widget" />
 
 <!--
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceMobileData_21_SIM1"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceMobileDataSIM1"
         app:defaultValue="0"
-        app:entries="@array/hardwareModeArray"
-        app:entryValues="@array/hardwareModeValues"
+        app:ppEntries="@array/hardwareModeArray"
+        app:ppEntryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceMobileData_21_SIM2"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceMobileDataSIM2"
         app:defaultValue="0"
-        app:entries="@array/hardwareModeArray"
-        app:entryValues="@array/hardwareModeValues"
+        app:ppEntries="@array/hardwareModeArray"
+        app:ppEntryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 -->
 

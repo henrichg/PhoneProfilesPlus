@@ -8,13 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-class PPListPreferenceAdapterX extends BaseAdapter
+class PPListPreferenceAdapter extends BaseAdapter
 {
     private final PPListPreference preference;
 
     private final LayoutInflater inflater;
 
-    PPListPreferenceAdapterX(Context context, PPListPreference preference)
+    PPListPreferenceAdapter(Context context, PPListPreference preference)
     {
         this.preference = preference;
 

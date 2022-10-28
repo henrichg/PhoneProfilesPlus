@@ -13,7 +13,6 @@ import android.os.Build;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -325,7 +324,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 hasHardware = false;
             }
             if (key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA)) {
-                ListPreference listPreference = prefMng.findPreference(key);
+                PPListPreference listPreference = prefMng.findPreference(key);
                 if (listPreference != null) {
                     int phoneCount = 1;
                     if (Build.VERSION.SDK_INT >= 26) {
@@ -357,7 +356,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 hasHardware = false; // do not use default change of summary
             }
             if (hasHardware) {
-                ListPreference listPreference = prefMng.findPreference(key);
+                PPListPreference listPreference = prefMng.findPreference(key);
                 if (listPreference != null) {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -371,7 +370,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         event._eventPreferencesRadioSwitch.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesRadioSwitch.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_RADIO_SWITCH_ENABLED, false);
-        ListPreference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
+        PPListPreference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null) {
             if (!PPApplication.HAS_FEATURE_WIFI)
                 enabled = false;
@@ -633,7 +632,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     if (telephonyManager != null) {
                         phoneCount = telephonyManager.getPhoneCount();
                     }
-                    ListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
+                    PPListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
                     if (phoneCount > 1) {
                         if (listPreference != null) {
                             String value = listPreference.getValue();
@@ -654,7 +653,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         }
                     }
                 }
-                ListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
+                PPListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
                 if (listPreference != null) {
                     if (Build.VERSION.SDK_INT >= 26) {
                         listPreference.setEnabled(enabled);

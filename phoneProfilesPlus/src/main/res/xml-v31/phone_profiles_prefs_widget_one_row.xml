@@ -11,13 +11,13 @@
         app:widgetLayout="@layout/preference_widget_exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLayoutHeight"
         app:summary="0"
         app:key="applicationWidgetOneRowLayoutHeight"
         app:defaultValue="0"
-        app:entries="@array/widgetOneRowLayoutHeightArray"
-        app:entryValues="@array/widgetOneRowLayoutHeightValues"
+        app:ppEntries="@array/widgetOneRowLayoutHeightArray"
+        app:ppEntryValues="@array/widgetOneRowLayoutHeightValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
@@ -102,13 +102,13 @@
         app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"
         app:key="applicationWidgetOneRowIconColor"
         app:defaultValue="0"
-        app:entries="@array/widgetColorArray"
-        app:entryValues="@array/widgetColorValues"
+        app:ppEntries="@array/widgetColorArray"
+        app:ppEntryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"

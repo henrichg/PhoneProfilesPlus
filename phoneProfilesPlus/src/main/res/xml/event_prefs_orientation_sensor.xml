@@ -32,13 +32,13 @@
         app:entryValues="@array/eventOrientationSidesValues"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_orientation_distance"
         app:summary="@string/array_event_pref_orientationDistanceType_noCheck"
         app:key="eventOrientationDistance"
         app:defaultValue="0"
-        app:entries="@array/eventOrientationDistanceTypeArray"
-        app:entryValues="@array/eventOrientationDistanceTypeValues"
+        app:ppEntries="@array/eventOrientationDistanceTypeArray"
+        app:ppEntryValues="@array/eventOrientationDistanceTypeValues"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

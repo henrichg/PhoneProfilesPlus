@@ -103,13 +103,13 @@
         app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"
         app:key="applicationWidgetListIconColor"
         app:defaultValue="0"
-        app:entries="@array/widgetColorArray"
-        app:entryValues="@array/widgetColorValues"
+        app:ppEntries="@array/widgetColorArray"
+        app:ppEntryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"

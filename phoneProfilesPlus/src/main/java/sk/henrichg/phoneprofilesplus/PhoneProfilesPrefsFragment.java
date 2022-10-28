@@ -21,7 +21,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.CheckBoxPreference;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -126,7 +125,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (preference instanceof PPListPreference)
         {
-            ((PPListPreference)preference).fragment = new PPListPreferenceFragmentX();
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragment();
             dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
@@ -1630,7 +1629,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setVisible(false);
             }
             if (PPApplication.deviceIsPixel) {
-                ListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE);
+                PPListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE);
                 if (listPreference != null) {
                     String value = listPreference.getValue();
                     if (value.equals("0"))
@@ -3311,10 +3310,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ProfilePreferenceX profilePreference = (ProfilePreferenceX) preference;
             profilePreference.setSummary(lProfileId);
 
-        } else if (preference instanceof ListPreference) {
+        } else if (preference instanceof PPListPreference) {
             // For list preferences, look up the correct display value in
             // the preference's 'entries' list.
-            ListPreference listPreference = (ListPreference) preference;
+            PPListPreference listPreference = (PPListPreference) preference;
             int index = listPreference.findIndexOfValue(stringValue);
 
             // Set the summary to reflect the new value.

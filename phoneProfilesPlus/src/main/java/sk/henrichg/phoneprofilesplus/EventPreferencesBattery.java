@@ -8,7 +8,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.BatteryManager;
 import android.widget.Toast;
 
-import androidx.preference.ListPreference;
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -199,7 +198,7 @@ class EventPreferencesBattery extends EventPreferences {
                 preference.setSummary(value + "%");
         }*/
         if (key.equals(PREF_EVENT_BATTERY_CHARGING)) {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -329,7 +328,7 @@ class EventPreferencesBattery extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_BATTERY_ENABLED) != null) {
                 final Preference lowLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_LOW);
                 final Preference hightLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_HIGHT);
-                final ListPreference chargingPreference = prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
+                final PPListPreference chargingPreference = prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
                 final SwitchPreferenceCompat powerSaveModePreference = prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
                 final MultiSelectListPreference pluggedPreference = prefMng.findPreference(PREF_EVENT_BATTERY_PLUGGED);
                 final PreferenceManager _prefMng = prefMng;

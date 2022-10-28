@@ -52,13 +52,13 @@
         app:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventLocationUpdateInPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
             app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
             app:defaultValue="1"
-            app:entries="@array/scanInPowerSaveModeArray"
-            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:ppEntries="@array/scanInPowerSaveModeArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventLocationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -73,13 +73,13 @@
         app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiply"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventLocationScanInTimeMultiply"
             app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiply"
             app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             app:defaultValue="0"
-            app:entries="@array/scanInPowerSaveModeArray"
-            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:ppEntries="@array/scanInPowerSaveModeArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeValues"
             app:dependency="applicationEventLocationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX

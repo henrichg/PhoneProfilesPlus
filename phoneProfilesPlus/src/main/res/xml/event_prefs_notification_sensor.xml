@@ -63,13 +63,13 @@
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget"
         app:withoutNumbers="true" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_contactListType"
         app:summary="@string/array_event_pref_contact_list_type_white_list"
         app:key="eventNotificationContactListType"
         app:defaultValue="0"
-        app:entries="@array/eventNotificationContactListTypeArray"
-        app:entryValues="@array/eventNotificationContactListTypeValues"
+        app:ppEntries="@array/eventNotificationContactListTypeArray"
+        app:ppEntryValues="@array/eventNotificationContactListTypeValues"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

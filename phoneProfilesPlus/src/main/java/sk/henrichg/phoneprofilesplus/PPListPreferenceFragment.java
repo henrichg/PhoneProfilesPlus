@@ -9,12 +9,12 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class PPListPreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class PPListPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
     private PPListPreference preference;
 
-    //private PPListPreferenceAdapterX listAdapter;
+    //private PPListPreferenceAdapter listAdapter;
 
     @SuppressLint("InflateParams")
     @Override
@@ -34,7 +34,7 @@ public class PPListPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
         ListView listView = view.findViewById(R.id.pp_list_pref_dlg_listview);
 
-        PPListPreferenceAdapterX listAdapter = new PPListPreferenceAdapterX(prefContext, preference);
+        PPListPreferenceAdapter listAdapter = new PPListPreferenceAdapter(prefContext, preference);
 
         listView.setOnItemClickListener((parent, v, position, id) -> {
             preference.value = preference.entryValues[position].toString();

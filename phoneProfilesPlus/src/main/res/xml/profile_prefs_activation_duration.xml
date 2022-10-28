@@ -9,13 +9,13 @@
         app:title="@string/preferences_durationInfo_summary"
         app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_endOfActivationType"
         app:summary="@string/array_pref_aendOfActivationType_duration"
         app:key="prf_pref_endOfActivationType"
         app:defaultValue="0"
-        app:entries="@array/endOfProfileActivationTypeArray"
-        app:entryValues="@array/endOfProfileActivationTypeValues"
+        app:ppEntries="@array/endOfProfileActivationTypeArray"
+        app:ppEntryValues="@array/endOfProfileActivationTypeValues"
         app:dependency="prf_pref_askForDuration"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
@@ -33,13 +33,13 @@
         app:title="@string/profile_preferences_exactTime"
         app:dependency="prf_pref_askForDuration"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_afterDurationDo"
         app:summary="@string/array_pref_afterProfileDurationDo_nothing"
         app:key="prf_pref_afterDurationDo"
         app:defaultValue="0"
-        app:entries="@array/afterProfileDurationDoArray"
-        app:entryValues="@array/afterProfileDurationDoValues"
+        app:ppEntries="@array/afterProfileDurationDoArray"
+        app:ppEntryValues="@array/afterProfileDurationDoValues"
         app:dependency="prf_pref_askForDuration"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
