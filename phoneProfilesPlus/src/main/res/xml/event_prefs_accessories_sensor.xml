@@ -10,12 +10,12 @@
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <MultiSelectListPreference
+    <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:key="eventAccessoryType"
         app:title="@string/event_preferences_peripheral_type"
         app:defaultValue="@array/emptyArray"
-        app:entries="@array/eventAccessoryTypeArray"
-        app:entryValues="@array/eventAccessoryTypeValues"
+        app:ppEntries="@array/eventAccessoryTypeArray"
+        app:ppEntryValues="@array/eventAccessoryTypeValues"
         app:dependency="eventPeripheralEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

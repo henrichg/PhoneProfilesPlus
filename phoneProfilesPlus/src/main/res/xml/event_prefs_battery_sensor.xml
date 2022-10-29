@@ -45,12 +45,12 @@
         app:ppEntryValues="@array/eventBatteryChargingValues"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <MultiSelectListPreference
+    <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:key="eventBatteryPlugged"
         app:title="@string/event_preferences_battery_plugged"
         app:defaultValue="@array/emptyArray"
-        app:entries="@array/eventBatteryPluggedArray"
-        app:entryValues="@array/eventBatteryPluggedValues"
+        app:ppEntries="@array/eventBatteryPluggedArray"
+        app:ppEntryValues="@array/eventBatteryPluggedValues"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat

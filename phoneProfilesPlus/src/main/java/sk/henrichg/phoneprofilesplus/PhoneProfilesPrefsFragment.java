@@ -133,6 +133,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogFragment.setArguments(bundle);
         }
         else
+        if (preference instanceof PPMultiSelectListPreference)
+        {
+            ((PPMultiSelectListPreference)preference).fragment = new PPMultiSelectListPreferenceFragment();
+            dialogFragment = ((PPMultiSelectListPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
         if (preference instanceof DurationDialogPreference)
         {
             ((DurationDialogPreference)preference).fragment = new DurationDialogPreferenceFragment();

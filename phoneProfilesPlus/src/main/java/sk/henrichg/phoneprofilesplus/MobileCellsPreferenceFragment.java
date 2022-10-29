@@ -164,7 +164,6 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
                             .setCancelable(true)
                             .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.mobileCellsRenameArray, 0, new DialogInterface.OnClickListener() {
                             .setItems(R.array.mobileCellsRenameArray, (dialog, which) -> {
                                 final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
                                 switch (which) {
@@ -203,7 +202,6 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             .setTitle(R.string.pref_dlg_change_selection_title)
                             .setCancelable(true)
                             .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.mobileCellsChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
                             .setItems(R.array.mobileCellsChangeSelectionArray, (dialog, which) -> {
                                 switch (which) {
                                     case 0:

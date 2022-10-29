@@ -714,22 +714,4 @@ Co sa zapisuje pri checknutom a co pri nechecknutom checkboxe?
 Mozno len checknute, proste sa pridaju do toho setu hodnoty z entryValues.
 Aspon to vypada tak podla EventPreferencesAccessories.doHandleEvents().
 
----
-
-AlertDialog s setMultiChoiceItems():
-
-Tu pouziva:
-  categoryIndices = new boolean[categoryArray.length];
-lebo tu vsupuju len nazvy itemov, nie ak pro preference nazvy aj hodonoty.
-
-Tu je to pole dlhe ako pole nazvou itemov a nastavuje sa na true to, co ma checknuty checkbox a false
-co ho checknuty nema.
-
-Takze sprav custom layout s listview, v itemoch to co je pre PPListPreference, len namiesto RadioButton
-daj CheckBox.
-Vytvoris custom AlertDialog a v nom to vsetko urobis. Vid AddProfileDialog.
-Musis do neho narvat pole booleanov, z ktoreho zacians, cize co z itemov ma byt checknute.
-Vratit musis zmeny do toho isteho pola.
-Cize to pole musi byt dane do dialogu ako referencia.
-
 ----------------------

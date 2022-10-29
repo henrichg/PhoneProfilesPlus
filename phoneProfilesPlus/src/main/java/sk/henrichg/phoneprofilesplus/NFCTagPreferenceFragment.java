@@ -158,7 +158,6 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                             .setTitle(R.string.pref_dlg_change_selection_title)
                             .setCancelable(true)
                             .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
                             .setItems(R.array.nfcTagsChangeSelectionArray, (dialog, which) -> {
                                 switch (which) {
                                     case 0:

@@ -1335,36 +1335,6 @@ public class EditorProfileListFragment extends Fragment
             GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
     }
 
-    /*
-    void changeShowInActivator(final Profile profile) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getString(R.string.profile_string_0) + ": " + profile._name);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        int show = profile._showInActivator ? 1 : 0;
-        dialogBuilder.setSingleChoiceItems(R.array.showProfileInActivatorArray, show, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        profile._showInActivator = which == 1;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                        profileListAdapter.notifyDataSetChanged();
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog dialog = dialogBuilder.create();
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-        if (!getActivity().isFinishing())
-            dialog.show();
-    }
-    */
-
     void showTargetHelps() {
         /*if (Build.VERSION.SDK_INT <= 19)
             // TapTarget.forToolbarMenuItem FC :-(

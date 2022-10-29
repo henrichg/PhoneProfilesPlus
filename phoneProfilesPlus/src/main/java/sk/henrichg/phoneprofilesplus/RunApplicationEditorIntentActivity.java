@@ -196,7 +196,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
         TooltipCompat.setTooltipText(intentCategoryButton, getString(R.string.application_editor_intent_edit_category_button_tooltip));
         intentCategoryButton.setOnClickListener(v -> {
-            MultiselectListDialog dialog = new MultiselectListDialog(
+            MultiSelectListDialog dialog = new MultiSelectListDialog(
                     R.string.application_editor_intent_categories_dlg_title,
                     R.array.runApplicationEditorIntentCategoryArray,
                     categoryIndices,
@@ -237,7 +237,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
         TooltipCompat.setTooltipText(intentFlagsButton, getString(R.string.application_editor_intent_edit_flags_button_tooltip));
         intentFlagsButton.setOnClickListener(v -> {
-            MultiselectListDialog dialog = new MultiselectListDialog(
+            MultiSelectListDialog dialog = new MultiSelectListDialog(
                     R.string.application_editor_intent_flags_dlg_title,
                     R.array.runApplicationEditorIntentFlagArray,
                     flagIndices,

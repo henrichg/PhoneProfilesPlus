@@ -16,20 +16,20 @@
         app:dependency="eventOrientationEnabled"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <MultiSelectListPreference
+    <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:key="eventOrientationDisplay"
         app:title="@string/event_preferences_orientation_display"
         app:defaultValue="@array/emptyArray"
-        app:entries="@array/eventOrientationDisplayArray"
-        app:entryValues="@array/eventOrientationDisplayValues"
+        app:ppEntries="@array/eventOrientationDisplayArray"
+        app:ppEntryValues="@array/eventOrientationDisplayValues"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <MultiSelectListPreference
+    <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:key="eventOrientationSides"
         app:title="@string/event_preferences_orientation_sides"
         app:defaultValue="@array/emptyArray"
-        app:entries="@array/eventOrientationSidesArray"
-        app:entryValues="@array/eventOrientationSidesValues"
+        app:ppEntries="@array/eventOrientationSidesArray"
+        app:ppEntryValues="@array/eventOrientationSidesValues"
         app:dependency="eventOrientationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference

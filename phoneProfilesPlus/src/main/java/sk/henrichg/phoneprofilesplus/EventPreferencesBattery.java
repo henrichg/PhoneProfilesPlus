@@ -8,7 +8,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.BatteryManager;
 import android.widget.Toast;
 
-import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -17,14 +16,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.Preference.OnPreferenceChangeListener;
-//import android.preference.PreferenceManager;
-//import android.preference.MultiSelectListPreference;
-//import me.drakeet.support.toast.ToastCompat;
 
 class EventPreferencesBattery extends EventPreferences {
 
@@ -330,7 +321,7 @@ class EventPreferencesBattery extends EventPreferences {
                 final Preference hightLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_HIGHT);
                 final PPListPreference chargingPreference = prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
                 final SwitchPreferenceCompat powerSaveModePreference = prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
-                final MultiSelectListPreference pluggedPreference = prefMng.findPreference(PREF_EVENT_BATTERY_PLUGGED);
+                final PPMultiSelectListPreference pluggedPreference = prefMng.findPreference(PREF_EVENT_BATTERY_PLUGGED);
                 final PreferenceManager _prefMng = prefMng;
                 final Context _context = context.getApplicationContext();
 

@@ -153,7 +153,6 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                             .setTitle(R.string.pref_dlg_change_selection_title)
                             .setCancelable(true)
                             .setNegativeButton(android.R.string.cancel, null)
-                            //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
                             .setItems(R.array.bluetoothNameDChangeSelectionArray, (dialog, which) -> {
                                 switch (which) {
                                     case 0:

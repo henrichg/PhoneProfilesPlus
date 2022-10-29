@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
-class MultiselectListDialog
+class MultiSelectListDialog
 {
     final AlertDialog mDialog;
     final Activity activity;
@@ -20,7 +20,7 @@ class MultiselectListDialog
     int itemsRes;
     boolean[] itemValues;
 
-    MultiselectListDialog(int _titleRes, int _itemsRes, boolean[] _itemValues,
+    MultiSelectListDialog(int _titleRes, int _itemsRes, boolean[] _itemValues,
                           DialogInterface.OnClickListener _positiveButtonClick,
                           Activity _activity)
     {
@@ -59,7 +59,7 @@ class MultiselectListDialog
     }
 
     private void doShow() {
-        MultiselectListDialogAdapter listAdapter = new MultiselectListDialogAdapter(itemsRes, this);
+        MultiSelectListDialogAdapter listAdapter = new MultiSelectListDialogAdapter(itemsRes, this);
         listView.setAdapter(listAdapter);
     }
 

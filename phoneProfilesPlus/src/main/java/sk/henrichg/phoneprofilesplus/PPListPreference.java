@@ -56,10 +56,10 @@ public class PPListPreference extends DialogPreference {
         value = getPersistedString((String) defaultValue);
         this.defaultValue = (String)defaultValue;
 
-        setSummarySTSDP();
+        setSummaryLPDP();
     }
 
-    void setSummarySTSDP()
+    void setSummaryLPDP()
     {
         String prefSummary = "";
         if (!value.isEmpty()) {
@@ -80,7 +80,7 @@ public class PPListPreference extends DialogPreference {
 
     void persistValue() {
         persistString(value);
-        setSummarySTSDP();
+        setSummaryLPDP();
         notifyChanged();
     }
 
@@ -108,22 +108,22 @@ public class PPListPreference extends DialogPreference {
 
     void setEntries(int entriesRes) {
         entries = prefContext.getResources().getStringArray(entriesRes);
-        setSummarySTSDP();
+        setSummaryLPDP();
     }
 
     void setEntries(CharSequence[] pEntries) {
         entries = pEntries;
-        setSummarySTSDP();
+        setSummaryLPDP();
     }
 
     void setEntryValues(int entryValuesRes) {
         entryValues = prefContext.getResources().getStringArray(entryValuesRes);
-        setSummarySTSDP();
+        setSummaryLPDP();
     }
 
     void setEntryValues(CharSequence[] pEntryValues) {
         entryValues = pEntryValues;
-        setSummarySTSDP();
+        setSummaryLPDP();
     }
 
     String getValue() {
@@ -132,7 +132,7 @@ public class PPListPreference extends DialogPreference {
 
     void setValue(String pValue) {
         value = pValue;
-        setSummarySTSDP();
+        setSummaryLPDP();
     }
 
     @Override
@@ -157,7 +157,7 @@ public class PPListPreference extends DialogPreference {
         if ((state == null) || (!state.getClass().equals(PPListPreference.SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
-            setSummarySTSDP();
+            setSummaryLPDP();
             return;
         }
 
@@ -167,7 +167,7 @@ public class PPListPreference extends DialogPreference {
         value = myState.value;
         defaultValue = myState.defaultValue;
 
-        setSummarySTSDP();
+        setSummaryLPDP();
     }
 
     // SavedState class

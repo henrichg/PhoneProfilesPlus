@@ -2058,39 +2058,6 @@ public class EditorEventListFragment extends Fragment
             popup.show();
     }
 
-    /*
-    void updateEventForceRun(final Event event) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        int noPause = event._forceRun ? 1 : 0;
-        dialogBuilder.setSingleChoiceItems(R.array.ignoreManualActivationArray, noPause, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                event._forceRun = which == 1;
-                DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                eventListAdapter.notifyDataSetChanged();
-
-                EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = dialogBuilder.create();
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-        if (!getActivity().isFinishing())
-            dialog.show();
-    }
-    */
-
     void showHeaderAndBottomToolbar() {
         if (activatedProfileHeader != null)
             activatedProfileHeader.setVisibility(VISIBLE);

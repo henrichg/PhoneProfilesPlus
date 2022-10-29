@@ -7,14 +7,14 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-class MultiselectListDialogAdapter extends BaseAdapter
+class MultiSelectListDialogAdapter extends BaseAdapter
 {
-    MultiselectListDialog dialog;
+    MultiSelectListDialog dialog;
 
     CharSequence[] items;
     private final LayoutInflater inflater;
 
-    MultiselectListDialogAdapter(int itemsRes, MultiselectListDialog dialog)
+    MultiSelectListDialogAdapter(int itemsRes, MultiSelectListDialog dialog)
     {
         this.dialog = dialog;
 
