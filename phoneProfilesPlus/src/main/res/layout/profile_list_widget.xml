@@ -135,6 +135,7 @@
             android:divider="@android:color/transparent"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
             android:listSelector="@drawable/widget_ripple_list_item" />
 
         <TextView

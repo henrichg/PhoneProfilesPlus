@@ -110,7 +110,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         initPreferenceFragment(/*savedInstanceState*/);
 
         updateAllSummary();
-
     }
 
     @Override
@@ -124,6 +123,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
+        view.setScrollbarFadingEnabled(false);
         return view;
     }
 

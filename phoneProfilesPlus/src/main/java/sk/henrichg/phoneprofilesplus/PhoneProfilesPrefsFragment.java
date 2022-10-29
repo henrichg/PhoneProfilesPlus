@@ -115,6 +115,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
+        view.setScrollbarFadingEnabled(false);
         return view;
     }
 
