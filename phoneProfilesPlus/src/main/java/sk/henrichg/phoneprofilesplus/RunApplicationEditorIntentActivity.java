@@ -196,57 +196,39 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
         TooltipCompat.setTooltipText(intentCategoryButton, getString(R.string.application_editor_intent_edit_category_button_tooltip));
         intentCategoryButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder =
-                    new AlertDialog.Builder(activity)
-                            .setTitle(R.string.application_editor_intent_categories_dlg_title)
-                            //.setIcon(getDialogIcon())
-                            .setMultiChoiceItems(R.array.runApplicationEditorIntentCategoryArray, categoryIndices,
-                                    (dialog, which, isChecked) -> categoryIndices[which] = isChecked);
-            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                intentNameEditText.clearFocus();
-                intentPackageName.clearFocus();
-                intentClassName.clearFocus();
-                intentActionEdit.clearFocus();
-                intentData.clearFocus();
-                intentMimeType.clearFocus();
+            MultiselectListDialog dialog = new MultiselectListDialog(
+                    R.string.application_editor_intent_categories_dlg_title,
+                    R.array.runApplicationEditorIntentCategoryArray,
+                    categoryIndices,
+                    (dialog1, which) -> {
+                        intentNameEditText.clearFocus();
+                        intentPackageName.clearFocus();
+                        intentClassName.clearFocus();
+                        intentActionEdit.clearFocus();
+                        intentData.clearFocus();
+                        intentMimeType.clearFocus();
 
-                String categoryValue = "";
-                int i = 0;
-                for (boolean selected : categoryIndices) {
-                    if (selected) {
-                        if (!categoryValue.isEmpty())
-                            //noinspection StringConcatenationInLoop
-                            categoryValue = categoryValue + "\n";
-                        //noinspection StringConcatenationInLoop
-                        categoryValue = categoryValue + categoryArray[i];
-                    }
-                    ++i;
-                }
-                categoryTextView.setText(categoryValue);
-                /*intentScrollView.post(new Runnable() {
-                    public void run() {
-                        intentScrollView.scrollTo(0, categoryTextView.getBottom());
-                    }
-                });*/
-            });
-            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-            });
-
-            AlertDialog dialog = builder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
-
-            //AlertDialog mDialog = builder.create();
-            if (!isFinishing())
-                dialog.show();
+                        String categoryValue = "";
+                        int i = 0;
+                        for (boolean selected : categoryIndices) {
+                            //Log.e("RunApplicationEditorIntentActivity.cattegoryButton.onClick", "selected="+selected);
+                            if (selected) {
+                                if (!categoryValue.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    categoryValue = categoryValue + "\n";
+                                //noinspection StringConcatenationInLoop
+                                categoryValue = categoryValue + categoryArray[i];
+                            }
+                            ++i;
+                        }
+                        categoryTextView.setText(categoryValue);
+                        //intentScrollView.post(new Runnable() {
+                        //    public void run() {
+                        //        intentScrollView.scrollTo(0, categoryTextView.getBottom());
+                        //    }
+                        //});
+                    }, this);
+            dialog.show();
         });
 
         flagsTextView = findViewById(R.id.application_editor_intent_flags_value);
@@ -255,55 +237,38 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
         TooltipCompat.setTooltipText(intentFlagsButton, getString(R.string.application_editor_intent_edit_flags_button_tooltip));
         intentFlagsButton.setOnClickListener(v -> {
-            AlertDialog.Builder builder =
-                    new AlertDialog.Builder(activity)
-                            .setTitle(R.string.application_editor_intent_flags_dlg_title)
-                            //.setIcon(getDialogIcon())
-                            .setMultiChoiceItems(R.array.runApplicationEditorIntentFlagArray, flagIndices, (dialog, which, isChecked) -> flagIndices[which] = isChecked);
-            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                intentNameEditText.clearFocus();
-                intentPackageName.clearFocus();
-                intentClassName.clearFocus();
-                intentActionEdit.clearFocus();
-                intentData.clearFocus();
-                intentMimeType.clearFocus();
+            MultiselectListDialog dialog = new MultiselectListDialog(
+                    R.string.application_editor_intent_flags_dlg_title,
+                    R.array.runApplicationEditorIntentFlagArray,
+                    flagIndices,
+                    (dialog12, which) -> {
+                        intentNameEditText.clearFocus();
+                        intentPackageName.clearFocus();
+                        intentClassName.clearFocus();
+                        intentActionEdit.clearFocus();
+                        intentData.clearFocus();
+                        intentMimeType.clearFocus();
 
-                String flagsValue = "";
-                int i = 0;
-                for (boolean selected : flagIndices) {
-                    if (selected) {
-                        if (!flagsValue.isEmpty())
-                            //noinspection StringConcatenationInLoop
-                            flagsValue = flagsValue + "\n";
-                        //noinspection StringConcatenationInLoop
-                        flagsValue = flagsValue + flagArray[i];
-                    }
-                    ++i;
-                }
-                flagsTextView.setText(flagsValue);
-                /*intentScrollView.post(new Runnable() {
-                    public void run() {
-                        intentScrollView.scrollTo(0, flagsTextView.getBottom());
-                    }
-                });*/
-            });
-            builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-            });
-
-            AlertDialog mDialog = builder.create();
-
-//                mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
-
-            if (!isFinishing())
-                mDialog.show();
+                        String flagsValue = "";
+                        int i = 0;
+                        for (boolean selected : flagIndices) {
+                            if (selected) {
+                                if (!flagsValue.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    flagsValue = flagsValue + "\n";
+                                //noinspection StringConcatenationInLoop
+                                flagsValue = flagsValue + flagArray[i];
+                            }
+                            ++i;
+                        }
+                        flagsTextView.setText(flagsValue);
+                        //intentScrollView.post(new Runnable() {
+                        //    public void run() {
+                        //        intentScrollView.scrollTo(0, flagsTextView.getBottom());
+                        //    }
+                        //});
+                    }, this);
+            dialog.show();
         });
 
         intentExtraKeyName1 = findViewById(R.id.application_editor_intent_extra_key_1);
