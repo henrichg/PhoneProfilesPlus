@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -47,7 +48,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     private AlertDialog mRenameDialog;
     private AlertDialog mSelectorDialog;
-    private AlertDialog mSortDialog;
+    //private AlertDialog mSortDialog;
+    private SingleSelectListDialog mSortDialog;
 
     private TextView cellFilter;
     private TextView cellName;
@@ -244,27 +246,16 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         sortIcon.setOnClickListener(v -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
-                    mSortDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.mobile_cells_pref_dlg_cell_sort_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .setSingleChoiceItems(R.array.mobileCellsSortArray, preference.sortCellsBy, (dialog, which) -> {
-                                preference.sortCellsBy = which;
-                                refreshListView(false, Integer.MAX_VALUE);
-                                dialog.dismiss();
-                            })
-                            .create();
-
-//                    mSortDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-
+                    mSortDialog = new SingleSelectListDialog(R.string.mobile_cells_pref_dlg_cell_sort_title,
+                            R.array.mobileCellsSortArray,
+                            preference.sortCellsBy,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    preference.sortCellsBy = which;
+                                    refreshListView(false, Integer.MAX_VALUE);
+                                }
+                            }, getActivity());
                     mSortDialog.show();
                 }
         });
@@ -412,8 +403,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             mRenameDialog.dismiss();
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
-        if ((mSortDialog != null) && mSortDialog.isShowing())
-            mSortDialog.dismiss();
+        if ((mSortDialog != null) && mSortDialog.mDialog.isShowing())
+            mSortDialog.mDialog.dismiss();
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
