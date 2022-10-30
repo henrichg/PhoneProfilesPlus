@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -48,7 +47,6 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     private AlertDialog mRenameDialog;
     private AlertDialog mSelectorDialog;
-    //private AlertDialog mSortDialog;
     private SingleSelectListDialog mSortDialog;
 
     private TextView cellFilter;
@@ -249,12 +247,9 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     mSortDialog = new SingleSelectListDialog(R.string.mobile_cells_pref_dlg_cell_sort_title,
                             R.array.mobileCellsSortArray,
                             preference.sortCellsBy,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    preference.sortCellsBy = which;
-                                    refreshListView(false, Integer.MAX_VALUE);
-                                }
+                            (dialog, which) -> {
+                                preference.sortCellsBy = which;
+                                refreshListView(false, Integer.MAX_VALUE);
                             }, getActivity());
                     mSortDialog.show();
                 }

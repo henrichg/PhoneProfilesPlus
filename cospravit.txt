@@ -695,11 +695,3 @@ Adapter obsahuje tiez dataWrapper, ale ako odkaz na activityDataWrapper z fragme
 
 -------------------
 
-Alert dialog setSingleChoiceItems:
-
-Vstupuje int - poradie vybrateho itemu.
-Listener nastavuje tiez poradie.
-
-Vzorom nech Ti je MuliSelectListDialog.
-
-----------------------
