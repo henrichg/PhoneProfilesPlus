@@ -1,7 +1,7 @@
 <img src="art/ic_launcher-web.png" width="100" height="100">  
 
-PhoneProfilesPlus
-=================
+PhoneProfilesPlus (aka PPP)
+===========================
 
 [![version](https://img.shields.io/badge/version-6.0.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.0.1)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
@@ -19,7 +19,7 @@ Reason: Google restrictions:
 
 In stores, in which is currently deployed PPP, restriction about target sdk does not apply.
 
-### Another sources of PhoneProfilesPlus (PPP):
+### Another sources of PhoneProfilesPlus:
 
 __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
