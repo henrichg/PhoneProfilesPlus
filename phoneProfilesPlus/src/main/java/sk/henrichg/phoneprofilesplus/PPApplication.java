@@ -891,6 +891,7 @@ public class PPApplication extends Application
     public volatile static ExecutorService playToneExecutor = null;
     public volatile static ScheduledExecutorService disableInternalChangeExecutor = null;
     public volatile static ScheduledExecutorService delayedGuiExecutor = null;
+    public volatile static ScheduledExecutorService delayedShowNotificationExecutor = null;
     public volatile static ScheduledExecutorService delayedEventsHandlerExecutor = null;
     public volatile static ScheduledExecutorService delayedProfileActivationExecutor = null;
 
@@ -1005,6 +1006,7 @@ public class PPApplication extends Application
         createPlayToneExecutor();
         createNonBlockedExecutor();
         createDelayedGuiExecutor();
+        createDelayedShowNotificationExecutor();
         createDelayedEventsHandlerExecutor();
         createDelayedProfileActivationExecutor();
 
@@ -4046,6 +4048,10 @@ public class PPApplication extends Application
     static void createDelayedGuiExecutor() {
         if (delayedGuiExecutor == null)
             delayedGuiExecutor = Executors.newSingleThreadScheduledExecutor();
+    }
+    static void createDelayedShowNotificationExecutor() {
+        if (delayedShowNotificationExecutor == null)
+            delayedShowNotificationExecutor = Executors.newSingleThreadScheduledExecutor();
     }
     static void createDelayedEventsHandlerExecutor() {
         if (delayedEventsHandlerExecutor == null)

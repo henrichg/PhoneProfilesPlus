@@ -1356,11 +1356,17 @@ public class PhoneProfilesNotification {
             }
             //}
         };
-        PPApplication.createDelayedGuiExecutor();
+        PPApplication.createDelayedShowNotificationExecutor();
+
+//        PPApplication.delayedShowNotificationExecutor.shutdownNow(); // shutdown already scheduled
+//        try {
+//            PPApplication.delayedShowNotificationExecutor.awaitTermination(1, TimeUnit.SECONDS); // shutdown already scheduled
+//        } catch (Exception ignored) {};
+
         if (drawImmediatelly)
-            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
-            PPApplication.delayedGuiExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
 
         /*if (drawImmediatelly) {
             final Context appContext = context.getApplicationContext();

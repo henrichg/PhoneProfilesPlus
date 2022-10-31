@@ -120,7 +120,7 @@ public class MainWorker extends Worker {
                             // application is not started
                             return Result.success();
 
-                        //                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         LocationScannerSwitchGPSBroadcastReceiver.doWork(appContext);
                         break;
                     case APPLICATION_FULLY_STARTED_WORK_TAG:
