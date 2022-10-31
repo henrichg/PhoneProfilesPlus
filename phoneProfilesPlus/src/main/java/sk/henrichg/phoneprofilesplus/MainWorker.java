@@ -104,7 +104,7 @@ public class MainWorker extends Worker {
                             // application is not started
                             return Result.success();
 
-                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         MobileDataNetworkCallback._doConnection(appContext);
                         break;
                     case HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG:
@@ -112,7 +112,7 @@ public class MainWorker extends Worker {
                             // application is not started
                             return Result.success();
 
-                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         WifiNetworkCallback._doConnection(appContext);
                         break;
                     case LOCATION_SCANNER_SWITCH_GPS_TAG_WORK:
