@@ -48,6 +48,8 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG = "handleEventsSoundProfileWork";
     static final String HANDLE_EVENTS_PERIODIC_WORK_TAG = "handleEventsPeriodicWork";
     static final String HANDLE_EVENTS_VOLUMES_WORK_TAG = "handleEventsVolumesWork";
+    static final String HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG = "handleEventsMobileDataNetworkCallbackWork";
+    static final String HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG = "handleEventsWifiNetworkCallbackWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
@@ -95,6 +97,23 @@ public class MainWorker extends Worker {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
                         }
+                        break;
+
+                    case HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
+                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+                        MobileDataNetworkCallback._doConnection(appContext);
+                        break;
+                    case HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
+                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+                        WifiNetworkCallback._doConnection(appContext);
                         break;
                     case LOCATION_SCANNER_SWITCH_GPS_TAG_WORK:
                         if (!PPApplication.getApplicationStarted(true, true))

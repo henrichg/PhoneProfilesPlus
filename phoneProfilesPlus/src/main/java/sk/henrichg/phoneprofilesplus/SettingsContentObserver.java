@@ -220,7 +220,7 @@ class SettingsContentObserver  extends ContentObserver {
 
                     if (Event.getGlobalEventsRunning()) {
 
-                        // !!! must be used MainWorker with delay, because is often called this onChange
+                        // !!! must be used MainWorker with delay and REPLACE, because is often called this onChange
                         // for change volumes
                         Data workData = new Data.Builder()
                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)

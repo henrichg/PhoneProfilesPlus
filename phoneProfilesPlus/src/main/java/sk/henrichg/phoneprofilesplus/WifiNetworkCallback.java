@@ -4,12 +4,16 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.os.PowerManager;
+
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.concurrent.TimeUnit;
 
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final Context context;
 
     static volatile boolean connected = false;
@@ -20,34 +24,34 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     @Override
     public void onLost(Network network) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         connected = true;
         doConnection();
     }
 
     @Override
     public void onCapabilitiesChanged (Network network, NetworkCapabilities networkCapabilities) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
+        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection();
     }
 
@@ -123,6 +127,43 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             }
         }
         else {*/
+            // !!! must be used MainWorker with delay ans REPLACE, because is often called this onChange
+            // for change volumes
+                /*Data workData = new Data.Builder()
+                        .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
+                        .build();*/
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG)
+                            //.setInputData(workData)
+                            .setInitialDelay(5, TimeUnit.SECONDS)
+                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                            .build();
+            try {
+                if (PPApplication.getApplicationStarted(true, true)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
+
+                        //                            //if (PPApplication.logEnabled()) {
+                        //                            ListenableFuture<List<WorkInfo>> statuses;
+                        //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+                        //                            try {
+                        //                                List<WorkInfo> workInfoList = statuses.get();
+                        //                            } catch (Exception ignored) {
+                        //                            }
+                        //                            //}
+                        //
+                        //                            PPApplication.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                        //workManager.enqueue(worker);
+                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                    }
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
+            /*
             final Context appContext = context;
             //PPApplication.startHandlerThreadBroadcast();
             //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -161,13 +202,15 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             //PPApplication.eventsHandlerExecutor.submit(runnable);
             PPApplication.createDelayedEventsHandlerExecutor();
             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+            */
 //        }
     }
 
-    private void _doConnection(Context appContext) {
+    static void _doConnection(Context appContext) {
         if (PhoneProfilesService.getInstance() != null) {
             if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
                 // connect to SSID is started
+                PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "connectToSSIDStarted");
 
                 if (connected) {
                     //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
@@ -180,6 +223,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
         }
 
         if (Event.getGlobalEventsRunning()) {
+            PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "xxx");
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
             if (!(ApplicationPreferences.prefEventWifiScanRequest ||
