@@ -89,6 +89,8 @@
         <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+
+        <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
     </style>
 
     <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
@@ -100,6 +102,8 @@
         <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+
+        <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
     </style>
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
