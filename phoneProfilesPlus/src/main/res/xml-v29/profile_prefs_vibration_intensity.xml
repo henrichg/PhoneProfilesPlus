@@ -4,33 +4,31 @@
     app:title="@string/profile_preferences_category_vibrationIntensity"
     app:key="prf_pref_vibrationIntensityCategory" >
 
-<!-- TODO change to volume dialogs, max value is in cospravit.txt -->
-
-    <sk.henrichg.phoneprofilesplus.PPListPreference
+    <sk.henrichg.phoneprofilesplus.VibrationIntensityPreference
         app:title="@string/profile_preferences_vibrationIntensityRinging"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_vibrationIntensityRinging"
         app:defaultValue="0"
-        app:ppEntries="@array/vibrateNotificationsArray"
-        app:ppEntryValues="@array/vibrateNotificationsValues"
+        app:vibrationIntensityType="RINGING"
+        app:vNoChange="1"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.PPListPreference
+    <sk.henrichg.phoneprofilesplus.VibrationIntensityPreference
         app:title="@string/profile_preferences_vibrationIntensityNotificatiions"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_vibrationIntensityNotifications"
         app:defaultValue="0"
-        app:ppEntries="@array/vibrateNotificationsArray"
-        app:ppEntryValues="@array/vibrateNotificationsValues"
+        app:vibrationIntensityType="NOTIFICATIONS"
+        app:vNoChange="1"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.PPListPreference
+    <sk.henrichg.phoneprofilesplus.VibrationIntensityPreference
         app:title="@string/profile_preferences_vibrationIntensityTouchInteraction"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_vibrationIntensityTouchInteraction"
         app:defaultValue="0"
-        app:ppEntries="@array/vibrateNotificationsArray"
-        app:ppEntryValues="@array/vibrateNotificationsValues"
+        app:vibrationIntensityType="TOUCHINTERACTION"
+        app:vNoChange="1"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

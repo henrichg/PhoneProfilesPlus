@@ -306,6 +306,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof VibrationIntensityPreference)
+        {
+            ((VibrationIntensityPreference)preference).fragment = new VibrationIntensityPreferenceFragment();
+            dialogFragment = ((VibrationIntensityPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -2054,7 +2063,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGTONE));
 
-                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -2072,7 +2081,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_NOTIFICATION));
 
-                        value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                        value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                     } else
@@ -2088,7 +2097,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_MEDIA,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_MEDIA));
 
-                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -2104,7 +2113,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ALARM,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ALARM));
 
-                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -2121,7 +2130,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SYSTEM));
 
-                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
+                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -2137,7 +2146,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_VOICE));
 
-                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -2154,7 +2163,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_DTMF));
 
-                    value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
+                    value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
                 } else
@@ -2170,7 +2179,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY));
 
-                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -2186,7 +2195,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO));
 
-                value = ProfileStatic.getVolumeRingtoneValue(value) + "/" + audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
+                value = ProfileStatic.getVolumeValue(value) + "/" + audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
@@ -5388,6 +5397,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING);
         setSummary(Profile.PREF_PROFILE_DEVICE_VPN);
+        setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING);
+        setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS);
+        setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION);
 
         // disable depended preferences
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
@@ -5412,7 +5424,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
         boolean enabled = ProfileStatic.getVolumeChange(ringtoneValue);
         if (enabled) {
-            int volume = ProfileStatic.getVolumeRingtoneValue(ringtoneValue);
+            int volume = ProfileStatic.getVolumeValue(ringtoneValue);
             return volume > 0;
         }
         else
@@ -5422,7 +5434,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private boolean getEnableVolumeNotificationVolume0(boolean notificationEnabled, String notificationValue/*, Context context*/) {
         return  notificationEnabled && ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                 ApplicationPreferences.applicationUnlinkRingerNotificationVolumes &&
-                ProfileStatic.getVolumeChange(notificationValue) && (ProfileStatic.getVolumeRingtoneValue(notificationValue) == 0);
+                ProfileStatic.getVolumeChange(notificationValue) && (ProfileStatic.getVolumeValue(notificationValue) == 0);
     }
 
     private void disableDependedPref(String key, Object value)

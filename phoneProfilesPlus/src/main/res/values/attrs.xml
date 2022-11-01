@@ -75,6 +75,10 @@
         <attr name="ppEntries" format="integer" />
         <attr name="ppEntryValues" format="integer" />
     </declare-styleable>
+    <declare-styleable name="PPVibrationIntensityDialogPreference">
+        <attr name="vibrationIntensityType" format="string" />
+        <attr name="viNoChange" format="integer" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
 <!--    <attr name="colorAccentDisabled" format="reference" />-->

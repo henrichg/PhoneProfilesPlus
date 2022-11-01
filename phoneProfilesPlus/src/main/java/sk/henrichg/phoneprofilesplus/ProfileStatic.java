@@ -45,11 +45,11 @@ public class ProfileStatic {
         return value;
     }
 
-    static int getVolumeRingtoneValue(String volumeRingtone)
+    static int getVolumeValue(String volume)
     {
         int value;
         try {
-            String[] splits = volumeRingtone.split("\\|");
+            String[] splits = volume.split("\\|");
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -768,7 +768,10 @@ public class ProfileStatic {
                     profile._endOfActivationType,
                     profile._endOfActivationTime,
                     profile._applicationDisablePeriodicScanning,
-                    profile._deviceVPN
+                    profile._deviceVPN,
+                    profile._vibrationIntensityRinging,
+                    profile._vibrationIntensityNotifications,
+                    profile._vibrationIntensityTouchInteraction
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -1146,5 +1149,28 @@ public class ProfileStatic {
         return iconResource;
     }
 
+    static int getVibrationIntensityValue(String volume)
+    {
+        int value;
+        try {
+            String[] splits = volume.split("\\|");
+            value = Integer.parseInt(splits[0]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value;
+    }
+
+    static boolean getVibrationIntensityChange(String volume)
+    {
+        int value;
+        try {
+            String[] splits = volume.split("\\|");
+            value = Integer.parseInt(splits[1]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value == 0; // in preference dialog is checked=No change
+    }
 
 }

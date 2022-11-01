@@ -5478,7 +5478,7 @@ public class PhoneProfilesService extends Service
                     int _ringingVolume;
                     String ringtoneVolumeFromProfile = intent.getStringExtra(EXTRA_NEW_RINGER_VOLUME);
                     if (ProfileStatic.getVolumeChange(ringtoneVolumeFromProfile)) {
-                        _ringingVolume = ProfileStatic.getVolumeRingtoneValue(ringtoneVolumeFromProfile);
+                        _ringingVolume = ProfileStatic.getVolumeValue(ringtoneVolumeFromProfile);
                     }
                     else {
                         _ringingVolume = ringingVolume;

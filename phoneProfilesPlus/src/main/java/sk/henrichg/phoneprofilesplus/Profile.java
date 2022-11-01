@@ -121,6 +121,9 @@ public class Profile {
     int _endOfActivationTime;
     int _applicationDisablePeriodicScanning;
     String _deviceVPN;
+    String _vibrationIntensityRinging;
+    String _vibrationIntensityNotifications;
+    String _vibrationIntensityTouchInteraction;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -232,6 +235,9 @@ public class Profile {
     static final String PREF_PROFILE_END_OF_ACTIVATION_TIME = "prf_pref_endOfActivationTime";
     static final String PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING = "prf_pref_applicationDisablePeriodicScanning";
     static final String PREF_PROFILE_DEVICE_VPN = "prf_pref_deviceVPN";
+    static final String PREF_PROFILE_VIBRATION_INTENSITY_RINGING = "prf_pref_vibrationIntensityRinging";
+    static final String PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS = "prf_pref_vibrationIntensityNotifications";
+    static final String PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION = "prf_pref_vibrationIntensityTouchInteraction";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -343,6 +349,9 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_VPN, "0|0|||0");
+        defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
+        defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
+        defaultValuesString.put(PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -1032,7 +1041,10 @@ public class Profile {
                    int endOfActivationType,
                    int endOfActivationTime,
                    int applicationDisablePeriodicScanning,
-                   String deviceVPN
+                   String deviceVPN,
+                   String vibrationIntensityRinging,
+                   String vibrationIntensityNotifications,
+                   String vibrationIntensityTouchInteraction
             )
     {
         this._id = id;
@@ -1138,6 +1150,9 @@ public class Profile {
         this._endOfActivationTime = endOfActivationTime;
         this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
         this._deviceVPN = deviceVPN;
+        this._vibrationIntensityRinging = vibrationIntensityRinging;
+        this._vibrationIntensityNotifications = vibrationIntensityNotifications;
+        this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1247,7 +1262,10 @@ public class Profile {
                    int endOfActivationType,
                    int endOfActivationTime,
                    int applicationDisablePeriodicScanning,
-                   String deviceVPN
+                   String deviceVPN,
+                   String vibrationIntensityRinging,
+                   String vibrationIntensityNotifications,
+                   String vibrationIntensityTouchInteraction
     )
     {
         this._name = name;
@@ -1352,6 +1370,9 @@ public class Profile {
         this._endOfActivationTime = endOfActivationTime;
         this._applicationDisablePeriodicScanning = applicationDisablePeriodicScanning;
         this._deviceVPN = deviceVPN;
+        this._vibrationIntensityRinging = vibrationIntensityRinging;
+        this._vibrationIntensityNotifications = vibrationIntensityNotifications;
+        this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1463,6 +1484,9 @@ public class Profile {
         this._endOfActivationTime = profile._endOfActivationTime;
         this._applicationDisablePeriodicScanning = profile._applicationDisablePeriodicScanning;
         this._deviceVPN = profile._deviceVPN;
+        this._vibrationIntensityRinging = profile._vibrationIntensityRinging;
+        this._vibrationIntensityNotifications = profile._vibrationIntensityNotifications;
+        this._vibrationIntensityTouchInteraction = profile._vibrationIntensityTouchInteraction;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1795,6 +1819,12 @@ public class Profile {
                     this._applicationDisablePeriodicScanning = withProfile._applicationDisablePeriodicScanning;
                 if (!withProfile._deviceVPN.startsWith("0"))
                     this._deviceVPN = withProfile._deviceVPN;
+                if (withProfile.getVibrationIntensityRingingChange())
+                    this._vibrationIntensityRinging = withProfile._vibrationIntensityRinging;
+                if (withProfile.getVibrationIntensityNotificationsChange())
+                    this._vibrationIntensityNotifications = withProfile._vibrationIntensityNotifications;
+                if (withProfile.getVibrationIntensityTouchInteractionChange())
+                    this._vibrationIntensityTouchInteraction = withProfile._vibrationIntensityTouchInteraction;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -2147,6 +2177,15 @@ public class Profile {
             if (!this._deviceVPN.equals(withProfile._deviceVPN)) {
                 return false;
             }
+            if (!this._vibrationIntensityRinging.equals(withProfile._vibrationIntensityRinging)) {
+                return false;
+            }
+            if (!this._vibrationIntensityNotifications.equals(withProfile._vibrationIntensityNotifications)) {
+                return false;
+            }
+            if (!this._vibrationIntensityTouchInteraction.equals(withProfile._vibrationIntensityTouchInteraction)) {
+                return false;
+            }
 
             return true;
         }
@@ -2205,8 +2244,9 @@ public class Profile {
         return value;
     }
 
+    // TODO
     int getVolumeRingtoneValue() {
-        return ProfileStatic.getVolumeRingtoneValue(_volumeRingtone);
+        return ProfileStatic.getVolumeValue(_volumeRingtone);
     }
 
     boolean getVolumeRingtoneChange()
@@ -3139,6 +3179,9 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, Integer.toString(this._deviceVPNSettingsPrefs));
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, Integer.toString(this._applicationDisablePeriodicScanning));
         editor.putString(PREF_PROFILE_DEVICE_VPN, this._deviceVPN);
+        editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, this._vibrationIntensityRinging);
+        editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, this._vibrationIntensityNotifications);
+        editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, this._vibrationIntensityTouchInteraction);
 
         editor.apply();
     }
@@ -3191,6 +3234,78 @@ public class Profile {
             accessibilityEnabled = 1;
 
         return accessibilityEnabled;
+    }
+
+    int getVibrationIntensityRingingValue() {
+        return ProfileStatic.getVibrationIntensityValue(_vibrationIntensityRinging);
+    }
+
+    boolean getVibrationIntensityRingingChange()
+    {
+        return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityRinging);
+    }
+
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
+    void setVibrationIntensityRingingValue(int value) {
+        try {
+            String[] splits = _vibrationIntensityRinging.split("\\|");
+            splits[0] = String.valueOf(value);
+            _vibrationIntensityRinging = "";
+            for (String split : splits) {
+                if (!_vibrationIntensityRinging.isEmpty())
+                    _vibrationIntensityRinging = _vibrationIntensityRinging + "|";
+                _vibrationIntensityRinging = _vibrationIntensityRinging + split;
+            }
+        } catch (Exception ignore) {
+        }
+    }
+
+    int getVibrationIntensityNotificationsValue() {
+        return ProfileStatic.getVibrationIntensityValue(_vibrationIntensityNotifications);
+    }
+
+    boolean getVibrationIntensityNotificationsChange()
+    {
+        return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityNotifications);
+    }
+
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
+    void setVibrationIntensityNotificationsValue(int value) {
+        try {
+            String[] splits = _vibrationIntensityNotifications.split("\\|");
+            splits[0] = String.valueOf(value);
+            _vibrationIntensityNotifications = "";
+            for (String split : splits) {
+                if (!_vibrationIntensityNotifications.isEmpty())
+                    _vibrationIntensityNotifications = _vibrationIntensityNotifications + "|";
+                _vibrationIntensityNotifications = _vibrationIntensityNotifications + split;
+            }
+        } catch (Exception ignore) {
+        }
+    }
+
+    int getVibrationIntensityTouchInteractionValue() {
+        return ProfileStatic.getVibrationIntensityValue(_vibrationIntensityTouchInteraction);
+    }
+
+    boolean getVibrationIntensityTouchInteractionChange()
+    {
+        return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityTouchInteraction);
+    }
+
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
+    void setVibrationIntensityTouchInteractionValue(int value) {
+        try {
+            String[] splits = _vibrationIntensityTouchInteraction.split("\\|");
+            splits[0] = String.valueOf(value);
+            _vibrationIntensityTouchInteraction = "";
+            for (String split : splits) {
+                if (!_vibrationIntensityTouchInteraction.isEmpty())
+                    _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + "|";
+                _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + split;
+            }
+        } catch (Exception ignore) {
+        }
     }
 
 }

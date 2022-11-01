@@ -129,8 +129,11 @@ public class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING)),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN)
-        );
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION)
+                );
     }
 
     static Event getNonInitializedEvent(String name, int startOrder)

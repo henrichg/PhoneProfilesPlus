@@ -390,7 +390,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._endOfActivationType,
                         origProfile._endOfActivationTime,
                         origProfile._applicationDisablePeriodicScanning,
-                        origProfile._deviceVPN
+                        origProfile._deviceVPN,
+                        origProfile._vibrationIntensityRinging,
+                        origProfile._vibrationIntensityNotifications,
+                        origProfile._vibrationIntensityTouchInteraction
                 );
                 showSaveMenu = true;
             }
@@ -593,6 +596,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
             profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
             profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "");
+            profile._vibrationIntensityRinging = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "");
+            profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "");
+            profile._vibrationIntensityTouchInteraction = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "");
         }
 
         return profile;
