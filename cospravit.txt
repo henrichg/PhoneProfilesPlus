@@ -758,12 +758,17 @@ Pouzi volume dialog, kde s min=0, max=3.
 Len ako toto dat do PreferenceScreen. Hm, hm.
 
 1. Spravim to nastavenie na vibrovanie notifikacii len pre API 28. PREF_PROFILE_VIBRATE_NOTIFICATIONS
+   HOTOVO
 2. Spravim nove category, "Vibration feedback". Do nej pridam zapnutie vypnutie vybrovania tych troch veci.
    Bude len pre nie-Samsung, nie-Huawei zariadenia. Pre Samsung a Huawei ich schovam a nebudem ani nastavovat.
+   Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacny feedback, co
+   tu spravim.
 3. Pre Samsung zariadenia (pre ostatne skryjem) spravim nove category "Vibration intensity". Bude od API 29.
-   Do nej dam znastavenie intenzity pomocou Volume dialogu.
+   Do nej dam nastavenie intenzity pomocou Volume dialogu.
+   Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
 4. Od API 33 schovam "Vibration feedback" a zobrazim "Vibration intensity". Pre Samsung bude max value=5
    pre nie-Samsung max value=3
+   Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
 
 Testni, ci nahodou nestaci G1 permission pre sucasny "(R) Vibration notification" a buduci "Vibration feedback",
 "Vibration intensity".
