@@ -385,7 +385,8 @@ class Permissions {
         }
     }
 
-    static boolean checkVibrateNotifications(Context context) {
+    // TODO vibration intensity
+    static boolean checkVibrationIntensityForSamsung(Context context) {
         try {
             if (Build.VERSION.SDK_INT >= 28) {
                 boolean granted = Settings.System.canWrite(context);

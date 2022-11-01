@@ -1648,40 +1648,51 @@ class ActivateProfileHelper {
             Context appContext = context.getApplicationContext();
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (Permissions.checkVibrateNotifications(appContext)) {
-                    /*try {
-                        Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
-                    } catch (Exception ee) {*/
+                /*
+                boolean G1OK = false;
+                // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    try {
+                        if (PPApplication.deviceIsPixel) {
+                            Settings.System.putInt(appContext.getContentResolver(), "vibrate_on", 1);
+                            Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
+                        } else {
+                            Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
+                        }
+                        G1OK = true;
+                    } catch (Exception ee) {
                         // java.lang.IllegalArgumentException: You cannot change private secure settings.
-                        //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
-                        //PPApplication.recordException(ee);
-
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1;
-                                Command command;
-                                if (PPApplication.deviceIsPixel) {
-                                    command1 = "settings put system " + "vibrate_on" + " 1";
-                                    String command2 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
-                                    command = new Command(0, /*false,*/ command1, command2);
-                                } else {
-                                    command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
-                                    //if (PPApplication.isSELinuxEnforcing())
-                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                    command = new Command(0, /*false,*/ command1);
-                                }
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
-                                }
+                        Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee));
+                    }
+                }
+                if (!G1OK)
+                */
+                {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            Command command;
+                            if (PPApplication.deviceIsPixel) {
+                                command1 = "settings put system " + "vibrate_on" + " 1";
+                                String command2 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                command = new Command(0, /*false,*/ command1, command2);
+                            } else {
+                                command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                command = new Command(0, /*false,*/ command1);
+                            }
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
                             }
                         }
-                    //}
+                    }
                 }
             }
         }

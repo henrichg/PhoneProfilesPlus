@@ -977,6 +977,17 @@ class PreferenceAllowed {
 
                 String preferenceKey = Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS;
 
+                /*
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                    if (profile != null) {
+                        if (profile._vibrateNotifications!= 0)
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    }
+                    else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                }
+                else
+                */
                 if (RootUtils.isRooted(fromUIThread)) {
                     // device is rooted
 
