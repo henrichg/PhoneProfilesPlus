@@ -4,6 +4,8 @@
     app:title="@string/profile_preferences_category_vibrationIntensity"
     app:key="prf_pref_vibrationIntensityCategory" >
 
+<!-- TODO change to volume dialogs, max value is in cospravit.txt -->
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_vibrationIntensityRinging"
         app:summary="@string/array_pref_no_change"
