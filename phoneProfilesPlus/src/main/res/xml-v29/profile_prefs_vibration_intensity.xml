@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_vibrationIntensity"
+    app:key="prf_pref_vibrationIntensityCategory" >
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_vibrationIntensityRinging"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_vibrationIntensityRinging"
+        app:defaultValue="0"
+        app:ppEntries="@array/vibrateNotificationsArray"
+        app:ppEntryValues="@array/vibrateNotificationsValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_vibrationIntensityNotificatiions"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_vibrationIntensityNotifications"
+        app:defaultValue="0"
+        app:ppEntries="@array/vibrateNotificationsArray"
+        app:ppEntryValues="@array/vibrateNotificationsValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_vibrationIntensityTouchInteraction"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_vibrationIntensityTouchInteraction"
+        app:defaultValue="0"
+        app:ppEntries="@array/vibrateNotificationsArray"
+        app:ppEntryValues="@array/vibrateNotificationsValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

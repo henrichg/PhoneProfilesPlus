@@ -2028,6 +2028,11 @@
     <string name="export_settings_delete_location_data_bluetooth_names">Bluetooth names for Bluetooth sensor</string>
     <string name="export_settings_delete_location_data_mobile_cells">Mobile cells for Mobile cell sensor</string>
 
+    <string name="profile_preferences_category_vibrationIntensity">Vibration intensity</string>
+    <string name="profile_preferences_vibrationIntensityRinging">Incomming call</string>
+    <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
+    <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

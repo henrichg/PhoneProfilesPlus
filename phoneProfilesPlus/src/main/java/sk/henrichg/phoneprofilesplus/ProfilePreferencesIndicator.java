@@ -377,15 +377,13 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean vibrateWhenRingingAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     boolean vibrateNotificationsAllowed = false;
-                    if (Build.VERSION.SDK_INT == 28) {
-                        // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
+                    if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
                         vibrateNotificationsAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     }
                     boolean addVibrateIndicator = false;
                     if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
                         addVibrateIndicator = true;
-                    if (Build.VERSION.SDK_INT == 28) {
-                        // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
+                    if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
                         if (vibrateNotificationsAllowed && ((profile._vibrateNotifications == 1) || (profile._vibrateNotifications == 3)))
                             addVibrateIndicator = true;
                     }

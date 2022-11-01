@@ -695,14 +695,14 @@ Adapter obsahuje tiez dataWrapper, ale ako odkaz na activityDataWrapper z fragme
 
 -------------------
 
-Intenzita vybrovania:
+Intenzita vibrovania:
 
 No vypada to, ze je to android standard. Na Pixeli mas moznost nastavit intenzitu pre (Android 13):
 - Zvonenie
 - Notifikacie
 - Alarm
 - Media
-Pre Android 12 to na Pixel 3a nejde, len zapnut/vypnut vybrovanie (ani toto nemam v PPP)
+Pre Android 12 to na Pixel 3a nejde, len zapnut/vypnut vibrovanie (ani toto nemam v PPP)
 - Zvonenie
 - Notifikacie
 
@@ -711,7 +711,7 @@ Skus pohladat, ako toto nastavit.
 Mam pre Touch feedback tak asi dako podobne.
 Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
 
-Pixel 3a: Settings.System (zo SetEdit) (Android 12) - tu sa da vlastne len zapnut/vypnut vybrovanie,
+Pixel 3a: Settings.System (zo SetEdit) (Android 12) - tu sa da vlastne len zapnut/vypnut vibrovanie,
 intenzita sa neda nastavit:
 haptic_feedback_intensity = 1 -> zapnute, 0 = vypnute
 ring_vibration_intensity = 2 -> zapnute, 0 = vypnute
@@ -757,21 +757,15 @@ Pouzi volume dialog, kde s min=0, max=3.
 
 Len ako toto dat do PreferenceScreen. Hm, hm.
 
-1. Spravim to nastavenie na vibrovanie notifikacii len pre API 28. PREF_PROFILE_VIBRATE_NOTIFICATIONS
-   HOTOVO
-2. Spravim nove category, "Vibration feedback". Do nej pridam zapnutie vypnutie vybrovania tych troch veci.
-   Bude len pre nie-Samsung, nie-Huawei zariadenia. Pre Samsung a Huawei ich schovam a nebudem ani nastavovat.
-   Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacny feedback, co
-   tu spravim.
-3. Pre Samsung zariadenia (pre ostatne skryjem) spravim nove category "Vibration intensity". Bude od API 29.
+1. Pre Samsung zariadenia (pre ostatne skryjem) spravim nove category "Vibration intensity". Bude od API 29.
    Do nej dam nastavenie intenzity pomocou Volume dialogu.
-   Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
-4. Od API 33 schovam "Vibration feedback" a zobrazim "Vibration intensity". Pre Samsung bude max value=5
+2. Od API 33 schovam "Vibration feedback" a zobrazim "Vibration intensity". Pre Samsung bude max value=5
    pre nie-Samsung max value=3
    Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
+   Ale len pre nie-Samsung zariadenia.
 
 Testni, ci nahodou nestaci G1 permission pre sucasny "(R) Vibration notification" a buduci "Vibration feedback",
 "Vibration intensity".
-Takze nejde s G1. Len s rootom :-(
+Takze nejde s G1. Len s rootom. Ani s CHANGE_CONFIGURATION :-(
 
 ------------------------------
