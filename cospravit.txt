@@ -695,3 +695,43 @@ Adapter obsahuje tiez dataWrapper, ale ako odkaz na activityDataWrapper z fragme
 
 -------------------
 
+Intenzita vybrovania:
+
+No vypada to, ze je to android standard. Na Pixeli mas moznost nastavit intenzitu pre (Android 13):
+- Zvonenie
+- Notifikacie
+- Alarm
+- Media
+Pre Android 12 to na Pixel 3a nejde, len zapnut/vypnut vybrovanie (ani toto nemam v PPP)
+- Zvonenie
+- Notifikacie
+
+Hm, hm, zaujimave.
+Skus pohladat, ako toto nastavit.
+Mam pre Touch feedback tak asi dako podobne.
+Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
+
+Pixel 3a: Settings.System (zo SetEdit) (Android 12) - tu sa da vlastne len zapnut0vypnut vybrovanie,
+intenzita sa neda nastavit:
+haptic_feedback_intensity = 1 -> zapnute, 0 = vypnute
+ring_vibration_intensity = 2 -> zapnute, 0 = vypnute
+notification_vibration_intensity = 3 -> zapnute, , 0 = vypnute
+
+Na Pixel 6 to je tiez tam, ale tie ostatne, co ma v nastaveniach tam nie su. Hm, tak aspon tie
+3 z Pixel 3a dam.
+
+Hm. Mam od API level 28 toto: PREF_PROFILE_VIBRATE_NOTIFICATIONS, ale vyzaduje to root. Nastavuje
+aj notification_vibration_intensity.
+Vid ActivateProfileHelper.setVibrateNotification().
+Musim pozriet, ako to vypada pre Pixel 6. Tam sa tusim da nastavit aj intenzita.
+
+Zial pre Samsung a HUawei nie je mozne toto menit. :-(
+V isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS() mas
+            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            }
+
+------------------------------
