@@ -757,7 +757,7 @@ Pouzi volume dialog, kde s min=0, max=3.
 
 Len ako toto dat do PreferenceScreen. Hm, hm.
 
-1. Spravim to nastavenie na vibrovanie notifikacii len pre API 28.
+1. Spravim to nastavenie na vibrovanie notifikacii len pre API 28. PREF_PROFILE_VIBRATE_NOTIFICATIONS
 2. Spravim nove category, "Vibration feedback". Do nej pridam zapnutie vypnutie vybrovania tych troch veci.
    Bude len pre nie-Samsung, nie-Huawei zariadenia. Pre Samsung a Huawei ich schovam a nebudem ani nastavovat.
 3. Pre Samsung zariadenia (pre ostatne skryjem) spravim nove category "Vibration intensity". Bude od API 29.

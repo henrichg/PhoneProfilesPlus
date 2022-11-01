@@ -963,7 +963,8 @@ class PreferenceAllowed {
 
         Context appContext = context.getApplicationContext();
 
-        if (Build.VERSION.SDK_INT >= 28) {
+        if (Build.VERSION.SDK_INT == 28) {
+            // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
 
             if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {

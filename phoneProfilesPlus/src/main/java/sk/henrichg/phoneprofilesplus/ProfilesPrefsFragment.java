@@ -1982,7 +1982,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
-            if (Build.VERSION.SDK_INT >= 28) {
+            if (Build.VERSION.SDK_INT == 28) {
+                // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, R.string.profile_preferences_vibrateNotifications, context);
                 if (!title.isEmpty()) {
                     if (ringerMode != null) {
@@ -2016,12 +2017,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Profile profile = new Profile();
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
-        if (Build.VERSION.SDK_INT >= 28)
+        if (Build.VERSION.SDK_INT == 28) {
+            // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
             profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0"));
+        }
         ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileVibrateWhenRinging(context, profile, permissions);
-        if (Build.VERSION.SDK_INT >= 28)
+        if (Build.VERSION.SDK_INT == 28) {
+            // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
             Permissions.checkProfileVibrateNotifications(context, profile, permissions);
+        }
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
         return false;
@@ -4084,8 +4089,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)) {
-                if (Build.VERSION.SDK_INT >= 28)
+                if (Build.VERSION.SDK_INT == 28) {
+                    // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
                     preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                }
                 else {
                     preferenceAllowed = new PreferenceAllowed();
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
@@ -4136,8 +4143,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
                         profile._vibrationOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
                         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
-                        if (Build.VERSION.SDK_INT >= 28)
+                        if (Build.VERSION.SDK_INT == 28) {
+                            // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
                             profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0"));
+                        }
                         profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
                         profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
                         profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, "0"));
@@ -5503,7 +5512,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(enabled);
             }
 
-            if (Build.VERSION.SDK_INT >= 28) {
+            if (Build.VERSION.SDK_INT == 28) {
+                // this is only for API 28, for 29+ is replaced with new cattegory "Vibration feedback"
                 enabled = false;
                 preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
@@ -5524,7 +5534,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(enabled);
                 }
             }
-
         }
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
