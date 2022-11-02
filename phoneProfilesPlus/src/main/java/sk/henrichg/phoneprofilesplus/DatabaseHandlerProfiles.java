@@ -127,6 +127,9 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
                 values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
                 values.put(DatabaseHandler.KEY_DEVICE_VPN, profile._deviceVPN);
+                values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, profile._vibrationIntensityRinging);
+                values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
+                values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, profile._vibrationIntensityTouchInteraction);
 
                 // Insert Row
                 if (!merged) {
@@ -265,7 +268,10 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TIME,
                                 DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING,
-                                DatabaseHandler.KEY_DEVICE_VPN
+                                DatabaseHandler.KEY_DEVICE_VPN,
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -377,7 +383,10 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN))
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION))
                         );
                     }
 
@@ -509,7 +518,10 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE + "," +
                         DatabaseHandler.KEY_END_OF_ACTIVATION_TIME + "," +
                         DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + "," +
-                        DatabaseHandler.KEY_DEVICE_VPN +
+                        DatabaseHandler.KEY_DEVICE_VPN + "," +
+                        DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + "," +
+                        DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "," +
+                        DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -625,6 +637,9 @@ class DatabaseHandlerProfiles {
                         profile._endOfActivationTime = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME));
                         profile._applicationDisablePeriodicScanning = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING));
                         profile._deviceVPN = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN));
+                        profile._vibrationIntensityRinging = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING));
+                        profile._vibrationIntensityNotifications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS));
+                        profile._vibrationIntensityTouchInteraction = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -758,6 +773,9 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
                 values.put(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, profile._applicationDisablePeriodicScanning);
                 values.put(DatabaseHandler.KEY_DEVICE_VPN, profile._deviceVPN);
+                values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, profile._vibrationIntensityRinging);
+                values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
+                values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, profile._vibrationIntensityTouchInteraction);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1106,7 +1124,10 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE,
                                 DatabaseHandler.KEY_END_OF_ACTIVATION_TIME,
                                 DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING,
-                                DatabaseHandler.KEY_DEVICE_VPN
+                                DatabaseHandler.KEY_DEVICE_VPN,
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1220,7 +1241,10 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_END_OF_ACTIVATION_TIME)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN))
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION))
                                 );
                     }
 
