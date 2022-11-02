@@ -1674,9 +1674,14 @@ class ActivateProfileHelper {
                             String command1;
                             Command command;
                             if (PPApplication.deviceIsPixel) {
-                                command1 = "settings put system " + "vibrate_on" + " 1";
-                                String command2 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
-                                command = new Command(0, /*false,*/ command1, command2);
+                                if (lValue > 0) {
+                                    command1 = "settings put system " + "vibrate_on" + " 1";
+                                    String command2 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                    command = new Command(0, /*false,*/ command1, command2);
+                                } else {
+                                    command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                    command = new Command(0, /*false,*/ command1);
+                                }
                             } else {
                                 command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
                                 //if (PPApplication.isSELinuxEnforcing())
