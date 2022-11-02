@@ -4853,7 +4853,10 @@ public class EditorActivity extends AppCompatActivity
                                                 0,
                                                 0,
                                                 0,
-                                                "0|0|||0"
+                                                "0|0|||0",
+                                                "-1|1",
+                                                "-1|1",
+                                                "-1|1"
                                         );
 
                                         // replace ids in profile._deviceRunApplicationPackageName

@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.media.AudioManager;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -41,6 +43,18 @@ public class VibrationIntensityPreference extends DialogPreference {
                 R.styleable.PPVibrationIntensityDialogPreference_viNoChange, 1);
 
         typedArray.recycle();
+
+        // TODO maybe for OnePlus is another maxValue, check it
+        // TODO maybe for Android 13+  is another maxValue, check it
+        if (Build.VERSION.SDK_INT < 33) {
+            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+                maximumValue = 5;
+            else if (PPApplication.deviceIsOnePlus)
+                maximumValue = 5;
+            else
+                maximumValue = 5;
+        } else
+            maximumValue = 5;
     }
 
     @Override
@@ -60,14 +74,39 @@ public class VibrationIntensityPreference extends DialogPreference {
             value = Integer.parseInt(splits[0]);
             if (value == -1)
             {
-                if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
-                    value = 2;
-                else
-                if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
-                    value =  2;
-                else
-                if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
-                    value =  1;
+                if (Build.VERSION.SDK_INT < 33) {
+                    if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                        if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                            value = 3;
+                        else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                            value = 3;
+                        else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                            value = 1;
+                    } else if (PPApplication.deviceIsOnePlus) {
+                        // TODO maybe for OnePlus is another maxValue, check it
+                        if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                            value = 3;
+                        else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                            value = 3;
+                        else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                            value = 1;
+                    } else {
+                        if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                            value = 3;
+                        else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                            value = 3;
+                        else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                            value = 1;
+                    }
+                } else {
+                    // TODO maybe for Android 13+  is another maxValue, check it
+                    if (vibrationIntensityType.equalsIgnoreCase("RINGING"))
+                        value = 3;
+                    else if (vibrationIntensityType.equalsIgnoreCase("NOTIFICATIONS"))
+                        value = 3;
+                    else if (vibrationIntensityType.equalsIgnoreCase("TOUCHINTERACTION"))
+                        value = 1;
+                }
             }
         } catch (Exception e) {
             //Log.e("VibrationIntensityPreference.getValueVDP", Log.getStackTraceString(e));
@@ -101,8 +140,7 @@ public class VibrationIntensityPreference extends DialogPreference {
 
     String getSValue() {
         return value
-                + "|" + noChange
-                + "|" + "0";
+                + "|" + noChange;
     }
 
     void persistValue() {
