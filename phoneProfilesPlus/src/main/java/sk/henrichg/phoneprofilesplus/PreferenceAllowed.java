@@ -966,7 +966,9 @@ class PreferenceAllowed {
         if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
 
             if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                    (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                    PPApplication.deviceIsOnePlus) {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
