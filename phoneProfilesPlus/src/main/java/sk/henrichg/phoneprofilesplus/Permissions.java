@@ -72,12 +72,13 @@ class Permissions {
     static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
     static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
     static final int PERMISSION_BACGROUND_LOCATION = 45;
-    static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
+    //static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
     static final int PERMISSION_PROFILE_WALLPAPER_FOLDER = 47;
     static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
     static final int PERMISSION_PROFILE_MICROPHONE = 49;
     static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
     static final int PERMISSION_PROFILE_WIREGUARD = 51;
+    static final int PERMISSION_PROFILE_VIBRATION_INTENSITY = 52;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -258,7 +259,8 @@ class Permissions {
 
         checkProfileVibrationOnTouch(context, profile, permissions);
         checkProfileVibrateWhenRinging(context, profile, permissions);
-        checkProfileVibrateNotifications(context, profile, permissions);
+        //checkProfileVibrateNotifications(context, profile, permissions);
+        checkProfileVibrationIntensityForSamsung(context, profile, permissions);
         checkProfileRingtones(context, profile, permissions);
         checkProfileScreenTimeout(context, profile, permissions);
         checkProfileScreenBrightness(context, profile, permissions);
@@ -366,6 +368,7 @@ class Permissions {
         }
     }
 
+    /*
     static void checkProfileVibrateNotifications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
@@ -384,8 +387,31 @@ class Permissions {
             }
         }
     }
+    */
 
     // TODO vibration intensity
+    static void checkProfileVibrationIntensityForSamsung(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                if (profile.getVibrationIntensityRingingChange() ||
+                        profile.getVibrationIntensityNotificationsChange() ||
+                        profile.getVibrationIntensityTouchInteractionChange()) {
+                    boolean granted = Settings.System.canWrite(context);
+                    if (granted)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    if (!granted) {
+                        if (permissions != null)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_INTENSITY, permission.WRITE_SETTINGS));
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    /*
     static boolean checkVibrationIntensityForSamsung(Context context) {
         try {
             if (Build.VERSION.SDK_INT >= 28) {
@@ -400,6 +426,7 @@ class Permissions {
             return false;
         }
     }
+    */
 
     static void checkProfileNotificationLed(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;

@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.media.AudioManager;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -20,7 +19,7 @@ public class VibrationIntensityPreference extends DialogPreference {
     final String vibrationIntensityType;
     int noChange;
 
-    int maximumValue = 5;
+    int maximumValue;
     final int stepSize = 1;
 
     private String sValue = "0|1";
@@ -44,17 +43,7 @@ public class VibrationIntensityPreference extends DialogPreference {
 
         typedArray.recycle();
 
-        // TODO maybe for OnePlus is another maxValue, check it
-        // TODO maybe for Android 13+  is another maxValue, check it
-        if (Build.VERSION.SDK_INT < 33) {
-            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
-                maximumValue = 5;
-            else if (PPApplication.deviceIsOnePlus)
-                maximumValue = 5;
-            else
-                maximumValue = 5;
-        } else
-            maximumValue = 5;
+        maximumValue = getMaxValue();
     }
 
     @Override
@@ -250,6 +239,23 @@ public class VibrationIntensityPreference extends DialogPreference {
 
                 };
 
+    }
+
+    // TODO maybe for OnePlus is another maxValue, check it
+    // TODO maybe for Android 13+  is another maxValue, check it
+    static int getMaxValue() {
+        int maxValue;
+        if (Build.VERSION.SDK_INT < 33) {
+            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+                maxValue = 5;
+            else if (PPApplication.deviceIsOnePlus)
+                maxValue = 5;
+            else
+                maxValue = 5;
+        } else
+            maxValue = 5;
+
+        return maxValue;
     }
 
 }

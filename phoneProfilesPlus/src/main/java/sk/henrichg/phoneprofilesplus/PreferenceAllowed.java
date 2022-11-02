@@ -1038,6 +1038,249 @@ class PreferenceAllowed {
         }
     }
 
+    static void isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING(
+            PreferenceAllowed preferenceAllowed,
+             Profile profile, SharedPreferences sharedPreferences,
+            boolean fromUIThread, Context context) {
+
+        Context appContext = context.getApplicationContext();
+
+        if (Build.VERSION.SDK_INT >= 29) {
+
+            if ((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            }
+            else {
+
+                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                        PPApplication.deviceIsOnePlus) {
+                    // root not needed for these devices
+
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityRingingChange())
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+                } else {
+                    boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+                    String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING;
+
+                    if (RootUtils.isRooted(fromUIThread)) {
+                        // device is rooted
+
+                        if (profile != null) {
+                            // test if grant root is disabled
+                            if (profile.getVibrationIntensityRingingChange()) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                }
+                            }
+                        } else if (sharedPreferences != null) {
+                            if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                    // not needed to test all parameters
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                            if (profile != null) {
+                                if (profile.getVibrationIntensityRingingChange())
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                        }
+                    } else {
+                        if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
+                            preferenceAllowed.notAllowedRoot = true;
+                        }
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    }
+                }
+            }
+        }
+        else {
+            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
+        }
+    }
+
+    static void isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS(
+            PreferenceAllowed preferenceAllowed,
+            Profile profile, SharedPreferences sharedPreferences,
+            boolean fromUIThread, Context context) {
+
+        Context appContext = context.getApplicationContext();
+
+        if (Build.VERSION.SDK_INT >= 29) {
+
+            if ((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                    (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            }
+            else {
+
+                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                        PPApplication.deviceIsOnePlus) {
+                    // root not needed for these devices
+
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityNotificationsChange())
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+                } else {
+                    boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+                    String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS;
+
+                    if (RootUtils.isRooted(fromUIThread)) {
+                        // device is rooted
+
+                        if (profile != null) {
+                            // test if grant root is disabled
+                            if (profile.getVibrationIntensityNotificationsChange()) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                }
+                            }
+                        } else if (sharedPreferences != null) {
+                            if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                    // not needed to test all parameters
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                            if (profile != null) {
+                                if (profile.getVibrationIntensityNotificationsChange())
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                        }
+                    } else {
+                        if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
+                            preferenceAllowed.notAllowedRoot = true;
+                        }
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    }
+                }
+            }
+        }
+        else {
+            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
+        }
+    }
+
+    static void isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION(
+            PreferenceAllowed preferenceAllowed,
+            Profile profile, SharedPreferences sharedPreferences,
+            boolean fromUIThread, Context context) {
+
+        Context appContext = context.getApplicationContext();
+
+        if (Build.VERSION.SDK_INT >= 29) {
+
+            if ((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                    (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            }
+            else {
+
+                if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                        PPApplication.deviceIsOnePlus) {
+                    // root not needed for these devices
+
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityTouchInteractionChange())
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+                } else {
+                    boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+                    String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION;
+
+                    if (RootUtils.isRooted(fromUIThread)) {
+                        // device is rooted
+
+                        if (profile != null) {
+                            // test if grant root is disabled
+                            if (profile.getVibrationIntensityTouchInteractionChange()) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                }
+                            }
+                        } else if (sharedPreferences != null) {
+                            if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                    // not needed to test all parameters
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                            if (profile != null) {
+                                if (profile.getVibrationIntensityTouchInteractionChange())
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                        }
+                    } else {
+                        if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
+                            preferenceAllowed.notAllowedRoot = true;
+                        }
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    }
+                }
+            }
+        }
+        else {
+            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
+        }
+    }
+
     /*
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS(PreferenceAllowed preferenceAllowed,
             SharedPreferences sharedPreferences, boolean fromUIThread) {

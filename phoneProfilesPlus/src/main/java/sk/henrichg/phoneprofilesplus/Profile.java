@@ -2244,7 +2244,6 @@ public class Profile {
         return value;
     }
 
-    // TODO
     int getVolumeRingtoneValue() {
         return ProfileStatic.getVolumeValue(_volumeRingtone);
     }

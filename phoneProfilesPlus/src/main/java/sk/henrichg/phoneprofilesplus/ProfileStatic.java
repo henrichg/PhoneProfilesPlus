@@ -964,6 +964,15 @@ public class ProfileStatic {
                 case Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
+                case Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    break;
+                case Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    break;
+                case Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    break;
                 //case Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
                     // !!! test this only for preference key !!!
                 //    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS(preferenceAllowed, sharedPreferences, fromUIThread);
@@ -1064,6 +1073,11 @@ public class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread);
             if (Build.VERSION.SDK_INT >= 28) {
                 PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            }
+            if (Build.VERSION.SDK_INT >= 29) {
+                PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+                PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+                PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);

@@ -1703,6 +1703,86 @@ class ActivateProfileHelper {
         }
     }
 
+    // TODO root version for non-Samsung and non-OnePlus devices
+    //  non-root verison for Samsung devices
+    private static void _setVsetVibrationIntensity(Context context,
+                                                   String preferenceName,
+                                                   String parameterName,
+                                                   int value,
+                                                   SharedPreferences executedProfileSharedPreferences) {
+        if (value != -1) {
+            Context appContext = context.getApplicationContext();
+            if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).allowed
+                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            Command command;
+                            if (PPApplication.deviceIsPixel) {
+                                if (value > 0) {
+                                    command1 = "settings put system " + "vibrate_on" + " 1";
+                                    String command2 = "settings put system " + parameterName + " " + value;
+                                    command = new Command(0, /*false,*/ command1, command2);
+                                } else {
+                                    command1 = "settings put system " + parameterName + " " + value;
+                                    command = new Command(0, /*false,*/ command1);
+                                }
+                            } else {
+                                command1 = "settings put system " + parameterName + " " + value;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                command = new Command(0, /*false,*/ command1);
+                            }
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void setVibrationIntensity(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
+        int lValueRinging = -1;
+        int lValueNotificaitons = -1;
+        int lValueTouchIntensity = -1;
+
+        if (profile.getVibrationIntensityRingingChange()) {
+            lValueRinging = profile.getVibrationIntensityRingingValue();
+            _setVsetVibrationIntensity(context,
+                    Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
+                    "ring_vibration_intensity",
+                    lValueRinging,
+                    executedProfileSharedPreferences
+                    );
+        }
+        if (profile.getVibrationIntensityNotificationsChange()) {
+            lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
+            _setVsetVibrationIntensity(context,
+                    Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
+                    "notification_vibration_intensity",
+                    lValueNotificaitons,
+                    executedProfileSharedPreferences
+            );
+        }
+        if (profile.getVibrationIntensityTouchInteractionChange()) {
+            lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
+            _setVsetVibrationIntensity(context,
+                    Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                    "haptic_feedback_intensity",
+                    lValueTouchIntensity,
+                    executedProfileSharedPreferences
+            );
+        }
+    }
 
     private static boolean setTones(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         boolean noError = true;
