@@ -765,4 +765,10 @@ Len ako toto dat do PreferenceScreen. Hm, hm.
    Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
    Ale len pre nie-Samsung zariadenia.
 
+U OnePlus to vypadá, že aspoň na verzií 12 (tuším tu mam) sa dá nastaviť intenzita ako u Samsungu.
+- ring_stepless_vibration_intensity
+- notification_stepless_vibration_intensity
+- touch_stepless_vibration_intensity
+No skús teda. Len tam su dáke divné hodnoty. Zistí ake.
+
 ------------------------------

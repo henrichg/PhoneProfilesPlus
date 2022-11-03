@@ -1694,7 +1694,8 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 {
-                    if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+                    if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                            PPApplication.deviceIsOnePlus) {
 //                        try {
 //                            Settings.System.putInt(appContext.getContentResolver(), parameterName, value);
 //                            //Log.e("ActivateProfileHelper.setVibrationIntensity",
@@ -1726,7 +1727,7 @@ class ActivateProfileHelper {
                                 RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
                             } catch (Exception e) {
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
                         }
@@ -1818,6 +1819,8 @@ class ActivateProfileHelper {
                         executedProfileSharedPreferences
                 );
             }
+        } else if (PPApplication.deviceIsOnePlus) {
+
         } else {
             if (profile.getVibrationIntensityRingingChange()) {
                 lValueRinging = profile.getVibrationIntensityRingingValue();
