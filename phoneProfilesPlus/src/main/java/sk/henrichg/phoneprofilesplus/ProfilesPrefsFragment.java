@@ -553,7 +553,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
         }
 
-        if (Build.VERSION.SDK_INT >= 29) {
+        PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
+        PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
+        if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (!((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     PPApplication.deviceIsOnePlus)) {
                 VibrationIntensityPreference vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING);
@@ -2437,10 +2439,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     // TODO
     private boolean setCategorySummaryVibrationIntensity(Context context,
                                                    CattegorySummaryData cattegorySummaryData) {
-        if ((Build.VERSION.SDK_INT >= 33) ||
-                ((PPApplication.deviceIsSamsung) && (PPApplication.romIsGalaxy)) ||
-                PPApplication.deviceIsOnePlus) {
-
+        PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
+        PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
+        if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, R.string.profile_preferences_vibrationIntensityRinging, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
@@ -2490,12 +2491,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             // remove "Vibration intensity", because is not allowed for non-Samsung, non-OnePLus devices and API < 33
             Preference preference = prefMng.findPreference("prf_pref_vibrationIntensityCategoryRoot");
             if (preference != null) {
-                preference.setVisible(false);
-                //PreferenceScreen rootScreen = prefMng.findPreference("rootScreen");
-                //Log.e("ProfilesPrefsFragment.setCategorySummaryVibrationIntensity", "rootScreen="+rootScreen);
-                //if (rootScreen != null)
-                //    rootScreen.removePreference(preference);
+                //preference.setVisible(false);
+                preference.setEnabled(false);
             }
+            cattegorySummaryData.summary = _preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+            cattegorySummaryData.bold = false;
+            cattegorySummaryData.forceSet = true;
         }
 
         return false;
@@ -4296,48 +4297,52 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS) ||
             key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION))
         {
-            PreferenceAllowed preferenceAllowed;
-            if ((Build.VERSION.SDK_INT >= 29)) {
-                preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
-            }
-            else {
-                preferenceAllowed = new PreferenceAllowed();
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-            }
-            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
-            {
+            PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
+            PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
+            if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                PreferenceAllowed preferenceAllowed =
+                        ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+                {
+                    Preference preference = prefMng.findPreference(key);
+                    if (preference != null) {
+                        boolean errorColor = false;
+                        if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                                (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
+                            preference.setEnabled(false);
+                        else
+                            errorColor = !value.toString().equals("0");
+                        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                            preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
+                                    ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, false, errorColor);
+                    }
+                }
+                else {
+                    String sValue = value.toString();
+                    VibrationIntensityPreference preference = prefMng.findPreference(key);
+                    if (preference !=  null) {
+                        boolean change = VibrationIntensityPreference.changeEnabled(sValue);
+
+                        boolean _permissionGranted;
+
+                        Profile profile = new Profile();
+                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        profile._vibrationIntensityRinging = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
+                        profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
+                        profile._vibrationIntensityTouchInteraction = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
+                        Permissions.checkProfileVibrationIntensityForSamsung(context, profile, permissions);
+                        _permissionGranted = permissions.size() == 0;
+
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, !_permissionGranted);
+                    }
+                }
+            } else {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
-                    boolean errorColor = false;
-                    if ((preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
-                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
-                            (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
-                        preference.setEnabled(false);
-                    else
-                        errorColor = !value.toString().equals("0");
-                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, false, errorColor);
-                }
-            }
-            else {
-                String sValue = value.toString();
-                VibrationIntensityPreference preference = prefMng.findPreference(key);
-                if (preference !=  null) {
-                    boolean change = VibrationIntensityPreference.changeEnabled(sValue);
-
-                    boolean _permissionGranted;
-
-                    Profile profile = new Profile();
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                    profile._vibrationIntensityRinging = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
-                    profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
-                    profile._vibrationIntensityTouchInteraction = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
-                    Permissions.checkProfileVibrationIntensityForSamsung(context, profile, permissions);
-                    _permissionGranted = permissions.size() == 0;
-
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, !_permissionGranted);
+                    preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + _preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 }
             }
         }

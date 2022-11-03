@@ -393,7 +393,9 @@ class Permissions {
     static void checkProfileVibrationIntensityForSamsung(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
-        if (Build.VERSION.SDK_INT >= 29) {
+        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+        PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(preferenceAllowed, context);
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             try {
                 if (profile.getVibrationIntensityRingingChange() ||
                         profile.getVibrationIntensityNotificationsChange() ||
