@@ -738,7 +738,7 @@ Nasiel som pre Samsung toto (v Settings.System):
 SEM_VIBRATION_FORCE_TOUCH_INTNSITY = 4 co to je??? Nebudem pouzivat, vypada, ze to nie je na nic.
 SEM_VIBRATION_NOTIFICATION_INTENSITY = 5 -> max. value? 0 -> min value?
 VIB_FEEDBACK_MAGNITUDE = 5 -> max. value? 0 -> min value?
-VIB_CEVCALL_MAGNITUDE = 5 -> max. value? 0 -> min value?
+VIB_RECVCALL_MAGNITUDE = 5 -> max. value? 0 -> min value?
 
 To su speci parametre pre nastavenie intenzity vibrovania pre Samsungy.
 Najdene v Galaxy S10, aj na S21. Su editovatelne aj bez rootu, kedze su to
