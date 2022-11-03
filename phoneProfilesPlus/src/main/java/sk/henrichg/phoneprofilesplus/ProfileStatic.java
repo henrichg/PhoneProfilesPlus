@@ -1159,11 +1159,11 @@ public class ProfileStatic {
         return iconResource;
     }
 
-    static int getVibrationIntensityValue(String volume)
+    static int getVibrationIntensityValue(String sValue)
     {
         int value;
         try {
-            String[] splits = volume.split("\\|");
+            String[] splits = sValue.split("\\|");
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -1171,11 +1171,11 @@ public class ProfileStatic {
         return value;
     }
 
-    static boolean getVibrationIntensityChange(String volume)
+    static boolean getVibrationIntensityChange(String sValue)
     {
         int value;
         try {
-            String[] splits = volume.split("\\|");
+            String[] splits = sValue.split("\\|");
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;

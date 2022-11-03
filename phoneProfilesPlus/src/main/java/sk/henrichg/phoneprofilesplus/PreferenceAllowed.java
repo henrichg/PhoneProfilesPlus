@@ -1078,60 +1078,48 @@ class PreferenceAllowed {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                    PPApplication.deviceIsOnePlus) {
-                // root not needed for these devices
+            boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+            String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING;
+
+            if (RootUtils.isRooted(fromUIThread)) {
+                // device is rooted
 
                 if (profile != null) {
-                    if (profile.getVibrationIntensityRingingChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-
-            } else {
-                boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
-
-                String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING;
-
-                if (RootUtils.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile.getVibrationIntensityRingingChange()) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    } else if (sharedPreferences != null) {
-                        if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return;
-                            }
+                    // test if grant root is disabled
+                    if (profile.getVibrationIntensityRingingChange()) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                         }
                     }
-
-                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile.getVibrationIntensityRingingChange())
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        } else
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    } else {
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                } else if (sharedPreferences != null) {
+                    if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
                     }
-                } else {
-                    if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
-                        preferenceAllowed.notAllowedRoot = true;
-                    }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
+
+                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityRingingChange())
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+            } else {
+                if ((profile != null) && profile.getVibrationIntensityRingingChange()) {
+                    preferenceAllowed.notAllowedRoot = true;
+                }
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
         } else {
             preferenceAllowed.copyFrom(_preferenceAllowed);
@@ -1146,60 +1134,48 @@ class PreferenceAllowed {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                    PPApplication.deviceIsOnePlus) {
-                // root not needed for these devices
+            boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+            String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS;
+
+            if (RootUtils.isRooted(fromUIThread)) {
+                // device is rooted
 
                 if (profile != null) {
-                    if (profile.getVibrationIntensityNotificationsChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-
-            } else {
-                boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
-
-                String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS;
-
-                if (RootUtils.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile.getVibrationIntensityNotificationsChange()) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    } else if (sharedPreferences != null) {
-                        if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return;
-                            }
+                    // test if grant root is disabled
+                    if (profile.getVibrationIntensityNotificationsChange()) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                         }
                     }
-
-                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile.getVibrationIntensityNotificationsChange())
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        } else
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    } else {
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                } else if (sharedPreferences != null) {
+                    if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
                     }
-                } else {
-                    if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
-                        preferenceAllowed.notAllowedRoot = true;
-                    }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
+
+                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityNotificationsChange())
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+            } else {
+                if ((profile != null) && profile.getVibrationIntensityNotificationsChange()) {
+                    preferenceAllowed.notAllowedRoot = true;
+                }
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
         }
         else {
@@ -1216,60 +1192,48 @@ class PreferenceAllowed {
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
-            if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
-                    PPApplication.deviceIsOnePlus) {
-                // root not needed for these devices
+            boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+            String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION;
+
+            if (RootUtils.isRooted(fromUIThread)) {
+                // device is rooted
 
                 if (profile != null) {
-                    if (profile.getVibrationIntensityTouchInteractionChange())
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-
-            } else {
-                boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
-
-                String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION;
-
-                if (RootUtils.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile.getVibrationIntensityTouchInteractionChange()) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    } else if (sharedPreferences != null) {
-                        if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return;
-                            }
+                    // test if grant root is disabled
+                    if (profile.getVibrationIntensityTouchInteractionChange()) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                         }
                     }
-
-                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile.getVibrationIntensityTouchInteractionChange())
-                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        } else
-                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    } else {
-                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                } else if (sharedPreferences != null) {
+                    if (ProfileStatic.getVolumeChange(sharedPreferences.getString(preferenceKey, "-1|1"))) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            // not needed to test all parameters
+                            return;
+                        }
                     }
-                } else {
-                    if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
-                        preferenceAllowed.notAllowedRoot = true;
-                    }
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
+
+                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                    if (profile != null) {
+                        if (profile.getVibrationIntensityTouchInteractionChange())
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else
+                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                }
+            } else {
+                if ((profile != null) && profile.getVibrationIntensityTouchInteractionChange()) {
+                    preferenceAllowed.notAllowedRoot = true;
+                }
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
         }
         else {

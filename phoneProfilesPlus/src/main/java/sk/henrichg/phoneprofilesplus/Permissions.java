@@ -78,7 +78,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_MICROPHONE = 49;
     static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
     static final int PERMISSION_PROFILE_WIREGUARD = 51;
-    static final int PERMISSION_PROFILE_VIBRATION_INTENSITY = 52;
+    //static final int PERMISSION_PROFILE_VIBRATION_INTENSITY = 52;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -260,7 +260,7 @@ class Permissions {
         checkProfileVibrationOnTouch(context, profile, permissions);
         checkProfileVibrateWhenRinging(context, profile, permissions);
         //checkProfileVibrateNotifications(context, profile, permissions);
-        checkProfileVibrationIntensityForSamsung(context, profile, permissions);
+        //checkProfileVibrationIntensityForSamsung(context, profile, permissions);
         checkProfileRingtones(context, profile, permissions);
         checkProfileScreenTimeout(context, profile, permissions);
         checkProfileScreenBrightness(context, profile, permissions);
@@ -389,7 +389,7 @@ class Permissions {
     }
     */
 
-    // TODO vibration intensity
+    /*
     static void checkProfileVibrationIntensityForSamsung(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
@@ -412,6 +412,7 @@ class Permissions {
             }
         }
     }
+    */
 
     /*
     static boolean checkVibrationIntensityForSamsung(Context context) {

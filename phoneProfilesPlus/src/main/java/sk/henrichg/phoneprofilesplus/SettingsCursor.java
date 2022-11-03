@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Comparator;
 
+@SuppressWarnings("unused")
 public class SettingsCursor implements Cursor {
     @Nullable
     private final Cursor cursor;
