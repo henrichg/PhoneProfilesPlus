@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.NonNull;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.database.CharArrayBuffer;
 import android.database.ContentObserver;
@@ -52,6 +51,7 @@ public class SettingsCursor implements Cursor {
         sortValues();
     }
 
+    @SuppressWarnings("unused")
     public void setSortCriteria(SortHelper sortHelper, Comparator<String> comparator) {
         this.sortHelper = sortHelper;
         this.comparator = comparator;
@@ -69,6 +69,7 @@ public class SettingsCursor implements Cursor {
         else cursor.copyStringToBuffer(i, charArrayBuffer);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void deactivate() {
         if (cursor != null) cursor.deactivate();
@@ -238,6 +239,7 @@ public class SettingsCursor implements Cursor {
         if (cursor != null) cursor.registerDataSetObserver(dataSetObserver);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean requery() {
         return cursor == null || cursor.requery();
