@@ -780,7 +780,13 @@ Po jej spusteni, by Extender poslal do nej put settings a tato apk by ho vykonal
 Tu len musim testovat, ci uz bezi a ak ano, tak az potom poslat broadcast.
 Ale to sledovanie robit co ja viem 5 sekund najviac. Nech to necaka donekonecna.
 
-Hm, lenze tu je problemm ako nastavit WRITE_SETTINGS jej. Asi spravit jej aktivitu,
-kde sa bude dat ten write_settings nastavovat.
+Hm, lenze tu je problemm ako nastavit WRITE_SETTINGS jej.
+Asi takto:
+
+Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+intent.setData(Uri.parse("package:" + "package name tej aplikacie na put settings"));
+
+Toto bu krasne mohlo fungovat priamo z Extendera.
+Ta put settings aplikacia by bola s takou jednoduchou aktivitou, len by tam bol text, co to je.
 
 ------------------------------
