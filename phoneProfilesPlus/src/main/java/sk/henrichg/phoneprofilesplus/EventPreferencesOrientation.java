@@ -1066,7 +1066,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                     eventsHandler.notAllowedOrientation = true;
                                 //orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
                             } else
-                                eventsHandler.orientationPassed = false;
+                                eventsHandler.notAllowedOrientation = true;
                         } else {
                             eventsHandler.notAllowedOrientation = true;
                         }

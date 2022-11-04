@@ -796,7 +796,7 @@ nebude.
 - Lock device: ide
 - Foreground application detection:
   - EventPreferencesApplication - ide
-  - EventPreferencesOrientation - ?? nedeteguje aplikaciu, ale asi bug v senzore; pozri
+  - EventPreferencesOrientation - ide
 - Call detection:
   - EventPreferencesCall - ide
 - SMS detection:
