@@ -772,3 +772,35 @@ U OnePlus to vypadá, že aspoň na verzií 12 (tuším tu mam) sa dá nastaviť
 No skús teda. Len tam su dáke divné hodnoty. Zistí ake.
 
 ------------------------------
+
+Extender s targetSDK = 22.
+
+Vážne rozmýšľaj dať PPPE do target 22. Práve kvôli tým zápisom settings, ktoré teraz vyžadujú root.
+By som to robil cez neho.
+Ak má root, nemusí mať Extender,sk nemá root,tak musí mať od verzie 9.0.
+To bude tá s touto podporou.
+
+Zmena na target 22 sposobi, ze sa Extender musi odinstalovat aby sa mohil tento novy nainstalovat.
+S datami problem nie je, Extender ziadne nema.
+Musis vyskusat nainstalovat z GitHub verziu a potom upgradnut na tuto novu release verziu.
+
+Len to znamená, že nebude môcť byť PPPE v Galaxy Store. Takže uvazuj, čo s tým. Len kvôli jednému
+užívateľovi som to dal tam, lebo mal služobný mobil a ten nedovolí inštalovať od tretích strán,
+ani stiahnuté apk.
+
+BACHA: neviem ci je to bug, ale ak po starte povolim accessibility, v skutocnosti sa nepovoli.
+Ale test, ci je povolene dava, ze je. Dufam, ze toto je len bud develop verzie, ze v relese to robit
+nebude.
+
+- Force stop application: ide
+- Lock device: ide
+- Foreground application detection:
+  - EventPreferencesApplication - ide
+  - EventPreferencesOrientation
+- Call detection:
+  - EventPreferencesCall
+- SMS detection:
+  - EventPreferencesSMS
+
+
+---------------------

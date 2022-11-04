@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
@@ -19,7 +18,7 @@ public class PPMultiSelectListPreference extends DialogPreference {
 
     PPMultiSelectListPreferenceFragment fragment;
 
-    private final Context prefContext;
+    //private final Context prefContext;
 
     Set<String> value = null;
     private Set<String> defaultValue;
@@ -39,7 +38,7 @@ public class PPMultiSelectListPreference extends DialogPreference {
         int entryValuesRes = typedArray.getResourceId(
                 R.styleable.PPListDialogPreference_ppEntryValues, 0);
 
-        this.prefContext = context;
+        //this.prefContext = context;
 
         typedArray.recycle();
 
@@ -224,8 +223,16 @@ public class PPMultiSelectListPreference extends DialogPreference {
         {
             super.writeToParcel(dest, flags);
 
-            String[] _value = value.toArray(new String[0]);
-            String[] _defaultValue = defaultValue.toArray(new String[0]);
+            String[] _value;
+            String[] _defaultValue;
+            if (value != null)
+                _value = value.toArray(new String[0]);
+            else
+                _value = null;
+            if (defaultValue != null)
+                _defaultValue = defaultValue.toArray(new String[0]);
+            else
+                _defaultValue = null;
 
             dest.writeStringArray(_value);
             dest.writeStringArray(_defaultValue);
