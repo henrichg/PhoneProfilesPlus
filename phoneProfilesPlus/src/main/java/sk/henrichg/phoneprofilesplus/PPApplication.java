@@ -241,8 +241,8 @@ public class PPApplication extends Application
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
-                                                +"|[IN_EVENTS_HANDLER]"
-                                                +"|[EVENTS_HANDLER_CALL]"
+//                                                +"|[IN_EVENTS_HANDLER]"
+//                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
 //                                                +"|[HANDLER]"
@@ -267,6 +267,7 @@ public class PPApplication extends Application
                                                 //+"|[PPP_NOTIFICATION]"
 
                                                 //+"|EventPreferencesOrientation"
+                                                //+"|LocationScanner.updateTransitionsByLastKnownLocation"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

@@ -377,6 +377,7 @@ class LocationScanner
                 location = mLocationManager.getLastKnownLocation(provider);
             }
 
+//            PPApplication.logE("LocationScanner.updateTransitionsByLastKnownLocation", "LocationSensorWorker.enqueueWork + doLocationChanged");
             LocationSensorWorker.enqueueWork(true, context);
             doLocationChanged(location, true);
         } catch (SecurityException e) {
@@ -411,7 +412,7 @@ class LocationScanner
                     PPApplication.locationScanner.updateGeofencesInDB();
 
                     if (callEventsHandler) {
-                        PPApplication.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
+//                        PPApplication.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
                         PPExecutors.handleEvents(PPApplication.locationScanner.context,
                                 EventsHandler.SENSOR_TYPE_LOCATION_SCANNER,
                                 "SENSOR_TYPE_LOCATION_SCANNER",
