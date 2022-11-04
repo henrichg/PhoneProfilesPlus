@@ -29,7 +29,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
         super.onStart();
 
         // set theme and language for dialog alert ;-)
-        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false);
+        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);

@@ -106,7 +106,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
-        view.setScrollbarFadingEnabled(false);
+
+        // do not use this, because this generates exception on orientation change:
+        // java.lang.NullPointerException: Attempt to invoke virtual method 'android.widget.ScrollBarDrawable
+        // android.widget.ScrollBarDrawable.mutate()' on a null object reference
+        //view.setScrollbarFadingEnabled(false);
+
         return view;
     }
 

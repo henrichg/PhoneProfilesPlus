@@ -248,7 +248,7 @@ public class EditorActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);

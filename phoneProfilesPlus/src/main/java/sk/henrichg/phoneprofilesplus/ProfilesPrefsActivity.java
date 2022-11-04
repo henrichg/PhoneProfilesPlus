@@ -44,7 +44,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);

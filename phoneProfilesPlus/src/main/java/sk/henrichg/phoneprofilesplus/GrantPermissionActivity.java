@@ -588,7 +588,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -1057,7 +1057,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -1190,7 +1190,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);

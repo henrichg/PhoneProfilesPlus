@@ -26,7 +26,7 @@ public class ActivityLogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -73,7 +73,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         menuItem.setTitle(getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
 
-        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, false, getApplicationContext());
+        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, false, false, getApplicationContext());
         if (theme != 0) {
             TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
             int attributeResourceId = a.getResourceId(0, 0);

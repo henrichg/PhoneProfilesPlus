@@ -112,16 +112,20 @@ class GlobalGUIRoutines {
     static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar/*, boolean withDrawerLayout*/,
                                 boolean forActivator, boolean forDialog,
-                                boolean forLocationEditor)
+                                boolean forLocationEditor, boolean forPreference)
     {
-        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, forDialog, forLocationEditor, activity);
+        int theme = getTheme(forPopup, withToolbar,
+                /*withDrawerLayout,*/ forActivator,
+                forDialog, forLocationEditor, forPreference,
+                activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/
                         boolean forActivator, boolean forDialog,
-                        boolean forLocationEditor, Context context) {
+                        boolean forLocationEditor, boolean forPreferences,
+                        Context context) {
         switch (ApplicationPreferences.applicationTheme(context, false)) {
             /*case "color":
                 if (forPopup) {
@@ -255,6 +259,13 @@ class GlobalGUIRoutines {
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
             else
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
+        }
+        else
+        if (forPreferences) {
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
+            else
+                return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
         }
         else
         if (forPopup) {
