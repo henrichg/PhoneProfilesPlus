@@ -789,4 +789,7 @@ intent.setData(Uri.parse("package:" + "package name tej aplikacie na put setting
 Toto bu krasne mohlo fungovat priamo z Extendera.
 Ta put settings aplikacia by bola s takou jednoduchou aktivitou, len by tam bol text, co to je.
 
+Jej instalacia: bola by z Extendera, z GitHub, vid ako sa instaluje Extender z GitHub.
+Priamy download lotest verzie.
+
 ------------------------------
