@@ -932,13 +932,16 @@ class EventPreferencesOrientation extends EventPreferences {
                                 if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
                                         /*, "EventPreferencesOrientation.doHandleEvent"*/)) {
                                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
+//                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "foregroundApplication="+foregroundApplication);
                                     if (!foregroundApplication.isEmpty()) {
                                         String[] splits = _ignoredApplications.split("\\|");
                                         for (String split : splits) {
                                             if (!split.isEmpty()) {
                                                 String packageName = Application.getPackageName(split);
+//                                                PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "packageName="+packageName);
 
                                                 if (foregroundApplication.equals(packageName)) {
+//                                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lApplicationPassed=true");
                                                     lApplicationPassed = true;
                                                     break;
                                                 }
@@ -1062,7 +1065,8 @@ class EventPreferencesOrientation extends EventPreferences {
                                 else
                                     eventsHandler.notAllowedOrientation = true;
                                 //orientationPassed = lDisplayPassed || lSidePassed || lDistancePassed || lLightPassed;
-                            }
+                            } else
+                                eventsHandler.orientationPassed = false;
                         } else {
                             eventsHandler.notAllowedOrientation = true;
                         }
