@@ -350,12 +350,10 @@ class EventPreferencesLocation extends EventPreferences {
                             eventsHandler.notAllowedLocation = true;
                         }
                     } else {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                            boolean transitionsUpdated = false;
+                        if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+                            boolean transitionsUpdated;
                             synchronized (PPApplication.locationScannerMutex) {
-                                LocationScanner scanner = PhoneProfilesService.getInstance().getLocationScanner();
-                                if (scanner != null)
-                                    transitionsUpdated = LocationScanner.mTransitionsUpdated;
+                                transitionsUpdated = LocationScanner.mTransitionsUpdated;
                             }
                             if (transitionsUpdated) {
                                 String[] splits = _geofences.split("\\|");

@@ -810,8 +810,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
                     if (forRescan) {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
-                            PhoneProfilesService.getInstance().getMobileCellsScanner().registerCell();
+                        if ((PhoneProfilesService.getInstance() != null) && (PPApplication.mobileCellsScanner != null)) {
+                            PPApplication.mobileCellsScanner.registerCell();
 
                             //PPApplication.sleep(200);
                         }
@@ -831,15 +831,15 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     _registeredCellInTableDefault = false;
                     _registeredCellInValueDefault = false;
 
-                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
+                    if ((PhoneProfilesService.getInstance() != null) && (PPApplication.mobileCellsScanner != null)) {
                         // add registered cell
 
-                        MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
+                        //MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
 
                         if ((Build.VERSION.SDK_INT >= 26) && (fragment.phoneCount > 1)) {
                             if (sim1Exists) {
-                                int registeredCell = scanner.getRegisteredCell(1);
-                                long lastConnectedTime = scanner.getLastConnectedTime(1);
+                                int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(1);
+                                long lastConnectedTime = PPApplication.mobileCellsScanner.getLastConnectedTime(1);
                                 for (MobileCellsData cell : _cellsList) {
                                     if (cell.cellId == registeredCell) {
                                         cell.connected = true;
@@ -861,8 +861,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 }
                             }
                             if (sim2Exists) {
-                                int registeredCell = scanner.getRegisteredCell(2);
-                                long lastConnectedTime = scanner.getLastConnectedTime(2);
+                                int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(2);
+                                long lastConnectedTime = PPApplication.mobileCellsScanner.getLastConnectedTime(2);
                                 for (MobileCellsData cell : _cellsList) {
                                     if (cell.cellId == registeredCell) {
                                         cell.connected = true;
@@ -884,8 +884,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 }
                             }
                         } else {
-                            int registeredCell = scanner.getRegisteredCell(0);
-                            long lastConnectedTime = scanner.getLastConnectedTime(0);
+                            int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(0);
+                            long lastConnectedTime = PPApplication.mobileCellsScanner.getLastConnectedTime(0);
                             for (MobileCellsData cell : _cellsList) {
                                 if (cell.cellId == registeredCell) {
                                     cell.connected = true;

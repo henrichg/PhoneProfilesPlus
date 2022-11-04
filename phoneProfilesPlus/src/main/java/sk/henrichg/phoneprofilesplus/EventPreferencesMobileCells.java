@@ -461,9 +461,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                             eventsHandler.notAllowedMobileCell = true;
                     } else {
                         synchronized (PPApplication.mobileCellsScannerMutex) {
-                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
-
-                                MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
+                            if ((PhoneProfilesService.getInstance() != null) && (PPApplication.mobileCellsScanner != null)) {
 
                                 int simCount = 0;
 
@@ -478,7 +476,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                 boolean cellIsValid = false;
                                 if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                                     if ((_forSIMCard == 0) || (_forSIMCard == 1)) {
-                                        int registeredCell = scanner.getRegisteredCell(1);
+                                        int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(1);
                                         if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                             String sRegisteredCell = Integer.toString(registeredCell);
                                             String[] splits = _cells.split("\\|");
@@ -509,7 +507,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
                                     if (((_forSIMCard == 0) && ((!cellIsValid) || (!eventsHandler.mobileCellPassed))) ||
                                             (_forSIMCard == 2)) {
-                                        int registeredCell = scanner.getRegisteredCell(2);
+                                        int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(2);
                                         if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                             String sRegisteredCell = Integer.toString(registeredCell);
                                             String[] splits = _cells.split("\\|");
@@ -539,7 +537,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     }
                                 }
                                 else {
-                                    int registeredCell = scanner.getRegisteredCell(0);
+                                    int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(0);
                                     if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                         String sRegisteredCell = Integer.toString(registeredCell);
                                         String[] splits = _cells.split("\\|");

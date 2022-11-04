@@ -50,14 +50,11 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             PhoneProfilesService.getInstance().getGeofencesScanner().clearAllEventGeofences();
                         }*/
 
-                        LocationScanner scanner = null;
                         synchronized (PPApplication.locationScannerMutex) {
-                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted())
-                                scanner = PhoneProfilesService.getInstance().getLocationScanner();
-                        }
-                        if (scanner != null) {
-                            String provider = scanner.getProvider();
-                            scanner.updateTransitionsByLastKnownLocation(provider);
+                            if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+                                String provider = PPApplication.locationScanner.getProvider();
+                                PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
+                            }
                         }
 
                         GlobalUtils.sleep(10000);

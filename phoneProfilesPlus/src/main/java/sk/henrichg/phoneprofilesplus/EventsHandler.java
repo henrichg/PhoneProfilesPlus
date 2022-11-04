@@ -172,8 +172,8 @@ class EventsHandler {
 
             this.sensorType = sensorType;
 
-//            if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
-//                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+            if ((sensorType == SENSOR_TYPE_LOCATION_SCANNER))
+                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())

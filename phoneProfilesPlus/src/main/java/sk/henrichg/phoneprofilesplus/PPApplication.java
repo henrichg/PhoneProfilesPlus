@@ -241,8 +241,8 @@ public class PPApplication extends Application
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
-//                                                +"|[IN_EVENTS_HANDLER]"
-//                                                +"|[EVENTS_HANDLER_CALL]"
+                                                +"|[IN_EVENTS_HANDLER]"
+                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
 //                                                +"|[HANDLER]"
@@ -856,12 +856,12 @@ public class PPApplication extends Application
     @SuppressLint("StaticFieldLeak")
     static volatile LocationScanner locationScanner = null;
 
-    // this is OK, mobileCellsScanner will bet to null, when mobile cells scanner will be stopped
+    // this is OK, mobileCellsScanner will be set to null, when mobile cells scanner will be stopped
     @SuppressLint("StaticFieldLeak")
     static volatile MobileCellsScanner mobileCellsScanner = null;
 
 
-    // this is OK, twilightScanner will bet to null, when twilight scanner will be stopped
+    // this is OK, twilightScanner will be set to null, when twilight scanner will be stopped
     @SuppressLint("StaticFieldLeak")
     static volatile TwilightScanner twilightScanner = null;
 

@@ -2826,7 +2826,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.locationScannerMutex) {
             Context appContext = getApplicationContext();
             if (stop) {
-                if (isLocationScannerStarted()) {
+                if (PPApplication.locationScanner != null) {
                     stopLocationScanner();
                 }
             }
@@ -2847,7 +2847,7 @@ public class PhoneProfilesService extends Service
                             eventAllowed = false;
                     }
                     if (eventAllowed) {
-                        if (!isLocationScannerStarted()) {
+                        if (PPApplication.locationScanner == null) {
                             startLocationScanner(forScreenOn && PPApplication.isScreenOn &&
                                     applicationEventLocationScanOnlyWhenScreenIsOn);
                         }
@@ -2872,7 +2872,7 @@ public class PhoneProfilesService extends Service
                 if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
                     return;
                 if (stop) {
-                    if (isMobileCellsScannerStarted()) {
+                    if (PPApplication.mobileCellsScanner != null) {
                         stopMobileCellsScanner();
                     }
                 }
@@ -2900,7 +2900,7 @@ public class PhoneProfilesService extends Service
                         }
                         if (eventAllowed) {
 //                            Log.e("PhoneProfilesService.startMobileCellsScanner", "***************");
-                            if (!isMobileCellsScannerStarted()) {
+                            if (PPApplication.mobileCellsScanner == null) {
 //                                PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### ******* called startMobileCellsScanner()");
                                 startMobileCellsScanner();
                             } else {
@@ -2971,7 +2971,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.twilightScannerMutex) {
             //Context appContext = getApplicationContext();
             if (stop) {
-                if (isTwilightScannerStarted()) {
+                if (PPApplication.twilightScanner != null) {
                     stopTwilightScanner();
                 }
             }
@@ -2979,7 +2979,7 @@ public class PhoneProfilesService extends Service
                 dataWrapper.fillEventList();
                 boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_TIME_TWILIGHT/*, false*/);
                 if (eventsExists) {
-                    if (!isTwilightScannerStarted()) {
+                    if (PPApplication.twilightScanner == null) {
                         startTwilightScanner();
                     }
                 } else {
@@ -4884,13 +4884,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    /*
     boolean isLocationScannerStarted() {
         return (PPApplication.locationScanner != null);
     }
+    */
 
+    /*
     LocationScanner getLocationScanner() {
         return PPApplication.locationScanner;
     }
+    */
 
     //--------------------------------------------------------------------------
 
@@ -4918,14 +4922,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    /*
     boolean isMobileCellsScannerStarted() {
         return (PPApplication.mobileCellsScanner != null);
     }
+    */
 
-
+    /*
     MobileCellsScanner getMobileCellsScanner() {
         return PPApplication.mobileCellsScanner;
     }
+    */
 
     //--------------------------------------------------------------------------
 
@@ -5196,14 +5203,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    /*
     private boolean isTwilightScannerStarted() {
         return (PPApplication.twilightScanner != null);
     }
+    */
 
-
+    /*
     TwilightScanner getTwilightScanner() {
         return PPApplication.twilightScanner;
     }
+    */
 
     //---------------------------
 
