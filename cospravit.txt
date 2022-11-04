@@ -773,3 +773,14 @@ No skús teda. Len tam su dáke divné hodnoty. Zistí ake.
 
 ------------------------------
 
+Inac skus spravit ten put settings bez rootu.
+
+Extender by spustal malicku apk a bola by v targetSdk=22.
+Po jej spusteni, by Extender poslal do nej put settings a tato apk by ho vykonala.
+Tu len musim testovat, ci uz bezi a ak ano, tak az potom poslat broadcast.
+Ale to sledovanie robit co ja viem 5 sekund najviac. Nech to necaka donekonecna.
+
+Hm, lenze tu je problemm ako nastavit WRITE_SETTINGS jej. Asi spravit jej aktivitu,
+kde sa bude dat ten write_settings nastavovat.
+
+------------------------------
