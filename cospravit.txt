@@ -775,21 +775,20 @@ No skús teda. Len tam su dáke divné hodnoty. Zistí ake.
 
 Inac skus spravit ten put settings bez rootu.
 
-Extender by spustal malicku apk a bola by v targetSdk=22.
-Po jej spusteni, by Extender poslal do nej put settings a tato apk by ho vykonala.
+PPP by spustal malicku apk a bola by v targetSdk=22.
+Po jej spusteni, by PPP poslal do nej put settings a tato apk by ho vykonala.
 Tu len musim testovat, ci uz bezi a ak ano, tak az potom poslat broadcast.
 Ale to sledovanie robit co ja viem 5 sekund najviac. Nech to necaka donekonecna.
 
 Hm, lenze tu je problemm ako nastavit WRITE_SETTINGS jej.
 Asi takto:
+<Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+intent.setData(Uri.parse("package:" + "package name tej aplikacie na put settings"));>
 
-Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-intent.setData(Uri.parse("package:" + "package name tej aplikacie na put settings"));
-
-Toto bu krasne mohlo fungovat priamo z Extendera.
+Toto bu krasne mohlo fungovat priamo z PPP.
 Ta put settings aplikacia by bola s takou jednoduchou aktivitou, len by tam bol text, co to je.
 
-Jej instalacia: bola by z Extendera, z GitHub, vid ako sa instaluje Extender z GitHub.
-Priamy download lotest verzie.
+Jej instalacia: bola by z PPP, z GitHub, vid ako sa instaluje Extender z GitHub.
+Priamy download latest verzie.
 
 ------------------------------
