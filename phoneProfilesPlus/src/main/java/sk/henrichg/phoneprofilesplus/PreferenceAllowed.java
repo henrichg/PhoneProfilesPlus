@@ -1078,6 +1078,13 @@ class PreferenceAllowed {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (profile != null) {
+                if (profile.getVibrationIntensityRingingChange())
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+/*
             boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
             String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING;
@@ -1121,6 +1128,8 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
+
+ */
         } else {
             preferenceAllowed.copyFrom(_preferenceAllowed);
         }
@@ -1134,6 +1143,13 @@ class PreferenceAllowed {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (profile != null) {
+                if (profile.getVibrationIntensityNotificationsChange())
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
+/*
             boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
             String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS;
@@ -1177,6 +1193,7 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
+ */
         }
         else {
             preferenceAllowed.copyFrom(_preferenceAllowed);
@@ -1191,7 +1208,13 @@ class PreferenceAllowed {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (profile != null) {
+                if (profile.getVibrationIntensityTouchInteractionChange())
+                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
 
+/*
             boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
             String preferenceKey = Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION;
@@ -1235,6 +1258,8 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
             }
+
+ */
         }
         else {
             preferenceAllowed.copyFrom(_preferenceAllowed);

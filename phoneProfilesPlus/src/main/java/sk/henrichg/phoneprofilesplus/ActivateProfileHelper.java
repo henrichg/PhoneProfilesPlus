@@ -1696,6 +1696,10 @@ class ActivateProfileHelper {
                 {
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             PPApplication.deviceIsOnePlus) {
+
+                        Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
+                        Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
+
 //                        try {
 //                            Settings.System.putInt(appContext.getContentResolver(), parameterName, value);
 //                            //Log.e("ActivateProfileHelper.setVibrationIntensity",
@@ -1716,53 +1720,60 @@ class ActivateProfileHelper {
 //                            PPApplication.recordException(e);
 //                        }
 
-                        synchronized (PPApplication.rootMutex) {
-                            String command1;
-                            Command command;
-                            command1 = "settings put system " + parameterName + " " + value;
-                            //command1 = "settings get system " + parameterName;// + " " + value;
-                            command = new Command(0, /*false,*/ command1);
-                            try {
-                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
-                            } catch (Exception e) {
-                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
-                            }
-                        }
+                        putSettingsParameter(context, "system", parameterName, String.valueOf(value));
+
+//                        synchronized (PPApplication.rootMutex) {
+//                            String command1;
+//                            Command command;
+//                            command1 = "settings put system " + parameterName + " " + value;
+//                            //command1 = "settings get system " + parameterName;// + " " + value;
+//                            command = new Command(0, /*false,*/ command1);
+//                            try {
+//                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+//                                RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
+//                            } catch (Exception e) {
+//                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+//                                //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+//                                //PPApplication.recordException(e);
+//                            }
+//                        }
 
                     } else {
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1;
-                                Command command;
-                                if (PPApplication.deviceIsPixel) {
-                                    if (value > 0) {
-                                        command1 = "settings put system " + "vibrate_on" + " 1";
-                                        String command2 = "settings put system " + parameterName + " " + value;
-                                        command = new Command(0, /*false,*/ command1, command2);
-                                    } else {
-                                        command1 = "settings put system " + parameterName + " " + value;
-                                        command = new Command(0, /*false,*/ command1);
-                                    }
-                                } else {
-                                    command1 = "settings put system " + parameterName + " " + value;
-                                    //if (PPApplication.isSELinuxEnforcing())
-                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                    command = new Command(0, /*false,*/ command1);
-                                }
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
-                                }
-                            }
-                        }
+
+                        Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
+
+                        putSettingsParameter(context, "system", parameterName, String.valueOf(value));
+
+//                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+//                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+//                            synchronized (PPApplication.rootMutex) {
+//                                String command1;
+//                                Command command;
+//                                if (PPApplication.deviceIsPixel) {
+//                                    if (value > 0) {
+//                                        command1 = "settings put system " + "vibrate_on" + " 1";
+//                                        String command2 = "settings put system " + parameterName + " " + value;
+//                                        command = new Command(0, /*false,*/ command1, command2);
+//                                    } else {
+//                                        command1 = "settings put system " + parameterName + " " + value;
+//                                        command = new Command(0, /*false,*/ command1);
+//                                    }
+//                                } else {
+//                                    command1 = "settings put system " + parameterName + " " + value;
+//                                    //if (PPApplication.isSELinuxEnforcing())
+//                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+//                                    command = new Command(0, /*false,*/ command1);
+//                                }
+//                                try {
+//                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+//                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
+//                                } catch (Exception e) {
+//                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+//                                    //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+//                                    //PPApplication.recordException(e);
+//                                }
+//                            }
+//                        }
                     }
                 }
             }
@@ -1800,6 +1811,7 @@ class ActivateProfileHelper {
                         lValueRinging,
                         executedProfileSharedPreferences
                 );
+                //GlobalUtils.sleep(5000);
             }
             if (profile.getVibrationIntensityNotificationsChange()) {
                 lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
@@ -1809,6 +1821,7 @@ class ActivateProfileHelper {
                         lValueNotificaitons,
                         executedProfileSharedPreferences
                 );
+                //GlobalUtils.sleep(5000);
             }
             if (profile.getVibrationIntensityTouchInteractionChange()) {
                 lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
@@ -1818,12 +1831,14 @@ class ActivateProfileHelper {
                         lValueTouchIntensity,
                         executedProfileSharedPreferences
                 );
+                //GlobalUtils.sleep(5000);
             }
         } else if (PPApplication.deviceIsOnePlus) {
 
         } else {
             if (profile.getVibrationIntensityRingingChange()) {
                 lValueRinging = profile.getVibrationIntensityRingingValue();
+                Log.e("ActivateProfileHelper.setVibrationIntensity", "lValueRinging="+lValueRinging);
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
                         "ring_vibration_intensity",
@@ -7469,6 +7484,24 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.keepScreenOnPermanent = keepOnPermanent;
         }
+    }
+
+    static void putSettingsParameter(Context context,
+                                     String settingsType,
+                                     String parameterName,
+                                     String parameterValue) {
+        try {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
+            intent.putExtra("extra_put_setting_parameter_type", settingsType);
+            intent.putExtra("extra_put_setting_parameter_name", parameterName);
+            intent.putExtra("extra_put_setting_parameter_value", parameterValue);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+        }
+        GlobalUtils.sleep(500);
     }
 
     static void showError(Context context, String profileName, int parameterType) {
