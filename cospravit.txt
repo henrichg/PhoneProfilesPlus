@@ -776,14 +776,18 @@ No skús teda. Len tam su dáke divné hodnoty. Zistí ake.
 Inac skus spravit ten put settings bez rootu.
 
 PPP by spustal malicku apk a bola by v targetSdk=22.
-Po jej spusteni, by PPP poslal do nej put settings a tato apk by ho vykonala.
+Uz ju mam, vola sa PPPPutSettings.
+Po jej spusteni, by PPP poslal do nej put settings a PPPPutSettings by ho vykonala.
 Tu len musim testovat, ci uz bezi a ak ano, tak az potom poslat broadcast.
 Ale to sledovanie robit co ja viem 5 sekund najviac. Nech to necaka donekonecna.
 
 Hm, lenze tu je problemm ako nastavit WRITE_SETTINGS jej.
 Asi takto:
 <Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-intent.setData(Uri.parse("package:" + "package name tej aplikacie na put settings"));>
+intent.setData(Uri.parse("package:" + "sk.henrichg.pppputsettings"));>
+
+Daj toto aj do PPPPutSettings, len je problem, ze nie je mozne testovat, ci to ma nastavene. Tak to sprav ako v Extenderi
+Pre Xiaomi ten popup button.
 
 Toto bu krasne mohlo fungovat priamo z PPP.
 Ta put settings aplikacia by bola s takou jednoduchou aktivitou, len by tam bol text, co to je.
