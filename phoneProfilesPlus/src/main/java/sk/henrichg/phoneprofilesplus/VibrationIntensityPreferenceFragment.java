@@ -45,7 +45,7 @@ public class VibrationIntensityPreferenceFragment extends PreferenceDialogFragme
         valueText = view.findViewById(R.id.volumePrefDialogValueText);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);
-        seekBar.setMax(preference.maximumValue/* - preference.minimumValue*/);
+        seekBar.setMax(preference.maximumValue);
         seekBar.setProgress(preference.value);
 
         valueText.setText(String.valueOf(preference.value/* + preference.minimumValue*/));

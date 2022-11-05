@@ -1792,7 +1792,6 @@ class ActivateProfileHelper {
                         lValueRinging,
                         executedProfileSharedPreferences
                 );
-                //GlobalUtils.sleep(5000);
             }
             if (profile.getVibrationIntensityNotificationsChange()) {
                 lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
@@ -1802,7 +1801,6 @@ class ActivateProfileHelper {
                         lValueNotificaitons,
                         executedProfileSharedPreferences
                 );
-                //GlobalUtils.sleep(5000);
             }
             if (profile.getVibrationIntensityTouchInteractionChange()) {
                 lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
@@ -1812,13 +1810,36 @@ class ActivateProfileHelper {
                         lValueTouchIntensity,
                         executedProfileSharedPreferences
                 );
-                //GlobalUtils.sleep(5000);
             }
         } else if (PPApplication.deviceIsOnePlus) {
-
+            if (profile.getVibrationIntensityRingingChange()) {
+                lValueRinging = profile.getVibrationIntensityRingingValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
+                        "ring_stepless_vibration_intensity",
+                        lValueRinging + VibrationIntensityPreference.getMinValue("RINGING"),
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityNotificationsChange()) {
+                lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
+                        "notification_stepless_vibration_intensity",
+                        lValueNotificaitons + VibrationIntensityPreference.getMinValue("NOTIFICATIONS"),
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityTouchInteractionChange()) {
+                lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                        "touch_stepless_vibration_intensity",
+                        lValueTouchIntensity + VibrationIntensityPreference.getMinValue("TOUCHINTERACTION"),
+                        executedProfileSharedPreferences
+                );
+            }
         } else {
-            // for Pixe 6, not working these parameters, Hm.
-
             lValueRinging = 0;
             lValueNotificaitons = 0;
             lValueTouchIntensity = 0;
