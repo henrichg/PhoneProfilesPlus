@@ -793,3 +793,23 @@ Vsetky parametre, ktore teraz pytaju root, ale sa daju cez PPPPutSettings nastav
 A aj o tom type napis v "Type of preferences" a "Important info".
 
 ------------------------------
+
+Co pyta ROOT:
+    <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
+    <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
+    <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
+    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+
+    preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+    vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
+    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
+    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
+    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+
