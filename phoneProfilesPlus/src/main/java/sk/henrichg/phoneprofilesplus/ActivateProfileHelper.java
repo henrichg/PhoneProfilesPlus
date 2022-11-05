@@ -1694,11 +1694,11 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 {
+                    Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
+                    Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
+
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             PPApplication.deviceIsOnePlus) {
-
-                        Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
-                        Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
 
 //                        try {
 //                            Settings.System.putInt(appContext.getContentResolver(), parameterName, value);
@@ -1739,8 +1739,6 @@ class ActivateProfileHelper {
 //                        }
 
                     } else {
-
-                        Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
 
                         putSettingsParameter(context, "system", parameterName, String.valueOf(value));
 
@@ -1786,23 +1784,6 @@ class ActivateProfileHelper {
         int lValueTouchIntensity;
 
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-//            try {
-//                final String[] columns = {"_id", "name", "value"};
-//                ContentResolver contentResolver = context.getContentResolver();
-//                Cursor query = contentResolver.query(Uri.parse("content://settings/" + "system"),
-//                        columns, null, null, null);
-//                SettingsCursor cursor = new SettingsCursor(query);
-//                cursor.moveToFirst();
-//                while (cursor.moveToNext()) {
-//                    String _id = cursor.getString(0);
-//                    String name = cursor.getString(1);
-//                    String value = cursor.getString(2);
-//                    Log.e("ActivateProfileHelper.setVibrationIntensity", _id + ", " + name + ", " + value);
-//                }
-//            } catch (Exception e) {
-//                Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
-//            }
-
             if (profile.getVibrationIntensityRingingChange()) {
                 lValueRinging = profile.getVibrationIntensityRingingValue();
                 _setVibrationIntensity(context,
@@ -1836,6 +1817,21 @@ class ActivateProfileHelper {
         } else if (PPApplication.deviceIsOnePlus) {
 
         } else {
+            // for Pixe 6, not working these parameters, Hm.
+
+            lValueRinging = 0;
+            lValueNotificaitons = 0;
+            lValueTouchIntensity = 0;
+            if (profile.getVibrationIntensityRingingChange())
+                lValueRinging = profile.getVibrationIntensityRingingValue();
+            if (profile.getVibrationIntensityNotificationsChange())
+                lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
+            if (profile.getVibrationIntensityTouchInteractionChange())
+                lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
+
+            if ((lValueRinging > 0) || (lValueNotificaitons > 0) || (lValueTouchIntensity > 0))
+                putSettingsParameter(context, "system", "vibrate_on", "1");
+
             if (profile.getVibrationIntensityRingingChange()) {
                 lValueRinging = profile.getVibrationIntensityRingingValue();
                 Log.e("ActivateProfileHelper.setVibrationIntensity", "lValueRinging="+lValueRinging);

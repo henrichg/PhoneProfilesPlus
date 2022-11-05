@@ -251,9 +251,9 @@ public class VibrationIntensityPreference extends DialogPreference {
             else if (PPApplication.deviceIsOnePlus)
                 maxValue = 5;
             else
-                maxValue = 5;
+                maxValue = 3;
         } else
-            maxValue = 5;
+            maxValue = 3;
 
         return maxValue;
     }
