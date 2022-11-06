@@ -18,6 +18,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -1700,78 +1702,59 @@ class ActivateProfileHelper {
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             PPApplication.deviceIsOnePlus) {
 
-//                        try {
-//                            Settings.System.putInt(appContext.getContentResolver(), parameterName, value);
-//                            //Log.e("ActivateProfileHelper.setVibrationIntensity",
-//                            //        String.valueOf(Settings.System.getInt(appContext.getContentResolver(), parameterName)));
-//                        } catch (Exception e) {
-//                            Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
-//                        }
-
-//                        ContentResolver contentResolver = context.getContentResolver();
-//                        try {
-//                            ContentValues contentValues = new ContentValues(2);
-//                            contentValues.put("name", parameterName);
-//                            contentValues.put("value", value);
-//                            // settingsType : "system", "secure", "global"
-//                            contentResolver.insert(Uri.parse("content://settings/" + "system"), contentValues);
-//                        } catch (Exception e) {
-//                            //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
-//                            PPApplication.recordException(e);
-//                        }
-
-                        putSettingsParameter(context, "system", parameterName, String.valueOf(value));
-
-//                        synchronized (PPApplication.rootMutex) {
-//                            String command1;
-//                            Command command;
-//                            command1 = "settings put system " + parameterName + " " + value;
-//                            //command1 = "settings get system " + parameterName;// + " " + value;
-//                            command = new Command(0, /*false,*/ command1);
-//                            try {
-//                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-//                                RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
-//                            } catch (Exception e) {
-//                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-//                                //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
-//                                //PPApplication.recordException(e);
-//                            }
-//                        }
-
+                        if (isPPPPutSSettingsInstalled(appContext))
+                            putSettingsParameter(context, "system", parameterName, String.valueOf(value));
+                        else {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                Command command;
+                                command1 = "settings put system " + parameterName + " " + value;
+                                command = new Command(0, /*false,*/ command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                    //PPApplication.recordException(e);
+                                }
+                            }
+                        }
                     } else {
-
-                        putSettingsParameter(context, "system", parameterName, String.valueOf(value));
-
-//                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-//                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-//                            synchronized (PPApplication.rootMutex) {
-//                                String command1;
-//                                Command command;
-//                                if (PPApplication.deviceIsPixel) {
-//                                    if (value > 0) {
-//                                        command1 = "settings put system " + "vibrate_on" + " 1";
-//                                        String command2 = "settings put system " + parameterName + " " + value;
-//                                        command = new Command(0, /*false,*/ command1, command2);
-//                                    } else {
-//                                        command1 = "settings put system " + parameterName + " " + value;
-//                                        command = new Command(0, /*false,*/ command1);
-//                                    }
-//                                } else {
-//                                    command1 = "settings put system " + parameterName + " " + value;
-//                                    //if (PPApplication.isSELinuxEnforcing())
-//                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-//                                    command = new Command(0, /*false,*/ command1);
-//                                }
-//                                try {
-//                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-//                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
-//                                } catch (Exception e) {
-//                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-//                                    //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
-//                                    //PPApplication.recordException(e);
-//                                }
-//                            }
-//                        }
+                        if (isPPPPutSSettingsInstalled(appContext))
+                            putSettingsParameter(context, "system", parameterName, String.valueOf(value));
+                        else {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1;
+                                    Command command;
+                                    if (PPApplication.deviceIsPixel) {
+                                        if (value > 0) {
+                                            command1 = "settings put system " + "vibrate_on" + " 1";
+                                            String command2 = "settings put system " + parameterName + " " + value;
+                                            command = new Command(0, /*false,*/ command1, command2);
+                                        } else {
+                                            command1 = "settings put system " + parameterName + " " + value;
+                                            command = new Command(0, /*false,*/ command1);
+                                        }
+                                    } else {
+                                        command1 = "settings put system " + parameterName + " " + value;
+                                        //if (PPApplication.isSELinuxEnforcing())
+                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        command = new Command(0, /*false,*/ command1);
+                                    }
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -7500,6 +7483,32 @@ class ActivateProfileHelper {
             editor.putBoolean(PREF_KEEP_SCREEN_ON_PERMANENT, keepOnPermanent);
             editor.apply();
             ApplicationPreferences.keepScreenOnPermanent = keepOnPermanent;
+        }
+    }
+
+    static boolean isPPPPutSSettingsInstalled(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
+            boolean installed = appInfo.enabled;
+            if (installed) {
+                //PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                //noinspection UnnecessaryLocalVariable
+                //int version = PPApplication.getVersionCode(pInfo);
+                //return version;
+                return true;
+            }
+            else {
+                //return 0;
+                return false;
+            }
+        }
+        catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
+            //return 0;
+            return false;
         }
     }
 
