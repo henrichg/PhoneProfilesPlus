@@ -407,6 +407,7 @@ class ProfilePreferencesIndicator {
                             else {
                                 disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
+// todo
                                 if (addVibrateIndicator) {
                                     disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
@@ -646,7 +647,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeAll);
                         if (fillStrings)
-                            strings[countDrawables++] = "vola";
+                            strings[countDrawables++] = "volu";
                         else {
                             disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
@@ -2178,7 +2179,25 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-
+            // vibration intensity
+            if (profile.getVibrationIntensityRingingChange() ||
+                    profile.getVibrationIntensityNotificationsChange() ||
+                    profile.getVibrationIntensityTouchInteractionChange()) {
+                if ((ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationIntensityAll);
+                    if (fillStrings)
+                        strings[countDrawables++] = "vibi";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_intensity;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
         }
         else
             countDrawables = -1;

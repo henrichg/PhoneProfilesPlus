@@ -781,16 +781,21 @@ Uz ju mam, vola sa PPPPutSettings.
 Pouizva sa tak, ze sa zavola konkretna aktivita: PutSettingsParameterActivity,
 vid: ActivateProfileHelper.putSettingsParameter().
 
-A funguje, zatial testovane na S10, S21.
+A funguje.
 
 Jej instalacia: bola by z PPP, z GitHub, vid ako sa instaluje Extender z GitHub.
 Priamy download latest verzie.
 
-Jedna vec. Ak nema PPPPutSettings nainstalovane a nema root, zobraz notifikaciu, ktora povie, ze ma nainstalovat
-PPPPutSettings. Este porozmyslam, ako to spravit.
+Vsetky root parametre necham aj s podporou root. Cize vlastne bude (R)(S).
+To preto, aby na rootnutych nemusel PPPPutSettings instalovat. Sprav t aj u Vibration intensity,
+podporu rootu.
+
+Ak nema PPPPutSettings nainstalovany a nema root, zobraz notifikaciu, ktora povie, ze ho ma nainstalovat.
+Klik na notifikaciu nech hned stiahne apk.
 
 Vsetky parametre, ktore teraz pytaju root, ale sa daju cez PPPPutSettings nastavovat, oznac ako (S).
 A aj o tom type napis v "Type of preferences" a "Important info".
+A pridaj aj texty s odkazmi o tomto do "About application".
 
 ------------------------------
 

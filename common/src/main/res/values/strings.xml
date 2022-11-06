@@ -2032,6 +2032,7 @@
     <string name="profile_preferences_vibrationIntensityRinging">Incomming call</string>
     <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
     <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
+    <string name="profile_preferences_vibrationIntensityAll">Vibration intensity</string>
 
     <!-- **************************************************************************************** -->
 
