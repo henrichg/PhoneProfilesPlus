@@ -790,14 +790,18 @@ Vsetky root parametre necham aj s podporou root. Cize vlastne bude (R)(S).
 To preto, aby na rootnutych nemusel PPPPutSettings instalovat. Sprav t aj u Vibration intensity,
 podporu rootu.
 
+Vsetky parametre, ktore teraz pytaju root, ale sa daju cez PPPPutSettings nastavovat, oznac ako (S).
+A aj o tom type napis v "Type of preferences" a "Important info".
+A pridaj aj texty s odkazmi o tomto do "About application".
+
+"Type of preferences" a "Important info": tam to uz mam, len asi by sa patrilo napisat tam, ze aplikacia je
+vytvorena pre Android 5.1 a preto nie je podporovana PlayProtect. Ale je bezpecna, je vyzadovane povolenie
+ktore povoluje len PPP.
+
 Ci ma PPPPS nainstalovany:
 Dáš to ako ďalší typ chyby, ako pri root, g1. Necháš to meniť, ale dáš červené. A nový typ chyby hore
 v preference aktivite. Klik na ňu zobrazí dialóg s textom, o čom chyba je a s inštaláciou PPPPS.
 Čiže žiadna zvláštna notifikácia. Proste štandardná chyba nového typu.
-
-Vsetky parametre, ktore teraz pytaju root, ale sa daju cez PPPPutSettings nastavovat, oznac ako (S).
-A aj o tom type napis v "Type of preferences" a "Important info".
-A pridaj aj texty s odkazmi o tomto do "About application".
 
 ------------------------------
 

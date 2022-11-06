@@ -8,6 +8,7 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -39,92 +40,117 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         final TextView infoTextView = view.findViewById(R.id.info_pref_dialog_info_text);
 
         String _infoText = preference.infoText;
+        String[] tagType = new String[2];
+        String[] importantInfoTagDataString = new String[2];
+        int[] importantInfoTagBeginIndex = new int[2];
+        int[] importantInfoTagEndIndex = new int[2];
 
-        int tagIndex = 0;
+        for (int tagIndex = 0; tagIndex < 2; tagIndex++) {
+//            Log.e("InfoDialogPreferenceFragment", "(1) _infoText="+_infoText);
 
-        String beginTag = "<II"+tagIndex+" [";
+            String beginTag = "<II" + tagIndex + " [";
+//            Log.e("InfoDialogPreferenceFragment", "(1) beginTag="+beginTag);
 
-        int importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
-        int importantInfoTagEndIndex = _infoText.indexOf("]>");
+            int _importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
+            int _importantInfoTagEndIndex = _infoText.indexOf("]>");
+//            Log.e("InfoDialogPreferenceFragment", "(1) importantInfoTagBeginIndex="+importantInfoTagBeginIndex);
+//            Log.e("InfoDialogPreferenceFragment", "(1) importantInfoTagEndIndex="+importantInfoTagEndIndex);
 
-        if ((importantInfoTagBeginIndex != -1) && (importantInfoTagEndIndex != -1)) {
-            String importantInfoTagDataString = _infoText.substring(importantInfoTagBeginIndex + beginTag.length(), importantInfoTagEndIndex);
+            if ((_importantInfoTagBeginIndex != -1) && (_importantInfoTagEndIndex != -1)) {
+                String _importantInfoTagDataString = _infoText.substring(_importantInfoTagBeginIndex + beginTag.length(), _importantInfoTagEndIndex);
+//                Log.e("InfoDialogPreferenceFragment", "importantInfoTagDataString="+importantInfoTagDataString);
 
-            beginTag = "<II" + tagIndex + " [" + importantInfoTagDataString + "]>";
-            String endTag = "<II" + tagIndex + "/>";
+                beginTag = "<II" + tagIndex + " [" + _importantInfoTagDataString + "]>";
+                String endTag = "<II" + tagIndex + "/>";
+//                Log.e("InfoDialogPreferenceFragment", "(2) beginTag="+beginTag);
+//                Log.e("InfoDialogPreferenceFragment", "(2) endTag="+endTag);
 
-            importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
-            importantInfoTagEndIndex = _infoText.indexOf(endTag);
+                _importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
+                _importantInfoTagEndIndex = _infoText.indexOf(endTag);
+//                Log.e("InfoDialogPreferenceFragment", "(2) importantInfoTagBeginIndex="+importantInfoTagBeginIndex);
+//                Log.e("InfoDialogPreferenceFragment", "(2) importantInfoTagEndIndex="+importantInfoTagEndIndex);
 
-            if ((importantInfoTagBeginIndex != -1) && (importantInfoTagEndIndex != -1)) {
+                if ((_importantInfoTagBeginIndex != -1) && (_importantInfoTagEndIndex != -1)) {
+                    _infoText = _infoText.replace(beginTag, "");
+                    _infoText = _infoText.replace(endTag, "");
 
-                _infoText = _infoText.replace(beginTag, "");
-                _infoText = _infoText.replace(endTag, "");
+//                    Log.e("InfoDialogPreferenceFragment", "(2) _infoText="+_infoText);
 
-                final String _tagType = beginTag.substring(1, 3);
-                final String _importantInfoTagDataString = importantInfoTagDataString;
+                    tagType[tagIndex] = beginTag.substring(1, 3);
+                    importantInfoTagDataString[tagIndex] = _importantInfoTagDataString;
+                    importantInfoTagBeginIndex[tagIndex] = _importantInfoTagBeginIndex;
+                    importantInfoTagEndIndex[tagIndex] = _importantInfoTagEndIndex -  beginTag.length();
+                }
+            } else {
+                if (preference.isHtml) {
+                    infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true, false, 0, 0));
+                    infoTextView.setClickable(true);
+                    infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+                } else
+                    infoTextView.setText(preference.infoText);
 
-                Spannable sbt = new SpannableString(_infoText);
-                /*sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
-                        importantInfoTagBeginIndex, importantInfoTagEndIndex-beginTag.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-                /*sbt.setSpan(new RelativeSizeSpan(1.05f),
-                        importantInfoTagBeginIndex, importantInfoTagEndIndex-beginTag.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
-                ClickableSpan clickableSpan = new ClickableSpan() {
-                    @Override
-                    public void updateDrawState(TextPaint ds) {
-                        ds.setColor(ds.linkColor);    // you can use custom color
-                        ds.setUnderlineText(false);    // this remove the underline
-                    }
-
-                    @Override
-                    public void onClick(@NonNull View textView) {
-
-                        String[] splits = _importantInfoTagDataString.split(",");
-                        int page = Integer.parseInt(splits[0]);
-
-                        int fragment = Integer.parseInt(splits[1]);
-                        // 0 = System
-                        // 1 = Profiles
-                        // 2 = Events
-
-                        int resource = Integer.parseInt(splits[2]);
-
-                        if (_tagType.equals("II")) {
-                            Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);
-                            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, page == 1);
-                            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, fragment);
-                            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, resource);
-                            startActivity(intentLaunch);
-                        }
-
-                        if (getDialog() != null)
-                            getDialog().cancel();
-                    }
-                };
-                sbt.setSpan(clickableSpan,
-                        importantInfoTagBeginIndex, importantInfoTagEndIndex - beginTag.length(),
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                infoTextView.setText(sbt);
-                infoTextView.setClickable(true);
-                infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+                return;
             }
         }
-        else {
-            if (preference.isHtml) {
-                infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true, false, 0, 0));
-                infoTextView.setClickable(true);
-                infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
-            }
-            else
-                infoTextView.setText(preference.infoText);
+
+        Spannable sbt = new SpannableString(_infoText);
+        for (int tagIndex = 0; tagIndex < 2; tagIndex++) {
+            ClickableSpan clickableSpan = new InfoDialogClickableSpan(tagType[tagIndex], importantInfoTagDataString[tagIndex]);
+            sbt.setSpan(clickableSpan,
+                    importantInfoTagBeginIndex[tagIndex], importantInfoTagEndIndex[tagIndex],
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
+
+        infoTextView.setText(sbt);
+        infoTextView.setClickable(true);
+        infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
         preference.fragment = null;
     }
+
+    public class InfoDialogClickableSpan extends ClickableSpan {
+        String tagType;
+        String importantInfoTagDataString;
+
+        InfoDialogClickableSpan(String tagType, String importantInfoTagDataString) {
+            super();
+            this.tagType = tagType;
+            this.importantInfoTagDataString = importantInfoTagDataString;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            ds.setColor(ds.linkColor);    // you can use custom color
+            ds.setUnderlineText(false);    // this remove the underline
+        }
+
+        @Override
+        public void onClick(View widget) {
+
+            String[] splits = importantInfoTagDataString.split(",");
+            int page = Integer.parseInt(splits[0]);
+
+            int fragment = Integer.parseInt(splits[1]);
+            // 0 = System
+            // 1 = Profiles
+            // 2 = Events
+
+            int resource = Integer.parseInt(splits[2]);
+
+            if (tagType.equals("II")) {
+                Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);
+                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, page == 1);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, fragment);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, resource);
+                startActivity(intentLaunch);
+            }
+
+            if (getDialog() != null)
+                getDialog().cancel();
+        }
+    }
+
 }

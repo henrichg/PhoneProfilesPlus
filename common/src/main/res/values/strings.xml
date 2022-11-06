@@ -1827,7 +1827,7 @@
     <string name="preference_widget_information_icon">Information</string>
     <string name="preference_widget_information_clickable_icon">Information, clickable</string>
     <string name="preference_widget_clickabe_prefernce_icon">Clickable preference with sub preferences</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (I).</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
     <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
     <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
     <string name="profile_preferences_deviceAirplaneMode">Airplane mode</string>
@@ -2033,6 +2033,11 @@
     <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
     <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
     <string name="profile_preferences_vibrationIntensityAll">Vibration intensity</string>
+
+    <string name="important_info_profile_install_pppps">Some profile preferences require helper application PPPPutSettings to put settings parameters to system database. ROOT is not required. These preferences are marked with \"(S)\".</string>
+    <string name="important_info_profile_pppps_howTo_1">Profile parameters marked with (S) need helper application PPPPutSettings.</string>
+    <string name="important_info_profile_pppps_howTo_2">This application is in GitHub Releases. Download and install it:</string>
+    <string name="important_info_profile_pppps_howTo_4">After successful installation, all profile parameters marked with (S) will be enabled.</string>
 
     <!-- **************************************************************************************** -->
 

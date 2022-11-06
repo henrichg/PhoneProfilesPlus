@@ -128,38 +128,40 @@
         android:textSize="@dimen/important_info_text_size"
         android:textStyle="bold"
         android:id="@+id/activity_info_notification_profile_preference_types0" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/important_info_profile_grant"
+        android:text="@string/important_info_profile_install_pppps"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_profile_preference_types" />
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="@string/important_info_profile_root"
-        android:textSize="@dimen/important_info_text_size"
-        android:id="@+id/activity_info_notification_profile_root" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="@string/important_info_profile_settings"
-        android:textSize="@dimen/important_info_text_size"
-        android:id="@+id/activity_info_notification_profile_settings" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="@string/important_info_profile_interactive"
-        android:textSize="@dimen/important_info_text_size"
-        android:id="@+id/activity_info_notification_profile_interactive" />-->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/important_info_profile_pppps_howTo_1"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_profile_pppps_howTo_1"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/important_info_profile_pppps_howTo_2"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_profile_pppps_howTo_2" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:text="@string/important_info_profile_pppps_howTo_4"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_profile_pppps_howTo_4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:paddingBottom="5dp"
         android:text="@string/important_info_profile_grant_1_howTo_1"
         android:textSize="@dimen/important_info_text_size"

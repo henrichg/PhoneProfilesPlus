@@ -652,11 +652,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         InfoDialogPreference infoDialogPreference = prefMng.findPreference("prf_pref_preferenceTypesInfo");
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
-                    "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
-                    "<II0 [0,1,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
-                        getString(R.string.profile_preferences_types_G1_show_info)+ " \u21D2"+
+                    "• " + getString(R.string.important_info_profile_install_pppps)+"\n\n"+
+                    // [0=tab of Important info, 1=fragment (0=System, 1=Profiles, 2=Events), TextView from Important info]
+                    "<II0 [0,1,"+R.id.activity_info_notification_profile_pppps_howTo_1+"]>"+
+                    getString(R.string.profile_preferences_types_G1_show_info)+ " \u21D2"+
                     "<II0/>"+
                     "\n\n"+
+
+                    "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
+                    // [0=tab of Important info, 1=fragment (0=System, 1=Profiles, 2=Events), TextView from Important info]
+                    "<II1 [0,1,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
+                    getString(R.string.profile_preferences_types_G1_show_info)+ " \u21D2"+
+                    "<II1/>"+
+                    "\n\n"+
+
                     "• " + getString(R.string.important_info_profile_root)+"\n\n"+
                     //"• " + getString(R.string.important_info_profile_settings)+"\n\n"+
                     "• " + getString(R.string.important_info_profile_interactive));

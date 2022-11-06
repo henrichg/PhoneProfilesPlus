@@ -426,12 +426,13 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
             String text = "<ul>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_install_pppps) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_grant) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_root) + "</li>" +
                     //"<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_interactive) +
                     "</ul>"
-            ;
+                    ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
         }
 
@@ -758,6 +759,44 @@ public class ImportantInfoHelpFragment extends Fragment {
                         context.getString(R.string.important_info_notification_settings_toast),
                         Toast.LENGTH_SHORT);
             });
+        }
+
+        TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
+        if (helpForPPPPSTextView != null) {
+            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) + ":";
+            String str2;
+            str2 = str1 + " " + PPApplication.GITHUB_PPPPS_DOWNLOAD_URL + " \u21D2";
+            Spannable spannable = new SpannableString(str2);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            spannable.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            helpForPPPPSTextView.setText(spannable);
+            helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                getString(R.string.important_info_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
+                true, activity);*/
         }
 
     }
