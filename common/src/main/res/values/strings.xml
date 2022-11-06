@@ -2042,9 +2042,6 @@
 
     <!-- **************************************************************************************** -->
 
-    <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_name" translatable="false">PhoneProfilesPlusExtender</string>
-
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Accessibility service for profile parameter \"Force stop applications\"</string>
@@ -2089,5 +2086,18 @@
     <string name="extender_enable_notificaitons_button">Enable</string>
     <string name="extender_menu_choose_language">Choose language</string>
     <string name="extender_menu_choose_language_system_language">[System]</string>
+
+    <string name="pppputsettings_permission">PPPPutSettings application permisison</string>
+    <string name="pppputsettings_application_releases">Releases:</string>
+    <string name="pppputsettings_about_application_version">Version:</string>
+    <string name="pppputsettings_notification_channel_grant_permission">Grant permission</string>
+    <string name="pppputsettings_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
+    <string name="pppputsettings_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PPPPutSettings. Without this enabled, notifications from PPPPutSettings will not be displayed.</string>
+    <string name="pppputsettings_web_browser_chooser">View web link using</string>
+    <string name="pppputsettings_enable_notificaitons_button">Enable</string>
+    <string name="pppputsettings_setting_screen_not_found_alert">Setting screen not found.</string>
+    <string name="pppputsettings_permissions_write_settings">Please enable \"Modify system settings\". Without this will not be working put of settings parameter to system database.</string>
+    <string name="pppputsettings_app_name_write_settings_button">Modify system settings</string>
+
 </resources>
 
