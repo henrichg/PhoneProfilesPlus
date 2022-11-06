@@ -817,10 +817,13 @@ Co pyta ROOT:
     - java command - cize len root
 
 
+!!! TIETO musis aj v Crowdin pre vsetky jazyky uoravit na "(S)(R)":
     <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
     - setNotificationLed
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     - setAlwaysOnDisplay
+
+
     preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
     - setVibrateWhenRinging
     - tu mam aj Settings.System.putInt() a len ak to spadne, tak root, ano ale ten Settings.System.putInt()
