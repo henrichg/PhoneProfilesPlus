@@ -795,8 +795,7 @@ A aj o tom type napis v "Type of preferences" a "Important info".
 A pridaj aj texty s odkazmi o tomto do "About application".
 
 "Type of preferences" a "Important info": tam to uz mam, len asi by sa patrilo napisat tam, ze aplikacia je
-vytvorena pre Android 5.1 a preto nie je podporovana PlayProtect. Ale je bezpecna, je vyzadovane povolenie
-ktore povoluje len PPP.
+vytvorena pre Android 5.1 a preto nie je podporovana PlayProtect. Ale je bezpecna, povoluje volat ju len z PPP.
 
 Ci ma PPPPS nainstalovany:
 Dáš to ako ďalší typ chyby, ako pri root, g1. Necháš to meniť, ale dáš červené. A nový typ chyby hore
