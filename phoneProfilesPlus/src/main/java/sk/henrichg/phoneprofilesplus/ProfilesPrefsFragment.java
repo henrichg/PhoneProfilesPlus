@@ -542,8 +542,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
-                preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
-                preference.setDialogTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+                preference.setTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+                preference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
@@ -552,8 +552,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         PPListPreference vibrateNotificationsPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
         if (vibrateNotificationsPreference != null)
         {
-            vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
-            vibrateNotificationsPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+            vibrateNotificationsPreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+            vibrateNotificationsPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateNotifications));
             String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
             setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
         }
@@ -563,22 +563,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             VibrationIntensityPreference vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING);
             if (vibrationIntensityPreference != null) {
-                vibrationIntensityPreference.setTitle("(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityRinging));
-                vibrationIntensityPreference.setDialogTitle("(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityRinging));
+                vibrationIntensityPreference.setTitle("(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityRinging));
+                vibrationIntensityPreference.setDialogTitle("(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityRinging));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "-1|1");
                 setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, value);
             }
             vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS);
             if (vibrationIntensityPreference != null) {
-                vibrationIntensityPreference.setTitle("(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
-                vibrationIntensityPreference.setDialogTitle("(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
+                vibrationIntensityPreference.setTitle("(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
+                vibrationIntensityPreference.setDialogTitle("(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityNotificatiions));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "-1|1");
                 setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, value);
             }
             vibrationIntensityPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION);
             if (vibrationIntensityPreference != null) {
-                vibrationIntensityPreference.setTitle("(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
-                vibrationIntensityPreference.setDialogTitle("(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
+                vibrationIntensityPreference.setTitle("(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
+                vibrationIntensityPreference.setDialogTitle("(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "-1|1");
                 setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, value);
             }
@@ -987,8 +987,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (listPreference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
 
-                            listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
-                            listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+                            listPreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+                            listPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, value);
 
@@ -1002,8 +1002,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (ringtonePreference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
 
-                            ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
-                            ringtonePreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
+                            ringtonePreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
+                            ringtonePreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, value);
 
@@ -1018,8 +1018,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (listPreference != null) {
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
 
-                            listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-                            listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                            listPreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                            listPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, value);
 
@@ -1033,8 +1033,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (ringtonePreference != null) {
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
 
-                            ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
-                            ringtonePreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+                            ringtonePreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+                            ringtonePreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, value);
 
@@ -1188,8 +1188,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         else {
             PPListPreference listPreference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
             if (listPreference != null) {
-                listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
-                listPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+                listPreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+                listPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
                 String value = preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, "");
                 setSummary(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, value);
             }
@@ -1824,11 +1824,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     if (!((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                                             PPApplication.deviceIsOnePlus)) {
                                         if (key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING))
-                                            title = "(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityRinging);
+                                            title = "(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityRinging);
                                         else if (key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS))
-                                            title = "(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityNotificatiions);
+                                            title = "(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityNotificatiions);
                                         else/* if (key.equals(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION))*/
-                                            title = "(R)(S) " + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction);
+                                            title = "(S)(R) " + getString(R.string.profile_preferences_vibrationIntensityTouchInteraction);
                                     } else
                                         title = getString(preferenceTitleId);
                                 }
@@ -1837,9 +1837,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 if (!value.equals(defaultValueS)) {
                                     if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
                                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                                        title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
+                                        title = "(S)(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
                                     else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
-                                        title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);
+                                        title = "(S)(R) " + getString(R.string.profile_preferences_vibrateNotifications);
                                     else if (key.equals(Profile.PREF_PROFILE_DURATION))
                                         title = context.getString(R.string.profile_preferences_duration);
                                     else

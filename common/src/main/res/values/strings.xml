@@ -498,7 +498,7 @@
     <string name="array_pref_color_white">White</string>
     <string name="array_pref_color_black">Black</string>
     <string name="profile_preferences_notificationLed">Notification LED</string>
-    <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
+    <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
     <string name="profile_preferences_notificationLedInfo_summary">Experimental. It may not work on your device.</string>
     <string name="event_type_orientation">Orientation</string>
     <string name="event_preferences_category_eventOrientationParameters">Orientation sensor</string>
@@ -1196,7 +1196,7 @@
     <string name="array_show_profile_in_activator_show">Show</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
-    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
+    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">for enable/disable Always-On display</string>
     <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
     <string name="array_ignore_manual_activation_ignore">Ignore</string>
