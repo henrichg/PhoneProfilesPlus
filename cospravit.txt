@@ -818,14 +818,23 @@ Co pyta ROOT:
 
 
     <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
+    - setNotificationLed
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
+    - setAlwaysOnDisplay
     preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+    - setVibrateWhenRinging
     - tu mam aj Settings.System.putInt() a len ak to spadne, tak root, ano ale ten Settings.System.putInt()
       podla mna aj tak spadne. Vyskusaj.
     vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+    - setVibrateNotification
     listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+    - setTones
     ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
+    - setTones
     listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+    - setTones
     ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+    - setTones
     listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+    - setTones
 
