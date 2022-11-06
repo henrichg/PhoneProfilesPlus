@@ -95,10 +95,12 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         Spannable sbt = new SpannableString(_infoText);
         for (int tagIndex = 0; tagIndex < 2; tagIndex++) {
-            ClickableSpan clickableSpan = new InfoDialogClickableSpan(tagType[tagIndex], importantInfoTagDataString[tagIndex]);
-            sbt.setSpan(clickableSpan,
-                    importantInfoTagBeginIndex[tagIndex], importantInfoTagEndIndex[tagIndex],
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (tagType[tagIndex] != null) {
+                ClickableSpan clickableSpan = new InfoDialogClickableSpan(tagType[tagIndex], importantInfoTagDataString[tagIndex]);
+                sbt.setSpan(clickableSpan,
+                        importantInfoTagBeginIndex[tagIndex], importantInfoTagEndIndex[tagIndex],
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
         }
 
         infoTextView.setText(sbt);
@@ -111,7 +113,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         preference.fragment = null;
     }
 
-    public class InfoDialogClickableSpan extends ClickableSpan {
+    private class InfoDialogClickableSpan extends ClickableSpan {
         String tagType;
         String importantInfoTagDataString;
 
