@@ -713,10 +713,10 @@ zvonenia a feedback
 
 ------------------------------
 
-Ci ma PPPPS nainstalovany:
-Dáš to ako ďalší typ chyby, ako pri root, g1. Necháš to meniť, ale dáš červené. A nový typ chyby hore
-v preference aktivite. Klik na ňu zobrazí dialóg s textom, o čom chyba je a s inštaláciou PPPPS.
-Čiže žiadna zvláštna notifikácia. Proste štandardná chyba nového typu.
+PPPPutSettings:
+
+vsetko je hotove, vypada to tak.
+Uz len retazce vyries.
 
 ----
 
