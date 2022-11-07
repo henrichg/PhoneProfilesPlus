@@ -15,10 +15,9 @@ class MultiSelectListDialog
     final Activity activity;
 
     private final ListView listView;
-    private final DialogInterface.OnClickListener positiveButtonClick;
 
-    int itemsRes;
-    boolean[] itemValues;
+    final int itemsRes;
+    final boolean[] itemValues;
 
     MultiSelectListDialog(int _titleRes, int _itemsRes, boolean[] _itemValues,
                           DialogInterface.OnClickListener _positiveButtonClick,
@@ -27,7 +26,6 @@ class MultiSelectListDialog
         this.activity = _activity;
         this.itemsRes = _itemsRes;
         this.itemValues = _itemValues;
-        this.positiveButtonClick = _positiveButtonClick;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(activity.getString(_titleRes));
@@ -38,12 +36,7 @@ class MultiSelectListDialog
         View layout = inflater.inflate(R.layout.dialog_pp_list_preference, null);
         dialogBuilder.setView(layout);
 
-        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                positiveButtonClick.onClick(dialog, which);
-            }
-        });
+        dialogBuilder.setPositiveButton(android.R.string.ok, _positiveButtonClick);
 
         mDialog = dialogBuilder.create();
 

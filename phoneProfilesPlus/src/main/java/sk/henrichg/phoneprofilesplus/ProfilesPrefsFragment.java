@@ -1,11 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static sk.henrichg.phoneprofilesplus.ActivatorTargetHelpsActivity.activity;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -2499,8 +2496,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummaryVibrationIntensity(Context context,
-                                                   CattegorySummaryData cattegorySummaryData) {
+                                                         CattegorySummaryData cattegorySummaryData) {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

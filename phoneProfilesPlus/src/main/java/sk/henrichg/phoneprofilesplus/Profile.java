@@ -3244,7 +3244,7 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityRinging);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
     void setVibrationIntensityRingingValue(int value) {
         try {
             String[] splits = _vibrationIntensityRinging.split("\\|");
@@ -3268,7 +3268,7 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityNotifications);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
     void setVibrationIntensityNotificationsValue(int value) {
         try {
             String[] splits = _vibrationIntensityNotifications.split("\\|");
@@ -3292,7 +3292,7 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityTouchInteraction);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
+    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
     void setVibrationIntensityTouchInteractionValue(int value) {
         try {
             String[] splits = _vibrationIntensityTouchInteraction.split("\\|");

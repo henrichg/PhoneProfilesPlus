@@ -1029,7 +1029,8 @@ public class ImportantInfoHelpFragment extends Fragment {
             installExtenderFromGitHub(activity, finishActivity);
     }
 
-    static void installPPPPutSettings(Activity activity, boolean finishActivity) {
+    static void installPPPPutSettings(Activity activity,
+                                      @SuppressWarnings("SameParameterValue") boolean finishActivity) {
         if (activity == null) {
             return;
         }

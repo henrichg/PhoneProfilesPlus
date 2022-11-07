@@ -17,7 +17,7 @@ class SingleSelectListDialog
     private final ListView listView;
     final DialogInterface.OnClickListener itemClick;
 
-    int itemsRes;
+    final int itemsRes;
     int itemValue;
 
     SingleSelectListDialog(int _titleRes, int _itemsRes, int _itemValue,

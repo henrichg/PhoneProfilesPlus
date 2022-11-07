@@ -8,7 +8,6 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -114,8 +113,8 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     }
 
     private class InfoDialogClickableSpan extends ClickableSpan {
-        String tagType;
-        String importantInfoTagDataString;
+        final String tagType;
+        final String importantInfoTagDataString;
 
         InfoDialogClickableSpan(String tagType, String importantInfoTagDataString) {
             super();

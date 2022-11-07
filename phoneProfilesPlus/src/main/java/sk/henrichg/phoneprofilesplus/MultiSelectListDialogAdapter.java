@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 class MultiSelectListDialogAdapter extends BaseAdapter
 {
-    MultiSelectListDialog dialog;
+    final MultiSelectListDialog dialog;
 
-    CharSequence[] items;
+    final CharSequence[] items;
     private final LayoutInflater inflater;
 
     MultiSelectListDialogAdapter(int itemsRes, MultiSelectListDialog dialog)

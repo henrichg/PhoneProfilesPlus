@@ -19,8 +19,8 @@ public class VibrationIntensityPreference extends DialogPreference {
     final String vibrationIntensityType;
     int noChange;
 
-    int minimumValue;
-    int maximumValue;
+    //final int minimumValue;
+    final int maximumValue;
     final int stepSize = 1;
 
     private String sValue = "0|1";
@@ -45,7 +45,7 @@ public class VibrationIntensityPreference extends DialogPreference {
         typedArray.recycle();
 
         maximumValue = getMaxValue(vibrationIntensityType);
-        minimumValue = getMinValue(vibrationIntensityType);
+        //minimumValue = getMinValue(vibrationIntensityType);
     }
 
     @Override

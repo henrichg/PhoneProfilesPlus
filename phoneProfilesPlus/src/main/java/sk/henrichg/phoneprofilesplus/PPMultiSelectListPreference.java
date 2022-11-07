@@ -24,8 +24,8 @@ public class PPMultiSelectListPreference extends DialogPreference {
     private Set<String> defaultValue;
     private boolean savedInstanceState;
 
-    CharSequence[] entries;
-    CharSequence[] entryValues;
+    final CharSequence[] entries;
+    final CharSequence[] entryValues;
 
     public PPMultiSelectListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

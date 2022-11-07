@@ -10,7 +10,6 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 class PreferenceAllowed {
     int allowed;

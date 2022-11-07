@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 class SingleSelectListDialogAdapter extends BaseAdapter
 {
-    SingleSelectListDialog dialog;
+    final SingleSelectListDialog dialog;
 
-    CharSequence[] items;
+    final CharSequence[] items;
     private final LayoutInflater inflater;
 
     SingleSelectListDialogAdapter(int itemsRes, SingleSelectListDialog dialog)
