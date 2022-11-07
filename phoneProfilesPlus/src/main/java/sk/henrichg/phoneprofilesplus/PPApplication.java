@@ -172,6 +172,7 @@ public class PPApplication extends Application
     static final String DROIDIFY_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
     static final String DROIDIFY_APPLICATION_URL = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";
 
+    static final String GITHUB_PPPPS_RELEASES_URL = "https://github.com/henrichg/PPPPutSettings/releases";
     static final String GITHUB_PPPPS_DOWNLOAD_URL = "https://github.com/henrichg/PPPPutSettings/releases/latest/download/PPPPutSettings.apk";
 
     //static final boolean gitHubRelease = true;
@@ -267,6 +268,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
                                                 //+"|[PPP_NOTIFICATION]"
+                                                //+"|[DUAL_SIM]"
 
                                                 //+"|EventPreferencesOrientation"
                                                 //+"|LocationScanner.updateTransitionsByLastKnownLocation"

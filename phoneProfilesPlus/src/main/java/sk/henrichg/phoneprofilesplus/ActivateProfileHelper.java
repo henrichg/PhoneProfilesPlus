@@ -2549,6 +2549,7 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChangeSIM2 == 1) {
+//                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2");
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
@@ -2610,16 +2611,17 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
-//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
-
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
 
-                                        if (isPPPPutSSettingsInstalled(appContext)) {
-                                            putSettingsParameter(context, "system", "messageSub1", uri.toString());
-                                        } else {
+                                        // not working without root
+                                        //if (isPPPPutSSettingsInstalled(appContext)) {
+                                        //    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
+                                        //    putSettingsParameter(context, "system", "messageSub1", uri.toString());
+                                        //} else
+                                        {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                     (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                                 synchronized (PPApplication.rootMutex) {
@@ -2709,9 +2711,11 @@ class ActivateProfileHelper {
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
 
-                                    if (isPPPPutSSettingsInstalled(appContext)) {
-                                        putSettingsParameter(context, "system", "messageSub1", "");
-                                    } else {
+                                    // not working without root
+                                    //if (isPPPPutSSettingsInstalled(appContext)) {
+                                    //    putSettingsParameter(context, "system", "messageSub1", "");
+                                    //} else
+                                    {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                                 (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                             synchronized (PPApplication.rootMutex) {
@@ -7566,6 +7570,8 @@ class ActivateProfileHelper {
         } catch (Exception e) {
             Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
         }
+        // WARNING: do not remove this sleep !!!
+        // Is required to set time space between two calls of this method.
         GlobalUtils.sleep(500);
     }
 

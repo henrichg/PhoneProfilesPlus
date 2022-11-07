@@ -2199,7 +2199,8 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (ActivateProfileHelper.isPPPPutSSettingsInstalled(context)) {
+                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                            ActivateProfileHelper.isPPPPutSSettingsInstalled(context)) {
                             if (profile != null) {
                                 if ((profile._soundNotificationChangeSIM1 != 0) ||
                                         (profile._soundNotificationChangeSIM2 != 0))

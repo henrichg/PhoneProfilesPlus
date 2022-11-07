@@ -1027,8 +1027,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (listPreference != null) {
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
 
-                            listPreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-                            listPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                            if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
+                                listPreference.setTitle("(R) " + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setDialogTitle("(R) " + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                            } else {
+                                listPreference.setTitle("(S)(R) " + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                                listPreference.setDialogTitle("(S)(R) " + getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+                            }
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, value);
 
@@ -1042,8 +1047,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (ringtonePreference != null) {
                             PreferenceAllowed preferenceAllowedSIM2 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
 
-                            ringtonePreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
-                            ringtonePreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+                            if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
+                                ringtonePreference.setTitle("(R) " + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setDialogTitle("(R) " + getString(R.string.profile_preferences_soundNotificationSIM2));
+                            } else {
+                                ringtonePreference.setTitle("(S)(R) " + getString(R.string.profile_preferences_soundNotificationSIM2));
+                                ringtonePreference.setDialogTitle("(S)(R) " + getString(R.string.profile_preferences_soundNotificationSIM2));
+                            }
                             String value = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
                             setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, value);
 

@@ -763,10 +763,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
         if (helpForPPPPSTextView != null) {
-            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) + ":";
-            String str2;
-            str2 = str1 + " " + PPApplication.GITHUB_PPPPS_DOWNLOAD_URL + " \u21D2";
-            Spannable spannable = new SpannableString(str2);
+            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) +  " \u21D2";
+            Spannable spannable = new SpannableString(str1);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
@@ -777,17 +775,10 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
+                    installPPPPutSettings(activity, false);
                 }
             };
-            spannable.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             helpForPPPPSTextView.setText(spannable);
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -826,6 +817,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"\n";
         dialogText = dialogText + activity.getString(R.string.install_extender_text2) + "\n";
         dialogText = dialogText + activity.getString(R.string.install_extender_text3);
+
 
         text.setText(dialogText);
 
@@ -1035,6 +1027,102 @@ public class ImportantInfoHelpFragment extends Fragment {
         }*/
         else
             installExtenderFromGitHub(activity, finishActivity);
+    }
+
+    static void installPPPPutSettings(Activity activity, boolean finishActivity) {
+        if (activity == null) {
+            return;
+        }
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.dialog_install_pppps, null);
+        dialogBuilder.setView(layout);
+
+        TextView text = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text);
+
+        String dialogText = "";
+
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"\n";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "\n";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "\n\n";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
+        text.setText(dialogText);
+
+        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+            String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                if (finishActivity)
+                    activity.finish();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            if (finishActivity)
+                activity.finish();
+        });
+        dialogBuilder.setCancelable(false);
+        /*dialogBuilder.setOnCancelListener(dialog -> {
+            if (finishActivity)
+                activity.finish();
+        });*/
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+        text = layout.findViewById(R.id.install_pppps_from_github_dialog_github_releases);
+        CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + " \u21D2";
+        Spannable sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                String url = PPApplication.GITHUB_PPPPS_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    dialog.cancel();
+                    //if (activity != null)
+                    if (finishActivity)
+                        activity.finish();
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+        };
+        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        text.setText(sbt);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (/*(activity != null) &&*/ (!activity.isFinishing()))
+            dialog.show();
+
     }
 
 }
