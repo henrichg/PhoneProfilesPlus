@@ -922,6 +922,7 @@ public class ProfileStatic {
 
         preferenceAllowed.notAllowedRoot = false;
         preferenceAllowed.notAllowedG1 = false;
+        preferenceAllowed.notAllowedPPPPS = false;
 
         //noinspection IfStatementWithIdenticalBranches
         if (profile == null) {
@@ -1099,7 +1100,7 @@ public class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 
-            if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot)
+            if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot || preferenceAllowed.notAllowedPPPPS)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             return preferenceAllowed;

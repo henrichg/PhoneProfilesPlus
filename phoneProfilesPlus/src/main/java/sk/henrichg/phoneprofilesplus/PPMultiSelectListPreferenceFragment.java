@@ -67,7 +67,7 @@ public class PPMultiSelectListPreferenceFragment extends PreferenceDialogFragmen
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        Log.e("PPMultiSelectListPreferenceFragment.onDialogClosed", "positiveResult="+positiveResult);
+//        Log.e("PPMultiSelectListPreferenceFragment.onDialogClosed", "positiveResult="+positiveResult);
         if (positiveResult) {
             preference.persistValue();
         }

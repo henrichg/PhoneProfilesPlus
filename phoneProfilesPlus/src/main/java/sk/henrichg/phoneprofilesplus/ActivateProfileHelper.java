@@ -1718,8 +1718,8 @@ class ActivateProfileHelper {
             if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 {
-                    Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
-                    Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
+//                    Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
+//                    Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
 
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             PPApplication.deviceIsOnePlus) {
@@ -1860,7 +1860,7 @@ class ActivateProfileHelper {
 
             if (profile.getVibrationIntensityRingingChange()) {
                 lValueRinging = profile.getVibrationIntensityRingingValue();
-                Log.e("ActivateProfileHelper.setVibrationIntensity", "lValueRinging="+lValueRinging);
+//                Log.e("ActivateProfileHelper.setVibrationIntensity", "lValueRinging="+lValueRinging);
                 _setVibrationIntensity(context,
                         Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
                         "ring_vibration_intensity",
@@ -7532,7 +7532,7 @@ class ActivateProfileHelper {
     static boolean isPPPPutSSettingsInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, 0);
             boolean installed = appInfo.enabled;
             if (installed) {
                 //PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);

@@ -431,6 +431,7 @@ public class PPApplication extends Application
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
     static final String PACKAGE_NAME_PP = "sk.henrichg.phoneprofiles";
+    static final String PACKAGE_NAME_PPPPS = "sk.henrichg.pppputsettings";
 
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
     static final String LOG_FILENAME = "log.txt";
