@@ -228,10 +228,10 @@
     <string name="event_preferences_calendar_search_string">Hľadaný reťazec</string>
     <string name="event_preferences_calendar_no_event">Žiadna udalosť</string>
     <string name="array_event_pref_priorityLowest">[P:0] Najnižšia</string>
-    <string name="array_event_pref_priorityLower">[P:2] Nižšia</string>
+    <string name="array_event_pref_priorityLower">[P:2] Ešte nižšia</string>
     <string name="array_event_pref_priorityLowerMedium">[P:4] Stredne nízka</string>
     <string name="array_event_pref_priorityUpperMedium">[P:6] Stredne vysoká</string>
-    <string name="array_event_pref_priorityHigher">[P:8] Vyššia</string>
+    <string name="array_event_pref_priorityHigher">[P:8] Ešte vyššia</string>
     <string name="array_event_pref_priorityHighest">[P:10] Najvyššia</string>
     <string name="event_type_wifi">Wi-Fi</string>
     <string name="event_preferences_category_eventWifiParameters">Senzor Wi-Fi</string>
@@ -492,7 +492,6 @@
     <string name="array_pref_color_white">Biela</string>
     <string name="array_pref_color_black">Čierna</string>
     <string name="profile_preferences_notificationLed">Notifikačná dióda</string>
-    <string name="profile_preferences_notificationLed_23">(R) Notifikačná dióda</string>
     <string name="profile_preferences_notificationLedInfo_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
     <string name="event_type_orientation">Orientácia</string>
     <string name="event_preferences_category_eventOrientationParameters">Senzor orientácie</string>
@@ -1186,7 +1185,6 @@
     <string name="array_show_profile_in_activator_show">Zobrazovať</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Zobrazuj profil v Aktivátore</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Kliknite sem pre konfiguráciu parametra \"Zobrazuj v Aktivátore\".</string>
-    <string name="profile_preferences_alwaysOnDisplay">(R) Always-on displej</string>
     <string name="permission_why_profile_always_on_display">pre zapnutie/vypnutie Always-On displej</string>
     <string name="array_ignore_manual_activation_not_ignore">Neignorovať</string>
     <string name="array_ignore_manual_activation_ignore">Ignorovať</string>
@@ -1814,7 +1812,6 @@
     <string name="preference_widget_information_icon">Informácia</string>
     <string name="preference_widget_information_clickable_icon">Informácia, klikateľná</string>
     <string name="preference_widget_clickabe_prefernce_icon">Klikateľný parameter s pod-parametrami</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Kliknite sem pre zobrazenie informácií o typoch parametrov: (G1), (R), (I).</string>
     <string name="required_extender_release">Nová verzia PhoneProfilesPlusExtender</string>
     <string name="required_extender_release_notification">Kliknite na túto notifikáciu pre nainštalovanie nového vydania PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_deviceAirplaneMode">Mód lietadlo</string>
@@ -2003,4 +2000,29 @@ indikátor parametrov“ zapnuté.</string>
     <string name="check_releases_go_to_droidify">Ísť do Droid-ify</string>
     <string name="check_releases_open_droidify">Otvoriť Droid-Ify</string>
     <string name="profile_context_item_copy_name">Kopírovať názov</string>
+    <string name="export_settings_delete_location_data_text1">Note: Location data will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
+    <string name="export_settings_delete_location_data_text2">What not export?</string>
+    <string name="export_settings_delete_location_data_geofences">Locations for Location sensor</string>
+    <string name="export_settings_delete_location_data_wifi_ssids">Wi-Fi SSIDs for Wi-Fi sensor</string>
+    <string name="export_settings_delete_location_data_bluetooth_names">Bluetooth names for Bluetooth sensor</string>
+    <string name="export_settings_delete_location_data_mobile_cells">Mobile cells for Mobile cell sensor</string>
+    <string name="profile_preferences_category_vibrationIntensity">Vibration intensity</string>
+    <string name="profile_preferences_vibrationIntensityRinging">Incomming call</string>
+    <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
+    <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
+    <string name="profile_preferences_vibrationIntensityAll">Vibration intensity</string>
+    <string name="important_info_profile_install_pppps">Some profile preferences need the PPPPutSettings helper application to put setting parameter into the system database. ROOT is not required. These preferences are marked with (S).</string>
+    <string name="important_info_profile_pppps_howTo_1">Profile parameters marked with (S) need helper application PPPPutSettings.</string>
+    <string name="important_info_profile_pppps_howTo_2">This application is in GitHub Releases. Click here to download and install it.</string>
+    <string name="important_info_profile_pppps_howTo_4">After successful installation, all profile parameters marked with (S) will be enabled.</string>
+    <string name="install_pppps_dialog_title">Install PPPPutSettings</string>
+    <string name="install_pppps_text1">Install latest version of PPPPutSettings by clicking button</string>
+    <string name="install_pppps_text2">This opens browser to download PPPPutSettings.apk into folder \"Download\".</string>
+    <string name="install_pppps_text3">Then install this apk by clicking notification about downloaded apk.</string>
+    <string name="install_pppps_text4">Note: Target Android version for PPPPutSettings is 5.1. For this reason is not compatible with Google Play Protect. But PPPPutSettings is safe, only PhoneProfilesPlus is allowed to use it.</string>
+    <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
+    <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
+    <string name="profile_preferences_notificationLed_23">(S)(R) Notifikačná dióda</string>
+    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-on displej</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Kliknite sem pre zobrazenie informácií o typoch parametrov: (S), (G1), (R), (I).</string>
 </resources>
