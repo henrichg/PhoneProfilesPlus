@@ -5828,6 +5828,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
             setSummary(PREF_LOCK_DEVICE_INSTALL_EXTENDER);
+            setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
             if (preference != null) {
                 setSummary(Profile.PREF_PROFILE_LOCK_DEVICE);
