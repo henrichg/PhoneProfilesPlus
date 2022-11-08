@@ -626,7 +626,8 @@ public class BluetoothScanWorker extends Worker {
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(false);
                             //else
-                            bluetooth.disable();
+                            if (bluetooth.isEnabled())
+                                bluetooth.disable();
                         }
                     }
                 }
