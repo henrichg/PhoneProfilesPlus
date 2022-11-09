@@ -271,7 +271,7 @@ public class PhoneProfilesNotification {
                     contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_samsung_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_samsung);
                     //profileIconExists = false;
                 }
             } else if (PPApplication.deviceIsOnePlus) {

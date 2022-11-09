@@ -4187,6 +4187,17 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                if (actualVersionCode <= 6900) {
+                    if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy
+                            && (Build.VERSION.SDK_INT >= 33)) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_SAMSUNG);
+                        editor.apply();
+                    }
+                }
+
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);
