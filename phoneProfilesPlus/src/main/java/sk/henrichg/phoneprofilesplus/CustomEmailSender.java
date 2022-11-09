@@ -29,9 +29,11 @@ import java.util.List;
 
 // Custom ACRA e-mail ReportSender used in Pixel devices with Android 13
 // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
+// https://github.com/ACRA/acra/blob/master/acra-mail/src/main/java/org/acra/sender/EmailIntentSender.kt
+@SuppressWarnings("unused")
 public class CustomEmailSender implements ReportSender {
 
-    CoreConfiguration coreConfiguration;
+    final CoreConfiguration coreConfiguration;
 
     CustomEmailSender(@NotNull CoreConfiguration coreConfiguration) {
         this.coreConfiguration = coreConfiguration;
