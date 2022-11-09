@@ -1383,19 +1383,9 @@ class ApplicationPreferences {
     }
     */
 
-    static final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_SAMSUNG = true;
-    static private final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS = false;
-    static boolean notificationUseDecorationDefaultValue() {
-        boolean defaultValue;
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy
-                && (Build.VERSION.SDK_INT >= 33))
-            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_SAMSUNG;
-        else
-            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
-        return defaultValue;
-    }
+    static final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE = false;
     static void notificationUseDecoration(Context context) {
-        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, notificationUseDecorationDefaultValue());
+        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE);
     }
 
     static final String PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE = "0";

@@ -29,9 +29,6 @@
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
 // 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
 
-// TODO toto nastav pre release, vid PhoneProfilesService.doForPackageReplaced()
-// 6900 = enabled PPP notification decorator for OneUI 5 (Samsung Galaxy).
-
 ext.ppVersions = [
     publishVersion: '6.0.2b',
     publishVersionCode: 6823,
