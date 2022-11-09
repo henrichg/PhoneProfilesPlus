@@ -243,15 +243,25 @@ class GlobalGUIRoutines {
         if (forActivator) {
             if (PPApplication.deviceIsOnePlus)
                 return R.style.ActivatorTheme_dayNight_noRipple;
-            else
-                return R.style.ActivatorTheme_dayNight;
+            else {
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                    (Build.VERSION.SDK_INT >= 33))
+                    return R.style.ActivatorTheme_dayNight_samsung;
+                else
+                    return R.style.ActivatorTheme_dayNight;
+            }
         }
         else
         if (forDialog) {
             if (PPApplication.deviceIsOnePlus)
                 return R.style.DialogTheme_dayNight_noRipple;
-            else
-                return R.style.DialogTheme_dayNight;
+            else {
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                        (Build.VERSION.SDK_INT >= 33))
+                    return R.style.DialogTheme_dayNight_samsung;
+                else
+                    return R.style.DialogTheme_dayNight;
+            }
         }
         else
         if (forLocationEditor) {

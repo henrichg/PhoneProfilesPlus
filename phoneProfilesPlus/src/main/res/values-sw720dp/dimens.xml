@@ -16,9 +16,13 @@
 
     <dimen name="activator_min_width_minor">65%</dimen>
     <dimen name="activator_min_width_major">65%</dimen>
+    <dimen name="activator_fixed_width_minor">80%</dimen>
+    <dimen name="activator_fixed_width_major">80%</dimen>
 
     <dimen name="dialog_min_width_minor">65%</dimen>
     <dimen name="dialog_min_width_major">65%</dimen>
+    <dimen name="dialog_fixed_width_minor">80%</dimen>
+    <dimen name="dialog_fixed_width_major">80%</dimen>
 
     <dimen name="bottom_navigation_side_margins">30dp</dimen>
 
