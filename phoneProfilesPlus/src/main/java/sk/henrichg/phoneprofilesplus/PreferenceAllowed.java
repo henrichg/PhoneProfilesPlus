@@ -2188,7 +2188,8 @@ class PreferenceAllowed {
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(PreferenceAllowed preferenceAllowed,
-            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+            String preferenceKey, Profile profile, SharedPreferences sharedPreferences,
+            boolean fromUIThread, Context context, boolean forSIM2) {
 
         Context appContext = context.getApplicationContext();
 
@@ -2201,8 +2202,14 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
-                            ActivateProfileHelper.isPPPPutSSettingsInstalled(context)) {
+                        boolean rootRequired = false;
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && forSIM2)
+                            rootRequired = true;
+                        boolean ppppsInstalled = false;
+                        if (!rootRequired) {
+                            ppppsInstalled = ActivateProfileHelper.isPPPPutSSettingsInstalled(context);
+                        }
+                        if (!rootRequired && ppppsInstalled) {
                             if (profile != null) {
                                 if ((profile._soundNotificationChangeSIM1 != 0) ||
                                         (profile._soundNotificationChangeSIM2 != 0))
@@ -2247,11 +2254,17 @@ class PreferenceAllowed {
                         } else {
                             if ((profile != null) &&
                                     ((profile._soundNotificationChangeSIM1 != 0) ||
-                                            (profile._soundNotificationChangeSIM2 != 0))) {
-                                preferenceAllowed.notAllowedPPPPS = true;
+                                     (profile._soundNotificationChangeSIM2 != 0))) {
+                                if (rootRequired)
+                                    preferenceAllowed.notAllowedRoot = true;
+                                else
+                                    preferenceAllowed.notAllowedPPPPS = true;
                             }
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
+                            if (rootRequired)
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                            else
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
                         }
                     } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
