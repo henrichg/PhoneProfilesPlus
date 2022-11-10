@@ -1390,15 +1390,20 @@ class ApplicationPreferences {
         if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31))
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
         else
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy
-                && (Build.VERSION.SDK_INT >= 33))
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
         else
             defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
         return defaultValue;
     }
+    // is not possible to use decoration when notificication background is not "Native" ("0")
+    // look also at notificationBackgroundColor() in this class, in it must be default value = "0"
+    @SuppressWarnings("ConstantConditions")
     static void notificationUseDecoration(Context context) {
-        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, notificationUseDecorationDefaultValue());
+        boolean useDecoratorDefaultValue = notificationUseDecorationDefaultValue();
+        if (useDecoratorDefaultValue && (!PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE.equals("0")))
+            useDecoratorDefaultValue = false;
+        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, useDecoratorDefaultValue);
     }
 
     static final String PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE = "0";
@@ -1407,6 +1412,7 @@ class ApplicationPreferences {
         notificationLayoutType = getSharedPreferences(context).getString(PREF_NOTIFICATION_LAYOUT_TYPE, PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE);
     }
 
+    // is not possible to use decoration when notificication background is not "Native" (0)
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE = "0";
     static void notificationBackgroundColor(Context context) {
         // default value for Pixel (Android 12+) -> 0 (native)
