@@ -36,7 +36,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:text="@string/profile_name_default"
-            android:textSize="16dp"
+            android:textSize="17dp"
             tools:ignore="SpUsage"/>
 <!--        android:textColor="?android:attr/textColorPrimary"-->
 

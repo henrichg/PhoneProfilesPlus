@@ -47,7 +47,7 @@
             android:layout_gravity="center_vertical"
             android:text="@string/profile_name_default"
             android:textColor="#33b5e5"
-            android:textSize="15dp"
+            android:textSize="16dp"
             tools:ignore="SpUsage" />
 
     </LinearLayout>
@@ -84,7 +84,7 @@
         android:layout_height="fill_parent"
         android:text="@string/profile_list_empty"
         android:gravity="center"
-        android:textSize="21dp"
+        android:textSize="22dp"
         tools:ignore="SpUsage" />
 
 </LinearLayout>

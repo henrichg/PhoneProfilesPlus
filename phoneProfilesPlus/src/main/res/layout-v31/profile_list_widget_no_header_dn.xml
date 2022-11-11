@@ -42,7 +42,7 @@
             android:text="@string/profile_list_empty"
             android:gravity="center"
             android:textColor="?android:attr/textColorSecondary"
-            android:textSize="21dp"
+            android:textSize="22dp"
             tools:ignore="SpUsage" />
 
     </LinearLayout>

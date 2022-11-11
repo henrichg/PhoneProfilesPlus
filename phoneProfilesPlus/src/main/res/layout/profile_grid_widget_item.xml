@@ -36,7 +36,7 @@
         android:minLines="1"
         android:maxLines = "2"
         android:text="@string/profile_name_default"
-        android:textSize="14dp"
+        android:textSize="15dp"
         tools:ignore="SpUsage" />
 
 </LinearLayout>
