@@ -7214,8 +7214,10 @@ class ActivateProfileHelper {
                             if (connManager != null) {
                                 Network activeNetwork = connManager.getActiveNetwork();
                                 NetworkCapabilities caps = connManager.getNetworkCapabilities(activeNetwork);
-                                boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
-                                setVPN = enableVPN != vpnInUse;
+                                if (caps != null) {
+                                    boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+                                    setVPN = enableVPN != vpnInUse;
+                                }
                             }
                         }
                         if (setVPN) {
