@@ -133,6 +133,7 @@ public class PPApplication extends Application
 
     static final String GITHUB_PPP_URL = "https://github.com/henrichg/PhoneProfilesPlus";
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
+    static final String GITHUB_PPPPS_URL = "https://github.com/henrichg/PPPPutSettings";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/t/phoneprofilesplus.3799429/";
 
     static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";

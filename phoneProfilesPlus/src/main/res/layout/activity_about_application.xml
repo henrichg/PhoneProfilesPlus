@@ -202,6 +202,16 @@
             android:textSize="15sp"/>
 
         <TextView
+            android:id="@+id/about_application_pppps_source_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/about_application_pppps_source_code"
+            android:textSize="15sp"/>
+
+        <TextView
             android:id="@+id/about_application_xda_developers_community"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

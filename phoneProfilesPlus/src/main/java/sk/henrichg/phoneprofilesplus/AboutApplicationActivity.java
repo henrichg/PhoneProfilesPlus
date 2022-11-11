@@ -238,6 +238,35 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
+        text = findViewById(R.id.about_application_pppps_source_code);
+        str1 = getString(R.string.about_application_pppps_source_code);
+        str2 = str1 + " " + PPApplication.GITHUB_PPPPS_URL + " \u21D2";
+        sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        clickableSpan = new ClickableSpan() {
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                String url = PPApplication.GITHUB_PPPPS_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+        };
+        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        text.setText(sbt);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+
         text = findViewById(R.id.about_application_xda_developers_community);
         str1 = getString(R.string.about_application_xda_developers_community);
         str2 = str1 + " " + PPApplication.XDA_DEVELOPERS_PPP_URL + " \u21D2";
