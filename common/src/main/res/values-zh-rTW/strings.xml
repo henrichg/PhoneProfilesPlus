@@ -2021,6 +2021,7 @@
     <string name="install_pppps_text4">Note: Target Android version for PPPPutSettings is 5.1. For this reason is not compatible with Google Play Protect. But PPPPutSettings is safe, only PhoneProfilesPlus is allowed to use it.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
+    <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) 通知閃爍</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) 一律顯示</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">按此處顯示有關偏好設置類型的資訊: (S)、(G1)、(R)、(I)。</string>
