@@ -31,9 +31,9 @@
 <!--    <color name="preferenceDialogBackground">#FF000000</color>-->
 <!--    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>-->
 <!--    <color name="dialog_divider">#20ffdad3</color>-->
-    <color name="dialog_divider">#21ffffff</color>
+    <color name="dialog_divider">#25ffffff</color>
     <color name="popup_window_divider">#25ffffff</color>
-    <color name="scrollbar_color">#21ffffff</color>
+    <color name="scrollbar_color">#25ffffff</color>
 
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>

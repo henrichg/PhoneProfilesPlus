@@ -48,6 +48,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.view.MenuCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -775,9 +776,7 @@ public class EditorActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         editorToolbar.inflateMenu(R.menu.editor_top_bar);
 
-        if (Build.VERSION.SDK_INT >= 28) {
-            menu.setGroupDividerEnabled(true);
-        }
+        MenuCompat.setGroupDividerEnabled(menu, true);
 
         return true;
     }

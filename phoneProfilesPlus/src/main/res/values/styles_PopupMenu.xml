@@ -34,10 +34,8 @@
         <item name="android:dropDownSelector">?attr/popupMenuItemBackground</item>
     </style>
 
-    <style name="PopupMenuItemStyle" parent="@android:style/Widget.ListView">
+    <style name="PopupMenuItemStyle" parent="@style/Widget.AppCompat.ListView.DropDown">
         <item name="android:listSelector">?attr/popupMenuItemBackground</item>
-        <item name="android:dividerHeight">0dp</item>
-        <item name="android:divider">@color/activityPopupMenuBackgroundColor</item>
     </style>
 
 </resources>
