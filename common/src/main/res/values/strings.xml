@@ -2106,6 +2106,8 @@
     <string name="pppputsettings_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="pppputsettings_permissions_write_settings">Please enable \"Modify system settings\". Without this will not be working put of settings parameter to system database.</string>
     <string name="pppputsettings_app_name_write_settings_button">Modify system settings</string>
+    <string name="pppputsettings_menu_choose_language">Choose language</string>
+    <string name="pppputsettings_menu_choose_language_system_language">[System]</string>
 
 </resources>
 
