@@ -21,7 +21,7 @@ In stores, in which is currently deployed PPP, restriction about target sdk does
 
 ### Another sources of PhoneProfilesPlus:
 
-__[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
+__[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
