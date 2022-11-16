@@ -2094,6 +2094,7 @@
     <string name="extender_enable_notificaitons_button">Enable</string>
     <string name="extender_menu_choose_language">Choose language</string>
     <string name="extender_menu_choose_language_system_language">[System]</string>
+    <string name="extender_application_translations">Translations:</string>
 
     <string name="pppputsettings_permission">PPPPutSettings application permisison</string>
     <string name="pppputsettings_application_releases">Releases:</string>
@@ -2108,6 +2109,7 @@
     <string name="pppputsettings_app_name_write_settings_button">Modify system settings</string>
     <string name="pppputsettings_menu_choose_language">Choose language</string>
     <string name="pppputsettings_menu_choose_language_system_language">[System]</string>
+    <string name="pppputsettings_application_translations">Translations:</string>
 
 </resources>
 
