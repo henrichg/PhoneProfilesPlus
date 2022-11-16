@@ -25,8 +25,8 @@ __[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPl
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
-__Galaxy Store (for Samsung devices)__
---[Galaxy Store PPP release](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
+__Galaxy Store (for Samsung devices)__  
+__[Galaxy Store PPP release](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
 
 __[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)__  
 __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
@@ -38,7 +38,7 @@ __[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.pho
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 __[F-Droid application (download)](https://www.f-droid.org/)__
 
-__[Droid-ify PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
+__[Droid-ify PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__  
 __[Droid-ify applicaion - F-Droid alternative (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
 &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
