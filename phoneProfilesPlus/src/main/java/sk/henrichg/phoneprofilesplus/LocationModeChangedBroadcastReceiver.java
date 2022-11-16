@@ -52,7 +52,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
 
                         synchronized (PPApplication.locationScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
-                                String provider = PPApplication.locationScanner.getProvider();
+                                String provider = PPApplication.locationScanner.getProvider(false);
                                 PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                             }
                         }

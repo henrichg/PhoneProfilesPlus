@@ -174,7 +174,7 @@ class LocationScanner
 
     //-------------------------------------------
 
-    String getProvider() {
+    String getProvider(boolean showNotification) {
         String provider;
 
         boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
@@ -198,51 +198,56 @@ class LocationScanner
         */
 
         boolean locationEnabled = false;
-        // check if GPS provider is enabled in system settings
-        if (provider.equals(LocationManager.GPS_PROVIDER)) {
-            try {
-                locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                if ((!locationEnabled)/* && (!gpsForced)*/)
-                    provider = LocationManager.NETWORK_PROVIDER;
-            } catch (Exception e) {
-                // we may get IllegalArgumentException if gps location provider
-                // does not exist or is not yet installed.
-                //locationEnabled = false;
-            }
-        }
-        if (!locationEnabled) {
-            // check if network provider is enabled in system settings
-            if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
+
+        if (mLocationManager != null) {
+
+            // check if GPS provider is enabled in system settings
+            if (provider.equals(LocationManager.GPS_PROVIDER)) {
                 try {
-                    // if device is in power save mode, force NETWORK_PROVIDER
-                    locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
-                                        (isPowerSaveMode);
+                    locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    if ((!locationEnabled)/* && (!gpsForced)*/)
+                        provider = LocationManager.NETWORK_PROVIDER;
                 } catch (Exception e) {
-                    // we may get IllegalArgumentException if network location provider
+                    // we may get IllegalArgumentException if gps location provider
                     // does not exist or is not yet installed.
                     //locationEnabled = false;
                 }
             }
-        }
-        if (!locationEnabled) {
-            if (isPowerSaveMode) {
-                // in power save mode force NETWORK_PROVIDER
-                provider = LocationManager.NETWORK_PROVIDER;
-                locationEnabled = true;
+            if (!locationEnabled) {
+                // check if network provider is enabled in system settings
+                if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
+                    try {
+                        // if device is in power save mode, force NETWORK_PROVIDER
+                        locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
+                                (isPowerSaveMode);
+                    } catch (Exception e) {
+                        // we may get IllegalArgumentException if network location provider
+                        // does not exist or is not yet installed.
+                        //locationEnabled = false;
+                    }
+                }
             }
-            else {
-                // get best provider
-                Criteria criteria = new Criteria();
-                criteria.setAccuracy(Criteria.ACCURACY_FINE);
-                //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
-                provider = mLocationManager.getBestProvider(criteria, false);
-                locationEnabled = (provider != null) && (!provider.isEmpty());
+            if (!locationEnabled) {
+                if (isPowerSaveMode) {
+                    // in power save mode force NETWORK_PROVIDER
+                    provider = LocationManager.NETWORK_PROVIDER;
+                    locationEnabled = true;
+                } else {
+                    // get best provider
+                    Criteria criteria = new Criteria();
+                    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+                    //criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+                    provider = mLocationManager.getBestProvider(criteria, false);
+                    locationEnabled = (provider != null) && (!provider.isEmpty());
+                }
             }
+
         }
 
         if (!locationEnabled) {
             provider = "";
-            showNotification();
+            if (showNotification)
+                showNotification();
         }
 
         return provider;
@@ -264,7 +269,7 @@ class LocationScanner
                     if (Permissions.checkLocation(context)) {
                         if (!mListenerEnabled) {
 
-                            provider = getProvider();
+                            provider = getProvider(true);
 
                             if (!provider.isEmpty()) {
                                 try {
@@ -366,24 +371,26 @@ class LocationScanner
     }
 
     void updateTransitionsByLastKnownLocation(String provider) {
-        try {
-            Location location;
-            if (provider.isEmpty()) {
-                if (useGPS)
-                    location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                else
-                    location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            } else {
-                location = mLocationManager.getLastKnownLocation(provider);
-            }
+        if (mLocationManager != null) {
+            try {
+                Location location;
+                if (provider.isEmpty()) {
+                    if (useGPS)
+                        location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    else
+                        location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                } else {
+                    location = mLocationManager.getLastKnownLocation(provider);
+                }
 
 //            PPApplication.logE("LocationScanner.updateTransitionsByLastKnownLocation", "LocationSensorWorker.enqueueWork + doLocationChanged");
-            LocationSensorWorker.enqueueWork(true, context);
-            doLocationChanged(location, true);
-        } catch (SecurityException e) {
-            //
-        } catch (Exception e) {
-            PPApplication.recordException(e);
+                LocationSensorWorker.enqueueWork(true, context);
+                doLocationChanged(location, true);
+            } catch (SecurityException e) {
+                //
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
     }
 

@@ -4454,7 +4454,7 @@ public class PhoneProfilesService extends Service
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                                     if (PPApplication.locationScanner != null) {
-                                        String provider = PPApplication.locationScanner.getProvider();
+                                        String provider = PPApplication.locationScanner.getProvider(true);
                                         PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                                     }
                                 }
@@ -4887,7 +4887,7 @@ public class PhoneProfilesService extends Service
             PPApplication.locationScanner.connect(resetUseGPS);
         }
         else {
-            String provider = PPApplication.locationScanner.getProvider();
+            String provider = PPApplication.locationScanner.getProvider(true);
             PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
         }
     }
