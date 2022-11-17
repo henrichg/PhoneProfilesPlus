@@ -344,12 +344,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (getActivity() == null)
                 return;
 
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             if (nestedFragment) {
                 toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
-            }
-            else {
+                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+            } else {
                 toolbar.setTitle(getString(R.string.title_activity_event_preferences));
+                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
             }
 
         }, 200);

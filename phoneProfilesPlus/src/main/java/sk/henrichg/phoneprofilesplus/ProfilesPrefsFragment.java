@@ -356,12 +356,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (getActivity() == null)
                 return;
 
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             if (nestedFragment) {
                 toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
-            }
-            else {
+                toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
+            } else {
                 toolbar.setTitle(getString(R.string.title_activity_profile_preferences));
+                toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
             }
 
         }, 200);
