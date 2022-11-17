@@ -1281,8 +1281,7 @@ public class PPApplication extends Application
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
             packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-        } catch (Exception e) {
-            PPApplication.recordException(e);
+        } catch (Exception ignored) {
         }
 
         String body;
