@@ -1430,7 +1430,7 @@
     <string name="critical_github_release">Critical app. release</string>
     <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
     <string name="acra_email_subject_text">crash report</string>
-    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is the crash report.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
     <string name="notification_channel_crash_report">Crash report</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
@@ -2072,7 +2072,7 @@
     <string name="extender_application_releases">Releases:</string>
     <string name="extender_web_browser_chooser">View web link using</string>
     <string name="extender_acra_email_subject_text">crash report</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is the crash report.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
     <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Crash report</string>
@@ -2113,7 +2113,7 @@
     <string name="pppputsettings_acra_email_body_device">Device:</string>
     <string name="pppputsettings_acra_email_body_android_version">Android version:</string>
     <string name="pppputsettings_acra_email_subject_text">crash report</string>
-    <string name="pppputsettings_acra_email_body_text">PPPPutSettings was crashed. Attached is crash report.</string>
+    <string name="pppputsettings_acra_email_body_text">PPPPutSettings was crashed. Attached is the crash report.</string>
     <string name="pppputsettings_acra_notification_title">Sorry, PPPPutSettings crashed</string>
     <string name="pppputsettings_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="pppputsettings_notification_channel_crash_report">Crash report</string>
