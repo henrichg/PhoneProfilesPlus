@@ -10,7 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
 
-import com.google.auto.service.AutoService;
+//import com.google.auto.service.AutoService;
 
 import org.acra.attachment.AcraContentProvider;
 import org.acra.config.Configuration;
@@ -31,24 +31,24 @@ import java.util.List;
 // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
 // https://github.com/ACRA/acra/blob/master/acra-mail/src/main/java/org/acra/sender/EmailIntentSender.kt
 @SuppressWarnings("unused")
-public class CustomEmailSender implements ReportSender {
+public class CustomACRAEmailSender implements ReportSender {
 
     final CoreConfiguration coreConfiguration;
 
-    CustomEmailSender(@NotNull CoreConfiguration coreConfiguration) {
+    CustomACRAEmailSender(@NotNull CoreConfiguration coreConfiguration) {
         this.coreConfiguration = coreConfiguration;
     }
 
     @Override
     public void send(@NotNull Context context, @NotNull CrashReportData errorContent)
             throws ReportSenderException {
-        Log.e("CustomEmailSender.send", "Report Sent!");
+        Log.e("CustomACRAEmailSender.send", "Report Sent!");
 
         List<Configuration> plugins = coreConfiguration.getPluginConfigurations();
-        Log.e("CustomEmailSender.send", "plugins.size="+plugins.size());
+        Log.e("CustomACRAEmailSender.send", "plugins.size=" + plugins.size());
         for (Configuration plugin : plugins) {
             if (plugin instanceof MailSenderConfiguration) {
-                Log.e("CustomEmailSender.send", "MailSenderConfiguration");
+                Log.e("CustomACRAEmailSender.send", "MailSenderConfiguration");
 
                 MailSenderConfiguration mailConfig = (MailSenderConfiguration) plugin;
 
@@ -96,7 +96,7 @@ public class CustomEmailSender implements ReportSender {
                         chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(chooser);
                     } catch (Exception e) {
-                        Log.e("CustomEmailSender.send", Log.getStackTraceString(e));
+                        Log.e("CustomACRAEmailSender.send", Log.getStackTraceString(e));
                     }
                 }
 
@@ -114,13 +114,15 @@ public class CustomEmailSender implements ReportSender {
         return null;
     }
 
+    /*
     @AutoService(ReportSenderFactory.class)
-    public static class CustomEmailSenderFactory implements ReportSenderFactory {
+    public static class CustomACRAEmailSenderFactory implements ReportSenderFactory {
         @NotNull
         @Override
         public ReportSender create(@NotNull Context context, @NotNull CoreConfiguration coreConfiguration) {
-            return new CustomEmailSender(coreConfiguration);
+            return new CustomACRAEmailSender(coreConfiguration);
         }
     }
+    */
 
 }
