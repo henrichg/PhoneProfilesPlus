@@ -2110,6 +2110,13 @@
     <string name="pppputsettings_menu_choose_language">Choose language</string>
     <string name="pppputsettings_menu_choose_language_system_language">[System]</string>
     <string name="pppputsettings_application_translations">Translations:</string>
+    <string name="pppputsettings_acra_email_body_device">Device:</string>
+    <string name="pppputsettings_acra_email_body_android_version">Android version:</string>
+    <string name="pppputsettings_acra_email_subject_text">crash report</string>
+    <string name="pppputsettings_acra_email_body_text">PPPPutSettings was crashed. Attached is crash report.</string>
+    <string name="pppputsettings_acra_notification_title">Sorry, PPPPutSettings crashed</string>
+    <string name="pppputsettings_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
+    <string name="pppputsettings_notification_channel_crash_report">Crash report</string>
 
 </resources>
 
