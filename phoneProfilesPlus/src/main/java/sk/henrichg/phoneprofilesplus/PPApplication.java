@@ -1266,16 +1266,14 @@ public class PPApplication extends Application
             HiddenApiBypass.addHiddenApiExemptions("L");
         }
 
+        collator = GlobalUtils.getCollator();
+        //MultiDex.install(this);
+
         // This is required : https://www.acra.ch/docs/Troubleshooting-Guide#applicationoncreate
         if (ACRA.isACRASenderServiceProcess()) {
             Log.e("################# PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
             return;
         }
-
-        collator = GlobalUtils.getCollator();
-        //MultiDex.install(this);
-
-//        PPApplication.logE("################# PPApplication.attachBaseContext", "actualVersionCode="+actualVersionCode);
 
 //        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
 
@@ -1369,7 +1367,7 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
 
         // Look at TopExceptionHandler.uncaughtException() for ignored exceptions
-        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
+        Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(base, actualVersionCode));
         //}
 
     }
