@@ -1330,7 +1330,7 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Mantener la pantalla encendida</string>
     <string name="permission_why_profile_screen_on_permanent">para mantener la pantalla encendida</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Excepción para los volúmenes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">El tono de llamada y los volúmenes de notificación configurados en este perfil se ignorarán cuando en el sistema se establezca el modo de sonido \"No molestar\" (sólo alarmas, vibración).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">El tono de llamada y los volúmenes de notificación configurados en este perfil se ignorarán cuando en el sistema se establezca el modo de sonido "No molestar" (solo alarmas, vibración).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Para silenciar por completo las notificaciones, configura el tono de notificación en \"Ninguno\".</string>
     <string name="altype_profileError_runApplication_application">perfil - error al iniciar la aplicación</string>
     <string name="altype_profileError_runApplication_shortcut">perfil - error al iniciar el acceso directo</string>
