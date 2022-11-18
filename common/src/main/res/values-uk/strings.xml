@@ -1330,7 +1330,7 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Залишати екран увімкненим</string>
     <string name="permission_why_profile_screen_on_permanent">щоб тримати екран увімкненим</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Виняток для гучності</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Гучність дзвінка та сповіщень налаштованих в цьому профілі, буде проігноровано, якщо встановлено режим \"тиша\" (лише будильники, вібрація).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Гучність дзвінка та сповіщень налаштованих у цьому профілі, буде проігноровано, якщо встановлений режим "тиша" (лише будильники, вібрація).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Немає\".</string>
     <string name="altype_profileError_runApplication_application">профіль - помилка запуску застосунку</string>
     <string name="altype_profileError_runApplication_shortcut">профіль - помилка запуску ярлика</string>
