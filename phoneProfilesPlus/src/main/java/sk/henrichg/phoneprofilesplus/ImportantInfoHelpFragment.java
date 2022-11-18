@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -22,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -712,6 +710,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 true, activity);*/
         }
 
+/*
         TextView configureNotificationInfoText = view.findViewById(R.id.important_info_notification_settings_configure);
         if (configureNotificationInfoText != null) {
             configureNotificationInfoText.setText(context.getString(R.string.important_info_notification_settings_configure) +  " \u21D2");
@@ -732,25 +731,25 @@ public class ImportantInfoHelpFragment extends Fragment {
                     editor.apply();
                 }
 
-                /*
-                if (PhoneProfilesService.getInstance() != null) {
-                    synchronized (PPApplication.applicationPreferencesMutex) {
-                        PPApplication.doNotShowProfileNotification = true;
-                    }
-                    PhoneProfilesService.getInstance().clearProfileNotification();
-                }
-
-                Handler handler = new Handler(activity.getMainLooper());
-                handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
-                    if (PhoneProfilesService.getInstance() != null) {
-                        synchronized (PPApplication.applicationPreferencesMutex) {
-                            PPApplication.doNotShowProfileNotification = false;
-                        }
-                        // forServiceStart must be true because of call of clearProfileNotification()
-                        PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-                    }
-                }, 1000);*/
+//
+//                if (PhoneProfilesService.getInstance() != null) {
+//                    synchronized (PPApplication.applicationPreferencesMutex) {
+//                        PPApplication.doNotShowProfileNotification = true;
+//                    }
+//                    PhoneProfilesService.getInstance().clearProfileNotification();
+//                }
+//
+//                Handler handler = new Handler(activity.getMainLooper());
+//                handler.postDelayed(() -> {
+////                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+//                    if (PhoneProfilesService.getInstance() != null) {
+//                        synchronized (PPApplication.applicationPreferencesMutex) {
+//                            PPApplication.doNotShowProfileNotification = false;
+//                        }
+//                        // forServiceStart must be true because of call of clearProfileNotification()
+//                        PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+//                    }
+//                }, 1000);
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 //                PPApplication.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of forceDrawProfileNotification");
                 PhoneProfilesNotification.forceDrawProfileNotification(context.getApplicationContext());
@@ -760,7 +759,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         Toast.LENGTH_SHORT);
             });
         }
-
+*/
         TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
         if (helpForPPPPSTextView != null) {
             String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) +  " \u21D2";

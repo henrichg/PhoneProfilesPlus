@@ -105,6 +105,7 @@
             android:textStyle="bold"
             android:textColor="?attr/colorAccent" />
 
+<!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,6 +159,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/important_info_notification_settings_configure"
             android:textColor="?attr/colorAccent"/>
+-->
 
         <!--
         <TextView
