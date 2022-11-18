@@ -40,7 +40,7 @@
     <string name="phone_profiles_pref_applicationPrefIndicator">Показувати індикатор налаштувань</string>
     <string name="phone_profiles_pref_applicationHeader">Показати активований профіль</string>
     <string name="phone_profiles_pref_applicationAlert">Підтвердити активацію профілю</string>
-    <string name="phone_profiles_pref_notificationsToast">Показувати спливаюче сповіщення</string>
+    <string name="phone_profiles_pref_notificationsToast">Показувати сповіщення що спливає</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">Стиль іконки сповіщення</string>
     <string name="profile_preferences_category_profileIdentification">Ідентифікація профілю</string>
     <string name="profile_preferences_category_volumes">Гучність</string>
@@ -157,12 +157,12 @@
     <string name="event_list_item_menu_duplicate">Створити копію</string>
     <string name="event_list_item_menu_delete">Вилучити</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Показувати індикатор налаштувань</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Запуск з домашнього екрану</string>
-    <string name="phone_profiles_pref_applicationWidgetLauncher">Запуск з віджету</string>
-    <string name="phone_profiles_pref_notificationLauncher">Запуск із сповіщення</string>
+    <string name="phone_profiles_pref_applicationHomeLauncher">Запуск з домашнього екрана</string>
+    <string name="phone_profiles_pref_applicationWidgetLauncher">Запуск з віджета</string>
+    <string name="phone_profiles_pref_notificationLauncher">Запуск зі сповіщення</string>
     <string name="array_pref_launcher_activator">Активатор</string>
     <string name="array_pref_launcher_editor">Редактор</string>
-    <string name="profile_preferences_deviceLocationServicePrefs">(I) Налаштування місцезнаходження</string>
+    <string name="profile_preferences_deviceLocationServicePrefs">(I) Налаштування місцеперебування</string>
     <string name="event_type_battery">Батарея</string>
     <string name="profile_preferences_volumeSpeakerPhone">Гучний зв\'язок</string>
     <string name="event_preferences_notificationSound">Звук сповіщень</string>
@@ -193,7 +193,7 @@
     <string name="event_preferences_ForceRun">Ігнорувати ручну активацію</string>
     <string name="restart_events_alert_title">Перезапустити події</string>
     <string name="restart_events_alert_message">Ви впевнені?</string>
-    <string name="event_preferences_ForceRun_summary">Розпочати подію, незважаючи на те, що діє вручну активований профіль</string>
+    <string name="event_preferences_ForceRun_summary">Розпочати подію, хоч діє вручну активований профіль</string>
     <string name="event_preferences_category_startOfEvent">Початок події</string>
     <string name="event_preferences_category_endOfEvent">Завершення події</string>
     <string name="event_preference_profile_undone">Скасувати</string>
@@ -240,7 +240,7 @@
     <string name="array_event_pref_wifiConnectionType_connected">З\'єднано</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Поруч (в діапазоні сканування)</string>
     <string name="event_preferences_wifi_connection_type">Тип з\'єднання</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanInterval">Інтервал сканування Wi-Fi (хв.)</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanInterval">Інтервал сканування Wi-Fi (хв)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundProfile">Профіль за замовчуванням</string>
     <string name="profile_preference_profile_end_no_activate">Не активувати</string>
     <string name="profile_preference_profile_not_set">Профіль не вибрано</string>
@@ -303,7 +303,7 @@
     <string name="altype_applicationStart">запуск застосунку</string>
     <string name="altype_applicationExit">вийти з застосунку</string>
     <string name="altype_dataImport">відновлення налаштувань</string>
-    <string name="array_event_pref_calendarSearchField_location">Місцезнаходження</string>
+    <string name="array_event_pref_calendarSearchField_location">Місцеперебування</string>
     <string name="profile_preferences_vibrationOnTouch">Вібрація при торканні</string>
     <string name="phone_profiles_pref_notificationShowInStatusBar">Показати в рядку стану</string>
     <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показувати в рядку стану та на екрані блокування</string>
@@ -441,7 +441,7 @@
     <string name="info_notification_event_states_paused">Призупинено: подія не виконується. Параметри події не відповідають вимогам. Подія очікує на задоволення всіх параметрів.</string>
     <string name="info_notification_event_states_stopped">Зупинено: подія зупинена і не може бути запущена. Параметр події \"Дозволити виконання\" не зазначено.</string>
     <string name="info_notification_event_states_paused_delay">Призупинено із затримкою: запуск події відкладено. Параметри події відповідають вимогам.</string>
-    <string name="important_info_default_profile">Коли жодна подія не виконується, активується «Профіль за промовчуванням», якщо його налаштовано. Профіль за промовчуванням можна налаштувати в параметрах додатку, пункт «Активація профілю». Натисніть тут, щоб налаштувати його.</string>
+    <string name="important_info_default_profile">Коли жодна подія не виконується, активується «Профіль за промовчуванням», якщо його налаштовано. Профіль за промовчуванням можна налаштувати в параметрах застосунку, пункт «Активація профілю». Натисніть тут, щоб налаштувати його.</string>
     <string name="important_info_how_does_volume_separation_work_title">Як працює \"Окремі гучності для дзвінка та сповіщень\":</string>
     <string name="important_info_how_does_volume_separation_work">Активація профілю встановлює гучність пристрою на рівні гучності сповіщень. При виявленні виклику рівень гучності встановлюється в залежності від налаштувань профілю. Після закінчення виклику рівень гучності повертається до рівня гучності сповіщень профілю.</string>
     <string name="event_type_locations">Місцезнаходження</string>
@@ -466,7 +466,7 @@
     <string name="activity_log_clear_alert_title">Очистити журнал дій</string>
     <string name="activity_log_clear_alert_message">Ви впевнені?</string>
     <string name="phone_profiles_pref_category_location">Сканування місцезнаходження</string>
-    <string name="phone_profiles_pref_eventLocationAppSettings_summary">Встановити параметри місцезнаходження в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_eventLocationAppSettings_summary">Встановити параметри місцеперебування в налаштуваннях застосунку.</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInterval">Інтервал (хв) сканування Місцезнаходження</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Визначення Місцезнаходження у режимі енергозбереження</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings">Системні налаштування Місцезнаходження</string>
@@ -509,12 +509,12 @@
     <string name="array_event_pref_orientationDistanceType_near">Біля</string>
     <string name="array_event_pref_orientationDistanceType_far">Далеко</string>
     <string name="event_preferences_orientation_ignoreForApplications">Ігнорувати для застосунків</string>
-    <string name="phone_profiles_pref_eventWifiAppSettings_summary">Встановити параметри сканування Wi-Fi в налаштуваннях додатку.</string>
-    <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Встановити параметри сканування Bluetooth в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_eventWifiAppSettings_summary">Встановити параметри сканування Wi-Fi в налаштуваннях застосунку.</string>
+    <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Встановити параметри сканування Bluetooth в налаштуваннях застосунку.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Визначення орієнтації екрану</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Інтервал визначення орієнтації екрану (сек)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Визначення орієнтації екрану у режимі енергозбереження</string>
-    <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Встановити параметри сканування Орієнтації екрану в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Встановити параметри сканування Орієнтації екрану в налаштуваннях застосунку.</string>
     <string name="profile_preferences_vibrateWhenRinging">Вібрувати при викликах</string>
     <string name="permissions_for_play_ringtone_notification_text1">Ви вибрали сигнал дзвінка/сповіщення із SD-карти. Сигнал не буде відтворюватись, тому що це вимагає деяких дозволів.</string>
     <string name="permissions_for_play_ringtone_notification_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього сигнал буде відтворено.</string>
@@ -535,20 +535,20 @@
     <string name="array_pref_device_wallpaper_homescreen">Домашній екран</string>
     <string name="array_pref_device_wallpaper_lockscreen">Екран блокування</string>
     <string name="array_pref_device_wallpaper_all">Домашній екран та екран блокування</string>
-    <string name="event_type_mobile_cells">Мобільні вишки</string>
-    <string name="event_preferences_category_eventMobileCellsParameters">Датчик мобільних вишок</string>
-    <string name="event_preferences_mobile_cells_cells">Вишки</string>
-    <string name="event_preferences_mobile_cells_when_outside_pref_name">Запустити, коли знаходиться поза межею мобільних вишок</string>
+    <string name="event_type_mobile_cells">Мобільні вежі</string>
+    <string name="event_preferences_category_eventMobileCellsParameters">Датчик мобільних веж</string>
+    <string name="event_preferences_mobile_cells_cells">Вежі</string>
+    <string name="event_preferences_mobile_cells_when_outside_pref_name">Запустити, коли поза межею мобільної вежі</string>
     <string name="event_preferences_mobile_cells_when_outside_description">Поза межею</string>
-    <string name="permissions_for_mobile_cells_scan_dialog_text1">Визначення мобільних вишок потребує додаткових дозволів.</string>
+    <string name="permissions_for_mobile_cells_scan_dialog_text1">Визначення мобільних веж потребує додаткових дозволів.</string>
     <string name="mobile_cells_pref_dlg_rescan_button">Пересканувати</string>
-    <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) Нова вишка, (C) підключений до вишки.</string>
-    <string name="mobile_cells_pref_dlg_cell_name_hint">Назва вишки</string>
-    <string name="mobile_cells_pref_dlg_cell_rename_title">Перейменувати вишки</string>
-    <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Встановити параметри сканування Мобільних вишок в налаштуваннях додатку.</string>
-    <string name="phone_profiles_pref_category_mobile_cells_scanning">Сканування мобільних вишок</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Реєстрація вишок</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканування мобільних вишок в режимі енергозбереження</string>
+    <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) Нова вежа, (C) підключений до вежі.</string>
+    <string name="mobile_cells_pref_dlg_cell_name_hint">Назва вежі</string>
+    <string name="mobile_cells_pref_dlg_cell_rename_title">Перейменувати вежі</string>
+    <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Встановити параметри сканування Мобільних веж в налаштуваннях застосунку.</string>
+    <string name="phone_profiles_pref_category_mobile_cells_scanning">Сканування мобільних веж</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Реєстрація вежі</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканування мобільних веж в режимі енергоощадження</string>
     <string name="array_pref_scanInPowerSaveMode_scan">Сканування</string>
     <string name="mobile_cells_registration_pref_dlg_start_button">Запустити</string>
     <string name="mobile_cells_registration_pref_dlg_stop_button">Зупинити</string>
@@ -562,7 +562,7 @@
     <string name="preference_not_allowed_reason_settings_not_found">утиліту «налаштування» не знайдено</string>
     <string name="preference_not_allowed_reason_service_not_found">утиліту «налаштування» не знайдено</string>
     <string name="preference_not_allowed_reason_not_supported">не підтримується системою</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Реєстрація мобільних вишок</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Реєстрація мобільних веж</string>
     <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Всі SSID налаштовані в системі</string>
     <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Усі Bluetooth з\'єднання, налаштовані в системі</string>
     <string name="wifi_ssid_pref_dlg_all_ssids_chb">Всі SSID</string>
@@ -609,7 +609,7 @@
     <string name="permission_group_name_draw_overlays">Відображати поверх інших додатків</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Відображення поверх інших додатків вимкнуто. Більше не питати?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">Відображати поверх інших додатків</string>
-    <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Знайдіть додаток «PhoneProfilesPlus» і дозвольте його.</string>
+    <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Знайдіть застосунок «PhoneProfilesPlus» і дайте дозвіл.</string>
     <string name="preference_not_allowed_reason_not_configured_in_system_settings">не налаштовано в параметрах системи</string>
     <string name="mobile_cells_pref_dlg_last_connected">з\'єднано:</string>
     <string name="about_application_application_icon">PhoneProfilesPlus (іконка)</string>
@@ -632,7 +632,7 @@
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Деякі пристрої не підтримують кольорові іконки в рядку стану.</string>
     <string name="pref_dlg_change_selection_title">Змінити вибір</string>
     <string name="array_pref_change_selection_unselect_all">Прибрати всі</string>
-    <string name="array_pref_change_selection_mobile_cells_select_by_name">Обрати за ім\'ям вишки</string>
+    <string name="array_pref_change_selection_mobile_cells_select_by_name">Обрати за ім\'ям вежі</string>
     <string name="pref_dlg_change_selection_button_unselect_all">Прибрати все</string>
     <string name="array_pref_change_selection_wifi_ssid_select_by_name">Вибрати по імені SSID</string>
     <string name="array_pref_change_selection_bluetooth_name_select_by_name">Вибрати по імені bluetooth</string>
@@ -645,7 +645,7 @@
     <string name="info_notification_unlink_ringer_notification_volumes">На Вашому пристрої об\'єднано рівні гучності дзвінка і сповіщень. Можна використовувати «Роз\'єднані рівні гучності дзвінка та сповіщень». Натисніть тут, щоб налаштувати.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Рівні гучності дзвінка і сповіщень на Вашому пристрої об\'єднані. Якщо ви хочете розділити їх, увімкніть цей параметр.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Пріоритет використання</string>
-    <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Увімкнути використання параметра «Пріоритет» в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Увімкнути використання параметра «Пріоритет» в налаштуваннях застосунку.</string>
     <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Поточні налаштування:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Гучність дзвінка = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Гучність дзвінка = 0 переводить пристрій у тихий режим. Гучність сповіщення ігнорується.</string>
@@ -659,18 +659,18 @@
     <string name="event_preference_sensor_location_summary">Цей датчик запускає подію по місцезнаходженю пристрою. Параметри: \"Місцезнаходження\", \"Запускати поза цим місцезнаходженням\".</string>
     <string name="event_preference_sensor_wifi_summary">Цей датчик запускає події по Wi-Fi SSID. Параметри: \"Тип з\'єднання\" (поруч, підключено і т. д.), \"SSID\".</string>
     <string name="event_preference_sensor_bluetooth_summary">Цей датчик обробляє події Bluetooth. Параметри: \"Тип з\'єднання\" (поруч, підключено і т.д.), \"Тип сканованих пристроїв\" (звичайні, з низькою енергоспоживаністю і т.д.), \"Ім\'я Bluetooth-пристрою\".</string>
-    <string name="event_preference_sensor_mobile_cells_summary">Цей датчик запускає події якщо є підключення до мобільних вишок. Параметри: \"Вишки\", \"Запускати при від\'єднанні від вишок\".</string>
+    <string name="event_preference_sensor_mobile_cells_summary">Цей датчик запускає події якщо є підключення до мобільних веж. Параметри: \"Вежі\", \"Запускати при від\'єднанні від веж\".</string>
     <string name="event_preference_sensor_accessories_summary">Цей датчик запускає події по підключеному аксесуарі (док-станція, гарнітура, навушники і т. д.). Параметри: \"Тип аксесуарів\".</string>
-    <string name="event_preference_sensor_notification_summary">Цей датчик обробляє події сповіщень від додатків. Параметри: \"Додатки\", \"Завершувати при видаленні\" (при видаленні сповіщення подія завершується), \"Постійний запуск\", \"Тривалість\" (події запуску).</string>
-    <string name="event_preference_sensor_application_summary">Цей датчик запускає подію по додатку на передньому плані. Параметри: \"Додатки\".</string>
-    <string name="event_preference_sensor_orientation_summary">Цей датчик запускає подію згідно орієнтації пристрою. Параметри: \"Екран\" ( Екраном догори, екраном вниз), \"Сторони\" (горизонтально, певною стороною догори), \" Відстань\" (поруч, далеко; використовується датчик наближення), \"Ігнорувати для додатків\" (на передньому плані).</string>
+    <string name="event_preference_sensor_notification_summary">Цей датчик обробляє події сповіщень від застосунків. Параметри: \"Застосунки\", \"Завершувати при видаленні\" (при видаленні сповіщення подія завершується), \"Постійний запуск\", \"Тривалість\" (події запуску).</string>
+    <string name="event_preference_sensor_application_summary">Цей датчик запускає подію по застосунку на передньому плані. Параметри: \"Застосунки\".</string>
+    <string name="event_preference_sensor_orientation_summary">Цей датчик запускає подію згідно з орієнтацією пристрою. Параметри: \"Екран\" ( Екраном догори, екраном вниз), \"Сторони\" (горизонтально, певною стороною догори), \" Відстань\" (поруч, далеко; використовується датчик наближення), \"Ігнорувати для застосунків\" (на передньому плані).</string>
     <string name="event_preference_sensor_nfc_summary">Цей датчик обробляє події NFC мітки. Параметри: NFC мітки, Постійний запуск, тривалість (Тривалість запуску події).</string>
     <string name="editor_activity_targetHelps_applicationMenu_title">Меню застосунку</string>
     <string name="editor_activity_targetHelps_applicationMenu_description">Натисніть тут щоб відкрити меню застосунку, де Ви зможете змінити його налаштування.</string>
     <string name="editor_activity_targetHelps_restartEvents_title">Перезавантаження подій</string>
     <string name="editor_activity_targetHelps_restartEvents_description">Натисніть кнопку для перезавантаження подій. Ви мусите перезавантажити події, якщо профіль був активований вручну.</string>
     <string name="editor_activity_targetHelps_activityLog_title">Журнал дій</string>
-    <string name="editor_activity_targetHelps_activityLog_description">Натисніть тут щоб відкрити журнал дій. Занотовуються дані про старт/пауза/стоп подій, активації профілів, запуску додатку і т. п.</string>
+    <string name="editor_activity_targetHelps_activityLog_description">Натисніть тут щоб відкрити журнал дій. Занотовуються дані про старт/пауза/стоп події, активації профілів, запуску застосунків і т. п.</string>
     <string name="editor_activity_targetHelps_newProfileButton_title">Новий профіль</string>
     <string name="editor_activity_targetHelps_newProfileButton_description">Натисніть тут, щоб додати новий профіль.</string>
     <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Вилучити усі профілі</string>
@@ -694,7 +694,7 @@
     <string name="editor_activity_targetHelps_eventOrderHandler_title">Регулятор черги</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Перетягніть подію вгору/вниз із цим регулятором для зміни порядку представлення події в «Порядок запуску».</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Редактор</string>
-    <string name="activator_activity_targetHelps_editor_description_ppp">Натисніть, щоб відкрити Редактор. В Редакторі Ви можете налаштувати профілі та події, змінити налаштування додатку і т. д…</string>
+    <string name="activator_activity_targetHelps_editor_description_ppp">Натисніть, щоб відкрити Редактор. В Редакторі Ви можете налаштувати профілі та події, змінити налаштування застосунку і т. д.</string>
     <string name="activator_activity_targetHelps_activateProfile_title">Активувати профіль</string>
     <string name="activator_activity_targetHelps_activateProfile_description">Натисніть тут для активації профілю.</string>
     <string name="profile_preference_activity_targetHelps_save_title">Зберегти профіль</string>
@@ -802,8 +802,8 @@
     <string name="web_browser_chooser">Перегляд веб-посилання за допомогою</string>
     <string name="preference_not_allowed_reason_not_extender_installed">не встановлено PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">не увімкнено параметри спеціальних можливостей для PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Додатки\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
-    <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Ігнорувати для додатків\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
+    <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Застосунки\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
+    <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Ігнорувати для застосунків\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Щоб увімкнути параметр \"Застосунки\", натисніть тут для встановлення PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Щоб увімкнути параметр \"Ігнорувати для застосунків\", натисніть тут для встановлення PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">Натисніть тут, щоб перевірити зміни й оновити PhoneProfilesPlusExtender.</string>
@@ -858,7 +858,7 @@
     <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Увімкнути сканування орієнтації</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Спливаючі сповіщення</string>
     <string name="profileicon_pref_dlg_customIconButton">Власна іконка</string>
-    <string name="mobile_cells_registration_cell_name_hint">Натисніть, щоб встановити ім\'я вишки</string>
+    <string name="mobile_cells_registration_cell_name_hint">Натисніть, щоб встановити ім\'я вежі</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Підключення до точки доступу з інших пристроїв може не працювати.</string>
     <string name="array_event_pref_battery_charging_not_use">Не використовувати</string>
     <string name="array_event_pref_battery_charging_start_when_charging">Запускати при зарядці</string>
@@ -867,7 +867,7 @@
     <string name="profile_multiselect_summary_text_not_selected">Не вибрано</string>
     <string name="notification_channel_activated_profile">Активований профіль</string>
     <string name="notification_channel_activated_profile_description_ppp">Показує активований профіль і розпочату подію.</string>
-    <string name="notification_channel_mobile_cells_registration_description">Показує час, який залишився до завершення реєстрації мобільних вишок.</string>
+    <string name="notification_channel_mobile_cells_registration_description">Показує час, який залишився до завершення реєстрації мобільних веж.</string>
     <string name="notification_channel_information">Інформація</string>
     <string name="notification_channel_exclamation">Попередження</string>
     <string name="notification_channel_grant_permission">Надати дозволи</string>
@@ -912,9 +912,9 @@
     <string name="array_pref_auto_rotate_off">Автоматичне обертання вимкнуто</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Зміна адаптивного рівня може не працювати на Вашому пристрої (наприклад: пристрої Samsung).</string>
     <string name="about_application_xda_developers_community">XDA-developers спільнота:</string>
-    <string name="mobile_cells_pref_dlg_connected_cell">Під’єднані вишки:</string>
-    <string name="permissions_for_mobile_cells_registration_dialog_text1">Реєстрація мобільних вишок потребує дозволів.</string>
-    <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Кількість нових вишок:</string>
+    <string name="mobile_cells_pref_dlg_connected_cell">Під’єднані вежі:</string>
+    <string name="permissions_for_mobile_cells_registration_dialog_text1">Реєстрація мобільних веж потребує дозволів.</string>
+    <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Кількість нових веж:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Зупинити</string>
     <string name="mobile_cells_registration_pref_dlg_add_event_button">Додати подію</string>
     <string name="mobile_cells_registration_pref_dlg_remove_event_button">Видалити подію</string>
@@ -928,7 +928,7 @@
     <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) налаштований в системі, (S), повернутий сканером.</string>
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) налаштований в системі, (S), повернутий сканером.</string>
     <string name="import_profiles_alert_error_database_bug">Помилка відновлення бази даних.</string>
-    <string name="import_profiles_alert_error_appSettings_bug">Помилка відновлення налаштувань додатку.</string>
+    <string name="import_profiles_alert_error_appSettings_bug">Помилка відновлення налаштувань застосунку.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Білий</string>
     <string name="permission_ask_button">Запитувати</string>
     <string name="permission_not_ask_button">Не запитувати</string>
@@ -977,7 +977,7 @@
     <string name="permission_why_event_location_preferences">для використання місцезнаходження в Датчику місцезнаходження</string>
     <string name="permission_why_event_wifi_preferences">для використання місцезнаходження в Датчику Wi-Fi</string>
     <string name="permission_why_event_bluetooth_preferences">для використання місцезнаходження в Датчику Bluetooth</string>
-    <string name="permission_why_event_mobile_cells_preferences">для використання місцезнаходження в Датчику мобільних вишок</string>
+    <string name="permission_why_event_mobile_cells_preferences">для використання місця в Датчику мобільних веж</string>
     <string name="permission_why_event_contacts_preference">для читання контактів під час налаштування</string>
     <string name="permission_why_profile_notification_led">для вкл/вимк сповіщення світлодіодом</string>
     <string name="permission_why_profile_vibrate_when_ringing">для вкл/вимк вібрування під час дзвінка</string>
@@ -991,7 +991,7 @@
     <string name="permission_why_custom_profile_icon_preference">для завантаження іконок користувача із сховища</string>
     <string name="permission_why_location_preference">для отримання даних місцезнаходження під час налаштування</string>
     <string name="permission_why_calendar_preference">для отримання даних календарю під час налаштування</string>
-    <string name="exit_application_alert_title">Вийти з додатку</string>
+    <string name="exit_application_alert_title">Вийти з застосунку</string>
     <string name="exit_application_alert_message">Ви впевнені?</string>
     <string name="phone_profiles_pref_notificationShowButtonExit">Відображати кнопку \"Вийти\"</string>
     <string name="altype_applicationUpgrade">оновлення застосунку</string>
@@ -1048,7 +1048,7 @@
     <string name="phone_profiles_pref_notificationBackgroundColor">Колір фону</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Оригінальний</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Темний</string>
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Увімкніть Місцезнаходження в Налаштуваннях системи. Без цього, сканування мобільних вишок не буде працювати.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Увімкніть Місцеперебування в Налаштуваннях системи. Без цього, сканування мобільних веж не буде працювати.</string>
     <string name="action_for_external_application_notification_title">Підтримка зовнішніх застосунків (Tasker)</string>
     <string name="start_event_notification_text2">Очистіть це повідомлення щоб більше не показувати його.</string>
     <string name="event_preferences_battery_plugged">Тип зарядки</string>
@@ -1095,12 +1095,12 @@
     <string name="profile_preferences_lockDevice_AccessibilitySettings_title"> Налаштування Спец. можливостей</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Для типу блокування \"Use PhoneProfilesPlusExtender\", дайте дозвіл PhoneProfilesPlusExtender \"Спец. можливості\" в налаштуваннях телефону.</string>
     <string name="array_pref_lockDevice_extender">Використвувати PhoneProfilesPlusExtender</string>
-    <string name="important_info_profile_mobileCellsScanning_location"> Android 9+, щоб працювало сканування по стільниковим вишкам, потрібно активувати доступ до Місцезнаходження в налаштуваннях телефону.</string>
+    <string name="important_info_profile_mobileCellsScanning_location">Android 9+, щоб працювало сканування за стільниковими вежами, потрібно активувати доступ до Місцеперебування в налаштуваннях телефону.</string>
     <string name="info_notification_event_not_started_1">Подія не розпочалась:</string>
     <string name="info_notification_event_not_started_2">Ви вимкнули запуск всіх подій (червоний індикатор) - в меню Редактора натисніть \"Дозволити запуск подій\".</string>
     <string name="info_notification_event_not_started_3">Ви вручну активували профіль (помаранчевий індикатор) - необхідно перезавантажити всі події. В меню Активатора, Редактора чи в сповіщенні натисніть \"Перезавантажити події\". Якщо профіль активовано вручну, то перед його назвою з\'являється буква \"[M]\" (Manual). Виняток: в налаштуваннях події увімкнено \"Ігнорувати ручну активацію\".</string>
     <string name="info_notification_event_not_started_4">Ви вимкнули запуск цієї події в його налаштуваннях - увімкніть \"Дозволити запуск\" в налаштуваннях події. Примітка: \"колір індикатора\" відображено у назві події в меню Активатора та Редактора.</string>
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Якщо сканування мобільних вишок не працює, увімкніть Місцезнаходження в Налаштуваннях Системи.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Якщо сканування мобільних веж не працює, увімкніть Місцеперебування в Налаштуваннях Системи.</string>
     <string name="permission_why_profile_radio_preferences_emui">щоб вкл/вимк передачу даних, змінити тип мережі, підʼєднатись до SSID, увімк/вимк Bluetooth</string>
     <string name="permission_why_event_bluetooth_preferences_emui">щоб перемкнути Bluetooth вкл/вимк в датчику Bluetooth</string>
     <string name="event_preferences_priority_appSettings_enabled">Пріоритет увімкнуто</string>
@@ -1133,7 +1133,7 @@
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary1">Натисніть тут аби показати веб сторінку</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary2">. На сторінці інструкція як налаштувати пристрій щоб PhoneProfilesPlus не переставав працювати у фоні.</string>
     <string name="phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle">Як зробити щоб PhoneProfilesPlus працював</string>
-    <string name="important_info_do_not_kill_my_app1">Стосовно закриття PhoneProfilesPlus системою, коли додаток працює у фоні, натисніть тут аби відкрити веб сторінку</string>
+    <string name="important_info_do_not_kill_my_app1">Стосовно закриття PhoneProfilesPlus системою, коли застосунок працює у фоні, натисніть тут аби відкрити вебсторінку</string>
     <string name="important_info_do_not_kill_my_app2">. На сторінці інструкція як налаштувати пристрій щоб PhoneProfilesPlus не переставав працювати у фоні.</string>
     <string name="new_event_profiles_not_exists_alert_message1">Профіль</string>
     <string name="new_event_profiles_not_exists_alert_message2">немає нової події. Створити?</string>
@@ -1141,13 +1141,13 @@
     <string name="notification_channel_not_used_mobile_cell_description">Показувати сповіщення про знайдені мобільні вишки які не використовуються.</string>
     <string name="notification_not_used_mobile_cell_title">Знайдена нова мобільна вишка</string>
     <string name="notification_not_used_mobile_cell_text1">ID знайденої мобільної вишки:</string>
-    <string name="notification_not_used_mobile_cell_text2">Натисніть тут аби додати ії до подій сенсору мобільних вишок.</string>
-    <string name="not_used_mobile_cells_detected_title">Знайдені мобільні вишки які не використовуються</string>
-    <string name="not_used_mobile_cells_detected_cell_id">ID знайденої мобільної вишки:</string>
-    <string name="not_used_mobile_cells_detected_connection_time">Пристрій підключено:</string>
+    <string name="notification_not_used_mobile_cell_text2">Натисніть тут аби додати її до подій сенсору мобільних веж.</string>
+    <string name="not_used_mobile_cells_detected_title">Знайдені мобільні вежі які не використовуються</string>
+    <string name="not_used_mobile_cells_detected_cell_id">ID знайденої мобільної вежі:</string>
+    <string name="not_used_mobile_cells_detected_connection_time">Пристрій під\'єднано:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Додати до подій:</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Реєстрація вишки потрібна для реєстрації мобільних вишок в події. Реєстрація буде проводитись у фоні. Бажано не змінювати розташування пристрою під час реєстрації.</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Показувати повідомлення про знаходження мобільної вишки яка не використовується</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Реєстрація вежі потрібна для реєстрації мобільних веж в події. Реєстрація буде проводитись у фоні. Бажано не змінювати розташування пристрою під час реєстрації.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellNewCellsDetectionNotificationEnabled">Показувати повідомлення про знаходження мобільної вежі яка не використовується</string>
     <string name="about_application_help_me_with_translation">Будь ласка, допоможіть з перекладом, дякую.</string>
     <string name="event_preferences_time_timeType">Тип часу</string>
     <string name="event_preference_sensor_time_type_exact">Точний час</string>
@@ -1170,7 +1170,7 @@
     <string name="array_pref_samsungEdgeVerticalPosition_bottom">Знизу</string>
     <string name="editor_drawer_list_item_events_not_stopped">Не зупинено</string>
     <string name="mobile_cells_pref_dlg_cell_sort_title">Сортувати</string>
-    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">За ім\'ям вишки</string>
+    <string name="array_mobile_cells_pref_dlg_cell_sort_by_name">За ім\'ям вежі</string>
     <string name="array_mobile_cells_pref_dlg_cell_sort_by_connection">За часом з\'єднання</string>
     <string name="menu_export_and_email">Відправити налаштування електронною поштою</string>
     <string name="menu_export_and_email_to_author">Відправити налаштування електронною поштою автору</string>
@@ -1202,20 +1202,20 @@
     <string name="applications_pref_dlg_add_button_tooltip">Додати застосунок</string>
     <string name="bluetooth_name_pref_dlg_add_button_tooltip">Додайте ім\'я Bluetooth</string>
     <string name="location_pref_dlg_add_button_tooltip">Додати місцезнаходження</string>
-    <string name="mobile_cells_pref_dlg_add_button_tooltip">Додати вишку</string>
+    <string name="mobile_cells_pref_dlg_add_button_tooltip">Додати вежу</string>
     <string name="nfc_tag_pref_dlg_add_button_tooltip">Додати мітку</string>
     <string name="wifi_ssid_pref_dlg_add_button_tooltip">Додати SSID</string>
     <string name="application_editor_intent_edit_category_button_tooltip">Редагувати категорію</string>
     <string name="application_editor_intent_edit_flags_button_tooltip">Редагувати Flags</string>
-    <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Перейменувати вишку</string>
+    <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Перейменувати вежу</string>
     <string name="location_editor_rename_with_address_button_tooltip">Перейменувати з адресою</string>
     <string name="help_button_tooltip">Допомога</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Виберіть імена Bluetooth</string>
-    <string name="mobile_cells_pref_dlg_select_button_tooltip">Виберить вишки</string>
+    <string name="mobile_cells_pref_dlg_select_button_tooltip">Виберіть вежі</string>
     <string name="nfc_tag_pref_dlg_select_button_tooltip">Виберіть мітки</string>
     <string name="wifi_ssid_pref_dlg_select_button_tooltip">Виберіть SSID</string>
     <string name="location_settings_button_tooltip">Налаштування місцезнаходження</string>
-    <string name="mobile_cells_pref_dlg_button_tooltip">Сортувати список вишок</string>
+    <string name="mobile_cells_pref_dlg_button_tooltip">Сортувати список веж</string>
     <string name="duration_pref_dlg_edit_duration_tooltip">Редагувати тривалість</string>
     <string name="applications_editor_dialog_edit_delay_tooltip">Редагувати затримку</string>
     <string name="location_pref_dlg_edit_radius_tooltip">Редагувати радіус</string>
@@ -1332,7 +1332,7 @@
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Виняток для гучності</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Гучність дзвінка та сповіщень налаштованих в цьому профілі, буде проігноровано, якщо встановлено режим \"тиша\" (лише будильники, вібрація).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Немає\".</string>
-    <string name="altype_profileError_runApplication_application">профіль - помилка запуску додатка</string>
+    <string name="altype_profileError_runApplication_application">профіль - помилка запуску застосунку</string>
     <string name="altype_profileError_runApplication_shortcut">профіль - помилка запуску ярлика</string>
     <string name="altype_profileError_runApplication_intent">профіль - помилка при запуску intent</string>
     <string name="altype_profileError_setTone_ringtone">профіль - помилка при встановленні мелодії дзвінка</string>
@@ -1359,12 +1359,12 @@
     <string name="import_profiles_from_pp_alert_title">Імпортувати дані з PhoneProfiles</string>
     <string name="import_profiles_from_pp_alert_error">Помилка під час імпорту з PhoneProfiles</string>
     <string name="import_profiles_from_pp_alert_error_database_bug">Помилка імпорту бази даних.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Помилка при імпорті параметрів програми.</string>
+    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Помилка при імпорті параметрів застосунку.</string>
     <string name="altype_dataImport_fromPP">імпортувати дані з PhoneProfiles</string>
     <string name="toast_import_from_pp_ok">Дані з PhoneProfiles імпортовано</string>
     <string name="export_pp_data_dialog_profiles_chb">Імпорт профілів</string>
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">Видалити налаштовані профілі</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Імпорт налаштувань додатку</string>
+    <string name="export_pp_data_dialog_application_preferences_chb">Імпорт налаштувань застосунку</string>
     <string name="export_pp_data_dialog_start_pp">Якщо PhoneProfiles не запущений, запустіть його.</string>
     <string name="export_data_email_subject">Експортовані налаштування</string>
     <string name="backup_settings_alert_title">Створення резервної копії налаштувань</string>
@@ -1381,7 +1381,7 @@
     <string name="phone_profiles_pref_applicationEventNotificationEnableScanning">Увімкнути сканування сповіщень</string>
     <string name="phone_profiles_pref_applicationEventNotification_info">Налаштування для датчика сповіщень.</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode">Сканування сповіщень в режимі енергозбереження</string>
-    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Налаштуйте параметри сканування сповіщень в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_eventNotificationAppSettings_summary">Налаштуйте параметри сканування сповіщень в налаштуваннях застосунку.</string>
     <string name="phone_profiles_pref_eventNotificationAccessSystemSettings">Доступ до сповіщень в системних налаштуваннях</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary">Доступ до сповіщень вимкнено</string>
     <string name="phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary">Доступ до сповіщень увімкнено</string>
@@ -1393,7 +1393,7 @@
     <string name="profile_activation_activation_error">Помилка під час активації профілю</string>
     <string name="profile_activation_activation_error_change_wifi_ap">Помилка під час активації профілю. Зміна стану точки доступу Wi-Fi не вдалася.</string>
     <string name="profile_activation_activation_error_change_wifi">Помилка під час активації профілю. Зміна стану Wi-Fi не вдалася.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Помилка під час активації профілю. Закриття всіх додатків не вдалося.</string>
+    <string name="profile_activation_activation_error_close_all_applications">Помилка під час активації профілю. Закриття всіх застосунків не вдалося.</string>
     <string name="menu_check_github_releases">Перевірити оновлення</string>
     <string name="check_github_releases_go_to_github">Перейти до GitHub</string>
     <string name="check_github_releases_install_info_1">Завантажте останню версію PhoneProfilesPlus.apk з GitHub. Після цього натисніть на сповіщення про завантажений apk і встановіть його.</string>
@@ -1559,8 +1559,8 @@
     <string name="event_preferences_forSimCard_SIM2">Для SIM 2</string>
     <string name="event_preferences_sms_forSimCard">Для SIM-карти</string>
     <string name="event_preferences_sms_dualSIM_summary">Цей параметр призначений лише для SMS.</string>
-    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Підключена вишка (SIM 1):</string>
-    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Підключена вишка (SIM 2):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Підключена вежа (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Підключена вежа (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Для SIM-карти</string>
     <string name="editor_activity_targetHelps_profilesBottomMenu_title">Інші дії з профілями</string>
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над профілями: \"Видалити всі профілі\"</string>
@@ -1577,7 +1577,7 @@
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Яскравість індикатора налаштувань</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Оформлення сповіщення (якщо увімкнено) буде відображатися тільки коли колір тла має тип \"Рідний\".</string>
     <string name="mobile_cells_item_delete_all_selected">Видалити всі виділені</string>
-    <string name="delete_application_alert_message">Вилучити цей додаток?</string>
+    <string name="delete_application_alert_message">Вилучити цей застосунок?</string>
     <string name="delete_intent_alert_message">Вилучити цей intent?</string>
     <string name="delete_shortcut_alert_message">Вилучити цей ярлик?</string>
     <string name="delete_wifi_ssid_alert_message">Вилучити цей Wi-Fi SSID?</string>
@@ -1585,7 +1585,7 @@
     <string name="delete_bluetooth_name_alert_message">Вилучити це ім\'я Bluetooth?</string>
     <string name="delete_geofence_name_alert_message">Вилучити це розташування?</string>
     <string name="delete_mobile_cell_alert_message">Вилучити цю мобільну вишку?</string>
-    <string name="delete_selected_mobile_cells_alert_message">Вилучити всі вибрані мобільні вишки?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Вилучити всі вибрані мобільні вежі?</string>
     <string name="tile_chooser_tile_changed_toast">Профіль швидких налаштувань змінено на:</string>
     <string name="altype_profileAdded">Профіль додано</string>
     <string name="altype_eventAdded">Подію додано</string>
@@ -1594,8 +1594,8 @@
     <string name="menu_check_releases_github">Перевірте релізи на GitHub</string>
     <string name="menu_check_releases_fdroid">Перевірити на F-Droid</string>
     <string name="check_releases_go_to_fdroid">Перейти до репозиторію F-Droid</string>
-    <string name="check_releases_fdroid_application">F-Droid додаток:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Репозиторій для налаштування його у додатку F-Droid:</string>
+    <string name="check_releases_fdroid_application">F-Droid застосунок:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Репозиторій для налаштування його у застосунку F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Якщо не працює зміна гучності медіа, можливо це завдяки увімкнутому \"безпечний рівень гучності\". Щоб вимкнути, потрібно надати дозвіл (G1).</string>
     <string name="menu_check_releases_galaxy_store">Перевірити в Galaxy Store</string>
     <string name="check_releases_open_galaxy_store">Відкрити Galaxy Store</string>
@@ -1607,7 +1607,7 @@
     <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Інтервал сканування місцезнаходження</string>
     <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom">Від</string>
     <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo">До</string>
-    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Інтервал сканування мобільних вишок</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Інтервал сканування мобільних веж</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyFrom">Від</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyTo">До</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Інтервал сканування сповіщень</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_data_for">для</string>
     <string name="activity_log_help_message_data_profileName">Назва профілю. Може містити [M] (=ручна активація) а потім закінчення тривалості в дужках.</string>
     <string name="activity_log_help_message_data_profileNameEventName">Назва профілю [назва події]. Назва профілю - останній активований профіль, назва події - остання запущена подія.</string>
-    <string name="activity_log_help_message_data_displayedInGUI">Ця інформація також відображається в усіх елементах графічного інтерфейсу (сповіщеннях програми, Активаторі, Редакторі, віджетах, …).</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Ця інформація також показується в усіх елементах графічного інтерфейсу (сповіщеннях застосунку, Активаторі, Редакторі, віджетах, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">решта по профілям</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Назва профілю.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">решта по подіям</string>
@@ -1658,7 +1658,7 @@
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Збільшити яскравість</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Показати \"Перезавантажити події\" як кнопку</string>
     <string name="check_ppp_releases_notification">Натисніть на це повідомлення, щоб перевірити версії PhoneProfilesPlus. Можливо є нова версія.</string>
-    <string name="check_github_releases_install_info_app_stores_release">"У магазинах додатків найближчим часом буде нова версія."</string>
+    <string name="check_github_releases_install_info_app_stores_release">"У магазинах застосунків найближчим часом буде нова версія."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Показати параметри профілю</string>
     <string name="show_dialog_about_red_text_show_editor">Показати редактор</string>
     <string name="array_pref_change_image_wallpaper">Змінити на зображення</string>
@@ -1669,7 +1669,7 @@
     <string name="menu_check_releases_apkpure">Перевірити в APKPure</string>
     <string name="check_releases_go_to_apkpure">Перейти до APKPure</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Примусово вбудовані (для користувацьких іконок)</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Запустити додатки, ярлики, intents для \"MIUI\"</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Запустити застосунки, ярлики, intents для \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Для \"MIUI\" потрібно дати деякі дозволи. Натисніть тут, щоб побачити як.</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">У Налаштуваннях\/Додатки\/Керування додатками\/PhoneProfilesPlus\/Інші дозволи: \"Відображати виринаючі вікна під час роботи у фоні\" і \"Показати на екрані блокування\" виберіть \"Дозволити\".</string>
     <string name="miui_permissions_alert_dialog_show">Показати дозволи</string>
@@ -1690,7 +1690,7 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Увімкнути періодичне сканування</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Інтервал періодичного сканування (хвилин)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Періодичне сканування в режимі енергозбереження</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Встановити параметри періодичного сканування в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Встановити параметри періодичного сканування в налаштуваннях застосунку.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Періодичне сканування по часу</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Від</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">До</string>
@@ -1768,7 +1768,7 @@
     <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Примусово встановити яскравість екрану</string>
     <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Увімкніть, якщо бажаєте скинути параметри яскравості екрану які взяті з активованого профілю.</string>
     <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">Без особливих параметрів</string>
-    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Увімкніть \"Примусово встановити яскравість екрану\" в налаштуваннях додатку, якщо бажаєте скинути налаштування яскравості, встановлені з налаштувань активованого профілю.</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Увімкніть \"Примусово встановити яскравість екрану\" в налаштуваннях застосунку, якщо бажаєте скинути налаштування яскравості, встановлені з налаштувань активованого профілю.</string>
     <string name="profile_preferences_disabled">Вимкнено</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Ніколи не питати знову\" про надання дозволу root якщо увімкнено</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Ніколи не питати знову\" про надання дозволу root якщо вимкнуто</string>
@@ -1872,7 +1872,7 @@
     <string name="profile_preferences_applicationEnableWifiScanning">Увімкнути сканування Wi-Fi</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Увімкнути сканування Bluetooth</string>
     <string name="profile_preferences_applicationEnableLocationScanning">Увімкнути сканування місцеположення</string>
-    <string name="profile_preferences_applicationEnableMobileCellScanning">Увімкнути сканування мобільних вишок</string>
+    <string name="profile_preferences_applicationEnableMobileCellScanning">Увімкнути сканування мобільних веж</string>
     <string name="profile_preferences_applicationEnableOrientationScanning">Увімкнути сканування орієнтації</string>
     <string name="profile_preferences_applicationEnableNotificationScanning">Увімкнути сканування сповіщень</string>
     <string name="check_github_releases_installed_version">Встановлена версія:</string>
@@ -1945,10 +1945,10 @@
     <string name="menu_choose_language">Виберіть мову</string>
     <string name="menu_choose_language_system_language">[System]</string>
     <string name="important_info_choose_language_text1">Виберіть мову:</string>
-    <string name="important_info_choose_language_text2">У меню Редактора додано опцію \"Виберіть мову\". Завдяки цій опції, Ви можете змінити мову програми.\nМеню для цього також додано у PhoneProfilesPlusExtender (версія 8.0).</string>
+    <string name="important_info_choose_language_text2">У меню Редактора додано опцію \"Виберіть мову\". Завдяки цій опції, Ви можете змінити мову застосунку.\nМеню для цього також додано у PhoneProfilesPlusExtender (версія 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Колір іконки</string>
-    <string name="profile_icon_preference_iconColor_help_info_1">Якщо тема програми темна, то колір іконки, при попередньому перегляді, може мати підвищену яскравість.</string>
-    <string name="profile_icon_preference_iconColor_help_info_2">Іконка з цією підвищеною яскравістю буде використовуватися у всьому інтерфейсі програми. Також у сповіщеннях і віджетах, коли їх фон темний.</string>
+    <string name="profile_icon_preference_iconColor_help_info_1">Якщо обрана темна, тема, то колір іконки, при попередньому перегляді, може мати підвищену яскравість.</string>
+    <string name="profile_icon_preference_iconColor_help_info_2">Іконка з цією підвищеною яскравістю буде використовуватися у всьому інтерфейсі застосунку. Також у сповіщеннях і віджетах, коли їх фон темний.</string>
     <string name="important_info_android_look_application_settings">Відкрийте налаштування PhoneProfilesPlus та налаштуйте його. Особливо параметри, позначені подвійною стрілкою.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Поточна конфігурація:</string>
     <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) Увімк. в режимі \"У літаку\"</string>
@@ -1982,7 +1982,7 @@
     <string name="vpn_tunnel_name_pref_dlg_label">Назва тунелю WireGuard:</string>
     <string name="altype_profileError_setVPN">профіль - помилка при налаштуванні VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary2">Увімкнути\/вимкнути VPN для OpenVPN переміщено з \"Інші\"\/\"Запустити застосунки, ярлики, intents\" до параметра \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">для налаштування вмикання\/вимикання тунелю програмою WireGuard</string>
+    <string name="permission_why_profile_wireguard">для налаштування вмикання\/вимикання тунелю застосунком WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard не встановлено або версія не підтримується.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN з\'єднання не встановлено.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN для Android не встановлено.</string>
@@ -1999,7 +1999,7 @@
     <string name="check_releases_go_to_droidify">Перейти до Droid-ify</string>
     <string name="check_releases_open_droidify">Відкрити Droid-ify</string>
     <string name="profile_context_item_copy_name">Копіювати назву</string>
-    <string name="export_settings_delete_location_data_text1">Примітка: Дані про місце також будуть включені до експорту налаштувань. Якщо Ви поділитесь резервною копією з іншими людьми, оберіть параметри, які не слід експортувати.</string>
+    <string name="export_settings_delete_location_data_text1">Примітка: Дані про місце також будуть включені до експорту налаштувань. Якщо Ви будете ділитись резервною копією з іншими людьми, то оберіть параметри, які не слід експортувати.</string>
     <string name="export_settings_delete_location_data_text2">Що не експортувати?</string>
     <string name="export_settings_delete_location_data_geofences">Розташування для датчика місця</string>
     <string name="export_settings_delete_location_data_wifi_ssids">Wi-Fi SSID до датчика Wi-Fi</string>
