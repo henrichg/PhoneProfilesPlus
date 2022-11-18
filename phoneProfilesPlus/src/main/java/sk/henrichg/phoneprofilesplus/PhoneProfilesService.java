@@ -4191,9 +4191,13 @@ public class PhoneProfilesService extends Service
                     if ((PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31)) ||
                         (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                        // is not possible to use decoration when notificication background is not "Native" (0)
-                        if (preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR,
-                                        ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE).equals("0")) {
+                        String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR,
+                                ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE);
+                        String layoutType = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE,
+                                ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE);
+                        if (backgroundColor.equals("0") && layoutType.equals("0")) {
+                            // is not possible to use decoration when notificication background is not "Native" (0)
+                            // and enable decorator only when layout type is "Expandable"
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
                                     ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG);
