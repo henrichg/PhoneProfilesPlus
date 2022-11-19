@@ -604,7 +604,7 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">La balise n’est pas accessible en écriture</string>
     <string name="about_application_donate_button">Faire un don</string>
     <string name="donation_activity_title">Don</string>
-    <string name="donation_description">Vous trouvez cette application utile ? \nSupportez son développement en envoyant un don au développeur.</string>
+    <string name="donation_description">Vous trouvez cette application utile?\nSupportez son développement en envoyant un don au développeur.</string>
     <string name="about_application_releases">Publications:</string>
     <string name="permission_group_name_draw_overlays">Dessiner sur les applications</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Vous n’avez pas activé \"Dessiner sur les applications\". Ne plus demander à pour cela ?</string>
@@ -911,7 +911,7 @@
     <string name="array_pref_auto_rotate_on">Rotation automatique active</string>
     <string name="array_pref_auto_rotate_off">Rotation automatique inactive</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Cle changement de niveau adaptatif peut ne pas fonctionner sur votre appareil (exemple : appareils Samsung).</string>
-    <string name="about_application_xda_developers_community">Communauté XDA-développeurs :</string>
+    <string name="about_application_xda_developers_community">Communauté XDA-developers:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Antennes-relais connectées :</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">L\'enregistrement des antennes-relais requiert certaines permissions.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Nouvelles antennes-relais :</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Cliquez sur cette notification pour l\'ouvrir.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Dialogues de confirmation du Wi-Fi et du Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pour \"ColorOs\" est possible de désactiver ces boîtes de dialogue. Cliquez ceci, pour savoir comment.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Dans les paramètres du système :\n1. Options développeurs\/Options du développeur = activer\n2. Options développeur \/Debugging\/Débogage USB = activer\n3. Options développeurs\/Apps\/Désactiver la surveillance des permissions = activer.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Dans les paramètres du système:\n1. Options développeurs/Options du développeur = activer\n2. Options développeur /Debugging/Débogage USB = activer\n3. Options développeurs/Apps/Désactiver la surveillance des permissions = activer.</string>
     <string name="profile_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de l\'activer.</string>
     <string name="event_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de changer son exécution.</string>
     <string name="profile_preferences_red_texts_in_header">Certains profils ont des erreurs dans leurs préférences. Ces profils sont marqués de couleur rouge. Veuillez les corriger.</string>
@@ -1330,7 +1330,7 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Garder l\'écran allumé</string>
     <string name="permission_why_profile_screen_on_permanent">pour garder l\'écran allumé</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Exception pour les volumes</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Les volumes de sonnerie et de notification configurés dans ce profil seront ignorés, si dans \"système\", le mode sonore \"silencieux\" (alarmes uniquement, vibrations) est activé.</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Les volumes de sonnerie et de notification configurés dans ce profil seront ignorés, si dans système, le mode sonore \"silencieux\" (alarmes uniquement, vibrations) est activé.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pour un volume de notification vraiment silencieux, configurez le ton de notification à \"None\".</string>
     <string name="altype_profileError_runApplication_application">profil - erreur au démarrage de l\'application</string>
     <string name="altype_profileError_runApplication_shortcut">profil - erreur au lancement du raccourci</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Aucun capteur de luminosité</string>
     <string name="directory_tree_activity_not_found_alert">L\'écran de l\'arborescence des répertoires ne peut pas être affiché.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Pour \"MIUI\", il est possible de désactiver ces boîtes de dialogue. Cliquez ici, pour savoir comment.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Dans paramètres&gt;Applications&gt;Gérer les applications&gt;PhoneProfilesPlus&gt;Autres autorisations : régler « Changer la connectivité Wi-Fi » et « Changer la connectivité Bluetooth » sur « Accepter ».</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Dans paramètres/Applications/Gérer les applications/PhoneProfilesPlus/Autres autorisations : régler \"Changer la connectivité Wi-Fi \" et \"Changer la connectivité Bluetooth\" sur \"Accepter\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Redémarrer les événements ne fonctionnera pas car ils sont désactivés</string>
     <string name="critical_github_release">Mise à jour critique</string>
     <string name="critical_github_release_notification">Cliquez sur cette notification pour télécharger la mise à jour critique de PhoneProfilesPlus à partir de GitHub.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Forcer natif (pour les icônes personnalisées)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Exécuter des applications, des raccourcis, des évènements pour « MIUI »</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Pour \"MIUI\" il faut certaines autorisations en plus. Cliquez ceci, pour savoir comment faire.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">Dans paramètres>Applications>Gérer les applications>PhoneProfilesPlus>Autres autorisations : régler « Afficher les fenêtre pop-up quand l\'application est en arrière plan » et « Montrer sur l\'écran de verrouillage » sur « Accepter ».</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">Dans paramètres/Applications/Gérer les applications/PhoneProfilesPlus/Autres autorisations : régler \"Afficher les fenêtre pop-up quand l\'application est en arrière plan\" et \"Montrer sur l\'écran de verrouillage\" sur \"Accepter\".</string>
     <string name="miui_permissions_alert_dialog_show">Afficher les autorisations</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrer lors de la sonnerie\/Vibrer lors des notifications</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrer lors de la sonnerie/Vibrer lors des notifications</string>
     <string name="profile_preferences_vibrateNotifications">Vibrer lors d\'une notification</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Mode son et vibration</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Pour que les vibrations fonctionnent correctement pour la sonnerie et les notifications lorsque le mode Sons est configuré sur un type de vibration, il est recommandé d\'activer dans les paramètres de l\'appareil : \"Sons &amp; vibration\"\/\"Vibration &amp; haptic\" et dedans, \"Vibration de notification\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Pour que les vibrations fonctionnent correctement pour la sonnerie et les notifications lorsque le mode Sons est configuré sur un type de vibration, il est recommandé d\'activer dans les paramètres de l\'appareil: \"Sons &amp; vibration\"/\"Vibration &amp; haptic\" et dedans, \"Vibration de notification\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Le service d\'accessibilité pour PhoneProfilesPlusExtender n\'est pas activé, mais il est déterminé</string>
     <string name="extender_accessibility_setting_not_enabled_title">Service d\'accessibilité non activé</string>
     <string name="extender_accessibility_setting_not_enabled_text">Le service d\'accessibilité pour PhoneProfilesPlusExtender n\'est pas activé. Cliquez ici pour l\'activer.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">Fin de l\'indicateur de préférences de profil d\'événement</string>
     <string name="configured_profile_preferences_preference_icon_image">Icône de préférence du profil</string>
     <string name="important_infor_traffic_light_icon">Icône du feu de circulation</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Opacité\/luminosité des icônes</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Opacité/luminosité des icônes</string>
     <string name="preference_widget_application_icon">Icône de l\'application sélectionnée</string>
     <string name="preference_widget_color_chooser_icon">Couleur sélectionnée</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Opacité sélectionnée\/luminosité</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Opacité sélectionnée/luminosité</string>
     <string name="preference_widget_exclamation_icon">Exclamation</string>
     <string name="preference_widget_image_icon">Image sélectionnée</string>
     <string name="preference_widget_information_icon">Information</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Raccourci</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">Accès spécial \"Contrôle Wi-Fi\"</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">L\'accès spécial \"Contrôle Wi-Fi\" doit être autorisé. Il est nécessaire pour activer et désactiver le Wi-Fi. Cliquez sur ceci pour voir comment faire.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">L\'accès spécial \"Contrôle Wi-Fi\" doit être autorisé. Il est nécessaire pour activer et désactiver le Wi-Fi.\n\nDans les paramètres de l\'appareil, autorisez \"Application\" \/\"Accès spécial à l\'application\"\/\"Contrôle Wi-Fi\" pour PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">L\'accès spécial \"Contrôle Wi-Fi\" doit être autorisé. Il est nécessaire pour activer et désactiver le Wi-Fi.\n\nDans les paramètres de l\'appareil, autorisez \"Application\"/\"Accès spécial à l\'application\"/\"Contrôle Wi-Fi\" pour PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Afficher les paramètres de l\'appareil</string>
     <string name="important_info_profile_grant_1_howTo_20_1">NOTE :</string>
     <string name="important_info_profile_grant_1_howTo_20_2">Pour certains appareils, les options pour les développeurs doivent être activées :</string>
@@ -1921,7 +1921,7 @@
     <string name="event_preferences_activated_profile_info_summary">Les profils ne doivent pas être identiques. S\'ils le sont, leurs paramètres seront marqués en erreur dans la configuration.</string>
     <string name="quick_tile_icon_label">Activer le profil</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Écran de configuration non trouvé.\n\nVeuillez aller dans les paramètres de l\'appareil : \"Paramètres / Applications / Lancement de l\'application\" et définir \"Gérer manuellement\" pour PhoneProfilesPlus.</string>
-    <string name="notifications_permission_text">La permission pour les notifications n\'est pas accordée.\n\n Validez cette permission pour PhoneProfilesPlus. Sans cela les notifications de PhoneProfilesPlus ne seront pas affichées.</string>
+    <string name="notifications_permission_text">La permission pour les notifications n\'est pas accordée.\n\nValidez cette permission pour PhoneProfilesPlus. Sans cela les notifications de PhoneProfilesPlus ne seront pas affichées.</string>
     <string name="enable_notificaitons_button">Activé</string>
     <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Utiliser les couleurs dynamiques</string>
     <string name="important_info_event_event_sensors_waiting">Violet : Le capteur est en état d\'attente. Le statut \"Pass\" est déterminé.</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">Nom du profil OpenVPN :</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Nom du tunnel WireGuard :</string>
     <string name="altype_profileError_setVPN">profil - erreur dans la configuration du VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Connecter\/déconnecter Le VPN pour OpenVPN est déplacé de \"Autres\"\/\"Exécuter des applications, raccourcis, intents\" vers le paramètre \"VPN\".</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Connecter/déconnecter Le VPN pour OpenVPN est déplacé de \"Autres\"/\"Exécuter des applications, raccourcis, intents\" vers le paramètre \"VPN\".</string>
     <string name="permission_why_profile_wireguard">pour configurer un tunnel VPN avec l\'application WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard n\'est pas installé ou c\'est une version non prise en charge.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect n\'est pas installé.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN pour Android n\'est pas installé.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">Ce capteur lancera un événement lorsque l\'appareil sera connecté\/déconnecté du VPN. Paramètres : État de la connexion.</string>
+    <string name="event_preference_sensor_vpn_summary">Ce capteur lancera un événement lorsque l\'appareil sera connecté/déconnecté du VPN. Paramètres : État de la connexion.</string>
     <string name="event_preferences_category_eventVPNParameters">Capteur VPN</string>
     <string name="pref_event_vpn_connection_status">Statut de connexion</string>
     <string name="array_pref_vpn_connected">Connecté</string>

@@ -93,7 +93,7 @@
     <string name="alert_message_delete_all_profiles">Да ли сте сигурни?</string>
     <string name="alert_title_delete_all_events">Избриши све догађаје</string>
     <string name="alert_message_delete_all_events">Да ли сте сигурни?</string>
-    <string name="phone_profiles_pref_applicationTheme">Postavi temu</string>
+    <string name="phone_profiles_pref_applicationTheme">Application theme</string>
     <string name="phone_profiles_pref_applicationTheme_dark">Тамна</string>
     <string name="phone_preferences_actionMode_save">Сними</string>
     <string name="profile_preferences_showInActivator">Прикажи у активатору</string>
@@ -150,11 +150,11 @@
     <string name="array_pref_no_run">Не покрећи</string>
     <string name="array_pref_run">Покрени</string>
     <string name="profile_list_item_menu_activate">Активирано</string>
-    <string name="profile_list_item_menu_duplicate">Duplirajte</string>
+    <string name="profile_list_item_menu_duplicate">Duplicate</string>
     <string name="profile_list_item_menu_delete">Обриши</string>
     <string name="event_list_item_menu_run">Омогући старт</string>
     <string name="event_list_item_menu_stop">Заустави догађај</string>
-    <string name="event_list_item_menu_duplicate">Dupliraj</string>
+    <string name="event_list_item_menu_duplicate">Duplicate</string>
     <string name="event_list_item_menu_delete">Обриши</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Прикажи индикатор подешавања</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Стартуј са почетног екрана</string>
@@ -169,7 +169,7 @@
     <string name="event_preferences_battery_level_low">Нижи ниво (%)</string>
     <string name="event_preferences_battery_level_hight">Виши ниво (%)</string>
     <string name="event_preferences_battery_charging">Пуњење</string>
-    <string name="pref_event_battery_level">Nivo</string>
+    <string name="pref_event_battery_level">Level</string>
     <string name="pref_event_battery_charging">Пуњење</string>
     <string name="event_preferences_category_eventTimeParameters">Сензор времена</string>
     <string name="event_preferences_category_eventBatteryParameters">Сензор батерије</string>
@@ -196,7 +196,7 @@
     <string name="event_preferences_ForceRun_summary">Покрени догађај и ако постоји ручно активирани профил</string>
     <string name="event_preferences_category_startOfEvent">Почетак догађаја</string>
     <string name="event_preferences_category_endOfEvent">Крај догађаја</string>
-    <string name="event_preference_profile_undone">Poništi</string>
+    <string name="event_preference_profile_undone">Undo</string>
     <string name="event_preferences_priority">Приоритет</string>
     <string name="array_event_pref_priorityVeryHigh">[P:9] Врло јако</string>
     <string name="array_event_pref_priorityHigh">[P:7] Јако</string>
@@ -204,9 +204,9 @@
     <string name="array_event_pref_priorityLow">[P:3] Ниско</string>
     <string name="array_event_pref_priorityVeryLow">[P:1] Јако ниско</string>
     <string name="editor_drawer_order_priority">Приоритет</string>
-    <string name="event_type_peripheral">Dodatna oprema</string>
-    <string name="array_event_pref_peripheralType_deskDock">Stolni Dok</string>
-    <string name="array_event_pref_peripheralType_carDock">Dok za kola</string>
+    <string name="event_type_peripheral">Accessories</string>
+    <string name="array_event_pref_peripheralType_deskDock">Desk dock</string>
+    <string name="array_event_pref_peripheralType_carDock">Car dock</string>
     <string name="event_preferences_category_eventPeripheralParameters">Додатни сензор</string>
     <string name="event_preferences_peripheral_type">Тип додатака</string>
     <string name="array_event_pref_peripheralType_wired_headset">Жичани спикерфон</string>
@@ -239,7 +239,7 @@
     <string name="pref_event_wifi_ssid">SSID</string>
     <string name="array_event_pref_wifiConnectionType_connected">Повезан</string>
     <string name="array_event_pref_wifiConnectionType_inFront">Поред ( у домету)</string>
-    <string name="event_preferences_wifi_connection_type">Tip veze</string>
+    <string name="event_preferences_wifi_connection_type">Connection type</string>
     <string name="phone_profiles_pref_applicationEventWifiScanInterval">Ви-Фи интервал скенирања ( у минутама)</string>
     <string name="phone_profiles_pref_applicationEventBackgroundProfile">Предодређени профил</string>
     <string name="profile_preference_profile_end_no_activate">Не активирај</string>
@@ -504,7 +504,7 @@
     <string name="array_event_pref_orientationSides_leftSide">Лева страна горе</string>
     <string name="array_event_pref_orientationSides_upSide">Средина горе</string>
     <string name="array_event_pref_orientationSides_downSide">Доња страна горе</string>
-    <string name="event_preferences_orientation_distance">Razdaljina</string>
+    <string name="event_preferences_orientation_distance">Distance</string>
     <string name="array_event_pref_orientationDistanceType_noCheck">Не проверавај</string>
     <string name="array_event_pref_orientationDistanceType_near">Близу</string>
     <string name="array_event_pref_orientationDistanceType_far">Далеко</string>
@@ -604,7 +604,7 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Није могућ упис у таг</string>
     <string name="about_application_donate_button">Молимо да донирате</string>
     <string name="donation_activity_title">Донације</string>
-    <string name="donation_description">Мислите да је ова апликација корисна? \n Подржите њен развој донирањем.</string>
+    <string name="donation_description">Мислите да је ова апликација корисна?\nПодржите њен развој донирањем.</string>
     <string name="about_application_releases">Издања:</string>
     <string name="permission_group_name_draw_overlays">Приказ преко апликација</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Нисте омогућили \" Приказ преко апликација\". Никада не питај ово поново?</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\/Developer options = enable\n2. Developer options\/Debugging\/USB debugging = enable\n3. Developer options\/Apps\/Disable permission monitoring = enable.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options/Developer options = enable\n2. Developer options/Debugging/USB debugging = enable\n3. Developer options/Apps/Disable permission monitoring = enable.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
     <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
     <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
     <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth connectivity\" set to \"Accept\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings/Apps/Manage apps/PhoneProfilesPlus/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth connectivity\" set to \"Accept\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <string name="critical_github_release">Critical app. release</string>
     <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings/Apps/Manage apps/PhoneProfilesPlus/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
     <string name="miui_permissions_alert_dialog_show">Show permissions</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing/Vibrate notifications</string>
     <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
     <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
     <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">End of event profile preferences indicator</string>
     <string name="configured_profile_preferences_preference_icon_image">Profile preference icon</string>
     <string name="important_infor_traffic_light_icon">Traffic light icon</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Opaqueness\/lightning icon</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Opaqueness/lightning icon</string>
     <string name="preference_widget_application_icon">Selected application icon</string>
     <string name="preference_widget_color_chooser_icon">Selected color</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Selected opaqueness\/lightning</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Selected opaqueness/lightning</string>
     <string name="preference_widget_exclamation_icon">Exclamation</string>
     <string name="preference_widget_image_icon">Selected image</string>
     <string name="preference_widget_information_icon">Information</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Shortcut</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi control\" special access</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi. Click this to show how.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"/\"Special app access\"/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Show device Settings</string>
     <string name="important_info_profile_grant_1_howTo_20_1">NOTE:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">For some devices must be in Developer options enabled:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN profile name:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnel name:</string>
     <string name="altype_profileError_setVPN">profile - error on set VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Connect\/disconnect VPN for OpenVPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">for set tunnel up\/down by WireGuard application</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN for OpenVPN is moved from \"Others\"/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">for set tunnel up/down by WireGuard application</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is not installed or is in non-supported version.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect is not installed.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to\/disconnected from VPN. Parameters: Connection status.</string>
+    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to/disconnected from VPN. Parameters: Connection status.</string>
     <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
     <string name="pref_event_vpn_connection_status">Connection status</string>
     <string name="array_pref_vpn_connected">Connected</string>

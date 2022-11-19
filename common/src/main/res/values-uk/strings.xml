@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Натисніть на це повідомлення, щоб відкрити його.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Діалоги підтвердження Wi-Fi та Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Для \"ColorOs\" є можливість вимкнути ці діалоги. Натисніть тут, щоб побачити як.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">У системних налаштуваннях:\n1. Для розробників\/Режим розробника = увімкнути\n2. Для розробників\/Налагодження\/Налагодження по USB = увімкнути\n3. Для розробників\/Додатки\/Вимкнення відслідковування дозволів= увімкнути.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">У системних налаштуваннях:\n1. Для розробників/Режим розробника = увімкнути\n2. Для розробників/Налагодження/Налагодження по USB = увімкнути\n3. Для розробників/Додатки/Вимкнення відслідковування дозволів= увімкнути.</string>
     <string name="profile_preferences_red_texts_text_2">Це неможливо активувати.</string>
     <string name="event_preferences_red_texts_text_2">Неможливо змінити його запуск.</string>
     <string name="profile_preferences_red_texts_in_header">В деяких профілях є помилки в налаштуваннях. Ці профілі позначені червоним кольором. Виправте це.</string>
@@ -1330,7 +1330,7 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Залишати екран увімкненим</string>
     <string name="permission_why_profile_screen_on_permanent">щоб тримати екран увімкненим</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Виняток для гучності</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Гучність дзвінка та сповіщень налаштованих у цьому профілі, буде проігноровано, якщо встановлений режим "тиша" (лише будильники, вібрація).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Гучність дзвінка та сповіщень налаштованих у цьому профілі, буде проігноровано, якщо встановлений режим \"тиша\" (лише будильники, вібрація).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Немає\".</string>
     <string name="altype_profileError_runApplication_application">профіль - помилка запуску застосунку</string>
     <string name="altype_profileError_runApplication_shortcut">профіль - помилка запуску ярлика</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Ваш пристрій немає датчика світла</string>
     <string name="directory_tree_activity_not_found_alert">Неможливо показати дерево каталогів.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Для \"MIUI\" є можливість вимкнути ці діалоги. Натисніть тут, щоб побачити як.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">У налаштуваннях пристрою\/Застосунки\/Керування додатками\/PhoneProfilesPlus\/Інші дозволи: \"Змінити Wi-Fi підключення\" і \"Змінити підключення до Bluetooth\" встановити \"Дозволити\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">У налаштуваннях пристрою/Застосунки/Керування додатками/PhoneProfilesPlus/Інші дозволи: \"Змінити Wi-Fi підключення\" і \"Змінити підключення до Bluetooth\" встановити \"Дозволити\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Перезапуск подій не працює, оскільки запуск подій вимкнено</string>
     <string name="critical_github_release">Критичне оновлення</string>
     <string name="critical_github_release_notification">Натисніть на це сповіщення, щоб завантажити критичне оновлення додатку PhoneProfilesPlus з GitHub.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Примусово вбудовані (для користувацьких іконок)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Запустити застосунки, ярлики, intents для \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Для \"MIUI\" потрібно дати деякі дозволи. Натисніть тут, щоб побачити як.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">У Налаштуваннях\/Додатки\/Керування додатками\/PhoneProfilesPlus\/Інші дозволи: \"Відображати виринаючі вікна під час роботи у фоні\" і \"Показати на екрані блокування\" виберіть \"Дозволити\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">У Налаштуваннях/Додатки/Керування додатками/PhoneProfilesPlus/Інші дозволи: \"Відображати виринаючі вікна під час роботи у фоні\" і \"Показати на екрані блокування\" виберіть \"Дозволити\".</string>
     <string name="miui_permissions_alert_dialog_show">Показати дозволи</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Вібрувати під час виклику\/Вібрація під час сповіщення</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Вібрувати під час виклику/Вібрація під час сповіщення</string>
     <string name="profile_preferences_vibrateNotifications">Вібрація під час сповіщення</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Режим звуку та вібрація</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Для належної роботи вібрації під час виклику та сповіщень, коли \"Режим звуку\" налаштований на вібрацію, рекомендується включити у налаштуваннях пристрою: \"Звук та вібрація\" \/\"Вібрація та відгук\" і в ньому \"Вібрувати при сповіщеннях\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Для належної роботи вібрації під час виклику та сповіщень, коли \"Режим звуку\" налаштований на вібрацію, рекомендується включити у налаштуваннях пристрою: \"Звук та вібрація\"/\"Вібрація та відгук\" і в ньому \"Вібрувати при сповіщеннях\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Служба спец. можливостей для PhoneProfilesPlusExtender не увімкнена, але вона визначена</string>
     <string name="extender_accessibility_setting_not_enabled_title">Служба спец. можливостей вимкнута</string>
     <string name="extender_accessibility_setting_not_enabled_text">Служба спец. можливостей для PhoneProfilesPlusExtender не увімкнена. Натисніть тут, щоб увімкнути її.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">Індикатор параметру профілю про закінчення події</string>
     <string name="configured_profile_preferences_preference_icon_image">Іконка налаштування профілю</string>
     <string name="important_infor_traffic_light_icon">Іконка \"Світлофор\"</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Непрозорість\/світлість іконки</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Непрозорість/світлість іконки</string>
     <string name="preference_widget_application_icon">Обрана іконка застосунку</string>
     <string name="preference_widget_color_chooser_icon">Обраний колір</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Обрана непрозорість\/світлість</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Обрана непрозорість/світлість</string>
     <string name="preference_widget_exclamation_icon">Попередження</string>
     <string name="preference_widget_image_icon">Обране зображення</string>
     <string name="preference_widget_information_icon">Інформація</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Ярлик</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Керування Wi-Fi\" спеціальний дозвіл</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Керування Wi-Fi\" спеціальний дозвіл повинен бути наданий. Він необхідний для включення та вимкнення Wi-Fi. Натисніть, щоб побачити як.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Керування Wi-Fi\" спеціальний дозвіл повинен бути наданий. Це необхідно для включення та вимкнення Wi-Fi.\n\nУ налаштуваннях пристрою дозвольте \"Застосунки \/\"Спеціальний доступ\"\/\"Керування Wi-Fi\" для PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Керування Wi-Fi\" спеціальний дозвіл повинен бути наданий. Це необхідно для включення та вимкнення Wi-Fi.\n\nУ налаштуваннях пристрою дозвольте \"Застосунки\"/\"Спеціальний доступ\"/\"Керування Wi-Fi\" для PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Показати налаштування пристрою</string>
     <string name="important_info_profile_grant_1_howTo_20_1">ПРИМІТКА:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">Для деяких пристроїв необхідно увімкнути в опціях розробника:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">Ім\'я профілю OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Назва тунелю WireGuard:</string>
     <string name="altype_profileError_setVPN">профіль - помилка при налаштуванні VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Увімкнути\/вимкнути VPN для OpenVPN переміщено з \"Інші\"\/\"Запустити застосунки, ярлики, intents\" до параметра \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">для налаштування вмикання\/вимикання тунелю застосунком WireGuard</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Увімкнути/вимкнути VPN для OpenVPN переміщено з \"Інші\"/\"Запустити застосунки, ярлики, intents\" до параметра \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">для налаштування вмикання/вимикання тунелю застосунком WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard не встановлено або версія не підтримується.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN з\'єднання не встановлено.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN для Android не встановлено.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">Цей датчик запускає подію, коли пристрій під\'єднано до\/від\'єднано від VPN. Параметри: стан з\'єднання.</string>
+    <string name="event_preference_sensor_vpn_summary">Цей датчик запускає подію, коли пристрій під\'єднано до/від\'єднано від VPN. Параметри: стан з\'єднання.</string>
     <string name="event_preferences_category_eventVPNParameters">Датчик VPN</string>
     <string name="pref_event_vpn_connection_status">Статус з`єднання</string>
     <string name="array_pref_vpn_connected">З\'єднано</string>

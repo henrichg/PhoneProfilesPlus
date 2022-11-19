@@ -743,8 +743,8 @@
     <string name="duration_pref_dlg_duration_label">Müddet:</string>
     <string name="duration_pref_dlg_activation_end_label">Faaliyete geçirdikten sonra:</string>
     <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
-    <string name="action_for_external_application_notification_no_profile_text">Tercih_ismi değeri eksik veya boş.</string>
-    <string name="action_for_external_application_notification_no_event_text">Durum_ismi değeri eksik veya boş.</string>
+    <string name="action_for_external_application_notification_no_profile_text">profile_name parametresi eksik veya boş.</string>
+    <string name="action_for_external_application_notification_no_event_text">event_name parametresi eksik veya boş.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Açık (Hot-spot\'u ihmal et)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Değiştir (Hot-spot\'u ihmal et)</string>
     <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung kenar paneli</string>
@@ -762,8 +762,8 @@
     <string name="important_info_profile_grant_1_howTo_3">SDK platformu araçlarını şuradan indirin:</string>
     <string name="important_info_profile_grant_1_howTo_4">zip dosyasını ayıklayın.</string>
     <string name="important_info_profile_grant_1_howTo_5">Nasıl WRITE_SECURE_SETTINGS izni verilir:</string>
-    <string name="important_info_profile_grant_1_howTo_6">Telefonda, Ayarlar → Telefon hakkında → Yazılım bilgisi ve 5/7 defa Build/Yapı numarasına dokunun, şimdi ayarlarda bir geliştirici seçenekleri girişi olacak.</string>
-    <string name="important_info_profile_grant_1_howTo_7">Telefonda, Ayarlar → Geliştirici seçenekleri ve USB hata ayıklamayı açın.</string>
+    <string name="important_info_profile_grant_1_howTo_6">Telefonda, Ayarlar &gt; Telefon hakkında &gt; Yazılım bilgisi ve 5/7 defa Build/Yapı numarasına dokunun, şimdi ayarlarda bir geliştirici seçenekleri girişi olacak.</string>
+    <string name="important_info_profile_grant_1_howTo_7">Telefonda, Ayarlar &gt; Geliştirici seçenekleri ve USB hata ayıklamayı açın.</string>
     <string name="important_info_profile_grant_1_howTo_8">Bilgisayarda, Komut istemi CMD (Windows), Terminal (Linux, OSX) başlatın, adb yüklü klasöre gidin ve bu komut çalıştırın:</string>
     <string name="important_info_profile_grant_1_howTo_10">Başarılı yürütmeden sonra, (G1) işaretli Tercih değerlerinin tamamı kullanılabilir.</string>
     <string name="important_info_activity_title">Mühim malumat</string>
@@ -911,7 +911,7 @@
     <string name="array_pref_auto_rotate_on">Otomatik ekran döndürme açık</string>
     <string name="array_pref_auto_rotate_off">Otomatik ekran döndürme kapalı</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Uyarlanabilir seviyenin değişikliği sizin cihazinızda çalışmayabilir (misalen: Samsung cihazlar).</string>
-    <string name="about_application_xda_developers_community">XDA geliştirici topluluğu:</string>
+    <string name="about_application_xda_developers_community">XDA-developers community:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Bağlanılan şebeke hücresi:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Şebeke hücrelerini taramak için bazı izinler lazımdır.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Yeni şebeke hücresi sayacı:</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Açmak için bu bildirime dokunun.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi ve Bluetooth doğrulama pencereleri</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">\"ColorOs\" için bu pencereleri devre dışı bırakmak mümkündür. Nasıl yapıldığını görmek için buraya dokunun.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Cihaz sistem ayarlarında:\n1. Geliştirici seçenekleri\/Geliştirici seçenekleri = açık\n2. Geliştirici seçenekleri\/Hata ayıklama\/USB hata ayıklama = açık\n3. Geliştirici seçenekleri\/Uygulamalar\/İzleme iznini devre dışı bırak = açık.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Cihaz sistem ayarlarında:\n1. Geliştirici seçenekleri/Geliştirici seçenekleri = açık\n2. Geliştirici seçenekleri/Hata ayıklama/USB hata ayıklama = açık\n3. Geliştirici seçenekleri/Uygulamalar/İzleme iznini devre dışı bırak = açık.</string>
     <string name="profile_preferences_red_texts_text_2">Bunu faaliyete geçirmek mümkün değil.</string>
     <string name="event_preferences_red_texts_text_2">Bunun çalışmasını değiştirmek mümkün değil.</string>
     <string name="profile_preferences_red_texts_in_header">Bazı Tercihlerin ayarlarında hatalar var. Bu Tercihler kırmızı renkle işaretli. Lutfen onları düzeltin.</string>
@@ -1307,7 +1307,7 @@
     <string name="profile_preferences_types_G1_permission">(G1) ayarları için izni verin</string>
     <string name="preferences_grantG1Preferences_title">(G1) ayarları için izni verilmedi</string>
     <string name="preferences_grantG1Preferences_summary">(G1) ayarları için izni verilmedi. İzni vermek için buraya dokunun.</string>
-    <string name="phone_profiles_pref_grantG1Permission_summary">Lutfen, Tercih ve Durum değerleri için lüzumlu olan PhoneProfilesPlus\'a kök izni verin. Tercih ve Durum değerleri için lüzumlu değerler, (G1) ile işaretlenmiştir. Sonra KÖK iznine gerek olmayacaktır.</string>
+    <string name="phone_profiles_pref_grantG1Permission_summary">Please grant WRITE_SECURE_SETTINGS permission for PhoneProfilesPlus. Is required for profile and event parameters, marked with (G1). Then ROOT will not be needed.</string>
     <string name="profile_preferences_profile_not_found">Tercih bulunamadı. Silinmiş?</string>
     <string name="event_preferences_event_not_found">Durum bulunamadı. Silinmiş?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">\"Uygulamalar üzerinde çiz\" iznini vermediniz. Bu izin Android 10 için lüzumludur. Lütfen izni veriniz.</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Işık sensörü cihazınızda bulunmuyor</string>
     <string name="directory_tree_activity_not_found_alert">Klasör ağacı ekranı gösterilemiyor.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">\"MIUI\" arayüzü için bu pencereleri devre dışı bırakmak mümkündür. Nasıl yapıldığını görmek için buraya dokunun.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Cihazda Ayarlar\/Uygulamalar\/Uygulamaları yönet\/PhoneProfilesPlus\/Diğer izinler: \"Wi-Fi bağlanılabilirliği değiştir\" and \"Bluetooth bağlanılabilirliği değiştir\" değerlerini \"Kabul et\" olarak ayarlayınız.</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Cihazda Ayarlar/Uygulamalar/Uygulamaları yönet/PhoneProfilesPlus/Diğer izinler: \"Wi-Fi bağlanılabilirliği değiştir\" and \"Bluetooth bağlanılabilirliği değiştir\" değerlerini \"Kabul et\" olarak ayarlayınız.</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Durumları tekrar başlatma çalışmıyor, çünkü Durumların çalışması devre dışı</string>
     <string name="critical_github_release">Kritik uygulama sürümü</string>
     <string name="critical_github_release_notification">PhoneProfilesPlus\'ın GitHub kritik sürümünü indirmek için bu bildirime dokunun.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Cihaz varsayılanına zorla (hususi simgeler için)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">\"MIUI\" için uygulamaları, kısayolları, intent\'leri çalıştır</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">\"MIUI\" arayüzü için bazı izinler verilmelidir. Nasıl yapıldığını görmek için buraya dokunun.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">Cihazda Ayarlar\/Uygulamalar\/Uygulamaları yönet\/PhoneProfilesPlus\/Diğer izinler: \"Arkaplanda çalışırken açılır pencereleri göster\" ve \"Kilit ekranında göster\" değerlerini \"Kabul et\" olarak ayarlayınız.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">Cihazda Ayarlar/Uygulamalar/Uygulamaları yönet/PhoneProfilesPlus/Diğer izinler: \"Arkaplanda çalışırken açılır pencereleri göster\" ve \"Kilit ekranında göster\" değerlerini \"Kabul et\" olarak ayarlayınız.</string>
     <string name="miui_permissions_alert_dialog_show">İzinleri göster</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Çalarken titret\/Bildirimleri titret</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Çalarken titret/Bildirimleri titret</string>
     <string name="profile_preferences_vibrateNotifications">Bildirimlerde titret</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Ses ve titreşim</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">\"Ses Modu\" bazı titreşim türlerine ayarlandığında, zil sesi ve bildirimlerde titreşimin düzgün çalışması için, cihaz ayarlarında şu ayarların etkinleştirilmesi tavsiye edilir: \"Ses &amp; titreşim\"/ \"Titreşim &amp; dokunuş\" ve içinde \"Bildirim titreşimi\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">\"Ses Modu\" bazı titreşim türlerine ayarlandığında, zil sesi ve bildirimlerde titreşimin düzgün çalışması için, cihaz ayarlarında şu ayarların etkinleştirilmesi tavsiye edilir: \"Ses &amp; titreşim\"/\"Titreşim &amp; dokunuş\" ve içinde \"Bildirim titreşimi\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">PhoneProfilesPlusExtender için Erişilebilirlik hizmeti tesbit edildi fakat açılmadı</string>
     <string name="extender_accessibility_setting_not_enabled_title">Erişebilirlik hizmeti açık değil</string>
     <string name="extender_accessibility_setting_not_enabled_text">PhoneProfilesPlusExtender için Erişilebilirlik hizmeti açık değil. Açmak için buraya dokunun.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">Durum Tercih ayarları göstergesinin bitişi</string>
     <string name="configured_profile_preferences_preference_icon_image">Tercih ayarları simgesi</string>
     <string name="important_infor_traffic_light_icon">Trafik ışığı simgesi</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Simgenin şeffaflığı\/parlaklığı</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Simgenin şeffaflığı/parlaklığı</string>
     <string name="preference_widget_application_icon">Seçilen uygulama simgesi</string>
     <string name="preference_widget_color_chooser_icon">Seçilen renk</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Seçilen şeffaflık\/parlaklık</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Seçilen şeffaflık/parlaklık</string>
     <string name="preference_widget_exclamation_icon">Ünlem işareti</string>
     <string name="preference_widget_image_icon">Seçilen resim</string>
     <string name="preference_widget_information_icon">Malumat</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Kısayol</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi kontrol\" özel erişim</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi kontrol\" özel erişime izin verilmeli. Wi-Fi\'yi açıp kapatmak için lüzumludur. Nasıl yapıldığını görmek için buraya dokunun.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi kontrol\" özel erişime izin verilmeli. Wi-Fi\'yi açıp kapatmak için lüzumludur.\n\nCihaz Ayarlarında \"Uygulamalar\"\/\"Özel uygulama erişimi\"\/\"Wi-Fi kontrol\"de PhoneProfilesPlus için izin veriniz.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi kontrol\" özel erişime izin verilmeli. Wi-Fi\'yi açıp kapatmak için lüzumludur.\n\nCihaz Ayarlarında \"Uygulamalar\"/\"Özel uygulama erişimi\"/\"Wi-Fi kontrol\"de PhoneProfilesPlus için izin veriniz.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Cihaz Ayarları\'nı göster</string>
     <string name="important_info_profile_grant_1_howTo_20_1">DİKKAT:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">Bazı cihazlarda Geliştirici seçenekleri açık olmalıdır:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN Tercih ismi:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard Tünel ismi:</string>
     <string name="altype_profileError_setVPN">Tercih - VPN ayarlamada hata</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">OpenVPN için VPN\'e bağlan\/bağlantıyı kes, \"Diğerleri\"\/\"Uygulamaları, kısayolları, intent\'leri çalıştır\" bölümünden \"VPN\" değerine taşındı.</string>
-    <string name="permission_why_profile_wireguard">WireGuard uygulamasıyla tüneli yukarı\/aşağı ayarlamak için</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">OpenVPN için VPN\'e bağlan/bağlantıyı kes, \"Diğerleri\"/\"Uygulamaları, kısayolları, intent\'leri çalıştır\" bölümünden \"VPN\" değerine taşındı.</string>
+    <string name="permission_why_profile_wireguard">WireGuard uygulamasıyla tüneli yukarı/aşağı ayarlamak için</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard kurulu değil veya desteklenmeyen bir sürümde.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect yüklü değil.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android yüklü değil.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">Bu şart, Durumun cihazın VPN\'den bağlanması\/bağlanmaması ile başlaması içindir. Şartlar: Bağlantı vaziyeti.</string>
+    <string name="event_preference_sensor_vpn_summary">Bu şart, Durumun cihazın VPN\'den bağlanması/bağlanmaması ile başlaması içindir. Şartlar: Bağlantı vaziyeti.</string>
     <string name="event_preferences_category_eventVPNParameters">VPN şartı</string>
     <string name="pref_event_vpn_connection_status">Bağlantı vaziyeti</string>
     <string name="array_pref_vpn_connected">Bağlandı</string>

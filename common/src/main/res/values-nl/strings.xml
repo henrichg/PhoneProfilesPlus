@@ -604,7 +604,7 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag is niet beschrijfbaar</string>
     <string name="about_application_donate_button">Doneer alstublieft</string>
     <string name="donation_activity_title">Donatie</string>
-    <string name="donation_description">Vind je deze programma nuttig? \nSupport de ontwikkeling door het sturen van een donatie aan de ontwikkelaar.</string>
+    <string name="donation_description">Vind je deze programma nuttig?\nSupport de ontwikkeling door het sturen van een donatie aan de ontwikkelaar.</string>
     <string name="about_application_releases">Releases:</string>
     <string name="permission_group_name_draw_overlays">Weergeven over andere apps</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">U hebt niet \"Weergeven over andere apps\" ingeschakeld. Niet opnieuw vragen?</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Klik op deze melding om te openen.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi- en Bluetooth bevestigingsscherm</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Voor \"ColorOs\" is het mogelijk om deze schermen uit te schakelen. Klik hier om te zien hoe.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In apparaat systeeminstellingen:\n1. Ontwikkelaarsopties\/Ontwikkelaarsopties = inschakelen\n2. Ontwikkelaarsopties\/Debugging\/USB debugging = inschakelen\n3. Ontwikkelaarsopties\/Apps\/Uitschakelen autorisatie monitoring = inschakelen.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In apparaat systeeminstellingen:\n1. Ontwikkelaarsopties/Ontwikkelaarsopties = inschakelen\n2. Ontwikkelaarsopties/Debugging/USB debugging = inschakelen\n3. Ontwikkelaarsopties/Apps/Uitschakelen autorisatie monitoring = inschakelen.</string>
     <string name="profile_preferences_red_texts_text_2">Voor dit is het niet mogelijk om het te activeren.</string>
     <string name="event_preferences_red_texts_text_2">Voor dit is het niet mogelijk om uitvoeren te activeren.</string>
     <string name="profile_preferences_red_texts_in_header">Sommige profielen hebben fouten in de voorkeuren. Deze profielen zijn gemarkeerd met een rode kleur. Los deze fouten op.</string>
@@ -1312,7 +1312,7 @@
     <string name="event_preferences_event_not_found">Event niet gevonden. Verwijderd?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">U hebt geen machtiging verleend \"Weergeven over andere apps\". Deze machtiging is vereist voor Android 10. Verleen het alstublieft.</string>
     <string name="event_preferences_battery_level_info">Batterij niveau waarschuwing</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Lager niveau &gt; 0% of hoger niveau&lt; 100% batterijverbruik!</string>
+    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Lager niveau &gt; 0% of hoger niveau &lt; 100% batterijverbruik!</string>
     <string name="event_preference_sensor_device_boot_summary">Deze sensor start event direct na opstarten van apparaat. Parameters: Permanent ingeschakeld, Tijdsduur (event uitvoer tijdsduur).</string>
     <string name="event_type_device_boot">Apparaat opstarten</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Apparaat opstartsensor</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Er zit geen lichtsensor in je apparaat</string>
     <string name="directory_tree_activity_not_found_alert">De mapstructuur kan niet worden weergegeven.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Voor MIUI\" is het mogelijk om deze dialogen uit te schakelen. Klik hier om te zien hoe.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In apparaatinstellingen\/Apps\/Beheer apps\/PhoneProfilesPlus\/Overige machtigingen: \"Wifi-verbinding wijzigen\" en \"Bluetooth conenctivity\" ingestellen op \"Accepteren\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In apparaatinstellingen/Apps/Beheer apps/PhoneProfilesPlus/Overige machtigingen: \"Wifi-verbinding wijzigen\" en \"Bluetooth conenctivity\" ingestellen op \"Accepteren\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Herstart van events werkt niet omdat events uitvoeren is uitgeschakeld</string>
     <string name="critical_github_release">Belangrijke vrijgage van app</string>
     <string name="critical_github_release_notification">Klik op deze melding om de belangrijke PhoneProfilesPlus versie te downloaden vanuit GitHub.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Forceer oorspronkelijke (voor aangepaste pictogrammen)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Programma\'s, snelkoppelingen, intents voor \"MIUI\" uitvoeren</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Voor \"MIUI\" moeten machtigingen worden verleend. Klik hierop, om te laten zien hoe.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In apparaatinstellingen\/Apps\/Beheer apps\/PhoneProfilesPlus\/Overige machtigingen: \"Toon pop-upvensters tijdens uitvoeren in achtergrond\" en \"Toon op vergrendelingsscherm\" instellen op \"Accepteren\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In apparaatinstellingen/Apps/Beheer apps/PhoneProfilesPlus/Overige machtigingen: \"Toon pop-upvensters tijdens uitvoeren in achtergrond\" en \"Toon op vergrendelingsscherm\" instellen op \"Accepteren\".</string>
     <string name="miui_permissions_alert_dialog_show">Machtigingen weergeven</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Trillen bij bellen\/trillen bij meldingen</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Trillen bij bellen/trillen bij meldingen</string>
     <string name="profile_preferences_vibrateNotifications">Trillen bij meldingen</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Geluidsmodus en trillen</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Om trillingen en meldingen goed te laten werken wanneer \"Geluid Modus\" is ingesteld op sommige trillingtypes, wordt aanbevolen om het volgende in te schakelen bij apparaatinstellingen: \"Geluid &amp; trillingen\"\/\"Trilling &amp; haptisch\" en daarin \"trillingen van meldingen\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Om trillingen en meldingen goed te laten werken wanneer \"Geluid Modus\" is ingesteld op sommige trillingtypes, wordt aanbevolen om het volgende in te schakelen bij apparaatinstellingen: \"Geluid &amp; trillingen\"/\"Trilling &amp; haptisch\" en daarin \"trillingen van meldingen\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Toegankelijkheidsservice voor PhoneProfilesPlusExtender is niet ingeschakeld, maar wordt bepaald</string>
     <string name="extender_accessibility_setting_not_enabled_title">Toegankelijkheidsservice niet ingeschakeld</string>
     <string name="extender_accessibility_setting_not_enabled_text">Toegankelijkheidsservice voor PhoneProfilesPlusExtender is niet ingeschakeld. Klik hier om in te schakelen.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">Einde van event profiel voorkeuren indicator</string>
     <string name="configured_profile_preferences_preference_icon_image">Profiel voorkeur icoon</string>
     <string name="important_infor_traffic_light_icon">Verkeerslicht icoon</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Ondoorzichtigheid\/bliksem icoon</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Ondoorzichtigheid/bliksem icoon</string>
     <string name="preference_widget_application_icon">Geselecteerde applicatie icoon</string>
     <string name="preference_widget_color_chooser_icon">Geselecteerde kleur</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Geselecteerde ondoorzichtigheid\/bliksem</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Geselecteerde ondoorzichtigheid/bliksem</string>
     <string name="preference_widget_exclamation_icon">Uitroepteken</string>
     <string name="preference_widget_image_icon">Geselecteerde afbeelding</string>
     <string name="preference_widget_information_icon">Informatie</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Snelkoppeling</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">Speciale toegang tot \"Wi-Fi bediening\"</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi bediening\" speciale toegang moet je toestaan. Dit is nodig om Wi-Fi in- en uit te schakelen. Klik hier om te zien hoe.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi bediening\" speciale toegang moet je toestaan. Dit is nodig om Wi-Fi in- en uit te schakelen.\n\nSta bij instellingen \"Apps\"\/\"Speciale app toegang \"\/\"Wifi besturing\" toe voor PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi bediening\" speciale toegang moet je toestaan. Dit is nodig om Wi-Fi in- en uit te schakelen.\n\nSta bij instellingen \"Apps\"/\"Speciale app toegang \"/\"Wifi besturing\" toe voor PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Toon apparaatinstellingen</string>
     <string name="important_info_profile_grant_1_howTo_20_1">OPMERKING:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">Voor sommige apparaten moet je de ontwikkelaarsopties ingeschakelen:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN profielnaam:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnelnaam:</string>
     <string name="altype_profileError_setVPN">profiel - fout bij instellen VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Verbinden\/verbreken van VPN voor OpenVPN is verplaatst van \"Overige\"\/\"Programma\'s uitvoeren, snelkoppelingen, intents\" naar de parameter \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">voor het instellen van tunnel aan\/uit door WireGuard toepassing</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Verbinden/verbreken van VPN voor OpenVPN is verplaatst van \"Overige\"/\"Programma\'s uitvoeren, snelkoppelingen, intents\" naar de parameter \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">voor het instellen van tunnel aan/uit door WireGuard toepassing</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is niet geïnstalleerd of is een niet-ondersteunde versie.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN verbinding is niet geïnstalleerd.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN Android is niet geïnstalleerd.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">Deze sensor start een event wanneer het apparaat is verbonden met\/losgekoppeld van VPN. Parameters: Verbindingsstatus.</string>
+    <string name="event_preference_sensor_vpn_summary">Deze sensor start een event wanneer het apparaat is verbonden met/losgekoppeld van VPN. Parameters: Verbindingsstatus.</string>
     <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
     <string name="pref_event_vpn_connection_status">Verbindingsstatus</string>
     <string name="array_pref_vpn_connected">Verbonden</string>

@@ -911,7 +911,7 @@
     <string name="array_pref_auto_rotate_on">自动旋转开启</string>
     <string name="array_pref_auto_rotate_off">自动旋转关闭</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">自适应级别的更改可能无法在您的设备上运行(例如：三星设备)。</string>
-    <string name="about_application_xda_developers_community">XDA开发者社区：</string>
+    <string name="about_application_xda_developers_community">XDA-developers community:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">已连接基站：</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">移动基站注册需要一些权限。</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">新基站计数：</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">单击此通知以打开它。</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi 和蓝牙确认对话框</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">对于\"ColorOs\"，可以禁用这些对话框。点击此处显示方法。</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">在设备系统设置中：\n1. 开发者选项\/开发者选项= 启用\n2。 开发者选项\/Debugging\/USB 调试=启用\n3. 开发者选项\/应用程序\/禁用权限监测 = 可启用</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">在设备系统设置中：\n1. 开发者选项/开发者选项= 启用\n2。 开发者选项/Debugging/USB 调试=启用\n3. 开发者选项/应用程序/禁用权限监测 = 可启用</string>
     <string name="profile_preferences_red_texts_text_2">此项可能无法激活。</string>
     <string name="event_preferences_red_texts_text_2">此项更改可能无法运行。</string>
     <string name="profile_preferences_red_texts_in_header">一些情景的设置有错误。这些情景已标记为红色。请修复它。</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">光线感应器不在您的设备中</string>
     <string name="directory_tree_activity_not_found_alert">无法显示目录树屏幕。</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">对于\"MIUI\"，可以禁用这些对话框。点击此处显示方法。</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">在设备设置\/Apps\/管理应用程序\/PhoneProfilesPlus\/其他权限：“更改Wi-Fi连接”和“更改蓝牙连接”设置为“接受”。</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">在设备设置/Apps/管理应用程序/PhoneProfilesPlus/其他权限：“更改Wi-Fi连接”和“更改蓝牙连接”设置为“接受”。</string>
     <string name="toast_restart_events_global_events_run_is_disabled">重新启动事件无法工作，因为事件运行已禁用</string>
     <string name="critical_github_release">关键应用程序发布</string>
     <string name="critical_github_release_notification">点击此通知从 GitHub 下载关键的 PhoneProfilesPlus 版本。</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">强制原生(自定义图标)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">为 “MIUI” 运行应用程序，快捷方式，Intents</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">对于\"MIUI\"，必须授予一些权限。点击此处显示如何操作。</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">在设备设置\/Apps\/管理应用程序\/PhoneProfilesPlus\/其他权限：“在后台运行时显示弹出窗口”设置为“接受”。</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">在设备设置/Apps/管理应用程序/PhoneProfilesPlus/其他权限：“在后台运行时显示弹出窗口”设置为“接受”。</string>
     <string name="miui_permissions_alert_dialog_show">显示权限</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">响铃时振动\/振动通知</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">响铃时振动/振动通知</string>
     <string name="profile_preferences_vibrateNotifications">振动通知</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">声音模式和振动</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">“声音模式”被配置为某些振动类型时，为响铃和通知正常工作振动， 建议在设备设置中启用: \"声音 &amp; 振动\"\/\"振动 &amp; 反馈\"和\"通知振动\"。</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">“声音模式”被配置为某些振动类型时，为响铃和通知正常工作振动， 建议在设备设置中启用: \"声音 &amp; 振动\"/\"振动 &amp; 反馈\"和\"通知振动\"。</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">PhoneProfilesPlusExt 辅助功能服务未启用，但已确定</string>
     <string name="extender_accessibility_setting_not_enabled_title">辅助功能服务未启用</string>
     <string name="extender_accessibility_setting_not_enabled_text">PhoneProfilesPlusExt 辅助功能服务未启用，点击此处启用。</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">结束事件情景设置标志</string>
     <string name="configured_profile_preferences_preference_icon_image">情景设置图标</string>
     <string name="important_infor_traffic_light_icon">信号灯图标</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">透明\/亮度 图标</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">透明/亮度 图标</string>
     <string name="preference_widget_application_icon">所选应用图标</string>
     <string name="preference_widget_color_chooser_icon">所选颜色</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">所选透明\/亮度</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">所选透明/亮度</string>
     <string name="preference_widget_exclamation_icon">感叹号</string>
     <string name="preference_widget_image_icon">所选图片</string>
     <string name="preference_widget_information_icon">信息</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">快捷方式</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi 控制\"特殊权限</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">必须允许“Wi-Fi控制”特殊权限。启用和禁用 Wi-Fi是必需的。点击此处显示如何操作。</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">必须允许“Wi-Fi控制”特殊权限。启用和禁用 Wi-Fi是必需的。\n\n在设备设置中，PhoneProfilesPlus允许\"App\"\/\"特别应用权限\"\/\"Wi-Fi控制\"。</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">必须允许“Wi-Fi控制”特殊权限。启用和禁用 Wi-Fi是必需的。\n\n在设备设置中，PhoneProfilesPlus允许\"App\"/\"特别应用权限\"/\"Wi-Fi控制\"。</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">显示设备设置</string>
     <string name="important_info_profile_grant_1_howTo_20_1">注意：</string>
     <string name="important_info_profile_grant_1_howTo_20_2">某些设备必须在开发者选项中启用：</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN 情景名称：</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard  隧道名称：</string>
     <string name="altype_profileError_setVPN">情景 - 设置 VPN 时错误</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">连接\/断开 OpenVPN 的 VPN 连接自“其他”\/\"运行应用，快捷键，intents” 移入参数 \"VPN\"。</string>
-    <string name="permission_why_profile_wireguard">用 WireGuard 应用程序设置隧道上传\/下载</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">连接/断开 OpenVPN 的 VPN 连接自“其他”/\"运行应用，快捷键，intents” 移入参数 \"VPN\"。</string>
+    <string name="permission_why_profile_wireguard">用 WireGuard 应用程序设置隧道上传/下载</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard 未安装或不支持的版本。</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN 连接未安装。</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">未安装 OpenVPN for Android 。</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">当设备连接到\/断开连接到 VPN时，此传感器将启动一个事件。参数：连接状态。</string>
+    <string name="event_preference_sensor_vpn_summary">当设备连接到/断开连接到 VPN时，此传感器将启动一个事件。参数：连接状态。</string>
     <string name="event_preferences_category_eventVPNParameters">VPN 传感器</string>
     <string name="pref_event_vpn_connection_status">连接状态</string>
     <string name="array_pref_vpn_connected">已连接</string>

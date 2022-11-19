@@ -627,7 +627,7 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nepodporovaný bezpečnostní zámek</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">není možné změnit</string>
     <string name="event_preferences_sensorsInfo_title">Funkcionalita senzorů</string>
-    <string name="event_preferences_sensorsInfo_summary">Událost se spustí, pokud parametry všech senzorů se zaškrtnutým parametrem \"Povolit senzor\", jsou splněny. Běh události bude ukončen, pokud libovolný parametr senzoru není splněn. Zaškrtněte \"Povolit senzor\" pouze pro senzory potřebné pro tuto událost. Jméno senzoru se zaškrtnutým \"Povolit senzor\" je označeno tučným textem. \n\nNěkteré parametry senzoru jsou vyžadovány. Název vyžadovaného parametru je označen podtrženým textem. Pokud některý vyžadovaný parametr není nastaven, událost se nespustí a parametr \"Povolit senzor\" není aktivován.</string>
+    <string name="event_preferences_sensorsInfo_summary">Událost se spustí, pokud parametry všech senzorů se zaškrtnutým parametrem \"Povolit senzor\", jsou splněny. Běh události bude ukončen, pokud libovolný parametr senzoru není splněn. Zaškrtněte \"Povolit senzor\" pouze pro senzory potřebné pro tuto událost. Jméno senzoru se zaškrtnutým \"Povolit senzor\" je označeno tučným textem.\n\nNěkteré parametry senzoru jsou vyžadovány. Název vyžadovaného parametru je označen podtrženým textem. Pokud některý vyžadovaný parametr není nastaven, událost se nespustí a parametr \"Povolit senzor\" není aktivován.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Barevná ikona</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Některá zařízení nepodporují barevné ikony ve stavovém řádku.</string>
     <string name="pref_dlg_change_selection_title">Změnit výběr</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Klikněte na toto oznámení pro jeho otevření.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi a Bluetooth potvrzovací dialogy</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Pro \"ColorOs\" je možné tyto dialogy zakázat. Klikněte zde pro zobrazení jak.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametrech zařízení:\n1. Vývojářské možnosti\/Vývojářské možnosti = povolit\n2. Vývojářské možnosti\/Ladění\/Ladění přes USB = povolit\n3. Vývojářské možnosti\/Aplikace\/Zabraň sledování povolení = povolit.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">V parametrech zařízení:\n1. Vývojářské možnosti/Vývojářské možnosti = povolit\n2. Vývojářské možnosti/Ladění/Ladění přes USB = povolit\n3. Vývojářské možnosti/Aplikace/Zabraň sledování povolení = povolit.</string>
     <string name="profile_preferences_red_texts_text_2">Pro toto, není možné ho aktivovat.</string>
     <string name="event_preferences_red_texts_text_2">Pro toto, není možné změnit její běh.</string>
     <string name="profile_preferences_red_texts_in_header">Některé profily mají chyby ve svých parametrech. Tyto profily jsou označeny červenou barvou. Prosím opravte je.</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Světelný senzor není ve vašem zařízení</string>
     <string name="directory_tree_activity_not_found_alert">Obrazovku stromu adresářů nelze zobrazit.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Pro \"MIUI\" je možné tyto dialogy zakázat. Klikněte zde pro zobrazení jak.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastavení zařízení\/Aplikace\/Správa aplikací\/PhoneProfilesPlus\/Ostatní povolení: \"Změnit Wi-Fi připojení\" a \"Změnit připojení Bluetooth\" nastavit na \"Povolit\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">V Nastavení zařízení/Aplikace/Správa aplikací/PhoneProfilesPlus/Ostatní povolení: \"Změnit Wi-Fi připojení\" a \"Změnit připojení Bluetooth\" nastavit na \"Povolit\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Restart událostí nefunguje, protože běh událostí je vypnutý</string>
     <string name="critical_github_release">Kritické vydání aplikace</string>
     <string name="critical_github_release_notification">Klikněte na tuto notifikaci pro stáhnutí kritického vydání PhoneProfilesPlus z jeho GitHub.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Vynutit nativní (pro vlastní ikony)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Spustit aplikace, odkazy, intenty pro \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Pro \"MIUI\" musí být udělena některá oprávnění. Klikněte zde pro zobrazení jak.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">V Nastavení zařízení\/Aplikace\/Správa aplikací\/PhoneProfilesPlus\/Ostatní povolení: \"Zobrazit vyskakovací okna během aktivity na pozadí\" a \"Zobrazit na zamčené obrazovce\" nastavte na \"Povolit\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">V Nastavení zařízení/Aplikace/Správa aplikací/PhoneProfilesPlus/Ostatní povolení: \"Zobrazit vyskakovací okna během aktivity na pozadí\" a \"Zobrazit na zamčené obrazovce\" nastavte na \"Povolit\".</string>
     <string name="miui_permissions_alert_dialog_show">Zobrazit oprávnění</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrovat při vyzvánění\/Vibrovat oznámení</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrovat při vyzvánění/Vibrovat oznámení</string>
     <string name="profile_preferences_vibrateNotifications">Vibrovat při oznámení</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Režim zvuku a vibrace</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Pro správné fungování vibrací pro vyzvánění a notifikace v případě, že je \"Zvukový režim\" nastaven na nějaký typ vibrací, doporučujeme povolit v nastavení zařízení: \"Zvuk a vibrace\"\/\"Vibrace a hmatová odezva\" a v něm \"Vibrování při upozornění\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Pro správné fungování vibrací pro vyzvánění a notifikace v případě, že je \"Zvukový režim\" nastaven na nějaký typ vibrací, doporučujeme povolit v nastavení zařízení: \"Zvuk a vibrace\"/\"Vibrace a hmatová odezva\" a v něm \"Vibrování při upozornění\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Služba Usnadnění pro PhoneProfilesPlusExtender není povolena, ale se zjišťuje</string>
     <string name="extender_accessibility_setting_not_enabled_title">Služba Usnadnění není povolena</string>
     <string name="extender_accessibility_setting_not_enabled_text">Služba Usnadnění pro PhoneProfilesPlusExtender není povolena. Klikněte zde pro její povolení.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">Indikátor parametrů profilu pro konec události</string>
     <string name="configured_profile_preferences_preference_icon_image">Ikona parametru profilu</string>
     <string name="important_infor_traffic_light_icon">Ikona \"Semafor\"</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Ikona neprůhlednosti\/světlosti</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Ikona neprůhlednosti/světlosti</string>
     <string name="preference_widget_application_icon">Ikona vybrané aplikace</string>
     <string name="preference_widget_color_chooser_icon">Vybraná barva</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Vybraná neprůhlednost\/světlost</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Vybraná neprůhlednost/světlost</string>
     <string name="preference_widget_exclamation_icon">Upozornění</string>
     <string name="preference_widget_image_icon">Vybraný obrázek</string>
     <string name="preference_widget_information_icon">Informace</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Odkaz</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">Speciální přístup \"Ovládání Wi-Fi\"</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">Speciální přístup \"Ovládání Wi-Fi\" musí být povolen. Vyžaduje se pro zapnutí a vypnutí Wi-Fi. Klikněte zde, pro zobrazení jako.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">Speciální přístup \"Ovládání Wi-Fi\" musí být povolen. Vyžaduje se pro zapnutí a vypnutí Wi-Fi.\n\nV Nastavení zařízení povolte \"Aplikace\"\/\"Speciální přístup aplikací\"\/\"Ovládání Wi-Fi\" pro PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">Speciální přístup \"Ovládání Wi-Fi\" musí být povolen. Vyžaduje se pro zapnutí a vypnutí Wi-Fi.\n\nV Nastavení zařízení povolte \"Aplikace\"/\"Speciální přístup aplikací\"/\"Ovládání Wi-Fi\" pro PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Zobraz Nastavení zařízení</string>
     <string name="important_info_profile_grant_1_howTo_20_1">POZNÁMKA:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">Pro některá zařízení musí být v Možnosti pro vývojáře povolena:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">Název profilu OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Název tunelu WireGuard:</string>
     <string name="altype_profileError_setVPN">profil - chyba při nastavení VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Připojit\/odpojit VPN pro OpenVPN je přesunuto z \"Ostatní\"\/\"Spustit aplikace, odkazy, intenty\" do parametru \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">pro nastavení zapnutí\/vypnutí tunelu pomocí aplikace WireGuard</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Připojit/odpojit VPN pro OpenVPN je přesunuto z \"Ostatní\"/\"Spustit aplikace, odkazy, intenty\" do parametru \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">pro nastavení zapnutí/vypnutí tunelu pomocí aplikace WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard není nainstalován nebo je v nepodporované verzi.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect není nainstalován.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android není nainstalován.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">Tento senzor bude spouštět událost, když je zařízení připojeno\/odpojeno od VPN. Parametry: Stav připojení.</string>
+    <string name="event_preference_sensor_vpn_summary">Tento senzor bude spouštět událost, když je zařízení připojeno/odpojeno od VPN. Parametry: Stav připojení.</string>
     <string name="event_preferences_category_eventVPNParameters">Senzor VPN</string>
     <string name="pref_event_vpn_connection_status">Stav připojení</string>
     <string name="array_pref_vpn_connected">Připojeno</string>

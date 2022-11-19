@@ -604,7 +604,7 @@
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Il Tag non è scrivibile</string>
     <string name="about_application_donate_button">Si prega di donare</string>
     <string name="donation_activity_title">Donazione</string>
-    <string name="donation_description">Trovi questa applicazione utile? \nSupporta il suo sviluppo inviando una donazione allo sviluppatore.</string>
+    <string name="donation_description">Trovi questa applicazione utile?\nSupporta il suo sviluppo inviando una donazione allo sviluppatore.</string>
     <string name="about_application_releases">Versioni:</string>
     <string name="permission_group_name_draw_overlays">Disegna sulle apps</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Non è stata attivata l\'opzione \"Disegna sulle apps\". Non richiedere più?</string>
@@ -762,7 +762,7 @@
     <string name="important_info_profile_grant_1_howTo_3">Scarica SDK Platform Tools da:</string>
     <string name="important_info_profile_grant_1_howTo_4">Estrai il contenuto del file zip.</string>
     <string name="important_info_profile_grant_1_howTo_5">Come concedere l\'autorizzazione di WRITE_SECURE_SETTINGS:</string>
-    <string name="important_info_profile_grant_1_howTo_6">Sul tuo dispositivo, vai in Impostazioni &gt; Info sul telefono e fai clic 7 volte su Numero Build. Questa procedura sbloccherà e visualizzerà la voce Opzioni Sviluppatore nelle Impostazioni.</string>
+    <string name="important_info_profile_grant_1_howTo_6">On your device, go into Settings &gt; About &gt; Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
     <string name="important_info_profile_grant_1_howTo_7">Vai in Impostazioni &gt; Opzioni Sviluppatore e attiva Debug USB.</string>
     <string name="important_info_profile_grant_1_howTo_8">Sul PC, apri Prompt dei comandi (Windows) o Terminale (Linux, OSX). Passare alla cartella dove sono stati estratti i file adb ed esegui ESATTAMENTE il seguente comando:</string>
     <string name="important_info_profile_grant_1_howTo_10">Dopo la corretta esecuzione, tutti i parametri del profilo contrassegnati con (G1) verranno attivati.</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Clicca questa notifica per aprirlo.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Finestre di conferma Wi-Fi e Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Per \"ColorOs\" si possono disabilitare queste finestre. Clicca questo, per mostrare come.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Nelle impostazioni di sistema del dispositivo:\n1. Opzioni sviluppatore\/Opzioni sviluppatore = abilita\n2. Opzioni sviluppatore\/Debuging\/USB debugging = enable\n3. Opzioni sviluppatore\/Apps\/Disabilita il monitoraggio dei permessi = abilitato.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">Nelle impostazioni di sistema del dispositivo:\n1. Opzioni sviluppatore/Opzioni sviluppatore = abilita\n2. Opzioni sviluppatore/Debuging/USB debugging = enable\n3. Opzioni sviluppatore/Apps/Disabilita il monitoraggio dei permessi = abilitato.</string>
     <string name="profile_preferences_red_texts_text_2">Per questo, non è possibile attivarlo.</string>
     <string name="event_preferences_red_texts_text_2">Per questo, non puoi modificare la sua esecuzione.</string>
     <string name="profile_preferences_red_texts_in_header">Alcuni profili hanno errori nelle loro preferenze. Questi profili sono contrassegnati con il colore rosso. Sei pregato di risolverlo.</string>
@@ -1330,7 +1330,7 @@
     <string name="profile_preferences_deviceScreenOnPermanent">Mantieni lo schermo acceso</string>
     <string name="permission_why_profile_screen_on_permanent">per mantenere lo schermo acceso</string>
     <string name="profile_preferences_volumeIgnoreSoundModeInfo_title">Eccezione per i volumi</string>
-    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Il tono della suoneria e i volumi di notifica configurati in questo profilo verranno ignorati quando il sistema è impostato su \"silenzioso\" (solo allarmi, vibrazione).</string>
+    <string name="profile_preferences_volumeIgnoreSoundModeInfo_summary">Il tono della suoneria e i volumi di notifica configurati in questo profilo verranno ignorati, quando il sistema è impostato su \"silenzioso\" (solo allarmi, vibrazione).</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Per il volume di notifica veramente silenzioso, configura il tono di notifica a \"Nessuno\".</string>
     <string name="altype_profileError_runApplication_application">profilo - errore all\'inizio dell\'applicazione</string>
     <string name="altype_profileError_runApplication_shortcut">profilo - errore all\'avvio della scorciatoia</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Il sensore di luce non è nel tuo dispositivo</string>
     <string name="directory_tree_activity_not_found_alert">Impossibile visualizzare la schermata dell\'albero delle cartelle.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Per \"MIUI\" è possibile disabilitare queste finestre di dialogo. Fare clic qui, per mostrare come.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Nelle impostazioni del dispositivo\/Applicazioni\/Gestione applicazioni\/PhoneProfilesPlus\/Altri permessi: \"Cambia connettività Wi-Fi\" e \"Cambia struttura Bluetooth\" impostata su \"Accetta\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">Nelle impostazioni del dispositivo/Applicazioni/Gestione applicazioni/PhoneProfilesPlus/Altri permessi: \"Cambia connettività Wi-Fi\" e \"Cambia struttura Bluetooth\" impostata su \"Accetta\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Gli eventi di riavvio non funzionano, perché l\'esecuzione degli eventi è disabilitata</string>
     <string name="critical_github_release">Rilascio app critica</string>
     <string name="critical_github_release_notification">Clicca questa notifica per scaricare la versione critica di PhoneProfilesPlus dal suo GitHub.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Forza nativo (per icone personalizzate)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Esegui applicazioni, scorciatoie, intenti per \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Per \"MIUI\" devono esser garantite alcune autorizzazioni. Clicca questo per mostrare come.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">Nelle Impostazioni del dispositivo\/App\/Gestisci app\/PhoneProfilesPlus\/Altre autorizzazioni: \"Mostra finestre popup durante l\'esecuzione in background\" e \"Mostra sul Blocco Schermo\" impostati ad \"Accetta\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">Nelle Impostazioni del dispositivo/App/Gestisci app/PhoneProfilesPlus/Altre autorizzazioni: \"Mostra finestre popup durante l\'esecuzione in background\" e \"Mostra sul Blocco Schermo\" impostati ad \"Accetta\".</string>
     <string name="miui_permissions_alert_dialog_show">Mostra autorizzazioni</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibra alla ricezione di notifiche con Suoneria\/Vibrazione</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibra alla ricezione di notifiche con Suoneria/Vibrazione</string>
     <string name="profile_preferences_vibrateNotifications">Notifiche vibrate</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Modalità suoneria e vibrazione</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Perché la vibrazione funzioni propriamente per la suoneria e le notifiche quando la \"Modalità Suoneria\" è configurata ad alcuni tipi di vibrazione, si consiglia di abilitare le Impostazioni del dispositivo: \"Suoneria e Vibrazione\"\/\"Vibrazione e tattile\" e in essa \"Vibrazione di notifica\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Perché la vibrazione funzioni propriamente per la suoneria e le notifiche quando la \"Modalità Suoneria\" è configurata ad alcuni tipi di vibrazione, si consiglia di abilitare le Impostazioni del dispositivo: \"Suoneria e Vibrazione\"/\"Vibrazione e tattile\" e in essa \"Vibrazione di notifica\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Il servizio d\'accessibilità per PhoneProfilesPlusExtender non è abilitato, ma è determinato</string>
     <string name="extender_accessibility_setting_not_enabled_title">Servizio d\'accessibilità non abilitato</string>
     <string name="extender_accessibility_setting_not_enabled_text">Il servizio d\'accessibilità per PhoneProfilesPlusExtender non è abilitato. Clicca qui per abilitarlo.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">Fine dell\'indicatore di preferenze del profilo dell\'evento</string>
     <string name="configured_profile_preferences_preference_icon_image">Icona di preferenza del profilo</string>
     <string name="important_infor_traffic_light_icon">Icona del semaforo</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Opacità\/icona fulmine</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Opacità/icona fulmine</string>
     <string name="preference_widget_application_icon">Icona dell\'applicazione selezionata</string>
     <string name="preference_widget_color_chooser_icon">Colore selezionato</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Opacità selezionata\/fulmine</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Opacità selezionata/fulmine</string>
     <string name="preference_widget_exclamation_icon">Punto esclamativo</string>
     <string name="preference_widget_image_icon">Immagine selezionata</string>
     <string name="preference_widget_information_icon">Informazione</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Scorciatoia</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Controllo Wi-Fi\" accesso speciale</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">L\'accesso speciale \"Wi-Fi control\" deve essere consentito. È necessario per abilitare e disabilitare il Wi-Fi. Fare clic qui per vedere come fare.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">L\'accesso speciale \"Wi-Fi control\" deve essere consentito. È necessario per abilitare e disabilitare il Wi-Fi.\n\nNelle impostazioni del dispositivo consentire \"Apps\"\/\"Accesso speciale alle app\"\/\"Controllo Wi-Fi\" per PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">L\'accesso speciale \"Wi-Fi control\" deve essere consentito. È necessario per abilitare e disabilitare il Wi-Fi.\n\nNelle impostazioni del dispositivo consentire \"Apps\"/\"Accesso speciale alle app\"/\"Controllo Wi-Fi\" per PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Mostra le Impostazioni del dispositivo</string>
     <string name="important_info_profile_grant_1_howTo_20_1">NOTA:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">Per alcuni dispositivi, le opzioni per Sviluppatori devono esser abilitate:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN profile name:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnel name:</string>
     <string name="altype_profileError_setVPN">profile - error on set VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Connect\/disconnect VPN for OpenVPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">for set tunnel up\/down by WireGuard application</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN for OpenVPN is moved from \"Others\"/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">for set tunnel up/down by WireGuard application</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is not installed or is in non-supported version.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect is not installed.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to\/disconnected from VPN. Parameters: Connection status.</string>
+    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to/disconnected from VPN. Parameters: Connection status.</string>
     <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
     <string name="pref_event_vpn_connection_status">Connection status</string>
     <string name="array_pref_vpn_connected">Connected</string>

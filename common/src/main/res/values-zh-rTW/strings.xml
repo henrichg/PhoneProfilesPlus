@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">按此通知來開啟它。</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi 與藍牙確認對話框</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">對於 \"ColorOs\" 可停用這些對話框。按此處顯示如何操作。</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">在裝置系統設定中:\n1. 開發者選項\/開發者選項 = 啟用\n2. 開發者選項\/偵錯\/USB 偵錯 = 啟用\n3. 開發者選項\/程式\/停用權限監控 = 啟用。</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">在裝置系統設定中:\n1. 開發者選項/開發者選項 = 啟用\n2. 開發者選項/偵錯/USB 偵錯 = 啟用\n3. 開發者選項/程式/停用權限監控 = 啟用。</string>
     <string name="profile_preferences_red_texts_text_2">此項可能無法啟用。</string>
     <string name="event_preferences_red_texts_text_2">此項可能無法變更它的執行。</string>
     <string name="profile_preferences_red_texts_in_header">部分設定檔在它的偏好設置中有錯誤，這些設定檔會標記紅色。請修正它。</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">你的裝置沒有光感測器</string>
     <string name="directory_tree_activity_not_found_alert">無法顯示樹狀目錄畫面。</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">對於 \"MIUI\" 可停用這些對話框。按此處顯示如何操作。</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">在裝置設定\/程式\/管理程式\/PhoneProfilesPlus\/其他權限管理: \"變更 Wi-Fi 連接\"與\"變更藍牙連接\"設為\"允許\"。</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">在裝置設定/程式/管理程式/PhoneProfilesPlus/其他權限管理: \"變更 Wi-Fi 連接\"與\"變更藍牙連接\"設為\"允許\"。</string>
     <string name="toast_restart_events_global_events_run_is_disabled">重啟事件無法運作，因為事件執行已停用</string>
     <string name="critical_github_release">重要程式發佈</string>
     <string name="critical_github_release_notification">按此通知從 GitHub 下載新版 PhoneProfilesPlus。</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">強制原生(自訂圖示)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">用於 \"MIUI\" 執行應用程式、捷徑、意圖</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">對於 \"MIUI\" 必須授予部分權限。按此處顯示如何操作。</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">在裝置設定\/程式\/管理程式\/PhoneProfilesPlus\/其他權限管理: \"後臺彈窗顯示\"與\"鎖定螢幕顯示\"設為\"允許\"。</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">在裝置設定/程式/管理程式/PhoneProfilesPlus/其他權限管理: \"後臺彈窗顯示\"與\"鎖定螢幕顯示\"設為\"允許\"。</string>
     <string name="miui_permissions_alert_dialog_show">顯示權限</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">來電時震動\/震動通知</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">來電時震動/震動通知</string>
     <string name="profile_preferences_vibrateNotifications">震動通知</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">聲音與震動</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">當 \"聲音模式\" 設置為某種震動行型時，為了來電與通知的震動正常運作，建議在裝置設定中啟用: \"聲音 &amp; 震動\"\/\"震動 &amp; 觸覺\"與其中的\"通知震動\"。</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">當 \"聲音模式\" 設置為某種震動行型時，為了來電與通知的震動正常運作，建議在裝置設定中啟用: \"聲音 &amp; 震動\"/\"震動 &amp; 觸覺\"與其中的\"通知震動\"。</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">PhoneProfilesPlusExtender 無障礙功能服務未啟用，但已確定</string>
     <string name="extender_accessibility_setting_not_enabled_title">無障礙功能服務未啟用</string>
     <string name="extender_accessibility_setting_not_enabled_text">PhoneProfilesPlusExtender 無障礙功能服務未啟用。按此處啟用它。</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">事件設定檔偏好設置指標結束</string>
     <string name="configured_profile_preferences_preference_icon_image">設定檔偏好設置圖示</string>
     <string name="important_infor_traffic_light_icon">燈號圖示</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">透明度\/亮度圖示</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">透明度/亮度圖示</string>
     <string name="preference_widget_application_icon">選定的應用程式圖示</string>
     <string name="preference_widget_color_chooser_icon">選定的顏色</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">選定的透明度\/亮度</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">選定的透明度/亮度</string>
     <string name="preference_widget_exclamation_icon">驚嘆號</string>
     <string name="preference_widget_image_icon">選定的影像</string>
     <string name="preference_widget_information_icon">資訊</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">捷徑</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi 控制\" 特定存取</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">須允許 \"Wi-Fi 控制\" 特定存取。啟用與停用 Wi-Fi 時需要。按此處顯示如何設定。</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">須允許 \"Wi-Fi 控制\" 特定存取。啟用與停用 Wi-Fi 時需要。\n\n在裝置設定中允許 \"程式\"\/\"特定程式存取\"\/\"Wi-Fi 控制\" 用於 PhoneProfilesPlus。</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">須允許 \"Wi-Fi 控制\" 特定存取。啟用與停用 Wi-Fi 時需要。\n\n在裝置設定中允許 \"程式\"/\"特定程式存取\"/\"Wi-Fi 控制\" 用於 PhoneProfilesPlus。</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">顯示裝置設定</string>
     <string name="important_info_profile_grant_1_howTo_20_1">注意：</string>
     <string name="important_info_profile_grant_1_howTo_20_2">對於某些裝置必須啟用開發人員選項：</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN 設定檔名稱：</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard 通道名稱：</string>
     <string name="altype_profileError_setVPN">設定檔 - 設定 VPN 錯誤</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">OpenVAN 的連線\/中斷 VAN 從 \"其他\"\/\"執行程式、捷徑、意圖\" 移到參數 \"VPN\"。</string>
-    <string name="permission_why_profile_wireguard">用於透過 WireGuard 應用程式設定通道上傳\/下載</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">OpenVAN 的連線/中斷 VAN 從 \"其他\"/\"執行程式、捷徑、意圖\" 移到參數 \"VPN\"。</string>
+    <string name="permission_why_profile_wireguard">用於透過 WireGuard 應用程式設定通道上傳/下載</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard 未安裝或版本不受支援。</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">未安裝 OpenVPN Connect。</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">未安裝 OpenVPN Android 版。</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">當裝置連線\/中斷 VPN 時，此感測器將啟動一個事件。參數：連線狀態。</string>
+    <string name="event_preference_sensor_vpn_summary">當裝置連線/中斷 VPN 時，此感測器將啟動一個事件。參數：連線狀態。</string>
     <string name="event_preferences_category_eventVPNParameters">VPN 感測器</string>
     <string name="pref_event_vpn_connection_status">連線狀態</string>
     <string name="array_pref_vpn_connected">已連接</string>

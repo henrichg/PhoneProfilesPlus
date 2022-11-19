@@ -316,7 +316,7 @@
     <string name="altype_eventEnd_restartEvents">pauziraj događaj - restartuj događaje</string>
     <string name="altype_eventEnd_activateProfile_restartEvents">pauziraj događaj - aktiviraj i restartuj događaje</string>
     <string name="event_preference_calendar_availability">Dostupnost</string>
-    <string name="array_event_pref_calendarAvailability_noCheck">Не проверавај</string>
+    <string name="array_event_pref_calendarAvailability_noCheck">Ne provjeravaj</string>
     <string name="array_event_pref_calendarAvailability_busy">Zauzet</string>
     <string name="array_event_pref_calendarAvailability_free">Besplatno</string>
     <string name="array_event_pref_calendarAvailability_tentative">Privremeni</string>
@@ -505,7 +505,7 @@
     <string name="array_event_pref_orientationSides_upSide">Gornja strana gore</string>
     <string name="array_event_pref_orientationSides_downSide">Donja strana gore</string>
     <string name="event_preferences_orientation_distance">Udaljenost</string>
-    <string name="array_event_pref_orientationDistanceType_noCheck">Не проверавај</string>
+    <string name="array_event_pref_orientationDistanceType_noCheck">Ne provjeravaj</string>
     <string name="array_event_pref_orientationDistanceType_near">Blizu</string>
     <string name="array_event_pref_orientationDistanceType_far">Daleko</string>
     <string name="event_preferences_orientation_ignoreForApplications">Ignoriši za aplikacije</string>
@@ -627,7 +627,7 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">ne podržano siguronosno zaključavanje</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">ne može da se promeni</string>
     <string name="event_preferences_sensorsInfo_title">Senzor funkcionalnosti</string>
-    <string name="event_preferences_sensorsInfo_summary">Događaj će započeti samo ako su ispunjeni svi parametri \"Omogući senzor\". Pokrenuti događaj završit će ako neki od označenih parametara senzora nisu ispunjeni. Označite samo senzore koji su vam potrebni za ovaj događaj. Naziv označenog senzora obeležen je podebljanim tekstom. \ N \ nNeki parametri senzora su potrebni. Naglašena su imena potrebnih senzora. Ako bilo koji potrebni parametar senzora nije konfigurisan, događaj se neće pokrenuti i parametar \"Omogući senzor\" neće biće označen.</string>
+    <string name="event_preferences_sensorsInfo_summary">Događaj će započeti samo ako su ispunjeni svi parametri \"Omogući senzor\". Pokrenuti događaj završit će ako neki od označenih parametara senzora nisu ispunjeni. Označite samo senzore koji su vam potrebni za ovaj događaj. Naziv označenog senzora obeležen je podebljanim tekstom.\n\nNeki parametri senzora su potrebni. Naglašena su imena potrebnih senzora. Ako bilo koji potrebni parametar senzora nije konfigurisan, događaj se neće pokrenuti i parametar \"Omogući senzor\" neće biće označen.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Ikona u punoj boji</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Neki uređaji ne podržavaju ikone u punoj boji u status baru.</string>
     <string name="pref_dlg_change_selection_title">Promeni Izbor</string>
@@ -743,8 +743,8 @@
     <string name="duration_pref_dlg_duration_label">Trajanje:</string>
     <string name="duration_pref_dlg_activation_end_label">Kraj aktivacije:</string>
     <string name="setting_screen_not_found_alert">Podešavanje ekrana nije pronađeno.</string>
-    <string name="action_for_external_application_notification_no_profile_text">Parametar ime_profila nedostaje ili je prazan.</string>
-    <string name="action_for_external_application_notification_no_event_text">Parametar Ime_događaja nedostaje ili je prazan.</string>
+    <string name="action_for_external_application_notification_no_profile_text">Parametar profile_name nedostaje ili je prazan.</string>
+    <string name="action_for_external_application_notification_no_event_text">Parametar event_name nedostaje ili je prazan.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Uključen ( ignorisati Hotspot)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Prebaci (ignorisati Hotspot)</string>
     <string name="phone_profiles_pref_category_samsung_edge_panel">Panel za Samsung telefon sa rubom</string>
@@ -756,14 +756,14 @@
     <string name="ringtone_preference_default_alarm">Podrazumevani ton alarma</string>
     <string name="ringtone_preference_none">Nijеdan</string>
     <string name="event_preferences_notificationVibrate">Obavesti sa vibracijom</string>
-    <string name="important_info_profile_grant">Neka podešavanja profila zahtevaju dozvolu: PODEŠAVANJE_SIGURNOG_ZAPISA: Root pristup nije neophodan. Ova podešavanja su označena sa \"(G1)\".</string>
+    <string name="important_info_profile_grant">Neka podešavanja profila zahtevaju dozvolu: WRITE_SECURE_SETTINGS: Root pristup nije neophodan. Ova podešavanja su označena sa \"(G1)\".</string>
     <string name="important_info_profile_grant_1_howTo_1">Parametri profila označeni sa (G1) zahtevaju specijalnu dozvolu za PhoneProfilesPlus. Ovo se rešava sa pomoću PC-a koji ima instaliran ADB.</string>
     <string name="important_info_profile_grant_1_howTo_2">Ako nemate ADB instaliran na vašem PC-u:</string>
     <string name="important_info_profile_grant_1_howTo_3">Preuzmite SDK alat od:</string>
     <string name="important_info_profile_grant_1_howTo_4">Raspakuj Zip arhivu.</string>
-    <string name="important_info_profile_grant_1_howTo_5">Kako omogućiti PODEŠAVANJE_SIGURNOG_UPISA dozvolu:</string>
-    <string name="important_info_profile_grant_1_howTo_6">Na vašem uređaju, idite u Podešavanja / O / Informacije o softveru i kliknite sedam puta na opciju Build. Ovim će te otključati i prikazati Meni za programere u podešavanjima.</string>
-    <string name="important_info_profile_grant_1_howTo_7">Idite u Podešavanja u Mod programera i omogućite opciju \"USB debagovanje\".</string>
+    <string name="important_info_profile_grant_1_howTo_5">Kako omogućiti WRITE_SECURE_SETTINGS dozvolu:</string>
+    <string name="important_info_profile_grant_1_howTo_6">Na vašem uređaju, idite u Podešavanja &gt; O &gt; Informacije o softveru i kliknite sedam puta na opciju Build. Ovim će te otključati i prikazati Meni za programere u podešavanjima.</string>
+    <string name="important_info_profile_grant_1_howTo_7">Idite u Podešavanja &gt; Mod programera i omogućite opciju \"USB debagovanje\".</string>
     <string name="important_info_profile_grant_1_howTo_8">Na vašem računaru otvorite komandnu konzolu ( u Windowsima) ili Terminal (Linux, OSX). Pronađite folder u kojem ste raspakovali adb datoteke, i sledite sledeće komande tačno kako sledi:</string>
     <string name="important_info_profile_grant_1_howTo_10">Posle uspešnog izvršenja, svi parametri profila označeni sa (G1) biće omogućeni.</string>
     <string name="important_info_activity_title">Bitna informacija</string>
@@ -911,7 +911,7 @@
     <string name="array_pref_auto_rotate_on">Automatska rotacija Uključeno</string>
     <string name="array_pref_auto_rotate_off">Automatska rotacija isključena</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Promena prilagodljivog nivoa možda neće da radi na vašem uređaju (primer: Samsung-ovi uređaji).</string>
-    <string name="about_application_xda_developers_community">XDA programerska zajednica:</string>
+    <string name="about_application_xda_developers_community">XDA-developers zajednica:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Konektovana ćelija:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Konektovanje mobilne ćelije zahteva određene dozvole.</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Broj novih ćelija:</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Klikni na ovo obaveštenje da ga otvoriš.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi i Bluetooth potvrdni dijalozi</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Za \"ColorOs\" je moguće onemogućiti ove dijaloge. Klikni ovde da vidiš kako.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">U podešavanjima sistema uređaja:\n1. Opcije za programere\/Opcije za programere = omogućite\n2. Opcije za programere\/Otklanjanje grešaka\/USB ispravljanje grešaka = omogući\n3. Opcije za programere\/Aplikacije\/Onemogućuje nadzor autorizacije = omogući.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">U podešavanjima sistema uređaja:\n1. Opcije za programere/Opcije za programere = omogućite\n2. Opcije za programere/Otklanjanje grešaka/USB ispravljanje grešaka = omogući\n3. Opcije za programere/Aplikacije/Onemogućuje nadzor autorizacije = omogući.</string>
     <string name="profile_preferences_red_texts_text_2">Za ovo ovu opciju nije moguće aktivirati.</string>
     <string name="event_preferences_red_texts_text_2">Za ovo nije moguće promeniti način rada.</string>
     <string name="profile_preferences_red_texts_in_header">Neki profili imaju greške u svojim podešavanjima. Ova podešavanja su označena sa crvenom bojom. Ispravite greške.</string>
@@ -1312,7 +1312,7 @@
     <string name="event_preferences_event_not_found">Događaj nije pronađen. Možda je obrisan?</string>
     <string name="permissions_draw_overlays_not_allowed_alway_required">Nemate dozvolu za \" Pisanje preko aplikacija\". Ova je dozvola neophodna za Android 10. Omogućite je.</string>
     <string name="event_preferences_battery_level_info">Upozorenje na stanje baterije</string>
-    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Niža vrednost&gt; 0% ili viša vrednost &lt; 100% potrošnja baterije!</string>
+    <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Niža vrednost &gt; 0% ili viša vrednost &lt; 100% potrošnja baterije!</string>
     <string name="event_preference_sensor_device_boot_summary">Ovaj senzor će odmah posle podizanja sistema započeti događaj. Parametri: Trajni rad, Trajanje ( trajanje rada događaja).</string>
     <string name="event_type_device_boot">Startovanje uređaja</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Senzor startovanja uređaja</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Vaš uređaj ne poseduje senzor osvetljenosti</string>
     <string name="directory_tree_activity_not_found_alert">Nije moguće prikazati stablo direktorijuma.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Za \"MIUI\" je moguće onemogućiti ovaj dijalog. Klikni ovde, za prikaz kako.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">U Postavkama\/Aplikacije\/Uredi Aplikacije\/PhoneProfilesPlus\/Druge dozvole:\"Promeni Wi-Fi povezivanje\" i \"Promeni Bluetooth povezivanje\" namestite na \"Prihvati\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">U Postavkama/Aplikacije/Uredi Aplikacije/PhoneProfilesPlus/Druge dozvole:\"Promeni Wi-Fi povezivanje\" i \"Promeni Bluetooth povezivanje\" namestite na \"Prihvati\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Restart događaja ne radi zato što je pokretanje događaja onemogućeno</string>
     <string name="critical_github_release">Problematične aplikacije</string>
     <string name="critical_github_release_notification">Kliknuti na ovo obaveštenje za preuzimanje kritičnih aplikacija u PhoneProfilesPlus-u sa GitHub-a.</string>
@@ -1475,7 +1475,7 @@
     <string name="event_preferences_calendar_event_parameters">Parametri događaja u kalendaru</string>
     <string name="event_preferences_other_parameters">Ostali parametri</string>
     <string name="event_preferences_calendar_all_day_events">Događaji u toku celog dana</string>
-    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Не проверавај</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Ne provjeravaj</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Samo negirati tokom celog dana</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Samo tokom svih dana</string>
     <string name="altype_applicationSystemRestart">restart aplikacije sistemom</string>
@@ -1655,12 +1655,12 @@
     <string name="event_preferences_category_eventSoundProfileParameters">Senzor profila zvuka</string>
     <string name="check_releases_open_fdroid">Otvori F-Droid apl.</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus u spremištu:</string>
-    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Повећати осветљеност</string>
-    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Прикажи \"Рестарт догађаја\" као дугме</string>
-    <string name="check_ppp_releases_notification">Кликни на ово обавештење за преглед PhoneProfilesPlus издатих верзија. Можда је издата нова верзија.</string>
-    <string name="check_github_releases_install_info_app_stores_release">"У продавници апликација ће се ускоро појавити нова верзија."</string>
-    <string name="show_dialog_about_red_text_show_profile_preferences">Прикажи профилна подешавања</string>
-    <string name="show_dialog_about_red_text_show_editor">Прикажи едитор</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Povećaj osvetljenost</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Show \"Restart events\" as button</string>
+    <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
+    <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
     <string name="array_pref_change_image_wallpaper">Promenite u sliku</string>
     <string name="array_pref_change_live_wallpaper">(I) Promeni u živu pozadinu</string>
     <string name="profile_preferences_deviceImageWallpaper">Slika kao pozadina</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Forsiraj podrazumevano ( za proizvoljne ikone)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Pokretanje aplikacija, prečica, namera za \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Za \"MIUI\" moraju biti odobrene neke dozvole. Klikni ovde, da vidiš kako.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">U podešavanjima uređaja\/Aplikacije\/Uredi aplik.\/PhoneProfilesPlus\/Ostale dozvole:\"Prikazuj iskačuće prozore kod rada u pozadini\" i \" Prikaži na zaključanom ekranu\" postaviti na \"Prihvati\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">U podešavanjima uređaja/Aplikacije/Uredi aplik./PhoneProfilesPlus/Ostale dozvole:\"Prikazuj iskačuće prozore kod rada u pozadini\" i \" Prikaži na zaključanom ekranu\" postaviti na \"Prihvati\".</string>
     <string name="miui_permissions_alert_dialog_show">Prikaz dozvola</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibracija kada zvoni\/Vibracija za obaveštenja</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibracija kada zvoni/Vibracija za obaveštenja</string>
     <string name="profile_preferences_vibrateNotifications">Vibracija za obaveštenja</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Modovi zvuka i vibracija</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Za pravilan rad vibracije prilikom zvona i obaveštenja kada je \"Mod zvuka\" postavljen na neki tip vibracije, preporučuje se da se omogući u podešavanjima uređaja \"Zvuk&amp; vibracija\"\/\"Vibracija&amp; heptik\" i u tome \"Vibracija za obaveštenja\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Za pravilan rad vibracije prilikom zvona i obaveštenja kada je \"Mod zvuka\" postavljen na neki tip vibracije, preporučuje se da se omogući u podešavanjima uređaja \"Zvuk &amp; vibracija\"/\"Vibracija &amp; heptik\" i u tome \"Vibracija za obaveštenja\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Servis pristupačnosti za PhoneProfilesPlusExtender nije omogućen, ali je određen</string>
     <string name="extender_accessibility_setting_not_enabled_title">Servis Pristupačnosti nije omogućen</string>
     <string name="extender_accessibility_setting_not_enabled_text">PhoneProfilesPlusExtenderServis pristupačnosti za PhoneProfilesPlusExtender nije omogućen. Klikni ovde da ga omogućiš.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">End of event profile preferences indicator</string>
     <string name="configured_profile_preferences_preference_icon_image">Profile preference icon</string>
     <string name="important_infor_traffic_light_icon">Traffic light icon</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Opaqueness\/lightning icon</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Opaqueness/lightning icon</string>
     <string name="preference_widget_application_icon">Selected application icon</string>
     <string name="preference_widget_color_chooser_icon">Selected color</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Selected opaqueness\/lightning</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Selected opaqueness/lightning</string>
     <string name="preference_widget_exclamation_icon">Exclamation</string>
     <string name="preference_widget_image_icon">Selected image</string>
     <string name="preference_widget_information_icon">Information</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Shortcut</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi control\" special access</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi. Click this to show how.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"/\"Special app access\"/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Show device Settings</string>
     <string name="important_info_profile_grant_1_howTo_20_1">NOTE:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">For some devices must be in Developer options enabled:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN profile name:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnel name:</string>
     <string name="altype_profileError_setVPN">profile - error on set VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Connect\/disconnect VPN for OpenVPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">for set tunnel up\/down by WireGuard application</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN for OpenVPN is moved from \"Others\"/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">for set tunnel up/down by WireGuard application</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is not installed or is in non-supported version.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect is not installed.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to\/disconnected from VPN. Parameters: Connection status.</string>
+    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to/disconnected from VPN. Parameters: Connection status.</string>
     <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
     <string name="pref_event_vpn_connection_status">Connection status</string>
     <string name="array_pref_vpn_connected">Connected</string>

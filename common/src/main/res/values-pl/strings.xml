@@ -762,7 +762,7 @@
     <string name="important_info_profile_grant_1_howTo_3">Pobierz SDK Platform Tools z:</string>
     <string name="important_info_profile_grant_1_howTo_4">Rozpakuj archiwum zip.</string>
     <string name="important_info_profile_grant_1_howTo_5">Jak udzielić uprawnienia WRITE_SECURE_SETTINGS:</string>
-    <string name="important_info_profile_grant_1_howTo_6">Na twoim urządzeniu, przejdź do Ustawień &gt; O &gt; &gt; Informacjach o Oprogramowaniu i kliknij na numer budowania 7 razy. Odblokuje to i wyświetli Opcji Dewelopera w Ustawieniach.</string>
+    <string name="important_info_profile_grant_1_howTo_6">Na twoim urządzeniu, przejdź do Ustawień &gt; O &gt; Informacjach o Oprogramowaniu i kliknij na numer budowania 7 razy. Odblokuje to i wyświetli Opcji Dewelopera w Ustawieniach.</string>
     <string name="important_info_profile_grant_1_howTo_7">Przejdź do Ustawień &gt; Opcje dewelopera i włącz debugowanie USB.</string>
     <string name="important_info_profile_grant_1_howTo_8">Na swoim komputerze otwórz Wiersz Poleceń (Windows), lub Terminal (Linux, OSX). Przejdź do folderu, w którym zostały wyodrębnione pliki adb, i DOKŁADNIE wykonaj następującą komendę:</string>
     <string name="important_info_profile_grant_1_howTo_10">Po pomyślnym wykonaniu, wszystkie parametry profilu oznaczone (G1) zostaną włączone.</string>
@@ -1267,7 +1267,7 @@
     <string name="preferences_red_texts_text_click">Kliknij to powiadomienie, aby je otworzyć.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Okno dialogowe potwierdzania Wi-Fi i Bluetooth</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">Dla \"ColorOs\" możliwe jest wyłączenie tych okien dialogowych. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">W ustawieniach systemu:\n1. Opcje programisty\/Opcje programisty = włącz\n2. Opcje programisty\/Debugowanie\/Debugowanie USB= włącz\n3. Opcje programisty\/Aplikacje\/Wyłącz monitorowanie autoryzacji = włączone.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">W ustawieniach systemu:\n1. Opcje programisty/Opcje programisty = włącz\n2. Opcje programisty/Debugowanie/Debugowanie USB= włącz\n3. Opcje programisty/Aplikacje/Wyłącz monitorowanie autoryzacji = włączone.</string>
     <string name="profile_preferences_red_texts_text_2">Brak możliwości jego aktywowania.</string>
     <string name="event_preferences_red_texts_text_2">Brak możliwości zmiany aktywności.</string>
     <string name="profile_preferences_red_texts_in_header">Niektóre profile mają błędy w ustawieniach. Zostały one oznaczone na czerwono. Proszę je naprawić.</string>
@@ -1414,7 +1414,7 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Twoje urządzenie nie posiada czujnika oświetlenia</string>
     <string name="directory_tree_activity_not_found_alert">Nie można wyświetlić drzewa katalogu.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">Dla \"MIUI\" możliwe jest wyłączenie tych okien dialogowych. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">W Ustawieniach urządzenia\/Aplikacje\/Zarządzaj aplikacjami\/PhoneProfilesPlus\/Inne uprawnienia: \"Zarządzanie połączeniem Wi-Fi\" i \"Zarządzanie Bluetooth\'em\" ustawione na \"Akceptuj\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">W Ustawieniach urządzenia/Aplikacje/Zarządzaj aplikacjami/PhoneProfilesPlus/Inne uprawnienia: \"Zarządzanie połączeniem Wi-Fi\" i \"Zarządzanie Bluetooth\'em\" ustawione na \"Akceptuj\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Restart zdarzeń nie działa, ponieważ uruchamianie zdarzeń jest wyłączone</string>
     <string name="critical_github_release">Aktualizacja krytyczna</string>
     <string name="critical_github_release_notification">Kliknij to powiadomienie, aby pobrać krytyczną aktualizację PhoneProfilesPlus z GitHub.</string>
@@ -1671,12 +1671,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Wymuś natywne (dla niestandardowych ikon)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Uruchom aplikacje, skróty, Intencje dla \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Dla \"MIUI\" muszą być przyznane pewne uprawnienia. Kliknij tutaj, aby zobaczyć, jak to zrobić.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">W Ustawieniach urządzenia\/Aplikacje\/Zarządzaj aplikacjami\/PhoneProfilesPlus\/Inne uprawnienia: \"Wyświetl wyskakujące okna podczas pracy w tle\" i \"Pokaż na ekranie blokady\" ustawione na \"Akceptuj\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">W Ustawieniach urządzenia/Aplikacje/Zarządzaj aplikacjami/PhoneProfilesPlus/Inne uprawnienia: \"Wyświetl wyskakujące okna podczas pracy w tle\" i \"Pokaż na ekranie blokady\" ustawione na \"Akceptuj\".</string>
     <string name="miui_permissions_alert_dialog_show">Pokaż uprawnienia</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Wibruj podczas dzwonienia\/Wibracje dla powiadomień</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Wibruj podczas dzwonienia/Wibracje dla powiadomień</string>
     <string name="profile_preferences_vibrateNotifications">Powiadamiaj wibracjami</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Tryb dźwięku i wibracji</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Dla poprawnego działania wibracji podczas dzwonienia i powiadomień kiedy \"Tryb dźwięku\" jest ustawiony na niektóre typy wibracji, zaleca się włączyć w ustawieniach urządzenia: \"Dźwięk &amp; wibracje\"\/wibracje &amp; haptyka i tam \"wibracje podczas powiadomień\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Dla poprawnego działania wibracji podczas dzwonienia i powiadomień kiedy \"Tryb dźwięku\" jest ustawiony na niektóre typy wibracji, zaleca się włączyć w ustawieniach urządzenia: \"Dźwięk &amp; wibracje\"/wibracje &amp; haptyka i tam \"wibracje podczas powiadomień\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Usługa ułatwień dostępu dla PhoneProfilesPlusExtender nie jest włączona, ale jest określona</string>
     <string name="extender_accessibility_setting_not_enabled_title">Usługa ułatwień dostępu nie włączona</string>
     <string name="extender_accessibility_setting_not_enabled_text">Usługa ułatwień dostępu dla PhoneProfilesPlusExtender nie jest włączona. Kliknij tutaj, aby ją włączyć.</string>
@@ -1803,10 +1803,10 @@
     <string name="profile_preferences_indicator_event_end_image">Wskaźnik parametrów profilu dla zakończonego zdarzenia</string>
     <string name="configured_profile_preferences_preference_icon_image">Ikona parametrów profilu</string>
     <string name="important_infor_traffic_light_icon">Ikona \"Sygnalizacja świetlna\"</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Ikona nieprzezroczystości\/jasności</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Ikona nieprzezroczystości/jasności</string>
     <string name="preference_widget_application_icon">Ikona wybranej aplikacji</string>
     <string name="preference_widget_color_chooser_icon">Wybrany kolor</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Wybrana nieprzezroczystość\/jasność</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Wybrana nieprzezroczystość/jasność</string>
     <string name="preference_widget_exclamation_icon">Ostrzeżenie</string>
     <string name="preference_widget_image_icon">Wybrana grafika</string>
     <string name="preference_widget_information_icon">Informacja</string>
@@ -1824,7 +1824,7 @@
     <string name="phone_profiles_pref_category_shortcut">Skrót</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">Specjalny dostęp do \"Kontrola Wi-Fi\"</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">Musisz zezwolić na dostęp do \"Kontrola Wi-Fi\". Jest to wymagane do włączania i wyłączania Wi-Fi. Kliknij tutaj, aby pokazać, jak to zrobić.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">Akacja musi mieć dostęp do \"Kontroli Wi-Fi\". Jest to wymagane do włączenia i wyłączenia Wi-Fi.\n\nW Ustawieniach urządzenia zezwól na \"Aplikacje\"\/\"Specjalny dostęp do aplikacji\"\/\"Kontrola Wi-Fi\" dla PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">Akacja musi mieć dostęp do \"Kontroli Wi-Fi\". Jest to wymagane do włączenia i wyłączenia Wi-Fi.\n\nW Ustawieniach urządzenia zezwól na \"Aplikacje\"/\"Specjalny dostęp do aplikacji\"/\"Kontrola Wi-Fi\" dla PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Pokaż ustawienia urządzenia</string>
     <string name="important_info_profile_grant_1_howTo_20_1">UWAGA:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">Dla niektórych urządzeń, w opcjach programistycznych musi być włączona opcja:</string>
@@ -1981,13 +1981,13 @@
     <string name="vpn_profile_name_pref_dlg_label">Nazwa profilu OpenVPN:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">Nazwa tunelu WireGuard:</string>
     <string name="altype_profileError_setVPN">profil - błąd  ustawień VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Połącz\/rozłącz VPN dla OpenVPN przeniesiono z \"Inne\"\/\"Uruchom aplikacje, skróty, intencje\" do parametru \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">dla ustawienia tunelu w górę\/w dół przez aplikację WireGuard</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Połącz/rozłącz VPN dla OpenVPN przeniesiono z \"Inne\"/\"Uruchom aplikacje, skróty, intencje\" do parametru \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">dla ustawienia tunelu w górę/w dół przez aplikację WireGuard</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard nie jest zainstalowany lub jest w nieobsługiwanej wersji.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect nie jest zainstalowany.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN dla Androida nie jest zainstalowany.</string>
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">Ten czujnik uruchomi zdarzenie po podłączeniu urządzenia do\/odłączeniu od VPN. Parametry: Stan połączenia.</string>
+    <string name="event_preference_sensor_vpn_summary">Ten czujnik uruchomi zdarzenie po podłączeniu urządzenia do/odłączeniu od VPN. Parametry: Stan połączenia.</string>
     <string name="event_preferences_category_eventVPNParameters">Czujnik VPN</string>
     <string name="pref_event_vpn_connection_status">Stan połączenia</string>
     <string name="array_pref_vpn_connected">Połączony</string>
