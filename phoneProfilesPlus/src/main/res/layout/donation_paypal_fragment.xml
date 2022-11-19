@@ -83,7 +83,8 @@
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:drawSelectorOnTop="true"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fadeScrollbars="false"/>
         -->
         <GridView
             android:id="@+id/donation_paypal_grid"
@@ -100,7 +101,8 @@
             android:scrollbarStyle="outsideOverlay"
             android:drawSelectorOnTop="true"
             android:listSelector="@android:color/transparent"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fadeScrollbars="false" />
 
         <!--
         <LinearLayout
