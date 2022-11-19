@@ -19,6 +19,7 @@
     <color name="activityDisabledTextColor">#2FFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1Fffffff</color>
     <color name="activityPopupMenuBackgroundColor">#FF151515</color>
+    <!-- this is for no-ripple selector -->
     <color name="activityPopupMenuClickedItemBackgroundColor">#37ffffff</color>
     <!--    <color name="activityDisabledTextColor">#4Dffdad3</color>-->
     <!--    <color name="activityCommandBackgroundColor">#1Fffdad3</color>-->
