@@ -31,7 +31,7 @@ public class ActivityLogActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_activity_log);
+        setContentView(R.layout.activity_ppp_activity_log);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         if (getSupportActionBar() != null) {

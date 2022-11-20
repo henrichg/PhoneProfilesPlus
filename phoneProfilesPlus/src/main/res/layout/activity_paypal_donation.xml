@@ -8,11 +8,20 @@
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false">
 
+    <View
+        android:id="@+id/write_nfc_tag_touch_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginBottom="@dimen/alert_dialog_top_padding"
+        android:background="?attr/dialogDivider" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/donation_paypal_activity_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="sk.henrichg.phoneprofilesplus.DonationPayPalFragment"
-        android:tag="donationPayPalFragment"/>
+        android:tag="donationPayPalFragment" />
 
 </LinearLayout>
