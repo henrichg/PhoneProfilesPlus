@@ -2048,6 +2048,8 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
 
+    <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

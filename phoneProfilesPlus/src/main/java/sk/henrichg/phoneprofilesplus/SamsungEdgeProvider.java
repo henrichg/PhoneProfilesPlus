@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
@@ -92,14 +93,15 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
         }
 
-        if (applicationSamsungEdgeHeader)
-        {
+        Log.e("SamsungEdgeProvider.buildLayout", "applicationSamsungEdgeHeader=" + applicationSamsungEdgeHeader);
+        Log.e("SamsungEdgeProvider.buildLayout", "applicationSamsungEdgeVerticalPosition=" + applicationSamsungEdgeVerticalPosition);
+        if (applicationSamsungEdgeHeader) {
             switch (applicationSamsungEdgeVerticalPosition) {
                 case "1":
-                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_center);
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_center);
                     break;
                 case "2":
-                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_bottom);
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_bottom);
                     break;
                 default:
                     widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_top);
@@ -324,10 +326,14 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             widget.setViewVisibility(R.id.widget_samsung_edge_header_restart_events, View.GONE);
         */
 
+        Intent intentSettings = new Intent(context, LaunchSamsungEdgeConfigurationActivity.class);
+        PendingIntent pIntentSettings = PendingIntent.getActivity(context, 3, intentSettings, PendingIntent.FLAG_UPDATE_CURRENT);
+        widget.setOnClickPendingIntent(R.id.widget_samsung_edge_settings, pIntentSettings);
+
         /*if (!applicationSamsungEdgeGridLayout)
             widget.setRemoteAdapter(R.id.widget_samsung_edge, svcIntent);
         else*/
-            widget.setRemoteAdapter(R.id.widget_samsung_edge_grid, svcIntent);
+        widget.setRemoteAdapter(R.id.widget_samsung_edge_grid, svcIntent);
 
         // The empty view is displayed when the collection has no items.
         // It should be in the same layout used to instantiate the RemoteViews

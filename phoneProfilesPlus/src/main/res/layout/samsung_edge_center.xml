@@ -1,92 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_samsung_edge_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout
-    android:id="@+id/widget_samsung_edge_liLa1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="center_vertical"
-    tools:ignore="UselessParent">
-
     <LinearLayout
-        android:id="@+id/widget_samsung_edge_header"
+        android:id="@+id/widget_samsung_edge_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
         android:orientation="horizontal"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@drawable/widget_ripple_list_item" >
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true">
 
         <ImageView
-            android:id="@+id/widget_samsung_edge_header_profile_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/profile_preferences_profileIcon"
-            android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_profile_default" />
-
-        <TextView
-            android:id="@+id/widget_samsung_edge_header_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/profile_name_default"
-            android:textColor="#33b5e5"
-            android:textSize="16dp"
-            tools:ignore="SpUsage" />
+            android:id="@+id/widget_samsung_edge_settings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_action_edit_profiles"
+            android:contentDescription="@string/samsung_edge_panel_settings_description"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/widget_ripple_samsung_edge_settings" />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/widget_samsung_edge_header_separator"
+    <LinearLayout
+        android:id="@+id/widget_samsung_edge_profiles"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/widget_samsung_edge_bottom_bar">
 
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/widget_samsung_edge_liLa1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            tools:ignore="UselessParent">
 
-    <GridView
-        android:id="@+id/widget_samsung_edge_grid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:columnWidth="70dp"
-        android:gravity="center"
-        android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
-        android:verticalSpacing="5dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:divider="@android:color/transparent"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:listSelector="@drawable/widget_ripple_list_item" />
+            <LinearLayout
+                android:id="@+id/widget_samsung_edge_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/widget_ripple_list_item">
 
-    <TextView
-        android:id="@+id/widget_samsung_edge_empty"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="@string/profile_list_empty"
-        android:gravity="center"
-        android:textSize="22dp"
-        tools:ignore="SpUsage" />
+                <ImageView
+                    android:id="@+id/widget_samsung_edge_header_profile_icon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/profile_preferences_profileIcon"
+                    android:scaleType="@integer/profilePrefIndicatorScaleType"
+                    android:src="@drawable/ic_profile_default" />
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/widget_samsung_edge_header_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/profile_name_default"
+                    android:textColor="#33b5e5"
+                    android:textSize="16dp"
+                    tools:ignore="SpUsage" />
 
-</FrameLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/widget_samsung_edge_header_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+            </RelativeLayout>
+
+            <GridView
+                android:id="@+id/widget_samsung_edge_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:columnWidth="70dp"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
+                android:verticalSpacing="5dp"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth"
+                android:divider="@android:color/transparent"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:listSelector="@drawable/widget_ripple_list_item" />
+
+            <TextView
+                android:id="@+id/widget_samsung_edge_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/profile_list_empty"
+                android:gravity="center"
+                android:textSize="22dp"
+                tools:ignore="SpUsage" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
