@@ -6,21 +6,29 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding" >
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <View
+        android:id="@+id/write_nfc_tag_touch_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="?attr/dialogDivider" />
 
     <!--<WebView-->
-        <!--android:id="@+id/do_not_kill_my_app_dialog_webView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_marginTop="15dp">-->
+    <!--android:id="@+id/do_not_kill_my_app_dialog_webView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginTop="15dp">-->
     <!--</WebView>-->
 
     <dev.doubledot.doki.views.DokiContentView
         android:id="@+id/do_not_kill_my_app_dialog_dokiContentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="15dp"
-
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
         app:dokiPrimaryTextColor="?attr/activityWhiteTextColor"
         app:dokiSecondaryTextColor="?attr/activitySecondaryTextColor"
         app:dokiBackgroundColor="?attr/activityBackgroundColor"
@@ -28,7 +36,6 @@
         app:dokiDividerColor="?attr/dialogDivider"
         app:dokiActiveIconsColor="?attr/activityWhiteTextColor"
         app:dokiInactiveIconsColor="?attr/activityDisabledTextColor"
-        app:dokiImgBorderColor="?attr/dialogDivider"
-        />
+        app:dokiImgBorderColor="?attr/dialogDivider" />
 
 </LinearLayout>
