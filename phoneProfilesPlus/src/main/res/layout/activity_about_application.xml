@@ -12,7 +12,6 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:layout_marginBottom="@dimen/alert_dialog_top_padding"
         android:background="?attr/dialogDivider" />
 
     <RelativeLayout
@@ -73,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/important_info_left_margin"
                 android:paddingEnd="@dimen/important_info_right_margin"
+                android:paddingTop="@dimen/alert_dialog_top_padding"
                 android:orientation="vertical">
                 <!--        android:paddingTop="@dimen/important_info_top_margin"-->
                 <!--        android:paddingBottom="@dimen/important_info_bottom_margin"-->
