@@ -4204,6 +4204,46 @@ public class PhoneProfilesService extends Service
                             editor.apply();
                         }
                     }
+                    if (Build.VERSION.SDK_INT >= 30) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+
+                        String backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                    }
                 }
 
             }

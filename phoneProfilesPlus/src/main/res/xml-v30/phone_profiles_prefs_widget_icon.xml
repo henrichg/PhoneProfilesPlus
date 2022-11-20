@@ -34,7 +34,7 @@
     <sk.henrichg.phoneprofilesplus.ColorChooserPreference
         app:title="@string/phone_profiles_pref_applicationWidgetColorBNightModeOn"
         app:key="applicationWidgetIconBackgroundColorNightModeOn"
-        app:defaultValue="#ff201a18"
+        app:defaultValue="#ff1b1b1b"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
