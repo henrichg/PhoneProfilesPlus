@@ -19,7 +19,7 @@
             android:layout_height="40dp"
             android:padding="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_action_edit_profiles"
+            android:src="@drawable/ic_widget_settings"
             android:contentDescription="@string/samsung_edge_panel_settings_description"
             android:clickable="true"
             android:focusable="true"

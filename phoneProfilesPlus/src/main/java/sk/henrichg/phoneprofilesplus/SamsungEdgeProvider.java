@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -154,26 +153,72 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
         int alpha = 0x80;
         if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) alpha = 0x00;
-        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) alpha = 0x20;
-        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) alpha = 0x40;
-        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) alpha = 0x60;
+        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12))
+            alpha = 0x20;
+        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25))
+            alpha = 0x40;
+        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37))
+            alpha = 0x60;
         //if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) alpha = 0x80;
-        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) alpha = 0xA0;
-        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) alpha = 0xC0;
-        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) alpha = 0xE0;
-        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) alpha = 0xFF;
+        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62))
+            alpha = 0xA0;
+        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75))
+            alpha = 0xC0;
+        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87))
+            alpha = 0xE0;
+        if (applicationSamsungEdgeBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100))
+            alpha = 0xFF;
         widget.setInt(R.id.widget_samsung_edge_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
 
+        int redText = 0xFF;
+        switch (applicationSamsungEdgeLightnessT) {
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                redText = 0x00;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                redText = 0x20;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                redText = 0x40;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                redText = 0x60;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
+                redText = 0x80;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                redText = 0xA0;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                redText = 0xC0;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                redText = 0xE0;
+                break;
+            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                //noinspection ConstantConditions
+                redText = 0xFF;
+                break;
+        }
+        //int greenText = redText;
+        //int blueText = redText;
+
+        int settingsLightness = redText;
 
         // header
-        if (applicationSamsungEdgeHeader)
-        {
+        if (applicationSamsungEdgeHeader) {
             int monochromeValue = 0xFF;
-            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) monochromeValue = 0x00;
-            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12)) monochromeValue = 0x20;
-            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25)) monochromeValue = 0x40;
-            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37)) monochromeValue = 0x60;
-            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50)) monochromeValue = 0x80;
+            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0))
+                monochromeValue = 0x00;
+            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12))
+                monochromeValue = 0x20;
+            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25))
+                monochromeValue = 0x40;
+            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37))
+                monochromeValue = 0x60;
+            if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50))
+                monochromeValue = 0x80;
             if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62)) monochromeValue = 0xA0;
             if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75)) monochromeValue = 0xC0;
             if (applicationSamsungEdgeIconLightness.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87)) monochromeValue = 0xE0;
@@ -313,6 +358,27 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             dataWrapper.invalidateDataWrapper();
         }
         ////////////////////////////////////////////////
+
+        Bitmap bitmap;
+        /*if (!((Build.VERSION.SDK_INT >= 31) && applicationSamsungEdgeChangeColorsByNightMode &&
+                applicationSamsungEdgeIconColor.equals("0")
+                // && applicationWidgetOneRowUseDynamicColors
+            )) {*/
+        //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_settings, true, context);
+        bitmap = BitmapManipulator.monochromeBitmap(bitmap, settingsLightness);
+        widget.setImageViewBitmap(R.id.widget_samsung_edge_settings, bitmap);
+        //}
+        /*} else {
+            // good, color of this is as in notification ;-)
+            // but must be removed android:tint in layout
+            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+            if (color != 0) {
+                bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_settings, true, context);
+                bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
+                widget.setImageViewBitmap(R.id.widget_samsung_edge_settings, bitmap);
+            }
+        }*/
 
         // clicks
         Intent intent = new Intent(context, EditorActivity.class);

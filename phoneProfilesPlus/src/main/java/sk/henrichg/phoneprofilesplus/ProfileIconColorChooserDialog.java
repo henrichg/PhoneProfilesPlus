@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;

@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;

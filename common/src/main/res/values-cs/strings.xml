@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Chyba</string>
     <string name="activity_log_help_message_colors_others">Ostatní situace</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Barva ikony \"Restart událostí\"</string>
-    <string name="important_info_notification_settings_text1">Doporučení pro konfiguraci parametrů \"Nastavení\"/\"Notifikace aplikace\":</string>
-    <string name="important_info_notification_settings_text2">Nakonfigurujte parametr \"Styl oznámení\" na \"Vlastní\", \"Použít dekoraci\" vypnuto, \"Zobrazit ikonu profilu\" zapnuto, \"Zobrazit indikátor parametrů“ zapnuto.</string>
-    <string name="important_info_notification_settings_text3">Při této konfiguraci se upozornění zobrazí s ikonou profilu, indikátor parametrů s ikonami (jako v Editoru), ikona \"Restart události\" a notifikace bude menší.</string>
-    <string name="important_info_notification_settings_text4">Notifikaci, která je bez dekorace, lze rozbalit gestem: potažením dvěma prsty dolů.</string>
-    <string name="important_info_notification_settings_configure">Klepnutím sem nakonfigurujete \"Notifikace aplikace\" s těmito parametry.</string>
-    <string name="important_info_notification_settings_toast">Nakonfigurováno</string>
     <string name="menu_choose_language">Zvolit jazyk</string>
     <string name="menu_choose_language_system_language">[Systémový]</string>
-    <string name="important_info_choose_language_text1">Zvolit jazyk:</string>
-    <string name="important_info_choose_language_text2">V menu Editoru je přidána možnost „Vybrat jazyk“. Pomocí ní můžete změnit jazyk aplikace.\nMenu na toto je přidáno také v PhoneProfilesPlusExtender (verze 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Barva ikony</string>
     <string name="profile_icon_preference_iconColor_help_info_1">V tmavém tématu aplikace může mít barva ikony v náhledu zvýšený jas.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Ikona s tímto zvýšeným jasem se bude používat v celém GUI aplikace. Také v oznámení a widgetech, pokud je jejich pozadí tmavé.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) Notifikační LED dioda</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On displej</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Klikněte sem pro zobrazení informací o typech parametrů: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Nastavení pro Samsung boční panel</string>
 </resources>

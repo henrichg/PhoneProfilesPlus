@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Error</string>
     <string name="activity_log_help_message_colors_others">Otras situaciones</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Color del icono de reiniciar eventos</string>
-    <string name="important_info_notification_settings_text1">Recomendación para la configuración de los parámetros \"Ajustes\"/\"Notificación de la aplicación\":</string>
-    <string name="important_info_notification_settings_text2">Configurar el parámetro \"Estilo de notificación\" a \"Personalizado\", \"Usar decoración\", encendido, \"Mostrar icono de perfil\", encendido. \"Mostrar indicador de preferencias\", encendido.</string>
-    <string name="important_info_notification_settings_text3">Con esta configuración, las notificaciones se mostrarán con el icono de perfil, el indicador de preferencias con iconos (como en el Editor), \"Reiniciar eventos\" como icono y la notificación será más pequeña.</string>
-    <string name="important_info_notification_settings_text4">Es posible expandir la notificación, que es sin decoración, con un gesto: deslizar hacia abajo con dos dedos.</string>
-    <string name="important_info_notification_settings_configure">Haz clic aquí para configurar \"Notificación de aplicación\" con estos parámetros.</string>
-    <string name="important_info_notification_settings_toast">Configurado</string>
     <string name="menu_choose_language">Elegir idioma</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">Elegir idioma:</string>
-    <string name="important_info_choose_language_text2">En el menú del Editor se ha añadido la opción \"Elegir idioma\". Con esta opción, puedes cambiar el idioma de la aplicación.\nMenú para esto también se añade en PhoneProfilesPlusExtender (versión 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Color del icono</string>
     <string name="profile_icon_preference_iconColor_help_info_1">En las aplicaciones con tema oscuro, el color del icono de vista previa puede haber aumentado de brillo.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Un icono con este aumento de brillo se utilizará a través de la GUI de la aplicación. También en notificaciones y widgets, cuando su fondo sea oscuro.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) LED de Notificación</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) pantalla siempre encendida</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Haz clic aquí para mostrar información sobre los tipos de preferencias: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Ajustes del panel de Samsung edge</string>
 </resources>

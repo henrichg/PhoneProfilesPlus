@@ -747,7 +747,7 @@
     <string name="action_for_external_application_notification_no_event_text">Параметр event_name отсутствует или является пустым.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Включить (игнорировать точку доступа)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Переключить (игнорировать точку доступа)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">Панель Samsung</string>
+    <string name="phone_profiles_pref_category_samsung_edge_panel">Панель Samsung Edge</string>
     <string name="action_for_external_application_notification_bad_action">Не поддерживаемое действие.</string>
     <string name="action_for_external_application_notification_no_action">Действие не определено.</string>
     <string name="ringtone_preference_not_set">Не задано</string>
@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Ошибка</string>
     <string name="activity_log_help_message_colors_others">Прочие ситуации</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Цвет иконки \"Перезапустить события\"</string>
-    <string name="important_info_notification_settings_text1">Рекомендация по настройке уведомлений приложения:</string>
-    <string name="important_info_notification_settings_text2">Выберите \"Другой\" стиль уведомлений, выключите \"Использовать оформление\" и включите \"Показывать иконку профиля\" и \"Показывать индикатор настроек\".</string>
-    <string name="important_info_notification_settings_text3">С такими настройками уведомления будут отображаться с иконкой профиля, индикатором настроек с иконками (как в Редакторе), кнопкой \"Перезапустить события\" в виде иконки, а также они будут меньше.</string>
-    <string name="important_info_notification_settings_text4">Уведомления без оформления можно развернуть свайпом двумя пальцами вниз.</string>
-    <string name="important_info_notification_settings_configure">Нажмите сюда, чтобы применить эти настройки уведомлений приложения.</string>
-    <string name="important_info_notification_settings_toast">Настроено</string>
     <string name="menu_choose_language">Выбрать язык</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">Выбрать язык:</string>
-    <string name="important_info_choose_language_text2">В меню Редактора добавлен пункт \"Выбрать язык\", с помощью которого вы можете изменить язык приложения.\nТакое же меню добавлено и в PhoneProfilesPlusExtender (с версии 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Цвет иконки</string>
     <string name="profile_icon_preference_iconColor_help_info_1">В тёмной теме приложения иконка предпросмотра может иметь увеличенную яркость.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Иконка с увеличенной яркостью будет использоваться в интерфейсе приложения, а также в уведомлениях и виджетах с тёмным фоном.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) LED-уведомление</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Нажмите сюда, чтобы посмотреть информацию о типах параметров: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Настройки панели Samsung Edge</string>
 </resources>

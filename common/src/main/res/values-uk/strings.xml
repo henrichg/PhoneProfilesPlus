@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Помилка</string>
     <string name="activity_log_help_message_colors_others">Інші випадки</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Колір іконки \"Перезавантажити події\"</string>
-    <string name="important_info_notification_settings_text1">Рекомендації щодо налаштувань сповіщень від застосунків.</string>
-    <string name="important_info_notification_settings_text2">Встановіть \"Стиль сповіщень\" - \"Власний\", \"Використовувати оформлення\" - Вимк., \"Показувати іконку профілю\", \"Показувати індикатор налаштувань\" - Увімк.</string>
-    <string name="important_info_notification_settings_text3">З такими налаштуваннями сповіщення будуть показані з іконкою профілю, індикатор налаштувань з іконками (як в Редакторі), \"Перезапустити події\" як іконка й сповіщення буде менше.</string>
-    <string name="important_info_notification_settings_text4">Проведіть двома пальцями вниз аби розгорнути сповіщення без оформлення.</string>
-    <string name="important_info_notification_settings_configure">Натисніть тут, щоб налаштувати \"Сповіщення застосунку\" з цими параметрами.</string>
-    <string name="important_info_notification_settings_toast">Налаштовано</string>
     <string name="menu_choose_language">Виберіть мову</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">Виберіть мову:</string>
-    <string name="important_info_choose_language_text2">У меню Редактора додано опцію \"Виберіть мову\". Завдяки цій опції, Ви можете змінити мову застосунку.\nМеню для цього також додано у PhoneProfilesPlusExtender (версія 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Колір іконки</string>
     <string name="profile_icon_preference_iconColor_help_info_1">Якщо обрана темна, тема, то колір іконки, при попередньому перегляді, може мати підвищену яскравість.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Іконка з цією підвищеною яскравістю буде використовуватися у всьому інтерфейсі застосунку. Також у сповіщеннях і віджетах, коли їх фон темний.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) LED Сповіщення</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Завжди на екрані</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
 </resources>

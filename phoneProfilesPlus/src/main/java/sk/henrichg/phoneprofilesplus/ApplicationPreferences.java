@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Build;
 
 import androidx.annotation.CheckResult;

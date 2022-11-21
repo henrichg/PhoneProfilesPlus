@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Error</string>
     <string name="activity_log_help_message_colors_others">Other situations</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
-    <string name="important_info_notification_settings_text1">Recommendation for configuration of parameters \"Settings\"/\"Application notification\":</string>
-    <string name="important_info_notification_settings_text2">Configure parameter \"Notification style\" to \"Custom\", \"Use decoration\" switched off, \"Show profile icon\" switched on, \"Show preferences indicator\" switched on.</string>
-    <string name="important_info_notification_settings_text3">With this configuration, notification will be displayed with profile icon, preferences indicator with icons (as in Editor), \"Restart events\" as icon and notification will be smaller.</string>
-    <string name="important_info_notification_settings_text4">Is possible to expand the notification, which is without decoration, with a gesture: swipe down with two fingers.</string>
-    <string name="important_info_notification_settings_configure">Click here to configure \"Application notification\" with these parameters.</string>
-    <string name="important_info_notification_settings_toast">Configured</string>
     <string name="menu_choose_language">Choose language</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">Choose language:</string>
-    <string name="important_info_choose_language_text2">In Editor menu is added \"Choose language\" option. With this option, you can change application language.\nMenu for this is added also in PhoneProfilesPlusExtender (version 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Icon color</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) Benachrichtigungs-LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Display immer eingeschaltet</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Hier klicken, um Informationen über die Arten von Einstellungen anzuzeigen: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Samsung Seitenleiste (Edge Panel) Einstellungen</string>
 </resources>

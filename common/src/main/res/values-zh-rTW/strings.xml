@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">錯誤</string>
     <string name="activity_log_help_message_colors_others">其他情況</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"重啟事件\" 圖示顏色</string>
-    <string name="important_info_notification_settings_text1">參數 \"設定\"/\"應用程式通知\" 設置建議：</string>
-    <string name="important_info_notification_settings_text2">設置 \"通知樣式\" 為 \"自定\"，\"使用修飾\" 已關閉，\"顯示設定檔圖示\" 已開啟，\"顯示偏好指示器\" 已開啟。</string>
-    <string name="important_info_notification_settings_text3">使用此設置，通知將顯示設定檔圖示、偏好指示圖示 (像在編輯中)、\"重啟事件\" 圖示且通知將變小。</string>
-    <string name="important_info_notification_settings_text4">可透過手勢展開沒有修飾的通知：用兩隻手指向下滑動。</string>
-    <string name="important_info_notification_settings_configure">按此處用這些參數設置 \"應用程式通知\"。</string>
-    <string name="important_info_notification_settings_toast">設置</string>
     <string name="menu_choose_language">選擇語言</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">選擇語言：</string>
-    <string name="important_info_choose_language_text2">在編輯選單中加入 \"選擇語言\" 選項。使用此選項，你可以變更應用程式的語言。\n此選項也增加到 PhoneProfilesPlusExtender (版本 8.0) 中。</string>
     <string name="profile_icon_preference_iconColor_help">圖示顏色</string>
     <string name="profile_icon_preference_iconColor_help_info_1">在深色應用程式主題中，預覽圖示的顏色可能會增加亮度。</string>
     <string name="profile_icon_preference_iconColor_help_info_2">在整個應用程式的 GUI 中將使用一個亮度增加的圖示。在背景為黑暗的通知與小工具也一樣。</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) 通知閃爍</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) 一律顯示</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">按此處顯示有關偏好設置類型的資訊: (S)、(G1)、(R)、(I)。</string>
+    <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
 </resources>

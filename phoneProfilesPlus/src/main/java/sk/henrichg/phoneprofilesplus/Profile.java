@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.text.Spannable;
 import android.text.SpannableString;

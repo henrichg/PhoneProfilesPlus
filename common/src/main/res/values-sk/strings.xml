@@ -1936,17 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Chyba</string>
     <string name="activity_log_help_message_colors_others">Ostatné situácie</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Farba ikony \"Reštart udalostí\"</string>
-    <string name="important_info_notification_settings_text1">Odporúčanie pre konfiguráciu parametrov \"Nastavenia\"/\"Notifikácia aplikácie\":</string>
-    <string name="important_info_notification_settings_text2">Nakonfigurujte parameter \"Štýl notifikácie\" na \"Vlastný\", \"Použiť dekoráciu\" vypnuté, \"Zobraziť ikonu profilu“ zapnuté, \"Zobraziť 
-indikátor parametrov“ zapnuté.</string>
-    <string name="important_info_notification_settings_text3">Pri tejto konfigurácii sa notifikácia zobrazí s ikonou profilu, indikátor parametrov s ikonami (ako v Editore), ikona \"Reštart udalosti\" a notifikácia bude menšia.</string>
-    <string name="important_info_notification_settings_text4">Notifikáciu, ktorá je bez dekorácie, je možné rozbaliť gestom: potiahnutím dvoma prstami nadol.</string>
-    <string name="important_info_notification_settings_configure">Kliknutím sem nakonfigurujete \"Notifikácia aplikácie\" s týmito parametrami.</string>
-    <string name="important_info_notification_settings_toast">Nakonfigurované</string>
     <string name="menu_choose_language">Vybrať jazyk</string>
     <string name="menu_choose_language_system_language">[Systémový]</string>
-    <string name="important_info_choose_language_text1">Vybrať jazyk:</string>
-    <string name="important_info_choose_language_text2">V menu Editora je pridaná možnosť „Vybrať jazyk“. Pomocou nej môžete zmeniť jazyk aplikácie.\nMenu na toto je pridaná aj v PhoneProfilesPlusExtender (verzia 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Farba ikony</string>
     <string name="profile_icon_preference_iconColor_help_info_1">V tmavej téme aplikácie môže mať farba ikony v náhľade zvýšený jas.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Ikona s týmto zvýšeným jasom sa bude používať v celom GUI aplikácie. Aj v notifikácii a miniaplikáciách, ak je ich pozadie tmavé.</string>
@@ -2026,4 +2017,5 @@ indikátor parametrov“ zapnuté.</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Notifikačná dióda</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-on displej</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Kliknite sem pre zobrazenie informácií o typoch parametrov: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Nastavenia pre Samsung bočný panel</string>
 </resources>

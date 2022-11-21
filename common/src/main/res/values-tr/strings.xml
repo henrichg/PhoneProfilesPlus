@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Hata</string>
     <string name="activity_log_help_message_colors_others">Diğer haller</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Durumları tekrar başlat\" simge rengi</string>
-    <string name="important_info_notification_settings_text1">\"Ayarlar\"/\"Uygulama bildirimi\" şartlarının ayarlanması için tavsiye:</string>
-    <string name="important_info_notification_settings_text2">\"Bildirim tarzı\" değerini \"Hususi\", \"Döşemeyi kullan\" değerini kapalı, \"Tercih simgesini göster\" değerini açık, \"Tercihler göstergesini göster\" değerini açık olarak ayarlayın,.</string>
-    <string name="important_info_notification_settings_text3">Bu ayarlama ile bildirim Tercih simgesiyle, Tercihler göstergesi simgelerle (Düzenleyici\'de olduğu gibi), simge olarak \"Durumları yeniden başlat\" ile görüntülenecek ve bildirim daha küçük olacaktır.</string>
-    <string name="important_info_notification_settings_text4">Döşemesiz olan bildirimi bir hareketle genişletmek mümkün: iki parmağınızla aşağı kaydırın.</string>
-    <string name="important_info_notification_settings_configure">\"Uygulama bildirimi\"ni bu değerlerle ayarlamak için buraya tıklayın.</string>
-    <string name="important_info_notification_settings_toast">Ayarlandı</string>
     <string name="menu_choose_language">Lisan seç</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">Lisan seç:</string>
-    <string name="important_info_choose_language_text2">Düzenleyici menüsüne \"Lisan seç\" seçeneği eklendi. Bu seçenekle uygulama lisanını değiştirebilirsiniz.\nBunun için menü ayrıca PhoneProfilesPlusExtender\'a da (sürüm 8.0) eklenmiştir.</string>
     <string name="profile_icon_preference_iconColor_help">Simge rengi</string>
     <string name="profile_icon_preference_iconColor_help_info_1">Koyu bir uygulama temasında, önizleme simgesinin rengi, artırılmış parlaklığa sahip olabilir.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Bu artırılmış parlaklığa sahip bir simge, uygulamanın arayüzünde kullanılacaktır. Ayrıca arka plan koyu olduğunda bildirim ve widget\'larda.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) Bildirim ışığı</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Ekran Her Zaman Açık</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">(S), (G1), (R), (I) ayarlarının türleri hakkında malumatı görmek için buraya dokunun.</string>
+    <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
 </resources>

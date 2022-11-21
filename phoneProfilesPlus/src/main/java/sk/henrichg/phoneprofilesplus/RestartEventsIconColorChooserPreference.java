@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -148,7 +147,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
             }
         }*/
 
-        String applicationTheme = "white";// = ApplicationPreferences.applicationTheme(context, true);
+        String applicationTheme; // = "white";// = ApplicationPreferences.applicationTheme(context, true);
         if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
             applicationTheme = "dark";
         else

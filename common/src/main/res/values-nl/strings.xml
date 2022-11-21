@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Fout</string>
     <string name="activity_log_help_message_colors_others">Andere situaties</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Event herstarten\" icoon kleur</string>
-    <string name="important_info_notification_settings_text1">Aanbeveling voor de configuratie van parameters \"Instellingen\"/\"Applicatie notificatie\":</string>
-    <string name="important_info_notification_settings_text2">Configureer de parameter \"Notificatie stijl\" naar \"Aangepast\", \"Toon notificatie aanpassing\" uitgeschakeld en \"Toon profielpictogram\" ingeschakeld.</string>
-    <string name="important_info_notification_settings_text3">Met deze configuratie wordt een notificatie weergegeven met het profielpictogram, voorkeursindicator met pictogrammen (zoals in de Editor), \"Event herstarten\" als pictogram en notificatie zal kleiner worden.</string>
-    <string name="important_info_notification_settings_text4">Het is mogelijk om de melding uit te breiden, zonder notificatie aanpassing, met een gebaar: veeg naar beneden met twee vingers.</string>
-    <string name="important_info_notification_settings_configure">Klik hier om \"Applicatie notificatie\" te configureren met deze parameters.</string>
-    <string name="important_info_notification_settings_toast">Geconfigureerd</string>
     <string name="menu_choose_language">Taal kiezen</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">Kies taal:</string>
-    <string name="important_info_choose_language_text2">In het menu Editor is de optie \"Kies taal\" toegevoegd. Met deze optie kunt u de taal van de applicatie wijzigen.\nDeze optie is ook toegevoegd in PhoneProfilesPlusExtender (versie 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Icoonkleur</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In een donker toepassingsthema kan de kleur van het voorbeeldicoon meer helderheid geven.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Een icoon met deze verhoogde helderheid wordt gebruikt in de GUI van de applicatie. Ook in notificaties en widgets als hun achtergrond donker is.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) Meldingen LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Altijd aan schermweergave</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Klik hier om informatie te tonen over voorkeur types: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
 </resources>

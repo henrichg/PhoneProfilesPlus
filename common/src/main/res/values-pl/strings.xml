@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">Błąd</string>
     <string name="activity_log_help_message_colors_others">Inne sytuacje</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Kolor ikony \"Zrestartuj zdarzenia\"</string>
-    <string name="important_info_notification_settings_text1">Zalecenia dla konfiguracji parametrów \"Ustawienia\"/\"Powiadomienie z aplikacji\":</string>
-    <string name="important_info_notification_settings_text2">Skonfiguruj parametr \"Styl powiadomień\" na \"Własny\", \"Użyj dekoracji\" wyłączony, \"Pokaż ikonę profilu\" włączony, \"Pokaż wskaźnik preferencji\" włączony.</string>
-    <string name="important_info_notification_settings_text3">W tej konfiguracji powiadomienie będzie wyświetlane z ikoną profilu, Wskaźnik preferencji z ikonami (jak w Edytorze), \"Uruchom ponownie zdarzenia\" jako ikona oraz powiadomienie będzie mniejsze.</string>
-    <string name="important_info_notification_settings_text4">Powiadomienie, które jest bez dekoracji, można rozwinąć gestem: przesuń w dół dwoma palcami.</string>
-    <string name="important_info_notification_settings_configure">Kliknij tutaj, aby skonfigurować tymi parametrami \"Powiadomienie aplikacji\".</string>
-    <string name="important_info_notification_settings_toast">Skonfigurowane</string>
     <string name="menu_choose_language">Wybierz język</string>
     <string name="menu_choose_language_system_language">[Systemowy]</string>
-    <string name="important_info_choose_language_text1">Wybierz język:</string>
-    <string name="important_info_choose_language_text2">W menu edytora dodano opcję \"Wybierz język\". Dzięki niej możesz zmienić język aplikacji.\nTakie menu występuje również w PhoneProfilesPlusExtender (wersja 8.0).</string>
     <string name="profile_icon_preference_iconColor_help">Kolor ikony</string>
     <string name="profile_icon_preference_iconColor_help_info_1">W ciemnym szablonie aplikacji kolor ikony podglądu może mieć zwiększoną jasność.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Ikona z tą zwiększoną jasnością będzie używana w interfejsie użytkownika aplikacji. Również w powiadomieniach i widżetach, gdy tło jest ciemne.</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) Dioda powiadomień</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) wyświetlacz Always-On</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Kliknij tu, aby wyświetlić informację o ustawieniach oznaczonych: (S), (G1), (R), (I).</string>
+    <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
 </resources>

@@ -747,7 +747,7 @@
     <string name="action_for_external_application_notification_no_event_text">参数 event_name 未设置或为空。</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">开启 (忽略热点)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">切换 (忽略热点)</string>
-    <string name="phone_profiles_pref_category_samsung_edge_panel">三星侧面板</string>
+    <string name="phone_profiles_pref_category_samsung_edge_panel">三星侧边栏</string>
     <string name="action_for_external_application_notification_bad_action">指定的操作不支持。</string>
     <string name="action_for_external_application_notification_no_action">未指定操作。</string>
     <string name="ringtone_preference_not_set">未指定</string>
@@ -911,7 +911,7 @@
     <string name="array_pref_auto_rotate_on">自动旋转开启</string>
     <string name="array_pref_auto_rotate_off">自动旋转关闭</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">自适应级别的更改可能无法在您的设备上运行(例如：三星设备)。</string>
-    <string name="about_application_xda_developers_community">XDA-developers community:</string>
+    <string name="about_application_xda_developers_community">XDA开发者社区：</string>
     <string name="mobile_cells_pref_dlg_connected_cell">已连接基站：</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">移动基站注册需要一些权限。</string>
     <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">新基站计数：</string>
@@ -1231,7 +1231,7 @@
     <string name="editor_activity_targetHelps_orderSpinner_description">单击此处可在事件顺序视图之间切换。</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">启用运行事件</string>
     <string name="editor_activity_targetHelps_runStopEvents_description">单击此处启用事件运行。如果没有此功能，配置的事件将无法运行。</string>
-    <string name="samsung_edge_panel_description">带三星边缘面板的情景激活或重新启动事件</string>
+    <string name="samsung_edge_panel_description">带三星侧边栏的情景激活或重新启动事件</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_black">黑色</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">自定义背景颜色</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">自定义颜色</string>
@@ -1936,16 +1936,8 @@
     <string name="activity_log_help_message_colors_error">错误</string>
     <string name="activity_log_help_message_colors_others">其他情况</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"重新启动事件\"图标颜色</string>
-    <string name="important_info_notification_settings_text1">\"设置\"/\"应用程序通知\"的推荐配置参数：</string>
-    <string name="important_info_notification_settings_text2">将“通知样式”参数配置为“自定义”，关闭“使用装饰”，开启“显示配置文件图标”，开启“显示首选项指示器”。</string>
-    <string name="important_info_notification_settings_text3">经此配置，通知将显示情景图标，“重启事件”的图标和通知将被缩小。</string>
-    <string name="important_info_notification_settings_text4">可以手势来展开不带装饰的通知：两个手指下拉。</string>
-    <string name="important_info_notification_settings_configure">点击此处配置“应用程序通知” 和这些参数。</string>
-    <string name="important_info_notification_settings_toast">已配置</string>
     <string name="menu_choose_language">选择语言</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">选择语言：</string>
-    <string name="important_info_choose_language_text2">在编辑器菜单中添加了“选择语言”选项。通过此选项，您可以更改应用程序语言。\n此菜单也在 PhoneProfilesPlusExture (版本 8.0) 中添加。</string>
     <string name="profile_icon_preference_iconColor_help">图标颜色</string>
     <string name="profile_icon_preference_iconColor_help_info_1">在暗色主题中，预览图标的颜色可能会提高亮度。</string>
     <string name="profile_icon_preference_iconColor_help_info_2">这种增强亮度的图标将应用在整个图形界面中。包括通知和小部件，当它们的背景是暗色时。</string>
@@ -2025,4 +2017,5 @@
     <string name="profile_preferences_notificationLed_23">(S)(R) LED 通知</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) 始终显示</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关设置类型的信息：(S)、(G1)、(R)、(I)。</string>
+    <string name="samsung_edge_panel_settings_description">三星侧边栏设置</string>
 </resources>
