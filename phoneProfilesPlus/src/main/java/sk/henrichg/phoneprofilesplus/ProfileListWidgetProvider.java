@@ -108,32 +108,38 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetListChangeColorsByNightMode &&
                         (!applicationWidgetListUseDynamicColors))) {
-                    int nightModeFlags =
-                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                    switch (nightModeFlags) {
-                        case Configuration.UI_MODE_NIGHT_YES:
-                            //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                            applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
-                            //applicationWidgetListShowBorder = false; // do not show border
-                            applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                            //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
-                            break;
-                        case Configuration.UI_MODE_NIGHT_NO:
-                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                            applicationWidgetListBackgroundType = true; // background type = color
-                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
-                            //applicationWidgetListShowBorder = false; // do not show border
-                            applicationWidgetListLightnessBorder = "0";
-                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
-                            //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                            //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
-                            break;
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    //int nightModeFlags =
+                    //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    //switch (nightModeFlags) {
+                    //noinspection IfStatementWithIdenticalBranches
+                    if (nightModeOn) {
+                        //case Configuration.UI_MODE_NIGHT_YES:
+
+                        //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetListBackgroundType = true; // background type = color
+                        applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
+                        //applicationWidgetListShowBorder = false; // do not show border
+                        applicationWidgetListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationWidgetListIconColor = "0"; // icon type = colorful
+                        applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
+                        //break;
+                    } else {
+                        //case Configuration.UI_MODE_NIGHT_NO:
+                        //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+
+                        //applicationWidgetListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetListBackgroundType = true; // background type = color
+                        applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
+                        //applicationWidgetListShowBorder = false; // do not show border
+                        applicationWidgetListLightnessBorder = "0";
+                        applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationWidgetListIconColor = "0"; // icon type = colorful
+                        applicationWidgetListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        //applicationWidgetListPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
+                        //break;
                     }
                 }
             }

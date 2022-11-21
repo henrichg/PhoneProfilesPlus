@@ -52,17 +52,21 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (applicationSamsungEdgeChangeColorsByNightMode) {
-                    int nightModeFlags =
-                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                    switch (nightModeFlags) {
-                        case Configuration.UI_MODE_NIGHT_YES:
-                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                            break;
-                        case Configuration.UI_MODE_NIGHT_NO:
-                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                            break;
-                    }
+                    if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
+                        applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                    else
+                        applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                    //int nightModeFlags =
+                    //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    //switch (nightModeFlags) {
+                    //    case Configuration.UI_MODE_NIGHT_YES:
+                    //        applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                    //        break;
+                    //    case Configuration.UI_MODE_NIGHT_NO:
+                    //    case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                    //        applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                    //        break;
+                    //}
                 }
             }
         }
@@ -178,22 +182,27 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
                 if (Build.VERSION.SDK_INT >= 30) {
                     if (applicationSamsungEdgeChangeColorsByNightMode) {
-                        int nightModeFlags =
-                                context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                        switch (nightModeFlags) {
-                            case Configuration.UI_MODE_NIGHT_YES:
-                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                                applicationSamsungEdgeBackgroundType = true; // background type = color
-                                applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
-                                //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
-                                break;
-                            case Configuration.UI_MODE_NIGHT_NO:
-                            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                                applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
-                                applicationSamsungEdgeBackgroundType = true; // background type = not color
-                                applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
-                                //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
-                                break;
+                        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                        //int nightModeFlags =
+                        //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                        //switch (nightModeFlags) {
+                        if (nightModeOn) {
+                            //case Configuration.UI_MODE_NIGHT_YES:
+
+                            applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                            applicationSamsungEdgeBackgroundType = true; // background type = color
+                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
+                            //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
+                            //break;
+                        } else {
+                            //case Configuration.UI_MODE_NIGHT_NO:
+                            //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+
+                            applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                            applicationSamsungEdgeBackgroundType = true; // background type = not color
+                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
+                            //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
+                            //break;
                         }
                     }
                 }

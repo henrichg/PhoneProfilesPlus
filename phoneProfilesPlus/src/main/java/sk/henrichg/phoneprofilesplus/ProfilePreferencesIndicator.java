@@ -92,8 +92,9 @@ class ProfilePreferencesIndicator {
                 (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND)) {
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                        == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                    == Configuration.UI_MODE_NIGHT_YES;
 
             boolean setAlpha = true;
 
@@ -102,8 +103,7 @@ class ProfilePreferencesIndicator {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
-                }
-                else {
+                } else {
                     if (!monochrome) {
                         if (nightModeOn) {
                             if (disabled)
@@ -189,14 +189,14 @@ class ProfilePreferencesIndicator {
 
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                        == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                    == Configuration.UI_MODE_NIGHT_YES;
 
             int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
             if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
-            }
-            else {
+            } else {
                 if (!monochrome) {
                     if (nightModeOn) {
                         if (disabled)
@@ -241,8 +241,9 @@ class ProfilePreferencesIndicator {
             (indicatorsType == DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND)) {
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                == Configuration.UI_MODE_NIGHT_YES;
 
             boolean setAlpha = true;
 
@@ -317,15 +318,15 @@ class ProfilePreferencesIndicator {
 
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                        == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                    == Configuration.UI_MODE_NIGHT_YES;
 
             if (!monochrome) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
-                }
-                else {
+                } else {
                     if (nightModeOn) {
                         if (disabled)
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_dark), PorterDuff.Mode.SRC_ATOP));

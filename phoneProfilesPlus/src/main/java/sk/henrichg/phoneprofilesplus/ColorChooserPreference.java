@@ -133,8 +133,12 @@ public class ColorChooserPreference extends DialogPreference {
             }
         }*/
 
-        String applicationTheme = "white";// = ApplicationPreferences.applicationTheme(context, true);
-        int nightModeFlags =
+        String applicationTheme;// = "white";// = ApplicationPreferences.applicationTheme(context, true);
+        if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
+            applicationTheme = "dark";
+        else
+            applicationTheme = "white";
+        /*int nightModeFlags =
                 context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
@@ -144,7 +148,7 @@ public class ColorChooserPreference extends DialogPreference {
             case Configuration.UI_MODE_NIGHT_UNDEFINED:
                 applicationTheme = "white";
                 break;
-        }
+        }*/
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);

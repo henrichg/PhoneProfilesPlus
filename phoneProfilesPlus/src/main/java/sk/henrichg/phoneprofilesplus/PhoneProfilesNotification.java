@@ -153,12 +153,12 @@ public class PhoneProfilesNotification {
         RemoteViews contentViewLarge = null;
 
         boolean useDecorator;
-        int useNightColor = 0;
+        boolean useNightColor = GlobalGUIRoutines.isNightModeEnabled(appContext);
         //boolean profileIconExists = true;
 
+        /*
         int nightModeFlags =
                 appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
                 useNightColor = 1;
@@ -169,6 +169,7 @@ public class PhoneProfilesNotification {
             case Configuration.UI_MODE_NIGHT_UNDEFINED:
                 break;
         }
+        */
 
         if (notificationNotificationStyle.equals("0")) {
             // ----- create content view
@@ -649,7 +650,7 @@ public class PhoneProfilesNotification {
                     // In Android 9 is exception from normal functionality.
                     // Device theme do not change text color
                     // For this, must be changed programmatically
-                    if (useNightColor == 1) {
+                    if (useNightColor/* == 1*/) {
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                         if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
@@ -816,7 +817,7 @@ public class PhoneProfilesNotification {
                                                                String notificationNotificationStyle, boolean notificationShowRestartEventsAsButton,
                                                                String notificationBackgroundColor, int notificationBackgroundCustomColor,
                                                                String notificationProfileIconColor,
-                                                               boolean useDecorator, int useNightColor,
+                                                               boolean useDecorator, boolean useNightColor,
                                                                Context appContext) {
         if (!forFirstStart) {
             PendingIntent pIntentRE; //= null;
@@ -848,7 +849,7 @@ public class PhoneProfilesNotification {
                             if (color != 0) {
                                 restartEventsBitmap = BitmapManipulator.recolorBitmap(restartEventsBitmap, color);
                             } else {
-                                if (useNightColor == 1) {
+                                if (useNightColor/* == 1*/) {
                                     restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
                                     //restartEventsId = R.drawable.ic_widget_restart_events_dark;
                                 } else {
@@ -861,7 +862,7 @@ public class PhoneProfilesNotification {
                             //
                             // In 28 (Android 9) it is Device theme, but not working in emulator,
                             // must be tested in device (for example Nexus 5x).
-                            if (useNightColor == 1) {
+                            if (useNightColor/* == 1*/) {
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
                                 //restartEventsId = R.drawable.ic_widget_restart_events_dark;
                             } else {

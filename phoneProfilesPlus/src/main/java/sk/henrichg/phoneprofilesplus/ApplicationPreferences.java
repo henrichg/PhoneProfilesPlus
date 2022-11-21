@@ -577,7 +577,11 @@ class ApplicationPreferences {
                 applicationTheme = _applicationTheme;
             }
             if (_applicationTheme.equals("night_mode") && useNightMode) {
-                int nightModeFlags =
+                if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
+                    _applicationTheme = "dark";
+                else
+                    _applicationTheme = "white";
+                /*int nightModeFlags =
                         context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                 switch (nightModeFlags) {
                     case Configuration.UI_MODE_NIGHT_YES:
@@ -587,7 +591,7 @@ class ApplicationPreferences {
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
                         _applicationTheme = "white";
                         break;
-                }
+                }*/
             }
             return _applicationTheme;
         }

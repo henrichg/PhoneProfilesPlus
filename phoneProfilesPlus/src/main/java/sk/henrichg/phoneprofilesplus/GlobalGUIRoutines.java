@@ -312,6 +312,18 @@ class GlobalGUIRoutines {
         }
     }
 
+    static boolean isNightModeEnabled(Context appContext) {
+        if (Build.VERSION.SDK_INT >= 30)
+            return appContext.getResources().getConfiguration().isNightModeActive();
+
+        int nightModeFlags =
+                appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            return true;
+        }
+        return false;
+    }
+
     private static void switchNightMode(Context appContext) {
         switch (ApplicationPreferences.applicationTheme(appContext, false)) {
             case "white":
@@ -739,16 +751,16 @@ class GlobalGUIRoutines {
     }
 
     static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Context context) {
-        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
+        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+//                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+//                                    == Configuration.UI_MODE_NIGHT_YES;
 
         if (/*ApplicationPreferences.applicationTheme(activity, true).equals("white")*/!nightModeOn) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace_light));
             timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear_light));
-        }
-        else {
+        } else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));

@@ -122,30 +122,36 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 if ((/*PPApplication.isPixelLauncherDefault(context) ||*/
                         applicationWidgetIconChangeColorsByNightMode &&
                         (!applicationWidgetIconUseDynamicColors))) {
-                    int nightModeFlags =
-                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                    switch (nightModeFlags) {
-                        case Configuration.UI_MODE_NIGHT_YES:
-                            //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                            applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
-                            //applicationWidgetIconShowBorder = false; // do not show border
-                            applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                            applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                            //applicationWidgetIconColor = "0"; // icon type = colorful
-                            applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                            break;
-                        case Configuration.UI_MODE_NIGHT_NO:
-                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                            applicationWidgetIconBackgroundType = true; // background type = color
-                            applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
-                            //applicationWidgetIconShowBorder = false; // do not show border
-                            applicationWidgetIconLightnessBorder = "0";
-                            applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
-                            //applicationWidgetIconColor = "0"; // icon type = colorful
-                            applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                            break;
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    //int nightModeFlags =
+                    //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    //switch (nightModeFlags) {
+                    //noinspection IfStatementWithIdenticalBranches
+                    if (nightModeOn) {
+                        //case Configuration.UI_MODE_NIGHT_YES:
+
+                        //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetIconBackgroundType = true; // background type = color
+                        applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOn)); // color of background
+                        //applicationWidgetIconShowBorder = false; // do not show border
+                        applicationWidgetIconLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationWidgetIconColor = "0"; // icon type = colorful
+                        applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        //break;
+                    } else {
+                        //case Configuration.UI_MODE_NIGHT_NO:
+                        //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+
+                        //applicationWidgetIconBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetIconBackgroundType = true; // background type = color
+                        applicationWidgetIconBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetIconBackgroundColorNightModeOff)); // color of background
+                        //applicationWidgetIconShowBorder = false; // do not show border
+                        applicationWidgetIconLightnessBorder = "0";
+                        applicationWidgetIconLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationWidgetIconColor = "0"; // icon type = colorful
+                        applicationWidgetIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        //break;
                     }
                 }
             }

@@ -66,28 +66,34 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (Build.VERSION.SDK_INT >= 30) {
 
                 if (applicationSamsungEdgeChangeColorsByNightMode) {
-                    int nightModeFlags =
-                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                    switch (nightModeFlags) {
-                        case Configuration.UI_MODE_NIGHT_YES:
-                            //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
-                            applicationSamsungEdgeBackgroundType = true; // background type = color
-                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
-                            //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
-                            applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                            //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
-                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                            break;
-                        case Configuration.UI_MODE_NIGHT_NO:
-                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
-                            applicationSamsungEdgeBackgroundType = true; // background type = not color
-                            applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
-                            //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
-                            applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
-                            //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
-                            applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                            break;
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    //int nightModeFlags =
+                    //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    //switch (nightModeFlags) {
+                    //noinspection IfStatementWithIdenticalBranches
+                    if (nightModeOn) {
+                        //case Configuration.UI_MODE_NIGHT_YES:
+
+                        //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
+                        applicationSamsungEdgeBackgroundType = true; // background type = color
+                        applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOn)); // color of background
+                        //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12;  // lighting  of backgroud = 12%
+                        applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
+                        applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        //break;
+                    } else {
+                        //case Configuration.UI_MODE_NIGHT_NO:
+                        //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+
+                        //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
+                        applicationSamsungEdgeBackgroundType = true; // background type = not color
+                        applicationSamsungEdgeBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationSamsungEdgeBackgroundColorNightModeOff)); // color of background
+                        //applicationSamsungEdgeLightnessB = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lighting  of backgroud = 87%
+                        applicationSamsungEdgeLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
+                        applicationSamsungEdgeIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        //break;
                     }
                 }
             }

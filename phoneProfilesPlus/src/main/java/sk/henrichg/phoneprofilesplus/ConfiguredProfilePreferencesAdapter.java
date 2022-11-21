@@ -71,20 +71,18 @@ class ConfiguredProfilePreferencesAdapter extends BaseAdapter
             holder.preferenceString = vi.findViewById(R.id.configured_profile_preferences_preference_string);
             holder.preferenceDescription = vi.findViewById(R.id.configured_profile_preferences_preference_decription);
             vi.setTag(holder);
-        }
-        else
-        {
-            holder = (ViewHolder)vi.getTag();
+        } else {
+            holder = (ViewHolder) vi.getTag();
         }
 
         //String applicationTheme = ApplicationPreferences.applicationTheme(context.getApplicationContext(), true);
-        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
+        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+//                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+//                                    == Configuration.UI_MODE_NIGHT_YES;
 
         if (configuredPreferences.preferenceIcon == 0) {
             holder.preferenceIcon.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             Paint paint = new Paint();
 
             float brightness;

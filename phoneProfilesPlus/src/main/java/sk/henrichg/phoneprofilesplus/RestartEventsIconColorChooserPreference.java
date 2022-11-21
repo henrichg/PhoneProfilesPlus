@@ -149,17 +149,21 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
         }*/
 
         String applicationTheme = "white";// = ApplicationPreferences.applicationTheme(context, true);
-        int nightModeFlags =
-                context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                applicationTheme = "dark";
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                applicationTheme = "white";
-                break;
-        }
+        if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
+            applicationTheme = "dark";
+        else
+            applicationTheme = "white";
+//        int nightModeFlags =
+//                context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//        switch (nightModeFlags) {
+//            case Configuration.UI_MODE_NIGHT_YES:
+//                applicationTheme = "dark";
+//                break;
+//            case Configuration.UI_MODE_NIGHT_NO:
+//            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+//                applicationTheme = "white";
+//                break;
+//        }
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
@@ -169,7 +173,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-                coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
         }
         else {
             //if (position == 0) // white color

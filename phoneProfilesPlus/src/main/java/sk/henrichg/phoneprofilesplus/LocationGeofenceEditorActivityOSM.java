@@ -165,8 +165,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         //mMap.setTilesScaledToDpi(true);
         //mMap.getTileProvider().clearTileCache();
 
-        boolean nightModeOn = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
+        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(getApplicationContext());
+//                (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+//                                    == Configuration.UI_MODE_NIGHT_YES;
 
         /*boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);

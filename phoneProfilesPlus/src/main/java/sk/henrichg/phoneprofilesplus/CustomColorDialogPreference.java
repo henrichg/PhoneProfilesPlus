@@ -107,7 +107,13 @@ public class CustomColorDialogPreference extends DialogPreference {
                 colorPreview.setImageResource(R.drawable.acch_circle);
 
                 // Update color
-                int nightModeFlags =
+                if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
+                    colorPreview.getDrawable()
+                            .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
+                else
+                    colorPreview.getDrawable()
+                            .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
+                /*int nightModeFlags =
                         prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                 switch (nightModeFlags) {
                     case Configuration.UI_MODE_NIGHT_YES:
@@ -119,7 +125,7 @@ public class CustomColorDialogPreference extends DialogPreference {
                         colorPreview.getDrawable()
                                 .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
                         break;
-                }
+                }*/
 
                 // Bitmap to crop for background
                 Bitmap draughtboard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.acch_draughtboard);
