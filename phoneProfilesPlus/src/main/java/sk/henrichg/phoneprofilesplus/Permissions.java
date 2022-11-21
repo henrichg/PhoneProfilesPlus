@@ -2924,6 +2924,7 @@ class Permissions {
                 if (!notificationManager.areNotificationsEnabled()) {
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                    dialogBuilder.setTitle(R.string.ppp_app_name);
                     dialogBuilder.setMessage(R.string.notifications_permission_text);
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.enable_notificaitons_button, (dialog, which) -> {
