@@ -6188,11 +6188,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String _summary;
                         //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                         //final boolean showDoNotDisturbPermission =
-                                /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                        /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
                         //                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
                         //if (showDoNotDisturbPermission) {
-                            _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
-                            _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
+                        _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
+                        _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
                         //} else {
                         //    _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
                         //    _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access);
@@ -6278,53 +6278,46 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
 
-                // not enabled accessibility service
-                boolean installedPPPPS = ActivateProfileHelper.isPPPPutSSettingsInstalled(context);
-                /*if (accessibilityEnabled == 1) {
-                    int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                    if (extenderVersion != 0) {
-                        // PPPE is installed
-                        if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
-                            // Extender is not connected
-                            accessibilityEnabled = 0;
-                    }
-                }*/
-                preference = prefMng.findPreference(PRF_NOT_INSTALLED_PPPPS);
-                if (installedPPPPS) {
-                    if (preference != null) {
-                        PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                        if (preferenceCategory != null)
-                            preferenceCategory.removePreference(preference);
-                    }
-                } else {
-                    if (preference == null) {
-                        PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                        if (preferenceCategory != null) {
-                            preference = new Preference(context);
-                            preference.setKey(PRF_NOT_INSTALLED_PPPPS);
-                            preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
-                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                            preference.setOrder(-97);
-                            preferenceCategory.addPreference(preference);
+                // not installed PPPPs
+                if (preferenceAllowed.notAllowedPPPPS) {
+                    boolean installedPPPPS = ActivateProfileHelper.isPPPPutSSettingsInstalled(context);
+                    preference = prefMng.findPreference(PRF_NOT_INSTALLED_PPPPS);
+                    if (installedPPPPS) {
+                        if (preference != null) {
+                            PreferenceScreen preferenceCategory = findPreference(rootScreen);
+                            if (preferenceCategory != null)
+                                preferenceCategory.removePreference(preference);
                         }
-                    }
-                    if (preference != null) {
-                        int stringRes = R.string.preferences_not_installed_PPPPutSettings_title;
-                        String _title = order + ". " + getString(stringRes);
-                        ++order;
-                        Spannable title = new SpannableString(_title);
-                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                        preference.setTitle(title);
-                        _title = getString(R.string.event_preferences_red_install_PPPExtender);
-                        Spannable summary = new SpannableString(_title);
-                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
-                        preference.setSummary(summary);
+                    } else {
+                        if (preference == null) {
+                            PreferenceScreen preferenceCategory = findPreference(rootScreen);
+                            if (preferenceCategory != null) {
+                                preference = new Preference(context);
+                                preference.setKey(PRF_NOT_INSTALLED_PPPPS);
+                                preference.setIconSpaceReserved(false);
+                                preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
+                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                                preference.setOrder(-97);
+                                preferenceCategory.addPreference(preference);
+                            }
+                        }
+                        if (preference != null) {
+                            int stringRes = R.string.preferences_not_installed_PPPPutSettings_title;
+                            String _title = order + ". " + getString(stringRes);
+                            ++order;
+                            Spannable title = new SpannableString(_title);
+                            title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                            preference.setTitle(title);
+                            _title = getString(R.string.event_preferences_red_install_PPPExtender);
+                            Spannable summary = new SpannableString(_title);
+                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                            preference.setSummary(summary);
 
-                        preference.setOnPreferenceClickListener(preference15 -> {
-                            installPPPPutSettings();
-                            return false;
-                        });
+                            preference.setOnPreferenceClickListener(preference15 -> {
+                                installPPPPutSettings();
+                                return false;
+                            });
+                        }
                     }
                 }
             }
