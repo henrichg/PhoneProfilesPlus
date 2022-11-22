@@ -44,7 +44,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_log_time"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 tools:ignore="SpUsage"/>
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_data_type"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 tools:ignore="SpUsage" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_data"
                 android:textStyle="bold"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 tools:ignore="SpUsage" />
 
             <!--
