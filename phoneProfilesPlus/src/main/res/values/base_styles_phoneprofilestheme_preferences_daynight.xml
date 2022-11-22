@@ -91,6 +91,7 @@
         <item name="android:textAllCaps">false</item>
 
         <item name="android:scrollbarThumbVertical">@color/scrollbar_color</item>
+        <item name="android:scrollbarThumbHorizontal">@color/scrollbar_color</item>
         <item name="android:scrollbarSize">@dimen/scrollbar_size</item>
     </style>
 
