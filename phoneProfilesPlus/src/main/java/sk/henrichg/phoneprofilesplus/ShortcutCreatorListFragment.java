@@ -437,9 +437,15 @@ public class ShortcutCreatorListFragment extends Fragment {
                         //intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
                         //context.sendBroadcast(intent);
 
-                        ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                        Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
-                        fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                        try {
+                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                            Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
+                            fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                        } catch (Exception e) {
+                            // show dialog about this crash
+                            // for Microsft laucher it is:
+                            // java.lang.IllegalArgumentException ... already exists but disabled
+                        }
                     }
 
                     fragment.getActivity().finish();
