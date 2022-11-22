@@ -8,5 +8,5 @@
     style="@style/TextAppearance.Compat.Notification.Title"
     android:textSize="17dp"
     android:ellipsize="end"
-    android:maxLines="1"
     tools:ignore="SpUsage" />
+<!--    android:maxLines="1"-->

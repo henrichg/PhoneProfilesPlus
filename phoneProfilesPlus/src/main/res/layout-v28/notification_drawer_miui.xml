@@ -9,6 +9,7 @@
         android:layout_width="@dimen/restart_events_notification_icon_size"
         android:layout_height="@dimen/restart_events_notification_icon_size"
         android:padding="2dp"
+        android:layout_marginStart="13dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="0dp"

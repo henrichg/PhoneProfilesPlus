@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="54dp"
     android:paddingStart="10dp"
-    android:paddingEnd="10dp" >
+    android:paddingEnd="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
@@ -13,6 +15,7 @@
         android:padding="2dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="13dp"
         android:layout_marginEnd="2dp"
         android:contentDescription="@string/menu_restart_events"
         android:scaleType="fitCenter"
@@ -35,7 +38,7 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="13dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 

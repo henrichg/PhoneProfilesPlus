@@ -15,6 +15,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
+        android:layout_marginStart="13dp"
         android:contentDescription="@string/menu_restart_events"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -37,7 +38,7 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="15dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
@@ -45,8 +46,6 @@
             android:id="@+id/notification_activated_profile_relLa2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/notification_activated_profile_icon">
 

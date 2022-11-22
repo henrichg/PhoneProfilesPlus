@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"
         android:layout_width="@dimen/restart_events_notification_compat_icon_size"
@@ -12,6 +11,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
+        android:layout_marginStart="13dp"
         android:layout_marginEnd="0dp"
         android:contentDescription="@string/menu_restart_events"
         android:adjustViewBounds="true"
