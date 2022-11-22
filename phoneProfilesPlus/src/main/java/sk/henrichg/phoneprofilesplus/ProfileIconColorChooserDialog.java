@@ -236,11 +236,11 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             }
         }
 
-        String applicationTheme;// = "white";// = ApplicationPreferences.applicationTheme(context, true);
-        if (GlobalGUIRoutines.isNightModeEnabled(activity.getApplicationContext()))
+        String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
+        /*if (GlobalGUIRoutines.isNightModeEnabled(activity.getApplicationContext()))
             applicationTheme = "dark";
         else
-            applicationTheme = "white";
+            applicationTheme = "white";*/
         /*int nightModeFlags =
                 context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (nightModeFlags) {
