@@ -226,7 +226,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
     }
 
     private Drawable createSelector(int color) {
-        int position = -1;
+        /*int position = -1;
         if (color != defaultColor) {
             for (int i = 0; i < mColors.length; i++) {
                 if (mColors[i] == color) {
@@ -234,7 +234,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
                     break;
                 }
             }
-        }
+        }*/
 
         String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
         /*if (GlobalGUIRoutines.isNightModeEnabled(activity.getApplicationContext()))
