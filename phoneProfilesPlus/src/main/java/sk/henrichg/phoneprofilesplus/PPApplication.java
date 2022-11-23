@@ -401,6 +401,7 @@ public class PPApplication extends Application
     static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
     static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
     static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
+    static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
@@ -2211,6 +2212,7 @@ public class PPApplication extends Application
             //ApplicationPreferences.applicationDefaultProfileUsage(context);
             ApplicationPreferences.applicationActivatorGridLayout(context);
             ApplicationPreferences.applicationWidgetListGridLayout(context);
+            ApplicationPreferences.applicationWidgetListCompactGrid(context);
             ApplicationPreferences.applicationEventBluetoothScanInterval(context);
             //ApplicationPreferences.applicationEventWifiRescan(context);
             //ApplicationPreferences.applicationEventBluetoothRescan(context);

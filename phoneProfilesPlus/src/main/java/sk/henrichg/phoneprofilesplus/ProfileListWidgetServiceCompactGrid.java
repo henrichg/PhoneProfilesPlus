@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViewsService;
 
-public class ProfileListWidgetService extends RemoteViewsService {
+public class ProfileListWidgetServiceCompactGrid extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return(new ProfileListWidgetFactory(this.getBaseContext(),
-                intent));
+        //Log.e("ProfileListWidgetServiceCompactGrid.onGetViewFactory", "ProfileListWidgetServiceCompactGrid");
+        return (new ProfileListWidgetFactoryCompactGrid(this.getBaseContext(), intent));
     }
 
     @Override

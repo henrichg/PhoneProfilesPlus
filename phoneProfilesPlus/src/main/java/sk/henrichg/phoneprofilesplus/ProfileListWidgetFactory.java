@@ -24,16 +24,17 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     private DataWrapper dataWrapper;
 
     private final Context context;
-    //private int appWidgetId;
-    //private List<Profile> profileList = new ArrayList<>();
+
+    boolean applicationWidgetListGridLayout;
+    boolean applicationWidgetListCompactGrid;
 
     ProfileListWidgetFactory(Context context, @SuppressWarnings("unused") Intent intent) {
         this.context = context;
-        /*appWidgetId=intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                                       AppWidgetManager.INVALID_APPWIDGET_ID);*/
+        //Log.e("ProfileListWidgetFactory constuctor", "xxxxx");
     }
 
     public void onCreate() {
+        //Log.e("ProfileListWidgetFactory.onCreate", "xxxx");
     }
 
     public void onDestroy() {
@@ -43,182 +44,225 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     }
 
     public int getCount() {
-        int count = 0;
-        if (dataWrapper != null) {
-            //if (dataWrapper.profileList != null) {
+        synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
+            int count = 0;
+            if (dataWrapper != null) {
+                //if (dataWrapper.profileList != null) {
                 for (Profile profile : dataWrapper.profileList) {
                     if (profile._showInActivator)
                         ++count;
                 }
-            //}
+                //}
+            }
+            //Log.e("ProfileListWidgetFactory.getCount", "count="+count);
+            return count;
         }
-        return count;
     }
 
-    private Profile getItem(int position)
-    {
+    public Profile getItem(int position) {
         if (getCount() == 0)
             return null;
-        else
-        {
-            Profile _profile = null;
-            if (dataWrapper != null) {
-                int pos = -1;
-                for (Profile profile : dataWrapper.profileList) {
-                    if (profile._showInActivator)
-                        ++pos;
+        else {
+            synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
+                Profile _profile = null;
+                if (dataWrapper != null) {
+                    int pos = -1;
+                    for (Profile profile : dataWrapper.profileList) {
+                        if (profile._showInActivator)
+                            ++pos;
 
-                    if (pos == position) {
-                        _profile = profile;
-                        break;
+                        if (pos == position) {
+                            _profile = profile;
+                            break;
+                        }
                     }
                 }
+                /*if (_profile == null)
+                    Log.e("ProfileListWidgetFactory.getItem", "_profile=NULL !!!");
+                else
+                    Log.e("ProfileListWidgetFactory.getItem", "_profile="+_profile._name);*/
+                return _profile;
             }
-            return _profile;
         }
     }
 
     public RemoteViews getViewAt(int position) {
-        RemoteViews row;
+        synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
+            //Log.e("ProfileListWidgetFactory.getViewAt", "applicationWidgetListGridLayout="+applicationWidgetListGridLayout);
+            //Log.e("ProfileListWidgetFactory.getViewAt", "applicationWidgetListCompactGrid="+applicationWidgetListCompactGrid);
 
-        boolean applicationWidgetListGridLayout;
-        String applicationWidgetListLightnessT;
-        boolean applicationWidgetListHeader;
-        boolean applicationWidgetListPrefIndicator;
-        boolean applicationWidgetListChangeColorsByNightMode;
-        String applicationWidgetListIconColor;
-        boolean applicationWidgetListUseDynamicColors;
-        boolean applicationWidgetListBackgroundType;
-        String applicationWidgetListLightnessB;
-        String applicationWidgetListBackgroundColor;
-        String applicationWidgetListBackgroundColorNightModeOff;
-        String applicationWidgetListBackgroundColorNightModeOn;
+            RemoteViews row;
 
-        synchronized (PPApplication.applicationPreferencesMutex) {
-            applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
-            applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
-            applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
-            applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
-            applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
-            applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
-            applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
-            applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
-            applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB;
-            applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
-            applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
-            applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
+            String applicationWidgetListLightnessT;
+            boolean applicationWidgetListHeader;
+            boolean applicationWidgetListPrefIndicator;
+            boolean applicationWidgetListChangeColorsByNightMode;
+            String applicationWidgetListIconColor;
+            boolean applicationWidgetListUseDynamicColors;
+            boolean applicationWidgetListBackgroundType;
+            String applicationWidgetListLightnessB;
+            String applicationWidgetListBackgroundColor;
+            String applicationWidgetListBackgroundColorNightModeOff;
+            String applicationWidgetListBackgroundColorNightModeOn;
 
-            if (Build.VERSION.SDK_INT >= 30) {
-                if (Build.VERSION.SDK_INT < 31)
-                    applicationWidgetListUseDynamicColors = false;
-                if (//PPApplication.isPixelLauncherDefault(context) ||
-                        (applicationWidgetListChangeColorsByNightMode &&
-                        (!applicationWidgetListUseDynamicColors))) {
-                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
-                    //int nightModeFlags =
-                    //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                    //switch (nightModeFlags) {
-                    if (nightModeOn) {
-                        //case Configuration.UI_MODE_NIGHT_YES:
+            synchronized (PPApplication.applicationPreferencesMutex) {
+                applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
+                applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
+                applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+                applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
+                applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
+                applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
+                applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
+                applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB;
+                applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
+                applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
+                applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
 
-                        applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                        applicationWidgetListBackgroundType = true; // background type = color
-                        applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
-                        //break;
-                    } else {
-                        //case Configuration.UI_MODE_NIGHT_NO:
-                        //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                if (Build.VERSION.SDK_INT >= 30) {
+                    if (Build.VERSION.SDK_INT < 31)
+                        applicationWidgetListUseDynamicColors = false;
+                    if (//PPApplication.isPixelLauncherDefault(context) ||
+                            (applicationWidgetListChangeColorsByNightMode &&
+                                    (!applicationWidgetListUseDynamicColors))) {
+                        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                        //int nightModeFlags =
+                        //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                        //switch (nightModeFlags) {
+                        if (nightModeOn) {
+                            //case Configuration.UI_MODE_NIGHT_YES:
 
-                        applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
-                        applicationWidgetListBackgroundType = true; // background type = color
-                        applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
-                        //break;
+                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                            applicationWidgetListBackgroundType = true; // background type = color
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOn)); // color of background
+                            //break;
+                        } else {
+                            //case Configuration.UI_MODE_NIGHT_NO:
+                            //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+
+                            applicationWidgetListLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                            applicationWidgetListBackgroundType = true; // background type = color
+                            applicationWidgetListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetListBackgroundColorNightModeOff)); // color of background
+                            //break;
+                        }
                     }
                 }
             }
-        }
 
-        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
-            if (!applicationWidgetListGridLayout)
-                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
-            else
-                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
-        } else {
-            if (!applicationWidgetListGridLayout)
-                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item_dn);
-            else
-                row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_dn);
-        }
-    
-        Profile profile = getItem(position);
-
-        if (profile != null) {
-            Bitmap bitmap = null;
-            if (applicationWidgetListIconColor.equals("0")) {
-                if (applicationWidgetListChangeColorsByNightMode ||
-                    ((!applicationWidgetListBackgroundType) &&
-                        (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
-                    (applicationWidgetListBackgroundType &&
-                        (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
-            }
-            if (profile.getIsIconResourceID()) {
-                if (bitmap != null)
-                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
+            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                    applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
+                if (!applicationWidgetListGridLayout)
+                    row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
                 else {
-                    if (profile._iconBitmap != null)
-                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                    if (applicationWidgetListCompactGrid)
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_compact);
                     else
-                        row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
-                            /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
-                                ProfileStatic.getIconResource(profile.getIconIdentifier()));
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
                 }
             } else {
-                if (bitmap != null)
-                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
-                else
-                    row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                if (!applicationWidgetListGridLayout)
+                    row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item_dn);
+                else {
+                    if (applicationWidgetListCompactGrid)
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_compact_dn);
+                    else
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_dn);
+                }
             }
-            int red = 0xFF;
-            int green;
-            int blue;
-            switch (applicationWidgetListLightnessT) {
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
-                    red = 0x00;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
-                    red = 0x20;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
-                    red = 0x40;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
-                    red = 0x60;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
-                    red = 0x80;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
-                    red = 0xA0;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
-                    red = 0xC0;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
-                    red = 0xE0;
-                    break;
-                case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
-                    //noinspection ConstantConditions
-                    red = 0xFF;
-                    break;
-            }
-            green = red;
-            blue = red;
-            if (!applicationWidgetListHeader) {
-                if (profile._checked) {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 16);
 
+            Profile profile = getItem(position);
+
+            if (profile != null) {
+                Bitmap bitmap = null;
+                if (applicationWidgetListIconColor.equals("0")) {
+                    if (applicationWidgetListChangeColorsByNightMode ||
+                            ((!applicationWidgetListBackgroundType) &&
+                                    (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
+                            (applicationWidgetListBackgroundType &&
+                                    (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
+                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                }
+                if (profile.getIsIconResourceID()) {
+                    if (bitmap != null)
+                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
+                    else {
+                        if (profile._iconBitmap != null)
+                            row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                        else
+                            row.setImageViewResource(R.id.widget_profile_list_item_profile_icon,
+                                    /*context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME)*/
+                                    ProfileStatic.getIconResource(profile.getIconIdentifier()));
+                    }
+                } else {
+                    if (bitmap != null)
+                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, bitmap);
+                    else
+                        row.setImageViewBitmap(R.id.widget_profile_list_item_profile_icon, profile._iconBitmap);
+                }
+                int red = 0xFF;
+                int green;
+                int blue;
+                switch (applicationWidgetListLightnessT) {
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
+                        red = 0x00;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
+                        red = 0x20;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
+                        red = 0x40;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
+                        red = 0x60;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
+                        red = 0x80;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
+                        red = 0xA0;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
+                        red = 0xC0;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
+                        red = 0xE0;
+                        break;
+                    case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
+                        //noinspection ConstantConditions
+                        red = 0xFF;
+                        break;
+                }
+                green = red;
+                blue = red;
+                if (!applicationWidgetListHeader) {
+                    if (profile._checked) {
+                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 16);
+
+                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                                applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+                            row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
+                        else {
+                            // must be removed android:textColor in layout
+                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+                            if (color != 0) {
+                                row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
+                            }
+                        }
+                    } else {
+                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
+
+                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                                applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+                            row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
+                        else {
+                            // must be removed android:textColor in layout
+                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+                            if (color != 0) {
+                                row.setTextColor(R.id.widget_profile_list_item_profile_name,
+                                        Color.argb(0xCC, Color.red(color), Color.green(color), Color.blue(color)));
+                            }
+                        }
+                    }
+                } else {
                     if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                         row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
@@ -229,73 +273,49 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                             row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
                         }
                     }
+                }
+                if ((!applicationWidgetListHeader) && (profile._checked)) {
+                    // hm, interesting, how to set bold style for RemoteView text ;-)
+                    Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
+                            "", true, true, applicationWidgetListGridLayout, dataWrapper);
+                    Spannable sb = new SpannableString(profileName);
+                    sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
                 } else {
-                    row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
+                    Spannable profileName = profile.getProfileNameWithDuration("", "",
+                            true/*applicationWidgetListGridLayout*/, applicationWidgetListGridLayout, context.getApplicationContext());
+                    row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
+                }
+                if (!applicationWidgetListGridLayout) {
+                    if (applicationWidgetListPrefIndicator) {
+                        if (profile._preferencesIndicator != null)
+                            row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
+                        else
+                            row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                        row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.VISIBLE);
+                    } else
+                        //row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
+                        row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.GONE);
+                }
 
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                            applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
-                        row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
-                    else {
-                        // must be removed android:textColor in layout
-                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-                        if (color != 0) {
-                            row.setTextColor(R.id.widget_profile_list_item_profile_name,
-                                    Color.argb(0xCC, Color.red(color), Color.green(color), Color.blue(color)));
-                        }
-                    }
-                }
-            } else {
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                        applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
-                    row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
-                else {
-                    // must be removed android:textColor in layout
-                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-                    if (color != 0) {
-                        row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
-                    }
-                }
-            }
-            if ((!applicationWidgetListHeader) && (profile._checked)) {
-                // hm, interesting, how to set bold style for RemoteView text ;-)
-                Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
-                                            "", true, true, applicationWidgetListGridLayout, dataWrapper);
-                Spannable sb = new SpannableString(profileName);
-                sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
-            } else {
-                Spannable profileName = profile.getProfileNameWithDuration("", "",
-                        true/*applicationWidgetListGridLayout*/, applicationWidgetListGridLayout, context.getApplicationContext());
-                row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
-            }
-            if (!applicationWidgetListGridLayout) {
-                if (applicationWidgetListPrefIndicator) {
-                    if (profile._preferencesIndicator != null)
-                        row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
-                    else
-                        row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
-                    row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.VISIBLE);
-                }
+                Intent i = new Intent();
+                Bundle extras = new Bundle();
+
+                if ((!applicationWidgetListHeader) &&
+                        Event.getGlobalEventsRunning() && (position == 0))
+                    extras.putLong(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
                 else
-                    //row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
-                    row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.GONE);
+                    extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                extras.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
+                i.putExtras(extras);
+                row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
+
             }
 
-            Intent i = new Intent();
-            Bundle extras = new Bundle();
+            //Log.e("ProfileListWidgetFactory.getViewAt", "END");
 
-            if ((!applicationWidgetListHeader) &&
-                Event.getGlobalEventsRunning() && (position == 0))
-                extras.putLong(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
-            else
-                extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            extras.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
-            i.putExtras(extras);
-            row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
-
+            return (row);
         }
-
-        return(row);
     }
 
     public RemoteViews getLoadingView() {
@@ -447,6 +467,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         the old data will be displayed within the widget.
     */
     public void onDataSetChanged() {
+//        PPApplication.logE("[IN_LISTENER] ProfileListWidgetFactory.onDataSetChanged", "START");
+
         String applicationWidgetListIconColor;
         String applicationWidgetListIconLightness;
         boolean applicationWidgetListCustomIconLightness;
@@ -539,31 +561,37 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 Event.getGlobalEventsRunning()) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
-                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                    "ic_profile_restart_events|1|1|" + ApplicationPreferences.applicationRestartEventsIconColor, 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);
         }
         _dataWrapper.invalidateDataWrapper();
 
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        createProfilesDataWrapper(false,
-                                    applicationWidgetListIconLightness,
-                                    applicationWidgetListIconColor,
-                                    applicationWidgetListCustomIconLightness,
-                                    applicationWidgetListPrefIndicatorLightness,
-                                    applicationWidgetListChangeColorsByNightMode,
-                                    applicationWidgetListUseDynamicColors,
-                                    applicationWidgetListBackgroundType,
-                                    applicationWidgetListBackgroundColor,
-                                    applicationWidgetListBackground);
-        //if (dataWrapper != null) {
+        synchronized (PPApplication.profileListWidgetDatasetChangedMutex) {
+
+            if (dataWrapper != null)
+                dataWrapper.invalidateDataWrapper();
+            createProfilesDataWrapper(false,
+                    applicationWidgetListIconLightness,
+                    applicationWidgetListIconColor,
+                    applicationWidgetListCustomIconLightness,
+                    applicationWidgetListPrefIndicatorLightness,
+                    applicationWidgetListChangeColorsByNightMode,
+                    applicationWidgetListUseDynamicColors,
+                    applicationWidgetListBackgroundType,
+                    applicationWidgetListBackgroundColor,
+                    applicationWidgetListBackground);
+            //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
             if (restartEvents != null)
                 dataWrapper.generateProfileIcon(restartEvents, true, false);
             dataWrapper.setProfileList(newProfileList);
             //profileList = newProfileList;
-        //}
+            //}
+
+        }
+
+        //Log.e("ProfileListWidgetFactory.onDataSetChanged", "END");
     }
 
     private static class ProfileComparator implements Comparator<Profile> {

@@ -624,15 +624,21 @@
             android:icon="@drawable/ic_ppp_app_icon"
             android:enabled="true"
             android:stopWithTask="false"
-            android:foregroundServiceType="location|connectedDevice"/>
+            android:foregroundServiceType="location|connectedDevice" />
 
         <!-- widget services -->
         <service
-            android:name=".ProfileListWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:name=".ProfileListWidgetServiceList"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".ProfileListWidgetServiceGrid"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".ProfileListWidgetServiceCompactGrid"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".SamsungEdgeService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".PhoneProfilesDashClockExtension"
             android:enabled="true"

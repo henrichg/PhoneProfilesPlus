@@ -103,6 +103,7 @@ class ApplicationPreferences {
     //static volatile boolean applicationDefaultProfileUsage;
     static volatile boolean applicationActivatorGridLayout;
     static volatile boolean applicationWidgetListGridLayout;
+    static volatile boolean applicationWidgetListCompactGrid;
     static volatile int applicationEventBluetoothScanInterval;
     //static volatile String applicationEventWifiRescan;
     //static volatile String applicationEventBluetoothRescan;
@@ -372,6 +373,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE = "applicationBackgroundProfileNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT = "applicationActivatorGridLayout";
     static final String PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT = "applicationWidgetListGridLayout";
+    static final String PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID = "applicationWidgetListCompactGrid";
+
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL = "applicationEventBluetoothScanInterval";
     //static final String PREF_APPLICATION_EVENT_WIFI_RESCAN = "applicationEventWifiRescan";
     //static final String PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN = "applicationEventBluetoothRescan";
@@ -922,16 +925,25 @@ class ApplicationPreferences {
     */
 
     static final boolean PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT_DEFAULT_VALUE = true;
+
     static void applicationActivatorGridLayout(Context context) {
         applicationActivatorGridLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT_DEFAULT_VALUE);
     }
 
     static final boolean PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT_DEFAULT_VALUE = true;
+
     static void applicationWidgetListGridLayout(Context context) {
         applicationWidgetListGridLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID_DEFAULT_VALUE = false;
+
+    static void applicationWidgetListCompactGrid(Context context) {
+        applicationWidgetListCompactGrid = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID, PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID_DEFAULT_VALUE);
+    }
+
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL_DEFAULT_VALUE = "15";
+
     static void applicationEventBluetoothScanInterval(Context context) {
         applicationEventBluetoothScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL_DEFAULT_VALUE));
     }

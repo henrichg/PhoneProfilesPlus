@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
@@ -98,8 +97,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
         }
 
-        Log.e("SamsungEdgeProvider.buildLayout", "applicationSamsungEdgeHeader=" + applicationSamsungEdgeHeader);
-        Log.e("SamsungEdgeProvider.buildLayout", "applicationSamsungEdgeVerticalPosition=" + applicationSamsungEdgeVerticalPosition);
+        //Log.e("SamsungEdgeProvider.buildLayout", "applicationSamsungEdgeHeader=" + applicationSamsungEdgeHeader);
+        //Log.e("SamsungEdgeProvider.buildLayout", "applicationSamsungEdgeVerticalPosition=" + applicationSamsungEdgeVerticalPosition);
         if (applicationSamsungEdgeHeader) {
             switch (applicationSamsungEdgeVerticalPosition) {
                 case "1":
@@ -109,7 +108,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_bottom);
                     break;
                 default:
-                    widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_top);
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_top);
                     break;
             }
         }

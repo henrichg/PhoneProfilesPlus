@@ -36,6 +36,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     {
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListGridLayout;
+        boolean applicationWidgetListCompactGrid;
         boolean applicationWidgetListPrefIndicator;
         String applicationWidgetListPrefIndicatorLightness;
         boolean applicationWidgetListBackgroundType;
@@ -59,6 +60,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
+            applicationWidgetListCompactGrid = ApplicationPreferences.applicationWidgetListCompactGrid;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
             applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
@@ -362,14 +364,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 redText = 0xFF;
                 break;
         }
-        int greenText = redText; int blueText = redText;
+        int greenText = redText;
+        int blueText = redText;
 
         int restartEventsLightness = redText;
         int separatorLightness = redText;
 
         //------------------
 
-        Intent svcIntent=new Intent(context, ProfileListWidgetService.class);
+        //Log.e("ProfileListWidgetProvider.buildLayout", "applicationWidgetListGridLayout="+applicationWidgetListGridLayout);
+        //Log.e("ProfileListWidgetProvider.buildLayout", "applicationWidgetListCompactGrid="+applicationWidgetListCompactGrid);
+
+        Intent svcIntent;
+        if (!applicationWidgetListGridLayout)
+            svcIntent = new Intent(context, ProfileListWidgetServiceList.class);
+        else {
+            if (applicationWidgetListCompactGrid)
+                svcIntent = new Intent(context, ProfileListWidgetServiceCompactGrid.class);
+            else
+                svcIntent = new Intent(context, ProfileListWidgetServiceGrid.class);
+        }
 
         svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
@@ -387,16 +401,27 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     else
                         widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_indicator);
                 } else {
-                    if (applicationWidgetListPrefIndicator)
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget);
-                    else
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator);
+                    if (applicationWidgetListCompactGrid) {
+                        if (applicationWidgetListPrefIndicator)
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_compact);
+                        else
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_compact);
+                    } else {
+                        if (applicationWidgetListPrefIndicator)
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget);
+                        else
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator);
+                    }
                 }
             } else {
                 if (!applicationWidgetListGridLayout)
                     widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_header);
-                else
-                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header);
+                else {
+                    if (applicationWidgetListCompactGrid)
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_compact);
+                    else
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header);
+                }
             }
         } else {
             if (applicationWidgetListHeader) {
@@ -406,27 +431,37 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     else
                         widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_indicator_dn);
                 } else {
-                    if (applicationWidgetListPrefIndicator)
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_dn);
-                    else
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_dn);
+                    if (applicationWidgetListCompactGrid) {
+                        if (applicationWidgetListPrefIndicator)
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_compact_dn);
+                        else
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_compact_dn);
+                    } else {
+                        if (applicationWidgetListPrefIndicator)
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_dn);
+                        else
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_dn);
+                    }
                 }
             } else {
                 if (!applicationWidgetListGridLayout)
                     widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_header_dn);
-                else
-                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_dn);
+                else {
+                    if (applicationWidgetListCompactGrid)
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_compact_dn);
+                    else
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_dn);
+                }
             }
         }
+        //Log.e("ProfileListWidgetProvider.buildLayout", "widget="+widget);
 
         int roundedBackground = 0;
         int roundedBorder = 0;
         if (PPApplication.isPixelLauncherDefault(context)) {
             roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
             roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
-        }
-        else
-        if (PPApplication.isOneUILauncherDefault(context)) {
+        } else if (PPApplication.isOneUILauncherDefault(context)) {
             roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
             roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
         }
@@ -722,18 +757,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //else
             //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
 
-            if (!applicationWidgetListGridLayout)
-                widget.setRemoteAdapter(R.id.widget_profile_list, svcIntent);
+        if (!applicationWidgetListGridLayout)
+            widget.setRemoteAdapter(R.id.widget_profile_list, svcIntent);
+        else {
+            if (applicationWidgetListCompactGrid)
+                widget.setRemoteAdapter(R.id.widget_profile_grid_compat, svcIntent);
             else
                 widget.setRemoteAdapter(R.id.widget_profile_grid, svcIntent);
+        }
 
             // The empty view is displayed when the collection has no items.
             // It should be in the same layout used to instantiate the RemoteViews
             // object above.
-            if (!applicationWidgetListGridLayout)
-                widget.setEmptyView(R.id.widget_profile_list, R.id.widget_profiles_list_empty);
+        if (!applicationWidgetListGridLayout)
+            widget.setEmptyView(R.id.widget_profile_list, R.id.widget_profiles_list_empty);
+        else {
+            if (applicationWidgetListCompactGrid)
+                widget.setEmptyView(R.id.widget_profile_grid_compat, R.id.widget_profiles_list_empty);
             else
                 widget.setEmptyView(R.id.widget_profile_grid, R.id.widget_profiles_list_empty);
+        }
 
             Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
             clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
@@ -741,10 +784,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                                         clickIntent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
 
-            if (!applicationWidgetListGridLayout)
-                widget.setPendingIntentTemplate(R.id.widget_profile_list, clickPI);
+        if (!applicationWidgetListGridLayout)
+            widget.setPendingIntentTemplate(R.id.widget_profile_list, clickPI);
+        else {
+            if (applicationWidgetListCompactGrid)
+                widget.setPendingIntentTemplate(R.id.widget_profile_grid_compat, clickPI);
             else
                 widget.setPendingIntentTemplate(R.id.widget_profile_grid, clickPI);
+        }
         /*}
         else
         {
@@ -802,10 +849,14 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         if (!fromOnUpdate) {
             //if (isLargeLayout) {
-                if (!ApplicationPreferences.applicationWidgetListGridLayout)
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
+            if (!ApplicationPreferences.applicationWidgetListGridLayout)
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
+            else {
+                if (ApplicationPreferences.applicationWidgetListCompactGrid)
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
                 else
                     appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+            }
             //}
         }
     }
@@ -841,6 +892,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }; //);
             PPApplication.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
+            //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -886,6 +938,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     }; //);
                     PPApplication.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
+                    //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
                 }
             }
             else
@@ -900,19 +953,21 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
+//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
+//                        PPApplication.logE("[IN_EXECUTOR] ProfileListWidgetProvider,onReceive", "appWidgetIds.length="+appWidgetIds.length);
 
                         //Context appContext= appContextWeakRef.get();
                         //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
                         //if ((appContext != null) && (appWidgetManager != null)) {
-                            for (int appWidgetId : appWidgetIds) {
-                                doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
-                            }
+                        for (int appWidgetId : appWidgetIds) {
+                            doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, true*/);
+                        }
                         //}
                     }; //);
                     PPApplication.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
+                    //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
                 }
             }
         }
@@ -1025,6 +1080,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }; //);
         PPApplication.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
+        //PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
 
         /*
         if (PPApplication.widgetHandler != null) {
