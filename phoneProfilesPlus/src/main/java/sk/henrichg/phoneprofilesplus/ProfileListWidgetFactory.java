@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -233,6 +234,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 }
                 green = red;
                 blue = red;
+
+                int separatorLightness = red;
+
                 if (!applicationWidgetListHeader) {
                     if (profile._checked) {
                         row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 16);
@@ -274,17 +278,48 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         }
                     }
                 }
+
+                //if (profile._name.contains("Profile"))
+                //    Log.e("ProfileListWidgetFactory.getViewAt", "position="+position+" pofile="+profile._name + " applicationWidgetListHeader="+applicationWidgetListHeader);
+
                 if ((!applicationWidgetListHeader) && (profile._checked)) {
-                    // hm, interesting, how to set bold style for RemoteView text ;-)
-                    Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
-                            "", true, true, applicationWidgetListGridLayout, dataWrapper);
-                    Spannable sb = new SpannableString(profileName);
-                    sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
+                    if (applicationWidgetListGridLayout && applicationWidgetListCompactGrid) {
+                        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                                applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+                            row.setInt(R.id.widget_profile_list_item_activated_profile_mark, "setBackgroundColor", Color.argb(0xFF, separatorLightness, separatorLightness, separatorLightness));
+                            /*else {
+                                // but must be removed android:tint in layout
+                                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
+                                if (color != 0) {
+                                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_black, false, context);
+                                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, color);
+                                    widget.setImageViewBitmap(R.id.widget_profile_list_header_separator, bitmap);
+                                }
+                            }*/
+
+                        //if (profile._name.contains("Profile"))
+                        //    Log.e("ProfileListWidgetFactory.getViewAt", "VISIBLE");
+                        row.setViewVisibility(R.id.widget_profile_list_item_activated_profile_mark, View.VISIBLE);
+                    } else {
+                        // hm, interesting, how to set bold style for RemoteView text ;-)
+                        Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
+                                "", true, true, applicationWidgetListGridLayout, dataWrapper);
+                        Spannable sb = new SpannableString(profileName);
+                        sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
+
+                        //if (profile._name.contains("Profile"))
+                        //    Log.e("ProfileListWidgetFactory.getViewAt", "** INVISIBLE (1)");
+                        row.setViewVisibility(R.id.widget_profile_list_item_activated_profile_mark, View.INVISIBLE);
+                    }
                 } else {
                     Spannable profileName = profile.getProfileNameWithDuration("", "",
                             true/*applicationWidgetListGridLayout*/, applicationWidgetListGridLayout, context.getApplicationContext());
                     row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
+
+                    //if (profile._name.contains("Profile"))
+                    //    Log.e("ProfileListWidgetFactory.getViewAt", "** INVISIBLE (2)");
+                    row.setViewVisibility(R.id.widget_profile_list_item_activated_profile_mark, View.INVISIBLE);
                 }
                 if (!applicationWidgetListGridLayout) {
                     if (applicationWidgetListPrefIndicator) {
@@ -529,15 +564,17 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             }
         }
 
+        //Log.e("ProfileListWidgetFactory.onDataSetChanged", "applicationWidgetListHeader="+applicationWidgetListHeader);
+
         DataWrapper _dataWrapper = createProfilesDataWrapper(true,
-                                                applicationWidgetListIconLightness,
-                                                applicationWidgetListIconColor,
-                                                applicationWidgetListCustomIconLightness,
-                                                applicationWidgetListPrefIndicatorLightness,
-                                                applicationWidgetListChangeColorsByNightMode,
-                                                applicationWidgetListUseDynamicColors,
-                                                applicationWidgetListBackgroundType,
-                                                applicationWidgetListBackgroundColor,
+                applicationWidgetListIconLightness,
+                applicationWidgetListIconColor,
+                applicationWidgetListCustomIconLightness,
+                applicationWidgetListPrefIndicatorLightness,
+                applicationWidgetListChangeColorsByNightMode,
+                applicationWidgetListUseDynamicColors,
+                applicationWidgetListBackgroundType,
+                applicationWidgetListBackgroundColor,
                                                 applicationWidgetListBackground);
 
         List<Profile> newProfileList = _dataWrapper.getNewProfileList(true,

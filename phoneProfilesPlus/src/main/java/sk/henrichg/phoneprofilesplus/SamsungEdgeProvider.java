@@ -19,15 +19,16 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
+import java.util.concurrent.TimeUnit;
+
 public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     //private DataWrapper dataWrapper;
 
     static final String ACTION_REFRESH_EDGEPANEL = PPApplication.PACKAGE_NAME + ".REFRESH_EDGEPANEL";
 
-    private static RemoteViews buildLayout(Context context/*, SlookCocktailManager cocktailBarManager, int appWidgetId*/)
-    {
-        Intent svcIntent=new Intent(context, SamsungEdgeService.class);
+    private static RemoteViews buildLayout(Context context/*, SlookCocktailManager cocktailBarManager, int appWidgetId*/) {
+        Intent svcIntent = new Intent(context, SamsungEdgeService.class);
         svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
         RemoteViews widget;
@@ -447,10 +448,15 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             PPApplication.recordException(e);
         }
         if (!fromOnUpdate) {
-            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
-                cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge);
-            else*/
-            cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge_grid);
+            Runnable runnable = () -> {
+                /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+                    cocktailManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge);
+                else*/
+                cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge_grid);
+            };
+            PPApplication.createDelayedGuiExecutor();
+            //PPApplication.delayedGuiExecutor.submit(runnable);
+            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
         }
     }
 

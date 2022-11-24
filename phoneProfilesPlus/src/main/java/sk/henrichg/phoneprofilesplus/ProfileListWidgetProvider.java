@@ -18,11 +18,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import java.util.concurrent.TimeUnit;
 
 public class ProfileListWidgetProvider extends AppWidgetProvider {
 
@@ -827,8 +830,9 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     */
 
     private static void doOnUpdate(Context context, AppWidgetManager appWidgetManager,
-                                   int appWidgetId, boolean fromOnUpdate/*, boolean addWidgetType*/)
-    {
+                                   int appWidgetId, boolean fromOnUpdate/*, boolean addWidgetType*/) {
+//        Log.e("ProfileListWidgetProvider.doOnUpdate", "fromOnUpdate="+fromOnUpdate);
+
         /*if (addWidgetType) {
             Bundle bundle = appWidgetManager.getAppWidgetOptions(appWidgetId);
             bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_LIST);
@@ -848,16 +852,22 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         if (!fromOnUpdate) {
-            //if (isLargeLayout) {
-            if (!ApplicationPreferences.applicationWidgetListGridLayout)
-                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
-            else {
-                if (ApplicationPreferences.applicationWidgetListCompactGrid)
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
-                else
-                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
-            }
-            //}
+            Runnable runnable = () -> {
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.doOnUpdate");
+                //if (isLargeLayout) {
+                if (!ApplicationPreferences.applicationWidgetListGridLayout)
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_list);
+                else {
+                    if (ApplicationPreferences.applicationWidgetListCompactGrid)
+                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid_compat);
+                    else
+                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_profile_grid);
+                }
+                //}
+            };
+            PPApplication.createDelayedGuiExecutor();
+            //PPApplication.delayedGuiExecutor.submit(runnable);
+            PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
         }
     }
 
