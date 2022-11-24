@@ -25,12 +25,14 @@
         app:key="applicationWidgetListCompactGridInfo"
         app:title="@string/phone_profiles_pref_applicationCompactGrid"
         app:summary="@string/phone_profiles_pref_applicationCompactGrid_info_summary"
+        app:dependency="applicationWidgetListGridLayout"
         app:widgetLayout="@layout/preference_widget_exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetListCompactGrid"
         app:title="@string/phone_profiles_pref_applicationCompactGrid"
         app:defaultValue="false"
+        app:dependency="applicationWidgetListGridLayout"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
