@@ -43,6 +43,7 @@
             android:paddingEnd="12dp"
             android:text="@string/profile_name_default"
             android:textSize="16sp"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"/>
 

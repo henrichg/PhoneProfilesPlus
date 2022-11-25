@@ -36,6 +36,7 @@
             android:paddingEnd="12dp"
             android:text="@string/profile_name_default"
             android:textSize="17dp"
+            android:textStyle="bold"
             tools:ignore="SpUsage"/>
 
         <ImageView

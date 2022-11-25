@@ -215,11 +215,13 @@ class ActivatorListAdapter extends BaseAdapter
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             } else*/
             {
-                holder.profileName.setTypeface(null, Typeface.NORMAL);
-                if (applicationActivatorGridLayout)
+                if (applicationActivatorGridLayout) {
+                    holder.profileName.setTypeface(null, Typeface.NORMAL);
                     holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-                else
+                } else {
+                    holder.profileName.setTypeface(null, Typeface.BOLD);
                     holder.profileName.setTextSize(15);
+                }
                 //noinspection ConstantConditions
                 //holder.profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(fragment.getActivity()));
 
