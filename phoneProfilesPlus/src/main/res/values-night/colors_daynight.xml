@@ -11,11 +11,8 @@
     <color name="activityBackgroundColor">#FF1B1B1B</color>
     <!--    <color name="activityBackgroundColor">#FF201a18</color>-->
 
-    <color name="activityWhiteTextColor">#FFFFFFFF</color>
     <color name="activityNormalTextColor">#FFd5d5d5</color>
     <color name="activitySecondaryTextColor">#CFFFFFFF</color>
-    <color name="bootomNavigationTextColor">#FFE0E0E0</color>
-
     <color name="activityDisabledTextColor">#2FFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1Fffffff</color>
     <color name="activityPopupMenuBackgroundColor">#FF151515</color>
@@ -27,6 +24,9 @@
     <!--    <color name="activityPopupMenuClickedItemBackgroundColor">#37ffdad3</color>-->
 
     <color name="notificationDecorationColor">#cc893e</color>
+
+    <color name="smoothBottomBarIconTint">#FFFFFFFF</color>
+    <color name="smoothBottomBarTextColor">#FFE0E0E0</color>
 
     <color name="dialog_divider">#25ffffff</color>
     <color name="popup_window_divider">#25ffffff</color>

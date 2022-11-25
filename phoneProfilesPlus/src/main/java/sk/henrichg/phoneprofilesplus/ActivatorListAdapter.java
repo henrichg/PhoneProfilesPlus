@@ -218,7 +218,7 @@ class ActivatorListAdapter extends BaseAdapter
                 else
                     holder.profileName.setTextSize(15);
                 //noinspection ConstantConditions
-                holder.profileName.setTextColor(GlobalGUIRoutines.getThemeWhiteTextColor(fragment.getActivity()));
+                holder.profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(fragment.getActivity()));
             }
 
             Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile,

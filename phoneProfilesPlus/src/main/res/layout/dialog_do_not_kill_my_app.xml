@@ -29,12 +29,12 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        app:dokiPrimaryTextColor="?attr/activityWhiteTextColor"
+        app:dokiPrimaryTextColor="?attr/activityNormalTextColor"
         app:dokiSecondaryTextColor="?attr/activitySecondaryTextColor"
         app:dokiBackgroundColor="?attr/activityBackgroundColor"
         app:dokiHeaderBackgroundColor="?attr/editorFilterBackgroundColor"
         app:dokiDividerColor="?attr/dialogDivider"
-        app:dokiActiveIconsColor="?attr/activityWhiteTextColor"
+        app:dokiActiveIconsColor="?attr/activityNormalTextColor"
         app:dokiInactiveIconsColor="?attr/activityDisabledTextColor"
         app:dokiImgBorderColor="?attr/dialogDivider" />
 

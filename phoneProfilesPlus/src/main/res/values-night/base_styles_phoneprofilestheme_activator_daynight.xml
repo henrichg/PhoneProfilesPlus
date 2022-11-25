@@ -19,7 +19,6 @@
         <item name="android:textViewStyle">@style/TextViewTheme</item>
         <item name="android:windowBackground">@drawable/pp_activator_background</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
-        <item name="activityWhiteTextColor">@color/activityWhiteTextColor</item>
         <item name="activityNormalTextColor">@color/activityNormalTextColor</item>
         <item name="activitySecondaryTextColor">@color/activitySecondaryTextColor</item>
         <item name="activityDisabledTextColor">@color/activityDisabledTextColor</item>

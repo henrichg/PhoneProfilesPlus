@@ -625,11 +625,13 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeWhiteTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityWhiteTextColor, value, true);
         return value.data;
     }
+    */
     static int getThemeNormalTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityNormalTextColor, value, true);
