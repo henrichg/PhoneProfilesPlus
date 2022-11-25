@@ -14,7 +14,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="?attr/dialogDivider" />
+        android:background="@color/dialog_divider" />
 
     <!--<WebView-->
     <!--android:id="@+id/do_not_kill_my_app_dialog_webView"-->
@@ -29,13 +29,13 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        app:dokiPrimaryTextColor="?attr/activityNormalTextColor"
-        app:dokiSecondaryTextColor="?attr/activitySecondaryTextColor"
-        app:dokiBackgroundColor="?attr/activityBackgroundColor"
-        app:dokiHeaderBackgroundColor="?attr/editorFilterBackgroundColor"
-        app:dokiDividerColor="?attr/dialogDivider"
-        app:dokiActiveIconsColor="?attr/activityNormalTextColor"
-        app:dokiInactiveIconsColor="?attr/activityDisabledTextColor"
-        app:dokiImgBorderColor="?attr/dialogDivider" />
+        app:dokiPrimaryTextColor="@color/activityNormalTextColor"
+        app:dokiSecondaryTextColor="@color/activitySecondaryTextColor"
+        app:dokiBackgroundColor="@color/activityBackgroundColor"
+        app:dokiHeaderBackgroundColor="@color/editorFilterBackgroundColor"
+        app:dokiDividerColor="@color/dialog_divider"
+        app:dokiActiveIconsColor="@color/activityNormalTextColor"
+        app:dokiInactiveIconsColor="@color/activityDisabledTextColor"
+        app:dokiImgBorderColor="@color/dialog_divider" />
 
 </LinearLayout>

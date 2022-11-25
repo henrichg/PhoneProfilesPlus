@@ -39,11 +39,11 @@
         android:clickable="true"
         android:focusable="true"
         android:hint="@string/mobile_cells_registration_cell_name_hint"
-        android:textColor="?attr/colorAccent"
+        android:textColor="@color/accent"
         android:textStyle="bold"
-        android:textColorHint="?attr/colorAccent"
-        android:background="?attr/buttonBackground"
-        android:textSize="16sp"/>
+        android:textColorHint="@color/accent"
+        android:background="@drawable/pp_button_background_selector"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/not_used_mobile_cells_dlg_last_running_events_label"

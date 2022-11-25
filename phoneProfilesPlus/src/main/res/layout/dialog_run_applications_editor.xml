@@ -41,7 +41,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider"
+            android:background="@color/dialog_divider"
             android:layout_alignParentTop="true" />
 
         <View
@@ -50,7 +50,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider"
+            android:background="@color/dialog_divider"
             android:layout_alignParentBottom="true" />
 
         <RelativeLayout
@@ -74,11 +74,11 @@
                 app:fastScrollTrackWidth="@dimen/fastScrollTrackWidth"
                 app:fastScrollPopupTextSize="44sp"
                 app:fastScrollPopupBackgroundSize="70dp"
-                app:fastScrollPopupBgColor="?attr/fastScrollPopupBackgroundPP"
-                app:fastScrollPopupTextColor="?attr/fastScrollPopupTextPP"
-                app:fastScrollThumbColor="?attr/fastScrollThumbPP"
-                app:fastScrollTrackColor="?attr/fastScrollTrackPP"
-                app:fastScrollThumbInactiveColor="?attr/fastScrollThumbInactivePP" />
+                app:fastScrollPopupBgColor="@color/fastScrollPopupBackgroundPP"
+                app:fastScrollPopupTextColor="@color/fastScrollPopupTextPP"
+                app:fastScrollThumbColor="@color/fastScrollThumbPP"
+                app:fastScrollTrackColor="@color/fastScrollTrackPP"
+                app:fastScrollThumbInactiveColor="@color/fastScrollThumbInactivePP" />
 
         </RelativeLayout>
 
@@ -170,10 +170,10 @@
                     android:paddingEnd="10dp"
                     android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
                     android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="@color/accent"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:background="?attr/buttonBackground" />
+                    android:background="@drawable/pp_button_background_selector" />
 
             </LinearLayout>
 
@@ -186,7 +186,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
     </LinearLayout>
 

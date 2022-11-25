@@ -57,7 +57,7 @@
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="?attr/colorAccent" />
+                    android:textColor="@color/accent" />
 
                 <ImageView
                     android:id="@+id/editor_profiles_activated_profile_pref_indicator"
@@ -102,7 +102,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="top"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/editor_profiles_list"
@@ -145,7 +145,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="?attr/dialogDivider"
+            android:background="@color/dialog_divider"
             android:layout_gravity="bottom" />
 
     </FrameLayout>
@@ -155,7 +155,7 @@
         android:layout_height="55dp"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary"
         android:theme="?attr/bottomToolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu" />
 

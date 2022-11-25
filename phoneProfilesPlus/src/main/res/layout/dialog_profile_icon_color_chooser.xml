@@ -454,9 +454,9 @@
                             android:gravity="end"
                             android:textAlignment="gravity"
                             android:textSize="15sp"
-                            android:textColor="?attr/colorAccent"
+                            android:textColor="@color/accent"
                             android:textStyle="bold"
-                            android:background="?attr/buttonBackground"
+                            android:background="@drawable/pp_button_background_selector"
                             android:clickable="true"
                             android:focusable="true" />
 

@@ -91,7 +91,7 @@
             android:id="@+id/activity_log_header_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
     </LinearLayout>
 

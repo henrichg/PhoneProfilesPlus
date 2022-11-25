@@ -32,7 +32,7 @@
     <color name="popup_window_divider">#25ffffff</color>
     <color name="scrollbar_color">#25ffffff</color>
 
-    <color name="editorFilterTitleColor">#FFFFFFFF</color>
+<!--    <color name="editorFilterTitleColor">#FFFFFFFF</color>-->
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
     <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>

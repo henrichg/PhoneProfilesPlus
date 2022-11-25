@@ -46,7 +46,7 @@
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textColor="?attr/colorAccent"/>
+                android:textColor="@color/accent" />
 
             <ImageView
                 android:id="@+id/act_prof_activated_profile_pref_indicator"
@@ -70,7 +70,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="?attr/dialogDivider" />
+        android:background="@color/dialog_divider" />
 
     <FrameLayout
         android:id="@+id/act_prof_header_frLa1"

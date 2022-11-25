@@ -32,7 +32,7 @@
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="45dp"-->
 <!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="?attr/colorPrimary"-->
+<!--        android:background="@color/primary"-->
 <!--        app:elevation="0dp"-->
 <!--        app:itemIconTint="@drawable/bottom_navigation_colors"-->
 <!--        app:itemTextColor="@drawable/bottom_navigation_colors"-->
@@ -55,7 +55,7 @@
             android:layout_alignParentTop="true"
             android:paddingBottom="0dp"
             android:orientation="vertical"
-            android:background="?attr/colorPrimary"
+            android:background="@color/primary"
             android:elevation="0dp" >
 
             <androidx.appcompat.widget.Toolbar

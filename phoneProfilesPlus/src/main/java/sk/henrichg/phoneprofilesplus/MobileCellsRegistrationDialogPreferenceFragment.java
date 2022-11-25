@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
@@ -282,9 +283,9 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             if (started) {
                 ColorStateList colors = mValue.getHintTextColors();
                 mValue.setTextColor(colors);
-            }
-            else
-                mValue.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
+            } else
+                //mValue.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
+                mValue.setTextColor(ContextCompat.getColor(prefContext, R.color.accent));
             mSeekBarHours.setEnabled(!started);
             mSeekBarMinutes.setEnabled(!started);
             mSeekBarSeconds.setEnabled(!started);
@@ -292,9 +293,9 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             if (started) {
                 ColorStateList colors = mCellsName.getHintTextColors();
                 mCellsName.setTextColor(colors);
-            }
-            else
-                mCellsName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
+            } else
+                //mCellsName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
+                mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.accent));
 
             String value = mCellsName.getText().toString();
             boolean enable = !value.isEmpty();

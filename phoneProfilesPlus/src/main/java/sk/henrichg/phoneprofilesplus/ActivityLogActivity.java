@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -73,18 +72,18 @@ public class ActivityLogActivity extends AppCompatActivity {
         menuItem.setTitle(getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
 
-        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, false, false, getApplicationContext());
-        if (theme != 0) {
-            TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
-            int attributeResourceId = a.getResourceId(0, 0);
-            a.recycle();
-            menuItem.setIcon(attributeResourceId);
-        }
+        //int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, false, false, getApplicationContext());
+        //if (theme != 0) {
+        //TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
+        //int attributeResourceId = a.getResourceId(0, 0);
+        //a.recycle();
+        //menuItem.setIcon(attributeResourceId);
+        menuItem.setIcon(R.drawable.ic_action_activity_log_pause);
+        //}
 
         if (PPApplication.prefActivityLogEnabled) {
             menuItem.setTitle(R.string.menu_activity_log_pause);
-        }
-        else {
+        } else {
             menuItem.setTitle(R.string.menu_activity_log_play);
         }
         return super.onPrepareOptionsMenu(menu);

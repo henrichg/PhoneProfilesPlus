@@ -8,21 +8,24 @@
         android:title="@string/menu_activity_log_reload"
         android:orderInCategory="90"
         app:showAsAction="always|withText"
-        android:icon="?attr/actionActivityLogReloadIcon"
+        android:icon="@drawable/ic_action_activity_log_reload"
         tools:ignore="AlwaysShowAction" />
-    <item android:id="@+id/menu_activity_log_help"
+    <item
+        android:id="@+id/menu_activity_log_help"
         android:title="@string/menu_activity_log_help"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="?attr/actionHelpIcon" />
-    <item android:id="@+id/menu_activity_log_play_pause"
+        android:icon="@drawable/ic_action_help" />
+    <item
+        android:id="@+id/menu_activity_log_play_pause"
         android:title="@string/menu_activity_log_pause"
         android:orderInCategory="150"
         app:showAsAction="never|withText"
-        android:icon="?attr/actionActivityLogPauseIcon" />
-    <item android:id="@+id/menu_activity_log_clear"
+        android:icon="@drawable/ic_action_activity_log_pause" />
+    <item
+        android:id="@+id/menu_activity_log_clear"
         android:title="@string/menu_activity_log_clear"
         android:orderInCategory="200"
         app:showAsAction="never|withText"
-        android:icon="?attr/actionDeleteAllIcon" />
+        android:icon="@drawable/ic_action_delete_all" />
 </menu>

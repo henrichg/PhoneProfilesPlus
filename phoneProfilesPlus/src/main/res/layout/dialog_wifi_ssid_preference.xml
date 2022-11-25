@@ -41,7 +41,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <RelativeLayout
                 android:id="@+id/wifi_ssid_pref_dlg_locationSystemSettingsRelLa"
@@ -85,7 +85,7 @@
                 android:minHeight="40dp"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
-                android:background="?attr/buttonBackground"
+                android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
             <RelativeLayout
@@ -149,7 +149,7 @@
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="@dimen/divider_height"-->
 <!--                android:layout_marginBottom="5dp"-->
-<!--                android:background="?attr/dialogDivider" />-->
+            <!--                android:background="@color/dialog_divider" />-->
 
         </LinearLayout>
 
@@ -168,7 +168,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <ListView
                 android:id="@+id/wifi_ssid_pref_dlg_listview"

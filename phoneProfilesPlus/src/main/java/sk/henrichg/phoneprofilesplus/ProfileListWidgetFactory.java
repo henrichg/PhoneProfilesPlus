@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;

@@ -17,6 +17,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import java.util.List;
 
 class AddEventAdapter extends BaseAdapter {
@@ -110,16 +112,16 @@ class AddEventAdapter extends BaseAdapter {
             holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
             holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
             holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
-            if (applicationEditorPrefIndicator)
-            {
+            if (applicationEditorPrefIndicator) {
                 holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
-                holder.eventPreferencesDescription  = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
+                holder.eventPreferencesDescription = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
                 holder.profileStartIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_start_pref_indicator);
                 holder.profileEndIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_end_pref_indicator);
             }
             vi.setTag(holder);
-            defaultColor = GlobalGUIRoutines.getThemeSecondaryTextColor(context);
+            //defaultColor = GlobalGUIRoutines.getThemeSecondaryTextColor(context);
+            defaultColor = ContextCompat.getColor(context, R.color.activitySecondaryTextColor);
         }
         else
         {

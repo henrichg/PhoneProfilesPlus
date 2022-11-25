@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector  xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- disabled state -->
-    <item android:state_enabled="false" android:color="?attr/activityDisabledTextColor" />
-    <item android:color="?attr/colorAccent"/>
+    <item android:state_enabled="false" android:color="@color/activityDisabledTextColor" />
+    <item android:color="@color/accent" />
 </selector>
-<!--<item android:state_enabled="false" android:color="?attr/colorAccentDisabled" />-->

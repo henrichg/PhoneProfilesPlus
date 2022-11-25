@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="3dp"
         android:orientation="vertical"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary"
         android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar

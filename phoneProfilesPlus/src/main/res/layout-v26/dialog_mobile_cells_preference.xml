@@ -42,7 +42,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <RelativeLayout
                 android:id="@+id/mobile_cells_pref_dlg_reLa1_simDefault"
@@ -178,7 +178,7 @@
                 android:minHeight="40dp"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
-                android:background="?attr/buttonBackground"
+                android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
             <RelativeLayout
@@ -232,7 +232,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="5dp"
                     android:layout_toStartOf="@id/mobile_cells_pref_dlg_rename"
-                    android:background="?attr/buttonBackground"
+                    android:background="@drawable/pp_button_background_selector"
                     android:clickable="true"
                     android:focusable="true"
                     android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
@@ -240,7 +240,7 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="5dp"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="@color/accent"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
@@ -254,7 +254,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
         </LinearLayout>
 
@@ -299,9 +299,9 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
                     android:textSize="16sp"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="@color/accent"
                     android:textStyle="bold"
-                    android:background="?attr/buttonBackground"
+                    android:background="@drawable/pp_button_background_selector"
                     android:clickable="true"
                     android:focusable="true"/>
 
@@ -315,7 +315,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <ListView
                 android:id="@+id/mobile_cells_pref_dlg_listview"

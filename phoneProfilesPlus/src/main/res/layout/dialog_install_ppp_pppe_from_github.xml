@@ -37,7 +37,7 @@
         android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
         android:textStyle="bold"
-        android:background="?attr/buttonBackground"
+        android:background="@drawable/pp_button_background_selector"
         android:visibility="gone"
         style="?android:attr/borderlessButtonStyle"/>
 

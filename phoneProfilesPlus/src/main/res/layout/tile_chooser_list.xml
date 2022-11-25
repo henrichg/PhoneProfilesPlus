@@ -32,7 +32,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
         <ListView
             android:id="@+id/tile_chooser_profiles_list"
@@ -65,7 +65,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider"/>
+            android:background="@color/dialog_divider" />
 
         <Button
             android:id="@+id/tile_chooser_profiles_list_cancel"
@@ -78,7 +78,7 @@
             android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
-            android:background="?attr/buttonBackground"
+            android:background="@drawable/pp_button_background_selector"
             android:clickable="true"
             android:focusable="true"
             android:text="@android:string/cancel"

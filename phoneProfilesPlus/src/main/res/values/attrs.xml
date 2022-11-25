@@ -81,68 +81,53 @@
     </declare-styleable>
 
     <!-- theme dependent drawables -->
-<!--    <attr name="colorAccentDisabled" format="reference" />-->
-    <attr name="activityBackgroundColor" format="reference" />
-    <attr name="activityNormalTextColor" format="reference" />
-    <attr name="activitySecondaryTextColor" format="reference" />
-    <attr name="activityDisabledTextColor" format="reference" />
-    <attr name="activityCommandBackgroundColor" format="reference" />
-    <attr name="actionNewProfileIcon" format="reference" />
-    <attr name="actionDeleteAllIcon" format="reference" />
-    <attr name="actionEditProfilesIcon" format="reference" />
-<!--    <attr name="activityPopupBackground" format="reference" />-->
-    <attr name="dragHandleIcon" format="reference" />
-    <attr name="actionProfilePrefSave" format="reference" />
-<!--    <attr name="actionProfilePrefCancel" format="reference" />-->
-<!--    <attr name="actionProfileButtonTextStyle" format="reference" />-->
-    <!--<attr name="navigationDrawerBackground" format="reference" />-->
-    <!--<attr name="navigationDrawerInsetForeground" format="reference" />-->
-    <!--<attr name="navigationDrawerText" format="reference"/>-->
-    <!--<attr name="navigationDrawerSubText" format="reference"/>-->
-    <!--<attr name="navigationDrawerItemBackgroundColor" format="reference"/>-->
-    <!--<attr name="navigationDrawerItemBackgroundPressedColor" format="reference"/>-->
-    <!--<attr name="navigationDrawerSelector" format="reference"/>-->
-<!--    <attr name="filterStatusBarBackground" format="reference" />-->
-    <!-- <attr name="editorDrawerSpinner" format="reference" /> -->
-<!--    <attr name="preferenceDialogBackground" format="reference" />-->
-    <attr name="editItemMenuIcon" format="reference" />
-    <attr name="actionEventsRestartIcon" format="reference" />
-    <attr name="importantInfoEventsRestartIcon" format="reference" />
+    <!--    <attr name="activityBackgroundColor" format="reference" />-->
+    <!--    <attr name="activityNormalTextColor" format="reference" />-->
+    <!--    <attr name="activitySecondaryTextColor" format="reference" />-->
+    <!--    <attr name="activityDisabledTextColor" format="reference" />-->
+    <!--    <attr name="activityCommandBackgroundColor" format="reference" />-->
+    <!--    <attr name="actionNewProfileIcon" format="reference" />-->
+    <!--    <attr name="actionDeleteAllIcon" format="reference" />-->
+    <!--    <attr name="actionEditProfilesIcon" format="reference" />-->
+    <!--    <attr name="dragHandleIcon" format="reference" />-->
+    <!--    <attr name="actionProfilePrefSave" format="reference" />-->
+    <!--    <attr name="editItemMenuIcon" format="reference" />-->
+    <!--    <attr name="actionEventsRestartIcon" format="reference" />-->
+    <!--    <attr name="importantInfoEventsRestartIcon" format="reference" />-->
+    <!--    <attr name="editorDrawerListHeaderTitle" format="reference" />-->
+    <!--    <attr name="dialogDivider" format="reference" />-->
+    <!--    <attr name="actionActivityLogEditorIcon" format="reference" />-->
+    <!--    <attr name="actionActivityLogReloadIcon" format="reference" />-->
+    <!--    <attr name="actionHelpIcon" format="reference" />-->
+    <!--    <attr name="actionActivityLogPlayIcon" format="reference" />-->
+    <!--    <attr name="actionActivityLogPauseIcon" format="reference" />-->
+    <!--    <attr name="fastScrollTrackPP" format="reference" />-->
+    <!--    <attr name="fastScrollThumbPP" format="reference" />-->
+    <!--    <attr name="fastScrollPopupBackgroundPP" format="reference" />-->
+    <!--    <attr name="fastScrollPopupTextPP" format="reference" />-->
+    <!--    <attr name="fastScrollThumbInactivePP" format="reference" />-->
+    <!--    <attr name="actionDefaultProfile" format="reference" />-->
+    <!--    <attr name="actionRunStopEventsIcon" format="reference" />-->
+    <!--    <attr name="editorSpinnerDropDownTextColor" format="reference" />-->
+    <!--    <attr name="editorFilterTitleColor" format="reference" />-->
+    <!--    <attr name="buttonBackground" format="reference" />-->
+    <!--    <attr name="eventPauseTextColor" format="reference" />-->
+    <!--    <attr name="eventStopStatusIndicator" format="reference" />-->
+    <!--    <attr name="eventStopTextColor" format="reference" />-->
+    <!--    <attr name="eventInDelayTextColor" format="reference" />-->
+    <!--    <attr name="sensorPassStatusPassed" format="reference" />-->
+    <!--    <attr name="sensorPassStatusNotPassed" format="reference" />-->
+    <!--    <attr name="sensorPassStatusWaiting" format="reference" />-->
+    <!--    <attr name="activityLogTypeOther" format="reference" />-->
+    <!--    <attr name="infoPreferenceIcon" format="reference" />-->
+    <!--    <attr name="exclamationPreferenceIcon" format="reference" />-->
+    <!--    <attr name="editorFilterBackgroundColor" format="reference" />-->
+
+    <!-- keep this !!! -->
     <attr name="toolbarTheme" format="reference" />
     <attr name="toolbarPopupMenu" format="reference" />
-    <!--<attr name="editorDrawerListHeaderBackground" format="reference" />-->
-    <attr name="editorDrawerListHeaderTitle" format="reference" />
-    <attr name="dialogDivider" format="reference" />
-    <attr name="actionActivityLogEditorIcon" format="reference" />
-    <attr name="actionActivityLogReloadIcon" format="reference" />
-    <!--<attr name="actionSharedProfileIcon" format="reference" />-->
-    <attr name="actionHelpIcon" format="reference" />
-    <attr name="actionActivityLogPlayIcon" format="reference" />
-    <attr name="actionActivityLogPauseIcon" format="reference" />
-    <attr name="fastScrollTrackPP" format="reference" />
-    <attr name="fastScrollThumbPP" format="reference" />
-    <attr name="fastScrollPopupBackgroundPP" format="reference" />
-    <attr name="fastScrollPopupTextPP" format="reference" />
-    <attr name="fastScrollThumbInactivePP" format="reference" />
-    <attr name="actionDefaultProfile" format="reference" />
-    <attr name="actionRunStopEventsIcon" format="reference" />
-    <attr name="editorSpinnerDropDownTextColor" format="reference" />
     <attr name="bottomToolbarTheme" format="reference" />
-    <attr name="editorFilterTitleColor" format="reference" />
-    <!--<attr name="editorDrawerFilterHeaderBg" format="reference" />-->
-    <attr name="buttonBackground" format="reference" />
-    <attr name="eventPauseTextColor" format="reference" />
-    <attr name="eventStopStatusIndicator" format="reference" />
-    <attr name="eventStopTextColor" format="reference" />
-    <attr name="eventInDelayTextColor" format="reference" />
-    <attr name="sensorPassStatusPassed" format="reference" />
-    <attr name="sensorPassStatusNotPassed" format="reference" />
-    <attr name="sensorPassStatusWaiting" format="reference" />
-    <attr name="activityLogTypeOther" format="reference" />
-    <attr name="infoPreferenceIcon" format="reference" />
-    <attr name="exclamationPreferenceIcon" format="reference" />
-    <attr name="editorFilterBackgroundColor" format="reference" />
-    <attr name="listViewItemBackground" format="reference" />
     <attr name="popupMenuItemBackground" format="reference" />
+    <attr name="listViewItemBackground" format="reference" />
 
 </resources>

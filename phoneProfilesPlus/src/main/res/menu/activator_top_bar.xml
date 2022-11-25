@@ -7,12 +7,12 @@
           android:title="@string/menu_restart_events"
           android:orderInCategory="100"
           app:showAsAction="always|withText"
-          android:icon="?attr/actionEventsRestartIcon"
-          tools:ignore="AlwaysShowAction"/>
+        android:icon="@drawable/ic_action_events_restart"
+        tools:ignore="AlwaysShowAction"/>
     <item android:id="@+id/menu_edit_profiles"
           android:title="@string/menu_edit_profiles"
           android:orderInCategory="110"
-          app:showAsAction="always|withText"
-          android:icon="?attr/actionEditProfilesIcon"
-          tools:ignore="AlwaysShowAction" />
+        app:showAsAction="always|withText"
+        android:icon="@drawable/ic_action_edit_profiles"
+        tools:ignore="AlwaysShowAction" />
 </menu>

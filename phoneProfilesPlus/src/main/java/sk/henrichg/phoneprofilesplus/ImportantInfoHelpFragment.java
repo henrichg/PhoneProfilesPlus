@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 public class ImportantInfoHelpFragment extends Fragment {
@@ -546,7 +547,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText41.setText(spannable);
         }
@@ -558,7 +562,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText42.setText(spannable);
         }
@@ -570,7 +577,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText43.setText(spannable);
         }
@@ -582,7 +592,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText44.setText(spannable);
         }
@@ -594,7 +607,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText45.setText(spannable);
         }
@@ -604,7 +620,10 @@ public class ImportantInfoHelpFragment extends Fragment {
             //str = getString(R.string.important_info_profile_grant_1_howTo_11);
             String str = "https://developer.android.com/studio/releases/platform-tools.html";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoTextADBDownload.setText(spannable);
         }
@@ -614,7 +633,10 @@ public class ImportantInfoHelpFragment extends Fragment {
             String str = "adb\u00A0shell\u00A0pm\u00A0grant\u00A0" + PPApplication.PACKAGE_NAME + "\u00A0" +
                     "android.permission.WRITE_SECURE_SETTINGS";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoTextGrant1Command.setText(spannable);
         }

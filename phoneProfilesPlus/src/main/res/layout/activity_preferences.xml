@@ -14,7 +14,7 @@
         android:id="@+id/activity_preferences_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
         app:contentInsetEnd="0dp"
@@ -28,7 +28,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="?attr/dialogDivider"/>
+        android:background="@color/dialog_divider" />
 
     <LinearLayout
         android:id="@+id/activity_preferences_settings"

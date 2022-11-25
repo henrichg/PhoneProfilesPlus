@@ -12,7 +12,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="?attr/dialogDivider" />
+        android:background="@color/dialog_divider" />
 
     <ListView
         android:id="@+id/choose_language_dlg_listview"
@@ -43,7 +43,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
         <TextView
             android:id="@+id/choose_language_dlg_help"

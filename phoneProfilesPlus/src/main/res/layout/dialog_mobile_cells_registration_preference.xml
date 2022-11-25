@@ -52,9 +52,9 @@
             android:textSize="16sp"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/accent"
             android:textStyle="bold"
-            android:background="?attr/buttonBackground"
+            android:background="@drawable/pp_button_background_selector"
             android:clickable="true"
             android:focusable="true"/>
 
@@ -143,11 +143,11 @@
         android:clickable="true"
         android:focusable="true"
         android:hint="@string/mobile_cells_registration_cell_name_hint"
-        android:textColor="?attr/colorAccent"
+        android:textColor="@color/accent"
         android:textStyle="bold"
-        android:textColorHint="?attr/colorAccent"
-        android:background="?attr/buttonBackground"
-        android:textSize="16sp"/>
+        android:textColorHint="@color/accent"
+        android:background="@drawable/pp_button_background_selector"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/mobile_cells_registration_status"
@@ -176,7 +176,7 @@
         android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
         android:textStyle="bold"
-        android:background="?attr/buttonBackground"
+        android:background="@drawable/pp_button_background_selector"
         style="?android:attr/borderlessButtonStyle" />
 
 

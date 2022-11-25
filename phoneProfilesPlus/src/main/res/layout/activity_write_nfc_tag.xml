@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginBottom="@dimen/alert_dialog_top_padding"
-        android:background="?attr/dialogDivider" />
+        android:background="@color/dialog_divider" />
 
     <TextView
         android:id="@+id/write_nfc_tag_touch"
@@ -47,7 +47,7 @@
         android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
         android:textStyle="bold"
-        android:background="?attr/buttonBackground"
+        android:background="@drawable/pp_button_background_selector"
         style="?android:attr/borderlessButtonStyle"/>
 
 </LinearLayout>

@@ -619,11 +619,13 @@ class GlobalGUIRoutines {
     }
     */
 
+    /*
     static int getThemeAccentColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getThemeWhiteTextColor(final Context context) {
@@ -632,23 +634,27 @@ class GlobalGUIRoutines {
         return value.data;
     }
     */
+    /*
     static int getThemeNormalTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityNormalTextColor, value, true);
         return value.data;
     }
-
+    */
+    /*
     static int getThemeDisabledTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityDisabledTextColor, value, true);
         return value.data;
     }
-
+    */
+    /*
     static int getThemeCommandBackgroundColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityCommandBackgroundColor, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getThemeColorControlHighlight(final Context context) {
@@ -665,12 +671,13 @@ class GlobalGUIRoutines {
         return value.data;
     }
     */
-
+    /*
     static int getThemeEventStopColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.eventStopTextColor, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getThemeEventStopStatusIndicator(final Context context) {
@@ -696,7 +703,7 @@ class GlobalGUIRoutines {
     */
 
     static int getThemeSensorPassStatusColor(final int passStatus, final Context context) {
-        final TypedValue value = new TypedValue();
+        /*final TypedValue value = new TypedValue();
         if (passStatus == EventPreferences.SENSOR_PASSED_PASSED)
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusPassed, value, true);
         else
@@ -704,7 +711,13 @@ class GlobalGUIRoutines {
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusNotPassed, value, true);
         else
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusWaiting, value, true);
-        return value.data;
+        return value.data;*/
+        if (passStatus == EventPreferences.SENSOR_PASSED_PASSED)
+            return ContextCompat.getColor(context, R.color.sensor_pass_status_passed);
+        else if (passStatus == EventPreferences.SENSOR_PASSED_NOT_PASSED)
+            return ContextCompat.getColor(context, R.color.sensor_pass_status_not_passed);
+        else
+            return ContextCompat.getColor(context, R.color.sensor_pass_status_waiting);
     }
 
     /*
@@ -725,18 +738,20 @@ class GlobalGUIRoutines {
         return value.data;
     }
     */
-
+    /*
     static private int getThemeEditorSpinnerDropDownTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.editorSpinnerDropDownTextColor, value, true);
         return value.data;
     }
-
+    */
+    /*
     static int getThemeDialogDividerColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.dialogDivider, value, true);
         return value.data;
     }
+    */
 
     /*
     static private int getThemeEditorFilterBackgroundColor(final Context context) {
@@ -745,19 +760,20 @@ class GlobalGUIRoutines {
         return value.data;
     }
     */
-
+    /*
     static private int getThemeDialogBackgroundColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityBackgroundColor, value, true);
         return value.data;
     }
+    */
 
     static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Context context) {
-        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+        //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
 //                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
 
-        if (/*ApplicationPreferences.applicationTheme(activity, true).equals("white")*/!nightModeOn) {
+        if (ApplicationPreferences.applicationTheme(context, true).equals("white")/*!nightModeOn*/) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace_light));
@@ -768,15 +784,18 @@ class GlobalGUIRoutines {
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
             timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
         }
-        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
-        timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
+        //timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
+        timeDurationPicker.setDurationDisplayBackgroundColor(ContextCompat.getColor(context, R.color.activityBackgroundColor));
+        //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
+        timeDurationPicker.setSeparatorColor(ContextCompat.getColor(context, R.color.dialog_divider));
     }
-
+    /*
     static int getThemeSecondaryTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activitySecondaryTextColor, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)
@@ -933,9 +952,11 @@ class GlobalGUIRoutines {
             TextView itemText = itemView.findViewById(android.R.id.text1);
             if (itemText != null) {
                 if (position == mSelectedIndex) {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent));
                 } else {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
                 }
             }
 

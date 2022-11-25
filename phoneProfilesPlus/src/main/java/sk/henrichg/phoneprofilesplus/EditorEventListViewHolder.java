@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorEventListViewHolder extends RecyclerView.ViewHolder
@@ -144,14 +145,18 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //noinspection ConstantConditions
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
                 //eventName.setTextColor(textColorSecondary);
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
-                eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(context));
+                //eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(context));
+                //noinspection ConstantConditions
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.eventStopTextColor));
                 //eventName.setTextColor(ContextCompat.getColor(context, R.color.eventStopTextColor));
             }
             else
@@ -163,7 +168,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //else
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //noinspection ConstantConditions
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
                 //eventName.setTextColor(textColorSecondary);
             }
             else
@@ -174,13 +181,17 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
                 //else
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
+                //eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
+                //noinspection ConstantConditions
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.accent));
             }
             else {
                 eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+                //noinspection ConstantConditions
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
                 //eventName.setTextColor(textColorSecondary);
             }
 

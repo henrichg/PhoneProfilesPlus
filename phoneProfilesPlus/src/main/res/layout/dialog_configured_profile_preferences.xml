@@ -33,7 +33,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
         <ListView
             android:id="@+id/configured_profile_preferences_pref_dlg_listview"
@@ -58,7 +58,7 @@
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
             android:layout_marginBottom="3dp"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
     </LinearLayout>
 

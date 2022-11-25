@@ -450,9 +450,9 @@
                         android:layout_marginStart="10dp"
                         android:text="@string/colorChooser_pref_dialog_customColor"
                         android:textSize="16sp"
-                        android:textColor="?attr/colorAccent"
+                        android:textColor="@color/accent"
                         android:textStyle="bold"
-                        android:background="?attr/buttonBackground"
+                        android:background="@drawable/pp_button_background_selector"
                         android:clickable="true"
                         android:focusable="true" />
                 </LinearLayout>
