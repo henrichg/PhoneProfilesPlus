@@ -74,13 +74,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/widget_one_row_header_profile_icon"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="@dimen/profile_name_widget_margin"
+                android:paddingEnd="@dimen/profile_name_widget_margin"
                 android:text="@string/profile_name_default"
                 android:textSize="22dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                tools:ignore="SpUsage"/>
+                tools:ignore="SpUsage" />
 
         </RelativeLayout>
 

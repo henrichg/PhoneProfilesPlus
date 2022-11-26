@@ -13,7 +13,7 @@
         android:layout_width="@dimen/restart_events_notification_icon_size"
         android:layout_height="@dimen/restart_events_notification_icon_size"
         android:padding="2dp"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="@dimen/profile_name_notification_margin"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:contentDescription="@string/menu_restart_events"
@@ -37,7 +37,7 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:layout_marginEnd="13dp"
+            android:layout_marginEnd="@dimen/profile_name_notification_margin"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 

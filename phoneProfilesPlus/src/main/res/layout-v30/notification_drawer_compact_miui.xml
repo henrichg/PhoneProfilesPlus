@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="@dimen/profile_name_notification_margin"
         android:contentDescription="@string/menu_restart_events"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"

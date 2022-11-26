@@ -89,13 +89,13 @@
                         android:id="@+id/widget_profile_list_header_profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
+                        android:paddingStart="@dimen/profile_name_widget_margin"
+                        android:paddingEnd="@dimen/profile_name_widget_margin"
                         android:text="@string/profile_name_default"
                         android:textSize="17dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        tools:ignore="SpUsage"/>
+                        tools:ignore="SpUsage" />
 
                     <ImageView
                         android:id="@+id/widget_profile_list_header_profile_pref_indicator"
