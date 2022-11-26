@@ -1,81 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/time_pref_dlg_root"
+    android:id="@+id/time_pref_dlg_root3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="28dp"
-    android:paddingEnd="28dp"
-    android:paddingBottom="10dp"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false">
-
-<LinearLayout
-    android:id="@+id/time_pref_dlg_root2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     android:orientation="vertical"
-    tools:ignore="UselessParent">
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
 
-    <TextView
-        android:id="@+id/time_pref_dlg_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
-        android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:textSize="16sp"
-        android:textColor="@color/accent"
-        android:textStyle="bold"
-        android:background="@drawable/pp_button_background_selector"
-        android:clickable="true"
-        android:focusable="true"/>
+    <View
+        android:id="@+id/time_pref_dlg_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-    <LinearLayout
-        android:id="@+id/time_pref_dlg_liLa1"
+    <ScrollView
+        android:id="@+id/time_pref_dlg_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/time_pref_dlg_textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/duration_pref_dlg_activation_hours_label"
-            android:textSize="14sp"/>
-        <SeekBar
-            android:id="@+id/time_pref_dlg_hours"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false">
+
+        <LinearLayout
+            android:id="@+id/time_pref_dlg_root2"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:max="23"
-            android:rotation="180"
-            android:splitTrack="false"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/time_pref_dlg_liLa2"
+            android:layout_height="wrap_content"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <TextView
+                android:id="@+id/time_pref_dlg_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
+                android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textSize="16sp"
+                android:textColor="@color/accent"
+                android:textStyle="bold"
+                android:background="@drawable/pp_button_background_selector"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <LinearLayout
+                android:id="@+id/time_pref_dlg_liLa1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/time_pref_dlg_textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/duration_pref_dlg_activation_hours_label"
+                    android:textSize="14sp"/>
+
+                <SeekBar
+                    android:id="@+id/time_pref_dlg_hours"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:max="23"
+                    android:rotation="180"
+                    android:splitTrack="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/time_pref_dlg_liLa2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/time_pref_dlg_textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/duration_pref_dlg_activation_minutes_label"
+                    android:textSize="14sp"/>
+
+                <SeekBar
+                    android:id="@+id/time_pref_dlg_minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:max="59"
+                    android:rotation="180"
+                    android:splitTrack="false" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/time_pref_dlg_buttonsDivider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/time_pref_dlg_textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/duration_pref_dlg_activation_minutes_label"
-            android:textSize="14sp"/>
-        <SeekBar
-            android:id="@+id/time_pref_dlg_minutes"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:max="59"
-            android:rotation="180"
-            android:splitTrack="false"/>
-    </LinearLayout>
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>
-
-</ScrollView>

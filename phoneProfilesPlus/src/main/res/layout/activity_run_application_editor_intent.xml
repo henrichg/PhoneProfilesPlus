@@ -13,7 +13,7 @@
     <RelativeLayout
         android:id="@+id/application_editor_intent_buttons"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         android:layout_alignParentBottom="true">

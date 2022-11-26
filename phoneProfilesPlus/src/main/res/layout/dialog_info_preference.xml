@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <View
-        android:id="@+id/profile_pref_dlg_listview_titleBarDivider"
+        android:id="@+id/info_pref_dialog_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
@@ -48,7 +48,7 @@
 </ScrollView>
 
     <View
-        android:id="@+id/profile_pref_dlg_listview_buttonBarDivider"
+        android:id="@+id/info_pref_dialog_buttonBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"

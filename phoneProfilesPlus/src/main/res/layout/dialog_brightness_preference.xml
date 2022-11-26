@@ -1,72 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/brightnessPrefDialogRoot"
+    android:id="@+id/brightnessPrefDialog_root2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
-
-    <CheckBox
-        android:id="@+id/brightnessPrefDialogNoChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/brightness_pref_dialog_no_change_chb" />
-
-    <!--
-    <CheckBox
-        android:id="@+id/brightnessPrefDialogSharedProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/brightness_pref_dialog_default_profile_chb" />
-    -->
-    
-    <CheckBox
-        android:id="@+id/brightnessPrefDialogAutomatic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/brightness_pref_dialog_automatic_chb" />
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
+    <!--    android:gravity="center_horizontal"-->
 
     <View
-        android:id="@+id/nfc_tag_pref_dlg_buttonBarDivider"
+        android:id="@+id/brightnessPrefDialog_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
         android:background="@color/dialog_divider" />
 
-    <CheckBox
-        android:id="@+id/brightnessPrefDialogLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="@string/brightness_pref_dialog_level_chb" />
-
-    <TextView
-        android:id="@+id/brightnessPrefDialogValueText"
+    <ScrollView
+        android:id="@+id/brightnessPrefDialog_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="0"
-        android:textSize="32sp"
-        tools:ignore="HardcodedText"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
 
-    <SeekBar
-        android:id="@+id/brightnessPrefDialogSeekbar"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:splitTrack="false"/>
+        <LinearLayout
+            android:id="@+id/brightnessPrefDialogRoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="15dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/brightnessPrefDialogAdaptiveLevelRoot"
+            <CheckBox
+                android:id="@+id/brightnessPrefDialogNoChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/brightness_pref_dialog_no_change_chb" />
+
+            <!--
+            <CheckBox
+                android:id="@+id/brightnessPrefDialogSharedProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/brightness_pref_dialog_default_profile_chb" />
+            -->
+
+            <CheckBox
+                android:id="@+id/brightnessPrefDialogAutomatic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/brightness_pref_dialog_automatic_chb" />
+
+            <View
+                android:id="@+id/nfc_tag_pref_dlg_buttonBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/dialog_divider" />
+
+            <CheckBox
+                android:id="@+id/brightnessPrefDialogLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/brightness_pref_dialog_level_chb" />
+
+            <TextView
+                android:id="@+id/brightnessPrefDialogValueText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="0"
+                android:textSize="32sp"
+                tools:ignore="HardcodedText"/>
+
+            <SeekBar
+                android:id="@+id/brightnessPrefDialogSeekbar"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:splitTrack="false" />
+
+            <TextView
+                android:id="@+id/brightnessPrefDialogAdaptiveLevelRoot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/brightness_pref_dialog_adaptive_level_root_required" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/brightnessPrefDialog_buttonsDivider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/brightness_pref_dialog_adaptive_level_root_required" />
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

@@ -2,38 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ask_for_duration_dlg_root2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:paddingBottom="10dp"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
-
-<ScrollView
-    android:id="@+id/ask_for_duration_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    tools:ignore="UselessParent">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
+    <!--    android:gravity="center_horizontal"-->
 
-    <LinearLayout
-        android:id="@+id/ask_for_duration_dlg_linla0"
-        android:orientation="vertical"
+    <View
+        android:id="@+id/ask_for_duration_dlg_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="0dp">
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-        <TextView
-            android:id="@+id/duration_pref_dlg_range"
-            android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/ask_for_duration_dlg_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/ask_for_duration_dlg_linla0"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:text="00:00:00 - 00:05:00"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="0dp">
+
+            <TextView
+                android:id="@+id/duration_pref_dlg_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:textSize="16sp"
+                android:text="00:00:00 - 00:05:00"
             tools:ignore="HardcodedText"/>
 
         <LinearLayout
@@ -294,8 +303,17 @@
             style="?android:attr/borderlessButtonStyle"/>
 -->
 
-    </LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <View
+        android:id="@+id/ask_for_duration_dlg_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

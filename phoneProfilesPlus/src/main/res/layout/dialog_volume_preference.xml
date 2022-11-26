@@ -4,57 +4,72 @@
     android:id="@+id/volumePrefDialogRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
-    android:paddingBottom="10dp"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <FrameLayout
+    <View
+        android:id="@+id/volumePrefDialogNoChange_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-        <CheckBox
-            android:id="@+id/volumePrefDialogNoChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/volume_pref_dialog_no_change_chb" />
-
-        <!--
-        <CheckBox
-            android:id="@+id/volumePrefDialogSharedProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/volume_pref_dialog_default_profile_chb" />
-        -->
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/volumePrefDialogVolumesSensorOperator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="-3dp"
-            android:popupElevation="0dp"
-            android:entries="@array/volumesSensorOperatorArray"
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/volumePrefDialogValueText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="1"
-        android:textSize="32sp"
-        tools:ignore="HardcodedText"/>
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
 
-    <SeekBar
-        android:id="@+id/volumePrefDialogSeekbar"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:splitTrack="false"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <CheckBox
+                android:id="@+id/volumePrefDialogNoChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/volume_pref_dialog_no_change_chb" />
+
+            <!--
+            <CheckBox
+                android:id="@+id/volumePrefDialogSharedProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/volume_pref_dialog_default_profile_chb" />
+            -->
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/volumePrefDialogVolumesSensorOperator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="-3dp"
+                android:popupElevation="0dp"
+                android:entries="@array/volumesSensorOperatorArray"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/volumePrefDialogValueText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="1"
+            android:textSize="32sp"
+            tools:ignore="HardcodedText" />
+
+        <SeekBar
+            android:id="@+id/volumePrefDialogSeekbar"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:splitTrack="false" />
+
+    </LinearLayout>
 </LinearLayout>

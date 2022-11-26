@@ -8,20 +8,29 @@
     android:gravity="center_horizontal"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-<ScrollView
-    android:id="@+id/duration_pref_dlg_scroll_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    tools:ignore="UselessParent">
+    <View
+        android:id="@+id/mobile_cells_registration_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-<LinearLayout
-    android:id="@+id/duration_pref_dlg_root"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="20dp"
+    <ScrollView
+        android:id="@+id/duration_pref_dlg_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/duration_pref_dlg_root"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
     android:paddingEnd="20dp">
 
     <TextView
@@ -173,6 +182,7 @@
         android:layout_gravity="center_horizontal"
         android:text="@string/mobile_cells_registration_pref_dlg_stop_button"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
         android:textStyle="bold"
@@ -180,8 +190,17 @@
         style="?android:attr/borderlessButtonStyle" />
 
 
-</LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <View
+        android:id="@+id/mobile_cells_registration_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginBottom="3dp"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

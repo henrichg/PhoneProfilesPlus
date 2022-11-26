@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/calendar_search_string_pref_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+    android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/search_string_pref_dlg_helpIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_button_help"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/help_button_tooltip"/>
+    <View
+        android:id="@+id/calendar_search_string_pref_dlg_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-    <EditText
-        android:id="@+id/search_string_pref_dlg_editText"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toStartOf = "@id/search_string_pref_dlg_helpIcon"
-        android:layout_centerVertical="true"
-        android:selectAllOnFocus="true"
-        android:hint="@string/event_preferences_calendar_search_string"
-        android:inputType="textNoSuggestions|textMultiLine"
-        android:importantForAutofill="no" />
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/search_string_pref_dlg_helpIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_button_help"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/help_button_tooltip"/>
+
+        <EditText
+            android:id="@+id/search_string_pref_dlg_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/search_string_pref_dlg_helpIcon"
+            android:layout_centerVertical="true"
+            android:selectAllOnFocus="true"
+            android:hint="@string/event_preferences_calendar_search_string"
+            android:inputType="textNoSuggestions|textMultiLine"
+            android:importantForAutofill="no" />
+
+    </RelativeLayout>
+</LinearLayout>

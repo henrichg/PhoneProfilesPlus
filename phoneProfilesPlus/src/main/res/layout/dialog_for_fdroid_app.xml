@@ -6,31 +6,42 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
 
-<ScrollView
-    android:id="@+id/dialog_for_fdroid_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    tools:ignore="UselessParent">
-
-    <LinearLayout
-        android:id="@+id/dialog_for_fdroid_linla0"
+    <View
+        android:id="@+id/dialog_for_fdroid_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-        <TextView
-            android:id="@+id/dialog_for_fdroid_info_text"
-            android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/dialog_for_fdroid_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/dialog_for_fdroid_linla0"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:text="@string/empty_string"
-            android:textSize="16sp" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialog_for_fdroid_info_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text="@string/empty_string"
+                android:textSize="16sp" />
 
         <TextView
             android:id="@+id/dialog_for_fdroid_repository_with_ppp_to_configure"
@@ -52,8 +63,16 @@
             android:text="@string/empty_string"
             android:textSize="16sp" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <View
+        android:id="@+id/dialog_for_fdroid_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

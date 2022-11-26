@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/profile_icon_color_chooser_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_icon_color_chooser_root2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
 
-    <LinearLayout
-        android:id="@+id/profile_icon_color_chooser_scroll_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
+    <View
+        android:id="@+id/profile_icon_color_chooser_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-        <HorizontalScrollView
-            android:id="@+id/profile_icon_color_chooser_horizontalScrollView"
+
+    <ScrollView
+        android:id="@+id/profile_icon_color_chooser_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false">
+
+        <LinearLayout
+            android:id="@+id/profile_icon_color_chooser_scroll_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbarStyle="outsideOverlay"
-            android:fadeScrollbars="false">
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
-            <LinearLayout
+            <HorizontalScrollView
+                android:id="@+id/profile_icon_color_chooser_horizontalScrollView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbarStyle="outsideOverlay"
+                android:fadeScrollbars="false">
+
+                <LinearLayout
                 android:id="@+id/profile_icon_color_chooser_liLa1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -480,9 +497,19 @@
 
                 </RelativeLayout>
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </HorizontalScrollView>
-    </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <View
+        android:id="@+id/profile_icon_color_chooser_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+</LinearLayout>
