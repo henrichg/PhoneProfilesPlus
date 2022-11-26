@@ -29,8 +29,8 @@
             android:id="@+id/duration_pref_dlg_root2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
             android:paddingBottom="10dp"
             android:orientation="vertical"
             tools:ignore="UselessParent">
