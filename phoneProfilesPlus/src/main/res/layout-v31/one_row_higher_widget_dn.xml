@@ -23,7 +23,7 @@
         android:id="@+id/widget_one_row_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="11dp"
+        android:paddingStart="12dp"
         android:paddingEnd="3dp"
         android:layout_gravity="center" >
 
