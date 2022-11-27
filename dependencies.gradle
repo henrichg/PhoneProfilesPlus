@@ -38,11 +38,11 @@ ext.ppVersions = [
 
         minSdk            : 24,
         targetSdk         : 28,
-        compileSdk        : 32,
+        compileSdk        : 33,
         buildTools        : '33.0.0',
 
         appcompatXLib     : '1.5.1', //'1.4.2',
         recyclerView      : '1.2.1',
 
-        acra              : '5.9.6'
+        acra              : '5.9.7'
 ]
