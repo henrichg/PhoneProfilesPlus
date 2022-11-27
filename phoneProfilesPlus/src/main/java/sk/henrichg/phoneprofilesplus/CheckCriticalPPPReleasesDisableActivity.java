@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -63,6 +64,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
             GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
+            /*
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             if (criticalRelease) {
                 dialogBuilder.setTitle(getString(R.string.critical_github_release));
@@ -74,30 +76,61 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
             }
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), versionCode);
-                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(getApplicationContext());
-                finish();
+                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext(), versionCode);
+                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
+                CheckCriticalPPPReleasesDisableActivity.this.finish();
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), 0);
-                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(getApplicationContext());
-                finish();
+                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext(), 0);
+                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
+                CheckCriticalPPPReleasesDisableActivity.this.finish();
             });
             dialogBuilder.setOnCancelListener(dialog -> {
-                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(getApplicationContext());
-                finish();
+                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
+                CheckCriticalPPPReleasesDisableActivity.this.finish();
             });
             AlertDialog dialog = dialogBuilder.create();
 
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
+//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialog) {
+//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                    if (positive != null) positive.setAllCaps(false);
+//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                    if (negative != null) negative.setAllCaps(false);
+//                }
+//            });
+            */
+
+            String title;
+            String message;
+            if (criticalRelease) {
+                title = getString(R.string.critical_github_release);
+                message = getString(R.string.critical_github_release_confirm_notification_disable);
+            } else {
+                title = getString(R.string.normal_github_release);
+                message = getString(R.string.normal_github_release_confirm_notification_disable);
+            }
+            PPAlertDialog dialog = new PPAlertDialog(title, message,
+                    getString(R.string.alert_button_yes), getString(R.string.alert_button_no), null,
+                    (dialog1, which) -> {
+                        CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext(), versionCode);
+                        CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
+                        CheckCriticalPPPReleasesDisableActivity.this.finish();
+                    },
+                    (dialog12, which) -> {
+                        CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext(), 0);
+                        CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
+                        CheckCriticalPPPReleasesDisableActivity.this.finish();
+                    },
+                    null,
+                    dialog13 -> {
+                        CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
+                        CheckCriticalPPPReleasesDisableActivity.this.finish();
+                    },
+                    true,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();

@@ -591,6 +591,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
+            /*
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.permissions_alert_title);
             dialogBuilder.setMessage(StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0));
@@ -617,6 +618,27 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                    if (negative != null) negative.setAllCaps(false);
 //                }
 //            });
+            */
+
+            PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
+                    StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0),
+                    getString(android.R.string.ok), getString(android.R.string.cancel), null,
+                    (dialog1, which) -> {
+                        int iteration = 4;
+                        if (showRequestWriteSettings)
+                            iteration = 1;
+                            //else if (showRequestAccessNotificationPolicy)
+                            //    iteration = 2;
+                        else if (showRequestDrawOverlays)
+                            iteration = 3;
+                        requestPermissions(iteration, canShowRationale(context, false));
+                    },
+                    (dialog2, which) -> finish(),
+                    null,
+                    dialog3 -> finish(),
+                    true,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();

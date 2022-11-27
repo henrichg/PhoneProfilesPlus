@@ -42,6 +42,7 @@
             android:id="@+id/backup_settings_alert_dialog_rewrite_files_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/dialog_backup_settings_rewrite_files_info"
             android:textSize="16sp" />
 

@@ -5,6 +5,7 @@ import static android.os.Looper.getMainLooper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
@@ -1042,105 +1043,89 @@ class GlobalGUIRoutines {
             nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
         }
 
+        String positiveText;
+        DialogInterface.OnClickListener positiveClick;
+        String negativeText = null;
+        DialogInterface.OnClickListener negativeClick = null;
+
         if ((profile != null) || (event != null)) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(nTitle);
-            dialogBuilder.setMessage(nText);
+            //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            //dialogBuilder.setTitle(nTitle);
+            //dialogBuilder.setMessage(nText);
             if (forProfile) {
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (profile != null) {
-                                intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                                intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                            }
-                            else {
+                positiveText = activity.getString(R.string.show_dialog_about_red_text_show_profile_preferences);
+                positiveClick = (dialog, which) -> {
+                    Intent intent;
+                    if (profile != null) {
+                        intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
+                        if (forActivator)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                        intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                    } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                            }
-                            activity.startActivity(intent);
+                    }
+                    activity.startActivity(intent);
 
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
+                    try {
+                        // close Activator
+                        if (forActivator)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                };
                 if (forActivator) {
-                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                            (dialog, which) -> {
-                                Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                                activity.startActivity(intent);
+                    negativeText = activity.getString(R.string.show_dialog_about_red_text_show_editor);
+                    negativeClick = (dialog, which) -> {
+                        Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                        activity.startActivity(intent);
 
-                                try {
-                                    // close Activator
-                                    activity.finish();
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            });
+                        try {
+                            // close Activator
+                            activity.finish();
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    };
                 }
             }
             else {
-                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (event != null) {
-                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                                intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-                            }
-                            else {
+                positiveText = activity.getString(R.string.show_dialog_about_red_text_show_event_preferences);
+                positiveClick = (dialog, which) -> {
+                    Intent intent;
+                    if (event != null) {
+                        intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                        if (forActivator)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                        intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                    } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            }
-                            activity.startActivity(intent);
+                    }
+                    activity.startActivity(intent);
 
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                /*
-                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                        (dialog, which) -> {
-                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                            if (forActivator)
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                 */
+                    try {
+                        // close Activator
+                        if (forActivator)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                };
             }
-            dialogBuilder.setCancelable(!forActivator);
-            AlertDialog dialog = dialogBuilder.create();
+            //dialogBuilder.setCancelable(!forActivator);
+            //AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                @Override
@@ -1151,6 +1136,16 @@ class GlobalGUIRoutines {
 //                    if (negative != null) negative.setAllCaps(false);
 //                }
 //            });
+
+            PPAlertDialog dialog = new PPAlertDialog(nTitle, nText,
+                    positiveText, negativeText, null,
+                    positiveClick,
+                    negativeClick,
+                    null,
+                    null,
+                    !forActivator,
+                    activity
+            );
 
             if (!activity.isFinishing())
                 dialog.show();

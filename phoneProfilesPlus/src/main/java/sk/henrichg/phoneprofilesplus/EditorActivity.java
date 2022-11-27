@@ -2157,7 +2157,7 @@ public class EditorActivity extends AppCompatActivity
 
     private void importExportErrorDialog(int importExport, int dbResult, int appSettingsResult/*, int sharedProfileResult*/)
     {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         String title;
         if (importExport == IMPORTEXPORT_IMPORT)
             title = getString(R.string.import_profiles_alert_title);
@@ -2166,7 +2166,7 @@ public class EditorActivity extends AppCompatActivity
             title = getString(R.string.import_profiles_from_pp_alert_title);
         else
             title = getString(R.string.export_profiles_alert_title);
-        dialogBuilder.setTitle(title);
+        //dialogBuilder.setTitle(title);
         String message;
         if (importExport == IMPORTEXPORT_IMPORT) {
             message = getString(R.string.import_profiles_alert_error) + ":";
@@ -2191,20 +2191,17 @@ public class EditorActivity extends AppCompatActivity
                 message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_appSettings_bug);
             /*if (sharedProfileResult == 0)
                 message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_sharedProfile_bug);*/
-        }
-        else
+        } else
             message = getString(R.string.export_profiles_alert_error);
-        dialogBuilder.setMessage(message);
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-            // refresh activity
-            GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
-        });
-        dialogBuilder.setOnCancelListener(dialog -> {
-            // refresh activity
-            GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
-        });
-        AlertDialog dialog = dialogBuilder.create();
+        //dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+        //    // refresh activity
+        //    GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
+        //});
+        //dialogBuilder.setOnCancelListener(dialog -> {
+        //    // refresh activity
+        //    GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
+        //});
+        //AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -2215,6 +2212,22 @@ public class EditorActivity extends AppCompatActivity
 //                if (negative != null) negative.setAllCaps(false);
 //            }
 //        });
+
+        PPAlertDialog dialog = new PPAlertDialog(title, message,
+                getString(android.R.string.ok), null, null,
+                (dialog1, which) -> {
+                    // refresh activity
+                    GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
+                },
+                null,
+                null,
+                dialog13 -> {
+                    // refresh activity
+                    GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
+                },
+                true,
+                this
+        );
 
         if (!isFinishing())
             dialog.show();
@@ -2658,6 +2671,7 @@ public class EditorActivity extends AppCompatActivity
 
     private void exportData(final int titleRes, final boolean email, final boolean toAuthor, final boolean share)
     {
+        /*
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(titleRes);
 
@@ -2694,6 +2708,33 @@ public class EditorActivity extends AppCompatActivity
 //                if (negative != null) negative.setAllCaps(false);
 //            }
 //        });
+        */
+
+        String title = getString(titleRes);
+        String message;
+        if (email)
+            message = getString(R.string.export_profiles_alert_message_note);
+        else if (share) {
+            message = getString(R.string.share_settings_alert_message) + "\n\n" +
+                    getString(R.string.export_profiles_alert_message_note);
+        } else
+            message = getString(R.string.export_profiles_alert_message) + "\n\n" +
+                    getString(R.string.export_profiles_alert_message_note);
+
+        PPAlertDialog dialog = new PPAlertDialog(title, message,
+                getString(R.string.alert_button_backup), getString(android.R.string.cancel), null,
+                (dialog1, which) -> {
+                    if (email || share)
+                        doExportData(email, toAuthor, share);
+                    else if (Permissions.grantExportPermissions(getApplicationContext(), EditorActivity.this))
+                        doExportData(false, false, false);
+                },
+                null,
+                null,
+                null,
+                true,
+                this
+        );
 
         if (!isFinishing())
             dialog.show();
