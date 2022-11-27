@@ -622,7 +622,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
                     StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0),
-                    getString(android.R.string.ok), getString(android.R.string.cancel), null,
+                    getString(android.R.string.ok), getString(android.R.string.cancel), null, null,
                     (dialog1, which) -> {
                         int iteration = 4;
                         if (showRequestWriteSettings)
@@ -636,6 +636,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     (dialog2, which) -> finish(),
                     null,
                     dialog3 -> finish(),
+                    null,
                     true,
                     this
             );

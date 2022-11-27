@@ -1138,9 +1138,10 @@ class GlobalGUIRoutines {
 //            });
 
             PPAlertDialog dialog = new PPAlertDialog(nTitle, nText,
-                    positiveText, negativeText, null,
+                    positiveText, negativeText, null, null,
                     positiveClick,
                     negativeClick,
+                    null,
                     null,
                     null,
                     !forActivator,

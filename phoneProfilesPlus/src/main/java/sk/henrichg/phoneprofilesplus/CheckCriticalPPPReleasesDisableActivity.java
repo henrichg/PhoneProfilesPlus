@@ -112,7 +112,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
                 message = getString(R.string.normal_github_release_confirm_notification_disable);
             }
             PPAlertDialog dialog = new PPAlertDialog(title, message,
-                    getString(R.string.alert_button_yes), getString(R.string.alert_button_no), null,
+                    getString(R.string.alert_button_yes), getString(R.string.alert_button_no), null, null,
                     (dialog1, which) -> {
                         CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext(), versionCode);
                         CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
@@ -128,6 +128,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
                         CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(CheckCriticalPPPReleasesDisableActivity.this.getApplicationContext());
                         CheckCriticalPPPReleasesDisableActivity.this.finish();
                     },
+                    null,
                     true,
                     this
             );

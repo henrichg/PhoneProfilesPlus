@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
 class PPAlertDialog {
     final AlertDialog mDialog;
@@ -18,12 +20,14 @@ class PPAlertDialog {
     final DialogInterface.OnClickListener negativeClick;
     final DialogInterface.OnClickListener neutralClick;
 
-    PPAlertDialog(String _title, String _message,
+    PPAlertDialog(CharSequence _title, CharSequence _message,
                   CharSequence _positiveText, CharSequence _negativeText, CharSequence _neutralText,
+                  CharSequence _checkBoxText,
                   DialogInterface.OnClickListener _positiveClick,
                   DialogInterface.OnClickListener _negativeClick,
                   DialogInterface.OnClickListener _neutralClick,
                   DialogInterface.OnCancelListener _cancelListener,
+                  CompoundButton.OnCheckedChangeListener _checkBoxListener,
                   boolean _cancelable,
                   Activity _activity) {
         this.activity = _activity;
@@ -57,6 +61,12 @@ class PPAlertDialog {
 
         TextView messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
         messageText.setText(_message);
+
+        if (_checkBoxListener != null) {
+            AppCompatCheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);
+            checkBox.setText(_checkBoxText);
+            checkBox.setOnCheckedChangeListener(_checkBoxListener);
+        }
     }
 
     /*

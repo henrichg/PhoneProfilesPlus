@@ -2214,7 +2214,7 @@ public class EditorActivity extends AppCompatActivity
 //        });
 
         PPAlertDialog dialog = new PPAlertDialog(title, message,
-                getString(android.R.string.ok), null, null,
+                getString(android.R.string.ok), null, null, null,
                 (dialog1, which) -> {
                     // refresh activity
                     GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
@@ -2225,6 +2225,7 @@ public class EditorActivity extends AppCompatActivity
                     // refresh activity
                     GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
                 },
+                null,
                 true,
                 this
         );
@@ -2722,13 +2723,14 @@ public class EditorActivity extends AppCompatActivity
                     getString(R.string.export_profiles_alert_message_note);
 
         PPAlertDialog dialog = new PPAlertDialog(title, message,
-                getString(R.string.alert_button_backup), getString(android.R.string.cancel), null,
+                getString(R.string.alert_button_backup), getString(android.R.string.cancel), null, null,
                 (dialog1, which) -> {
                     if (email || share)
                         doExportData(email, toAuthor, share);
                     else if (Permissions.grantExportPermissions(getApplicationContext(), EditorActivity.this))
                         doExportData(false, false, false);
                 },
+                null,
                 null,
                 null,
                 null,
