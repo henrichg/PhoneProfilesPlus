@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -65,7 +66,7 @@ class PPAlertDialog {
         messageText.setText(_message);
 
         if (_checkBoxListener != null) {
-            AppCompatCheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);
+            CheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);
             checkBox.setText(_checkBoxText);
             checkBox.setEnabled(_checkBoxEnabled);
             checkBox.setChecked(_checBoxChecked);

@@ -43,12 +43,12 @@
             android:text="@string/empty_string"
             android:textSize="16sp" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/info_pref_dialog_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:text=""
+            android:text="@string/empty_string"
             android:visibility="gone" />
 
     </LinearLayout>
