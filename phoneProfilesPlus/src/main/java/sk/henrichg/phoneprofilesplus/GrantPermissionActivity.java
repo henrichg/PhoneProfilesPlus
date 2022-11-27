@@ -638,6 +638,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     dialog3 -> finish(),
                     null,
                     true,
+                    false, false,
                     this
             );
 

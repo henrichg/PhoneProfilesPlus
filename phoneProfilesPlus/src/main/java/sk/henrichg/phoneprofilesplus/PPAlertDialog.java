@@ -29,6 +29,8 @@ class PPAlertDialog {
                   DialogInterface.OnCancelListener _cancelListener,
                   CompoundButton.OnCheckedChangeListener _checkBoxListener,
                   boolean _cancelable,
+                  boolean _checBoxChecked,
+                  boolean _checkBoxEnabled,
                   Activity _activity) {
         this.activity = _activity;
         this.positiveClick = _positiveClick;
@@ -65,7 +67,10 @@ class PPAlertDialog {
         if (_checkBoxListener != null) {
             AppCompatCheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);
             checkBox.setText(_checkBoxText);
+            checkBox.setEnabled(_checkBoxEnabled);
+            checkBox.setChecked(_checBoxChecked);
             checkBox.setOnCheckedChangeListener(_checkBoxListener);
+            checkBox.setVisibility(View.VISIBLE);
         }
     }
 

@@ -2227,6 +2227,7 @@ public class EditorActivity extends AppCompatActivity
                 },
                 null,
                 true,
+                false, false,
                 this
         );
 
@@ -2735,6 +2736,7 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 null,
                 true,
+                false, false,
                 this
         );
 
