@@ -30,7 +30,7 @@
             android:paddingStart="25dp"
             android:paddingEnd="25dp"
             android:paddingTop="15dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="15dp"
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
