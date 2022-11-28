@@ -2,11 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 //import me.drakeet.support.toast.ToastCompat;
 
@@ -129,7 +127,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
                         CheckCriticalPPPReleasesDisableActivity.this.finish();
                     },
                     null,
-                    true,
+                    true, true,
                     false, false,
                     this
             );

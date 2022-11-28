@@ -731,6 +731,7 @@ public class WifiScanWorker extends Worker {
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         if (Permissions.checkLocation(context)) {
+            @SuppressLint("MissingPermission")
             List<ScanResult> _scanResults = wifi.getScanResults();
             //if (PPApplication.logEnabled()) {
                 //int wifiState = wifi.getWifiState();

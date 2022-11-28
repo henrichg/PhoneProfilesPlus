@@ -14,13 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -437,6 +435,8 @@ public class EventsPrefsActivity extends AppCompatActivity
         if (!enabled) {
             if (!ApplicationPreferences.applicationEventNeverAskForEnableRun) {
                 //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
+
+                /*
                 final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(this);
 
                 FrameLayout container = new FrameLayout(this);
@@ -467,11 +467,6 @@ public class EventsPrefsActivity extends AppCompatActivity
                 //dialogBuilder.setView(doNotShowAgain);
                 dialogBuilder.setView(superContainer);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                    /*SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                    editor.apply();*/
-
                     SharedPreferences preferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = preferences1.edit();
                     editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
@@ -497,6 +492,41 @@ public class EventsPrefsActivity extends AppCompatActivity
 //                        if (negative != null) negative.setAllCaps(false);
 //                    }
 //                });
+                */
+
+                PPAlertDialog dialog = new PPAlertDialog(getString(R.string.phone_preferences_actionMode_save),
+                        getString(R.string.alert_message_enable_event),
+                        getString(R.string.alert_button_yes), getString(R.string.alert_button_no),
+                        null,
+                        getString(R.string.alert_message_enable_event_check_box),
+                        (dialog1, which) -> {
+                            SharedPreferences preferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = preferences1.edit();
+                            editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
+                            editor.apply();
+
+                            savePreferences(new_event_mode, predefinedEventIndex);
+                            resultCode = RESULT_OK;
+                            finish();
+                        },
+                        (dialog2, which) -> {
+                            savePreferences(new_event_mode, predefinedEventIndex);
+                            resultCode = RESULT_OK;
+                            finish();
+                        },
+                        null,
+                        null,
+                        (buttonView, isChecked) -> {
+                            SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
+                            editor.apply();
+                            ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                        },
+                        true, true,
+                        false, true,
+                        this
+                );
 
                 if (!isFinishing())
                     dialog.show();

@@ -35,7 +35,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -1144,7 +1143,7 @@ class GlobalGUIRoutines {
                     null,
                     null,
                     null,
-                    !forActivator,
+                    !forActivator, !forActivator,
                     false, false,
                     activity
             );

@@ -6,37 +6,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatCheckBox;
 
 class PPAlertDialog {
     final AlertDialog mDialog;
     final Activity activity;
 
+    /*
     final DialogInterface.OnClickListener positiveClick;
     final DialogInterface.OnClickListener negativeClick;
     final DialogInterface.OnClickListener neutralClick;
+    */
 
     PPAlertDialog(CharSequence _title, CharSequence _message,
-                  CharSequence _positiveText, CharSequence _negativeText, CharSequence _neutralText,
+                  CharSequence _positiveText, CharSequence _negativeText,
+                  @SuppressWarnings("SameParameterValue") CharSequence _neutralText,
                   CharSequence _checkBoxText,
                   DialogInterface.OnClickListener _positiveClick,
                   DialogInterface.OnClickListener _negativeClick,
-                  DialogInterface.OnClickListener _neutralClick,
+                  @SuppressWarnings("SameParameterValue") DialogInterface.OnClickListener _neutralClick,
                   DialogInterface.OnCancelListener _cancelListener,
                   CompoundButton.OnCheckedChangeListener _checkBoxListener,
                   boolean _cancelable,
+                  boolean _canceledOnTouchOutside,
                   boolean _checBoxChecked,
                   boolean _checkBoxEnabled,
                   Activity _activity) {
         this.activity = _activity;
+        /*
         this.positiveClick = _positiveClick;
         this.negativeClick = _negativeClick;
         this.neutralClick = _neutralClick;
+        */
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(_title);
@@ -64,6 +67,8 @@ class PPAlertDialog {
 
         TextView messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
         messageText.setText(_message);
+
+        mDialog.setCanceledOnTouchOutside(_canceledOnTouchOutside);
 
         if (_checkBoxListener != null) {
             CheckBox checkBox = layout.findViewById(R.id.info_pref_dialog_checkBox);

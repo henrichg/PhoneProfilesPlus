@@ -288,6 +288,7 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
                                     PhoneProfilesService.getGeofencesScanner().disconnect();
                             }*/
                             } else {
+                                /*
                                 AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(context);
                                 _dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
                                 _dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
@@ -303,6 +304,23 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
 //                                        if (negative != null) negative.setAllCaps(false);
 //                                    }
 //                                });
+                                */
+
+                                PPAlertDialog _dialog = new PPAlertDialog(
+                                        getString(R.string.event_preferences_locations_cant_delete_location_title),
+                                        getString(R.string.event_preferences_locations_cant_delete_location_text),
+                                        getString(android.R.string.ok),
+                                        null,
+                                        null, null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        true, true,
+                                        false, false,
+                                        getActivity()
+                                );
 
                                 if (getActivity() != null)
                                     if (!getActivity().isFinishing())

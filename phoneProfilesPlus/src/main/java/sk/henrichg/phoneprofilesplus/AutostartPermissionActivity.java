@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 //import me.drakeet.support.toast.ToastCompat;
 
@@ -68,6 +67,8 @@ public class AutostartPermissionActivity extends AppCompatActivity
                 }
                 if (!success) {
                     final AppCompatActivity activity = this;
+
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
                         dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert);
@@ -77,6 +78,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
                     dialogBuilder.setPositiveButton(android.R.string.cancel, (dialog, which) -> activity.finish());
                     dialogBuilder.setCancelable(false);
                     AlertDialog dialog = dialogBuilder.create();
+
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
 //                                public void onShow(DialogInterface dialog) {
@@ -86,6 +88,28 @@ public class AutostartPermissionActivity extends AppCompatActivity
 //                                    if (negative != null) negative.setAllCaps(false);
 //                                }
 //                            });
+                    */
+
+                    CharSequence message;
+                    if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                        message = activity.getString(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert);
+                    else
+                        message = activity.getString(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert);
+
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            activity.getString(R.string.phone_profiles_pref_systemAutoStartManager),
+                            message,
+                            getString(android.R.string.cancel), null, null, null,
+                            (dialog1, which) -> activity.finish(),
+                            null,
+                            null,
+                            null,
+                            null,
+                            false, false,
+                            false, false,
+                            this
+                    );
+
                     if (!isFinishing())
                         dialog.show();
                 }

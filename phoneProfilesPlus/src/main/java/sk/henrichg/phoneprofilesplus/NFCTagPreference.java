@@ -11,7 +11,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
 
 import java.util.ArrayList;
@@ -138,6 +137,7 @@ public class NFCTagPreference extends DialogPreference {
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(prefContext);
         if (!nfcAdapter.isEnabled()) {
             if (fragment != null) {
+                /*
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
                 dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
                 dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
@@ -153,6 +153,23 @@ public class NFCTagPreference extends DialogPreference {
 //                    if (negative != null) negative.setAllCaps(false);
 //                }
 //            });
+                */
+
+                PPAlertDialog dialog = new PPAlertDialog(
+                        prefContext.getString(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag),
+                        prefContext.getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled),
+                        prefContext.getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        fragment.getActivity()
+                );
 
                 if (fragment.getActivity() != null)
                     if (!fragment.getActivity().isFinishing())

@@ -1053,6 +1053,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         success = false;
                     }
                     if (!success) {
+                        /*
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
                             dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert);
@@ -1070,6 +1071,30 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                                    if (negative != null) negative.setAllCaps(false);
 //                                }
 //                            });
+                        */
+
+                        CharSequence message;
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                            message = getString(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert);
+                        else
+                            message = getString(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert);
+
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                getString(R.string.phone_profiles_pref_systemAutoStartManager),
+                                message,
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                getActivity()
+                        );
+
                         if (!getActivity().isFinishing())
                             dialog.show();
                     }
@@ -1419,6 +1444,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference("applicationColorOsWifiBluetoothDialogsInfo");
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference117 -> {
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     dialogBuilder.setTitle(preference117.getTitle());
                     dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix);
@@ -1435,6 +1461,23 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                                if (negative != null) negative.setAllCaps(false);
 //                            }
 //                        });
+                    */
+
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference117.getTitle(),
+                            getString(R.string.phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            getActivity()
+                    );
 
                     if (!getActivity().isFinishing())
                         dialog.show();
@@ -1454,6 +1497,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference("applicationMIUIWifiBluetoothDialogsInfo");
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference118 -> {
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     dialogBuilder.setTitle(preference118.getTitle());
                     dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message);
@@ -1505,6 +1549,57 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                                if (negative != null) negative.setAllCaps(false);
 //                            }
 //                        });
+                    */
+
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference118.getTitle(),
+                            getString(R.string.phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message),
+                            getString(R.string.miui_permissions_alert_dialog_show),
+                            getString(android.R.string.cancel),
+                            null, null,
+                            (dialog1, which) -> {
+                                boolean ok = false;
+                                Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                intent.setClassName("com.miui.securitycenter",
+                                        "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                                intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                                if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                                    try {
+                                        startActivity(intent);
+                                        ok = true;
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                }
+                                if (!ok) {
+                                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(getActivity());
+                                    dialogBuilder2.setMessage(R.string.setting_screen_not_found_alert);
+                                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+                                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog2 = dialogBuilder2.create();
+
+//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                                    if (!getActivity().isFinishing())
+                                        dialog2.show();
+                                }
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            getActivity()
+                    );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();
@@ -1553,6 +1648,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference("applicationWifiControlInfo");
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference118 -> {
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     dialogBuilder.setTitle(preference118.getTitle());
                     dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationWifiControlInfo_message);
@@ -1601,6 +1697,54 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                                if (negative != null) negative.setAllCaps(false);
 //                            }
 //                        });
+                    */
+
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference118.getTitle(),
+                            getString(R.string.phone_profiles_pref_applicationWifiControlInfo_message),
+                            getString(R.string.phone_profiles_pref_applicationWifiControlInfo_showButton),
+                            getString(android.R.string.cancel),
+                            null, null,
+                            (dialog1, which) -> {
+                                boolean ok = false;
+                                final Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                                if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                                    try {
+                                        startActivity(intent);
+                                        ok = true;
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                }
+                                if (!ok) {
+                                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(getActivity());
+                                    dialogBuilder2.setMessage(R.string.setting_screen_not_found_alert);
+                                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+                                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog2 = dialogBuilder2.create();
+
+//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                                    if (!getActivity().isFinishing())
+                                        dialog2.show();
+                                }
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            getActivity()
+                    );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();

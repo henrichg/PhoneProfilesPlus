@@ -1177,6 +1177,7 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.gui_items_help) {
+            /*
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.gui_items_help_alert_title);
             dialogBuilder.setMessage(R.string.gui_items_help_alert_message);
@@ -1197,6 +1198,24 @@ public class EditorActivity extends AppCompatActivity
 //                        if (negative != null) negative.setAllCaps(false);
 //                    }
 //                });
+            */
+
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.gui_items_help_alert_title),
+                    getString(R.string.gui_items_help_alert_message),
+                    getString(R.string.alert_button_yes), getString(R.string.alert_button_no), null, null,
+                    (dialog1, which) -> {
+                        ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
+                        GlobalGUIRoutines.reloadActivity(this, true);
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();
@@ -2226,7 +2245,7 @@ public class EditorActivity extends AppCompatActivity
                     GlobalGUIRoutines.reloadActivity(EditorActivity.this, true);
                 },
                 null,
-                true,
+                true, true,
                 false, false,
                 this
         );
@@ -2735,7 +2754,7 @@ public class EditorActivity extends AppCompatActivity
                 null,
                 null,
                 null,
-                true,
+                true, true,
                 false, false,
                 this
         );
