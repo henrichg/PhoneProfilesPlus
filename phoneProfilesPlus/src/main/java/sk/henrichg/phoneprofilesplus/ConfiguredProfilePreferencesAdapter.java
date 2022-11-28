@@ -75,9 +75,11 @@ class ConfiguredProfilePreferencesAdapter extends BaseAdapter
         }
 
         //String applicationTheme = ApplicationPreferences.applicationTheme(context.getApplicationContext(), true);
-        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+        //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
 //                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
+        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+        boolean nightModeOn = !applicationTheme.equals("white");
 
         if (configuredPreferences.preferenceIcon == 0) {
             holder.preferenceIcon.setVisibility(View.GONE);

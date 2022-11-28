@@ -2860,9 +2860,11 @@ public class Profile {
     Bitmap increaseProfileIconBrightnessForContext(Context context, Bitmap iconBitmap) {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
         try {
-            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
             //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
             //== Configuration.UI_MODE_NIGHT_YES;
+            String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+            boolean nightModeOn = !applicationTheme.equals("white");
 
             if (nightModeOn) {
                 int iconColor;
@@ -2894,9 +2896,11 @@ public class Profile {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
         try {
             if (activity != null) {
-                boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(activity.getApplicationContext());
+                //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(activity.getApplicationContext());
                 //(activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 //== Configuration.UI_MODE_NIGHT_YES;
+                String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
+                boolean nightModeOn = !applicationTheme.equals("white");
 
                 if (nightModeOn) {
                     int iconColor;

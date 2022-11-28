@@ -560,9 +560,11 @@ public class ProfileStatic {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
         try {
             if (preference != null) {
-                boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(preference.prefContext.getApplicationContext());
+                //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(preference.prefContext.getApplicationContext());
                 //(preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 //== Configuration.UI_MODE_NIGHT_YES;
+                String applicationTheme = ApplicationPreferences.applicationTheme(preference.prefContext, true);
+                boolean nightModeOn = !applicationTheme.equals("white");
 
                 if (nightModeOn) {
                     int iconColor;

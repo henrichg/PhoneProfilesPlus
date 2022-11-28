@@ -43,9 +43,11 @@ public class BetterNumberPickerPreferenceFragment extends PreferenceDialogFragme
         //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
         mNumberPicker.setNumber(Integer.valueOf(preference.value), null, null);
 
-        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+        //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
 //                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                == Configuration.UI_MODE_NIGHT_YES;
+        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+        boolean nightModeOn = !applicationTheme.equals("white");
 
         if (/*ApplicationPreferences.applicationTheme(context, true).equals("dark")*/nightModeOn)
             mNumberPicker.setTheme(R.style.BetterPickersDialogFragment);

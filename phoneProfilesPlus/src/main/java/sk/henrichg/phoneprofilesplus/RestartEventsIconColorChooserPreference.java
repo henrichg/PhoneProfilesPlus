@@ -147,11 +147,12 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
             }
         }*/
 
-        String applicationTheme; // = "white";// = ApplicationPreferences.applicationTheme(context, true);
-        if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
-            applicationTheme = "dark";
-        else
-            applicationTheme = "white";
+        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+        //String applicationTheme; // = "white";// = ApplicationPreferences.applicationTheme(context, true);
+        //if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
+        //    applicationTheme = "dark";
+        //else
+        //    applicationTheme = "white";
 //        int nightModeFlags =
 //                context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 //        switch (nightModeFlags) {

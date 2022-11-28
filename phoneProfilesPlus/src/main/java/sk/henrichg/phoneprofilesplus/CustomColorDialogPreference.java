@@ -106,7 +106,10 @@ public class CustomColorDialogPreference extends DialogPreference {
                 colorPreview.setImageResource(R.drawable.acch_circle);
 
                 // Update color
-                if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
+                String applicationTheme = ApplicationPreferences.applicationTheme(prefContext, true);
+                boolean nightModeOn = !applicationTheme.equals("white");
+                //if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
+                if (nightModeOn)
                     colorPreview.getDrawable()
                             .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
                 else
