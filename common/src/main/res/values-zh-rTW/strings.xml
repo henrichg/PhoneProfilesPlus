@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) 一律顯示</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">按此處顯示有關偏好設置類型的資訊: (S)、(G1)、(R)、(I)。</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
 </resources>

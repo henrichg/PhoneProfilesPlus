@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Завжди на екрані</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Компактна сітка</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При такій сітці імена профілів не показуватимуться, але більше профілів може вміститися в одному рядку.</string>
 </resources>

@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Нажмите сюда, чтобы посмотреть информацию о типах параметров: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Настройки панели Samsung Edge</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Компактная сетка</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При этом типе сетки названия профилей не отображаются, но в одну строку помещается больше профилей.</string>
 </resources>

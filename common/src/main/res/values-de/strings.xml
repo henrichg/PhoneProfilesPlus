@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Display immer eingeschaltet</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Hier klicken, um Informationen über die Arten von Einstellungen anzuzeigen: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Samsung Seitenleiste (Edge Panel) Einstellungen</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Kompaktes Raster</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Bei dieser Art von Raster werden die Profilnamen nicht angezeigt, aber es können mehr Profile in eine Zeile passen.</string>
 </resources>

@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) pantalla siempre encendida</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Haz clic aquí para mostrar información sobre los tipos de preferencias: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Ajustes del panel de Samsung edge</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Cuadrícula Compacta</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Con este tipo de cuadrícula, los nombres de perfil no se mostrarán, pero cabrán más perfiles pueden por fila.</string>
 </resources>

@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) wyświetlacz Always-On</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Kliknij tu, aby wyświetlić informację o ustawieniach oznaczonych: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
 </resources>

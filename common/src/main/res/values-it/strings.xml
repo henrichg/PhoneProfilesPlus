@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Schermo Sempre Acceso</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Clicca qui per mostrare informazioni sui tipi di preferenze: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Griglia compatta</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Con questo tipo di griglia, i nomi dei profili non saranno visualizzati, ma più profili possono essere inseriti in una riga.</string>
 </resources>

@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Altijd aan schermweergave</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Klik hier om informatie te tonen over voorkeur types: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Compacte raster</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Met dit type raster worden profielnamen niet weergegeven, maar meer profielen passen in één rij.</string>
 </resources>

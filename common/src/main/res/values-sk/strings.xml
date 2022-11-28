@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-on displej</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Kliknite sem pre zobrazenie informácií o typoch parametrov: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Nastavenia pre Samsung bočný panel</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Kompaktná mriežka</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Pri tomto type mriežky sa nebudú zobrazovať názvy profilov, ale do jedného riadku sa zmestí viac profilov.</string>
 </resources>

@@ -2018,4 +2018,6 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Affichage permanent</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Cliquez ici pour afficher des informations sur les types de préférences: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Paramètres du panneau de bord Samsung</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">Grille compacte</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Avec ce type de grille, les noms de profil ne seront pas affichés, mais plus de profils peuvent tenir sur une seule ligne.</string>
 </resources>
