@@ -78,6 +78,7 @@
                 android:paddingEnd="@dimen/profile_name_widget_margin"
                 android:text="@string/profile_name_default"
                 android:textSize="18dp"
+                android:textStyle="bold"
                 android:ellipsize="end"
                 android:maxLines="1"
                 tools:ignore="SpUsage" />
