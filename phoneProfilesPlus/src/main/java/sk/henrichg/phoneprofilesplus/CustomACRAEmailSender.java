@@ -10,7 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
 
-//import com.google.auto.service.AutoService;
+import com.google.auto.service.AutoService;
 
 import org.acra.attachment.AcraContentProvider;
 import org.acra.config.Configuration;
@@ -19,7 +19,7 @@ import org.acra.config.MailSenderConfiguration;
 import org.acra.data.CrashReportData;
 import org.acra.sender.ReportSender;
 import org.acra.sender.ReportSenderException;
-//import org.acra.sender.ReportSenderFactory;
+import org.acra.sender.ReportSenderFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -145,7 +145,6 @@ public class CustomACRAEmailSender implements ReportSender {
         return null;
     }
 
-/*
     @AutoService(ReportSenderFactory.class)
     public static class CustomACRAEmailSenderFactory implements ReportSenderFactory {
         @NotNull
@@ -155,6 +154,5 @@ public class CustomACRAEmailSender implements ReportSender {
             return new CustomACRAEmailSender(coreConfiguration);
         }
     }
-*/
 
 }
