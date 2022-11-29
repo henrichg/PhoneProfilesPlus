@@ -744,18 +744,25 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         // clicks
         //if (largeLayout)
         //{
+            /*
             Intent intent = new Intent(context, EditorActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
-                                                        PendingIntent.FLAG_UPDATE_CURRENT);
-            widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
+            */
+        // intent for start LauncherActivity on widget click
+        Intent intent = new Intent(context, LauncherActivity.class);
+        // clear all opened activities
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
 
-            //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
-                //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
-                Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
-                PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-                widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events_click, pIntentRE);
-            //}
+        //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+        //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
+        Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
+        PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
+        widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events_click, pIntentRE);
+        //}
             //else
             //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
 

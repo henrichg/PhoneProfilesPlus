@@ -98,6 +98,9 @@ public class LauncherActivity extends AppCompatActivity {
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorActivity.class);
                 break;
+            case PPApplication.STARTUP_SOURCE_EDITOR:
+                intentLaunch = new Intent(getApplicationContext(), EditorActivity.class);
+                break;
             default:
                 if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivatorActivity.class);
