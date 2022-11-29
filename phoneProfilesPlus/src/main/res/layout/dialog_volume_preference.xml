@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <View
-        android:id="@+id/volumePrefDialogNoChange_titleBarDivider"
+        android:id="@+id/volumePrefDialog_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
@@ -72,4 +72,13 @@
             android:splitTrack="false" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/volumePrefDialog_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
 </LinearLayout>
