@@ -87,17 +87,19 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             //final String _lastPausedEvents = lastPausedEvents;
             final String _cellName = cellNameTextView.getText().toString();
 
-            final Context appContext = getApplicationContext();
-            //PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-            //__handler.post(() -> {
-            Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (1)");
+            if (!_cellName.isEmpty()) {
 
-                //Context appContext= appContextWeakRef.get();
+                final Context appContext = getApplicationContext();
+                //PPApplication.startHandlerThread(/*"NotUsedMobileCellsDetectedActivity.onClick"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
+                    //                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (1)");
 
-                //if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+
+                    //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -106,18 +108,16 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        if (!_cellName.isEmpty()) {
+                        DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
-                            DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                        // add or rename cell with _cellName
+                        List<MobileCellsData> localCellsList = new ArrayList<>();
+                        localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
+                                true, false, _lastConnectedTime/*, _lastRunningEvents, _lastPausedEvents, false*/));
+                        db.saveMobileCellsList(localCellsList, true, true);
 
-                            // add or rename cell with _cellName
-                            List<MobileCellsData> localCellsList = new ArrayList<>();
-                            localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
-                                    true, false, _lastConnectedTime/*, _lastRunningEvents, _lastPausedEvents, false*/));
-                            db.saveMobileCellsList(localCellsList, true, true);
-
-                            // used are lastRunningEvents and lastPausedEvents
-                            // for update configured mobile cellls in events
+                        // used are lastRunningEvents and lastPausedEvents
+                        // for update configured mobile cellls in events
 
                             /*
                             // add cell to running events
@@ -144,40 +144,38 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 }
                             }
                             */
-                            // add cell to paused events
-                            for (Event event : eventList) {
-                                if (event.getStatus() == 1) {
-                                    // event is checked in listView
-                                    String currentCells = db.getEventMobileCellsCells(event._id);
-                                    if (!currentCells.isEmpty()) {
-                                        String newCells = MobileCellsScanner.addCellId(currentCells, _mobileCellId);
-                                        db.updateMobileCellsCells(event._id, newCells);
+                        // add cell to paused events
+                        for (Event event : eventList) {
+                            if (event.getStatus() == 1) {
+                                // event is checked in listView
+                                String currentCells = db.getEventMobileCellsCells(event._id);
+                                if (!currentCells.isEmpty()) {
+                                    String newCells = MobileCellsScanner.addCellId(currentCells, _mobileCellId);
+                                    db.updateMobileCellsCells(event._id, newCells);
 
-                                        // broadcast for event preferences
-                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-                                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _mobileCellId);
-                                        intent.setPackage(PPApplication.PACKAGE_NAME);
-                                        appContext.sendBroadcast(intent);
+                                    // broadcast for event preferences
+                                    Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+                                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                                    intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _mobileCellId);
+                                    intent.setPackage(PPApplication.PACKAGE_NAME);
+                                    appContext.sendBroadcast(intent);
 
-                                        //Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-                                        //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
-                                        //LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
-                                    }
+                                    //Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+                                    //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
+                                    //LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                 }
                             }
-
-                            if ((PhoneProfilesService.getInstance() != null) && PPApplication.mobileCellsScanner != null) {
-                                PPApplication.mobileCellsScanner.handleEvents(appContext);
-                            }
-                            // must be higher then delay in handleEvents
-//                        PPApplication.logE("[PPP_NOTIFICATION] NotUsedMobileCellsDetectedActivity.onStart", "call of updateGUI");
-                            PPApplication.updateGUI(false, true, appContext);
-
                         }
 
+                        if ((PhoneProfilesService.getInstance() != null) && PPApplication.mobileCellsScanner != null) {
+                            PPApplication.mobileCellsScanner.handleEvents(appContext);
+                        }
+                        // must be higher then delay in handleEvents
+                        //                        PPApplication.logE("[PPP_NOTIFICATION] NotUsedMobileCellsDetectedActivity.onStart", "call of updateGUI");
+                        PPApplication.updateGUI(false, true, appContext);
+
                     } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        //                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -187,10 +185,12 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             }
                         }
                     }
-                //}
-            }; //);
-            PPApplication.createBasicExecutorPool();
-            PPApplication.basicExecutorPool.submit(runnable);
+                    //}
+                }; //);
+                PPApplication.createBasicExecutorPool();
+                PPApplication.basicExecutorPool.submit(runnable);
+
+            }
 
             finish();
         });
