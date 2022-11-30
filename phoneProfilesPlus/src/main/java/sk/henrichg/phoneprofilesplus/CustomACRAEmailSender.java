@@ -66,20 +66,20 @@ public class CustomACRAEmailSender implements ReportSender {
     final CoreConfiguration coreConfiguration;
 
     CustomACRAEmailSender(@NotNull CoreConfiguration coreConfiguration) {
-        Log.e("CustomACRAEmailSender constructor", "***** ###### *****");
+//        Log.e("CustomACRAEmailSender constructor", "***** ###### *****");
         this.coreConfiguration = coreConfiguration;
     }
 
     @Override
     public void send(@NotNull Context context, @NotNull CrashReportData errorContent)
             throws ReportSenderException {
-        Log.e("CustomACRAEmailSender.send", "Report Sent!");
+//        Log.e("CustomACRAEmailSender.send", "Report Sent!");
 
         List<Configuration> plugins = coreConfiguration.getPluginConfigurations();
-        Log.e("CustomACRAEmailSender.send", "plugins.size=" + plugins.size());
+//        Log.e("CustomACRAEmailSender.send", "plugins.size=" + plugins.size());
         for (Configuration plugin : plugins) {
             if (plugin instanceof MailSenderConfiguration) {
-                Log.e("CustomACRAEmailSender.send", "MailSenderConfiguration");
+//                Log.e("CustomACRAEmailSender.send", "MailSenderConfiguration");
 
                 MailSenderConfiguration mailConfig = (MailSenderConfiguration) plugin;
 
@@ -150,7 +150,7 @@ public class CustomACRAEmailSender implements ReportSender {
         @NotNull
         @Override
         public ReportSender create(@NotNull Context context, @NotNull CoreConfiguration coreConfiguration) {
-            Log.e("CustomACRAEmailSenderFactory.create", "#### ***** ####");
+//            Log.e("CustomACRAEmailSenderFactory.create", "#### ***** ####");
             return new CustomACRAEmailSender(coreConfiguration);
         }
     }
