@@ -30,50 +30,50 @@
             android:textStyle="bold" />
 
         <TextView
-        android:id="@+id/not_used_mobile_cells_dlg_connection_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/not_used_mobile_cells_detected_connection_time"
-        android:textSize="16sp"/>
+            android:id="@+id/not_used_mobile_cells_dlg_connection_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/not_used_mobile_cells_detected_connection_time"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/not_used_mobile_cells_dlg_cells_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="6dp"
-        android:paddingBottom="7dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:hint="@string/mobile_cells_registration_cell_name_hint"
-        android:textColor="@color/accent"
-        android:textStyle="bold"
-        android:textColorHint="@color/accent"
-        android:background="@drawable/pp_button_background_selector"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/not_used_mobile_cells_dlg_cells_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="7dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:hint="@string/mobile_cells_registration_cell_name_hint"
+            android:textColor="@color/accent"
+            android:textStyle="bold"
+            android:textColorHint="@color/accent"
+            android:background="@drawable/pp_button_background_selector"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/not_used_mobile_cells_dlg_last_running_events_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/not_used_mobile_cells_detected_last_running_events_label"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/not_used_mobile_cells_dlg_last_running_events_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/not_used_mobile_cells_detected_last_running_events_label"
+            android:textSize="16sp" />
 
-    <ListView
-        android:id="@+id/not_used_mobile_cells_dlg_last_running_events_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:fadeScrollbars="false"
-        android:divider="@android:color/transparent"
-        android:listSelector="?attr/listViewItemBackground" />
+        <ListView
+            android:id="@+id/not_used_mobile_cells_dlg_last_running_events_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
+            android:divider="@android:color/transparent"
+            android:listSelector="?attr/listViewItemBackground" />
 
     </LinearLayout>
 </LinearLayout>
