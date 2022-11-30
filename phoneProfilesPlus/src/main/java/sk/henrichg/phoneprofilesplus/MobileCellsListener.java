@@ -611,7 +611,7 @@ class MobileCellsListener extends PhoneStateListener {
 
                         if (!db.isMobileCellSaved(_registeredCell)) {
 
-                            // not needed to add cell without name added will be in
+                            // not needed to add cell without name, added will be in
                             // NotUsedMobileCellsDetectedActivity
                             /*
                             // add new cell
