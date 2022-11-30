@@ -552,15 +552,19 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 _rhs = _rhs + "-" + rhs.cellId;*/
                 _rhs = String.valueOf(rhs.lastConnectedTime);
                 return PPApplication.collator.compare(_rhs, _lhs);
-            }
-            else
+            } else
                 return 0;
         }
 
     }
 
-    void showEditMenu(View view)
-    {
+    //TODO, tu by bolo super pridat: "Delete all non-selected". Toto tam chyba, dalo by sa tym mazat
+    // vsetky bezmenne nepouzite, ak si uzivatel nastavi filter na bezmenne
+    // !!! Bacha! Ako pre "Delete all selected", tiez zmaz len tie z aktualneho filtra !!!
+
+    //TODO tu by asi bolo super dat test, ci sa mazana bunka nahodou nepouizva v inej
+    // udalosti
+    void showEditMenu(View view) {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
         PopupMenu popup;
@@ -579,6 +583,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
                     dialogBuilder.setMessage(getString(R.string.delete_mobile_cell_alert_message));
+                    //TODO sem daj upozornenie, ze to zmaze pouzivanu aj v inych udalostiach
+                    // lebo jedna bunka sa moze pouzivat v roznych udalostiach naraz
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         DatabaseHandler db = DatabaseHandler.getInstance(_context);
@@ -605,10 +611,13 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 return true;
             }
             if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_selected) {
+                // this delete all selected cells in actual filter
                 if (getActivity() != null) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
                     dialogBuilder.setMessage(getString(R.string.delete_selected_mobile_cells_alert_message));
+                    //TODO sem daj upozornenie, ze to zmaze bunky pouzivane aj v inych udalostiach
+                    // lebo jedna bunka sa moze pouzivat v roznych udalostiach naraz
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         DatabaseHandler db = DatabaseHandler.getInstance(_context);
@@ -640,8 +649,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                         dialog.show();
                 }
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         });
@@ -757,10 +765,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     fragment.preference.registeredCellDataSIM1.name,
                                     fragment.preference.registeredCellDataSIM1.connected,
                                     fragment.preference.registeredCellDataSIM1._new,
-                                    fragment.preference.registeredCellDataSIM1.lastConnectedTime,
-                                    fragment.preference.registeredCellDataSIM1.lastRunningEvents,
-                                    fragment.preference.registeredCellDataSIM1.lastPausedEvents,
-                                    fragment.preference.registeredCellDataSIM1.doNotDetect);
+                                    fragment.preference.registeredCellDataSIM1.lastConnectedTime//,
+                                    //fragment.preference.registeredCellDataSIM1.lastRunningEvents,
+                                    //fragment.preference.registeredCellDataSIM1.lastPausedEvents,
+                                    //fragment.preference.registeredCellDataSIM1.doNotDetect
+                            );
                         }
                         _registeredCellInTableSIM1 = fragment.preference.registeredCellInTableSIM1;
                         _registeredCellInValueSIM1 = fragment.preference.registeredCellInValueSIM1;
@@ -772,10 +781,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     fragment.preference.registeredCellDataSIM2.name,
                                     fragment.preference.registeredCellDataSIM2.connected,
                                     fragment.preference.registeredCellDataSIM2._new,
-                                    fragment.preference.registeredCellDataSIM2.lastConnectedTime,
-                                    fragment.preference.registeredCellDataSIM2.lastRunningEvents,
-                                    fragment.preference.registeredCellDataSIM2.lastPausedEvents,
-                                    fragment.preference.registeredCellDataSIM2.doNotDetect);
+                                    fragment.preference.registeredCellDataSIM2.lastConnectedTime//,
+                                    //fragment.preference.registeredCellDataSIM2.lastRunningEvents,
+                                    //fragment.preference.registeredCellDataSIM2.lastPausedEvents,
+                                    //fragment.preference.registeredCellDataSIM2.doNotDetect
+                            );
                         }
                         _registeredCellInTableSIM2 = fragment.preference.registeredCellInTableSIM2;
                         _registeredCellInValueSIM2 = fragment.preference.registeredCellInValueSIM2;
@@ -786,10 +796,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 fragment.preference.registeredCellDataDefault.name,
                                 fragment.preference.registeredCellDataDefault.connected,
                                 fragment.preference.registeredCellDataDefault._new,
-                                fragment.preference.registeredCellDataDefault.lastConnectedTime,
-                                fragment.preference.registeredCellDataDefault.lastRunningEvents,
-                                fragment.preference.registeredCellDataDefault.lastPausedEvents,
-                                fragment.preference.registeredCellDataDefault.doNotDetect);
+                                fragment.preference.registeredCellDataDefault.lastConnectedTime//,
+                                //fragment.preference.registeredCellDataDefault.lastRunningEvents,
+                                //fragment.preference.registeredCellDataDefault.lastPausedEvents,
+                                //fragment.preference.registeredCellDataDefault.doNotDetect
+                        );
                     }
                     _registeredCellInTableDefault = fragment.preference.registeredCellInTableDefault;
                     _registeredCellInValueDefault = fragment.preference.registeredCellInValueDefault;
@@ -852,10 +863,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     synchronized (PPApplication.mobileCellsScannerMutex) {
                                         _registeredCellDataSIM1 = new MobileCellsData(registeredCell,
                                                 _cellName, true, true,
-                                                lastConnectedTime,
-                                                MobileCellsScanner.lastRunningEventsNotOutside,
-                                                MobileCellsScanner.lastPausedEventsOutside,
-                                                false);
+                                                lastConnectedTime//,
+                                                //MobileCellsScanner.lastRunningEventsNotOutside,
+                                                //MobileCellsScanner.lastPausedEventsOutside,
+                                                //false
+                                        );
                                         _cellsList.add(_registeredCellDataSIM1);
                                     }
                                 }
@@ -875,10 +887,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     synchronized (PPApplication.mobileCellsScannerMutex) {
                                         _registeredCellDataSIM2 = new MobileCellsData(registeredCell,
                                                 _cellName, true, true,
-                                                lastConnectedTime,
-                                                MobileCellsScanner.lastRunningEventsNotOutside,
-                                                MobileCellsScanner.lastPausedEventsOutside,
-                                                false);
+                                                lastConnectedTime//,
+                                                //MobileCellsScanner.lastRunningEventsNotOutside,
+                                                //MobileCellsScanner.lastPausedEventsOutside,
+                                                //false
+                                        );
                                         _cellsList.add(_registeredCellDataSIM2);
                                     }
                                 }
@@ -898,10 +911,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 synchronized (PPApplication.mobileCellsScannerMutex) {
                                     _registeredCellDataDefault = new MobileCellsData(registeredCell,
                                             _cellName, true, true,
-                                            lastConnectedTime,
-                                            MobileCellsScanner.lastRunningEventsNotOutside,
-                                            MobileCellsScanner.lastPausedEventsOutside,
-                                            false);
+                                            lastConnectedTime//,
+                                            //MobileCellsScanner.lastRunningEventsNotOutside,
+                                            //MobileCellsScanner.lastPausedEventsOutside,
+                                            //false
+                                    );
                                     _cellsList.add(_registeredCellDataDefault);
                                 }
                             }
@@ -926,8 +940,9 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             try {
                                 int iCell = Integer.parseInt(cell);
                                 _cellsList.add(new MobileCellsData(iCell, _cellName,
-                                        false, false, 0,
-                                        "", "", false));
+                                        false, false, 0/*,
+                                        "", "", false*/
+                                ));
                             } catch (Exception e) {
                                 //PPApplication.recordException(e);
                             }
@@ -968,11 +983,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     else
                         _cellsList.sort(new SortByConnectionList());
 
-
                     _filteredCellsList.clear();
-                    splits = _value.split("\\|");
                     for (MobileCellsData cellData : _cellsList) {
                         if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
+                            // add only cell in _value = selected for edited event
+                            splits = _value.split("\\|");
                             for (String cell : splits) {
                                 if (cell.equals(Integer.toString(cellData.cellId))) {
                                     _filteredCellsList.add(cellData);
@@ -980,14 +995,18 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 }
                             }
                         } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
+                            // add all with empty cell name
                             if (cellData.name.isEmpty())
                                 _filteredCellsList.add(cellData);
                         } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_new))) {
+                            // add all with _new=true
                             if (cellData._new)
                                 _filteredCellsList.add(cellData);
                         } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_all))) {
+                            // add all cells
                             _filteredCellsList.add(cellData);
                         } else {
+                            // add only cells with filtered cell name
                             if (_cellFilterValue.equals(cellData.name))
                                 _filteredCellsList.add(cellData);
                         }
@@ -1035,10 +1054,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     _registeredCellDataSIM1.name,
                                     _registeredCellDataSIM1.connected,
                                     _registeredCellDataSIM1._new,
-                                    _registeredCellDataSIM1.lastConnectedTime,
-                                    _registeredCellDataSIM1.lastRunningEvents,
-                                    _registeredCellDataSIM1.lastPausedEvents,
-                                    _registeredCellDataSIM1.doNotDetect);
+                                    _registeredCellDataSIM1.lastConnectedTime//,
+                                    //_registeredCellDataSIM1.lastRunningEvents,
+                                    //_registeredCellDataSIM1.lastPausedEvents,
+                                    //_registeredCellDataSIM1.doNotDetect
+                            );
                         }
                         preference.registeredCellInTableSIM1 = _registeredCellInTableSIM1;
                         preference.registeredCellInValueSIM1 = _registeredCellInValueSIM1;
@@ -1049,10 +1069,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     _registeredCellDataSIM2.name,
                                     _registeredCellDataSIM2.connected,
                                     _registeredCellDataSIM2._new,
-                                    _registeredCellDataSIM2.lastConnectedTime,
-                                    _registeredCellDataSIM2.lastRunningEvents,
-                                    _registeredCellDataSIM2.lastPausedEvents,
-                                    _registeredCellDataSIM2.doNotDetect);
+                                    _registeredCellDataSIM2.lastConnectedTime//,
+                                    //_registeredCellDataSIM2.lastRunningEvents,
+                                    //_registeredCellDataSIM2.lastPausedEvents,
+                                    //_registeredCellDataSIM2.doNotDetect
+                            );
                         }
                         preference.registeredCellInTableSIM2 = _registeredCellInTableSIM2;
                         preference.registeredCellInValueSIM2 = _registeredCellInValueSIM2;
@@ -1063,10 +1084,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 _registeredCellDataDefault.name,
                                 _registeredCellDataDefault.connected,
                                 _registeredCellDataDefault._new,
-                                _registeredCellDataDefault.lastConnectedTime,
-                                _registeredCellDataDefault.lastRunningEvents,
-                                _registeredCellDataDefault.lastPausedEvents,
-                                _registeredCellDataDefault.doNotDetect);
+                                _registeredCellDataDefault.lastConnectedTime//,
+                                //_registeredCellDataDefault.lastRunningEvents,
+                                //_registeredCellDataDefault.lastPausedEvents,
+                                //_registeredCellDataDefault.doNotDetect
+                        );
                     }
                     preference.registeredCellInTableDefault = _registeredCellInTableDefault;
                     preference.registeredCellInValueDefault = _registeredCellInValueDefault;

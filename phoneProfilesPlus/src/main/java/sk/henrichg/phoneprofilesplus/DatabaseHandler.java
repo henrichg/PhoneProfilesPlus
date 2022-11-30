@@ -1222,8 +1222,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.isMobileCellSaved(this, mobileCell);
     }
 
-    void loadMobileCellsSensorRunningPausedEvents(List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
-        DatabaseHandlerEvents.loadMobileCellsSensorRunningPausedEvents(this, eventList);
+    void loadMobileCellsSensorPausedEvents(List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
+        DatabaseHandlerEvents.loadMobileCellsSensorPausedEvents(this, eventList);
     }
 
     String getEventMobileCellsCells(long eventId) {

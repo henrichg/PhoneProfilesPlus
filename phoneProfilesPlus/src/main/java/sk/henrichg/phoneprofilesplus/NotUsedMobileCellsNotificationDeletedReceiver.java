@@ -42,9 +42,17 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             db.addMobileCellsToList(localCellsList, mobileCellId);
                             if (!localCellsList.isEmpty()) {
+                                //TODO tu mam zvlastnu vec, nemazem bunku, nastavujem ju, ze sa nema detegovat
+                                // co vlastne robi ten cell.doNotDetect? Zobrazuje sa taka bunla vobec v
+                                // preferences buniek? Zobrazuje sa, len to znamena, ze sa nema brat ako
+                                // zaregistrovana, listener ju ma ignorovat.
+                                // Teraz uz len zistit kedy ten doNotDetect nastavujem na false.
                                 MobileCellsData cell = localCellsList.get(0);
-                                cell.doNotDetect = true;
-                                db.saveMobileCellsList(localCellsList, true, false);
+
+                                //cell.doNotDetect = true;
+                                //db.saveMobileCellsList(localCellsList, true, false);
+
+                                db.deleteMobileCell(cell.cellId);
                             }
 
                         } catch (Exception e) {

@@ -28,8 +28,8 @@ class MobileCellsScanner {
     MobileCellsListener mobileCellsListenerSIM1 = null;
     MobileCellsListener mobileCellsListenerSIM2 = null;
 
-    static volatile String lastRunningEventsNotOutside = "";
-    static volatile String lastPausedEventsOutside = "";
+    //static volatile String lastRunningEventsNotOutside = "";
+    static volatile String lastPausedEvents = "";
 
     //static volatile boolean forceStart = false;
 

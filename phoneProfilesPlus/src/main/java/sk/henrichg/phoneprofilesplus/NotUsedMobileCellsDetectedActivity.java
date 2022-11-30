@@ -33,14 +33,14 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
     private int mobileCellId = Integer.MAX_VALUE;
     private long lastConnectedTime = 0;
-    private String lastRunningEvents = "";
+    //private String lastRunningEvents = "";
     private String lastPausedEvents = "";
 
     private final List<Event> eventList = new ArrayList<>();
 
     static final String EXTRA_MOBILE_CELL_ID = "mobile_cell_id";
     static final String EXTRA_MOBILE_LAST_CONNECTED_TIME = "last_connected_time";
-    static final String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
+    //static final String EXTRA_MOBILE_LAST_RUNNING_EVENTS = "last_running_events";
     static final String EXTRA_MOBILE_LAST_PAUSED_EVENTS = "last_paused_events";
 
     @Override
@@ -54,7 +54,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         if (intent != null) {
             mobileCellId = intent.getIntExtra(EXTRA_MOBILE_CELL_ID, 0);
             lastConnectedTime = intent.getLongExtra(EXTRA_MOBILE_LAST_CONNECTED_TIME, 0);
-            lastRunningEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_RUNNING_EVENTS);
+            //lastRunningEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_RUNNING_EVENTS);
             lastPausedEvents = intent.getStringExtra(EXTRA_MOBILE_LAST_PAUSED_EVENTS);
         }
     }
@@ -83,7 +83,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
             final int _mobileCellId = mobileCellId;
             final long _lastConnectedTime = lastConnectedTime;
-            final String _lastRunningEvents = lastRunningEvents;
+            //final String _lastRunningEvents = lastRunningEvents;
             final String _lastPausedEvents = lastPausedEvents;
             final String _cellName = cellNameTextView.getText().toString();
 
@@ -108,12 +108,16 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                         DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
-                        // rename cell with _cellName
+                        // add or rename cell with _cellName
                         List<MobileCellsData> localCellsList = new ArrayList<>();
                         localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
-                                true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents, false));
+                                true, false, _lastConnectedTime/*, _lastRunningEvents, _lastPausedEvents, false*/));
                         db.saveMobileCellsList(localCellsList, true, true);
 
+                        // used are lastRunningEvents and lastPausedEvents
+                        // for update configured mobile cellls in events
+
+                        /*
                         // add cell to running events
                         String[] eventIds = _lastRunningEvents.split("\\|");
                         for (String eventId : eventIds) {
@@ -137,8 +141,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        */
                         // add cell to paused events
-                        eventIds = _lastPausedEvents.split("\\|");
+                        String[] eventIds = _lastPausedEvents.split("\\|");
                         for (String eventId : eventIds) {
                             if (!eventId.isEmpty()) {
                                 long _eventId = Long.parseLong(eventId);
@@ -189,8 +194,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
             final int _mobileCellId = mobileCellId;
             final long _lastConnectedTime = lastConnectedTime;
-            final String _lastRunningEvents = lastRunningEvents;
-            final String _lastPausedEvents = lastPausedEvents;
+            //final String _lastRunningEvents = lastRunningEvents;
+            //final String _lastPausedEvents = lastPausedEvents;
             final String _cellName = cellNameTextView.getText().toString();
 
             final Context appContext = getApplicationContext();
@@ -216,8 +221,8 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                         List<MobileCellsData> localCellsList = new ArrayList<>();
                         localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
-                                true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents,
-                                true)); // do not detect again
+                                true, false, _lastConnectedTime/*, _lastRunningEvents, _lastPausedEvents,
+                                true*/)); // do not detect again
                         db.saveMobileCellsList(localCellsList, true, true);
 
                     } catch (Exception e) {
@@ -350,6 +355,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
 
                 //eventList.clear();
 
+                /*
                 String[] eventIds = activity.lastRunningEvents.split("\\|");
                 for (String eventId : eventIds) {
                     if (!eventId.isEmpty()) {
@@ -360,8 +366,9 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         }
                     }
                 }
+                */
 
-                eventIds = activity.lastPausedEvents.split("\\|");
+                String[] eventIds = activity.lastPausedEvents.split("\\|");
                 for (String eventId : eventIds) {
                     if (!eventId.isEmpty()) {
                         Event event = db.getEvent(Long.parseLong(eventId));
