@@ -39,7 +39,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
     private Context prefContext;
     private BluetoothNamePreference preference;
 
-    private AlertDialog mSelectorDialog;
+    private SingleSelectListDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
     private ListView bluetoothListView;
@@ -149,11 +149,11 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         changeSelectionIcon.setOnClickListener(view1 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
-                    mSelectorDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.pref_dlg_change_selection_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .setItems(R.array.bluetoothNameDChangeSelectionArray, (dialog, which) -> {
+                    mSelectorDialog = new SingleSelectListDialog(
+                            R.string.pref_dlg_change_selection_title,
+                            R.array.bluetoothNameDChangeSelectionArray,
+                            SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                            (dialog, which) -> {
                                 switch (which) {
                                     case 0:
                                         preference.value = "";
@@ -168,18 +168,9 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                 }
                                 refreshListView(false, "");
                                 //dialog.dismiss();
-                            })
-                            .create();
-
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                            },
+                            false,
+                            getActivity());
 
                     mSelectorDialog.show();
                 }
@@ -205,14 +196,13 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             preference.persistValue();
-        }
-        else {
+        } else {
             preference.customBluetoothList.clear();
             preference.resetSummary();
         }
 
-        if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
-            mSelectorDialog.dismiss();
+        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
+            mSelectorDialog.mDialog.dismiss();
 
         BluetoothScanWorker.setScanRequest(prefContext, false);
         BluetoothScanWorker.setWaitForResults(prefContext, false);

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
@@ -32,21 +33,23 @@ import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import org.osmdroid.api.IMapController;
+import org.osmdroid.util.GeoPoint;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompat
-                    implements MobileCellsPreferenceFragmentRefreshListViewListener
-{
+        implements MobileCellsPreferenceFragmentRefreshListViewListener {
 
     private Context prefContext;
     private MobileCellsPreference preference;
     int phoneCount = 1;
 
-    private AlertDialog mRenameDialog;
-    private AlertDialog mSelectorDialog;
+    private SingleSelectListDialog mRenameDialog;
+    private SingleSelectListDialog mSelectorDialog;
     private SingleSelectListDialog mSortDialog;
 
     private TextView cellFilter;
@@ -162,11 +165,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
                     if (!cellName.getText().toString().isEmpty()) {
-                        mRenameDialog = new AlertDialog.Builder(prefContext)
-                                .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
-                                .setCancelable(true)
-                                .setNegativeButton(android.R.string.cancel, null)
-                                .setItems(R.array.mobileCellsRenameArray, (dialog, which) -> {
+                        mRenameDialog = new SingleSelectListDialog(
+                                R.string.mobile_cells_pref_dlg_cell_rename_title,
+                                R.array.mobileCellsRenameArray,
+                                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                                (dialog, which) -> {
                                     final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
                                     switch (which) {
                                         case 0:
@@ -179,18 +182,9 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     }
                                     refreshListView(false, Integer.MAX_VALUE);
                                     //dialog.dismiss();
-                                })
-                                .create();
-
-//                    mRenameDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                                },
+                                false,
+                                (Activity) prefContext);
 
                         mRenameDialog.show();
                     }
@@ -201,11 +195,11 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         changeSelectionIcon.setOnClickListener(view13 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
-                    mSelectorDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.pref_dlg_change_selection_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .setItems(R.array.mobileCellsChangeSelectionArray, (dialog, which) -> {
+                    mSelectorDialog = new SingleSelectListDialog(
+                            R.string.pref_dlg_change_selection_title,
+                            R.array.mobileCellsChangeSelectionArray,
+                            SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                            (dialog, which) -> {
                                 switch (which) {
                                     case 0:
                                         preference.value = "";
@@ -226,18 +220,9 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 }
                                 refreshListView(false, Integer.MAX_VALUE);
                                 //dialog.dismiss();
-                            })
-                            .create();
-
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                            },
+                            false,
+                            (Activity) prefContext);
 
                     mSelectorDialog.show();
                 }
@@ -247,13 +232,16 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         sortIcon.setOnClickListener(v -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
-                    mSortDialog = new SingleSelectListDialog(R.string.mobile_cells_pref_dlg_cell_sort_title,
+                    mSortDialog = new SingleSelectListDialog(
+                            R.string.mobile_cells_pref_dlg_cell_sort_title,
                             R.array.mobileCellsSortArray,
                             preference.sortCellsBy,
                             (dialog, which) -> {
                                 preference.sortCellsBy = which;
                                 refreshListView(false, Integer.MAX_VALUE);
-                            }, getActivity());
+                            },
+                            false,
+                            getActivity());
                     mSortDialog.show();
                 }
         });
@@ -392,15 +380,14 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             preference.persistValue();
-        }
-        else {
+        } else {
             preference.resetSummary();
         }
 
-        if ((mRenameDialog != null) && mRenameDialog.isShowing())
-            mRenameDialog.dismiss();
-        if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
-            mSelectorDialog.dismiss();
+        if ((mRenameDialog != null) && mRenameDialog.mDialog.isShowing())
+            mRenameDialog.mDialog.dismiss();
+        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
+            mSelectorDialog.mDialog.dismiss();
         if ((mSortDialog != null) && mSortDialog.mDialog.isShowing())
             mSortDialog.mDialog.dismiss();
 

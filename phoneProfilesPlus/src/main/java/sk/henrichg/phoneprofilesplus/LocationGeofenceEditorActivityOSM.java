@@ -397,11 +397,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         AppCompatImageButton myLocationButton = findViewById(R.id.location_editor_my_location);
         TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_change_location_dialog_title));
         myLocationButton.setOnClickListener(v -> {
-            AlertDialog changeLocationDialog = new AlertDialog.Builder(this)
-                    .setTitle(R.string.location_editor_change_location_dialog_title)
-                    .setCancelable(true)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setItems(R.array.locationEditorChangeLocationArray, (dialog, which) -> {
+            SingleSelectListDialog changeLocationDialog = new SingleSelectListDialog(
+                    R.string.location_editor_change_location_dialog_title,
+                    R.array.locationEditorChangeLocationArray,
+                    SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                    (dialog, which) -> {
                         IMapController _mapController = mMap.getController();
                         switch (which) {
                             case 0:
@@ -420,18 +420,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                 break;
                             default:
                         }
-                    })
-                    .create();
-
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                    },
+                    false,
+                    this);
 
             changeLocationDialog.show();
         });
@@ -439,26 +430,17 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         addressButton = findViewById(R.id.location_editor_address_btn);
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
         addressButton.setOnClickListener(v -> {
-            AlertDialog renameGeofenceDialog = new AlertDialog.Builder(this)
-                    .setTitle(R.string.location_editor_rename_with_address_button_tooltip)
-                    .setCancelable(true)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setItems(R.array.locationEditorRenameLocationArray, (dialog, which) -> {
+            SingleSelectListDialog renameGeofenceDialog = new SingleSelectListDialog(
+                    R.string.location_editor_rename_with_address_button_tooltip,
+                    R.array.locationEditorRenameLocationArray,
+                    SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                    (dialog, which) -> {
                         if (which == 0) {
                             getGeofenceAddress(/*true*/);
                         }
-                    })
-                    .create();
-
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                    },
+                    true,
+                    this);
 
             renameGeofenceDialog.show();
         });

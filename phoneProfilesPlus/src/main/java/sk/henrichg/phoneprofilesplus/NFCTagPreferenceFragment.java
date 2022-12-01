@@ -32,7 +32,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
     private Context prefContext;
     private NFCTagPreference preference;
 
-    private AlertDialog mSelectorDialog;
+    private SingleSelectListDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     private ListView nfcTagListView;
@@ -154,11 +154,11 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
         changeSelectionIcon.setOnClickListener(view1 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
-                    mSelectorDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.pref_dlg_change_selection_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .setItems(R.array.nfcTagsChangeSelectionArray, (dialog, which) -> {
+                    mSelectorDialog = new SingleSelectListDialog(
+                            R.string.pref_dlg_change_selection_title,
+                            R.array.nfcTagsChangeSelectionArray,
+                            SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                            (dialog, which) -> {
                                 switch (which) {
                                     case 0:
                                         preference.value = "";
@@ -173,18 +173,9 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 }
                                 refreshListView("");
                                 //dialog.dismiss();
-                            })
-                            .create();
-
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                            },
+                            false,
+                            (Activity) prefContext);
 
                     mSelectorDialog.show();
                 }
@@ -197,13 +188,12 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
             preference.persistValue();
-        }
-        else {
+        } else {
             preference.resetSummary();
         }
 
-        if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
-            mSelectorDialog.dismiss();
+        if ((mSelectorDialog != null) && mSelectorDialog.mDialog.isShowing())
+            mSelectorDialog.mDialog.dismiss();
 
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
