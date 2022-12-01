@@ -43,26 +43,26 @@
                 android:text="@string/empty_string"
                 android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/dialog_for_apkpure_appkpure_application"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="22dp"
-            android:text="@string/empty_string"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/dialog_for_apkpure_appkpure_application"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text="@string/empty_string"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
     </ScrollView>
 
-    <!--    <View-->
-    <!--        android:id="@+id/dialog_for_apkpure_buttonsDivider"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="@dimen/divider_height"-->
-    <!--        android:layout_marginStart="@dimen/divider_margin"-->
-    <!--        android:layout_marginEnd="@dimen/divider_margin"-->
-    <!--        android:background="@color/dialog_divider" />-->
+    <View
+        android:id="@+id/dialog_for_apkpure_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

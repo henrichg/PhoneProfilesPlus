@@ -773,11 +773,14 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         } catch (Exception ignored) {}
 
         text = layout.findViewById(R.id.dialog_for_appgallery_application);
+        View buttonsDivider = layout.findViewById(R.id.dialog_for_appgallery_buttonsDivider);
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             text.setVisibility(View.GONE);
+            buttonsDivider.setVisibility(View.GONE);
         } else {
             if (!appGalleryInstalled) {
                 text.setVisibility(View.VISIBLE);
+                buttonsDivider.setVisibility(View.VISIBLE);
                 CharSequence str1 = activity.getString(R.string.check_releases_appgallery_application);
                 CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + " \u21D2";
                 Spannable sbt = new SpannableString(str2);
@@ -807,6 +810,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text.setMovementMethod(LinkMovementMethod.getInstance());
             } else {
                 text.setVisibility(View.GONE);
+                buttonsDivider.setVisibility(View.GONE);
             }
         }
 
@@ -909,8 +913,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         } catch (Exception ignored) {}
 
         text = layout.findViewById(R.id.dialog_for_apkpure_appkpure_application);
+        View buttonsDivider = layout.findViewById(R.id.dialog_for_apkpure_buttonsDivider);
         if (!apkPureInstalled) {
             text.setVisibility(View.VISIBLE);
+            buttonsDivider.setVisibility(View.VISIBLE);
+
             CharSequence str1 = activity.getString(R.string.check_releases_apkpure_appstore_application);
             CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + " \u21D2";
             Spannable sbt = new SpannableString(str2);
@@ -940,6 +947,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             text.setVisibility(View.GONE);
+            buttonsDivider.setVisibility(View.GONE);
         }
 
         final boolean _apkPureInstalled = apkPureInstalled;
@@ -1036,8 +1044,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         } catch (Exception ignored) {}
 
         text = layout.findViewById(R.id.dialog_for_droidify_droidify_application);
+        View buttonsDivider = layout.findViewById(R.id.dialog_for_droidify_buttonsDivider);
         if (!droidifyInstalled) {
             text.setVisibility(View.VISIBLE);
+            buttonsDivider.setVisibility(View.VISIBLE);
+
             CharSequence str1 = activity.getString(R.string.check_releases_droidify_application);
             CharSequence str2 = str1 + " " + PPApplication.DROIDIFY_APPLICATION_URL + " \u21D2";
             Spannable sbt = new SpannableString(str2);
@@ -1067,6 +1078,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             text.setVisibility(View.GONE);
+            buttonsDivider.setVisibility(View.GONE);
         }
 
         final boolean _droidifyInstalled = droidifyInstalled;
