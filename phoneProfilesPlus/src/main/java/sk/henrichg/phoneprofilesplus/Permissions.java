@@ -2935,6 +2935,7 @@ class Permissions {
                                 null,
                                 true, true,
                                 false, false,
+                                false,
                                 activity
                         );
 
@@ -2961,6 +2962,7 @@ class Permissions {
                 },
                 true, true,
                 checkBoxChecked, checkBoxEnabled,
+                false,
                 activity
         );
 
@@ -3082,6 +3084,7 @@ class Permissions {
                 },
                 true, true,
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission, true,
+                false,
                 activity
         );
 
@@ -3167,21 +3170,22 @@ class Permissions {
                                     }
                                 }
                                 if (!ok) {
-                                    AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
-                                    dialogBuilder1.setMessage(R.string.setting_screen_not_found_alert);
-                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog _dialog = dialogBuilder1.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
+                                    PPAlertDialog _dialog = new PPAlertDialog(
+                                            activity.getString(R.string.phone_profiles_pref_notificationSystemSettings),
+                                            activity.getString(R.string.setting_screen_not_found_alert),
+                                            activity.getString(android.R.string.ok),
+                                            null,
+                                            null, null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            true, true,
+                                            false, false,
+                                            true,
+                                            activity
+                                    );
 
                                     if (!activity.isFinishing())
                                         _dialog.show();
@@ -3193,6 +3197,7 @@ class Permissions {
                             null,
                             false, false,
                             false, false,
+                            false,
                             activity
                     );
 

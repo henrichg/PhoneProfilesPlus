@@ -383,21 +383,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -453,21 +454,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference12.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -507,21 +509,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference14.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -548,21 +551,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference15.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -599,21 +603,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                     if (!ok) {
                         if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
+                            PPAlertDialog dialog = new PPAlertDialog(
+                                    preference16.getTitle(),
+                                    getString(R.string.setting_screen_not_found_alert),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    getActivity()
+                            );
 
                             if (!getActivity().isFinishing())
                                 dialog.show();
@@ -654,21 +659,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference18.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -737,21 +743,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference113.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -1075,21 +1082,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!activityExists) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference126.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -1934,21 +1942,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
         if (!ok) {
             if (getActivity() != null) {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+                PPAlertDialog dialog = new PPAlertDialog(
+                        getString(R.string.event_preferences_applications_AccessibilitySettings_title),
+                        getString(R.string.setting_screen_not_found_alert),
+                        getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        getActivity()
+                );
 
                 if (!getActivity().isFinishing())
                     dialog.show();

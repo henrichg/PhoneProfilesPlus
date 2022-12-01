@@ -107,6 +107,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
                             null,
                             false, false,
                             false, false,
+                            false,
                             this
                     );
 

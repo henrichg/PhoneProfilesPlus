@@ -525,6 +525,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                         },
                         true, true,
                         false, true,
+                        false,
                         this
                 );
 

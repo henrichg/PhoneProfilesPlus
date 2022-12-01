@@ -33,6 +33,7 @@ class PPAlertDialog {
                   boolean _canceledOnTouchOutside,
                   boolean _checBoxChecked,
                   boolean _checkBoxEnabled,
+                  boolean _hideButtonBarDivider,
                   Activity _activity) {
         this.activity = _activity;
         /*
@@ -67,6 +68,12 @@ class PPAlertDialog {
 
         TextView messageText = layout.findViewById(R.id.info_pref_dialog_info_text);
         messageText.setText(_message);
+
+        View buttonsDivider = layout.findViewById(R.id.info_pref_dialog_buttonBarDivider);
+        if (_hideButtonBarDivider)
+            buttonsDivider.setVisibility(View.GONE);
+        else
+            buttonsDivider.setVisibility(View.VISIBLE);
 
         mDialog.setCanceledOnTouchOutside(_canceledOnTouchOutside);
 

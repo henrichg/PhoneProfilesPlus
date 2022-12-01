@@ -639,6 +639,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     null,
                     true, true,
                     false, false,
+                    false,
                     this
             );
 
@@ -1145,6 +1146,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         null,
                         true, true,
                         false, false,
+                        false,
                         this
                 );
 
@@ -1349,6 +1351,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         null,
                         true, true,
                         false, false,
+                        false,
                         this
                 );
 

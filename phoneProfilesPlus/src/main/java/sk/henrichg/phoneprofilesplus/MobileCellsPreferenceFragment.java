@@ -446,21 +446,22 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             }
                         }
                         if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
+                            PPAlertDialog dialog = new PPAlertDialog(
+                                    getString(R.string.location_settings_button_tooltip),
+                                    getString(R.string.setting_screen_not_found_alert),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    getActivity()
+                            );
 
                             if (getActivity() != null)
                                 if (!getActivity().isFinishing())

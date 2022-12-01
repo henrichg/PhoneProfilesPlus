@@ -749,21 +749,22 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                             }
                         }
                         if (!ok) {
-                            AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
-                            dialogBuilder1.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog _dialog = dialogBuilder1.create();
-
-//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                            PPAlertDialog dialog = new PPAlertDialog(
+                                    getString(R.string.location_settings_button_tooltip),
+                                    getString(R.string.setting_screen_not_found_alert),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    this
+                            );
 
                             if (!isFinishing())
                                 _dialog.show();
@@ -777,6 +778,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     null,
                     true, true,
                     false, false,
+                    false,
                     this
             );
 
@@ -1402,6 +1404,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         null,
                         true, true,
                         false, false,
+                        false,
                         this
                 );
 

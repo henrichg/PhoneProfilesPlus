@@ -425,21 +425,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok){
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference1.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -469,21 +470,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference12.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -570,21 +572,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference13.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -654,21 +657,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference14.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -695,21 +699,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference15.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -736,21 +741,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference16.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -777,21 +783,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference17.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -821,21 +828,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             }
                         }
                         if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
+                            PPAlertDialog dialog = new PPAlertDialog(
+                                    preference18.getTitle(),
+                                    getString(R.string.setting_screen_not_found_alert),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    getActivity()
+                            );
 
                             if (!getActivity().isFinishing())
                                 dialog.show();
@@ -1003,21 +1011,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                            @Override
-//                            public void onShow(DialogInterface dialog) {
-//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                if (positive != null) positive.setAllCaps(false);
-//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                if (negative != null) negative.setAllCaps(false);
-//                            }
-//                        });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference111.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if (!getActivity().isFinishing())
                         dialog.show();
@@ -1092,6 +1101,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 null,
                                 true, true,
                                 false, false,
+                                false,
                                 getActivity()
                         );
 
@@ -1172,21 +1182,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference112.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -1226,21 +1237,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                            @Override
-//                            public void onShow(DialogInterface dialog) {
-//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                if (positive != null) positive.setAllCaps(false);
-//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                if (negative != null) negative.setAllCaps(false);
-//                            }
-//                        });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference113.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if (!getActivity().isFinishing())
                         dialog.show();
@@ -1267,21 +1279,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference114.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if (!getActivity().isFinishing())
                         dialog.show();
@@ -1476,6 +1489,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             true, true,
                             false, false,
+                            false,
                             getActivity()
                     );
 
@@ -1572,21 +1586,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 }
                                 if (!ok) {
-                                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(getActivity());
-                                    dialogBuilder2.setMessage(R.string.setting_screen_not_found_alert);
-                                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog2 = dialogBuilder2.create();
-
-//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                                    PPAlertDialog dialog2 = new PPAlertDialog(
+                                            preference118.getTitle(),
+                                            getString(R.string.setting_screen_not_found_alert),
+                                            getString(android.R.string.ok),
+                                            null,
+                                            null, null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            true, true,
+                                            false, false,
+                                            true,
+                                            getActivity()
+                                    );
 
                                     if (!getActivity().isFinishing())
                                         dialog2.show();
@@ -1598,6 +1613,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             true, true,
                             false, false,
+                            false,
                             getActivity()
                     );
 
@@ -1717,21 +1733,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     }
                                 }
                                 if (!ok) {
-                                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(getActivity());
-                                    dialogBuilder2.setMessage(R.string.setting_screen_not_found_alert);
-                                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog2 = dialogBuilder2.create();
-
-//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                                    PPAlertDialog dialog2 = new PPAlertDialog(
+                                            preference118.getTitle(),
+                                            getString(R.string.setting_screen_not_found_alert),
+                                            getString(android.R.string.ok),
+                                            null,
+                                            null, null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            true, true,
+                                            false, false,
+                                            true,
+                                            getActivity()
+                                    );
 
                                     if (!getActivity().isFinishing())
                                         dialog2.show();
@@ -1743,6 +1760,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             null,
                             true, true,
                             false, false,
+                            false,
                             getActivity()
                     );
 
@@ -1887,21 +1905,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!activityExists) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                            @Override
-//                            public void onShow(DialogInterface dialog) {
-//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                if (positive != null) positive.setAllCaps(false);
-//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                if (negative != null) negative.setAllCaps(false);
-//                            }
-//                        });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference1.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if (!getActivity().isFinishing())
                         dialog.show();
