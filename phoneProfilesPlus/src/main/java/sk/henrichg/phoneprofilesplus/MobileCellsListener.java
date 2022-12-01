@@ -611,18 +611,6 @@ class MobileCellsListener extends PhoneStateListener {
 
                         if (!db.isMobileCellSaved(_registeredCell)) {
 
-                            // not needed to add cell without name, added will be in
-                            // NotUsedMobileCellsDetectedActivity
-                            /*
-                            // add new cell
-                            List<MobileCellsData> localCellsList = new ArrayList<>();
-                            localCellsList.add(new MobileCellsData(_registeredCell, "", true, false,
-                                    Calendar.getInstance().getTimeInMillis(),
-                                    //MobileCellsScanner.lastRunningEventsNotOutside,
-                                    //MobileCellsScanner.lastPausedEventsOutside,
-                                    false));
-                            db.saveMobileCellsList(localCellsList, true, false);
-                            */
                             showNotification = true;
                         }
 

@@ -201,60 +201,6 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             finish();
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        /*
-        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> {
-            final int _mobileCellId = mobileCellId;
-            final long _lastConnectedTime = lastConnectedTime;
-            //final String _lastRunningEvents = lastRunningEvents;
-            //final String _lastPausedEvents = lastPausedEvents;
-            final String _cellName = cellNameTextView.getText().toString();
-
-            final Context appContext = getApplicationContext();
-            //PPApplication.startHandlerThread();
-            //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
-            //__handler.post(() -> {
-            Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (2)");
-
-                //Context appContext= appContextWeakRef.get();
-
-                //if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsDetectedActivity_onStart_2");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        DatabaseHandler db = DatabaseHandler.getInstance(appContext);
-
-                        List<MobileCellsData> localCellsList = new ArrayList<>();
-                        localCellsList.add(new MobileCellsData(_mobileCellId, _cellName,
-                                true, false, _lastConnectedTime, _lastRunningEvents, _lastPausedEvents,
-                                true)); // do not detect again
-                        db.saveMobileCellsList(localCellsList, true, true);
-
-                    } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
-                //}
-            }; //);
-            PPApplication.createBasicExecutorPool();
-            PPApplication.basicExecutorPool.submit(runnable);
-
-            finish();
-        });
-        */
 
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_not_used_mobile_cells_detected, null);
