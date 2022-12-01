@@ -29,6 +29,7 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
@@ -559,7 +560,9 @@ class RunApplicationEditorDialog
 
         // remove intent from intent list
         if (preference.intentDBList != null) {
-            for (PPIntent ppIntent : preference.intentDBList) {
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<PPIntent> it = preference.intentDBList.iterator(); it.hasNext(); ) {
+                PPIntent ppIntent = it.next();
                 if (ppIntent._id == application.intentId) {
                     preference.intentDBList.remove(ppIntent);
                     break;

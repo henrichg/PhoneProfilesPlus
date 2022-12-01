@@ -55,6 +55,7 @@ import androidx.work.WorkManager;
 import com.android.internal.telephony.TelephonyIntents;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -4242,6 +4243,50 @@ public class PhoneProfilesService extends Service
                             editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON,
                                     ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
                             editor.apply();
+                        }
+                    }
+
+                    DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                    // load cells from db
+                    List<MobileCellsData> cellsList = new ArrayList<>();
+                    db.addMobileCellsToList(cellsList, 0);
+                    List<Event> eventList;
+                    eventList = db.getAllEvents();
+
+                    // remove all not used non-named mobile cells
+                    //noinspection ForLoopReplaceableByForEach
+                    for (Iterator<MobileCellsData> it = cellsList.iterator(); it.hasNext(); ) {
+                        MobileCellsData cell = it.next();
+                        if (cell.name.isEmpty()) {
+                            boolean found = false;
+                            for (Event event : eventList) {
+                                if (event._eventPreferencesMobileCells != null) {
+                                    if ((event._eventPreferencesMobileCells._enabled)) {
+                                        if (event._eventPreferencesMobileCells._cells.contains("|" + cell.cellId + "|")) {
+                                            // cell is between others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (event._eventPreferencesMobileCells._cells.startsWith(cell.cellId + "|")) {
+                                            // cell is at start of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (event._eventPreferencesMobileCells._cells.endsWith("|" + cell.cellId)) {
+                                            // cell is at end of others
+                                            found = true;
+                                            break;
+                                        }
+                                        if (event._eventPreferencesMobileCells._cells.equals(String.valueOf(cell.cellId))) {
+                                            // only this cell is configured
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if (!found)
+                                cellsList.remove(cell);
                         }
                     }
                 }

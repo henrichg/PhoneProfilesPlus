@@ -156,7 +156,6 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     mMobileCellNamesDialog.show();
         });
 
-        //TODO
         editButton = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
         TooltipCompat.setTooltipText(editButton, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
         editButton.setOnClickListener(v -> {
@@ -566,8 +565,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     // vsetky bezmenne nepouzite, ak si uzivatel nastavi filter na bezmenne
     // !!! Bacha! Ako pre "Delete all selected", tiez zmaz len tie z aktualneho filtra !!!
 
-    //TODO tu by asi bolo super dat test, ci sa mazana bunka nahodou nepouizva v inej
-    // udalosti
+    //TODO tu by asi bolo super dat test, ci sa mazana bunka nahodou nepouizva v inej udalosti
     void showEditMenu(View view) {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
