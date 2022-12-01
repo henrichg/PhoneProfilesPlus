@@ -1230,6 +1230,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return DatabaseHandlerEvents.getEventMobileCellsCells(this, eventId);
     }
 
+    void deleteNonNamedNotUsedCells() {
+        DatabaseHandlerEvents.deleteNonNamedNotUsedCells();
+    }
 
 // NFC_TAGS ----------------------------------------------------------------------
 

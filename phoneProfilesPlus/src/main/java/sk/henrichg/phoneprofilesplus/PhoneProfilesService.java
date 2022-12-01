@@ -4246,49 +4246,9 @@ public class PhoneProfilesService extends Service
                         }
                     }
 
-                    DatabaseHandler db = DatabaseHandler.getInstance(appContext);
-                    // load cells from db
-                    List<MobileCellsData> cellsList = new ArrayList<>();
-                    db.addMobileCellsToList(cellsList, 0);
-                    List<Event> eventList;
-                    eventList = db.getAllEvents();
-
                     // remove all not used non-named mobile cells
-                    //noinspection ForLoopReplaceableByForEach
-                    for (Iterator<MobileCellsData> it = cellsList.iterator(); it.hasNext(); ) {
-                        MobileCellsData cell = it.next();
-                        if (cell.name.isEmpty()) {
-                            boolean found = false;
-                            for (Event event : eventList) {
-                                if (event._eventPreferencesMobileCells != null) {
-                                    if ((event._eventPreferencesMobileCells._enabled)) {
-                                        if (event._eventPreferencesMobileCells._cells.contains("|" + cell.cellId + "|")) {
-                                            // cell is between others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (event._eventPreferencesMobileCells._cells.startsWith(cell.cellId + "|")) {
-                                            // cell is at start of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (event._eventPreferencesMobileCells._cells.endsWith("|" + cell.cellId)) {
-                                            // cell is at end of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (event._eventPreferencesMobileCells._cells.equals(String.valueOf(cell.cellId))) {
-                                            // only this cell is configured
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            if (!found)
-                                cellsList.remove(cell);
-                        }
-                    }
+                    DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                    db.deleteNonNamedNotUsedCells();
                 }
 
             }

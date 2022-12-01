@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 class DatabaseHandlerImportExport {
@@ -772,6 +773,9 @@ class DatabaseHandlerImportExport {
             if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                 cursorImportDB.close();
         }
+
+        // remove all not used non-named mobile cells
+        instance.deleteNonNamedNotUsedCells();
 
     }
 
