@@ -749,7 +749,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                             }
                         }
                         if (!ok) {
-                            PPAlertDialog dialog = new PPAlertDialog(
+                            PPAlertDialog _dialog = new PPAlertDialog(
                                     getString(R.string.location_settings_button_tooltip),
                                     getString(R.string.setting_screen_not_found_alert),
                                     getString(android.R.string.ok),

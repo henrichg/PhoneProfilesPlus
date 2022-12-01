@@ -178,8 +178,8 @@
 
     <style name="DialogActivityTitleStyle" parent="TextAppearance.AppCompat.Title">
         <item name="android:textSize">18sp</item>
-<!--        <item name="android:singleLine">false</item>-->
-<!--        <item name="android:maxLines">2</item>-->
+        <item name="android:singleLine">false</item>
+        <item name="android:maxLines">3</item>
     </style>
 
     <style name="IntentEditorEditTextStyle" parent="@android:style/Widget.EditText">

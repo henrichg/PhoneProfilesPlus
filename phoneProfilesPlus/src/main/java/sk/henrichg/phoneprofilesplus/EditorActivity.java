@@ -3798,7 +3798,7 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setMessage(R.string.backup_settings_alert_title);
+            dialogBuilder.setTitle(R.string.backup_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -3979,9 +3979,9 @@ public class EditorActivity extends AppCompatActivity
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             if (share)
-                dialogBuilder.setMessage(R.string.restore_shared_settings_alert_title);
+                dialogBuilder.setTitle(R.string.restore_shared_settings_alert_title);
             else
-                dialogBuilder.setMessage(R.string.restore_settings_alert_title);
+                dialogBuilder.setTitle(R.string.restore_settings_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4243,7 +4243,7 @@ public class EditorActivity extends AppCompatActivity
             this.activityWeakRef = new WeakReference<>(activity);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setMessage(R.string.import_profiles_alert_title);
+            dialogBuilder.setTitle(R.string.import_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -4461,7 +4461,7 @@ public class EditorActivity extends AppCompatActivity
             this.importApplicationPreferences = importApplicationPreferences;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
+            dialogBuilder.setTitle(R.string.import_profiles_from_pp_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
@@ -5252,7 +5252,7 @@ public class EditorActivity extends AppCompatActivity
             this.deleteMobileCells = deleteMobileCells;
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setMessage(R.string.export_profiles_alert_title);
+            dialogBuilder.setTitle(R.string.export_profiles_alert_title);
 
             LayoutInflater inflater = (activity.getLayoutInflater());
             View layout = inflater.inflate(R.layout.dialog_progress_bar, null);

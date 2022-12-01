@@ -14,7 +14,6 @@ import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
 import java.io.File;
