@@ -379,8 +379,45 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    static void unlinkEventsFromProfile(DatabaseHandler instance, Profile profile)
+    /*
+    static boolean eventExists(DatabaseHandler instance, Event event)
     {
+        instance.importExportLock.lock();
+        try {
+            boolean eventExists = false;
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_ID
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    eventExists = cursor.getCount() > 0;
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return eventExists;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+    */
+
+    static void unlinkEventsFromProfile(DatabaseHandler instance, Profile profile) {
         instance.importExportLock.lock();
         try {
             try {

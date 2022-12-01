@@ -878,13 +878,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DatabaseHandlerEvents.deleteAllEvents(this);
     }
 
-    void unlinkEventsFromProfile(Profile profile)
-    {
+//    boolean eventExists(Event event) {return DatabaseHandlerEvents.eventExists(this, event); }
+
+    void unlinkEventsFromProfile(Profile profile) {
         DatabaseHandlerEvents.unlinkEventsFromProfile(this, profile);
     }
 
-    void unlinkAllEvents()
-    {
+    void unlinkAllEvents() {
         DatabaseHandlerEvents.unlinkAllEvents(this);
     }
 
