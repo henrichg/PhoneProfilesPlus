@@ -60,6 +60,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     private AppCompatImageButton addCellButtonSIM1;
     private AppCompatImageButton addCellButtonSIM2;
     private AppCompatImageButton addCellButtonDefault;
+    private AppCompatImageButton editButton;
     private RelativeLayout locationSystemSettingsRelLa;
     private TextView locationEnabledStatusTextView;
     private AppCompatImageButton locationSystemSettingsButton;
@@ -148,37 +149,39 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     mMobileCellsFilterDialog.show();
         });
 
-        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity)prefContext, preference, false);
+        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity) prefContext, preference, false);
         cellName.setOnClickListener(view12 -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing())
                     mMobileCellNamesDialog.show();
         });
 
-        final AppCompatImageButton editIcon = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
-        TooltipCompat.setTooltipText(editIcon, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
-        editIcon.setOnClickListener(v -> {
+        //TODO
+        editButton = view.findViewById(R.id.mobile_cells_pref_dlg_rename);
+        TooltipCompat.setTooltipText(editButton, getString(R.string.mobile_cells_pref_dlg_rename_cell_button_tooltip));
+        editButton.setOnClickListener(v -> {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
-                    mRenameDialog = new AlertDialog.Builder(prefContext)
-                            .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
-                            .setCancelable(true)
-                            .setNegativeButton(android.R.string.cancel, null)
-                            .setItems(R.array.mobileCellsRenameArray, (dialog, which) -> {
-                                final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
-                                switch (which) {
-                                    case 0:
-                                    case 1:
-                                        db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
-                                        break;
-                                    case 2:
-                                        db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
-                                        break;
-                                }
-                                refreshListView(false, Integer.MAX_VALUE);
-                                //dialog.dismiss();
-                            })
-                            .create();
+                    if (!cellName.getText().toString().isEmpty()) {
+                        mRenameDialog = new AlertDialog.Builder(prefContext)
+                                .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
+                                .setCancelable(true)
+                                .setNegativeButton(android.R.string.cancel, null)
+                                .setItems(R.array.mobileCellsRenameArray, (dialog, which) -> {
+                                    final DatabaseHandler db = DatabaseHandler.getInstance(prefContext);
+                                    switch (which) {
+                                        case 0:
+                                        case 1:
+                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), which == 0, preference.value);
+                                            break;
+                                        case 2:
+                                            db.renameMobileCellsList(preference.filteredCellsList, cellName.getText().toString(), false, null);
+                                            break;
+                                    }
+                                    refreshListView(false, Integer.MAX_VALUE);
+                                    //dialog.dismiss();
+                                })
+                                .create();
 
 //                    mRenameDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                        @Override
@@ -190,7 +193,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 //                        }
 //                    });
 
-                      mRenameDialog.show();
+                        mRenameDialog.show();
+                    }
                 }
         });
         AppCompatImageButton changeSelectionIcon = view.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
@@ -685,6 +689,9 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     void setCellNameText(String text) {
         cellName.setText(text);
+
+        GlobalGUIRoutines.setImageButtonEnabled(
+                !text.isEmpty(), editButton, prefContext);
     }
 
     String getCellNameText() {

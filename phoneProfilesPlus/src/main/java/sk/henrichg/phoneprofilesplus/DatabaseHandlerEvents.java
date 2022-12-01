@@ -4665,7 +4665,9 @@ public class DatabaseHandlerEvents {
                         //mobileCell._lastRunningEvents = cell.lastRunningEvents;
                         //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                         //mobileCell._doNotDetect = cell.doNotDetect;
-                        addMobileCell(instance, mobileCell);
+                        if (!cell.name.isEmpty()) {
+                            addMobileCell(instance, mobileCell);
+                        }
                     } else {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
                         mobileCell._id = foundedDbId;
@@ -4681,7 +4683,9 @@ public class DatabaseHandlerEvents {
                         //mobileCell._lastRunningEvents = cell.lastRunningEvents;
                         //mobileCell._lastPausedEvents = cell.lastPausedEvents;
                         //mobileCell._doNotDetect = cell.doNotDetect;
-                        updateMobileCell(instance, mobileCell);
+                        if (!cell.name.isEmpty()) {
+                            updateMobileCell(instance, mobileCell);
+                        }
                     }
                 }
 

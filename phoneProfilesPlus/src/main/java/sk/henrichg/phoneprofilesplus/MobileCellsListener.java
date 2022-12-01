@@ -565,34 +565,36 @@ class MobileCellsListener extends PhoneStateListener {
 
                     if (!db.isMobileCellSaved(_registeredCell)) {
 
-                        List<MobileCellsData> localCellsList = new ArrayList<>();
-                        localCellsList.add(new MobileCellsData(_registeredCell,
-                                MobileCellsScanner.cellsNameForAutoRegistration, true, false,
-                                Calendar.getInstance().getTimeInMillis()//,
-                                //MobileCellsScanner.lastRunningEventsNotOutside,
-                                //MobileCellsScanner.lastPausedEventsOutside,
-                                //false
-                        ));
-                        db.saveMobileCellsList(localCellsList, true, true);
+                        if (!MobileCellsScanner.cellsNameForAutoRegistration.isEmpty()) {
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            localCellsList.add(new MobileCellsData(_registeredCell,
+                                    MobileCellsScanner.cellsNameForAutoRegistration, true, false,
+                                    Calendar.getInstance().getTimeInMillis()//,
+                                    //MobileCellsScanner.lastRunningEventsNotOutside,
+                                    //MobileCellsScanner.lastPausedEventsOutside,
+                                    //false
+                            ));
+                            db.saveMobileCellsList(localCellsList, true, true);
 
-                        synchronized (MobileCellsScanner.autoRegistrationEventList) {
-                            for (Long event_id : MobileCellsScanner.autoRegistrationEventList) {
-                                String currentCells = db.getEventMobileCellsCells(event_id);
-                                if (!currentCells.isEmpty()) {
-                                    String newCells = MobileCellsScanner.addCellId(currentCells, _registeredCell);
-                                    db.updateMobileCellsCells(event_id, newCells);
+                            synchronized (MobileCellsScanner.autoRegistrationEventList) {
+                                for (Long event_id : MobileCellsScanner.autoRegistrationEventList) {
+                                    String currentCells = db.getEventMobileCellsCells(event_id);
+                                    if (!currentCells.isEmpty()) {
+                                        String newCells = MobileCellsScanner.addCellId(currentCells, _registeredCell);
+                                        db.updateMobileCellsCells(event_id, newCells);
 
-                                    // broadcast new cell to
-                                    Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-                                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                                    intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
-                                    intent.setPackage(PPApplication.PACKAGE_NAME);
-                                    context.sendBroadcast(intent);
+                                        // broadcast new cell to
+                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+                                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
+                                        intent.setPackage(PPApplication.PACKAGE_NAME);
+                                        context.sendBroadcast(intent);
 
 //                                    PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(1)");
-                                    Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-                                    refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                                    LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+                                        Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+                                        refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                        LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+                                    }
                                 }
                             }
                         }
