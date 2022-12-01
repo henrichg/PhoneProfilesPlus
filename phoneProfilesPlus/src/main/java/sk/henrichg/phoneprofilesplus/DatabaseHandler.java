@@ -1231,7 +1231,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void deleteNonNamedNotUsedCells() {
-        DatabaseHandlerEvents.deleteNonNamedNotUsedCells();
+        DatabaseHandlerEvents.deleteNonNamedNotUsedCells(this);
     }
 
 // NFC_TAGS ----------------------------------------------------------------------

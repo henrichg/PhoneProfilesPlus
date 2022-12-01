@@ -55,7 +55,6 @@ import androidx.work.WorkManager;
 import com.android.internal.telephony.TelephonyIntents;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
