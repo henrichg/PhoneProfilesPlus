@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.Settings;
@@ -32,9 +31,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceDialogFragmentCompat;
-
-import org.osmdroid.api.IMapController;
-import org.osmdroid.util.GeoPoint;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
