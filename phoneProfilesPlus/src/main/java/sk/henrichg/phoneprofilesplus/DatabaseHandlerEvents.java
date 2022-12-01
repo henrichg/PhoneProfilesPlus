@@ -4522,7 +4522,7 @@ public class DatabaseHandlerEvents {
                 String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_CELL_ID + "," +
                         DatabaseHandler.KEY_MC_NAME + "," +
                         DatabaseHandler.KEY_MC_NEW + "," +
-                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + "," +
+                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + //"," +
                         //DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
                         //DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "," +
                         //DatabaseHandler.KEY_MC_DO_NOT_DETECT +
