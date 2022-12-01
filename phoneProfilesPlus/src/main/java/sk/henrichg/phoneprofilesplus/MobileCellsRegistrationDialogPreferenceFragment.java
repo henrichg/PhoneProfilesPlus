@@ -59,17 +59,19 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         dialogBuilder.setPositiveButton(R.string.mobile_cells_registration_pref_dlg_start_button, (dialog, which) -> {
-            if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
-                if (MobileCellsScanner.enabledAutoRegistration) {
-                    if (!MobileCellsScanner.isEventAdded(preference.event_id))
-                        MobileCellsScanner.addEvent(preference.event_id);
-                    else
-                        MobileCellsScanner.removeEvent(preference.event_id);
-                }
-                else {
-                    if (!MobileCellsScanner.isEventAdded(preference.event_id))
-                        MobileCellsScanner.addEvent(preference.event_id);
-                    preference.startRegistration();
+            String value = mCellsName.getText().toString();
+            if (!value.isEmpty()) {
+                if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
+                    if (MobileCellsScanner.enabledAutoRegistration) {
+                        if (!MobileCellsScanner.isEventAdded(preference.event_id))
+                            MobileCellsScanner.addEvent(preference.event_id);
+                        else
+                            MobileCellsScanner.removeEvent(preference.event_id);
+                    } else {
+                        if (!MobileCellsScanner.isEventAdded(preference.event_id))
+                            MobileCellsScanner.addEvent(preference.event_id);
+                        preference.startRegistration();
+                    }
                 }
             }
         });
@@ -321,6 +323,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
 
     void startRegistration() {
         if ((mDialog != null) && mDialog.isShowing()) {
+
             int hours = mSeekBarHours.getProgress();
             int minutes = mSeekBarMinutes.getProgress();
             int seconds = mSeekBarSeconds.getProgress();
@@ -331,11 +334,14 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
 
             //Log.d("MobileCellsRegistrationDialogPreference.onPositive","iValue="+iValue);
 
-            //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
-            MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, iValue);
-            MobileCellsScanner.durationForAutoRegistration = iValue;
-            MobileCellsScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
-            MobileCellsScanner.startAutoRegistration(prefContext.getApplicationContext(), false);
+            String cellName = mCellsName.getText().toString();
+            if (!cellName.isEmpty()) {
+                //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
+                MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, iValue);
+                MobileCellsScanner.durationForAutoRegistration = iValue;
+                MobileCellsScanner.cellsNameForAutoRegistration = cellName;
+                MobileCellsScanner.startAutoRegistration(prefContext.getApplicationContext(), false);
+            }
 
             preference.value = String.valueOf(iValue);
             preference.setSummaryDDP(0);
