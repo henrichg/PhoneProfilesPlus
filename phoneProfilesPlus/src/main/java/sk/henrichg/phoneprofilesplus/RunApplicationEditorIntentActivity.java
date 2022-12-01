@@ -513,24 +513,22 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         Button testButton = findViewById(R.id.application_editor_intent_test);
         testButton.setOnClickListener(v -> {
             if (ppIntent == null) {
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(activity)
-                                .setTitle(R.string.application_editor_intent_test_title)
-                                //.setIcon(getDialogIcon())
-                                .setMessage(R.string.application_editor_intent_test_activity_bad_data);
-                builder.setPositiveButton(android.R.string.ok, null);
-
-                AlertDialog mDialog = builder.create();
-
-//                    mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                PPAlertDialog mDialog = new PPAlertDialog(
+                        getString(R.string.application_editor_intent_test_title),
+                        getString(R.string.application_editor_intent_test_activity_bad_data),
+                        getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        activity
+                );
 
                 if (!isFinishing())
                     mDialog.show();
@@ -559,33 +557,31 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     }
                 }
                 if (!ok) {
-                    AlertDialog.Builder builder;
+                    CharSequence title;
+                    CharSequence message;
                     if (ppIntent._intentType == 0) {
-                        builder =
-                                new AlertDialog.Builder(activity)
-                                        .setTitle(R.string.application_editor_intent_test_title)
-                                        //.setIcon(getDialogIcon())
-                                        .setMessage(R.string.application_editor_intent_test_activity_bad_data);
+                        title = activity.getString(R.string.application_editor_intent_test_title);
+                        message = activity.getString(R.string.application_editor_intent_test_activity_bad_data);
                     } else {
-                        builder =
-                                new AlertDialog.Builder(activity)
-                                        .setTitle(R.string.application_editor_intent_test_title)
-                                        //.setIcon(getDialogIcon())
-                                        .setMessage(R.string.application_editor_intent_test_broadcast_bad_data);
+                        title = activity.getString(R.string.application_editor_intent_test_title);
+                        message = activity.getString(R.string.application_editor_intent_test_broadcast_bad_data);
                     }
-                    builder.setPositiveButton(android.R.string.ok, null);
-
-                    AlertDialog mDialog = builder.create();
-
-//                        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                            @Override
-//                            public void onShow(DialogInterface dialog) {
-//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                if (positive != null) positive.setAllCaps(false);
-//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                if (negative != null) negative.setAllCaps(false);
-//                            }
-//                        });
+                    PPAlertDialog mDialog = new PPAlertDialog(
+                            title,
+                            message,
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            activity
+                    );
 
                     if (!isFinishing())
                         mDialog.show();

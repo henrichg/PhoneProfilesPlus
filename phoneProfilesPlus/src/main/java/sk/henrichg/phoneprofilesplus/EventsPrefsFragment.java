@@ -881,21 +881,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference120.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -940,21 +941,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference123.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -982,21 +984,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference124.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -1024,21 +1027,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference125.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();

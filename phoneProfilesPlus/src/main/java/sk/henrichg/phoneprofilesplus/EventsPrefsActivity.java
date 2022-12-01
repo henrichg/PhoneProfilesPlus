@@ -244,28 +244,28 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     private void finishActivity() {
         if (showSaveMenu) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
-            dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                    savePreferences(newEventMode, predefinedEventIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> finish());
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.not_saved_changes_alert_title),
+                    getString(R.string.not_saved_changes_alert_message),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        if (checkPreferences(newEventMode, predefinedEventIndex)) {
+                            savePreferences(newEventMode, predefinedEventIndex);
+                            resultCode = RESULT_OK;
+                            finish();
+                        }
+                    },
+                    (dialog2, which) -> finish(),
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();

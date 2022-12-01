@@ -1140,36 +1140,35 @@ public class EditorActivity extends AppCompatActivity
         }
         else
         if (itemId == R.id.menu_exit) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.exit_application_alert_title);
-            dialogBuilder.setMessage(R.string.exit_application_alert_message);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                editor.apply();
-                ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
-                ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.exit_application_alert_title),
+                    getString(R.string.exit_application_alert_message),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
+                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                        Editor editor = settings.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                        ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
+                        ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                PPApplication.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true);
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-            AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+                        PPApplication.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true);
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();
@@ -1871,21 +1870,22 @@ public class EditorActivity extends AppCompatActivity
                     //PPApplication.recordException(e);
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.menu_import),
+                            getString(R.string.directory_tree_activity_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            this
+                    );
 
                     if (!isFinishing())
                         dialog.show();
@@ -1912,21 +1912,22 @@ public class EditorActivity extends AppCompatActivity
                     PPApplication.recordException(e);
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setMessage(R.string.open_document_activity_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.menu_restore_shared_settings),
+                            getString(R.string.open_document_activity_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            this
+                    );
 
                     if (!isFinishing())
                         dialog.show();
@@ -2099,22 +2100,22 @@ public class EditorActivity extends AppCompatActivity
                 PPApplication.showToast(getApplicationContext(), getString(R.string.share_settings_ok_shared), Toast.LENGTH_SHORT);
             } else {
                 if (!isFinishing()) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                    dialogBuilder.setTitle(R.string.share_settings_alert_title);
-                    dialogBuilder.setMessage(R.string.share_settings_error_on_share);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    //            @Override
-                    //            public void onShow(DialogInterface dialog) {
-                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    //                if (positive != null) positive.setAllCaps(false);
-                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    //                if (negative != null) negative.setAllCaps(false);
-                    //            }
-                    //        });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.share_settings_alert_title),
+                            getString(R.string.share_settings_error_on_share),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            this
+                    );
 
                     dialog.show();
                 }
@@ -2438,112 +2439,112 @@ public class EditorActivity extends AppCompatActivity
         importAsyncTask = new ImportAsyncTask(this).execute();
     }
 
-    private void importData(final int titleRes, final boolean share)
-    {
-        AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
-        dialogBuilder2.setTitle(titleRes);
-        dialogBuilder2.setMessage(R.string.import_profiles_alert_message);
+    private void importData(final int titleRes, final boolean share) {
+        PPAlertDialog dialog = new PPAlertDialog(
+                getString(titleRes),
+                getString(R.string.import_profiles_alert_message),
+                getString(R.string.alert_button_yes),
+                getString(R.string.alert_button_no),
+                null, null,
+                (dialogX, which) -> {
+                    if (share) {
+                        if (Permissions.grantImportPermissions(true, getApplicationContext(), EditorActivity.this)) {
+                            boolean ok = false;
+                            try {
+                                Intent intent;
+                                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                intent.setType("application/zip");
+                                //noinspection deprecation
+                                startActivityForResult(intent, REQUEST_CODE_RESTORE_SHARED_SETTINGS);
+                                ok = true;
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                            if (!ok) {
+                                PPAlertDialog _dialog = new PPAlertDialog(
+                                        getString(R.string.menu_restore_shared_settings),
+                                        getString(R.string.open_document_activity_not_found_alert),
+                                        getString(android.R.string.ok),
+                                        null,
+                                        null, null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        true, true,
+                                        false, false,
+                                        true,
+                                        EditorActivity.this
+                                );
 
-        dialogBuilder2.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-            if (share) {
-                if (Permissions.grantImportPermissions(true, getApplicationContext(), EditorActivity.this)) {
-                    boolean ok = false;
-                    try {
-                        Intent intent;
-                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                        intent.addCategory(Intent.CATEGORY_OPENABLE);
-                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-                        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
-                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        intent.setType("application/zip");
-                        //noinspection deprecation
-                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SHARED_SETTINGS);
-                        ok = true;
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                    if (!ok) {
-                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorActivity.this);
-                        _dialogBuilder.setMessage(R.string.open_document_activity_not_found_alert);
-                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog _dialog = _dialogBuilder.create();
-
-//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                        if (!isFinishing())
-                            _dialog.show();
-                    }
-                }
-
-            } else {
-                if (Permissions.grantImportPermissions(false, getApplicationContext(), EditorActivity.this)) {
-                    boolean ok = false;
-                    try {
-                        Intent intent;
-                        if (Build.VERSION.SDK_INT >= 29) {
-                            StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                            intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
-                        } else {
-                            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                if (!isFinishing())
+                                    _dialog.show();
+                            }
                         }
-                        // not supported by ACTION_OPEN_DOCUMENT_TREE
-                        //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
 
-                        //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                        //noinspection deprecation
-                        startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
-                        ok = true;
-                    } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                    } else {
+                        if (Permissions.grantImportPermissions(false, getApplicationContext(), EditorActivity.this)) {
+                            boolean ok = false;
+                            try {
+                                Intent intent;
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+                                    intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                                } else {
+                                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                    intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                }
+                                // not supported by ACTION_OPEN_DOCUMENT_TREE
+                                //intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+
+                                //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                                //noinspection deprecation
+                                startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
+                                ok = true;
+                            } catch (Exception e) {
+                                //PPApplication.recordException(e);
+                            }
+                            if (!ok) {
+                                PPAlertDialog _dialog = new PPAlertDialog(
+                                        getString(R.string.restore_settings_alert_title),
+                                        getString(R.string.directory_tree_activity_not_found_alert),
+                                        getString(android.R.string.ok),
+                                        null,
+                                        null, null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        true, true,
+                                        false, false,
+                                        true,
+                                        EditorActivity.this
+                                );
+
+                                if (!isFinishing())
+                                    _dialog.show();
+                            }
+                        }
                     }
-                    if (!ok) {
-                        AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorActivity.this);
-                        _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
-                        //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog _dialog = _dialogBuilder.create();
-
-//                            _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                        if (!isFinishing())
-                            _dialog.show();
-                    }
-                }
-            }
-        });
-        dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
-        AlertDialog dialog = dialogBuilder2.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
+                },
+                null,
+                null,
+                null,
+                null,
+                true, true,
+                false, false,
+                true,
+                this
+        );
 
         if (!isFinishing())
             dialog.show();
@@ -3882,22 +3883,22 @@ public class EditorActivity extends AppCompatActivity
 
                 if (result == 0) {
                     if (!activity.isFinishing()) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
-                        dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        //            @Override
-                        //            public void onShow(DialogInterface dialog) {
-                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        //                if (positive != null) positive.setAllCaps(false);
-                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        //                if (negative != null) negative.setAllCaps(false);
-                        //            }
-                        //        });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                activity.getString(R.string.backup_settings_alert_title),
+                                activity.getString(R.string.backup_settings_error_on_backup),
+                                activity.getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                activity
+                        );
 
                         dialog.show();
                     }
@@ -4099,27 +4100,31 @@ public class EditorActivity extends AppCompatActivity
 
                 if (result == 0) {
                     if (!activity.isFinishing()) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        CharSequence title;
+                        CharSequence message;
                         if (share) {
-                            dialogBuilder.setTitle(R.string.restore_shared_settings_alert_title);
-                            dialogBuilder.setMessage(R.string.restore_shared_settings_error_on_backup);
+                            title = activity.getString(R.string.restore_shared_settings_alert_title);
+                            message = activity.getString(R.string.restore_shared_settings_error_on_backup);
                         } else {
-                            dialogBuilder.setTitle(R.string.restore_settings_alert_title);
-                            dialogBuilder.setMessage(R.string.restore_settings_error_on_backup);
+                            title = activity.getString(R.string.restore_settings_alert_title);
+                            message = activity.getString(R.string.restore_settings_error_on_backup);
                         }
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        //            @Override
-                        //            public void onShow(DialogInterface dialog) {
-                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                        //                if (positive != null) positive.setAllCaps(false);
-                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                        //                if (negative != null) negative.setAllCaps(false);
-                        //            }
-                        //        });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                title,
+                                message,
+                                activity.getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                activity
+                        );
 
                         dialog.show();
                     }
@@ -5525,21 +5530,22 @@ public class EditorActivity extends AppCompatActivity
                                 //PPApplication.recordException(e);
                             }
                             if (!ok) {
-                                AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(activity);
-                                _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
-                                //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog _dialog = _dialogBuilder.create();
-
-//                                        _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                            @Override
-//                                            public void onShow(DialogInterface dialog) {
-//                                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                                if (positive != null) positive.setAllCaps(false);
-//                                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                                if (negative != null) negative.setAllCaps(false);
-//                                            }
-//                                        });
+                                PPAlertDialog _dialog = new PPAlertDialog(
+                                        activity.getString(R.string.backup_settings_alert_title),
+                                        activity.getString(R.string.directory_tree_activity_not_found_alert),
+                                        activity.getString(android.R.string.ok),
+                                        null,
+                                        null, null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        true, true,
+                                        false, false,
+                                        true,
+                                        activity
+                                );
 
                                 if (!activity.isFinishing())
                                     _dialog.show();

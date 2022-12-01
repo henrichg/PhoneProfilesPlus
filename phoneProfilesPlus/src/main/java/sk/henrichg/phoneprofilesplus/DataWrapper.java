@@ -2170,80 +2170,75 @@ public class DataWrapper {
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorActivity))
         {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.restart_events_alert_title);
-            dialogBuilder.setMessage(R.string.restart_events_alert_message);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+            PPAlertDialog dialog = new PPAlertDialog(
+                    activity.getString(R.string.restart_events_alert_title),
+                    activity.getString(R.string.restart_events_alert_message),
+                    activity.getString(R.string.alert_button_yes),
+                    activity.getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        boolean finish;
+                        if (activity instanceof ActivatorActivity)
+                            finish = ApplicationPreferences.applicationClose;
+                        else if ((activity instanceof RestartEventsFromGUIActivity) ||
+                                (activity instanceof BackgroundActivateProfileActivity))
+                            finish = true;
+                        else
+                            finish = false;
+                        if (finish)
+                            activity.finish();
 
-                boolean finish;
-                if (activity instanceof ActivatorActivity)
-                    finish = ApplicationPreferences.applicationClose;
-                else
-                if ((activity instanceof RestartEventsFromGUIActivity) ||
-                        (activity instanceof BackgroundActivateProfileActivity))
-                    finish = true;
-                else
-                    finish = false;
-                if (finish)
-                    activity.finish();
+                        boolean serviceStarted = GlobalUtils.isServiceRunning(context, PhoneProfilesService.class, false);
+                        if (!serviceStarted) {
 
-                boolean serviceStarted = GlobalUtils.isServiceRunning(context, PhoneProfilesService.class, false);
-                if (!serviceStarted) {
+                            AutostartPermissionNotification.showNotification(context, true);
 
-                    AutostartPermissionNotification.showNotification(context, true);
-
-                    PPApplication.setApplicationStarted(context, true);
-                    Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                    serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                            PPApplication.setApplicationStarted(context, true);
+                            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+                            serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                            serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                    PPApplication.logE("[START_PP_SERVICE] DataWrapper.restartEventsWithAlert", "xxx");
-                    PPApplication.startPPService(context, serviceIntent);
-                }
-                else {
-                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            PhoneProfilesService.getInstance().playNotificationSound(
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                            PPApplication.startPPService(context, serviceIntent);
+                        } else {
+                            if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+                                if (PhoneProfilesService.getInstance() != null) {
+                                    PhoneProfilesService.getInstance().playNotificationSound(
+                                            ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
                                     false*/);
-                            //PPApplication.sleep(500);
+                                    //PPApplication.sleep(500);
+                                }
+                            }
+
+                            restartEventsWithRescan(true, true, true, true, true, true);
+                            //IgnoreBatteryOptimizationNotification.showNotification(context);
                         }
-                    }
+                    },
+                    (dialogInterface, i) -> {
+                        boolean finish = (!(activity instanceof ActivatorActivity)) &&
+                                (!(activity instanceof EditorActivity));
 
-                    restartEventsWithRescan(true, true, true, true, true, true);
-                    //IgnoreBatteryOptimizationNotification.showNotification(context);
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialogInterface, i) -> {
-                boolean finish = (!(activity instanceof ActivatorActivity)) &&
-                                 (!(activity instanceof EditorActivity));
+                        if (finish)
+                            activity.finish();
+                    },
+                    null,
+                    dialogInterface -> {
+                        boolean finish = (!(activity instanceof ActivatorActivity)) &&
+                                (!(activity instanceof EditorActivity));
 
-                if (finish)
-                    activity.finish();
-            });
-            dialogBuilder.setOnCancelListener(dialogInterface -> {
-                boolean finish = (!(activity instanceof ActivatorActivity)) &&
-                                 (!(activity instanceof EditorActivity));
-
-                if (finish)
-                    activity.finish();
-            });
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+                        if (finish)
+                            activity.finish();
+                    },
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    activity
+            );
 
             if (!activity.isFinishing())
                 dialog.show();
@@ -2423,33 +2418,32 @@ public class DataWrapper {
                 return;
         }
         if (eventRunningEnabled) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.stop_events_alert_title);
-            dialogBuilder.setMessage(R.string.stop_events_alert_message);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                if (globalRunStopEvents(true)) {
-                    //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
+            PPAlertDialog dialog = new PPAlertDialog(
+                    activity.getString(R.string.stop_events_alert_title),
+                    activity.getString(R.string.stop_events_alert_message),
+                    activity.getString(R.string.alert_button_yes),
+                    activity.getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        if (globalRunStopEvents(true)) {
+                            //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
 
 //                    PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (1)", "call of updateGUI");
-                    PPApplication.updateGUI(true, false, activity);
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                if (checkBox != null)
-                    checkBox.setChecked(true);
-            });
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+                            PPApplication.updateGUI(true, false, activity);
+                        }
+                    },
+                    (dialog2, which) -> {
+                        if (checkBox != null)
+                            checkBox.setChecked(true);
+                    },
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    activity
+            );
 
             if (!activity.isFinishing())
                 dialog.show();
