@@ -112,14 +112,14 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
                 preference.removeBluetoothName(bluetoothName);
         });
 
-        if (!bluetoothDevice.custom)
+        if (!(bluetoothDevice.custom || bluetoothDevice.configured || bluetoothDevice.scanned))
             holder.itemEditMenu.setVisibility(View.GONE);
         else
             holder.itemEditMenu.setVisibility(View.VISIBLE);
         TooltipCompat.setTooltipText(holder.itemEditMenu, context.getString(R.string.tooltip_options_menu));
         holder.itemEditMenu.setTag(position);
         final ImageView itemEditMenu = holder.itemEditMenu;
-        holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu));
+        holder.itemEditMenu.setOnClickListener(v -> preference.showEditMenu(itemEditMenu, bluetoothDevice));
 
         return vi;
     }

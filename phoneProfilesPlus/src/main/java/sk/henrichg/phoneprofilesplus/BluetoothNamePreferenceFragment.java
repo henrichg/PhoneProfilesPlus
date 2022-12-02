@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -307,8 +308,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
     }
 
-    void showEditMenu(View view)
-    {
+    void showEditMenu(View view, BluetoothDeviceData bluetoothDevice) {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         PopupMenu popup;
@@ -318,7 +318,18 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         //    popup = new PopupMenu(context, view);
         new MenuInflater(_context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
 
-        int btNamePos = (int)view.getTag();
+        MenuItem menuItem = popup.getMenu().findItem(R.id.bluetooth_name_pref_dlg_item_menu_change);
+        if (menuItem != null) {
+            if (bluetoothDevice.scanned || bluetoothDevice.configured)
+                menuItem.setVisible(false);
+        }
+        menuItem = popup.getMenu().findItem(R.id.bluetooth_name_pref_dlg_item_menu_delete);
+        if (menuItem != null) {
+            if (bluetoothDevice.scanned || bluetoothDevice.configured)
+                menuItem.setVisible(false);
+        }
+
+        int btNamePos = (int) view.getTag();
         final String btName = preference.bluetoothList.get(btNamePos).getName();
 
         popup.setOnMenuItemClickListener(item -> {

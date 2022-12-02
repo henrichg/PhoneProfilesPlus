@@ -103,10 +103,9 @@ public class BluetoothNamePreference extends DialogPreference {
             fragment.refreshListView(forRescan, scrollToBTName);
     }
 
-    void showEditMenu(View view)
-    {
+    void showEditMenu(View view, BluetoothDeviceData bluetoothDevice) {
         if (fragment != null)
-            fragment.showEditMenu(view);
+            fragment.showEditMenu(view, bluetoothDevice);
     }
 
     private void setSummary() {

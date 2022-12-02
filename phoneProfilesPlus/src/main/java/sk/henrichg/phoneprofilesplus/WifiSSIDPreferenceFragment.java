@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -292,8 +293,9 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
     }
 
-    void showEditMenu(View view)
-    {
+    void showEditMenu(View view, WifiSSIDData wifiSSID) {
+        //if (!(wifiSSID.custom || wifiSSID.configured || wifiSSID.scanned)) {
+
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         PopupMenu popup;
@@ -301,9 +303,21 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
+
         new MenuInflater(_context).inflate(R.menu.wifi_ssid_pref_dlg_item_edit, popup.getMenu());
 
-        final int ssidPos = (int)view.getTag();
+        MenuItem menuItem = popup.getMenu().findItem(R.id.wifi_ssid_pref_dlg_item_menu_change);
+        if (menuItem != null) {
+            if (wifiSSID.scanned || wifiSSID.configured)
+                menuItem.setVisible(false);
+        }
+        menuItem = popup.getMenu().findItem(R.id.wifi_ssid_pref_dlg_item_menu_delete);
+        if (menuItem != null) {
+            if (wifiSSID.scanned || wifiSSID.configured)
+                menuItem.setVisible(false);
+        }
+
+        final int ssidPos = (int) view.getTag();
         final String ssid = preference.SSIDList.get(ssidPos).ssid;
 
         popup.setOnMenuItemClickListener(item -> {
@@ -339,9 +353,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                     refreshListView(false, "");
                 }
                 return true;
-            }
-            else
-            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
+            } else if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
                 if (getActivity() != null) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
@@ -374,16 +386,13 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                         dialog.show();
                 }
                 return true;
-            }
-            else
-            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_copy_name) {
+            } else if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_copy_name) {
                 if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
                         ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))) {
                     SSIDName.setText(ssid);
                 }
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         });
@@ -392,6 +401,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         if (getActivity() != null)
             if (!getActivity().isFinishing())
                 popup.show();
+        //}
     }
 
     static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {

@@ -98,10 +98,9 @@ public class WifiSSIDPreference extends DialogPreference {
             fragment.refreshListView(forRescan, scrollToSSID);
     }
 
-    void showEditMenu(View view)
-    {
+    void showEditMenu(View view, WifiSSIDData wifiSSID) {
         if (fragment != null)
-            fragment.showEditMenu(view);
+            fragment.showEditMenu(view, wifiSSID);
     }
 
     private void setSummary() {
