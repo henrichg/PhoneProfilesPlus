@@ -355,32 +355,31 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 return true;
             } else if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
                 if (getActivity() != null) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
-                    dialogBuilder.setMessage(getString(R.string.delete_wifi_ssid_alert_message));
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                        preference.removeSSID(ssid);
-                        for (WifiSSIDData customSSID : preference.customSSIDList) {
-                            if (customSSID.ssid.equals(ssid)) {
-                                preference.customSSIDList.remove(customSSID);
-                                break;
-                            }
-                        }
-                        refreshListView(false, "");
-                    });
-                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    //            @Override
-                    //            public void onShow(DialogInterface dialog) {
-                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    //                if (positive != null) positive.setAllCaps(false);
-                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    //                if (negative != null) negative.setAllCaps(false);
-                    //            }
-                    //        });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.profile_context_item_delete),
+                            getString(R.string.delete_wifi_ssid_alert_message),
+                            getString(R.string.alert_button_yes),
+                            getString(R.string.alert_button_no),
+                            null, null,
+                            (dialog1, which) -> {
+                                preference.removeSSID(ssid);
+                                for (WifiSSIDData customSSID : preference.customSSIDList) {
+                                    if (customSSID.ssid.equals(ssid)) {
+                                        preference.customSSIDList.remove(customSSID);
+                                        break;
+                                    }
+                                }
+                                refreshListView(false, "");
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();

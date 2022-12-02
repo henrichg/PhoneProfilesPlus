@@ -1032,24 +1032,23 @@ public class EditorEventListFragment extends Fragment
     private void deleteEventWithAlert(Event event)
     {
         final Event _event = event;
-        //noinspection ConstantConditions
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
-        dialogBuilder.setMessage(getString(R.string.delete_event_alert_message));
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteEvent(_event));
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-        AlertDialog dialog = dialogBuilder.create();
 
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
+        PPAlertDialog dialog = new PPAlertDialog(
+                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.delete_event_alert_message),
+                getString(R.string.alert_button_yes),
+                getString(R.string.alert_button_no),
+                null, null,
+                (dialog1, which) -> deleteEvent(_event),
+                null,
+                null,
+                null,
+                null,
+                true, true,
+                false, false,
+                true,
+                getActivity()
+        );
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
@@ -1058,64 +1057,62 @@ public class EditorEventListFragment extends Fragment
     private void deleteAllEvents()
     {
         if (eventListAdapter != null) {
-            //noinspection ConstantConditions
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-            dialogBuilder.setTitle(getString(R.string.alert_title_delete_all_events));
-            dialogBuilder.setMessage(getString(R.string.alert_message_delete_all_events));
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.alert_title_delete_all_events),
+                    getString(R.string.alert_message_delete_all_events),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                activityDataWrapper.stopAllEventsFromMainThread(true, true);
+                        activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
-                synchronized (activityDataWrapper.eventList) {
-                    // remove notifications about event parameters errors
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
-                    //noinspection ForLoopReplaceableByForEach
-                    for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
-                        Event event = it.next();
-                        try {
-                            notificationManager.cancel(
-                                    PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
-                                    PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
+                        synchronized (activityDataWrapper.eventList) {
+                            // remove notifications about event parameters errors
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
+                            //noinspection ForLoopReplaceableByForEach
+                            for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
+                                Event event = it.next();
+                                try {
+                                    notificationManager.cancel(
+                                            PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG + "_" + event._id,
+                                            PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            }
                         }
-                    }
-                }
 
-                eventListAdapter.clear();
-                // this is in eventListAdapter.clear()
-                //eventListAdapter.notifyDataSetChanged();
+                        eventListAdapter.clear();
+                        // this is in eventListAdapter.clear()
+                        //eventListAdapter.notifyDataSetChanged();
 
-                if (getActivity() != null) {
-                    /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
-                    PPApplication.startPPService(getActivity(), serviceIntent);*/
-                    Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                    //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
-                    commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
-                    PPApplication.runCommand(getActivity(), commandIntent);
-                }
+                        if (getActivity() != null) {
+                            /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
+                            PPApplication.startPPService(getActivity(), serviceIntent);*/
+                            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
+                            commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
+                            PPApplication.runCommand(getActivity(), commandIntent);
+                        }
 
-                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+                        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    getActivity()
+            );
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();

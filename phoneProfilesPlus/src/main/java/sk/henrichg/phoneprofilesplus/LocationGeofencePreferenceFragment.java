@@ -273,75 +273,56 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
             else
             if (itemId == R.id.location_geofence_pref_item_menu_delete) {
                 if (getActivity() != null) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getString(R.string.event_preferences_locations_cant_delete_location_title));
-                    dialogBuilder.setMessage(getString(R.string.delete_geofence_name_alert_message));
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                        if (geofenceId > 0) {
-                            if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
-                                DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
-                                preference.refreshListView();
-                                //updateGUIWithGeofence(0);
-                            /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
-                                // stop location updates
-                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isLocationScannerStarted())
-                                    PhoneProfilesService.getGeofencesScanner().disconnect();
-                            }*/
-                            } else {
-                                /*
-                                AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(context);
-                                _dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
-                                _dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
-                                _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog _dialog = _dialogBuilder.create();
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.event_preferences_locations_cant_delete_location_title),
+                            getString(R.string.delete_geofence_name_alert_message),
+                            getString(R.string.alert_button_yes),
+                            getString(R.string.alert_button_no),
+                            null, null,
+                            (dialog1, which) -> {
+                                if (geofenceId > 0) {
+                                    if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
+                                        DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
+                                        preference.refreshListView();
+                                        //updateGUIWithGeofence(0);
+                                        /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
+                                            // stop location updates
+                                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isLocationScannerStarted())
+                                                PhoneProfilesService.getGeofencesScanner().disconnect();
+                                        }*/
+                                    } else {
+                                        PPAlertDialog _dialog = new PPAlertDialog(
+                                                getString(R.string.event_preferences_locations_cant_delete_location_title),
+                                                getString(R.string.event_preferences_locations_cant_delete_location_text),
+                                                getString(android.R.string.ok),
+                                                null,
+                                                null, null,
+                                                null,
+                                                null,
+                                                null,
+                                                null,
+                                                null,
+                                                true, true,
+                                                false, false,
+                                                false,
+                                                getActivity()
+                                        );
 
-//                                _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
-                                */
-
-                                PPAlertDialog _dialog = new PPAlertDialog(
-                                        getString(R.string.event_preferences_locations_cant_delete_location_title),
-                                        getString(R.string.event_preferences_locations_cant_delete_location_text),
-                                        getString(android.R.string.ok),
-                                        null,
-                                        null, null,
-                                        null,
-                                        null,
-                                        null,
-                                        null,
-                                        null,
-                                        true, true,
-                                        false, false,
-                                        false,
-                                        getActivity()
-                                );
-
-                                if (getActivity() != null)
-                                    if (!getActivity().isFinishing())
-                                        _dialog.show();
-                            }
-                        }
-                    });
-                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    //            @Override
-                    //            public void onShow(DialogInterface dialog) {
-                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    //                if (positive != null) positive.setAllCaps(false);
-                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    //                if (negative != null) negative.setAllCaps(false);
-                    //            }
-                    //        });
+                                        if (getActivity() != null)
+                                            if (!getActivity().isFinishing())
+                                                _dialog.show();
+                                    }
+                                }
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();

@@ -566,30 +566,29 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             int itemId = item.getItemId();
             if (itemId == R.id.mobile_cells_pref_item_menu_delete) {
                 if (getActivity() != null) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
-                    dialogBuilder.setMessage(getString(R.string.delete_mobile_cell_alert_message));
                     //TODO sem daj upozornenie, ze to zmaze pouzivanu aj v inych udalostiach
                     // lebo jedna bunka sa moze pouzivat v roznych udalostiach naraz
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                        DatabaseHandler db = DatabaseHandler.getInstance(_context);
-                        db.deleteMobileCell(cellId);
-                        preference.removeCellId(cellId);
-                        refreshListView(false, Integer.MAX_VALUE);
-                    });
-                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    //            @Override
-                    //            public void onShow(DialogInterface dialog) {
-                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    //                if (positive != null) positive.setAllCaps(false);
-                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    //                if (negative != null) negative.setAllCaps(false);
-                    //            }
-                    //        });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.profile_context_item_delete),
+                            getString(R.string.delete_mobile_cell_alert_message),
+                            getString(R.string.alert_button_yes),
+                            getString(R.string.alert_button_no),
+                            null, null,
+                            (dialog1, which) -> {
+                                DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                                db.deleteMobileCell(cellId);
+                                preference.removeCellId(cellId);
+                                refreshListView(false, Integer.MAX_VALUE);
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();
@@ -599,37 +598,36 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_selected) {
                 // this delete all selected cells in actual filter
                 if (getActivity() != null) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
-                    dialogBuilder.setMessage(getString(R.string.delete_selected_mobile_cells_alert_message));
                     //TODO sem daj upozornenie, ze to zmaze bunky pouzivane aj v inych udalostiach
                     // lebo jedna bunka sa moze pouzivat v roznych udalostiach naraz
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                        DatabaseHandler db = DatabaseHandler.getInstance(_context);
-                        for (MobileCellsData cell : preference.filteredCellsList) {
-                            String[] splits = preference.value.split("\\|");
-                            for (String valueCell : splits) {
-                                if (valueCell.equals(Integer.toString(cell.cellId))) {
-                                    db.deleteMobileCell(cell.cellId);
-                                    preference.removeCellId(cell.cellId);
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.profile_context_item_delete),
+                            getString(R.string.delete_selected_mobile_cells_alert_message),
+                            getString(R.string.alert_button_yes),
+                            getString(R.string.alert_button_no),
+                            null, null,
+                            (dialog1, which) -> {
+                                DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                                for (MobileCellsData cell : preference.filteredCellsList) {
+                                    String[] splits = preference.value.split("\\|");
+                                    for (String valueCell : splits) {
+                                        if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                            db.deleteMobileCell(cell.cellId);
+                                            preference.removeCellId(cell.cellId);
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                        refreshListView(false, Integer.MAX_VALUE);
-                    });
-                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    //            @Override
-                    //            public void onShow(DialogInterface dialog) {
-                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    //                if (positive != null) positive.setAllCaps(false);
-                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    //                if (negative != null) negative.setAllCaps(false);
-                    //            }
-                    //        });
+                                refreshListView(false, Integer.MAX_VALUE);
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
 
                     if ((getActivity() != null) && (!getActivity().isFinishing()))
                         dialog.show();
