@@ -25,12 +25,13 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
 
     private ConfiguredProfilePreferencesAdapter listAdapter;
 
+    private View buttonsDivider;
+
     private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(@NonNull Context context)
-    {
+    protected View onCreateDialogView(@NonNull Context context) {
         prefContext = context;
         preference = (ConfiguredProfilePreferencesDialogPreference) getPreference();
         preference.fragment = this;
@@ -43,6 +44,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
+        buttonsDivider = view.findViewById(R.id.profile_pref_dlg_listview_buttonBarDivider);
         listView = view.findViewById(R.id.configured_profile_preferences_pref_dlg_listview);
         linlaProgress = view.findViewById(R.id.configured_profile_preferences_pref_dlg_linla_progress);
 
@@ -167,6 +169,11 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
 
                 fragment.linlaProgress.setVisibility(View.GONE);
                 fragment.listView.setVisibility(View.VISIBLE);
+
+                if (preference.preferencesList.size() <= 1)
+                    fragment.buttonsDivider.setVisibility(View.GONE);
+                else
+                    fragment.buttonsDivider.setVisibility(View.VISIBLE);
             }
         }
 
