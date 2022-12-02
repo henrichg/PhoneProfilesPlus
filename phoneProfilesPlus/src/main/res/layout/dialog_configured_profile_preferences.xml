@@ -49,7 +49,7 @@
             android:scrollbarStyle="outsideOverlay"
             android:fadeScrollbars="false"
             android:divider="@android:color/transparent"
-            android:listSelector="?attr/listViewItemBackground" />
+            android:listSelector="@android:color/transparent" />
 
         <View
             android:id="@+id/profile_pref_dlg_listview_buttonBarDivider"
