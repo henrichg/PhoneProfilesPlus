@@ -146,7 +146,8 @@
                 android:choiceMode="singleChoice"
                 android:scrollbarStyle="outsideOverlay"
                 android:fadeScrollbars="false"
-                android:divider="@android:color/transparent" />
+                android:divider="@android:color/transparent"
+                android:listSelector="?attr/listViewItemBackground" />
 
         </LinearLayout>
 

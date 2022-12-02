@@ -52,7 +52,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         if (preferenceFragment.preference.onlyEdit == 0)
             view = inflater.inflate(R.layout.location_preference_list_item, parent, false);
         else
-            view = inflater.inflate(R.layout.location_preference_list_item_no_rb, parent, false);
+            view = inflater.inflate(R.layout.location_preference_list_item_no_chb, parent, false);
 
         ViewHolder rowData  = new ViewHolder();
 
@@ -74,6 +74,13 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
 
         ViewHolder rowData = (ViewHolder) view.getTag();
+
+        // must be set, without this not working long click
+        rowData.checkBox.setFocusable(false);
+        rowData.checkBox.setFocusableInTouchMode(false);
+        rowData.itemEditMenu.setFocusable(false);
+        rowData.itemEditMenu.setFocusableInTouchMode(false);
+
         getView(rowData, cursor/*, false*/);
     }
 
