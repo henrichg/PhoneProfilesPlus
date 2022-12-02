@@ -65,16 +65,19 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
             holder.checkBox = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.bluetooth_name_pref_dlg_item_edit_menu);
             vi.setTag(holder);
+        } else {
+            holder = (ViewHolder) vi.getTag();
         }
-        else
-        {
-            holder = (ViewHolder)vi.getTag();
-        }
+
+        // must be set, without this not working long click
+        holder.checkBox.setFocusable(false);
+        holder.checkBox.setFocusableInTouchMode(false);
+        holder.itemEditMenu.setFocusable(false);
+        holder.itemEditMenu.setFocusableInTouchMode(false);
 
         if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE))
             holder.bluetoothName.setText(/*"[DU] " + */context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb));
-        else
-        if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
+        else if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
             holder.bluetoothName.setText(/*"[DU] " + */context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
         else {
             /*String sType;

@@ -68,11 +68,15 @@ class NFCTagPreferenceAdapter extends BaseAdapter
             holder.checkBox = vi.findViewById(R.id.nfc_tag_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.nfc_tag_pref_dlg_item_edit_menu);
             vi.setTag(holder);
+        } else {
+            holder = (ViewHolder) vi.getTag();
         }
-        else
-        {
-            holder = (ViewHolder)vi.getTag();
-        }
+
+        // must be set, without this not working long click
+        holder.checkBox.setFocusable(false);
+        holder.checkBox.setFocusableInTouchMode(false);
+        holder.itemEditMenu.setFocusable(false);
+        holder.itemEditMenu.setFocusableInTouchMode(false);
 
         holder.tagName.setText(nfcTag._name);
         /*if (nfcTag._uid.isEmpty())
