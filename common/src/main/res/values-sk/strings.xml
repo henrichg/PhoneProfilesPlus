@@ -16,7 +16,7 @@
     <string name="profile_name_default">Profil</string>
     <string name="event_name_default">Udalosť</string>
     <string name="profile_context_item_edit">Úprava</string>
-    <string name="profile_context_item_delete">Vymazanie</string>
+    <string name="profile_context_item_delete">Vymazať</string>
     <string name="profile_string_0">Profil</string>
     <string name="event_string_0">Udalosť</string>
     <string name="delete_profile_alert_message">Vymazať profil?</string>
