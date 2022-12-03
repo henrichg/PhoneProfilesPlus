@@ -15,8 +15,8 @@
     <color name="activityPopupMenuBackgroundColor">#FFF7F7F7</color>
     <!-- this is for no-ripple selector -->
     <color name="activityPopupMenuClickedItemBackgroundColor">#17000000</color>
-    <color name="activityPreferenceTitleTextColor">#FF171717</color>
-    <color name="activityPreferenceSummaryTextColor">#FF4E4E4E</color>
+    <!--    <color name="activityPreferenceTitleTextColor">#FF171717</color>-->
+    <!--    <color name="activityPreferenceSummaryTextColor">#FF4E4E4E</color>-->
 
     <!--    <color name="notificationDecorationColor">#DC8160</color>-->
     <color name="notificationDecorationColor">#cc893e</color>

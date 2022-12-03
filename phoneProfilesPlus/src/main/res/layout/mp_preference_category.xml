@@ -35,8 +35,8 @@
             android:layout_alignStart="@android:id/title"
             android:layout_gravity="start"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/activityPreferenceSummaryTextColor"
+            android:textColor="?android:attr/textColorSecondary"
             android:singleLine="false"/>
-        <!--        android:textColor="?android:attr/textColorSecondary"-->
+        <!--        android:textColor="@color/activityPreferenceSummaryTextColor"-->
     </RelativeLayout>
 </LinearLayout>
