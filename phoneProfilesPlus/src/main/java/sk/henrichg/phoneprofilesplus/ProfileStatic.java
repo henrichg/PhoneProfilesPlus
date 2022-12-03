@@ -7,8 +7,11 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.Settings;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1187,6 +1190,19 @@ public class ProfileStatic {
             value = 1;
         }
         return value == 0; // in preference dialog is checked=No change
+    }
+
+    static String getColorForChangedPreferenceValue(String preferenceValue,
+                                                    PreferenceManager prefMng,
+                                                    String preferenceKey,
+                                                    Context context) {
+        Preference preference = prefMng.findPreference(preferenceKey);
+        if ((preference != null) && preference.isEnabled()) {
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+        } else
+            return preferenceValue;
     }
 
 }
