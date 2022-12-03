@@ -121,8 +121,7 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -137,14 +136,14 @@ class EventPreferencesBattery extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.pref_event_battery_level);
-                descr = descr + ": <b>" + this._levelLow + "% - " + this._levelHight + "%</b>";
+                descr = descr + ": <b>" + getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context) + "</b>";
 
                 if (this._powerSaveMode)
-                    descr = descr + " • <b>" + context.getString(R.string.pref_event_battery_power_save_mode) + "</b>";
+                    descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context) + "</b>";
                 else {
                     descr = descr + " • " + context.getString(R.string.pref_event_battery_charging);
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                    descr = descr + ": <b>" + charging[this._charging] + "</b>";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(charging[this._charging], disabled, context) + "</b>";
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
@@ -161,7 +160,7 @@ class EventPreferencesBattery extends EventPreferences {
                             }
                         }
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + selectedPlugged + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + "</b>";
                 }
             }
         }
@@ -296,9 +295,9 @@ class EventPreferencesBattery extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BATTERY).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

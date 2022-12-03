@@ -165,8 +165,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._eventTodayExists = false;
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -181,39 +180,39 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";
-                descr = descr + "<b>" + CalendarsMultiSelectDialogPreference.getSummary(_calendars, context) + "</b> • ";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(CalendarsMultiSelectDialogPreference.getSummary(_calendars, context), disabled, context) + "</b> • ";
 
                 if (this._dayContainsEvent > 0) {
                     descr = descr + context.getString(R.string.event_preferences_calendar_day_contains_event) + ": ";
                     String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarDayContainsEventArray);
-                    descr = descr + "<b>" + dayContainsEventArray[this._dayContainsEvent] + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(dayContainsEventArray[this._dayContainsEvent], disabled, context) + "</b> • ";
                 }
                 if (this._allEvents) {
-                    descr = descr + "<b>" + context.getString(R.string.event_preferences_calendar_all_events) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_calendar_all_events), disabled, context) + "</b> • ";
                 } else {
                     descr = descr + context.getString(R.string.event_preferences_calendar_search_field) + ": ";
                     String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-                    descr = descr + "<b>" + searchFields[this._searchField] + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(searchFields[this._searchField], disabled, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_calendar_search_string) + ": ";
-                    descr = descr + "<b>\"" + this._searchString + "\"</b>" + " • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue("\"" + this._searchString + "\"", disabled, context) + "</b>" + " • ";
                 }
 
                 //if (this._ignoreAllDayEvents)
-                //    descr = descr + "<b>" + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "</b> • ";
+                //    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_calendar_ignore_all_day_events, disabled, context)) + "</b> • ";
                 descr = descr + context.getString(R.string.event_preferences_calendar_all_day_events) + ": ";
                 String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarAllDayEventsArray);
-                descr = descr + "<b>" + dayContainsEventArray[this._allDayEvents] + "</b> • ";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(dayContainsEventArray[this._allDayEvents], disabled, context) + "</b> • ";
 
 
                 String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": <b>" +availabilities[this._availability] + " • </b>";
+                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": <b>" + getColorForChangedPreferenceValue(availabilities[this._availability], disabled, context) + " • </b>";
 
                 String[] statuses = context.getResources().getStringArray(R.array.eventCalendarStatusArray);
-                descr = descr + context.getString(R.string.event_preference_calendar_status) + ": <b>" +statuses[this._status] + "</b>";
+                descr = descr + context.getString(R.string.event_preference_calendar_status) + ": <b>" + getColorForChangedPreferenceValue(statuses[this._status], disabled, context) + "</b>";
 
                 if (this._startBeforeEvent > 0)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + StringFormatUtils.getDurationString(this._startBeforeEvent) + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._startBeforeEvent), disabled, context) + "</b>";
 
                 if (addBullet) {
                     if (Event.getGlobalEventsRunning()) {
@@ -468,9 +467,9 @@ class EventPreferencesCalendar extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_CALENDAR).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

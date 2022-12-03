@@ -89,7 +89,7 @@ class EventPreferencesRoaming extends EventPreferences {
         this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_ROAMING_FOR_SIM_CARD, "0"));
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context) {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -105,12 +105,12 @@ class EventPreferencesRoaming extends EventPreferences {
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (this._checkNetwork) {
-                    descr = descr + "<b>" + context.getString(R.string.pref_event_roaming_check_network) + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context) + "</b>";
                 }
                 if (this._checkData) {
                     if (this._checkNetwork)
                         descr = descr + " • ";
-                    descr = descr + "<b>" + context.getString(R.string.pref_event_roaming_check_data) + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context) + "</b>";
                 }
 
                 if (Build.VERSION.SDK_INT >= 26) {
@@ -131,7 +131,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (hasSIMCard) {
                         descr = descr + " • " + context.getString(R.string.event_preferences_roaming_forSimCard);
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
-                        descr = descr + ": <b>" + forSimCard[this._forSIMCard] + "</b>";
+                        descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                     }
                 }
             }
@@ -265,9 +265,9 @@ class EventPreferencesRoaming extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ROAMING).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         } else {
             Preference preference = prefMng.findPreference(PREF_EVENT_ROAMING_CATEGORY);

@@ -93,8 +93,7 @@ class EventPreferencesVolumes extends EventPreferences {
         this._volumeBluetoothSCO = preferences.getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0");
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -120,7 +119,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     descr = descr + context.getString(R.string.profile_preferences_volumeRingtone) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
                     _addBullet = true;
                 }
 
@@ -136,7 +135,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeNotification) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
                     _addBullet = true;
                 }
 
@@ -152,7 +151,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeMedia) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
                     _addBullet = true;
                 }
 
@@ -168,7 +167,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeAlarm) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
                     _addBullet = true;
                 }
 
@@ -184,7 +183,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeSystem) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
                     _addBullet = true;
                 }
 
@@ -200,7 +199,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeVoiceCall) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
                     _addBullet = true;
                 }
 
@@ -216,7 +215,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.profile_preferences_volumeBluetoothSCO) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + "<b>" + fields[operator] + " " + splits[0] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
                     //_addBullet = true;
                 }
 
@@ -235,7 +234,7 @@ class EventPreferencesVolumes extends EventPreferences {
                             descr = descr + " • ";
                         descr = descr + context.getString(R.string.profile_preferences_volumeAccessibility) + ": ";
                         String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                        descr = descr + "<b>" + fields[operator] + "</b>";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator], disabled, context) + "</b>";
                     }
                 }
                 */
@@ -374,9 +373,9 @@ class EventPreferencesVolumes extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_VOLUMES).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

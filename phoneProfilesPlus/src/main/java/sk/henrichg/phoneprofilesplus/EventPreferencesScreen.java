@@ -60,8 +60,7 @@ class EventPreferencesScreen extends EventPreferences {
         this._whenUnlocked = preferences.getBoolean(PREF_EVENT_SCREEN_WHEN_UNLOCKED, false);
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -80,14 +79,14 @@ class EventPreferencesScreen extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_screen_event_type) + ": ";
                     String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
-                    descr = descr + "<b>" + eventListTypeNames[index] + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, context) + "</b>";
                 }
 
                 if (this._whenUnlocked) {
                     if (this._eventType == EventPreferencesScreen.ETYPE_SCREENON)
-                        descr = descr + " • <b>" + context.getString(R.string.pref_event_screen_startWhenUnlocked) + "</b>";
+                        descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context) + "</b>";
                     else
-                        descr = descr + " • <b>" + context.getString(R.string.pref_event_screen_startWhenLocked) + "</b>";
+                        descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context) + "</b>";
                 }
             }
         }
@@ -171,9 +170,9 @@ class EventPreferencesScreen extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SCREEN).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

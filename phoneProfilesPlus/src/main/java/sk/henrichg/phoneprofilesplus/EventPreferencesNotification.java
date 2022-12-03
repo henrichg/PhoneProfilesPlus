@@ -133,8 +133,7 @@ class EventPreferencesNotification extends EventPreferences {
         //}
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -159,12 +158,12 @@ class EventPreferencesNotification extends EventPreferences {
                     //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
 
                     if (this._inCall) {
-                        descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_inCall) + "</b>";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context) + "</b>";
                     }
                     if (this._missedCall) {
                         if (this._inCall)
                             descr = descr + " • ";
-                        descr = descr + "<b>" +context.getString(R.string.event_preferences_notifications_missedCall) + "</b>";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context) + "</b>";
                     }
                     String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -194,31 +193,31 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                     if (this._inCall || this._missedCall)
                         descr = descr + " • ";
-                    descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + selectedApplications + "</b>";
+                    descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
 
                     if (this._checkContacts) {
                         descr = descr + " • ";
-                        descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_checkContacts) + "</b>: ";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + "</b>: ";
 
                         descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
-                        descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context) + "</b> • ";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
 
                         descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
-                        descr = descr + "<b>" + ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context) + "</b> • ";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + "</b> • ";
 
                         descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
                         String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
-                        descr = descr + "<b>" + contactListTypes[this._contactListType] + "</b>";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
                     }
                     if (this._checkText) {
                         descr = descr + " • ";
-                        descr = descr + "<b>" + context.getString(R.string.event_preferences_notifications_checkText) + "</b>: ";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + "</b>: ";
 
                         descr = descr + context.getString(R.string.event_preferences_notifications_text) + ": ";
-                        descr = descr + "<b>" + _text + "</b>";
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(_text, disabled, context) + "</b>";
                     }
                     descr = descr + " • ";
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                 }
             }
         }
@@ -453,9 +452,9 @@ class EventPreferencesNotification extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NOTIFICATION).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

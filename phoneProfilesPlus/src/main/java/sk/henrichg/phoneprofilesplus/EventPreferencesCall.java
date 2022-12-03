@@ -134,7 +134,7 @@ class EventPreferencesCall extends EventPreferences {
         this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_FOR_SIM_CARD, "0"));
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context) {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -166,17 +166,17 @@ class EventPreferencesCall extends EventPreferences {
                 } else {
                     descr = descr + context.getString(R.string.pref_event_call_event);
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                    descr = descr + ": <b>" + callEvents[this._callEvent] + "</b> • ";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_call_contact_groups) + ": ";
-                    descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_call_contacts) + ": ";
-                    descr = descr + "<b>" + ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-                    descr = descr + ": <b>" + contactListTypes[this._contactListType] + "</b>";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
 
                     if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
@@ -196,7 +196,7 @@ class EventPreferencesCall extends EventPreferences {
                         if (hasSIMCard) {
                             descr = descr + " • " + context.getString(R.string.event_preferences_call_forSimCard);
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventCallForSimCardArray);
-                            descr = descr + ": <b>" + forSimCard[this._forSIMCard] + "</b>";
+                            descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                         }
                     }
 
@@ -204,9 +204,9 @@ class EventPreferencesCall extends EventPreferences {
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         if (this._permanentRun)
-                            descr = descr + " • <b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
+                            descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
                         else
-                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
+                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                     }
                 }
             }
@@ -457,9 +457,9 @@ class EventPreferencesCall extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_PHONE_CALL).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         } else {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);

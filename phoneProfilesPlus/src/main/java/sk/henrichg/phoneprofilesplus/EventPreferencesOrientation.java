@@ -147,8 +147,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -185,7 +184,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         }
                     }
                 }
-                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + selectedValues + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
 
                 //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
@@ -205,22 +204,22 @@ class EventPreferencesOrientation extends EventPreferences {
                             }
                         }
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + selectedValues + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_distance) + ": <b>" + distanceNames[i] + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_distance) + ": <b>" + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + "</b>";
 
                 if (this._checkLight) {
                     descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
-                                    this._lightMin  + "-" + this._lightMax + "</b>";
+                            getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context) + "</b>";
                 }
                 else {
                     descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
-                            context.getString(R.string.event_preferences_orientation_light_not_enabled) + "</b>";
+                            getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context) + "</b>";
                 }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -263,7 +262,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
-                descr = descr + " • " + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": <b>" + selectedApplications + "</b>";
+                descr = descr + " • " + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
             }
         }
 
@@ -608,9 +607,9 @@ class EventPreferencesOrientation extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

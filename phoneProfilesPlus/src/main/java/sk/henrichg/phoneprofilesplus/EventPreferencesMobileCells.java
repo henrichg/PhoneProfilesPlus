@@ -80,8 +80,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD, "0"));
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -117,9 +116,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                     selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
                     selectedCells = selectedCells + " " + splits.length;
                 }
-                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": <b>" +selectedCells + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": <b>" + getColorForChangedPreferenceValue(selectedCells, disabled, context) + "</b>";
                 if (this._whenOutside)
-                    descr = descr + " • <b>" + context.getString(R.string.event_preferences_mobile_cells_when_outside_description) + "</b>";
+                    descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context) + "</b>";
 
                 if (Build.VERSION.SDK_INT >= 26) {
                     boolean hasSIMCard = false;
@@ -139,7 +138,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     if (hasSIMCard) {
                         descr = descr + " • " + context.getString(R.string.event_preferences_mobile_cells_forSimCard);
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
-                        descr = descr + ": <b>" + forSimCard[this._forSIMCard] + "</b>";
+                        descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                     }
                 }
             }
@@ -343,9 +342,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_MOBILE_CELLS).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

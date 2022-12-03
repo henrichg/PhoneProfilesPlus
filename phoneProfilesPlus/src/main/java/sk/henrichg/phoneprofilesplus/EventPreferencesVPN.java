@@ -43,7 +43,7 @@ class EventPreferencesVPN extends EventPreferences {
         this._connectionStatus = Integer.parseInt(preferences.getString(PREF_EVENT_VPN_CONNECTION_STATUS, "0"));
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context) {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -60,7 +60,7 @@ class EventPreferencesVPN extends EventPreferences {
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + ": ";
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
-                descr = descr + "<b>" + fields[this._connectionStatus] + "</b>";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context) + "</b>";
 
             }
             else {
@@ -147,9 +147,9 @@ class EventPreferencesVPN extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_VPN).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         } else {
             Preference preference = prefMng.findPreference(PREF_EVENT_VPN_CATEGORY);

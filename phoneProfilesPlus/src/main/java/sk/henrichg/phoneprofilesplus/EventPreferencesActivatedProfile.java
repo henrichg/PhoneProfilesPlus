@@ -67,8 +67,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         this._running = RUNNING_NOTSET;
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -86,17 +85,17 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
                 Profile profile = dataWrapper.getProfileById(this._startProfile, true, true, false);
                 if (profile != null) {
-                    descr = descr + "<b>" + profile._name + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
                 } else {
-                    descr = descr + "<b>" + context.getString(R.string.profile_preference_profile_not_set) + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
                 }
 
                 descr = descr + " • " + context.getString(R.string.event_preferences_activated_profile_endProfile) + ": ";
                 profile = dataWrapper.getProfileById(this._endProfile, true, true, false);
                 if (profile != null) {
-                    descr = descr + "<b>" + profile._name + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
                 } else {
-                    descr = descr + "<b>" + context.getString(R.string.profile_preference_profile_not_set) + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
                 }
             }
         }
@@ -191,9 +190,9 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ACTIVATED_PROFILE).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {
