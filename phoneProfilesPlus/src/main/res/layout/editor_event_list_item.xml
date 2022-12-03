@@ -118,6 +118,7 @@
                 android:scaleType="fitCenter"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/ic_profile_default" />
 
             <LinearLayout
@@ -144,7 +145,7 @@
                     android:id="@+id/event_list_item_profile_start_pref_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_preferences_indicator_in_event_height"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_event_start_image"
                     android:scaleType="@integer/profilePrefIndicatorScaleType"
@@ -174,6 +175,7 @@
                 android:scaleType="fitCenter"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/ic_profile_default" />
 
             <LinearLayout
@@ -201,7 +203,7 @@
                     android:id="@+id/event_list_item_profile_end_pref_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_preferences_indicator_in_event_height"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_event_end_image"
                     android:scaleType="@integer/profilePrefIndicatorScaleType"
