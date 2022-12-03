@@ -22,6 +22,8 @@
     <!--    <color name="activityCommandBackgroundColor">#1Fffdad3</color>-->
     <!--    <color name="activityPopupMenuBackgroundColor">#FF1a1513</color>-->
     <!--    <color name="activityPopupMenuClickedItemBackgroundColor">#37ffdad3</color>-->
+    <color name="activityPreferenceTitleTextColor">#FFd5d5d5</color>
+    <color name="activityPreferenceSummaryTextColor">#FFa5a5a5</color>
 
     <color name="notificationDecorationColor">#cc893e</color>
 
@@ -32,7 +34,7 @@
     <color name="popup_window_divider">#25ffffff</color>
     <color name="scrollbar_color">#25ffffff</color>
 
-<!--    <color name="editorFilterTitleColor">#FFFFFFFF</color>-->
+    <!--    <color name="editorFilterTitleColor">#FFFFFFFF</color>-->
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
     <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
