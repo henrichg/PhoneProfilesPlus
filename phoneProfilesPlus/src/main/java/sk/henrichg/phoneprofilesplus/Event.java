@@ -1148,17 +1148,18 @@ class Event {
                         Profile profile;
                         if (splits.length == 1) {
                             profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
-                            if (profile != null)
-                                summary = summary + profile._name;
+                            if (profile != null) {
+                                summary = summary + "<b>" + getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context) + "</b>";
+                            }
                         }
                         else {
-                            summary = summary + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                            summary = summary + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context) + "</b>";
                         }
                     }
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + StringFormatUtils.getDurationString(delayStart);
+                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1172,7 +1173,7 @@ class Event {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_notificationRepeat);
                     }
-                    preference.setSummary(summary);
+                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
                 }
                 else
                     preference.setSummary("");
@@ -1194,7 +1195,7 @@ class Event {
                     if (delayEndChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + StringFormatUtils.getDurationString(delayEnd);
+                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundEndChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1204,7 +1205,7 @@ class Event {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
                     }
-                    preference.setSummary(summary);
+                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
                 }
                 else
                     preference.setSummary("");
@@ -3315,6 +3316,15 @@ class Event {
             //return true;
         }
         //return false;
+    }
+
+    String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
+        if (!disabled) {
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+        } else
+            return preferenceValue;
     }
 
 }
