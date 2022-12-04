@@ -1074,6 +1074,7 @@ class Event {
             String startWhenActivatedProfile;
             int delayStart;
             int delayEnd;
+            int repeatInterval;
 
             if (preferences == null) {
                 //forceRunChanged = this._ignoreManualActivation;
@@ -1092,6 +1093,7 @@ class Event {
                 manualProfileActivationAtEndChanged = this._manualProfileActivationAtEnd;
                 notificationSoundStartPlayAlsoInSilentMode = this._notificationSoundStartPlayAlsoInSilentMode;
                 notificationSoundEndPlayAlsoInSilentMode = this._notificationSoundEndPlayAlsoInSilentMode;
+                repeatInterval = this._repeatNotificationIntervalStart;
             }
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_IGNORE_MANUAL_ACTIVATION, false);
@@ -1116,10 +1118,10 @@ class Event {
                         notificationVibrateEndChanged = false;
                     }
                 }
-
                 notificationRepeatStartChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT_START, false);
                 notificationSoundEndChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_END, "").isEmpty();
                 manualProfileActivationAtEndChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
+                repeatInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, "0"));
             }
             Preference preference = prefMng.findPreference("eventStartOthersCategoryRoot");
             if (preference != null) {
@@ -1171,7 +1173,9 @@ class Event {
                     }
                     if (notificationRepeatStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_notificationRepeat);
+                        summary = summary + context.getString(R.string.event_preferences_notificationRepeat) + ": ";
+                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
+
                     }
                     preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
                 }
