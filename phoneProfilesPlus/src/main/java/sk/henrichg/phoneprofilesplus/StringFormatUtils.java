@@ -11,6 +11,8 @@ import android.text.style.BulletSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.URLSpan;
 
+import androidx.core.text.HtmlCompat;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -93,10 +95,10 @@ public class StringFormatUtils {
 
         //if (Build.VERSION.SDK_INT >= 24) {
         if (forNumbers)
-            htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
+            htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
         else {
-            htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
-            //htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
+            htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT);
+            //htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
         }
         //} else {
         //    if (forBullets || forNumbers)
