@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;

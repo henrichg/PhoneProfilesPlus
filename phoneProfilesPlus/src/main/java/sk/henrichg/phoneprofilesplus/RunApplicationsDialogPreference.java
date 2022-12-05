@@ -18,7 +18,6 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
