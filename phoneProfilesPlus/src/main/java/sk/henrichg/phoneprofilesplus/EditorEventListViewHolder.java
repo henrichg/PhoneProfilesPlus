@@ -308,9 +308,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                     //profilePrefIndicatorImageView.setImageBitmap(bitmap);
                     if (profileStartIndicator != null) {
-                        if (profile._preferencesIndicator != null)
+                        profileStartIndicator.setVisibility(View.VISIBLE);
+                        if (profile._preferencesIndicator != null) {
                             profileStartIndicator.setImageBitmap(profile._preferencesIndicator);
-                        else
+                        } else
                             profileStartIndicator.setImageResource(R.drawable.ic_empty);
                     }
                 }

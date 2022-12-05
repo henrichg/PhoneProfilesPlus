@@ -150,6 +150,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerVertical="true"
+                    android:layout_marginBottom="2dp"
                     android:layout_toEndOf="@id/event_list_item_profile_start_icon">
 
                     <TextView
@@ -174,8 +175,7 @@
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_profile_pref_volume_on"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:layout_marginBottom="2dp" />
+                        android:paddingEnd="10dp" />
 
                 </LinearLayout>
             </RelativeLayout>
@@ -207,6 +207,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_centerVertical="true"
+                    android:layout_marginBottom="2dp"
                     android:layout_toEndOf="@id/event_list_item_profile_end_icon">
 
                     <TextView
@@ -232,8 +233,7 @@
                         android:scaleType="fitStart"
                         android:src="@drawable/ic_profile_pref_volume_on"
                         android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:layout_marginBottom="2dp" />
+                        android:paddingEnd="10dp" />
 
                 </LinearLayout>
             </RelativeLayout>
