@@ -117,6 +117,17 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         listAdapter = new WifiSSIDPreferenceAdapter(prefContext, preference);
         SSIDListView.setAdapter(listAdapter);
 
+        SSIDListView.setOnItemClickListener((parent, item, position, id) -> {
+            String ssid = preference.SSIDList.get(position).ssid;
+            WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
+                    (WifiSSIDPreferenceAdapter.ViewHolder) item.getTag();
+            viewHolder.checkBox.setChecked(!preference.isSSIDSelected(ssid));
+            if (viewHolder.checkBox.isChecked())
+                preference.addSSID(ssid);
+            else
+                preference.removeSSID(ssid);
+        });
+
         SSIDListView.setOnItemLongClickListener((parent, view12, position, id) -> {
             String ssid = preference.SSIDList.get(position).ssid;
             if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
