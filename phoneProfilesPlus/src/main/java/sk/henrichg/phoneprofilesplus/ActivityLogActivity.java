@@ -196,41 +196,42 @@ public class ActivityLogActivity extends AppCompatActivity {
             message = message + "<br><br>";
             message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
 
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "<ul><li><b>" + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation);
+            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + "</li></ul>";
 
-            message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_profileActivation) + "\":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_profileName) + "<br>";
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
 
-            message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + "<br>";
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
 
-            message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes);
+            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes) + "</li></ul>";
 
-            message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes);
+            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + "</li></ul>";
 
-            infoTextView.setText(StringFormatUtils.fromHtml(message, true, false, 0, 0));
+            infoTextView.setText(StringFormatUtils.fromHtml(message, true, false, 0, 0, true));
+
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
 

@@ -181,18 +181,21 @@ class AddEventAdapter extends BaseAdapter {
                     if (position == 0) {
                         holder.eventPreferencesDescription.setVisibility(View.GONE);
 
+                        /*
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
                         parameter.setMargins(0, GlobalGUIRoutines.dpToPx(2), 0, 0); // left, top, right, bottom
                         holder.profilesRoot.setLayoutParams(parameter);
+                        */
                     }
                     else {
                         holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                        holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, false, 0, 0));
-
+                        holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, false, 0, 0, true));
+                        /*
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
                         parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(14), 0, 0); // left, top, right, bottom
                         holder.profilesRoot.setLayoutParams(parameter);
+                        */
                     }
                 }
             }

@@ -1177,7 +1177,7 @@ class Event {
                         summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
 
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
@@ -1209,7 +1209,7 @@ class Event {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
                     }
-                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");

@@ -395,7 +395,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text2) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text3) + "</li>" +
                     "</ol>";
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_profile_activation3);
         if (infoText100 != null) {
@@ -414,7 +414,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
                     "</ul>";
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_event_activation9);
         if (infoText100 != null) {
@@ -423,7 +423,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
                     "</ul>";
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
@@ -436,7 +436,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_interactive) +
                     "</ul>"
                     ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_3);
@@ -445,7 +445,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_3) + "</li>" +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_4);
         if (infoText100 != null) {
@@ -453,7 +453,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_4) + "</li>" +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 2, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 2, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
@@ -464,7 +464,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_10);
         if (infoText100 != null) {
@@ -472,7 +472,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_10) + "</li>" +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 4, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 4, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_20);
         if (infoText100 != null) {
@@ -484,7 +484,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
                     "</ul>" +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_6);
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
@@ -496,7 +496,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_event_priority_new) +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_event_sensors_2);
@@ -507,7 +507,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_event_event_sensors_not_pased) + "</li>" +
                     "</ol>"
                     ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_1);
@@ -516,7 +516,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_restart_events) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_2);
         if (infoText100 != null) {
@@ -524,7 +524,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_3);
         if (infoText100 != null) {
@@ -532,7 +532,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_pause_event) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_4);
         if (infoText100 != null) {
@@ -540,7 +540,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_stop_event) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0, false));
         }
 
         TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);

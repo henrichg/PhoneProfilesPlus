@@ -82,7 +82,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                 }
             } else {
                 if (preference.isHtml) {
-                    infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true, false, 0, 0));
+                    infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true, false, 0, 0, true));
                     infoTextView.setClickable(true);
                     infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
                 } else

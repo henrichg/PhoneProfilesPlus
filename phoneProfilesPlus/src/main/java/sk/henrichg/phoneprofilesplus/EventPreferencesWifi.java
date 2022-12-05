@@ -317,7 +317,7 @@ class EventPreferencesWifi extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_WIFI_SCANNER).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, 0, 0, true));
                 else
                     preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }

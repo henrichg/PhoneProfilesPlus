@@ -89,7 +89,7 @@ public class StringFormatUtils {
         return timeDate.concat(AmPm);
     }
 
-    static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp) {
+    static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp, boolean trimTrailingWhiteSpaces) {
         Spanned htmlSpanned;
 
         //if (Build.VERSION.SDK_INT >= 24) {
@@ -108,14 +108,19 @@ public class StringFormatUtils {
 
         htmlSpanned = removeUnderline(htmlSpanned);
 
-        if (forBullets)
-            return addBullets(htmlSpanned);
-        else
-        if (forNumbers)
-            return addNumbers(htmlSpanned, numberFrom, sp);
-        else
-            return  htmlSpanned;
+        SpannableStringBuilder result;
 
+        if (forBullets)
+            result = addBullets(htmlSpanned);
+        else if (forNumbers)
+            result = addNumbers(htmlSpanned, numberFrom, sp);
+        else
+            result = new SpannableStringBuilder(htmlSpanned);
+
+        if (trimTrailingWhiteSpaces)
+            result = trimTrailingWhitespace(result);
+
+        return result;
     }
 
     private static class URLSpanline_none extends URLSpan {
@@ -163,7 +168,7 @@ public class StringFormatUtils {
         if (spans != null) {
             for (BulletSpan span : spans) {
                 int start = spannableBuilder.getSpanStart(span);
-                int end  = spannableBuilder.getSpanEnd(span);
+                int end = spannableBuilder.getSpanEnd(span);
                 spannableBuilder.removeSpan(span);
                 ++listItemCount;
                 spannableBuilder.insert(start, listItemCount + ". ");
@@ -171,6 +176,20 @@ public class StringFormatUtils {
             }
         }
         return spannableBuilder;
+    }
+
+    public static SpannableStringBuilder trimTrailingWhitespace(SpannableStringBuilder source) {
+
+        if (source == null)
+            return null;
+
+        int i = source.length();
+
+        // loop back to the first non-whitespace character
+        //noinspection StatementWithEmptyBody
+        //while(--i >= 0 && Character.isWhitespace(source.charAt(i))) {}
+
+        return (SpannableStringBuilder) source.subSequence(0, i - 1/*i+1*/);
     }
 
     @SuppressLint("DefaultLocale")

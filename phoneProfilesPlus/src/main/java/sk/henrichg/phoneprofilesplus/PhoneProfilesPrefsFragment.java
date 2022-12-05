@@ -4108,7 +4108,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + "…";
         }*/
 
-        preferenceCategory.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0));
+        preferenceCategory.setSummary(StringFormatUtils.fromHtml(summary, false, false, 0, 0, true));
         //preferenceCategory.setSummary(summary);
     }
 
