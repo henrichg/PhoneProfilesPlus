@@ -113,6 +113,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 preference.removeNfcTag(ssid);
         });
 
+        /*
         nfcTagListView.setOnItemLongClickListener((parent, view12, position, id) -> {
             //NFCTagPreferenceAdapter.ViewHolder viewHolder =
             //        (NFCTagPreferenceAdapter.ViewHolder) v.getTag();
@@ -120,6 +121,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             nfcTagName.setText(nfcTag);
             return true;
         });
+        */
 
         /*
         final TextView helpText = layout.findViewById(R.id.nfc_tag_pref_dlg_helpText);

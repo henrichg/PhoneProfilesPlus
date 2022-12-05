@@ -127,6 +127,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 preference.removeSSID(ssid);
         });
 
+        /*
         SSIDListView.setOnItemLongClickListener((parent, view12, position, id) -> {
             String ssid = preference.SSIDList.get(position).ssid;
             if (!(ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE) ||
@@ -135,6 +136,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             }
             return true;
         });
+        */
 
         final ImageView helpIcon = view.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));

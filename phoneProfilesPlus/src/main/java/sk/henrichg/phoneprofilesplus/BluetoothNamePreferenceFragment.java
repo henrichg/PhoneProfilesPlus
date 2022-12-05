@@ -132,6 +132,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 preference.removeBluetoothName(ssid);
         });
 
+        /*
         bluetoothListView.setOnItemLongClickListener((parent, view12, position, id) -> {
             String btName = preference.bluetoothList.get(position).getName();
             if (!(btName.equals(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE) ||
@@ -140,6 +141,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             }
             return true;
         });
+        */
 
         final ImageView helpIcon = view.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
