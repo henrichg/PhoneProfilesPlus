@@ -187,11 +187,11 @@ public class StringFormatUtils {
 
         // loop back to the first non-whitespace character
         //noinspection StatementWithEmptyBody
-        //while(--i >= 0 && Character.isWhitespace(source.charAt(i))) {}
+        while (--i >= 0 && Character.isWhitespace(source.charAt(i))) {
+        }
 
-        return (SpannableStringBuilder) source.subSequence(0, i - 1/*i+1*/);
+        return (SpannableStringBuilder) source.subSequence(0, i + 1);
     }
-
     @SuppressLint("DefaultLocale")
     static String getDurationString(int duration) {
         int hours = duration / 3600;
