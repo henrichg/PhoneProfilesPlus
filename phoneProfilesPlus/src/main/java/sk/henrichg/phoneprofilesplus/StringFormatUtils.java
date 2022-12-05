@@ -3,6 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Vibrator;
+import android.text.Editable;
+import android.text.Html;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -11,6 +14,8 @@ import android.text.style.LeadingMarginSpan;
 import android.text.style.URLSpan;
 
 import androidx.core.text.HtmlCompat;
+
+import org.xml.sax.XMLReader;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -94,7 +99,7 @@ public class StringFormatUtils {
 
         //if (Build.VERSION.SDK_INT >= 24) {
         if (forNumbers)
-            htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
+            htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
         else {
             htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT);
             //htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
@@ -264,6 +269,34 @@ public class StringFormatUtils {
         } catch (Exception e) {
             return context.getString(R.string.array_pref_no_change);
         }
+    }
+
+    static class LiTagHandler implements Html.TagHandler {
+
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+
+            class Bullet {
+            }
+
+            if (tag.equals("li") && opening) {
+                output.setSpan(new Bullet(), output.length(), output.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+            if (tag.equals("li") && !opening) {
+                //output.append("\n\n");
+                output.append("\n");
+                Bullet[] spans = output.getSpans(0, output.length(), Bullet.class);
+                if (spans != null) {
+                    Bullet lastMark = spans[spans.length - 1];
+                    int start = output.getSpanStart(lastMark);
+                    output.removeSpan(lastMark);
+                    if (start != output.length()) {
+                        output.setSpan(new BulletSpan(), start, output.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    }
+                }
+            }
+        }
+
     }
 
 }

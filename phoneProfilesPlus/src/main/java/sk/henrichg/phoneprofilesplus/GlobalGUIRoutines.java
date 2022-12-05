@@ -908,33 +908,6 @@ class GlobalGUIRoutines {
         }
     }
 
-    static class LiTagHandler implements Html.TagHandler {
-
-        @Override
-        public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
-
-            class Bullet {}
-
-            if (tag.equals("li") && opening) {
-                output.setSpan(new Bullet(), output.length(), output.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-            }
-            if (tag.equals("li") && !opening) {
-                //output.append("\n\n");
-                output.append("\n");
-                Bullet[] spans = output.getSpans(0, output.length(), Bullet.class);
-                if (spans != null) {
-                    Bullet lastMark = spans[spans.length-1];
-                    int start = output.getSpanStart(lastMark);
-                    output.removeSpan(lastMark);
-                    if (start != output.length()) {
-                        output.setSpan(new BulletSpan(), start, output.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                    }
-                }
-            }
-        }
-
-    }
-
     static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
 
         private int mSelectedIndex = -1;
