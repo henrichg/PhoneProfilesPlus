@@ -34,7 +34,7 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
             //    int line = layout.getLineForOffset(start);
             //    yPosition = (float)layout.getLineBaseline(line) - (float)this.bulletRadius * 2.0F;
             //} else {
-            yPosition = (float) (top + bottom) / 2.0F;
+            yPosition = (float) (top + bottom) / 2.0F + 2;
             //}
             //Log.e("ImprovedBulletSpan.drawLeadingMargin", "yPosition=" + yPosition);
 

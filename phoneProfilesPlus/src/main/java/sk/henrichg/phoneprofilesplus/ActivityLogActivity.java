@@ -230,7 +230,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + "</li></ul>";
 
-            infoTextView.setText(StringFormatUtils.fromHtml(message, true, false, 0, 0, true));
+            infoTextView.setText(StringFormatUtils.fromHtml(message, true, true, false, 0, 0, true));
 
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());

@@ -94,7 +94,7 @@ public class StringFormatUtils {
         return timeDate.concat(AmPm);
     }
 
-    static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp, boolean trimTrailingWhiteSpaces) {
+    static Spanned fromHtml(String source, boolean forBullets, boolean boldBullet, boolean forNumbers, int numberFrom, int sp, boolean trimTrailingWhiteSpaces) {
         Spanned htmlSpanned;
 
         //if (Build.VERSION.SDK_INT >= 24) {
@@ -116,7 +116,7 @@ public class StringFormatUtils {
         SpannableStringBuilder result;
 
         if (forBullets)
-            result = addBullets(htmlSpanned);
+            result = addBullets(htmlSpanned, boldBullet);
         else if (forNumbers)
             result = addNumbers(htmlSpanned, numberFrom, sp);
         else
@@ -152,15 +152,18 @@ public class StringFormatUtils {
         return spannableBuilder;
     }
 
-    private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {
+    private static SpannableStringBuilder addBullets(Spanned htmlSpanned, boolean boldBullet) {
         SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
         BulletSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), BulletSpan.class);
         if (spans != null) {
             for (BulletSpan span : spans) {
                 int start = spannableBuilder.getSpanStart(span);
-                int end  = spannableBuilder.getSpanEnd(span);
+                int end = spannableBuilder.getSpanEnd(span);
                 spannableBuilder.removeSpan(span);
-                spannableBuilder.setSpan(new ImprovedBulletSpan(GlobalGUIRoutines.dip(2), GlobalGUIRoutines.dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                int radius = GlobalGUIRoutines.dip(2);
+                if (boldBullet)
+                    radius += 1;
+                spannableBuilder.setSpan(new ImprovedBulletSpan(radius, GlobalGUIRoutines.dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             }
         }
         return spannableBuilder;
