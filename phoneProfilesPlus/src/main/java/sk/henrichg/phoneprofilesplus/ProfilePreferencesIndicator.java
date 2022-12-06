@@ -407,7 +407,6 @@ class ProfilePreferencesIndicator {
                             else {
                                 disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
-// todo
                                 if (addVibrateIndicator) {
                                     disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;

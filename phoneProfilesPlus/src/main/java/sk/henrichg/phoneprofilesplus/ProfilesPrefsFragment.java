@@ -1808,7 +1808,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private boolean notGrantedG1Permission;
     private boolean notRootedOrGrantetRoot;
     private boolean notInstalledPPPPS;
-//TODO
+
     private String getCategoryTitleWhenPreferenceChanged(String key, int preferenceTitleId,
                                                          Context context) {
         //Preference preference = prefMng.findPreference(key);

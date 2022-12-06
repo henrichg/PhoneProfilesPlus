@@ -1706,8 +1706,6 @@ class ActivateProfileHelper {
         }
     }
 
-    // TODO root version for non-Samsung and non-OnePlus devices
-    //  non-root verison for Samsung devices
     private static void _setVibrationIntensity(Context context,
                                                String preferenceName,
                                                String parameterName,
