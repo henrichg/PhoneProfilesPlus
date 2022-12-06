@@ -1111,13 +1111,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
-        // todo - tu skus skonvertovat na <li>  alebo zisti, ako pridat BulletSpan, aby zafungovalo to odsadenie
         InfoDialogPreference infoDialogPreference = prefMng.findPreference("eventSensorsInfo");
         if (infoDialogPreference != null) {
-            String info = getString(R.string.event_preferences_sensorsInfo_summary);
-            info = "• " + info;
-            info = info.replace("\n\n", "\n\n• ");
+            String info = "<ul><li>" + getString(R.string.event_preferences_sensorsInfo_summary) + "</li></ul>" +
+                    "<br>" +
+                    "<ul><li>" + getString(R.string.event_preferences_sensorsInfo_summary_2) + "</li></ul>";
             infoDialogPreference.setInfoText(info);
+            infoDialogPreference.setIsHtml(true);
         }
 
     }
