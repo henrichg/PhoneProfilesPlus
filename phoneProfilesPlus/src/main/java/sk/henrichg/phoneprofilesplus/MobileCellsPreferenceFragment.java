@@ -547,8 +547,6 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
     //TODO, tu by bolo super pridat: "Delete all non-selected". Toto tam chyba, dalo by sa tym mazat
     // vsetky bezmenne nepouzite, ak si uzivatel nastavi filter na bezmenne
     // !!! Bacha! Ako pre "Delete all selected", tiez zmaz len tie z aktualneho filtra !!!
-
-    //TODO tu by asi bolo super dat test, ci sa mazana bunka nahodou nepouizva v inej udalosti
     void showEditMenu(View view) {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
