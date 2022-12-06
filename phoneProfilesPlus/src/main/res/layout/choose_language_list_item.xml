@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/choose_language_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="48dp" >
+    android:layout_height="wrap_content"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp">
 
     <RadioButton
         android:id="@+id/choose_language_dlg_item_radio_button"
