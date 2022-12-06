@@ -8,6 +8,7 @@ import android.graphics.Path.Direction;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.style.LeadingMarginSpan;
+import android.util.Log;
 
 public final class ImprovedBulletSpan implements LeadingMarginSpan {
     private Path mBulletPath;
@@ -28,19 +29,21 @@ public final class ImprovedBulletSpan implements LeadingMarginSpan {
             paint.setStyle(Style.FILL);
 
             float yPosition;
-            if (layout != null) {
-                int line = layout.getLineForOffset(start);
-                yPosition = (float)layout.getLineBaseline(line) - (float)this.bulletRadius * 2.0F;
-            } else {
-                yPosition = (float)(top + bottom) / 2.0F;
-            }
+            Log.e("ImprovedBulletSpan.drawLeadingMargin", "layout=" + layout);
+            //if (layout != null) {
+            //    int line = layout.getLineForOffset(start);
+            //    yPosition = (float)layout.getLineBaseline(line) - (float)this.bulletRadius * 2.0F;
+            //} else {
+            yPosition = (float) (top + bottom) / 2.0F;
+            //}
+            Log.e("ImprovedBulletSpan.drawLeadingMargin", "yPosition=" + yPosition);
 
-            float xPosition = (float)(x + dir * this.bulletRadius);
+            float xPosition = (float) (x + dir * this.bulletRadius);
 
             if (canvas.isHardwareAccelerated()) {
                 if (this.mBulletPath == null) {
                     this.mBulletPath = new Path();
-                    this.mBulletPath.addCircle(0.0F, 0.0F, (float)this.bulletRadius, Direction.CW);
+                    this.mBulletPath.addCircle(0.0F, 0.0F, (float) this.bulletRadius, Direction.CW);
                 }
 
                 canvas.save();
