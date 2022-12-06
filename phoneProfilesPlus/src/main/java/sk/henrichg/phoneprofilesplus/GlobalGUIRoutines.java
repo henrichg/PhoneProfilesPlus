@@ -18,13 +18,9 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
-import android.text.Editable;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.BulletSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
@@ -40,8 +36,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.color.DynamicColors;
-
-import org.xml.sax.XMLReader;
 
 import java.util.List;
 

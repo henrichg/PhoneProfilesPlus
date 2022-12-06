@@ -8,7 +8,6 @@ import android.graphics.Path.Direction;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.style.LeadingMarginSpan;
-import android.util.Log;
 
 public final class ImprovedBulletSpan implements LeadingMarginSpan {
     private Path mBulletPath;

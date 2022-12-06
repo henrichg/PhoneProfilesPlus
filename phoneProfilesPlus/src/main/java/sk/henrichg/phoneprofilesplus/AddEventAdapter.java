@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
@@ -79,7 +78,7 @@ class AddEventAdapter extends BaseAdapter {
         RadioButton radioButton;
         TextView eventName;
         TextView eventPreferencesDescription;
-        RelativeLayout profilesRoot;
+        //RelativeLayout profilesRoot;
         ImageView profileStartIcon;
         TextView profileStartName;
         ImageView profileStartIndicator;
@@ -111,9 +110,9 @@ class AddEventAdapter extends BaseAdapter {
             holder.profileStartIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_start_icon);
             holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
             holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
-            holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
+            //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
             if (applicationEditorPrefIndicator) {
-                holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
+                //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
                 holder.eventPreferencesDescription = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
                 holder.profileStartIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_start_pref_indicator);
