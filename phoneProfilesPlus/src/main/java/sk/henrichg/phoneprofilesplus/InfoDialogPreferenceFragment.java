@@ -161,7 +161,8 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
     // currently supported only Important info - Profiles
     @Override
-    public void onLinkClicked(String linkText, PPLinkMovementMethod.LinkType linkType, final String linkUrl) {
+    public void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
+                              final String linkText, PPLinkMovementMethod.LinkType linkTypeText) {
         boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
 
         //noinspection UnusedAssignment

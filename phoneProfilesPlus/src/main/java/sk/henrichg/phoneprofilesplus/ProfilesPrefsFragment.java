@@ -690,6 +690,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             "</li>" +
                             "<li>" + getString(R.string.important_info_profile_interactive) +
                             "</li>" +
+                            /*
+                            "<li>" + "<a href=mailto:henrich.gron@gmail.com>E-mail to Henrisko &#8658;</a><br>" +
+                            "</li>" +
+                            "<li>" + "<a href=" + PPApplication.HELP_WIFI_SCAN_THROTTLING + "> Show web aboyt wi-fi throttling &#8658;</a>" +
+                            */
                             "</ul>"
             );
             infoDialogPreference.setIsHtml(true);
