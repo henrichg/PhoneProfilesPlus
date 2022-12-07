@@ -13,6 +13,8 @@ public class InfoDialogPreference extends DialogPreference {
     String infoText;
     boolean isHtml;
 
+    static final String ACTIVITY_IMPORTANT_INFO_PROFILES = "@important_info_profiles";
+
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 

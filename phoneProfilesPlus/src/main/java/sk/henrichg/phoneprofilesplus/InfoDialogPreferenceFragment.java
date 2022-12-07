@@ -3,11 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -15,15 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat {
-
+public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
+        implements PPLinkMovementMethod.OnPPLinkMovementMethodListener {
     private InfoDialogPreference preference;
     private Context context;
 
     @SuppressLint("InflateParams")
     @Override
-    protected View onCreateDialogView(@NonNull Context context)
-    {
+    protected View onCreateDialogView(@NonNull Context context) {
         preference = (InfoDialogPreference) getPreference();
         preference.fragment = this;
         this.context = context;
@@ -38,6 +32,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         final TextView infoTextView = view.findViewById(R.id.info_pref_dialog_info_text);
 
+        /*
         String _infoText = preference.infoText;
         String[] tagType = new String[2];
         String[] importantInfoTagDataString = new String[2];
@@ -84,7 +79,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
                 if (preference.isHtml) {
                     infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true, false, false, 0, 0, true));
                     infoTextView.setClickable(true);
-                    infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+                    infoTextView.setMovementMethod(new PPLinkMovementMethod(this, context));
                 } else
                     infoTextView.setText(preference.infoText);
 
@@ -105,6 +100,14 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         infoTextView.setText(sbt);
         infoTextView.setClickable(true);
         infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+        */
+
+        if (preference.isHtml) {
+            infoTextView.setText(StringFormatUtils.fromHtml(preference.infoText, true, false, false, 0, 0, true));
+            infoTextView.setClickable(true);
+            infoTextView.setMovementMethod(new PPLinkMovementMethod(this, context));
+        } else
+            infoTextView.setText(preference.infoText);
     }
 
     @Override
@@ -112,6 +115,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         preference.fragment = null;
     }
 
+    /*
     private class InfoDialogClickableSpan extends ClickableSpan {
         final String tagType;
         final String importantInfoTagDataString;
@@ -152,6 +156,39 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             if (getDialog() != null)
                 getDialog().cancel();
         }
+    }
+    */
+
+    // currently supported only Important info - Profiles
+    @Override
+    public void onLinkClicked(String linkText, PPLinkMovementMethod.LinkType linkType, final String linkUrl) {
+        boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
+
+        //noinspection UnusedAssignment
+        int iiFragment = -1;
+        // 0 = System
+        // 1 = Profiles
+        // 2 = Events
+
+        boolean iiQuickGuide = false;
+
+        if (showImportantInfoProfiles) {
+            iiFragment = 1;
+
+            int scrollToStart = linkUrl.indexOf("__");
+            int scrollTo = Integer.parseInt(linkUrl.substring(scrollToStart + 2));
+
+            Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);
+            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, iiQuickGuide);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, iiFragment);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, scrollTo);
+            startActivity(intentLaunch);
+        }
+    }
+
+    @Override
+    public void onLongClick(String text) {
+
     }
 
 }
