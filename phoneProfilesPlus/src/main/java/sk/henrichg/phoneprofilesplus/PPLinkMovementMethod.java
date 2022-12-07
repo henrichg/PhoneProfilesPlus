@@ -8,7 +8,6 @@ import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 public class PPLinkMovementMethod extends LinkMovementMethod {
 
 
-    private final String TAG = PPLinkMovementMethod.class.getSimpleName();
+    //private final String TAG = PPLinkMovementMethod.class.getSimpleName();
 
     private final OnPPLinkMovementMethodListener mListener;
     private final GestureDetector mGestureDetector;
