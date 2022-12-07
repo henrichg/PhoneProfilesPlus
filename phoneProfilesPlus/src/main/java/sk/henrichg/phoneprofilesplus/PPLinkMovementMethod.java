@@ -14,6 +14,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+// Source: https://stackoverflow.com/a/37205216/2863059
 public class PPLinkMovementMethod extends LinkMovementMethod {
 
 
@@ -103,8 +104,8 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
             final String text = mBuffer.toString().replace(" \u21D2", "");
 
             if (mListener != null) {
-                Log.e(TAG, "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
-                        "Text: " + text + "\n<----");
+                //Log.e(TAG, "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
+                //        "Text: " + text + "\n<----");
 
                 mListener.onLongClick(text);
             }
@@ -134,10 +135,10 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
             }
 
             if (mListener != null) {
-                Log.e(TAG, "----> Tap Occurs on TextView with ID: " + mWidget.getId() + "\n" +
-                        "Link Text: " + linkText + "\n" +
-                        "Link Text: " + linkUrl + "\n" +
-                        "Link Type: " + linkType + "\n<----");
+                //Log.e(TAG, "----> Tap Occurs on TextView with ID: " + mWidget.getId() + "\n" +
+                //        "Link Text: " + linkText + "\n" +
+                //        "Link Text: " + linkUrl + "\n" +
+                //        "Link Type: " + linkType + "\n<----");
 
                 mListener.onLinkClicked(linkText, linkType, linkUrl);
             }
