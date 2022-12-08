@@ -352,8 +352,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         });
 
         mAfterDoProfile = mProfile._afterDurationProfile;
-        updateTextFields(false);
-        updateProfileView();
+
+        mDialog.setOnShowListener(dialog -> {
+            updateTextFields(false);
+            updateProfileView();
+        });
 
 /*
         final Button activateWithoutButton = layout.findViewById(R.id.ask_for_duration_dlg_activate_without);
