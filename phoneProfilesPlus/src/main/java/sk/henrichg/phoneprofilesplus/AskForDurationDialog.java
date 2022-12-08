@@ -352,6 +352,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         });
 
         mAfterDoProfile = mProfile._afterDurationProfile;
+        updateTextFields(false);
         updateProfileView();
 
 /*
@@ -406,7 +407,12 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (iValue < mMin) iValue = mMin;
         if (iValue > mMax) iValue = mMax;
 
-        if(mDialog!=null && mDialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled()) {
+        Button positiveButton = null;
+
+        if (mDialog != null)
+            positiveButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+        if ((positiveButton != null) && positiveButton.isEnabled()) {
             mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
         } else {
             mEnds.setText("--");
@@ -416,8 +422,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             afterDurationLabel.setEnabled(iValue > mMin);
             afterDoSpinner.setEnabled(iValue > mMin);
             updateProfileView();
-            Button button = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            button.setEnabled(iValue > mMin);
+            if (positiveButton != null)
+                positiveButton.setEnabled(iValue > mMin);
         }
 
         if(updateValueField) {
