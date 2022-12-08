@@ -144,7 +144,6 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
             //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-            //        /*true, mMonochrome, mMonochromeValue,*/
             //        mStartupSource, true, true, false))
             if (!DataWrapperStatic.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
                 if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -156,8 +155,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         if (PhoneProfilesService.getInstance() != null) {
                             PhoneProfilesService.getInstance().playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
-                                    false*/);
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                             //PPApplication.sleep(500);
                         }
                     }
