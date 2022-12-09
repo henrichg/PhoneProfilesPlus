@@ -2046,6 +2046,9 @@
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
 
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

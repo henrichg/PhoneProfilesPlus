@@ -168,10 +168,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
         if (store == R.id.menu_check_in_galaxy_store) {
-            if (galaxyStoreInstalled) {
-                checkInGalaxyStore(activity);
-                displayed = true;
-            }
+            //if (galaxyStoreInstalled) {
+            checkInGalaxyStore(activity, galaxyStoreInstalled);
+            displayed = true;
+            //}
         }
 //        else
 //        if (store == R.id.menu_check_in_amazon_appstore) {
@@ -207,7 +207,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 // - CheckPPPReleasesBroadcastReceiver
 
                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled)
-                    checkInGalaxyStore(activity);
+                    checkInGalaxyStore(activity, true);
                 //else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
                 //    checkInHuaweiAppGallery(activity);
                 else {
@@ -575,7 +575,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint("InflateParams")
-    private void checkInGalaxyStore(final Activity activity) {
+    private void checkInGalaxyStore(final Activity activity, boolean galaxyStoreInstalled) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -584,6 +584,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
+        }
+
+        if (!galaxyStoreInstalled) {
+            message = message + "\n\n" + activity.getString(R.string.check_releases_web_galaxy_store_install_restriction);
         }
 
         View layout;
@@ -598,9 +602,19 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
 
-        dialogBuilder.setPositiveButton(R.string.check_releases_open_galaxy_store, (dialog, which) -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplus"));
+        int buttonRes = R.string.check_releases_go_to_galaxy_store;
+        if (galaxyStoreInstalled)
+            buttonRes = R.string.check_releases_open_galaxy_store;
+        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+            Intent intent;
+            if (galaxyStoreInstalled)
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplus"));
+            else {
+                String url = PPApplication.GALAXY_STORE_PPP_RELEASES_URL;
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+            }
             try {
                 activity.startActivity(intent);
             } catch (Exception e) {
