@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">不受支持的安全锁定</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">不能更改</string>
     <string name="event_preferences_sensorsInfo_title">传感器功能</string>
-    <string name="event_preferences_sensorsInfo_summary">只有满足所有“启用传感器”选取的传感器参数时，才会启动事件。如果未满足某些已选取的传感器参数，则运行事件将结束。仅选取此事件所需的传感器。已选取的传感器名称标有粗体文字。\n\n需要一些传感器参数。需要的参数名称标有下划线文本。如果未配置某些所需参数，则不会启动事件，并且将取消选中参数“启用传感器”。</string>
+    <string name="event_preferences_sensorsInfo_summary">只有满足所有“启用传感器”选取的传感器参数时，才会启动事件。如果未满足某些已选取的传感器参数，则运行事件将结束。仅选取此事件所需的传感器。已选取的传感器名称标有粗体文字。</string>
+    <string name="event_preferences_sensorsInfo_summary_2">需要一些传感器参数。下划线文字是需要的参数名称。如果未配置某些所需参数，则不会启动事件，并且“启用传感器”将取消勾选。</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">彩色图标</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">某些设备做不支持在状态栏中显示彩色图标。</string>
     <string name="pref_dlg_change_selection_title">更改选择</string>
@@ -2018,6 +2019,8 @@
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) 始终显示</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关设置类型的信息：(S)、(G1)、(R)、(I)。</string>
     <string name="samsung_edge_panel_settings_description">三星侧边栏设置</string>
-    <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
-    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
+    <string name="phone_profiles_pref_applicationCompactGrid">紧凑网格</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">使用这种网格，将不显示情景名称，但更多情景可以放在一行中。</string>
+    <string name="check_releases_go_to_galaxy_store">转到Galaxy商店</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">抱歉，无法从此网站安装 PhoneProfilesPlus。Galaxy Store 仅支持 Galaxy 设备。</string>
 </resources>

@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">niet-ondersteunde vergrendeling</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">kan niet worden gewijzigd</string>
     <string name="event_preferences_sensorsInfo_title">Sensor functionaliteit</string>
-    <string name="event_preferences_sensorsInfo_summary">Event start opnieuw als aan alle sensor parameter criteria van ingeschakelde sensoren is voldaan. Lopende event stopt als een van de sensoren niet aan de criteria voldoet. Schakel \"Inschakelen sensor\" alleen in voor de sensors die je nodig hebt voor het event. De sensor naam met \"Inschakelen sensor\" is in vetgedrukte tekst.\n\nSommige sensorparameters zijn verplicht. Een verplichte parameter heeft onderstreepte tekst. Als een verplichte parameter niet geconfigureerd is zal het event niet starten en de parameter \"Inschakelen sensor\" schakelt uit.</string>
+    <string name="event_preferences_sensorsInfo_summary">Event start opnieuw als aan alle sensor parameter criteria van ingeschakelde sensoren is voldaan. Lopende event stopt als een van de sensoren niet aan de criteria voldoet. Schakel \"Inschakelen sensor\" alleen in voor de sensors die je nodig hebt voor het event. De sensor naam met \"Inschakelen sensor\" is in vetgedrukte tekst.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Sommige sensorparameters zijn verplicht. Een verplichte parameter heeft onderstreepte tekst. Als een verplichte parameter niet geconfigureerd is zal het event niet starten en de parameter \"Inschakelen sensor\" schakelt uit.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Kleurrijk icoon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Sommige apparaten ondersteunen geen kleurrijke iconen in de statusbalk.</string>
     <string name="pref_dlg_change_selection_title">Selectie wijzigen</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Instellingen Samsung Edge-vensters</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compacte raster</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Met dit type raster worden profielnamen niet weergegeven, maar meer profielen passen in één rij.</string>
+    <string name="check_releases_go_to_galaxy_store">Ga naar Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, het is niet mogelijk om PhoneProfilesPlus te installeren vanaf deze website. De Galaxy Store ondersteunt Galaxy apparaten.</string>
 </resources>

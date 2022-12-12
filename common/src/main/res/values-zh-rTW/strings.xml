@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">不支援的安全鎖定</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">無法變更</string>
     <string name="event_preferences_sensorsInfo_title">感測器功能</string>
-    <string name="event_preferences_sensorsInfo_summary">事件只有在所有勾選了 \"啟用測應器\" 的感應器的參數條件被滿足才會開始. 執行中的事件會在任一感測器的參數條件不再被滿足時結束. 所以請只勾選您在該事件所需要的感測器. 已勾選的感測器名稱會以粗體文字表示.\n\n某些感測器的參數是必要的. 這些參數名稱會加上底線顯示. 若有些必要參數沒有被設置, 事件不會開始, 而且 \"啟用感測器\" 選項會自動反勾選.</string>
+    <string name="event_preferences_sensorsInfo_summary">事件只有在所有勾選了 \"啟用測應器\" 的感應器的參數條件被滿足才會開始. 執行中的事件會在任一感測器的參數條件不再被滿足時結束. 所以請只勾選您在該事件所需要的感測器. 已勾選的感測器名稱會以粗體文字表示.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">某些感測器的參數是必要的. 這些參數名稱會加上底線顯示. 若有些必要參數沒有被設置, 事件不會開始, 而且 \"啟用感測器\" 選項會自動反勾選.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">彩色圖示</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">部分裝置不支援狀態列中的彩色圖示。</string>
     <string name="pref_dlg_change_selection_title">變更選擇</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
 </resources>

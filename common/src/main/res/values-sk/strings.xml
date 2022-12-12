@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nepodporovaný bezpečnostný zámok</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">nie je možné zmeniť</string>
     <string name="event_preferences_sensorsInfo_title">Funkcionalita senzorov</string>
-    <string name="event_preferences_sensorsInfo_summary">Udalosť sa spustí, ak parametre všetkých senzorov so zaškrtnutým parametrom "Povoľ senzor", sú splnené. Beh udalosti bude ukončený, ak ľubovoľný parameter senzora nie je splnený. Zaškrtnite "Povoľ senzor" iba pre senzory potrebné pre túto udalosť. Meno senzora so zaškrtnutým "Povoľ senzor" je označené tučným textom.</string>
-    <string name="event_preferences_sensorsInfo_summary_2">Niektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter "Povoľ senzor" nie je aktivovaný.</string>
+    <string name="event_preferences_sensorsInfo_summary">Udalosť sa spustí, ak parametre všetkých senzorov so zaškrtnutým parametrom \"Povoľ senzor\", sú splnené. Beh udalosti bude ukončený, ak ľubovoľný parameter senzora nie je splnený. Zaškrtnite \"Povoľ senzor\" iba pre senzory potrebné pre túto udalosť. Meno senzora so zaškrtnutým \"Povoľ senzor\" je označené tučným textom.\n\nNiektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter \"Povoľ senzor\" nie je aktivovaný.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Niektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter \"Povoľ senzor\" nie je aktivovaný.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Farebná ikona</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Niektoré zariadenia nepodporujú farebné ikony v stavovom riadku.</string>
     <string name="pref_dlg_change_selection_title">Zmeniť výber</string>
@@ -2021,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Nastavenia pre Samsung bočný panel</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktná mriežka</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Pri tomto type mriežky sa nebudú zobrazovať názvy profilov, ale do jedného riadku sa zmestí viac profilov.</string>
+    <string name="check_releases_go_to_galaxy_store">Ísť do Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Ľutujem, z tejto webstránky nie je možné nainštalovať PhoneProfilesPlus. Galaxy Store obmedzuje podporu iba na zariadenia Galaxy.</string>
 </resources>

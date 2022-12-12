@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">не поддерживается безопасная блокировка</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">нельзя изменить</string>
     <string name="event_preferences_sensorsInfo_title">Функциональность датчиков</string>
-    <string name="event_preferences_sensorsInfo_summary">Событие будет запущено, только если параметры всех включённых датчиков будут выполнены. Запущенное событие завершится, если какие-либо параметры включённых датчиков не выполняются. Проверяйте только те датчики, которые нужны для этого события. Названия включённых датчиков указаны жирным текстом.\n\nНекоторые параметры датчика являются обязательными. Обязательные параметры помечены подчёркиванием. Если какие-либо обязательные параметры не заданы, событие не запустится и параметр \"Включить датчик\" будет сброшен.</string>
+    <string name="event_preferences_sensorsInfo_summary">Событие будет запущено, только если параметры всех включённых датчиков будут выполнены. Запущенное событие завершится, если какие-либо параметры включённых датчиков не выполняются. Проверяйте только те датчики, которые нужны для этого события. Названия включённых датчиков указаны жирным текстом.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Некоторые параметры датчика являются обязательными. Обязательные параметры помечены подчёркиванием. Если какие-либо обязательные параметры не заданы, событие не запустится и параметр \"Включить датчик\" будет сброшен.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Цветная иконка</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Некоторые устройства не поддерживают цветные иконки в панели уведомлений.</string>
     <string name="pref_dlg_change_selection_title">Изменить выбор</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Настройки панели Samsung Edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактная сетка</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При этом типе сетки названия профилей не отображаются, но в одну строку помещается больше профилей.</string>
+    <string name="check_releases_go_to_galaxy_store">Перейти в Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">К сожалению, невозможно установить PhoneProfilesPlus с этого сайта. Galaxy Store поддерживает только устройства Galaxy.</string>
 </resources>

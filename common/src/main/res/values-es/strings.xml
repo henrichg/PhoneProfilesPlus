@@ -88,7 +88,7 @@
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Preferencias de datos móviles</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">A todo color</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Nativo</string>
-    <string name="phone_profiles_pref_applicationLongClickActivation">Pulsación larga para activar perfil</string>
+    <string name="phone_profiles_pref_applicationLongClickActivation">Mantener pulsado para activar perfil</string>
     <string name="alert_title_delete_all_profiles">Borrar todos los perfiles</string>
     <string name="alert_message_delete_all_profiles">¿Estás seguro?</string>
     <string name="alert_title_delete_all_events">Borrar todos los eventos</string>
@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">bloqueo seguro no soportado</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">no se puede cambiar</string>
     <string name="event_preferences_sensorsInfo_title">Funcionalidad del sensor</string>
-    <string name="event_preferences_sensorsInfo_summary">El evento se iniciará sólo cuando todos los parámetros del sensor \"Habilitar sensor\" se cumplan. El evento en ejecución terminará si algunos parámetros del sensor comprobados no se cumplen. Utiliza sólo los sensores que necesites para este evento. El nombre del sensor elegido aparece marcado con texto en negrita.\n\nAlgunos parámetros del sensor son necesarios. Los nombres de los parámetros necesarios están marcados con texto subrayado. Si no se configuran algunos de los parámetros necesarios, el evento no se iniciará y el parámetro \"Activar sensor\" quedará desmarcado.</string>
+    <string name="event_preferences_sensorsInfo_summary">El evento se iniciará sólo cuando todos los parámetros del sensor \"Habilitar sensor\" se cumplan. El evento en ejecución terminará si algunos parámetros del sensor comprobados no se cumplen. Utiliza sólo los sensores que necesites para este evento. El nombre del sensor elegido aparece marcado con texto en negrita.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Algunos parámetros del sensor son necesarios. Los nombres de los parámetros necesarios están marcados con texto subrayado. Si no se configuran todos los parámetros necesarios, el evento no se iniciará y el parámetro \"Activar sensor\" quedará desmarcado.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Icono en color</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Algunos dispositivos no soportan iconos en color en la barra de estado.</string>
     <string name="pref_dlg_change_selection_title">Cambiar selección</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Ajustes del panel de Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Cuadrícula Compacta</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Con este tipo de cuadrícula, los nombres de perfil no se mostrarán, pero cabrán más perfiles pueden por fila.</string>
+    <string name="check_releases_go_to_galaxy_store">Ir a Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Lo sentimos, no es posible instalar PhoneProfilesPlus desde esta página web. La Galaxy Store limita el soporte sólo a dispositivos Galaxy.</string>
 </resources>

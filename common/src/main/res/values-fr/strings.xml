@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">verrouillage sécurisée non pris en charge</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">ne peut pas être changé</string>
     <string name="event_preferences_sensorsInfo_title">Fonctionnalité des capteurs</string>
-    <string name="event_preferences_sensorsInfo_summary">L\'événement sera lancé si, les paramètres de toutes les capteurs avec le paramètre \"Activer le capteur\" cochée, sont remplies. L\'événement en cours d’exécution sera achevée, si n’importe quel paramètre d\'un capteur n’est pas valide. Cochez \"Activer le capteur\" uniquement pour les capteurs nécessaires pour cet événement. Le nom du capteur avec \"Activer le capteur\" coché est marquée en gras.\n\nCertains paramètres de capteur sont obligatoires. Le nom des paramètres obligatoires est souligné. Si un paramètre obligatoire n’est pas configuré, l\'événement ne sera pas démarré et le paramètre \"Activer le capteur\" décoché.</string>
+    <string name="event_preferences_sensorsInfo_summary">L\'événement sera lancé si, les paramètres de toutes les capteurs avec le paramètre \"Activer le capteur\" cochée, sont remplies. L\'événement en cours d’exécution sera achevée, si n’importe quel paramètre d\'un capteur n’est pas valide. Cochez \"Activer le capteur\" uniquement pour les capteurs nécessaires pour cet événement. Le nom du capteur avec \"Activer le capteur\" coché est marquée en gras.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Certains paramètres de capteur sont obligatoires : leurs noms sont soulignés. Si un paramètre obligatoire n’est pas configuré, l\'événement ne sera pas démarré et le paramètre \"Activer le capteur\" sera décoché.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Icône colorée</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Certains appareils ne supporte pas les icônes colorées dans la barre d’État.</string>
     <string name="pref_dlg_change_selection_title">Changer la sélection</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Paramètres du panneau de bord Samsung</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Grille compacte</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Avec ce type de grille, les noms de profil ne seront pas affichés, mais plus de profils peuvent tenir sur une seule ligne.</string>
+    <string name="check_releases_go_to_galaxy_store">Aller sur le Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Désolé, il n\'est pas possible d\'installer PhoneProfilesPlus à partir de ce site Web. Le Galaxy Store limite la prise en charge aux appareils Galaxy uniquement.</string>
 </resources>

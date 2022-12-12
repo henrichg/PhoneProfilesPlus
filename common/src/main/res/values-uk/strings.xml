@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">не підтримується безпечне блокування</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">не можна змінити</string>
     <string name="event_preferences_sensorsInfo_title">Призначення датчиків</string>
-    <string name="event_preferences_sensorsInfo_summary">Подію буде запущено, тільки якщо параметри всіх увімкнених датчиків будуть виконані. Запущена подія завершиться, якщо будь-який параметр увімкнених датчиків не виконуються. Вмикайте тільки ті датчики, які потрібні для цієї події. Назви увімкнених датчиків виділені жирним шрифтом.\n\n Деякі параметри датчика є обов\'язковими. Обов\'язкові параметри помічені підкресленням. Якщо будь-які обов\'язкові параметри не встановлені, подія не запуститься і параметр \"Увімкнути датчик\" буде скинуто.</string>
+    <string name="event_preferences_sensorsInfo_summary">Подію буде запущено, тільки якщо параметри всіх увімкнених датчиків будуть виконані. Запущена подія завершиться, якщо будь-який параметр увімкнених датчиків не виконуються. Вмикайте тільки ті датчики, які потрібні для цієї події. Назви увімкнених датчиків виділені жирним шрифтом.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Деякі параметри датчика є обов\'язковими. Обов\'язкові параметри підкреслені. Якщо будь-який обов\'язковий параметр не налаштовано, подія не запуститься і параметр \"Увімкнути датчик\" буде вимкнуто.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Кольорова іконка</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Деякі пристрої не підтримують кольорові іконки в рядку стану.</string>
     <string name="pref_dlg_change_selection_title">Змінити вибір</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактна сітка</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При такій сітці імена профілів не показуватимуться, але більше профілів може вміститися в одному рядку.</string>
+    <string name="check_releases_go_to_galaxy_store">Перейти до Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">На жаль, неможливо встановити PhoneProfilesPlus з цього сайту. Galaxy Store тільки для пристроїв лінійки Galaxy.</string>
 </resources>

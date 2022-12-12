@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">niewspierane blokady bezpieczeństwa</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">nie może zostać zmieniony</string>
     <string name="event_preferences_sensorsInfo_title">Funkcjonalność sensoru</string>
-    <string name="event_preferences_sensorsInfo_summary">Zdarzenie rozpocznie się tylko wtedy, gdy wszystkie zaznaczone parametry \"Włącz sensor\" zostaną spełnione. Uruchomione zdarzenie zostanie zakończone tylko wtedy, kiedy niektóre zaznaczone parametry sensora nie zostaną spełnione. Sprawdź tylko te sensory, których potrzebujesz dla tego zdarzenia. Sprawdzona nazwa sensora jest oznaczona z pogrubionym tekstem.\n\nNiektóre parametry sensora są wymagane. Nazwy wymaganych parametrów są oznaczone podkreślonym tekstem. Jeśli niektóre z wymaganych parametrów nie są skonfigurowane, zdarzenie nie rozpocznie się i parametr \"Włącz sensor\" będzie odznaczony.</string>
+    <string name="event_preferences_sensorsInfo_summary">Zdarzenie rozpocznie się tylko wtedy, gdy wszystkie zaznaczone parametry \"Włącz sensor\" zostaną spełnione. Uruchomione zdarzenie zostanie zakończone tylko wtedy, kiedy niektóre zaznaczone parametry sensora nie zostaną spełnione. Sprawdź tylko te sensory, których potrzebujesz dla tego zdarzenia. Sprawdzona nazwa sensora jest oznaczona z pogrubionym tekstem.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Niektóre parametry sensora są wymagane. Nazwy wymaganych parametrów są oznaczone podkreślonym tekstem. Jeśli niektóre z wymaganych parametrów nie są skonfigurowane, zdarzenie nie rozpocznie się i parametr \"Włącz sensor\" będzie odznaczony.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Kolorowa ikona</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Niektóre urządzenia nie obsługują kolorowych ikon na pasku stanu.</string>
     <string name="pref_dlg_change_selection_title">Zmień wybór</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
 </resources>

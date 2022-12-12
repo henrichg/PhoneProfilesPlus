@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">サポートされていないセキュアロック</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">変更できません</string>
     <string name="event_preferences_sensorsInfo_title">センサー機能</string>
-    <string name="event_preferences_sensorsInfo_summary">「センサーを有効化」がオンになっているセンサーパラメーターがすべて満たされた場合にのみイベントが開始されます。オンになっているセンサーパラメーターが満たされていない場合、イベントは終了します。 イベントに必要なセンサーのみをオンにしてください。オンになっているセンサー名は太字で表示されます。\n\nいくつかのセンサーパラメーターが必要です。必須パラメーター名は下線付きのテキストで表示されます。 必要なパラメータが設定されていない場合、イベントは開始されず、パラメーター「センサーを有効化」はオフになります。</string>
+    <string name="event_preferences_sensorsInfo_summary">「センサーを有効化」がオンになっているセンサーパラメーターがすべて満たされた場合にのみイベントが開始されます。オンになっているセンサーパラメーターが満たされていない場合、イベントは終了します。 イベントに必要なセンサーのみをオンにしてください。オンになっているセンサー名は太字で表示されます。</string>
+    <string name="event_preferences_sensorsInfo_summary_2">いくつかのセンサーパラメーターが必要です。必須パラメーター名は下線付きのテキストで表示されます。 必要なパラメータが設定されていない場合、イベントは開始されず、パラメーター「センサーを有効化」はオフになります。</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">色付きアイコン</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">ステータスバーの色付きアイコンをサポートしていないデバイスもあります。</string>
     <string name="pref_dlg_change_selection_title">選択範囲を変更</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
 </resources>

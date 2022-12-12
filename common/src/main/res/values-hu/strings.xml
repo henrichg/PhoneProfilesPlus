@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nem támogatott biztonsági zár</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">nem módosítható</string>
     <string name="event_preferences_sensorsInfo_title">Érzékelők működnek</string>
-    <string name="event_preferences_sensorsInfo_summary">Esemény el fog kezdődni, ha minden érzékelő \"Engedélyezett érzékelő\" paraméter be van jelölve. Futó esemény véget ér, ha bármely érzékelő paraméter nem teljesül. Ellenőrizze a \"Engedélyezett érzékelő\" csak a szükséges érzékelőket erre az eseményre. Érzékelő névvel \"Engedélyezett érzékelő\"-vel félkövér szöveggel jelöli.\n\nNéhány érzékelő paraméter szükséges. A szükséges paraméterek szövege aláhúzással van jelölve. Ha szükséges paraméterek nincsenek beállítva, akkor az esemény nem indítható, és \"Engedélyezett érzékelő\" paraméter nincs bejelölve.</string>
+    <string name="event_preferences_sensorsInfo_summary">Esemény el fog kezdődni, ha minden érzékelő \"Engedélyezett érzékelő\" paraméter be van jelölve. Futó esemény véget ér, ha bármely érzékelő paraméter nem teljesül. Ellenőrizze a \"Engedélyezett érzékelő\" csak a szükséges érzékelőket erre az eseményre. Érzékelő névvel \"Engedélyezett érzékelő\"-vel félkövér szöveggel jelöli.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Néhány érzékelő paraméter szükséges. A szükséges paraméterek szövege aláhúzással van jelölve. Ha szükséges paraméterek nincsenek beállítva, akkor az esemény nem indítható, és \"Engedélyezett érzékelő\" paraméter nincs bejelölve.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Színes ikon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Néhány eszköz nem támogatja a színes ikonokat az állapotsorban.</string>
     <string name="pref_dlg_change_selection_title">Kijelölés változtatás</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
 </resources>

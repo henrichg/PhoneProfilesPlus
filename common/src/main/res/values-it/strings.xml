@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">chiusura di sicurezza non supportata</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">non modificabile</string>
     <string name="event_preferences_sensorsInfo_title">Funzionamento dei sensori</string>
-    <string name="event_preferences_sensorsInfo_summary">L\'evento verrà avviato solo se sono soddisfatti tutti i parametri dei sensori abilitati. L\'evento in corso verrà terminato se almeno un parametro dei sensori abilitati non è più soddisfatto. Inserire la spunta in \"Abilita sensore\" solo per quelli necessari all\'evento. I nomi dei sensori abilitati vengono scritti in grassetto.\n\nAlcuni parametri del sensore sono indispensabili. Il nome dei parametri richiesti è sottolineato. Se qualche parametro indispensabile non è stato configurato, l\'evento non verrà avviato e verrà tolta la spunta dalla voce \"Abilita sensore\".</string>
+    <string name="event_preferences_sensorsInfo_summary">L\'evento verrà avviato solo se sono soddisfatti tutti i parametri dei sensori abilitati. L\'evento in corso verrà terminato se almeno un parametro dei sensori abilitati non è più soddisfatto. Inserire la spunta in \"Abilita sensore\" solo per quelli necessari all\'evento. I nomi dei sensori abilitati vengono scritti in grassetto.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Alcuni parametri del sensore sono indispensabili. Il nome dei parametri richiesti è sottolineato. Se qualche parametro indispensabile non è stato configurato, l\'evento non verrà avviato e verrà tolta la spunta dalla voce \"Abilita sensore\".</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Icona colorata</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Alcuni dispositivi non supportano le icone colorate nella barra di stato.</string>
     <string name="pref_dlg_change_selection_title">Modifica selezione</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Griglia compatta</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Con questo tipo di griglia, i nomi dei profili non saranno visualizzati, ma più profili possono essere inseriti in una riga.</string>
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
 </resources>

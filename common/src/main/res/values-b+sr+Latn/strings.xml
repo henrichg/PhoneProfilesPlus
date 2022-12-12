@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">ne podržano siguronosno zaključavanje</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">ne može da se promeni</string>
     <string name="event_preferences_sensorsInfo_title">Senzor funkcionalnosti</string>
-    <string name="event_preferences_sensorsInfo_summary">Događaj će započeti samo ako su ispunjeni svi parametri \"Omogući senzor\". Pokrenuti događaj završit će ako neki od označenih parametara senzora nisu ispunjeni. Označite samo senzore koji su vam potrebni za ovaj događaj. Naziv označenog senzora obeležen je podebljanim tekstom.\n\nNeki parametri senzora su potrebni. Naglašena su imena potrebnih senzora. Ako bilo koji potrebni parametar senzora nije konfigurisan, događaj se neće pokrenuti i parametar \"Omogući senzor\" neće biće označen.</string>
+    <string name="event_preferences_sensorsInfo_summary">Događaj će započeti samo ako su ispunjeni svi parametri \"Omogući senzor\". Pokrenuti događaj završit će ako neki od označenih parametara senzora nisu ispunjeni. Označite samo senzore koji su vam potrebni za ovaj događaj. Naziv označenog senzora obeležen je podebljanim tekstom.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Neki parametri senzora su potrebni. Naglašena su imena potrebnih senzora. Ako bilo koji potrebni parametar senzora nije konfigurisan, događaj se neće pokrenuti i parametar \"Omogući senzor\" neće biće označen.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Ikona u punoj boji</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Neki uređaji ne podržavaju ikone u punoj boji u status baru.</string>
     <string name="pref_dlg_change_selection_title">Promeni Izbor</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
 </resources>

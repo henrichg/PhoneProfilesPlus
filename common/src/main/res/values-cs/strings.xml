@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nepodporovaný bezpečnostní zámek</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">není možné změnit</string>
     <string name="event_preferences_sensorsInfo_title">Funkcionalita senzorů</string>
-    <string name="event_preferences_sensorsInfo_summary">Událost se spustí, pokud parametry všech senzorů se zaškrtnutým parametrem \"Povolit senzor\", jsou splněny. Běh události bude ukončen, pokud libovolný parametr senzoru není splněn. Zaškrtněte \"Povolit senzor\" pouze pro senzory potřebné pro tuto událost. Jméno senzoru se zaškrtnutým \"Povolit senzor\" je označeno tučným textem.\n\nNěkteré parametry senzoru jsou vyžadovány. Název vyžadovaného parametru je označen podtrženým textem. Pokud některý vyžadovaný parametr není nastaven, událost se nespustí a parametr \"Povolit senzor\" není aktivován.</string>
+    <string name="event_preferences_sensorsInfo_summary">Událost se spustí, pokud parametry všech senzorů se zaškrtnutým parametrem \"Povolit senzor\", jsou splněny. Běh události bude ukončen, pokud libovolný parametr senzoru není splněn. Zaškrtněte \"Povolit senzor\" pouze pro senzory potřebné pro tuto událost. Jméno senzoru se zaškrtnutým \"Povolit senzor\" je označeno tučným textem.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Některé parametry senzoru jsou vyžadovány. Název vyžadovaného parametru je označen podtrženým textem. Pokud některý vyžadovaný parametr není nastaven, událost se nespustí a parametr \"Povolit senzor\" není aktivován.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Barevná ikona</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Některá zařízení nepodporují barevné ikony ve stavovém řádku.</string>
     <string name="pref_dlg_change_selection_title">Změnit výběr</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Nastavení pro Samsung boční panel</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktní mřížka</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">S tímto typem mřížky nebudou zobrazeny názvy profilů, ale více profilů se vejde do jednoho řádku.</string>
+    <string name="check_releases_go_to_galaxy_store">Jít do Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Lituji, z této webové stránky nelze nainstalovat PhoneProfilesPlus. Galaxy Store omezuje podporu pouze na zařízení Galaxy.</string>
 </resources>

@@ -627,7 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nicht unterstützte Sperre</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">Kann nicht geändert werden</string>
     <string name="event_preferences_sensorsInfo_title">Funktionalität der Sensoren</string>
-    <string name="event_preferences_sensorsInfo_summary">Ereignisse werden gestartet, wenn alle aktiven Parameter eines Ereignisses erfüllt sind. Laufende Ereignisse werden beendet, wenn einer der Parameter nicht mehr erfüllt ist. Aktiviere nur die Parameter mit \"Parameter aktivieren\", die für dieses Ereignis gebraucht werden. Aktive Parameter haben fette Schrift.\n\nEinige Parameter sind erforderlich, diese sind unterstrichen. Wenn ein erforderlicher Parameter nicht gesetzt ist, wird das Ereignis nicht aktiviert.</string>
+    <string name="event_preferences_sensorsInfo_summary">Ereignisse werden gestartet, wenn alle aktiven Parameter eines Ereignisses erfüllt sind. Laufende Ereignisse werden beendet, wenn einer der Parameter nicht mehr erfüllt ist. Aktiviere nur die Parameter mit \"Parameter aktivieren\", die für dieses Ereignis gebraucht werden. Aktive Parameter haben fette Schrift.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Einige Parameter sind erforderlich, diese sind unterstrichen. Wenn ein erforderlicher Parameter nicht gesetzt ist, wird das Ereignis nicht aktiviert.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Farbiges Symbol</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Einige Geräte unterstützen keine farbigen Icons in der Statusleiste.</string>
     <string name="pref_dlg_change_selection_title">Auswahl ändern</string>
@@ -2020,4 +2021,6 @@
     <string name="samsung_edge_panel_settings_description">Samsung Seitenleiste (Edge Panel) Einstellungen</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktes Raster</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Bei dieser Art von Raster werden die Profilnamen nicht angezeigt, aber es können mehr Profile in eine Zeile passen.</string>
+    <string name="check_releases_go_to_galaxy_store">Galaxy Store aufrufen</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Leider ist es nicht möglich, PhoneProfilesPlus von dieser Website aus zu installieren. Der Galaxy Store bietet nur Unterstützung für Galaxy-Geräte.</string>
 </resources>
