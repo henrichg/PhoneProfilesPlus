@@ -8,7 +8,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -46,6 +45,9 @@ public class PhoneProfilesNotification {
             // service is not running
             return;
         }
+
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification._showProfileNotification", "call of createProfileNotificationChannel()");
+        PPApplication.createProfileNotificationChannel(appContext);
 
         // intent to LauncherActivity, for click on notification
         Intent launcherIntent;
@@ -150,12 +152,12 @@ public class PhoneProfilesNotification {
         RemoteViews contentViewLarge = null;
 
         boolean useDecorator;
-        int useNightColor = 0;
+        boolean useNightColor = GlobalGUIRoutines.isNightModeEnabled(appContext);
         //boolean profileIconExists = true;
 
+        /*
         int nightModeFlags =
                 appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
                 useNightColor = 1;
@@ -166,6 +168,7 @@ public class PhoneProfilesNotification {
             case Configuration.UI_MODE_NIGHT_UNDEFINED:
                 break;
         }
+        */
 
         if (notificationNotificationStyle.equals("0")) {
             // ----- create content view
@@ -268,7 +271,7 @@ public class PhoneProfilesNotification {
                     contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_samsung_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_samsung);
                     //profileIconExists = false;
                 }
             } else if (PPApplication.deviceIsOnePlus) {
@@ -480,11 +483,9 @@ public class PhoneProfilesNotification {
 
         // ----- create notificationBuilders
         if (Build.VERSION.SDK_INT >= 26) {
-            PPApplication.createProfileNotificationChannel(appContext);
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         }
         else {
-            PPApplication.createProfileNotificationChannel(appContext);
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
             if (notificationShowInStatusBar) {
                 KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
@@ -648,7 +649,7 @@ public class PhoneProfilesNotification {
                     // In Android 9 is exception from normal functionality.
                     // Device theme do not change text color
                     // For this, must be changed programmatically
-                    if (useNightColor == 1) {
+                    if (useNightColor/* == 1*/) {
                         contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                         if (contentView != null)
                             contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
@@ -761,6 +762,11 @@ public class PhoneProfilesNotification {
 
         notificationBuilder.setGroup(PPApplication.PROFILE_NOTIFICATION_GROUP);
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            // required, because in API 33+ foreground serbice notification is dismissable
+            notificationBuilder.setOngoing(true);
+        }
+
         Notification phoneProfilesNotification;
         try {
             phoneProfilesNotification = notificationBuilder.build();
@@ -810,7 +816,7 @@ public class PhoneProfilesNotification {
                                                                String notificationNotificationStyle, boolean notificationShowRestartEventsAsButton,
                                                                String notificationBackgroundColor, int notificationBackgroundCustomColor,
                                                                String notificationProfileIconColor,
-                                                               boolean useDecorator, int useNightColor,
+                                                               boolean useDecorator, boolean useNightColor,
                                                                Context appContext) {
         if (!forFirstStart) {
             PendingIntent pIntentRE; //= null;
@@ -842,7 +848,7 @@ public class PhoneProfilesNotification {
                             if (color != 0) {
                                 restartEventsBitmap = BitmapManipulator.recolorBitmap(restartEventsBitmap, color);
                             } else {
-                                if (useNightColor == 1) {
+                                if (useNightColor/* == 1*/) {
                                     restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
                                     //restartEventsId = R.drawable.ic_widget_restart_events_dark;
                                 } else {
@@ -855,7 +861,7 @@ public class PhoneProfilesNotification {
                             //
                             // In 28 (Android 9) it is Device theme, but not working in emulator,
                             // must be tested in device (for example Nexus 5x).
-                            if (useNightColor == 1) {
+                            if (useNightColor/* == 1*/) {
                                 restartEventsBitmap = BitmapManipulator.monochromeBitmap(restartEventsBitmap, 0xe0e0e0);
                                 //restartEventsId = R.drawable.ic_widget_restart_events_dark;
                             } else {
@@ -1223,8 +1229,10 @@ public class PhoneProfilesNotification {
                         if (color != 0)
                             decoratorColor = color;
                         else*/ {
-                            Palette palette = Palette.from(iconBitmap).generate();
-                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+                            try {
+                                Palette palette = Palette.from(iconBitmap).generate();
+                                decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+                            } catch (Exception ignored) {}
                         }
                     }
                 }
@@ -1300,6 +1308,7 @@ public class PhoneProfilesNotification {
             //if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.showPPPNotificationMutex) {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.forceDrawProfileNotification", "call of _showProfileNotification");
                 _showProfileNotification(dataWrapper, false);
                 dataWrapper.invalidateDataWrapper();
             }
@@ -1327,6 +1336,7 @@ public class PhoneProfilesNotification {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
+//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.drawProfileNotification", "call of forceDrawProfileNotification");
                 forceDrawProfileNotification(appContext);
 
 //                long finish = System.currentTimeMillis();
@@ -1346,11 +1356,17 @@ public class PhoneProfilesNotification {
             }
             //}
         };
-        PPApplication.createDelayedGuiExecutor();
+        PPApplication.createDelayedShowNotificationExecutor();
+
+//        PPApplication.delayedShowNotificationExecutor.shutdownNow(); // shutdown already scheduled
+//        try {
+//            PPApplication.delayedShowNotificationExecutor.awaitTermination(1, TimeUnit.SECONDS); // shutdown already scheduled
+//        } catch (Exception ignored) {};
+
         if (drawImmediatelly)
-            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
-            PPApplication.delayedGuiExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
 
         /*if (drawImmediatelly) {
             final Context appContext = context.getApplicationContext();
@@ -1446,6 +1462,7 @@ public class PhoneProfilesNotification {
         if (drawEmpty) {
             //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+//            PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.showProfileNotification", "call of _showProfileNotification");
             _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
             dataWrapper.invalidateDataWrapper();
             //return; // do not return, dusplay activated profile immediatelly
@@ -1468,6 +1485,7 @@ public class PhoneProfilesNotification {
             delay = 200;
         else
             delay = 1000;*/
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.showProfileNotification", "call of drawProfileNotification");
         drawProfileNotification(drawImmediatelly, context);
 
         //PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();

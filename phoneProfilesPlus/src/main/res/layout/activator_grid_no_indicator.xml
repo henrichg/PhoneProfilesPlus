@@ -40,7 +40,7 @@
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="?attr/colorAccent"/>
+            android:textColor="@color/accent" />
 
     </RelativeLayout>
 
@@ -50,7 +50,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="?attr/dialogDivider" />
+        android:background="@color/dialog_divider" />
 
     <FrameLayout
         android:id="@+id/act_prof_header_frLa1"
@@ -74,7 +74,8 @@
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:listSelector="?attr/listViewItemBackground"
-            android:drawSelectorOnTop="true" />
+            android:drawSelectorOnTop="true"
+            android:fadeScrollbars="false" />
 
         <TextView
             android:id="@+id/act_prof_list_empty"

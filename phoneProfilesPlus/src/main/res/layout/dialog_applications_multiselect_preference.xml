@@ -42,7 +42,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <Button
                 android:id="@+id/applications_multiselect_pref_dlg_unselect_all"
@@ -55,7 +55,7 @@
                 android:minHeight="40dp"
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
-                android:background="?attr/buttonBackground"
+                android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
         </LinearLayout>
@@ -74,7 +74,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
                 android:id="@+id/applications_multiselect_pref_dlg_listview"
@@ -91,11 +91,11 @@
                 app:fastScrollTrackWidth="@dimen/fastScrollTrackWidth"
                 app:fastScrollPopupTextSize="44sp"
                 app:fastScrollPopupBackgroundSize="70dp"
-                app:fastScrollPopupBgColor="?attr/fastScrollPopupBackgroundPP"
-                app:fastScrollPopupTextColor="?attr/fastScrollPopupTextPP"
-                app:fastScrollThumbColor="?attr/fastScrollThumbPP"
-                app:fastScrollTrackColor="?attr/fastScrollTrackPP"
-                app:fastScrollThumbInactiveColor="?attr/fastScrollThumbInactivePP" />
+                app:fastScrollPopupBgColor="@color/fastScrollPopupBackgroundPP"
+                app:fastScrollPopupTextColor="@color/fastScrollPopupTextPP"
+                app:fastScrollThumbColor="@color/fastScrollThumbPP"
+                app:fastScrollTrackColor="@color/fastScrollTrackPP"
+                app:fastScrollThumbInactiveColor="@color/fastScrollThumbInactivePP" />
 
         </LinearLayout>
 

@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Build;
 
 import androidx.annotation.CheckResult;
@@ -44,8 +43,6 @@ class ApplicationPreferences {
     static volatile boolean prefEventWifiEnabledForScan;
     //static volatile boolean prefShowCriticalGitHubReleasesNotificationNotification;
     static volatile int prefShowCriticalGitHubReleasesCodeNotification;
-    static volatile long prefEventAlarmClockTime;
-    static volatile String prefEventAlarmClockPackageName;
     static volatile boolean keepScreenOnPermanent;
     static volatile boolean prefEventRoamingNetworkInSIMSlot0;
     static volatile boolean prefEventRoamingDataInSIMSlot0;
@@ -106,6 +103,7 @@ class ApplicationPreferences {
     //static volatile boolean applicationDefaultProfileUsage;
     static volatile boolean applicationActivatorGridLayout;
     static volatile boolean applicationWidgetListGridLayout;
+    static volatile boolean applicationWidgetListCompactGrid;
     static volatile int applicationEventBluetoothScanInterval;
     //static volatile String applicationEventWifiRescan;
     //static volatile String applicationEventBluetoothRescan;
@@ -375,6 +373,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE = "applicationBackgroundProfileNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT = "applicationActivatorGridLayout";
     static final String PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT = "applicationWidgetListGridLayout";
+    static final String PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID = "applicationWidgetListCompactGrid";
+
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL = "applicationEventBluetoothScanInterval";
     //static final String PREF_APPLICATION_EVENT_WIFI_RESCAN = "applicationEventWifiRescan";
     //static final String PREF_APPLICATION_EVENT_BLUETOOTH_RESCAN = "applicationEventBluetoothRescan";
@@ -579,7 +579,11 @@ class ApplicationPreferences {
                 applicationTheme = _applicationTheme;
             }
             if (_applicationTheme.equals("night_mode") && useNightMode) {
-                int nightModeFlags =
+                if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
+                    _applicationTheme = "dark";
+                else
+                    _applicationTheme = "white";
+                /*int nightModeFlags =
                         context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                 switch (nightModeFlags) {
                     case Configuration.UI_MODE_NIGHT_YES:
@@ -589,7 +593,7 @@ class ApplicationPreferences {
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
                         _applicationTheme = "white";
                         break;
-                }
+                }*/
             }
             return _applicationTheme;
         }
@@ -921,16 +925,25 @@ class ApplicationPreferences {
     */
 
     static final boolean PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT_DEFAULT_VALUE = true;
+
     static void applicationActivatorGridLayout(Context context) {
         applicationActivatorGridLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT_DEFAULT_VALUE);
     }
 
     static final boolean PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT_DEFAULT_VALUE = true;
+
     static void applicationWidgetListGridLayout(Context context) {
         applicationWidgetListGridLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID_DEFAULT_VALUE = false;
+
+    static void applicationWidgetListCompactGrid(Context context) {
+        applicationWidgetListCompactGrid = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID, PREF_APPLICATION_WIDGET_LIST_COMPACT_GRID_DEFAULT_VALUE);
+    }
+
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL_DEFAULT_VALUE = "15";
+
     static void applicationEventBluetoothScanInterval(Context context) {
         applicationEventBluetoothScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL_DEFAULT_VALUE));
     }
@@ -1385,9 +1398,27 @@ class ApplicationPreferences {
     }
     */
 
-    static final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE = false;
+    static final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG = true;
+    static private final boolean PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS = false;
+    static boolean notificationUseDecorationDefaultValue() {
+        boolean defaultValue;
+        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31))
+            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+        else
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))
+            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG;
+        else
+            defaultValue = PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
+    // is not possible to use decoration when notificication background is not "Native" ("0")
+    // look also at notificationBackgroundColor() in this class, in it must be default value = "0"
+    @SuppressWarnings("ConstantConditions")
     static void notificationUseDecoration(Context context) {
-        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE);
+        boolean useDecoratorDefaultValue = notificationUseDecorationDefaultValue();
+        if (useDecoratorDefaultValue && (!PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE.equals("0")))
+            useDecoratorDefaultValue = false;
+        notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, useDecoratorDefaultValue);
     }
 
     static final String PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE = "0";
@@ -1396,6 +1427,7 @@ class ApplicationPreferences {
         notificationLayoutType = getSharedPreferences(context).getString(PREF_NOTIFICATION_LAYOUT_TYPE, PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE);
     }
 
+    // is not possible to use decoration when notificication background is not "Native" (0)
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE = "0";
     static void notificationBackgroundColor(Context context) {
         // default value for Pixel (Android 12+) -> 0 (native)
@@ -1887,7 +1919,7 @@ class ApplicationPreferences {
         applicationWidgetIconBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
     static void applicationWidgetIconBackgroundColorNightModeOn(Context context) {
         applicationWidgetIconBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
@@ -1897,7 +1929,7 @@ class ApplicationPreferences {
         applicationWidgetOneRowBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
     static void applicationWidgetOneRowBackgroundColorNightModeOn(Context context) {
         applicationWidgetOneRowBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
@@ -1907,7 +1939,7 @@ class ApplicationPreferences {
         applicationWidgetListBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
     static void applicationWidgetListBackgroundColorNightModeOn(Context context) {
         applicationWidgetListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }
@@ -1917,7 +1949,7 @@ class ApplicationPreferences {
         applicationSamsungEdgeBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff201a18";
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
     static void applicationSamsungEdgeBackgroundColorNightModeOn(Context context) {
         applicationSamsungEdgeBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
     }

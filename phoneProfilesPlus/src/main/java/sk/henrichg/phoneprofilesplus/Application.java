@@ -50,7 +50,7 @@ class Application  implements Parcelable {
         return false;
     }
 
-    public static String getPackageName(String value) {
+    static String getPackageName(String value) {
         if (value.length() > 2) {
             String packageName = "";
             String shortcutIntent = "";

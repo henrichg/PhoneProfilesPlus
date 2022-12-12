@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/not_used_mobile_cells_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/not_used_mobile_cells_dlg_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="23dp"
+        android:paddingEnd="23dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/not_used_mobile_cells_dlg_cell_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/not_used_mobile_cells_detected_cell_id"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/not_used_mobile_cells_dlg_connection_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/not_used_mobile_cells_detected_connection_time"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/not_used_mobile_cells_dlg_cells_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="7dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:hint="@string/mobile_cells_registration_cell_name_hint"
+            android:textColor="@color/accent"
+            android:textStyle="bold"
+            android:textColorHint="@color/accent"
+            android:background="@drawable/pp_button_background_selector"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/not_used_mobile_cells_dlg_last_running_events_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/not_used_mobile_cells_detected_last_running_events_label"
+            android:textSize="16sp" />
+
+        <ListView
+            android:id="@+id/not_used_mobile_cells_dlg_last_running_events_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
+            android:divider="@android:color/transparent"
+            android:listSelector="?attr/listViewItemBackground" />
+
+    </LinearLayout>
+</LinearLayout>

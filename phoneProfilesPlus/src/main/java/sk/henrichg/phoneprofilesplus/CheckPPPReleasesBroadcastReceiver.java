@@ -39,7 +39,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static public void setAlarm(Context context)
+    static void setAlarm(Context context)
     {
         removeAlarm(context);
 
@@ -69,9 +69,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
                 alarmTime = alarm.getTimeInMillis();
 
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putLong(PREF_PPP_RELEASE_ALARM, alarmTime);
-                editor.apply();
+                setShowPPPReleasesNotification(context, alarmTime);
             }
             else {
                 alarmTime = lastAlarm;
@@ -128,7 +126,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -161,15 +159,20 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                                 getVersion = false;
                             else {
                                 PackageManager packageManager = appContext.getPackageManager();
-                                Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-                                boolean amazonAppStoreInstalled = (intent != null);
+
+                                //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+                                //boolean amazonAppStoreInstalled = (intent != null);
+
+                                Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+                                boolean huaweiAppGalleryInstalled = (intent != null);
+
                                 intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
                                 boolean fdroidInstalled = (intent != null);
 
-                                if (amazonAppStoreInstalled)
-                                    getVersion = false;
-                                else
-                                    getVersion = !fdroidInstalled;
+                                intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+                                boolean droidifyInstalled = (intent != null);
+
+                                getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
                             }
                             if (getVersion)
                                 _doWorkGitHub(appContext);
@@ -326,6 +329,13 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         } catch (Exception e) {
 //            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
         }
+    }
+
+    static void setShowPPPReleasesNotification(Context context, long alarmTime)
+    {
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+        editor.putLong(PREF_PPP_RELEASE_ALARM, alarmTime);
+        editor.apply();
     }
 
 }

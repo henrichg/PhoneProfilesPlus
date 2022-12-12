@@ -33,7 +33,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -56,7 +55,7 @@ import java.util.List;
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
-    public DataWrapper activityDataWrapper;
+    DataWrapper activityDataWrapper;
 
     private View rootView;
     private RelativeLayout activatedProfileHeader;
@@ -71,7 +70,7 @@ public class EditorProfileListFragment extends Fragment
     private EditorProfileListAdapter profileListAdapter;
     private ItemTouchHelper itemTouchHelper;
 
-    private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
+    private LoadProfileListAsyncTask loadAsyncTask = null;
 
     Profile scrollToProfile = null;
 
@@ -155,6 +154,7 @@ public class EditorProfileListFragment extends Fragment
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
 
         setHasOptionsMenu(true);
 
@@ -313,9 +313,9 @@ public class EditorProfileListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
-                    LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this, filterType);
-                    this.asyncTaskContext = new WeakReference<>(asyncTask);
-                    asyncTask.execute();
+                    // start new AsyncTask, because old may be cancelled
+                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
+                    loadAsyncTask.execute();
                 } else {
                     if (profileListAdapter != null) {
                         listView.setAdapter(profileListAdapter);
@@ -491,69 +491,80 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler.removeCallbacks(progressBarRunnable);
-                fragment.progressBar.setVisibility(GONE);
+                if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
+                    progressBarHandler.removeCallbacks(progressBarRunnable);
+                    fragment.progressBar.setVisibility(GONE);
 
-                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                    fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                // get local profileList
-                _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-                // set local profile list into activity dataWrapper
-                fragment.activityDataWrapper.copyProfileList(_dataWrapper);
-                _dataWrapper.clearProfileList();
+                    // get local profileList
+                    //_dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
+                    // set local profile list into activity dataWrapper
+                    fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+                    _dataWrapper.clearProfileList();
 
-                synchronized (fragment.activityDataWrapper.profileList) {
-                    if (fragment.activityDataWrapper.profileList.size() == 0)
-                        fragment.textViewNoData.setVisibility(View.VISIBLE);
-                }
+                    synchronized (fragment.activityDataWrapper.profileList) {
+                        if (fragment.activityDataWrapper.profileList.size() == 0)
+                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                    }
 
-                fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
+                    fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
-                // added touch helper for drag and drop items
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
-                fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    // added touch helper for drag and drop items
+                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.profileListAdapter, false, false);
+                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
 
-                fragment.listView.setAdapter(fragment.profileListAdapter);
+                    fragment.listView.setAdapter(fragment.profileListAdapter);
 
-                // update activity for activated profile
-                Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
-                                applicationEditorPrefIndicator);
-                fragment.updateHeader(profile);
-                fragment.profileListAdapter.notifyDataSetChanged(false);
-                //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
-                //    fragment.setProfileSelection(profile);
+                    // update activity for activated profile
+                    Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
+                            applicationEditorPrefIndicator);
+                    fragment.updateHeader(profile);
+                    fragment.profileListAdapter.notifyDataSetChanged(false);
+                    //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
+                    //    fragment.setProfileSelection(profile);
 
-                if (defaultProfilesGenerated) {
-                    PPApplication.updateGUI(true, false, _dataWrapper.context);
-                    if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
-                                fragment.getString(R.string.toast_predefined_profiles_generated),
+                    if (defaultProfilesGenerated) {
+//                        PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.LoadProfileListAsyncTask", "call of updateGUI");
+                        PPApplication.updateGUI(true, false, _dataWrapper.context);
+                        if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
+                            PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
+                                    fragment.getString(R.string.toast_predefined_profiles_generated),
+                                    Toast.LENGTH_SHORT);
+                    }
+                    /*if (defaultEventsGenerated)
+                    {
+                        Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
+                                fragment.getString(R.string.toast_predefined_events_generated),
                                 Toast.LENGTH_SHORT);
+                        msg.show();
+                    }*/
+
                 }
-                /*if (defaultEventsGenerated)
-                {
-                    Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
-                            fragment.getString(R.string.toast_predefined_events_generated),
-                            Toast.LENGTH_SHORT);
-                    msg.show();
-                }*/
             }
         }
     }
 
-    boolean isAsyncTaskPendingOrRunning() {
+    boolean isAsyncTaskRunning() {
         try {
-            return this.asyncTaskContext != null &&
-                    this.asyncTaskContext.get() != null &&
-                    !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+            //Log.e("EditorProfileListFragment.isAsyncTaskRunning", "loadAsyncTask="+loadAsyncTask);
+            //Log.e("EditorProfileListFragment.isAsyncTaskRunning", "loadAsyncTask.getStatus()="+loadAsyncTask.getStatus());
+
+            return (loadAsyncTask != null) &&
+                    loadAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING);
         } catch (Exception e) {
             return false;
         }
     }
 
     void stopRunningAsyncTask() {
-        this.asyncTaskContext.get().cancel(true);
+        loadAsyncTask.cancel(true);
+        if (activityDataWrapper != null) {
+            synchronized (activityDataWrapper.eventList) {
+                activityDataWrapper.invalidateDataWrapper();
+            }
+        }
     }
 
     @Override
@@ -561,7 +572,8 @@ public class EditorProfileListFragment extends Fragment
     {
         super.onDestroy();
 
-        if (isAsyncTaskPendingOrRunning()) {
+        if (isAsyncTaskRunning()) {
+            //Log.e("EditorProfileListFragment.onDestroy", "AsyncTask not finished");
             stopRunningAsyncTask();
         }
 
@@ -674,6 +686,7 @@ public class EditorProfileListFragment extends Fragment
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
+//            PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteProfile", "call of updateGUI");
             PPApplication.updateGUI(true, false, activityDataWrapper.context);
         }
         else {
@@ -695,7 +708,7 @@ public class EditorProfileListFragment extends Fragment
         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
     }
 
-    public void showEditMenu(View view)
+    void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
@@ -746,25 +759,22 @@ public class EditorProfileListFragment extends Fragment
     {
         final Profile _profile = profile;
 
-        //noinspection ConstantConditions
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getString(R.string.profile_string_0) + ": " + profile._name);
-        dialogBuilder.setMessage(R.string.delete_profile_alert_message);
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteProfile(_profile));
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-        AlertDialog dialog = dialogBuilder.create();
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
+        PPAlertDialog dialog = new PPAlertDialog(
+                getString(R.string.profile_string_0) + ": " + profile._name,
+                getString(R.string.delete_profile_alert_message),
+                getString(R.string.alert_button_yes),
+                getString(R.string.alert_button_no),
+                null, null,
+                (dialog1, which) -> deleteProfile(_profile),
+                null,
+                null,
+                null,
+                null,
+                true, true,
+                false, false,
+                true,
+                getActivity()
+        );
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
@@ -774,69 +784,65 @@ public class EditorProfileListFragment extends Fragment
     private void deleteAllProfiles()
     {
         if (profileListAdapter != null) {
-            //noinspection ConstantConditions
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-            dialogBuilder.setTitle(R.string.alert_title_delete_all_profiles);
-            dialogBuilder.setMessage(R.string.alert_message_delete_all_profiles);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.alert_title_delete_all_profiles),
+                    getString(R.string.alert_message_delete_all_profiles),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, "");
 
-            //final Activity activity = getActivity();
+                        // remove alarm for profile duration
+                        synchronized (activityDataWrapper.profileList) {
+                            if (activityDataWrapper.profileListFilled) {
+                                for (Profile profile : activityDataWrapper.profileList)
+                                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, activityDataWrapper.context);
+                            }
+                        }
+                        //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
+                        synchronized (PPApplication.profileActivationMutex) {
+                            List<String> activateProfilesFIFO = new ArrayList<>();
+                            activityDataWrapper.fifoSaveProfiles(activateProfilesFIFO);
+                        }
 
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, "");
+                        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                // remove alarm for profile duration
-                synchronized (activityDataWrapper.profileList) {
-                    if (activityDataWrapper.profileListFilled) {
-                        for (Profile profile : activityDataWrapper.profileList)
-                            ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, activityDataWrapper.context);
-                    }
-                }
-                //Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
-                synchronized (PPApplication.profileActivationMutex) {
-                    List<String> activateProfilesFIFO = new ArrayList<>();
-                    activityDataWrapper.fifoSaveProfiles(activateProfilesFIFO);
-                }
+                        activityDataWrapper.stopAllEventsFromMainThread(true, false);
+                        profileListAdapter.clearNoNotify();
+                        DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
+                        DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
 
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                        profileListAdapter.notifyDataSetChanged();
 
-                activityDataWrapper.stopAllEventsFromMainThread(true, false);
-                profileListAdapter.clearNoNotify();
-                DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
-                DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
+                        //Profile profile = databaseHandler.getActivatedProfile();
+                        //Profile profile = profileListAdapter.getActivatedProfile();
+                        updateHeader(null);
+//                PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteAllProfiles", "call of updateGUI");
+                        PPApplication.updateGUI(true, false, activityDataWrapper.context);
 
-                profileListAdapter.notifyDataSetChanged();
+                        activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
-                //Profile profile = databaseHandler.getActivatedProfile();
-                //Profile profile = profileListAdapter.getActivatedProfile();
-                updateHeader(null);
-                PPApplication.updateGUI(true, false,  activityDataWrapper.context);
+                        /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                        PPApplication.startPPService(getActivity(), serviceIntent);*/
+                        Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+                        PPApplication.runCommand(getActivity(), commandIntent);
 
-                activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
-
-                /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.startPPService(getActivity(), serviceIntent);*/
-                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.runCommand(getActivity(), commandIntent);
-
-                onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+                        onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    getActivity()
+            );
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();
@@ -940,7 +946,7 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
-    public void activateProfile(Profile profile/*, boolean interactive*/)
+    void activateProfile(Profile profile/*, boolean interactive*/)
     {
         if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;
@@ -1319,36 +1325,6 @@ public class EditorProfileListFragment extends Fragment
         else
             GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());
     }
-
-    /*
-    void changeShowInActivator(final Profile profile) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getString(R.string.profile_string_0) + ": " + profile._name);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        int show = profile._showInActivator ? 1 : 0;
-        dialogBuilder.setSingleChoiceItems(R.array.showProfileInActivatorArray, show, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        profile._showInActivator = which == 1;
-                        DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
-                        profileListAdapter.notifyDataSetChanged();
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog dialog = dialogBuilder.create();
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-        if (!getActivity().isFinishing())
-            dialog.show();
-    }
-    */
 
     void showTargetHelps() {
         /*if (Build.VERSION.SDK_INT <= 19)

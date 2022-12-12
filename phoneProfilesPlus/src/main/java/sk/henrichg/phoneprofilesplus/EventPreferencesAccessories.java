@@ -81,8 +81,7 @@ class EventPreferencesAccessories extends EventPreferences {
         this._accessoryType = plugged.toString();
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -114,7 +113,7 @@ class EventPreferencesAccessories extends EventPreferences {
                         }
                     }
                 }
-                descr = descr + "<b>" + selectedAccessory + "</b>";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedAccessory, disabled, context) + "</b>";
             }
         }
 
@@ -217,9 +216,9 @@ class EventPreferencesAccessories extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ACCESSORIES).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {
@@ -330,7 +329,7 @@ class EventPreferencesAccessories extends EventPreferences {
                                 if (isBluetoothEnabled) {
                                     boolean isBluetoothConnected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
                                     if (isBluetoothConnected)
-                                        isHeadsetConnected = BluetoothProfile.STATE_CONNECTED == bluetooth.getProfileConnectionState(BluetoothProfile.HEADSET);
+                                        isHeadsetConnected = BluetoothAdapter.STATE_CONNECTED == bluetooth.getProfileConnectionState(BluetoothProfile.HEADSET);
                                 }
 
                                 boolean bluetoothHeadsetConnected = ApplicationPreferences.prefBluetoothHeadsetConnected && isHeadsetConnected;

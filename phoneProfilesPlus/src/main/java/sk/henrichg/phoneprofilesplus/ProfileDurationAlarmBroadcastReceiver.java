@@ -33,7 +33,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static public void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
+    static void setAlarm(Profile profile, boolean forRestartEvents, int startupSource, Context context)
     {
         removeAlarm(profile, context);
 
@@ -94,7 +94,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
@@ -258,7 +258,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     }
     */
 
-    static public void removeAlarm(Profile profile, Context context)
+    static void removeAlarm(Profile profile, Context context)
     {
         if (profile != null) {
             try {
@@ -290,7 +290,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context, final long profileId, final boolean forRestartEvents, final int startupSource) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -351,6 +351,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                     Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
 
                     removeAlarm(profile, appContext);
+//                    PPApplication.logE("[PPP_NOTIFICATION] ProfileDurationAlarmBroadcastReceiver._doWork", "call of updateGUI");
                     PPApplication.updateGUI(true, false, appContext);
 
                     if ((activatedProfile != null) &&

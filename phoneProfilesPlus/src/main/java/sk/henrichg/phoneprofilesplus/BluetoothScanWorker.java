@@ -59,7 +59,7 @@ public class BluetoothScanWorker extends Worker {
 //            long start = System.currentTimeMillis();
 //            PPApplication.logE("[IN_WORKER]  BluetoothScanWorker.doWork", "--------------- START");
 
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return Result.success();
 
@@ -181,7 +181,7 @@ public class BluetoothScanWorker extends Worker {
 
     private static void _scheduleWork(final Context context, final boolean shortInterval/*, final boolean forScreenOn*/) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -210,7 +210,7 @@ public class BluetoothScanWorker extends Worker {
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
                                 .addTag(BluetoothScanWorker.WORK_TAG)
                                 .build();
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -229,7 +229,7 @@ public class BluetoothScanWorker extends Worker {
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
                                 .addTag(BluetoothScanWorker.WORK_TAG_SHORT)
                                 .build();
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -317,7 +317,7 @@ public class BluetoothScanWorker extends Worker {
         }
 
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -384,7 +384,7 @@ public class BluetoothScanWorker extends Worker {
 
     private static boolean isWorkRunning(boolean shortWork) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
@@ -424,7 +424,7 @@ public class BluetoothScanWorker extends Worker {
 
     static boolean isWorkScheduled(boolean shortWork) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
@@ -480,7 +480,7 @@ public class BluetoothScanWorker extends Worker {
     }
     */
 
-    public static void initialize(Context context, boolean clearScanResult)
+    static void initialize(Context context, boolean clearScanResult)
     {
         setScanRequest(context, false);
         setLEScanRequest(context, false);
@@ -626,7 +626,8 @@ public class BluetoothScanWorker extends Worker {
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(false);
                             //else
-                            bluetooth.disable();
+                            if (bluetooth.isEnabled())
+                                bluetooth.disable();
                         }
                     }
                 }

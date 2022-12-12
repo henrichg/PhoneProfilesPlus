@@ -14,7 +14,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -44,7 +43,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -166,26 +165,26 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private void finishActivity() {
         if (showSaveMenu) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
-            dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                savePreferences(newProfileMode, predefinedProfileIndex);
-                resultCode = RESULT_OK;
-                finish();
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> finish());
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.not_saved_changes_alert_title),
+                    getString(R.string.not_saved_changes_alert_message),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        savePreferences(newProfileMode, predefinedProfileIndex);
+                        resultCode = RESULT_OK;
+                        finish();
+                    },
+                    (dialog2, which) -> finish(),
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();
@@ -390,7 +389,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._endOfActivationType,
                         origProfile._endOfActivationTime,
                         origProfile._applicationDisablePeriodicScanning,
-                        origProfile._deviceVPN
+                        origProfile._deviceVPN,
+                        origProfile._vibrationIntensityRinging,
+                        origProfile._vibrationIntensityNotifications,
+                        origProfile._vibrationIntensityTouchInteraction
                 );
                 showSaveMenu = true;
             }
@@ -593,6 +595,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
             profile._applicationDisablePeriodicScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, ""));
             profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "");
+            profile._vibrationIntensityRinging = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "");
+            profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "");
+            profile._vibrationIntensityTouchInteraction = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "");
         }
 
         return profile;
@@ -924,4 +929,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
+    static public class ProfilesPrefsVibrationIntensity  extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.profile_prefs_vibration_intensity, rootKey);
+        }
+
+    }
 }

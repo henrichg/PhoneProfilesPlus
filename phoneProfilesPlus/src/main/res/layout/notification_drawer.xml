@@ -9,6 +9,7 @@
         android:layout_width="@dimen/restart_events_notification_icon_size"
         android:layout_height="@dimen/restart_events_notification_icon_size"
         android:padding="2dp"
+        android:layout_marginStart="@dimen/profile_name_notification_margin"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:contentDescription="@string/menu_restart_events"
@@ -32,7 +33,7 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/profile_name_notification_margin"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
@@ -40,7 +41,6 @@
             android:id="@+id/notification_activated_profile_linLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/notification_activated_profile_icon" >
@@ -52,9 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/profile_preferences_indicator_height"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="3dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_indicator_image"
-                android:scaleType="@integer/profilePrefIndicatorScaleType"
+                android:scaleType="fitStart"
                 android:src="@drawable/ic_empty" />
 
         </LinearLayout>

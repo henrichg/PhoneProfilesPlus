@@ -15,6 +15,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
@@ -211,14 +213,20 @@ class ActivatorListAdapter extends BaseAdapter
                 else
                     holder.profileName.setTextSize(16);
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
-            } else*/ {
-                holder.profileName.setTypeface(null, Typeface.NORMAL);
-                if (applicationActivatorGridLayout)
+            } else*/
+            {
+                if (applicationActivatorGridLayout) {
+                    holder.profileName.setTypeface(null, Typeface.NORMAL);
                     holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-                else
+                } else {
+                    holder.profileName.setTypeface(null, Typeface.BOLD);
                     holder.profileName.setTextSize(15);
+                }
                 //noinspection ConstantConditions
-                holder.profileName.setTextColor(GlobalGUIRoutines.getThemeWhiteTextColor(fragment.getActivity()));
+                //holder.profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(fragment.getActivity()));
+
+                //noinspection ConstantConditions
+                holder.profileName.setTextColor(ContextCompat.getColor(fragment.getActivity(), R.color.activityNormalTextColor));
             }
 
             Spannable profileName = DataWrapperStatic.getProfileNameWithManualIndicator(profile,

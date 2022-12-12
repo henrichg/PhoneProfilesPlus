@@ -78,6 +78,7 @@ class NotUsedMobileCellsDetectedAdapter extends BaseAdapter {
                     break;
                 }
             }
+            // cellName must be set to enable positive button
             activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(
                     !activity.cellNameTextView.getText().toString().isEmpty() && anyChecked);
         });

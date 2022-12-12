@@ -16,58 +16,58 @@
         app:dependency="eventRadioSwitchEnabled"
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_wifi"
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchWifi"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchWithConnectionArray"
-        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
+        app:ppEntries="@array/eventRadioSwitchWithConnectionArray"
+        app:ppEntryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_bluetooth"
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchBluetooth"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchWithConnectionArray"
-        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
+        app:ppEntries="@array/eventRadioSwitchWithConnectionArray"
+        app:ppEntryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_mobileData"
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchMobileData"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchWithConnectionArray"
-        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
+        app:ppEntries="@array/eventRadioSwitchWithConnectionArray"
+        app:ppEntryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_gps"
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchGPS"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchArray"
-        app:entryValues="@array/eventRadioSwitchValues"
+        app:ppEntries="@array/eventRadioSwitchArray"
+        app:ppEntryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_nfc"
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchNFC"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchArray"
-        app:entryValues="@array/eventRadioSwitchValues"
+        app:ppEntries="@array/eventRadioSwitchArray"
+        app:ppEntryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_airplaneMode"
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchAirplaneMode"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchArray"
-        app:entryValues="@array/eventRadioSwitchValues"
+        app:ppEntries="@array/eventRadioSwitchArray"
+        app:ppEntryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

@@ -22,7 +22,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void doWork(long _profileId, Context context) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

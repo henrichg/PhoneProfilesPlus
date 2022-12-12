@@ -12,13 +12,13 @@
             app:key="applicationBackgroundProfileInfo"
             app:title="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
             app:defaultValue="-999"
             app:key="applicationBackgroundProfile"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
             app:layout="@layout/mp_preference_material_widget"
             app:addNoActivateItem="1" />
-        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        <sk.henrichg.phoneprofilesplus.RingtonePreference
             app:key="applicationBackgroundProfileNotificationSound"
             app:summary="@string/ringtone_preference_not_set"
             app:title="@string/profile_preferences_durationNotificationSound"
@@ -48,7 +48,7 @@
         app:title="@string/applicationApplicationInterfaceActivationNotification"
         app:layout="@layout/mp_preference_category" >
 
-        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        <sk.henrichg.phoneprofilesplus.RingtonePreference
             app:key="applicationApplicationInterfaceNotificationSound"
             app:summary="@string/ringtone_preference_not_set"
             app:title="@string/profile_preferences_durationNotificationSound"

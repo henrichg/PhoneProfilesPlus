@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -90,8 +89,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -123,7 +121,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         }
                     }
                 }
-                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + ": <b>" + selectedValues + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
 
                 if (dndChecked) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -141,7 +139,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                             }
                         }
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_soundProfile_zenModes) + ": <b>" + selectedValues + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_soundProfile_zenModes) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
                 }
             }
         }
@@ -294,9 +292,9 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SOUND_PROFILE).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {
@@ -328,11 +326,11 @@ class EventPreferencesSoundProfile extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ENABLED) != null) {
                 boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 
-                MultiSelectListPreference ringerModesPreference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_RINGER_MODES);
+                PPMultiSelectListPreference ringerModesPreference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_RINGER_MODES);
                 if (ringerModesPreference != null)
                     ringerModesPreference.setEnabled(enabled);
 
-                MultiSelectListPreference zenModesPreference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ZEN_MODES);
+                PPMultiSelectListPreference zenModesPreference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ZEN_MODES);
                 if (zenModesPreference != null)
                     zenModesPreference.setEnabled(enabled);
 

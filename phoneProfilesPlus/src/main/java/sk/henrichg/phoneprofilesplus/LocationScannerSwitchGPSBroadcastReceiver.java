@@ -92,7 +92,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                 .setInitialDelay(delay, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true)) {
+                    if (PPApplication.getApplicationStarted(true, true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
 //                        //if (PPApplication.logEnabled()) {
@@ -168,9 +168,9 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                        LocationScanner locationScanner = PhoneProfilesService.getInstance().getLocationScanner();
-                        if (locationScanner != null) {
+                    synchronized (PPApplication.locationScannerMutex) {
+                        if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+
                             if (LocationScanner.mUpdatesStarted) {
 //                              if (LocationScanner.useGPS) {
 //                                  if (PPApplication.googlePlayServiceAvailable) {
@@ -179,7 +179,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                                  }
 //                              }
 
-                                locationScanner.stopLocationUpdates();
+                                PPApplication.locationScanner.stopLocationUpdates();
 
                                 GlobalUtils.sleep(1000);
 
@@ -193,8 +193,8 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                 }
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
-                                String provider = locationScanner.startLocationUpdates();
-                                locationScanner.updateTransitionsByLastKnownLocation(provider);
+                                String provider = PPApplication.locationScanner.startLocationUpdates();
+                                PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                             }
                         }
                     }

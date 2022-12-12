@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/event_pref_dlg_item_event_name"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:textSize="14sp"
             android:scrollHorizontally="true"
             tools:ignore="SmallSp"/>
@@ -48,13 +47,14 @@
             android:id="@+id/event_pref_dlg_item_profile_profiles_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_below="@id/event_pref_dlg_item_preferences_description" >
 
             <ImageView
                 android:id="@+id/event_pref_dlg_item_profile_start_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/editor_event_list_item_profile_start_icon"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
@@ -68,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
+                android:layout_marginBottom="2dp"
                 android:layout_toEndOf="@id/event_pref_dlg_item_profile_start_icon">
 
                 <TextView
@@ -78,6 +79,7 @@
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"/>
 
@@ -85,14 +87,13 @@
                     android:id="@+id/event_pref_dlg_item_profile_start_pref_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_preferences_indicator_in_event_height"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_event_start_image"
-                    android:scaleType="@integer/profilePrefIndicatorScaleType"
+                    android:scaleType="fitStart"
                     android:src="@drawable/ic_profile_pref_volume_on"
                     android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_marginBottom="2dp" />
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 
@@ -109,7 +110,7 @@
                 android:id="@+id/event_pref_dlg_item_profile_end_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/editor_event_list_item_profile_end_icon"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
@@ -123,6 +124,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
+                android:layout_marginBottom="2dp"
                 android:layout_toEndOf="@id/event_pref_dlg_item_profile_end_icon">
 
                 <TextView
@@ -133,6 +135,7 @@
                     android:paddingEnd="10dp"
                     android:text="@string/profile_preference_profile_not_set"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"/>
 
@@ -140,14 +143,13 @@
                     android:id="@+id/event_pref_dlg_item_profile_end_pref_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_preferences_indicator_in_event_height"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_event_end_image"
-                    android:scaleType="@integer/profilePrefIndicatorScaleType"
+                    android:scaleType="fitStart"
                     android:src="@drawable/ic_profile_pref_volume_on"
                     android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:layout_marginBottom="2dp" />
+                    android:paddingEnd="10dp" />
 
             </LinearLayout>
 

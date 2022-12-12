@@ -25,20 +25,20 @@
             app:summary="@string/phone_profiles_pref_eventUsePriorityAppSettings_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget" />
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preferences_priority"
             app:summary="@string/array_event_pref_priorityMedium"
             app:key="eventPriority"
             app:defaultValue="0"
-            app:entries="@array/eventPriorityArray"
-            app:entryValues="@array/eventPriorityValues"
+            app:ppEntries="@array/eventPriorityArray"
+            app:ppEntryValues="@array/eventPriorityValues"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/event_preferences_category_startOfEvent"
         app:key="eventStartCategory"
         app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
             app:defaultValue="0"
             app:key="eventProfileStart"
             app:title="@string/event_preferences_eventProfileStart"
@@ -71,29 +71,29 @@
         app:title="@string/event_preferences_category_endOfEvent"
         app:key="eventEndCategory"
         app:layout="@layout/mp_preference_category">
-        <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+        <sk.henrichg.phoneprofilesplus.ProfilePreference
             app:defaultValue="-999"
             app:key="eventProfileEnd"
             app:title="@string/event_preferences_eventProfileEnd"
             app:addNoActivateItem="1"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preferences_atEndDo"
             app:summary="@string/array_pref_atEndDo_restartEvents"
             app:key="eventAtEndDo"
             app:defaultValue="2"
-            app:entries="@array/eventAtEndDoArray"
-            app:entryValues="@array/eventAtEndDoValues"
+            app:ppEntries="@array/eventAtEndDoArray"
+            app:ppEntryValues="@array/eventAtEndDoValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-<!--        <ListPreference-->
+<!--        <sk.henrichg.phoneprofilesplus.PPListPreference-->
 <!--            app:title="@string/event_preferences_atEndHowUndo"-->
 <!--            app:summary="@string/array_pref_atEndDo_undoByEventsStart"-->
 <!--            app:key="eventAtEndHowUndo"-->
 <!--            app:defaultValue="0"-->
-<!--            app:entries="@array/eventAtEndHowUndoArray"-->
-<!--            app:entryValues="@array/eventAtEndHowUndoValues"-->
+<!--            app:ppEntries="@array/eventAtEndHowUndoArray"-->
+<!--            app:ppEntryValues="@array/eventAtEndHowUndoValues"-->
 <!--            app:layout="@layout/mp_preference_material_widget" />-->
 
         <Preference
@@ -109,7 +109,7 @@
         app:title="@string/event_preferences_category_sensors"
         app:key="eventEventsCategory"
         app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreference
             app:key="eventSensorsInfo"
             app:title="@string/event_preferences_sensorsInfo_title"
             app:summary="@string/info_preference_click_here"

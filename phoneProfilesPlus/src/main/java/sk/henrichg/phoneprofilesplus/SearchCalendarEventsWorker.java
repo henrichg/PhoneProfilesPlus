@@ -37,7 +37,7 @@ public class SearchCalendarEventsWorker extends Worker {
 //            long start = System.currentTimeMillis();
 //            PPApplication.logE("[IN_WORKER]  SearchCalendarEventsWorker.doWork", "--------------- START");
 
-            if (!PPApplication.getApplicationStarted(true)) {
+            if (!PPApplication.getApplicationStarted(true, true)) {
                 // application is not started
                 return Result.success();
             }
@@ -125,7 +125,7 @@ public class SearchCalendarEventsWorker extends Worker {
 
     private static void _scheduleWork(final boolean shortInterval) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -220,7 +220,7 @@ public class SearchCalendarEventsWorker extends Worker {
         }
 
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -281,7 +281,7 @@ public class SearchCalendarEventsWorker extends Worker {
 
     private static boolean isWorkRunning(boolean shortWork) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
@@ -321,7 +321,7 @@ public class SearchCalendarEventsWorker extends Worker {
 
     static boolean isWorkScheduled(boolean shortWork) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;

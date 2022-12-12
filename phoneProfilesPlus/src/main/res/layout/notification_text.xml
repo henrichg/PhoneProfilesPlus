@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:text="@string/profile_name_default"
     style="@style/TextAppearance.Compat.Notification.Title"
-    android:textSize="16dp"
+    android:textSize="17dp"
     android:ellipsize="end"
-    android:maxLines="1"
     tools:ignore="SpUsage" />
+<!--    android:maxLines="1"-->

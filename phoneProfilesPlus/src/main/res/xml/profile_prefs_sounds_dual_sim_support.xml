@@ -10,15 +10,15 @@
         app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_soundRingtoneChangeSIM1"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_soundRingtoneChangeSIM1"
         app:defaultValue="0"
-        app:entries="@array/soundChangeArray"
-        app:entryValues="@array/soundChangeValues"
+        app:ppEntries="@array/soundChangeArray"
+        app:ppEntryValues="@array/soundChangeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
         app:key="prf_pref_soundRingtoneSIM1"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_soundRingtoneSIM1"
@@ -28,15 +28,15 @@
         app:simCard="1"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_soundRingtoneChangeSIM2"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_soundRingtoneChangeSIM2"
         app:defaultValue="0"
-        app:entries="@array/soundChangeArray"
-        app:entryValues="@array/soundChangeValues"
+        app:ppEntries="@array/soundChangeArray"
+        app:ppEntryValues="@array/soundChangeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
         app:key="prf_pref_soundRingtoneSIM2"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_soundRingtoneSIM2"
@@ -47,24 +47,24 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <!-- this is for Xiaomi devices -->
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:key="prf_pref_soundSameRingtoneForBothSIMCards"
         app:title="@string/profile_preferences_soundSameRingtoneForBothSIMCards"
         app:summary="@string/array_pref_no_change"
         app:defaultValue="0"
-        app:entries="@array/soundSameRingtoneForBothSIMCardsArray"
-        app:entryValues="@array/soundSameRingtoneForBothSIMCardsValues"
+        app:ppEntries="@array/soundSameRingtoneForBothSIMCardsArray"
+        app:ppEntryValues="@array/soundSameRingtoneForBothSIMCardsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_soundNotificationChangeSIM1"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_soundNotificationChangeSIM1"
         app:defaultValue="0"
-        app:entries="@array/soundChangeArray"
-        app:entryValues="@array/soundChangeValues"
+        app:ppEntries="@array/soundChangeArray"
+        app:ppEntryValues="@array/soundChangeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
         app:key="prf_pref_soundNotificationSIM1"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_soundNotificationSIM1"
@@ -74,15 +74,15 @@
         app:simCard="1"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_soundNotificationChangeSIM2"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_soundNotificationChangeSIM2"
         app:defaultValue="0"
-        app:entries="@array/soundChangeArray"
-        app:entryValues="@array/soundChangeValues"
+        app:ppEntries="@array/soundChangeArray"
+        app:ppEntryValues="@array/soundChangeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
         app:key="prf_pref_soundNotificationSIM2"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_soundNotificationSIM2"

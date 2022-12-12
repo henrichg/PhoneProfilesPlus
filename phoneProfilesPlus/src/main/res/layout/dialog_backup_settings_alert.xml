@@ -4,31 +4,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
-    android:paddingStart="25dp"
-    android:paddingEnd="25dp">
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <TextView
-        android:id="@+id/backup_settings_alert_dialog_text"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/brightnessPrefDialog_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/dialog_backup_settings_alert_text"
-        android:textSize="16sp" />
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/backup_settings_alert_dialog_checkBox"
+        <TextView
+            android:id="@+id/backup_settings_alert_dialog_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_backup_settings_alert_text"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/backup_settings_alert_dialog_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="-5dp"
-        android:text="@string/dialog_backup_settings_alert_checkBox" />
+            android:layout_marginStart="-5dp"
+            android:text="@string/dialog_backup_settings_alert_checkBox" />
 
-    <TextView
-        android:id="@+id/backup_settings_alert_dialog_rewrite_files_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/dialog_backup_settings_rewrite_files_info"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/backup_settings_alert_dialog_rewrite_files_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/dialog_backup_settings_rewrite_files_info"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </LinearLayout>
 

@@ -5,35 +5,45 @@
     android:id="@+id/vpnPrefDialogRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="23dp"
-    android:paddingEnd="23dp"
-    android:paddingBottom="10dp"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-<ScrollView
-    android:id="@+id/vpnPrefDialogVPNApplication_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    tools:ignore="UselessParent">
-
-    <LinearLayout
-        android:id="@+id/vpnPrefDialogVPNApplication_linla0"
+    <View
+        android:id="@+id/vpnPrefDialogVPNApplication_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-    <TextView
-        android:id="@+id/vpnPrefDialogVPNApplicationLabel"
+    <ScrollView
+        android:id="@+id/vpnPrefDialogVPNApplication_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/vpn_profile_pref_dlg_application_name_label"
-        android:textSize="16sp"
-        tools:ignore="HardcodedText"/>
-    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/vpnPrefDialogVPNApplication_linla0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/vpnPrefDialogVPNApplicationLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/vpn_profile_pref_dlg_application_name_label"
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/vpnPrefDialogVPNApplication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,8 +120,17 @@
         app:switchPadding="8dp"
         android:textSize="16sp" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <View
+        android:id="@+id/vpnPrefDialogVPNApplication_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginBottom="3dp"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

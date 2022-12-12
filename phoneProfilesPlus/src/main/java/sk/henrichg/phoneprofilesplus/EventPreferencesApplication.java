@@ -72,8 +72,7 @@ class EventPreferencesApplication extends EventPreferences {
         //}
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -128,7 +127,7 @@ class EventPreferencesApplication extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
-                descr = descr + context.getString(R.string.event_preferences_applications_applications) + ": <b>" + selectedApplications + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_applications_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
 
                 //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
                 //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
@@ -250,9 +249,9 @@ class EventPreferencesApplication extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_APPLICATION).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {
@@ -300,7 +299,7 @@ class EventPreferencesApplication extends EventPreferences {
                 final boolean accessibilityEnabled =
                         PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
                                 /*, "EventPreferencesApplication.checkPreferences"*/);
-                ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+                ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
                 if (applicationsPreference != null) {
                     applicationsPreference.setEnabled(accessibilityEnabled);
                     applicationsPreference.setSummaryAMSDP();

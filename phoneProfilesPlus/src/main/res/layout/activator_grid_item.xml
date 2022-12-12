@@ -6,7 +6,7 @@
     android:layout_height="90dp"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    android:paddingTop="5dp"
+    android:paddingTop="7dp"
     android:paddingBottom="0dp"
     android:orientation="vertical">
 
@@ -32,7 +32,7 @@
         android:id="@+id/act_prof_list_item_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="0dp"
         android:layout_gravity="center_horizontal"
         android:minLines="1"
         android:maxLines="2"

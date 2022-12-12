@@ -12,12 +12,11 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_QUICK_TILE_ID = "quick_tile_id";
 
-    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] QuickTileChooseTileBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -26,7 +25,7 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
             return;
 
         PPApplication.quickTileProfileId[tileId] = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
-//        PPApplication.logE("[IN_BROADCAST] PPTileService.chooseTileBroadcastReceiver", "profileId="+profileId);
+//        PPApplication.logE("[IN_BROADCAST] PPTileService.chooseTileBroadcastReceiver", "profileId="+PPApplication.quickTileProfileId[tileId]);
 
         // update Tile and save profileId int SharedPreferences
         ApplicationPreferences.setQuickTileProfileId(context.getApplicationContext(), tileId, PPApplication.quickTileProfileId[tileId]);

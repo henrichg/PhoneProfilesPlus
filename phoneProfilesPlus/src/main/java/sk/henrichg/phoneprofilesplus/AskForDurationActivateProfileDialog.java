@@ -48,7 +48,7 @@ class AskForDurationActivateProfileDialog
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            AskForDurationActivateProfileDialog.this.onShow();
+            doShow();
         });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
@@ -59,7 +59,7 @@ class AskForDurationActivateProfileDialog
 
     }
 
-    private void onShow(/*DialogInterface dialog*/) {
+    private void doShow() {
         new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity).execute();
     }
 
@@ -75,7 +75,7 @@ class AskForDurationActivateProfileDialog
         mDialog.dismiss();
     }
 
-    public void show() {
+    void show() {
         if (!activity.isFinishing())
             mDialog.show();
     }

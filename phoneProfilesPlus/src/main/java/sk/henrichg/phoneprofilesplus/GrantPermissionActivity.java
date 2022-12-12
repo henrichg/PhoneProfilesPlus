@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -14,7 +15,6 @@ import android.provider.Settings;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -256,7 +256,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     {
         super.onDestroy();
 
-        if ((geofenceEditorAsyncTask != null) && !geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+        if ((geofenceEditorAsyncTask != null) && geofenceEditorAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             geofenceEditorAsyncTask.cancel(true);
         }
     }
@@ -588,9 +588,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
+            /*
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.permissions_alert_title);
             dialogBuilder.setMessage(StringFormatUtils.fromHtml(showRequestString, true, false, 0, 0));
@@ -617,6 +618,30 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                    if (negative != null) negative.setAllCaps(false);
 //                }
 //            });
+            */
+
+            PPAlertDialog dialog = new PPAlertDialog(getString(R.string.permissions_alert_title),
+                    StringFormatUtils.fromHtml(showRequestString, true, false, false, 0, 0, true),
+                    getString(android.R.string.ok), getString(android.R.string.cancel), null, null,
+                    (dialog1, which) -> {
+                        int iteration = 4;
+                        if (showRequestWriteSettings)
+                            iteration = 1;
+                            //else if (showRequestAccessNotificationPolicy)
+                            //    iteration = 2;
+                        else if (showRequestDrawOverlays)
+                            iteration = 3;
+                        requestPermissions(iteration, canShowRationale(context, false));
+                    },
+                    (dialog2, which) -> finish(),
+                    null,
+                    dialog3 -> finish(),
+                    null,
+                    true, true,
+                    false, false,
+                    false,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();
@@ -1057,9 +1082,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
                     dialogBuilder.setMessage(R.string.permissions_write_settings_not_allowed_confirm);
@@ -1067,18 +1093,18 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         Permissions.setShowRequestWriteSettingsPermission(context, false);
                         if (rationaleAlreadyShown)
                             removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3/*2*/, withRationale);
+                        requestPermissions(3, withRationale);
                     });
                     dialogBuilder.setNegativeButton(R.string.permission_ask_button, (dialog, which) -> {
                         Permissions.setShowRequestWriteSettingsPermission(context, true);
                         if (rationaleAlreadyShown)
                             removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3/*2*/, withRationale);
+                        requestPermissions(3, withRationale);
                     });
                     dialogBuilder.setOnCancelListener(dialog -> {
                         if (rationaleAlreadyShown)
                             removePermission(Manifest.permission.WRITE_SETTINGS);
-                        requestPermissions(3/*2*/, withRationale);
+                        requestPermissions(3, withRationale);
                     });
                     AlertDialog dialog = dialogBuilder.create();
 
@@ -1091,9 +1117,41 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                            if (negative != null) negative.setAllCaps(false);
 //                        }
 //                    });
+                    */
 
-                    if (!isFinishing())
-                        dialog.show();
+                PPAlertDialog dialog = new PPAlertDialog(
+                        getString(R.string.permissions_alert_title),
+                        getString(R.string.permissions_write_settings_not_allowed_confirm),
+                        getString(R.string.permission_not_ask_button),
+                        getString(R.string.permission_ask_button),
+                        null, null,
+                        (dialog1, which) -> {
+                            Permissions.setShowRequestWriteSettingsPermission(context, false);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.WRITE_SETTINGS);
+                            requestPermissions(3, withRationale);
+                        },
+                        (dialog12, which) -> {
+                            Permissions.setShowRequestWriteSettingsPermission(context, true);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.WRITE_SETTINGS);
+                            requestPermissions(3, withRationale);
+                        },
+                        null,
+                        dialog13 -> {
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.WRITE_SETTINGS);
+                            requestPermissions(3, withRationale);
+                        },
+                        null,
+                        true, true,
+                        false, false,
+                        false,
+                        this
+                );
+
+                if (!isFinishing())
+                    dialog.show();
                 /*}
                 else {
                     //if (requestCode == WRITE_SETTINGS_REQUEST_CODE)
@@ -1190,9 +1248,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false);
+                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
                     if (Build.VERSION.SDK_INT >= 29) {
@@ -1238,9 +1297,66 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                            if (negative != null) negative.setAllCaps(false);
 //                        }
 //                    });
+                    */
 
-                    if (!isFinishing())
-                        dialog.show();
+                CharSequence message;
+                CharSequence positiveText;
+                CharSequence negativeText = null;
+                DialogInterface.OnClickListener positiveClick;
+                DialogInterface.OnClickListener negativeClick = null;
+                if (Build.VERSION.SDK_INT >= 29) {
+                    message = getString(R.string.permissions_draw_overlays_not_allowed_alway_required);
+                    positiveText = getString(android.R.string.ok);
+                    positiveClick = (dialog, which) -> {
+                        Permissions.setShowRequestDrawOverlaysPermission(context, true);
+                        if (rationaleAlreadyShown)
+                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                        requestPermissions(4, withRationale);
+                    };
+                } else {
+                    if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                        message = getString(R.string.permissions_draw_overlays_not_allowed_confirm);
+                    else
+                        message = getString(R.string.permissions_draw_overlays_not_allowed_confirm_miui);
+                    positiveText = getString(R.string.permission_not_ask_button);
+                    negativeText = getString(R.string.permission_ask_button);
+                    positiveClick = (dialog, which) -> {
+                        Permissions.setShowRequestDrawOverlaysPermission(context, false);
+                        if (rationaleAlreadyShown)
+                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                        requestPermissions(4, withRationale);
+                    };
+                    negativeClick = (dialog, which) -> {
+                        Permissions.setShowRequestDrawOverlaysPermission(context, true);
+                        if (rationaleAlreadyShown)
+                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                        requestPermissions(4, withRationale);
+                    };
+                }
+
+                PPAlertDialog dialog = new PPAlertDialog(
+                        getString(R.string.permissions_alert_title),
+                        message,
+                        positiveText,
+                        negativeText,
+                        null, null,
+                        positiveClick,
+                        negativeClick,
+                        null,
+                        dialog13 -> {
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                            requestPermissions(4, withRationale);
+                        },
+                        null,
+                        true, true,
+                        false, false,
+                        false,
+                        this
+                );
+
+                if (!isFinishing())
+                    dialog.show();
                 /*}
                 else {
                     //if (requestCode == DRAW_OVERLAYS_REQUEST_CODE)
@@ -1324,6 +1440,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.saveAllPermissions(context, permissionsChanged);
 
             if (permissionsChanged) {
+//                PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.onActivityResult", "call of updateGUI");
                 PPApplication.updateGUI(true, false, context);
 
                 if (finishActivity) {
@@ -1821,6 +1938,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.clearMergedPermissions(context);*/
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
+//        PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.finishGrant", "call of updateGUI");
             PPApplication.updateGUI(true, false, getApplicationContext());
         //}
     }

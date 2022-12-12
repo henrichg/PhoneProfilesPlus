@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -22,10 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 public class ImportantInfoHelpFragment extends Fragment {
@@ -210,21 +209,22 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }
                     }
                     if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                activity.getString(R.string.location_settings_button_tooltip),
+                                activity.getString(R.string.setting_screen_not_found_alert),
+                                activity.getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                activity
+                        );
 
                         if (!activity.isFinishing())
                             dialog.show();
@@ -252,21 +252,22 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            activity.getString(R.string.location_settings_button_tooltip),
+                            activity.getString(R.string.setting_screen_not_found_alert),
+                            activity.getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            activity
+                    );
 
                     if (!activity.isFinishing())
                         dialog.show();
@@ -289,21 +290,22 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            activity.getString(R.string.location_settings_button_tooltip),
+                            activity.getString(R.string.setting_screen_not_found_alert),
+                            activity.getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            activity
+                    );
 
                     if (!activity.isFinishing())
                         dialog.show();
@@ -332,21 +334,22 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
                 if (!ok) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            activity.getString(R.string.phone_profiles_pref_applicationBatteryOptimization),
+                            activity.getString(R.string.setting_screen_not_found_alert),
+                            activity.getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            activity
+                    );
 
                     if (!activity.isFinishing())
                         dialog.show();
@@ -392,7 +395,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text2) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text3) + "</li>" +
                     "</ol>";
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_profile_activation3);
         if (infoText100 != null) {
@@ -411,7 +414,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
                     "</ul>";
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_event_activation9);
         if (infoText100 != null) {
@@ -420,19 +423,20 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
                     "</ul>";
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
             String text = "<ul>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_install_pppps) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_grant) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_root) + "</li>" +
                     //"<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_interactive) +
                     "</ul>"
-            ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+                    ;
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_3);
@@ -441,7 +445,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_3) + "</li>" +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_4);
         if (infoText100 != null) {
@@ -449,7 +453,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_4) + "</li>" +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 2, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 2, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
@@ -460,7 +464,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_10);
         if (infoText100 != null) {
@@ -468,7 +472,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_10) + "</li>" +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 4, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 4, 17, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_20);
         if (infoText100 != null) {
@@ -480,7 +484,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
                     "</ul>" +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_6);
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
@@ -492,7 +496,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_event_priority_new) +
                     "</ol>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_event_sensors_2);
@@ -503,7 +507,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.important_info_event_event_sensors_not_pased) + "</li>" +
                     "</ol>"
                     ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+            infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
 
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_1);
@@ -512,7 +516,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_restart_events) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_2);
         if (infoText100 != null) {
@@ -520,7 +524,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_3);
         if (infoText100 != null) {
@@ -528,7 +532,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_pause_event) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_4);
         if (infoText100 != null) {
@@ -536,7 +540,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_stop_event) + "</li>" +
                     "</ul>"
             ;
-            infoText100.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+            infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
 
         TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
@@ -547,7 +551,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText41.setText(spannable);
         }
@@ -559,7 +566,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText42.setText(spannable);
         }
@@ -571,7 +581,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText43.setText(spannable);
         }
@@ -583,7 +596,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText44.setText(spannable);
         }
@@ -595,7 +611,10 @@ public class ImportantInfoHelpFragment extends Fragment {
                     " Target:Activity\n" +
                     "]";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText45.setText(spannable);
         }
@@ -605,7 +624,10 @@ public class ImportantInfoHelpFragment extends Fragment {
             //str = getString(R.string.important_info_profile_grant_1_howTo_11);
             String str = "https://developer.android.com/studio/releases/platform-tools.html";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoTextADBDownload.setText(spannable);
         }
@@ -615,7 +637,10 @@ public class ImportantInfoHelpFragment extends Fragment {
             String str = "adb\u00A0shell\u00A0pm\u00A0grant\u00A0" + PPApplication.PACKAGE_NAME + "\u00A0" +
                     "android.permission.WRITE_SECURE_SETTINGS";
             Spannable spannable = new SpannableString(str);
-            spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
+            //        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new BackgroundColorSpan(ContextCompat.getColor(activity, R.color.activityCommandBackgroundColor)),
+                    0, str.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoTextGrant1Command.setText(spannable);
         }
@@ -711,6 +736,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 true, activity);*/
         }
 
+/*
         TextView configureNotificationInfoText = view.findViewById(R.id.important_info_notification_settings_configure);
         if (configureNotificationInfoText != null) {
             configureNotificationInfoText.setText(context.getString(R.string.important_info_notification_settings_configure) +  " \u21D2");
@@ -731,32 +757,62 @@ public class ImportantInfoHelpFragment extends Fragment {
                     editor.apply();
                 }
 
-                /*
-                if (PhoneProfilesService.getInstance() != null) {
-                    synchronized (PPApplication.applicationPreferencesMutex) {
-                        PPApplication.doNotShowProfileNotification = true;
-                    }
-                    PhoneProfilesService.getInstance().clearProfileNotification();
-                }
-
-                Handler handler = new Handler(activity.getMainLooper());
-                handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
-                    if (PhoneProfilesService.getInstance() != null) {
-                        synchronized (PPApplication.applicationPreferencesMutex) {
-                            PPApplication.doNotShowProfileNotification = false;
-                        }
-                        // forServiceStart must be true because of call of clearProfileNotification()
-                        PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-                    }
-                }, 1000);*/
+//
+//                if (PhoneProfilesService.getInstance() != null) {
+//                    synchronized (PPApplication.applicationPreferencesMutex) {
+//                        PPApplication.doNotShowProfileNotification = true;
+//                    }
+//                    PhoneProfilesService.getInstance().clearProfileNotification();
+//                }
+//
+//                Handler handler = new Handler(activity.getMainLooper());
+//                handler.postDelayed(() -> {
+////                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+//                    if (PhoneProfilesService.getInstance() != null) {
+//                        synchronized (PPApplication.applicationPreferencesMutex) {
+//                            PPApplication.doNotShowProfileNotification = false;
+//                        }
+//                        // forServiceStart must be true because of call of clearProfileNotification()
+//                        PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+//                    }
+//                }, 1000);
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
+//                PPApplication.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of forceDrawProfileNotification");
                 PhoneProfilesNotification.forceDrawProfileNotification(context.getApplicationContext());
 
                 PPApplication.showToast(context,
                         context.getString(R.string.important_info_notification_settings_toast),
                         Toast.LENGTH_SHORT);
             });
+        }
+*/
+        TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
+        if (helpForPPPPSTextView != null) {
+            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) +  " \u21D2";
+            Spannable spannable = new SpannableString(str1);
+            //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    installPPPPutSettings(activity, false);
+                }
+            };
+            spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            helpForPPPPSTextView.setText(spannable);
+            helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                getString(R.string.important_info_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
+                true, activity);*/
         }
 
     }
@@ -786,6 +842,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"\n";
         dialogText = dialogText + activity.getString(R.string.install_extender_text2) + "\n";
         dialogText = dialogText + activity.getString(R.string.install_extender_text3);
+
 
         text.setText(dialogText);
 
@@ -995,6 +1052,103 @@ public class ImportantInfoHelpFragment extends Fragment {
         }*/
         else
             installExtenderFromGitHub(activity, finishActivity);
+    }
+
+    static void installPPPPutSettings(Activity activity,
+                                      @SuppressWarnings("SameParameterValue") boolean finishActivity) {
+        if (activity == null) {
+            return;
+        }
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.install_pppps_dialog_title);
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.dialog_install_pppps, null);
+        dialogBuilder.setView(layout);
+
+        TextView text = layout.findViewById(R.id.install_pppps_from_github_dialog_info_text);
+
+        String dialogText = "";
+
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"\n";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "\n";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "\n\n";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
+        text.setText(dialogText);
+
+        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+            String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                if (finishActivity)
+                    activity.finish();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            if (finishActivity)
+                activity.finish();
+        });
+        dialogBuilder.setCancelable(false);
+        /*dialogBuilder.setOnCancelListener(dialog -> {
+            if (finishActivity)
+                activity.finish();
+        });*/
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+        text = layout.findViewById(R.id.install_pppps_from_github_dialog_github_releases);
+        CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + " \u21D2";
+        Spannable sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                String url = PPApplication.GITHUB_PPPPS_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    dialog.cancel();
+                    //if (activity != null)
+                    if (finishActivity)
+                        activity.finish();
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+        };
+        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        text.setText(sbt);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (/*(activity != null) &&*/ (!activity.isFinishing()))
+            dialog.show();
+
     }
 
 }

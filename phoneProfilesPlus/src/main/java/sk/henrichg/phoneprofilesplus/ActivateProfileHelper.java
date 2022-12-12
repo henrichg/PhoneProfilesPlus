@@ -18,18 +18,21 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
+import android.hardware.camera2.CameraAccessException;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -611,14 +614,14 @@ class ActivateProfileHelper {
                                     PPApplication.recordException(e);
                                 }
                                 if (connManager != null) {
-                                    boolean wifiConnected = false;
-                                    /*if (Build.VERSION.SDK_INT < 28) {
+                                    boolean wifiConnected; // = false;
+                                    //if (Build.VERSION.SDK_INT < 28) {
                                         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
                                         wifiConnected = (activeNetwork != null) &&
                                                 (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
                                                 activeNetwork.isConnected();
-                                    }
-                                    else*/ {
+                                    /*}
+                                    else {
                                         Network[] activeNetworks=connManager.getAllNetworks();
                                         for(Network network : activeNetworks){
                                             try {
@@ -634,7 +637,7 @@ class ActivateProfileHelper {
                                                 PPApplication.recordException(ee);
                                             }
                                         }
-                                    }
+                                    }*/
                                     WifiInfo wifiInfo = null;
                                     if (wifiConnected)
                                         wifiInfo = wifiManager.getConnectionInfo();
@@ -1580,29 +1583,39 @@ class ActivateProfileHelper {
                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
                             //PPApplication.recordException(ee);
 
-                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                synchronized (PPApplication.rootMutex) {
-                                    String command1;
-                                    Command command;
-                                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                        String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
-                                        String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
-                                        command = new Command(0, /*false,*/ command1, command2, command3);
-                                    } else {
-                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                        //if (PPApplication.isSELinuxEnforcing())
-                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                        command = new Command(0, /*false,*/ command1); //, command2);
-                                    }
-                                    try {
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                    } catch (Exception e) {
-                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                        //PPApplication.recordException(e);
+                            if (isPPPPutSSettingsInstalled(appContext)) {
+                                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                    putSettingsParameter(context, "system", Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    putSettingsParameter(context, "system", "vibrate_in_normal", String.valueOf(lValue));
+                                    putSettingsParameter(context, "system", "vibrate_in_silent", String.valueOf(lValue));
+                                } else {
+                                    putSettingsParameter(context, "system", Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                }
+                            } else {
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1;
+                                        Command command;
+                                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
+                                            String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
+                                            command = new Command(0, /*false,*/ command1, command2, command3);
+                                        } else {
+                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            //if (PPApplication.isSELinuxEnforcing())
+                                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                            command = new Command(0, /*false,*/ command1); //, command2);
+                                        }
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
                                     }
                                 }
                             }
@@ -1646,45 +1659,233 @@ class ActivateProfileHelper {
             Context appContext = context.getApplicationContext();
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (Permissions.checkVibrateNotifications(appContext)) {
-                    /*try {
-                        Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
-                    } catch (Exception ee) {*/
-                        // java.lang.IllegalArgumentException: You cannot change private secure settings.
-                        //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
-                        //PPApplication.recordException(ee);
-
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1;
-                                Command command;
-                                if (PPApplication.deviceIsPixel) {
+                if (isPPPPutSSettingsInstalled(appContext)) {
+                    if (PPApplication.deviceIsPixel) {
+                        if (lValue > 0) {
+                            putSettingsParameter(context, "system", "vibrate_on", "1");
+                            putSettingsParameter(context, "system", "notification_vibration_intensity", String.valueOf(lValue));
+                        } else {
+                            putSettingsParameter(context, "system", "notification_vibration_intensity", String.valueOf(lValue));
+                        }
+                    } else {
+                        putSettingsParameter(context, "system", "notification_vibration_intensity", String.valueOf(lValue));
+                    }
+                } else {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1;
+                            Command command;
+                            if (PPApplication.deviceIsPixel) {
+                                if (lValue > 0) {
                                     command1 = "settings put system " + "vibrate_on" + " 1";
                                     String command2 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
                                     command = new Command(0, /*false,*/ command1, command2);
                                 } else {
                                     command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
-                                    //if (PPApplication.isSELinuxEnforcing())
-                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     command = new Command(0, /*false,*/ command1);
                                 }
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
-                                }
+                            } else {
+                                command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                command = new Command(0, /*false,*/ command1);
+                            }
+                            try {
+                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                RootUtils.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
                             }
                         }
-                    //}
+                    }
                 }
             }
         }
     }
 
+    private static void _setVibrationIntensity(Context context,
+                                               String preferenceName,
+                                               String parameterName,
+                                               int value,
+                                               SharedPreferences executedProfileSharedPreferences) {
+        if (value != -1) {
+            Context appContext = context.getApplicationContext();
+            if (ProfileStatic.isProfilePreferenceAllowed(preferenceName, null, executedProfileSharedPreferences, false, appContext).allowed
+                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                {
+//                    Log.e("ActivateProfileHelper._setVibrationIntensity", "parameterName="+parameterName);
+//                    Log.e("ActivateProfileHelper._setVibrationIntensity", "value="+value);
+
+                    if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
+                            PPApplication.deviceIsOnePlus) {
+
+                        if (isPPPPutSSettingsInstalled(appContext))
+                            putSettingsParameter(context, "system", parameterName, String.valueOf(value));
+                        else {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                Command command;
+                                command1 = "settings put system " + parameterName + " " + value;
+                                command = new Command(0, /*false,*/ command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                    //PPApplication.recordException(e);
+                                }
+                            }
+                        }
+                    } else {
+                        if (isPPPPutSSettingsInstalled(appContext))
+                            putSettingsParameter(context, "system", parameterName, String.valueOf(value));
+                        else {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1;
+                                    Command command;
+                                    if (PPApplication.deviceIsPixel) {
+                                        if (value > 0) {
+                                            command1 = "settings put system " + "vibrate_on" + " 1";
+                                            String command2 = "settings put system " + parameterName + " " + value;
+                                            command = new Command(0, /*false,*/ command1, command2);
+                                        } else {
+                                            command1 = "settings put system " + parameterName + " " + value;
+                                            command = new Command(0, /*false,*/ command1);
+                                        }
+                                    } else {
+                                        command1 = "settings put system " + parameterName + " " + value;
+                                        //if (PPApplication.isSELinuxEnforcing())
+                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        command = new Command(0, /*false,*/ command1);
+                                    }
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static void setVibrationIntensity(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
+        int lValueRinging;
+        int lValueNotificaitons;
+        int lValueTouchIntensity;
+
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            if (profile.getVibrationIntensityRingingChange()) {
+                lValueRinging = profile.getVibrationIntensityRingingValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
+                        "VIB_RECVCALL_MAGNITUDE",
+                        lValueRinging,
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityNotificationsChange()) {
+                lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
+                        "SEM_VIBRATION_NOTIFICATION_INTENSITY",
+                        lValueNotificaitons,
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityTouchInteractionChange()) {
+                lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                        "VIB_FEEDBACK_MAGNITUDE",
+                        lValueTouchIntensity,
+                        executedProfileSharedPreferences
+                );
+            }
+        } else if (PPApplication.deviceIsOnePlus) {
+            if (profile.getVibrationIntensityRingingChange()) {
+                lValueRinging = profile.getVibrationIntensityRingingValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
+                        "ring_stepless_vibration_intensity",
+                        lValueRinging + VibrationIntensityPreference.getMinValue("RINGING"),
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityNotificationsChange()) {
+                lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
+                        "notification_stepless_vibration_intensity",
+                        lValueNotificaitons + VibrationIntensityPreference.getMinValue("NOTIFICATIONS"),
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityTouchInteractionChange()) {
+                lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                        "touch_stepless_vibration_intensity",
+                        lValueTouchIntensity + VibrationIntensityPreference.getMinValue("TOUCHINTERACTION"),
+                        executedProfileSharedPreferences
+                );
+            }
+        } else {
+            lValueRinging = 0;
+            lValueNotificaitons = 0;
+            lValueTouchIntensity = 0;
+            if (profile.getVibrationIntensityRingingChange())
+                lValueRinging = profile.getVibrationIntensityRingingValue();
+            if (profile.getVibrationIntensityNotificationsChange())
+                lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
+            if (profile.getVibrationIntensityTouchInteractionChange())
+                lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
+
+            if ((lValueRinging > 0) || (lValueNotificaitons > 0) || (lValueTouchIntensity > 0))
+                putSettingsParameter(context, "system", "vibrate_on", "1");
+
+            if (profile.getVibrationIntensityRingingChange()) {
+                lValueRinging = profile.getVibrationIntensityRingingValue();
+//                Log.e("ActivateProfileHelper.setVibrationIntensity", "lValueRinging="+lValueRinging);
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING,
+                        "ring_vibration_intensity",
+                        lValueRinging,
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityNotificationsChange()) {
+                lValueNotificaitons = profile.getVibrationIntensityNotificationsValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS,
+                        "notification_vibration_intensity",
+                        lValueNotificaitons,
+                        executedProfileSharedPreferences
+                );
+            }
+            if (profile.getVibrationIntensityTouchInteractionChange()) {
+                lValueTouchIntensity = profile.getVibrationIntensityTouchInteractionValue();
+                _setVibrationIntensity(context,
+                        Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                        "haptic_feedback_intensity",
+                        lValueTouchIntensity,
+                        executedProfileSharedPreferences
+                );
+            }
+        }
+    }
 
     private static boolean setTones(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         boolean noError = true;
@@ -2186,21 +2387,25 @@ class ActivateProfileHelper {
 
                                         //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
 
-                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                            synchronized (PPApplication.rootMutex) {
-                                                String command1;
-                                                Command command;
-                                                command1 = "settings put system notification_sound" + " " + uri.toString();
-                                                command = new Command(0, /*false,*/ command1);
-                                                try {
-                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                        if (isPPPPutSSettingsInstalled(appContext)) {
+                                            putSettingsParameter(context, "system", "notification_sound", uri.toString());
+                                        } else {
+                                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1;
+                                                    Command command;
+                                                    command1 = "settings put system notification_sound" + " " + uri.toString();
+                                                    command = new Command(0, /*false,*/ command1);
+                                                    try {
+                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                        RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
-                                                } catch (Exception e) {
-                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                    //PPApplication.recordException(e);
+                                                    } catch (Exception e) {
+                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //PPApplication.recordException(e);
+                                                    }
                                                 }
                                             }
                                         }
@@ -2212,21 +2417,25 @@ class ActivateProfileHelper {
                                         } catch (Exception ignored) {
                                         }
 
-                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                            synchronized (PPApplication.rootMutex) {
-                                                String command1;
-                                                Command command;
-                                                command1 = "settings put system message" + " " + uri.toString();
-                                                command = new Command(0, /*false,*/ command1);
-                                                try {
-                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                        if (isPPPPutSSettingsInstalled(appContext)) {
+                                            putSettingsParameter(context, "system", "message", uri.toString());
+                                        } else {
+                                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1;
+                                                    Command command;
+                                                    command1 = "settings put system message" + " " + uri.toString();
+                                                    command = new Command(0, /*false,*/ command1);
+                                                    try {
+                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                        RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
-                                                } catch (Exception e) {
-                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                    //PPApplication.recordException(e);
+                                                    } catch (Exception e) {
+                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //PPApplication.recordException(e);
+                                                    }
                                                 }
                                             }
                                         }
@@ -2275,21 +2484,25 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                        synchronized (PPApplication.rootMutex) {
-                                            String command1;
-                                            Command command;
-                                            command1 = "settings put system notification_sound" + " \"\"";
-                                            command = new Command(0, /*false,*/ command1);
-                                            try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                    if (isPPPPutSSettingsInstalled(appContext)) {
+                                        putSettingsParameter(context, "system", "notification_sound", "");
+                                    } else {
+                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                            synchronized (PPApplication.rootMutex) {
+                                                String command1;
+                                                Command command;
+                                                command1 = "settings put system notification_sound" + " \"\"";
+                                                command = new Command(0, /*false,*/ command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
-                                            } catch (Exception e) {
-                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                //PPApplication.recordException(e);
+                                                } catch (Exception e) {
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                     }
@@ -2299,21 +2512,25 @@ class ActivateProfileHelper {
                                     // notifikacie ine ako sms - zvlastna katergoria v Huawei
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                        synchronized (PPApplication.rootMutex) {
-                                            String command1;
-                                            Command command;
-                                            command1 = "settings put system message" + " \"\"";
-                                            command = new Command(0, /*false,*/ command1);
-                                            try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                    if (isPPPPutSSettingsInstalled(appContext)) {
+                                        putSettingsParameter(context, "system", "message", "");
+                                    } else {
+                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                            synchronized (PPApplication.rootMutex) {
+                                                String command1;
+                                                Command command;
+                                                command1 = "settings put system message" + " \"\"";
+                                                command = new Command(0, /*false,*/ command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
-                                            } catch (Exception e) {
-                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                //PPApplication.recordException(e);
+                                                } catch (Exception e) {
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                     }
@@ -2330,6 +2547,7 @@ class ActivateProfileHelper {
                 }
             }
             if (profile._soundNotificationChangeSIM2 == 1) {
+//                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2");
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
@@ -2368,47 +2586,56 @@ class ActivateProfileHelper {
 
                                         //Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
 
-                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                            synchronized (PPApplication.rootMutex) {
-                                                String command1;
-                                                Command command;
-                                                command1 = "settings put system notification_sound_2" + " " + uri.toString();
-                                                command = new Command(0, /*false,*/ command1);
-                                                try {
-                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                        if (isPPPPutSSettingsInstalled(appContext)) {
+                                            putSettingsParameter(context, "system", "notification_sound_2", uri.toString());
+                                        } else {
+                                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1;
+                                                    Command command;
+                                                    command1 = "settings put system notification_sound_2" + " " + uri.toString();
+                                                    command = new Command(0, /*false,*/ command1);
+                                                    try {
+                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                        RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 2 with root");
-                                                } catch (Exception e) {
-                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                    //PPApplication.recordException(e);
+                                                    } catch (Exception e) {
+                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //PPApplication.recordException(e);
+                                                    }
                                                 }
                                             }
                                         }
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
-//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
-
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {
                                         }
 
-                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                            synchronized (PPApplication.rootMutex) {
-                                                String command1;
-                                                Command command;
-                                                command1 = "settings put system messageSub1" + " " + uri.toString();
-                                                command = new Command(0, /*false,*/ command1);
-                                                try {
-                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                        // not working without root
+                                        //if (isPPPPutSSettingsInstalled(appContext)) {
+                                        //    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
+                                        //    putSettingsParameter(context, "system", "messageSub1", uri.toString());
+                                        //} else
+                                        {
+                                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1;
+                                                    Command command;
+                                                    command1 = "settings put system messageSub1" + " " + uri.toString();
+                                                    command = new Command(0, /*false,*/ command1);
+                                                    try {
+                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                        RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
-                                                } catch (Exception e) {
-                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                    //PPApplication.recordException(e);
+                                                    } catch (Exception e) {
+                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //PPApplication.recordException(e);
+                                                    }
                                                 }
                                             }
                                         }
@@ -2457,42 +2684,52 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
-                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                        synchronized (PPApplication.rootMutex) {
-                                            String command1;
-                                            Command command;
-                                            command1 = "settings put system notification_sound_2" + " \"\"";
-                                            command = new Command(0, /*false,*/ command1);
-                                            try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                    if (isPPPPutSSettingsInstalled(appContext)) {
+                                        putSettingsParameter(context, "system", "notification_sound_2", "");
+                                    } else {
+                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                            synchronized (PPApplication.rootMutex) {
+                                                String command1;
+                                                Command command;
+                                                command1 = "settings put system notification_sound_2" + " \"\"";
+                                                command = new Command(0, /*false,*/ command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification fro SIM2 with root");
-                                            } catch (Exception e) {
-                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                //PPApplication.recordException(e);
+                                                } catch (Exception e) {
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                     }
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
 
-                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                        synchronized (PPApplication.rootMutex) {
-                                            String command1;
-                                            Command command;
-                                            command1 = "settings put system messageSub1" + " \"\"";
-                                            command = new Command(0, /*false,*/ command1);
-                                            try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                                    // not working without root
+                                    //if (isPPPPutSSettingsInstalled(appContext)) {
+                                    //    putSettingsParameter(context, "system", "messageSub1", "");
+                                    //} else
+                                    {
+                                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                            synchronized (PPApplication.rootMutex) {
+                                                String command1;
+                                                Command command;
+                                                command1 = "settings put system messageSub1" + " \"\"";
+                                                command = new Command(0, /*false,*/ command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
-                                            } catch (Exception e) {
-                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                //PPApplication.recordException(e);
+                                                } catch (Exception e) {
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                     }
@@ -2524,21 +2761,25 @@ class ActivateProfileHelper {
                             if (profile._soundSameRingtoneForBothSIMCards == 2)
                                 value = "0";
 
-                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                                synchronized (PPApplication.rootMutex) {
-                                    String command1;
-                                    Command command;
-                                    command1 = "settings put system ringtone_sound_use_uniform" + " " + value;
-                                    command = new Command(0, /*false,*/ command1);
-                                    try {
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+                            if (isPPPPutSSettingsInstalled(appContext)) {
+                                putSettingsParameter(context, "system", "ringtone_sound_use_uniform", value);
+                            } else {
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1;
+                                        Command command;
+                                        command1 = "settings put system ringtone_sound_use_uniform" + " " + value;
+                                        command = new Command(0, /*false,*/ command1);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
 //                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "same ringtone fro bth sim cards with root");
-                                    } catch (Exception e) {
-                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                        //PPApplication.recordException(e);
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
                                     }
                                 }
                             }
@@ -2726,38 +2967,27 @@ class ActivateProfileHelper {
 
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
-                        //    Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
-                        //else {
-                        /* not working (private secure settings) :-/
-                        boolean G1OK = false;
-                        if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                            try {
-                                Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
-                                G1OK = true;
-                            } catch (Exception ee) {
-                                Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(ee));
-                            }
-                        }
-                        if (!G1OK) {*/
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
-                                //if (PPApplication.isSELinuxEnforcing())
-                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                Command command = new Command(0, /*false,*/ command1); //, command2);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    RootUtils.commandWait(command, "ActivateProfileHelper.setNotificationLed");
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);;
+                        if (isPPPPutSSettingsInstalled(appContext))
+                            putSettingsParameter(context, "system", "notification_light_pulse", String.valueOf(value));
+                        else {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1 = "settings put system " + "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    Command command = new Command(0, /*false,*/ command1); //, command2);
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.setNotificationLed");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);;
+                                    }
                                 }
                             }
                         }
-                        //}
                     }
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -2874,35 +3104,27 @@ class ActivateProfileHelper {
 
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        /* not working (private secure settings) :-/
-                        boolean G1OK = false;
-                        if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                            try {
-                                Settings.System.putInt(context.getContentResolver(), "aod_mode", value);
-                                G1OK = true;
-                            } catch (Exception ee) {
-                                Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(ee));
-                            }
-                        }
-                        if (!G1OK) {*/
-                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
-                            synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + "aod_mode" + " " + value;
-                                //if (PPApplication.isSELinuxEnforcing())
-                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                Command command = new Command(0, /*false,*/ command1); //, command2);
-                                try {
-                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    RootUtils.commandWait(command, "ActivateProfileHelper.setAlwaysOnDisplay");
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                        if (isPPPPutSSettingsInstalled(appContext))
+                            putSettingsParameter(context, "system", "aod_mode", String.valueOf(value));
+                        else {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1 = "settings put system " + "aod_mode" + " " + value;
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    Command command = new Command(0, /*false,*/ command1); //, command2);
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.setAlwaysOnDisplay");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);
+                                    }
                                 }
                             }
                         }
-                        //}
                     }
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -3068,8 +3290,6 @@ class ActivateProfileHelper {
         if (testRingerMode)
             ringerMode = audioManager.getRingerMode();
         int vibrateType = -999;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1)
-            vibrateType = audioManager.getVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER);
         //int vibrateWhenRinging;
         //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
         //    vibrateWhenRinging = Settings.System.getInt(context.getContentResolver(), "vibrate_when_ringing", 0);
@@ -3665,7 +3885,7 @@ class ActivateProfileHelper {
             if (intentId > 0) {
                 PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
                 if (ppIntent != null) {
-                    appIntent = RunApplicationEditorIntentActivityX.createIntent(ppIntent);
+                    appIntent = RunApplicationEditorIntentActivity.createIntent(ppIntent);
                     if (appIntent != null) {
                         if (ppIntent._intentType == 0) {
                             /*boolean vpnConnected = false;
@@ -3789,6 +4009,7 @@ class ActivateProfileHelper {
                 Intent intent = new Intent(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_START);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                 intent.putExtra(PPApplication.EXTRA_APPLICATIONS, applications);
+                intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
                 appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
             }
         //}
@@ -3880,25 +4101,32 @@ class ActivateProfileHelper {
             {
                 if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
                     boolean ok = true;
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                        appContext.startActivity(intent);
-                    } catch (Exception e) {
+                    Intent intent;
+                    if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
+                        PPApplication.deviceIsOnePlus)) {
+                        try {
+                            intent = new Intent(Intent.ACTION_MAIN, null);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                            appContext.startActivity(intent);
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(1)");
+                        } catch (Exception e) {
+                            ok = false;
+                            // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
+                            //PPApplication.recordException(e);
+                        }
+                    } else
                         ok = false;
-                        // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
-                        //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
-                    }
                     if (!ok) {
                         ok = true;
                         try {
-                            final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
                             intent.setComponent(componentName);
                             appContext.startActivity(intent);
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(2)");
                         } catch (Exception e) {
                             ok = false;
                             // Xiaomi: java.lang.SecurityException: Permission Denial: starting Intent { act=android.settings.DATA_ROAMING_SETTINGS flg=0x10000000 cmp=com.android.phone/.Settings } from ProcessRecord{215f88f 16252:sk.henrichg.phoneprofilesplus/u0a231} (pid=16252, uid=10231) not exported from uid 1001
@@ -3908,9 +4136,10 @@ class ActivateProfileHelper {
                     }
                     if (!ok) {
                         try {
-                            final Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             appContext.startActivity(intent);
+                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(3)");
                         } catch (Exception e) {
                             //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
                             //PPApplication.recordException(e);
@@ -3919,20 +4148,30 @@ class ActivateProfileHelper {
                 }
                 else {
                     boolean ok = false;
-                    Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                    if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
-                        ok = true;
+                    Intent intent = null;
+                    if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
+                            PPApplication.deviceIsOnePlus)) {
+                        intent = new Intent(Intent.ACTION_MAIN, null);
+                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                        if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
+                            ok = true;
+                        else
+                            intent = null;
+                    }
                     if (!ok) {
                         intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                         intent.setComponent(new ComponentName("com.android.phone", "com.android.phone.Settings"));
                         if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
                             ok = true;
+                        else
+                            intent = null;
                     }
                     if (!ok) {
                         intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
                         if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
                             ok = true;
+                        else
+                            intent = null;
                     }
                     if (ok) {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -4544,6 +4783,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
             ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(appContext);
             if (oldApplicationEventMobileCellEnableScanning != newApplicationEventMobileCellEnableScanning) {
+//                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
                 PPApplication.restartMobileCellsScanner(appContext);
             }
         }
@@ -4557,6 +4797,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventOrientationEnableScanning(appContext);
             ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(appContext);
             if (oldApplicationEventOrientationEnableScanning != newApplicationEventOrientationEnableScanning) {
+//                PPApplication.logE("[TEST BATTERY] ActivateProfileHelper.execute", "******** ### *******");
                 PPApplication.restartOrientationScanner(appContext);
             }
         }
@@ -4796,6 +5037,8 @@ class ActivateProfileHelper {
         }
 
         setCameraFlash(appContext, profile, executedProfileSharedPreferences);
+
+        setVibrationIntensity(appContext, profile, executedProfileSharedPreferences);
 
         if (profile._applicationDisableGloabalEventsRun != 0) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0);
@@ -6436,6 +6679,7 @@ class ActivateProfileHelper {
                             break;
                         case 3:
                             Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
+                            intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
                             appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
                             break;
                     }
@@ -6859,22 +7103,27 @@ class ActivateProfileHelper {
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
+                                    NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                     try {
                                         if (powerManager != null) {
                                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
-
-                                        NoobCameraManager.getInstance().init(appContext);
-                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                         if (noobCameraManager != null) {
+                                            noobCameraManager.init(appContext);
                                             noobCameraManager.turnOnFlash();
-                                            NoobCameraManager.getInstance().release();
                                         }
+                                    } catch (CameraAccessException ce) {
+                                        //if (ce.getReason() == CameraAccessException.CAMERA_IN_USE) {}
+                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH,
+                                                null, profile._name, "");
                                     } catch (Exception e) {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     } finally {
+                                        if (noobCameraManager != null)
+                                            noobCameraManager.release();
+
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
                                                 wakeLock.release();
@@ -6897,22 +7146,27 @@ class ActivateProfileHelper {
 
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
+                                    NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                     try {
                                         if (powerManager != null) {
                                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_cameraFlash");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
-
-                                        NoobCameraManager.getInstance().init(appContext);
-                                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                                         if (noobCameraManager != null) {
+                                            noobCameraManager.init(appContext);
                                             noobCameraManager.turnOffFlash();
-                                            NoobCameraManager.getInstance().release();
                                         }
+                                    } catch (CameraAccessException ce) {
+                                        //if (ce.getReason() == CameraAccessException.CAMERA_IN_USE) {}
+                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH,
+                                                null, profile._name, "");
                                     } catch (Exception e) {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     } finally {
+                                        if (noobCameraManager != null)
+                                            noobCameraManager.release();
+
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
                                                 wakeLock.release();
@@ -6958,8 +7212,10 @@ class ActivateProfileHelper {
                             if (connManager != null) {
                                 Network activeNetwork = connManager.getActiveNetwork();
                                 NetworkCapabilities caps = connManager.getNetworkCapabilities(activeNetwork);
-                                boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
-                                setVPN = enableVPN != vpnInUse;
+                                if (caps != null) {
+                                    boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+                                    setVPN = enableVPN != vpnInUse;
+                                }
                             }
                         }
                         if (setVPN) {
@@ -7271,6 +7527,52 @@ class ActivateProfileHelper {
             editor.apply();
             ApplicationPreferences.keepScreenOnPermanent = keepOnPermanent;
         }
+    }
+
+    static boolean isPPPPutSSettingsInstalled(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_PPPPS, 0);
+            boolean installed = appInfo.enabled;
+            if (installed) {
+                //PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
+                //noinspection UnnecessaryLocalVariable
+                //int version = PPApplication.getVersionCode(pInfo);
+                //return version;
+                return true;
+            }
+            else {
+                //return 0;
+                return false;
+            }
+        }
+        catch (Exception e) {
+            // extender is not installed = package not found
+            //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
+            //return 0;
+            return false;
+        }
+    }
+
+    static void putSettingsParameter(Context context,
+                                     @SuppressWarnings("SameParameterValue") String settingsType,
+                                     String parameterName,
+                                     String parameterValue) {
+        try {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
+            intent.putExtra("extra_put_setting_parameter_type", settingsType);
+            intent.putExtra("extra_put_setting_parameter_name", parameterName);
+            intent.putExtra("extra_put_setting_parameter_value", parameterValue);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        } catch (Exception e) {
+            Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+        }
+        // WARNING: do not remove this sleep !!!
+        // Is required to set time space between two calls of this method.
+        GlobalUtils.sleep(500);
     }
 
     static void showError(Context context, String profileName, int parameterType) {

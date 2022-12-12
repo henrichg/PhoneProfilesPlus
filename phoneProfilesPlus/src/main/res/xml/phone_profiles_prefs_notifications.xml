@@ -35,13 +35,13 @@
             app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_notificationStatusBarStyle"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
             app:key="notificationStatusBarStyle"
             app:defaultValue="1"
-            app:entries="@array/notificationIconStyleArray"
-            app:entryValues="@array/notificationIconStyleValues"
+            app:ppEntries="@array/notificationIconStyleArray"
+            app:ppEntryValues="@array/notificationIconStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
 
     </PreferenceCategory>
@@ -51,22 +51,22 @@
         app:title="@string/phone_profiles_pref_notificationNotificationPanelCategory"
         app:layout="@layout/mp_preference_category" >
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_notificationNotificationStyle"
             app:summary="@string/phone_profiles_pref_notificationNotificationStyle_custom"
             app:key="notificationNotificationStyle"
             app:defaultValue="0"
-            app:entries="@array/notificationNotificationStyleArray"
-            app:entryValues="@array/notificationNotificationStyleValues"
+            app:ppEntries="@array/notificationNotificationStyleArray"
+            app:ppEntryValues="@array/notificationNotificationStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_notificationLayoutType"
             app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
             app:key="notificationLayoutType"
             app:defaultValue="0"
-            app:entries="@array/notificationLayoutTypeArray"
-            app:entryValues="@array/notificationLayoutTypeValues"
+            app:ppEntries="@array/notificationLayoutTypeArray"
+            app:ppEntryValues="@array/notificationLayoutTypeValues"
             app:layout="@layout/mp_preference_material_widget" />
 
         <Preference
@@ -82,13 +82,13 @@
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_notificationProfileIconColor"
             app:summary="0"
             app:key="notificationProfileIconColor"
             app:defaultValue="0"
-            app:entries="@array/widgetColorArray"
-            app:entryValues="@array/widgetColorValues"
+            app:ppEntries="@array/widgetColorArray"
+            app:ppEntryValues="@array/widgetColorValues"
             app:layout="@layout/mp_preference_material_widget" />
 
     </PreferenceCategory>
@@ -105,16 +105,16 @@
             app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
             app:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"
             app:key="notificationBackgroundColor"
             app:defaultValue="0"
-            app:entries="@array/notificationBackgroundColorArray"
-            app:entryValues="@array/notificationBackgroundColorValues"
+            app:ppEntries="@array/notificationBackgroundColorArray"
+            app:ppEntryValues="@array/notificationBackgroundColorValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <sk.henrichg.phoneprofilesplus.CustomColorDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.CustomColorDialogPreference
             app:key="notificationBackgroundCustomColor"
             app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
             app:defaultValue="@color/notification_background_color_default"
@@ -129,13 +129,13 @@
         app:title="@string/phone_profiles_pref_notificationTextColorCategory"
         app:layout="@layout/mp_preference_category" >
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
             app:summary="@string/array_pref_no_change"
             app:key="notificationTextColor"
             app:defaultValue="0"
-            app:entries="@array/notificationTextColorArray"
-            app:entryValues="@array/notificationTextColorValues"
+            app:ppEntries="@array/notificationTextColorArray"
+            app:ppEntryValues="@array/notificationTextColorValues"
             app:layout="@layout/mp_preference_material_widget" />
 
     </PreferenceCategory>
@@ -150,7 +150,7 @@
             app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationProfileIconLightness"
             app:summary="100%%"
             app:key="notificationProfileIconLightness"
@@ -176,7 +176,7 @@
             app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
             app:summary="50%%"
             app:key="notificationPrefIndicatorLightness"

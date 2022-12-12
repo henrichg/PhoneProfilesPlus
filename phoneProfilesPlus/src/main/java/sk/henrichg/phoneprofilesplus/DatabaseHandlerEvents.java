@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class DatabaseHandlerEvents {
@@ -379,8 +380,45 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    static void unlinkEventsFromProfile(DatabaseHandler instance, Profile profile)
+    /*
+    static boolean eventExists(DatabaseHandler instance, Event event)
     {
+        instance.importExportLock.lock();
+        try {
+            boolean eventExists = false;
+            try {
+                instance.startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = instance.getMyWritableDatabase();
+
+                Cursor cursor = db.query(DatabaseHandler.TABLE_EVENTS,
+                        new String[]{
+                                DatabaseHandler.KEY_E_ID
+                        },
+                        DatabaseHandler.KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    eventExists = cursor.getCount() > 0;
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return eventExists;
+        } finally {
+            instance.stopRunningCommand();
+        }
+    }
+    */
+
+    static void unlinkEventsFromProfile(DatabaseHandler instance, Profile profile) {
         instance.importExportLock.lock();
         try {
             try {
@@ -607,7 +645,7 @@ public class DatabaseHandlerEvents {
                 if (daysOfWeek != null)
                 {
                     String[] splits = daysOfWeek.split("\\|");
-                    if (splits[0].equals(DaysOfWeekPreferenceX.allValue))
+                    if (splits[0].equals(DaysOfWeekPreference.allValue))
                     {
                         eventPreferences._sunday = true;
                         eventPreferences._monday = true;
@@ -4439,9 +4477,9 @@ public class DatabaseHandlerEvents {
                 values.put(DatabaseHandler.KEY_MC_NAME, mobileCell._name);
                 values.put(DatabaseHandler.KEY_MC_NEW, mobileCell._new ? 1 : 0);
                 values.put(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
-                values.put(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
-                values.put(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
-                values.put(DatabaseHandler.KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
+                //values.put(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
+                //values.put(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
+                //values.put(DatabaseHandler.KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
 
                 db.beginTransaction();
 
@@ -4481,9 +4519,9 @@ public class DatabaseHandlerEvents {
                 values.put(DatabaseHandler.KEY_MC_NAME, mobileCell._name);
                 values.put(DatabaseHandler.KEY_MC_NEW, mobileCell._new ? 1 : 0);
                 values.put(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME, mobileCell._lastConnectedTime);
-                values.put(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
-                values.put(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
-                values.put(DatabaseHandler.KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
+                //values.put(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS, mobileCell._lastRunningEvents);
+                //values.put(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS, mobileCell._lastPausedEvents);
+                //values.put(DatabaseHandler.KEY_MC_DO_NOT_DETECT, mobileCell._doNotDetect ? 1 : 0);
 
                 db.beginTransaction();
 
@@ -4522,10 +4560,10 @@ public class DatabaseHandlerEvents {
                 String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_CELL_ID + "," +
                         DatabaseHandler.KEY_MC_NAME + "," +
                         DatabaseHandler.KEY_MC_NEW + "," +
-                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + "," +
-                        DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
-                        DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "," +
-                        DatabaseHandler.KEY_MC_DO_NOT_DETECT +
+                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + //"," +
+                        //DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
+                        //DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "," +
+                        //DatabaseHandler.KEY_MC_DO_NOT_DETECT +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
                 if (onlyCellId != 0) {
@@ -4545,9 +4583,9 @@ public class DatabaseHandlerEvents {
                         String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NAME));
                         boolean _new = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_NEW)) == 1;
                         long lastConnectedTime = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME));
-                        String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
-                        String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
-                        boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
+                        //String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
+                        //String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
+                        //boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
                         //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                         boolean found = false;
                         for (MobileCellsData cell : cellsList) {
@@ -4557,8 +4595,8 @@ public class DatabaseHandlerEvents {
                             }
                         }
                         if (!found) {
-                            MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime,
-                                    lastRunningEvents, lastPausedEvents, doNotDetect);
+                            MobileCellsData cell = new MobileCellsData(cellId, name, false, _new, lastConnectedTime/*,
+                                    lastRunningEvents, lastPausedEvents, doNotDetect*/);
                             cellsList.add(cell);
                         }
                     } while (cursor.moveToNext());
@@ -4584,10 +4622,10 @@ public class DatabaseHandlerEvents {
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_ID + "," +
                         DatabaseHandler.KEY_MC_CELL_ID + "," +
                         DatabaseHandler.KEY_MC_NAME + "," +
-                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + "," +
-                        DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
-                        DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "," +
-                        DatabaseHandler.KEY_MC_DO_NOT_DETECT +
+                        DatabaseHandler.KEY_MC_LAST_CONNECTED_TIME + //"," +
+                        //DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS + "," +
+                        //DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS + "," +
+                        //DatabaseHandler.KEY_MC_DO_NOT_DETECT +
                         " FROM " + DatabaseHandler.TABLE_MOBILE_CELLS;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -4625,10 +4663,12 @@ public class DatabaseHandlerEvents {
                         mobileCell._name = cell.name;
                         mobileCell._new = true;
                         mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                        mobileCell._lastRunningEvents = cell.lastRunningEvents;
-                        mobileCell._lastPausedEvents = cell.lastPausedEvents;
-                        mobileCell._doNotDetect = cell.doNotDetect;
-                        addMobileCell(instance, mobileCell);
+                        //mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                        //mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                        //mobileCell._doNotDetect = cell.doNotDetect;
+                        if (!cell.name.isEmpty()) {
+                            addMobileCell(instance, mobileCell);
+                        }
                     } else {
                         //Log.d("DatabaseHandler.saveMobileCellsList", "found="+foundedDbId+" cell.new="+cell._new+" new="+_new);
                         mobileCell._id = foundedDbId;
@@ -4641,10 +4681,12 @@ public class DatabaseHandlerEvents {
                             mobileCell._lastConnectedTime = cell.lastConnectedTime;
                         else
                             mobileCell._lastConnectedTime = foundedLastConnectedTime;
-                        mobileCell._lastRunningEvents = cell.lastRunningEvents;
-                        mobileCell._lastPausedEvents = cell.lastPausedEvents;
-                        mobileCell._doNotDetect = cell.doNotDetect;
-                        updateMobileCell(instance, mobileCell);
+                        //mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                        //mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                        //mobileCell._doNotDetect = cell.doNotDetect;
+                        if (!cell.name.isEmpty()) {
+                            updateMobileCell(instance, mobileCell);
+                        }
                     }
                 }
 
@@ -4698,9 +4740,9 @@ public class DatabaseHandlerEvents {
                                 mobileCell._name = cell.name;
                                 mobileCell._new = true;
                                 mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                                mobileCell._lastRunningEvents = cell.lastRunningEvents;
-                                mobileCell._lastPausedEvents = cell.lastPausedEvents;
-                                mobileCell._doNotDetect = cell.doNotDetect;
+                                //mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                //mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                                //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
                             }
                         } else {
@@ -4716,9 +4758,9 @@ public class DatabaseHandlerEvents {
                                         mobileCell._name = cell.name;
                                         mobileCell._new = cell._new;
                                         mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                                        mobileCell._lastRunningEvents = cell.lastRunningEvents;
-                                        mobileCell._lastPausedEvents = cell.lastPausedEvents;
-                                        mobileCell._doNotDetect = cell.doNotDetect;
+                                        //mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                        //mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                                        //mobileCell._doNotDetect = cell.doNotDetect;
                                         updateMobileCell(instance, mobileCell);
                                     }
                                 }
@@ -4732,9 +4774,9 @@ public class DatabaseHandlerEvents {
                                 mobileCell._name = cell.name;
                                 mobileCell._new = cell._new;
                                 mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                                mobileCell._lastRunningEvents = cell.lastRunningEvents;
-                                mobileCell._lastPausedEvents = cell.lastPausedEvents;
-                                mobileCell._doNotDetect = cell.doNotDetect;
+                                //mobileCell._lastRunningEvents = cell.lastRunningEvents;
+                                //mobileCell._lastPausedEvents = cell.lastPausedEvents;
+                                //mobileCell._doNotDetect = cell.doNotDetect;
                                 updateMobileCell(instance, mobileCell);
                             }
                         }
@@ -4968,7 +5010,7 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    static void loadMobileCellsSensorRunningPausedEvents(DatabaseHandler instance, List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
+    static void loadMobileCellsSensorPausedEvents(DatabaseHandler instance, List<NotUsedMobileCells> eventList/*, boolean outsideParameter*/) {
         instance.importExportLock.lock();
         try {
             try {
@@ -4980,18 +5022,11 @@ public class DatabaseHandlerEvents {
                 String eventTypeChecked;
                 eventTypeChecked = DatabaseHandler.KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
                 eventTypeChecked = eventTypeChecked + DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED + "=1";
-                /*if (outsideParameter) {
-                    eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_PAUSE + " AND ";  //  only paused events
-                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
-                    //eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=1";
-                }
-                else {
-                    eventTypeChecked = KEY_E_STATUS + "=" + Event.ESTATUS_RUNNING + " AND ";  //  only running events
-                    eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_ENABLED + "=1 AND ";
-                    //eventTypeChecked = eventTypeChecked + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + "=0";
-                }*/
 
-                countQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS + "," + DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +
+                countQuery = "SELECT " +
+                        DatabaseHandler.KEY_E_ID + "," +
+                        DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS + "," +
+                        DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE +
                         " FROM " + DatabaseHandler.TABLE_EVENTS + " WHERE " + eventTypeChecked;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -5005,7 +5040,7 @@ public class DatabaseHandlerEvents {
                             NotUsedMobileCells notUsedMobileCells = new NotUsedMobileCells();
                             notUsedMobileCells.eventId = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID));
                             notUsedMobileCells.cells = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS));
-                            notUsedMobileCells.whenOutside = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
+                            //notUsedMobileCells.whenOutside = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
                             eventList.add(notUsedMobileCells);
                         } while (cursor.moveToNext());
                     }
@@ -5055,6 +5090,52 @@ public class DatabaseHandlerEvents {
             return cells;
         } finally {
             instance.stopRunningCommand();
+        }
+    }
+
+    static void deleteNonNamedNotUsedCells(DatabaseHandler instance) {
+        // load cells from db
+        List<MobileCellsData> cellsList = new ArrayList<>();
+        addMobileCellsToList(instance, cellsList, 0);
+        // load events from db
+        List<Event> eventList;
+        eventList = getAllEvents(instance);
+        //noinspection ForLoopReplaceableByForEach
+        for (Iterator<MobileCellsData> it = cellsList.iterator(); it.hasNext(); ) {
+            MobileCellsData cell = it.next();
+            if (cell.name.isEmpty()) {
+                boolean found = false;
+                for (Event event : eventList) {
+                    if (event._eventPreferencesMobileCells != null) {
+                        if ((event._eventPreferencesMobileCells._enabled)) {
+                            if (event._eventPreferencesMobileCells._cells.contains("|" + cell.cellId + "|")) {
+                                // cell is between others
+                                found = true;
+                                break;
+                            }
+                            if (event._eventPreferencesMobileCells._cells.startsWith(cell.cellId + "|")) {
+                                // cell is at start of others
+                                found = true;
+                                break;
+                            }
+                            if (event._eventPreferencesMobileCells._cells.endsWith("|" + cell.cellId)) {
+                                // cell is at end of others
+                                found = true;
+                                break;
+                            }
+                            if (event._eventPreferencesMobileCells._cells.equals(String.valueOf(cell.cellId))) {
+                                // only this cell is configured
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (!found) {
+                    cellsList.remove(cell);
+                    deleteMobileCell(instance, cell.cellId);
+                }
+            }
         }
     }
 

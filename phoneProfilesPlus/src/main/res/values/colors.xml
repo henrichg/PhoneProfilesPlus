@@ -3,7 +3,7 @@
 <!--    <color name="launcher_background_color">#7cc4d9</color>-->
 
 
-    <color name="notificationDarkBackgroundColor">#FF201a18</color>
+    <color name="notificationDarkBackgroundColor">#FF1B1B1B</color>
     <color name="notificationBlackBackgroundColor">#FF000000</color>
 
     <color name="lockDevice_textColor">#FFFFFFFF</color>
@@ -15,7 +15,7 @@
     <color name="profileindicatorColor_light">#4289d8</color>
     <color name="profileindicatorColorDisabled_light">#b5b5b5</color>
     <color name="profileindicatorColorDisabledDynamic_light">#c5c5c5</color>
-    <color name="profileindicatorColor_dark">#62a9f8</color>
+    <color name="profileindicatorColor_dark">#67ACF8</color>
     <color name="profileindicatorColorDisabled_dark">#c4c4c4</color>
     <color name="profileindicatorColorDisabledDynamic_dark">#c5c5c5</color>
 

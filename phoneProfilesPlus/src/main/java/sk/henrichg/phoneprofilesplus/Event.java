@@ -19,7 +19,6 @@ import android.telephony.TelephonyManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.work.ExistingWorkPolicy;
@@ -610,7 +609,7 @@ class Event {
                         (isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
-    public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
+    boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         Context appContext = context.getApplicationContext();
 
         boolean runnable = true; //(this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
@@ -671,7 +670,7 @@ class Event {
         return runnable;
     }
 
-    public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean againCheckInDelay) {
+    int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled, boolean againCheckInDelay) {
         int accessibilityEnabled = 1;
         boolean someEnabled = true;
         if (checkSomeSensorEnabled) {
@@ -755,7 +754,7 @@ class Event {
         return accessibilityEnabled;
     }
 
-    public void loadSharedPreferences(SharedPreferences preferences)
+    void loadSharedPreferences(SharedPreferences preferences)
     {
         Editor editor = preferences.edit();
         editor.putLong(PREF_EVENT_ID, this._id);
@@ -815,7 +814,7 @@ class Event {
         editor.apply();
     }
 
-    public void saveSharedPreferences(SharedPreferences preferences, Context context)
+    void saveSharedPreferences(SharedPreferences preferences, Context context)
     {
         this._name = preferences.getString(PREF_EVENT_NAME, "");
         this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
@@ -896,7 +895,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_PROFILE_START) || key.equals(PREF_EVENT_PROFILE_END))
         {
-            ProfilePreferenceX preference = prefMng.findPreference(key);
+            ProfilePreference preference = prefMng.findPreference(key);
             if (preference != null) {
                 long lProfileId;
                 try {
@@ -913,7 +912,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
-            ProfileMultiSelectPreferenceX preference = prefMng.findPreference(key);
+            ProfileMultiSelectPreference preference = prefMng.findPreference(key);
             if (preference != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }
@@ -941,7 +940,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_PRIORITY))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority;
                 if (applicationEventUsePriority) {
@@ -958,7 +957,7 @@ class Event {
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -1075,6 +1074,7 @@ class Event {
             String startWhenActivatedProfile;
             int delayStart;
             int delayEnd;
+            int repeatInterval;
 
             if (preferences == null) {
                 //forceRunChanged = this._ignoreManualActivation;
@@ -1093,6 +1093,7 @@ class Event {
                 manualProfileActivationAtEndChanged = this._manualProfileActivationAtEnd;
                 notificationSoundStartPlayAlsoInSilentMode = this._notificationSoundStartPlayAlsoInSilentMode;
                 notificationSoundEndPlayAlsoInSilentMode = this._notificationSoundEndPlayAlsoInSilentMode;
+                repeatInterval = this._repeatNotificationIntervalStart;
             }
             else {
                 //forceRunChanged = preferences.getBoolean(PREF_EVENT_IGNORE_MANUAL_ACTIVATION, false);
@@ -1117,10 +1118,10 @@ class Event {
                         notificationVibrateEndChanged = false;
                     }
                 }
-
                 notificationRepeatStartChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT_START, false);
                 notificationSoundEndChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_END, "").isEmpty();
                 manualProfileActivationAtEndChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
+                repeatInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, "0"));
             }
             Preference preference = prefMng.findPreference("eventStartOthersCategoryRoot");
             if (preference != null) {
@@ -1149,17 +1150,18 @@ class Event {
                         Profile profile;
                         if (splits.length == 1) {
                             profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
-                            if (profile != null)
-                                summary = summary + profile._name;
+                            if (profile != null) {
+                                summary = summary + "<b>" + getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context) + "</b>";
+                            }
                         }
                         else {
-                            summary = summary + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                            summary = summary + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context) + "</b>";
                         }
                     }
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + StringFormatUtils.getDurationString(delayStart);
+                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1171,9 +1173,11 @@ class Event {
                     }
                     if (notificationRepeatStartChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
-                        summary = summary + context.getString(R.string.event_preferences_notificationRepeat);
+                        summary = summary + context.getString(R.string.event_preferences_notificationRepeat) + ": ";
+                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
+
                     }
-                    preference.setSummary(summary);
+                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
@@ -1195,7 +1199,7 @@ class Event {
                     if (delayEndChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + StringFormatUtils.getDurationString(delayEnd);
+                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundEndChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -1205,7 +1209,7 @@ class Event {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
                     }
-                    preference.setSummary(summary);
+                    preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
                 }
                 else
                     preference.setSummary("");
@@ -1213,7 +1217,7 @@ class Event {
         }
     }
 
-    public void setSummary(PreferenceManager prefMng,
+    void setSummary(PreferenceManager prefMng,
                            String key,
                            SharedPreferences preferences,
                            Context context,
@@ -1342,7 +1346,7 @@ class Event {
         }
     }
 
-    public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
+    void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_IGNORE_MANUAL_ACTIVATION);
         if (preference != null)
@@ -1426,163 +1430,163 @@ class Event {
         _eventPreferencesVPN.setCategorySummary(prefMng, preferences, context);
     }
 
-    public String getPreferencesDescription(Context context, boolean addPassStatus)
+    String getPreferencesDescription(Context context, boolean addPassStatus)
     {
         String description;
 
         description = "";
 
         if (_eventPreferencesTime._enabled) {
-            String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesPeriodic._enabled) {
-            String desc = _eventPreferencesPeriodic.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesPeriodic.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesCalendar._enabled) {
-            String desc = _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesBattery._enabled) {
-            String desc = _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesCall._enabled) {
-            String desc = _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesSMS._enabled) {
-            String desc = _eventPreferencesSMS.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesSMS.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesRoaming._enabled) {
-            String desc = _eventPreferencesRoaming.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesRoaming.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesRadioSwitch._enabled) {
-            String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesVPN._enabled) {
-            String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesLocation._enabled) {
-            String desc = _eventPreferencesLocation.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesLocation.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesWifi._enabled) {
-            String desc = _eventPreferencesWifi.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesWifi.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesBluetooth._enabled) {
-            String desc = _eventPreferencesBluetooth.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesBluetooth.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesMobileCells._enabled) {
-            String desc = _eventPreferencesMobileCells.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesMobileCells.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesAccessories._enabled) {
-            String desc = _eventPreferencesAccessories.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesAccessories.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesScreen._enabled) {
-            String desc = _eventPreferencesScreen.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesScreen.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesNotification._enabled) {
-            String desc = _eventPreferencesNotification.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesNotification.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesSoundProfile._enabled) {
-            String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesVolumes._enabled) {
-            String desc = _eventPreferencesVolumes.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesVolumes.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesApplication._enabled) {
-            String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesOrientation._enabled) {
-            String desc = _eventPreferencesOrientation.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesOrientation.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesNFC._enabled) {
-            String desc = _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesAlarmClock._enabled) {
-            String desc = _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesDeviceBoot._enabled) {
-            String desc = _eventPreferencesDeviceBoot.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesDeviceBoot.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
         if (_eventPreferencesActivatedProfile._enabled) {
-            String desc = _eventPreferencesActivatedProfile.getPreferencesDescription(true, addPassStatus, context);
+            String desc = _eventPreferencesActivatedProfile.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<li>" + desc + "</li>";
+                description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
-        if (!description.isEmpty())
-            description = "<ul>" + description + "</ul>";
+        //if (!description.isEmpty())
+        //    description = "<ul>" + description + "</ul>";
 
         return description;
     }
 
-    public void checkSensorsPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
+    void checkSensorsPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         _eventPreferencesTime.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesBattery.checkPreferences(prefMng, onlyCategory, context);
         _eventPreferencesCall.checkPreferences(prefMng, onlyCategory, context);
@@ -1809,10 +1813,12 @@ class Event {
                     if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
                         dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                     } else {
+//                        PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (1)", "call of updateGUI");
                         PPApplication.updateGUI(false, false, dataWrapper.context);
                     }
                 }
                 else {
+//                    PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (2)", "call of updateGUI");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             } else {
@@ -1830,6 +1836,7 @@ class Event {
                         dataWrapper.fifoAddProfile(profileId, _id);
                     }
                 } else {
+//                    PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (3)", "call of updateGUI");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             }
@@ -2078,6 +2085,7 @@ class Event {
 
         if ((!profileActivated) && updateGUI)
         {
+//            PPApplication.logE("[PPP_NOTIFICATION] Event.doActivateEndProfile", "call of updateGUI");
             PPApplication.updateGUI(false, false, dataWrapper.context);
         }
 
@@ -2267,7 +2275,7 @@ class Event {
         //return;
     }
 
-    public int getStatus()
+    int getStatus()
     {
         return _status;
     }
@@ -2277,7 +2285,7 @@ class Event {
         return DatabaseHandler.getInstance(context.getApplicationContext()).getEventStatus(this);
     }
 
-    public void setStatus(int status)
+    void setStatus(int status)
     {
         _status = status;
     }
@@ -2481,7 +2489,7 @@ class Event {
                                     .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 //                            //if (PPApplication.logEnabled()) {
@@ -2706,7 +2714,7 @@ class Event {
                                     .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 //                            //if (PPApplication.logEnabled()) {
@@ -3312,6 +3320,15 @@ class Event {
             //return true;
         }
         //return false;
+    }
+
+    String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
+        if (!disabled) {
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+        } else
+            return preferenceValue;
     }
 
 }

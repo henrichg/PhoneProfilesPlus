@@ -4,7 +4,7 @@
     app:title="@string/event_preferences_category_startOfEventOthers"
     app:key="eventStartOthersCategory" >
 
-    <sk.henrichg.phoneprofilesplus.ProfileMultiSelectPreferenceX
+    <sk.henrichg.phoneprofilesplus.ProfileMultiSelectPreference
         app:defaultValue="@string/empty_string"
         app:key="eventStartWhenActivatedProfile"
         app:title="@string/event_preferences_eventStartWhenActivatedProfile"
@@ -15,7 +15,7 @@
         app:defaultValue="false"
         app:disableDependentsState="true"
         app:layout="@layout/mp_preference_material_widget"/>
-    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventDelayStart"
         app:summary="@string/event_preferences_delayStart"
         app:title="@string/event_preferences_delayStart"
@@ -34,7 +34,7 @@
     <!--        app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
     <!--        app:widgetLayout="@layout/widget_info_preference"-->
     <!--        app:layout="@layout/mp_preference_material_widget" />-->
-        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        <sk.henrichg.phoneprofilesplus.RingtonePreference
             app:key="eventStartNotificationSound"
             app:summary="@string/ringtone_preference_not_set"
             app:title="@string/event_preferences_notificationSound"
@@ -57,7 +57,7 @@
             app:title="@string/event_preferences_notificationRepeat"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget"/>
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             app:key="eventStartNotificationRepeatInterval"
             app:summary="@string/event_preferences_notificationRepeatInterval"
             app:title="@string/event_preferences_notificationRepeatInterval"

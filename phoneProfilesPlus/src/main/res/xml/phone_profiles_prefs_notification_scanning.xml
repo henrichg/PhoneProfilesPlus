@@ -25,13 +25,13 @@
         app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
         app:dependency="applicationEventNotificationEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventNotificationScanInPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
             app:summary="@string/array_pref_scanInPowerSaveMode_scan"
             app:defaultValue="1"
-            app:entries="@array/scanInPowerSaveModeMobileCellsArray"
-            app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
             app:dependency="applicationEventNotificationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -46,22 +46,22 @@
         app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
         app:dependency="applicationEventNotificationEnableScannig"
         app:layout="@layout/mp_preference_category" >
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationEventNotificationScanInTimeMultiply"
             app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
             app:summary="@string/array_pref_scanInPowerSaveMode_scan"
             app:defaultValue="1"
-            app:entries="@array/scanInPowerSaveModeMobileCellsArray"
-            app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
             app:dependency="applicationEventNotificationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventNotificationScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom"
             app:dependency="applicationEventNotificationEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
             app:key="applicationEventNotificationScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo"

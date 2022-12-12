@@ -26,7 +26,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 //        PPApplication.logE("[IN_BROADCAST] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
 //        PPApplication.logE("[IN_BROADCAST_ALARM] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -131,7 +131,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                     .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
@@ -229,7 +229,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     static void doWork(Context context, String profileName, String runApplicationData) {
         //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

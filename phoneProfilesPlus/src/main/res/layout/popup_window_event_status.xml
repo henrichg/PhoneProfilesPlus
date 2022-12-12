@@ -102,7 +102,7 @@
                     android:text="@string/info_notification_event_states_stopped"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text6"
-                    app:drawableStartCompat="?attr/eventStopStatusIndicator"
+                    app:drawableStartCompat="@drawable/ic_event_status_stop"
                     android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
                     android:text="@string/popup_window_events_status_show_info"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text7"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="@color/accent"
                     android:background="?attr/selectableItemBackground"/>
 
                 <androidx.appcompat.widget.SwitchCompat

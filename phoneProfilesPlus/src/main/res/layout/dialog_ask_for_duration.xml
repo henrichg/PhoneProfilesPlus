@@ -2,300 +2,333 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ask_for_duration_dlg_root2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:paddingBottom="10dp"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
-
-<ScrollView
-    android:id="@+id/ask_for_duration_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    tools:ignore="UselessParent">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
+    <!--    android:gravity="center_horizontal"-->
 
-    <LinearLayout
-        android:id="@+id/ask_for_duration_dlg_linla0"
-        android:orientation="vertical"
+    <View
+        android:id="@+id/ask_for_duration_dlg_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="0dp">
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-        <TextView
-            android:id="@+id/duration_pref_dlg_range"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:text="00:00:00 - 00:05:00"
-            tools:ignore="HardcodedText"/>
+    <ScrollView
+        android:id="@+id/ask_for_duration_dlg_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
 
         <LinearLayout
-            android:id="@+id/ask_for_duration_dlg_liLa1"
+            android:id="@+id/ask_for_duration_dlg_linla0"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="0dp">
 
-            <LinearLayout
-                android:id="@+id/ask_for_duration_dlg_liLa2"
+            <TextView
+                android:id="@+id/duration_pref_dlg_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:textSize="16sp"
+                android:text="00:00:00 - 00:05:00"
+                tools:ignore="HardcodedText" />
+
+            <TableLayout
+                android:id="@+id/ask_for_duration_dlg_value_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp">
+                android:stretchColumns="*">
 
-                <TextView
-                    android:id="@+id/duration_pref_dlg_value_label"
-                    android:layout_width="0dp"
+                <TableRow
+                    android:id="@+id/ask_for_duration_dlg_value_row_labels"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:text="@string/duration_pref_dlg_duration_label"/>
-
-                <TextView
-                    android:id="@+id/duration_pref_dlg_ends_label"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:textSize="16sp"
-                    android:text="@string/duration_pref_dlg_activation_end_label"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ask_for_duration_dlg_liLa3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <FrameLayout
-                    android:id="@+id/ask_for_duration_dlg_frLa1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_weight="1" >
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp">
 
                     <TextView
-                        android:id="@+id/duration_pref_dlg_value"
+                        android:id="@+id/duration_pref_dlg_value_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:text="@string/duration_pref_dlg_duration_label" />
+
+                    <TextView
+                        android:id="@+id/duration_pref_dlg_ends_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textSize="16sp"
+                        android:text="@string/duration_pref_dlg_activation_end_label" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/ask_for_duration_dlg_value_row_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="5dp">
+
+                    <FrameLayout
+                        android:id="@+id/ask_for_duration_dlg_frLa1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/duration_pref_dlg_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
+                            android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
+                            android:textSize="16sp"
+                            android:textColor="@color/accent"
+                            android:textStyle="bold"
+                            android:background="@drawable/pp_button_background_selector"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/duration_pref_dlg_ends"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
-                        android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
+                        android:gravity="end"
+                        android:text="00:00:00"
                         android:textSize="16sp"
-                        android:textColor="?attr/colorAccent"
+                        tools:ignore="HardcodedText" />
+
+                </TableRow>
+
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/ask_for_duration_dlg_liLa1"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ask_for_duration_dlg_liLa4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ask_for_duration_dlg_textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration_pref_dlg_activation_hours_label"
+                        android:textSize="14sp" />
+
+                    <SeekBar
+                        android:id="@+id/duration_pref_dlg_hours"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:max="24"
+                        android:rotation="180"
+                        android:splitTrack="false" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ask_for_duration_dlg_liLa5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ask_for_duration_dlg_textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration_pref_dlg_activation_minutes_label"
+                        android:textSize="14sp" />
+
+                    <SeekBar
+                        android:id="@+id/duration_pref_dlg_minutes"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:max="59"
+                        android:rotation="180"
+                        android:splitTrack="false" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ask_for_duration_dlg_liLa6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ask_for_duration_dlg_textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/duration_pref_dlg_activation_seconds_label"
+                        android:textSize="14sp" />
+
+                    <SeekBar
+                        android:id="@+id/duration_pref_dlg_seconds"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:max="59"
+                        android:rotation="180"
+                        android:splitTrack="false" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/ask_for_duration_dlg_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:background="@color/dialog_divider" />
+
+            <TextView
+                android:id="@+id/ask_for_duration_dlg_after_do_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                android:text="@string/profile_preferences_afterDurationDo" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/ask_for_duration_dlg_after_do_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="-3dp"
+                android:popupElevation="0dp"
+                android:entries="@array/afterProfileDurationDoArray"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+
+            <TextView
+                android:id="@+id/ask_for_duration_dlg_profile_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="16sp"
+                android:text="@string/profile_preferences_afterDurationProfile" />
+
+            <RelativeLayout
+                android:id="@+id/ask_for_duration_dlg_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/pp_button_background_selector"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/ask_for_duration_dlg_profile_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/profile_preferences_profileIcon"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_profile_default" />
+
+                <LinearLayout
+                    android:id="@+id/ask_for_duration_dlg_liLa7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/ask_for_duration_dlg_profile_icon">
+
+                    <TextView
+                        android:id="@+id/ask_for_duration_dlg_profile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="@string/profile_name_default"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:background="?attr/buttonBackground"
                         android:maxLines="1"
                         android:ellipsize="end"
-                        android:clickable="true"
-                        android:focusable="true"/>
+                        android:textColor="@color/accent" />
 
-                </FrameLayout>
+                    <ImageView
+                        android:id="@+id/ask_for_duration_dlg_profile_pref_indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_preferences_indicator_height"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="3dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/profile_preferences_indicator_image"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_profile_pref_volume_on"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp" />
 
-                <TextView
-                    android:id="@+id/duration_pref_dlg_ends"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="00:00:00"
-                    android:textSize="16sp"
-                    tools:ignore="HardcodedText"/>
+                </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/ask_for_duration_dlg_liLa4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/ask_for_duration_dlg_textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/duration_pref_dlg_activation_hours_label"
-                    android:textSize="14sp"/>
-                <SeekBar
-                    android:id="@+id/duration_pref_dlg_hours"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:max="24"
-                    android:rotation="180"
-                    android:splitTrack="false"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ask_for_duration_dlg_liLa5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/ask_for_duration_dlg_textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/duration_pref_dlg_activation_minutes_label"
-                    android:textSize="14sp"/>
-                <SeekBar
-                    android:id="@+id/duration_pref_dlg_minutes"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:max="59"
-                    android:rotation="180"
-                    android:splitTrack="false"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ask_for_duration_dlg_liLa6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/ask_for_duration_dlg_textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/duration_pref_dlg_activation_seconds_label"
-                    android:textSize="14sp"/>
-                <SeekBar
-                    android:id="@+id/duration_pref_dlg_seconds"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:max="59"
-                    android:rotation="180"
-                    android:splitTrack="false"/>
-            </LinearLayout>
+            <!--
+                    <Button
+                        android:id="@+id/ask_for_duration_dlg_activate_without"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:text="@string/fast_access_duration_activate_without_button_2"
+                        android:minHeight="40dp"
+                        android:textColor="@color/action_button_text_color"
+                        android:textStyle="bold"
+                        android:background="@drawable/pp_button_background_selector"
+                        style="?android:attr/borderlessButtonStyle"/>
+            -->
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/ask_for_duration_dlg_divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
-            android:background="?attr/dialogDivider" />
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/ask_for_duration_dlg_after_do_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:textSize="16sp"
-            android:text="@string/profile_preferences_afterDurationDo" />
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/ask_for_duration_dlg_after_do_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="-3dp"
-            android:popupElevation="0dp"
-            android:entries="@array/afterProfileDurationDoArray"
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
-
-        <TextView
-            android:id="@+id/ask_for_duration_dlg_profile_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="16sp"
-            android:text="@string/profile_preferences_afterDurationProfile" />
-        <RelativeLayout
-            android:id="@+id/ask_for_duration_dlg_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="?attr/buttonBackground"
-            android:clickable="true"
-            android:focusable="true">
-
-            <ImageView
-                android:id="@+id/ask_for_duration_dlg_profile_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:contentDescription="@string/profile_preferences_profileIcon"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_profile_default" />
-
-            <LinearLayout
-                android:id="@+id/ask_for_duration_dlg_liLa7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/ask_for_duration_dlg_profile_icon" >
-
-                <TextView
-                    android:id="@+id/ask_for_duration_dlg_profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:text="@string/profile_name_default"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:textColor="?attr/colorAccent"/>
-
-                <ImageView
-                    android:id="@+id/ask_for_duration_dlg_profile_pref_indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/profile_preferences_indicator_height"
-                    android:layout_marginTop="2dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/profile_preferences_indicator_image"
-                    android:scaleType="@integer/profilePrefIndicatorScaleType"
-                    android:src="@drawable/ic_profile_pref_volume_on"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"/>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
-<!--
-        <Button
-            android:id="@+id/ask_for_duration_dlg_activate_without"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/fast_access_duration_activate_without_button_2"
-            android:minHeight="40dp"
-            android:textColor="@color/action_button_text_color"
-            android:textStyle="bold"
-            android:background="?attr/buttonBackground"
-            style="?android:attr/borderlessButtonStyle"/>
--->
-
-    </LinearLayout>
-
-</ScrollView>
+    <View
+        android:id="@+id/ask_for_duration_dlg_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

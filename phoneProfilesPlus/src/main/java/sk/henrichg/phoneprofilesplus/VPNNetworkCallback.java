@@ -27,6 +27,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onUnavailable() {
 //        PPApplication.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onUnavailable", "xxx");
+        connected = false;
         doConnection();
     }
 
@@ -85,7 +86,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -134,7 +135,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        VPNNetworkCallback.this._doConnection(appContext);
+                        _doConnection(appContext);
 
                     } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));

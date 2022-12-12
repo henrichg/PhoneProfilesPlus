@@ -79,7 +79,7 @@ class ImportantInfoNotification {
 
         if (newsLatest) {
             // change to false for not show notification
-            news = PPApplication.SHOW_IMPORTANT_INFO_NEWS;
+            news = PPApplication.SHOW_IMPORTANT_INFO_NOTIFICATION_NEWS;
         }
 
         /*if (news4550) {

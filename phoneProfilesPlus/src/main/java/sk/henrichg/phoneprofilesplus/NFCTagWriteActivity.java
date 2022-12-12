@@ -1,11 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
@@ -30,38 +28,13 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_write_nfc_tag);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
-
-        /*
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-            // create our manager instance after the content view is set
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            // enable status bar tint
-            tintManager.setStatusBarTintEnabled(true);
-            // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext(), true)) {
-                case "color":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
-                    break;
-                case "white":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
-                    break;
-                default:
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
-                    break;
-            }
-        }
-        */
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(false);
@@ -95,12 +68,13 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
                 //ToastCompat.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
 
-                int[] attrs = {R.attr.activityWhiteTextColor};
-                @SuppressLint("ResourceType")
-                TypedArray ta = obtainStyledAttributes(attrs);
-                int color = ta.getResourceId(0, android.R.color.black);
-                writableTextView.setTextColor(ContextCompat.getColor(getBaseContext(), color));
-                ta.recycle();
+                //int[] attrs = {R.attr.activityNormalTextColor};
+                //@SuppressLint("ResourceType")
+                //TypedArray ta = obtainStyledAttributes(attrs);
+                //int color = ta.getResourceId(0, android.R.color.black);
+                //writableTextView.setTextColor(ContextCompat.getColor(getBaseContext(), color));
+                //ta.recycle();
+                writableTextView.setTextColor(ContextCompat.getColor(this, R.color.activityNormalTextColor));
 
                 if (nfcManager.tagRead) {
                     if (nfcManager.tagIsWritable)
@@ -120,9 +94,9 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(EXTRA_TAG_NAME, tagName);
                 returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);
-                NFCTagWriteActivity.this.setResult(Activity.RESULT_OK, returnIntent);
+                nfcManager.activity.setResult(Activity.RESULT_OK, returnIntent);
                 try {
-                    NFCTagWriteActivity.this.finish();
+                    nfcManager.activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -144,15 +118,15 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
                 //ToastCompat.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
                 //try {
-                    //NFCTagWriteActivity.this.finish();
+                    //nfcManager.activity.finish();
                 //} catch (Exception ignored) {};
             });
         }
 
         Button button = findViewById(R.id.write_nfc_tag_button);
         button.setOnClickListener(view -> {
-            NFCTagWriteActivity.this.setResult(Activity.RESULT_CANCELED);
-            NFCTagWriteActivity.this.finish();
+            setResult(Activity.RESULT_CANCELED);
+            finish();
         });
 
     }

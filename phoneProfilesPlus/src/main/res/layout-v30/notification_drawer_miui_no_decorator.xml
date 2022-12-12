@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notification_activated_profile_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingStart="6dp"
     android:paddingEnd="6dp">
 
@@ -13,6 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:padding="2dp"
+        android:layout_marginStart="@dimen/profile_name_notification_margin"
         android:contentDescription="@string/menu_restart_events"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_widget_restart_events"
@@ -32,7 +33,7 @@
             android:layout_width="@dimen/profile_icon_notification_icon_size"
             android:layout_height="@dimen/profile_icon_notification_icon_size"
             android:layout_marginStart="-3dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="@dimen/profile_name_notification_margin"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
@@ -43,7 +44,6 @@
             android:id="@+id/notification_activated_profile_linLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/notification_activated_profile_icon" >
@@ -55,9 +55,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/profile_preferences_indicator_height"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="3dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_indicator_image"
-                android:scaleType="@integer/profilePrefIndicatorScaleType"
+                android:scaleType="fitStart"
                 android:src="@drawable/ic_empty" />
 
         </LinearLayout>

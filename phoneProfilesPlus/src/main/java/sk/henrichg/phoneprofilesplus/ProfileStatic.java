@@ -3,13 +3,15 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.Settings;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.palette.graphics.Palette;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,7 +21,7 @@ import java.util.Map;
 
 public class ProfileStatic {
 
-    public static String getIconIdentifier(String icon)
+    static String getIconIdentifier(String icon)
     {
         String value;
         try {
@@ -32,7 +34,7 @@ public class ProfileStatic {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean getIsIconResourceID(String icon)
+    static boolean getIsIconResourceID(String icon)
     {
         boolean value;
         try {
@@ -45,11 +47,11 @@ public class ProfileStatic {
         return value;
     }
 
-    static int getVolumeRingtoneValue(String volumeRingtone)
+    static int getVolumeValue(String volume)
     {
         int value;
         try {
-            String[] splits = volumeRingtone.split("\\|");
+            String[] splits = volume.split("\\|");
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -437,6 +439,8 @@ public class ProfileStatic {
             else {
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
             }
+            if (value == 0)
+                value = 1;
         }
 
         return value;
@@ -474,8 +478,6 @@ public class ProfileStatic {
             }
 
             if (!exponentialLevel)
-                //TODO - tuto uprav aby to vracalo hodnoty, ktore naozaj v
-                // Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ zariadenia pouizvaju
                 value = (percentage - 50) / 50f;
             else {
 //                int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -487,9 +489,6 @@ public class ProfileStatic {
 //                if (PPApplication.romIsOnePlus)
 //                    maximumValue = 1023;
                 //}
-
-                //TODO - tuto uprav aby to vracalo hodnoty, ktore naozaj v
-                // Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ zariadenia pouizvaju
 
                 if (PPApplication.deviceIsOnePlus) {
                     //noinspection ConstantConditions
@@ -560,36 +559,40 @@ public class ProfileStatic {
         return value;
     }
 
-    static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreferenceX preference) {
+    static Bitmap increaseProfileIconBrightnessForPreference(Bitmap iconBitmap, ProfileIconPreference preference) {
         //if (ApplicationPreferences.applicationIncreaseBrightnessForProfileIcon) {
-        if (preference != null) {
-            boolean nightModeOn = (preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                    == Configuration.UI_MODE_NIGHT_YES;
+        try {
+            if (preference != null) {
+                //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(preference.prefContext.getApplicationContext());
+                //(preference.prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                //== Configuration.UI_MODE_NIGHT_YES;
+                String applicationTheme = ApplicationPreferences.applicationTheme(preference.prefContext, true);
+                boolean nightModeOn = !applicationTheme.equals("white");
 
-            if (nightModeOn) {
-                int iconColor;
-                if (preference.isImageResourceID)
-                {
-                    if (preference.useCustomColor)
-                        iconColor = preference.customColor;
-                    else
-                        iconColor = getIconDefaultColor(preference.imageIdentifier);
-                } else {
-                    //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
-                    Palette palette = Palette.from(iconBitmap).generate();
-                    iconColor = palette.getDominantColor(0xff1c9cd7);
-                }
-                if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
-                    if (iconBitmap != null) {
-                        return BitmapManipulator.setBitmapBrightness(iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                if (nightModeOn) {
+                    int iconColor;
+                    if (preference.isImageResourceID) {
+                        if (preference.useCustomColor)
+                            iconColor = preference.customColor;
+                        else
+                            iconColor = getIconDefaultColor(preference.imageIdentifier);
                     } else {
-                        int iconResource = getIconResource(preference.imageIdentifier);
-                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
-                        return BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        //iconColor = BitmapManipulator.getDominantColor(_iconBitmap);
+                        Palette palette = Palette.from(iconBitmap).generate();
+                        iconColor = palette.getDominantColor(0xff1c9cd7);
+                    }
+                    if (ColorUtils.calculateLuminance(iconColor) < Profile.MIN_PROFILE_ICON_LUMINANCE) {
+                        if (iconBitmap != null) {
+                            return BitmapManipulator.setBitmapBrightness(iconBitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        } else {
+                            int iconResource = getIconResource(preference.imageIdentifier);
+                            Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, preference.prefContext);
+                            return BitmapManipulator.setBitmapBrightness(bitmap, Profile.BRIGHTNESS_VALUE_FOR_DARK_MODE);
+                        }
                     }
                 }
             }
-        }
+        } catch (Exception ignored) {}
         //}
         return null;
     }
@@ -770,7 +773,10 @@ public class ProfileStatic {
                     profile._endOfActivationType,
                     profile._endOfActivationTime,
                     profile._applicationDisablePeriodicScanning,
-                    profile._deviceVPN
+                    profile._deviceVPN,
+                    profile._vibrationIntensityRinging,
+                    profile._vibrationIntensityNotifications,
+                    profile._vibrationIntensityTouchInteraction
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -921,6 +927,7 @@ public class ProfileStatic {
 
         preferenceAllowed.notAllowedRoot = false;
         preferenceAllowed.notAllowedG1 = false;
+        preferenceAllowed.notAllowedPPPPS = false;
 
         //noinspection IfStatementWithIdenticalBranches
         if (profile == null) {
@@ -958,10 +965,19 @@ public class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 case Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    break;
+                case Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    break;
+                case Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
+                    break;
+                case Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 //case Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
                     // !!! test this only for preference key !!!
@@ -1020,7 +1036,7 @@ public class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(preferenceAllowed, context);
                     break;
                 case Profile.PREF_PROFILE_CAMERA_FLASH:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed, context);
                     break;
                 case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
@@ -1034,8 +1050,10 @@ public class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM(preferenceAllowed, null, context);
                     break;
                 case Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context, false);
+                    break;
                 case Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context, true);
                     break;
                 case Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
@@ -1060,10 +1078,11 @@ public class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, profile, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread);
-            if (Build.VERSION.SDK_INT >= 28) {
-                PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
-            }
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
@@ -1085,10 +1104,11 @@ public class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM(preferenceAllowed, profile, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, false);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context, true);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 
-            if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot)
+            if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot || preferenceAllowed.notAllowedPPPPS)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
             return preferenceAllowed;
@@ -1148,5 +1168,41 @@ public class ProfileStatic {
         return iconResource;
     }
 
+    static int getVibrationIntensityValue(String sValue)
+    {
+        int value;
+        try {
+            String[] splits = sValue.split("\\|");
+            value = Integer.parseInt(splits[0]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value;
+    }
+
+    static boolean getVibrationIntensityChange(String sValue)
+    {
+        int value;
+        try {
+            String[] splits = sValue.split("\\|");
+            value = Integer.parseInt(splits[1]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value == 0; // in preference dialog is checked=No change
+    }
+
+    static String getColorForChangedPreferenceValue(String preferenceValue,
+                                                    PreferenceManager prefMng,
+                                                    String preferenceKey,
+                                                    Context context) {
+        Preference preference = prefMng.findPreference(preferenceKey);
+        if ((preference != null) && preference.isEnabled()) {
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+        } else
+            return preferenceValue;
+    }
 
 }

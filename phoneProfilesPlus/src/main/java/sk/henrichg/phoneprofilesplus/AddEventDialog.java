@@ -49,7 +49,7 @@ class AddEventDialog
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            AddEventDialog.this.onShow();
+            doShow();
         });
 
         linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
@@ -68,7 +68,7 @@ class AddEventDialog
 
     }
 
-    private void onShow(/*DialogInterface dialog*/) {
+    private void doShow() {
          GetEventsAsyncTask asyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
          asyncTask.execute();
 
@@ -126,7 +126,7 @@ class AddEventDialog
         mDialog.dismiss();
     }
 
-    public void show() {
+    void show() {
         if (!activity.isFinishing())
             mDialog.show();
     }

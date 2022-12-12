@@ -6,14 +6,13 @@ import android.content.Intent;
 
 public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
-    //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -34,11 +33,15 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
             restart = true;
         else
-        if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+        if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
+        }
         else
-        if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+        if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+//            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
+        }
         if (restart) {
             // for screenOn=true -> used only for Location scanner - start scan with GPS On
             PPApplication.restartAllScanners(appContext, true);

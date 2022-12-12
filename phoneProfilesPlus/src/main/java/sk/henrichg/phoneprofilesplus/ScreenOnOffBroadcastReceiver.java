@@ -23,7 +23,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -52,7 +52,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                     switch (action) {
                         case Intent.ACTION_SCREEN_ON: {
-
                             PPApplication.isScreenOn = true;
 
                             if (!ApplicationPreferences.prefLockScreenDisabled) {
@@ -136,32 +135,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-                            // change screen timeout
-                            // WARNING: must be called after PPApplication.isScreenOn = true;
-                            setProfileScreenTimeoutSavedWhenScreenOff(appContext);
-
-                            // restart scanners for screen on when any is enabled
-                            boolean restart = false;
-                            if (ApplicationPreferences.applicationEventLocationEnableScanning)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventWifiEnableScanning)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
-                                restart = true;
-                            if (restart) {
-                                // for screenOn=true -> used only for Location scanner - start scan with GPS On
-                                PPApplication.restartAllScanners(appContext, false);
-                            }
                             break;
                         }
                         case Intent.ACTION_SCREEN_OFF: {
-
                             PPApplication.isScreenOn = false;
 //                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
 
@@ -191,33 +167,6 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-
-                            // for screen off restart scanners only when it is required for any scanner
-                            boolean restart = false;
-                            if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning &&
-                                    ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)
-                                restart = true;
-                            if (ApplicationPreferences.applicationEventLocationEnableScanning &&
-                                    ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventWifiEnableScanning &&
-                                    ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
-                                    ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
-                                    ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)
-                                restart = true;
-                            else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
-                                    ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)
-                                restart = true;
-                            if (restart) {
-                                // for screenOn=false -> used only for Location scanner - use last usage of GPS for scan
-                                //PPApplication.setBlockProfileEventActions(true);
-                                PPApplication.restartAllScanners(appContext, false);
-                            }
-
                             final Handler handler1 = new Handler(appContext.getMainLooper());
                             handler1.post(() -> {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - start");
@@ -233,19 +182,15 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             break;
                         }
-                        case Intent.ACTION_USER_PRESENT:
+                        case Intent.ACTION_USER_PRESENT: {
                             PPApplication.isScreenOn = true;
-
-                            // change screen timeout
-                            // WARNING: must be called after PPApplication.isScreenOn = true;
-                            setProfileScreenTimeoutSavedWhenScreenOff(appContext);
 
                             if (ApplicationPreferences.prefLockScreenDisabled) {
                                 // enable/disable keyguard
                                 try {
                                     //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
                                     //if (ppService != null) {
-                                        GlobalUtils.switchKeyguard(appContext);
+                                    GlobalUtils.switchKeyguard(appContext);
                                     //}
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -253,22 +198,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             break;
-                    }
-
-                    if (Event.getGlobalEventsRunning()) {
-
-//                        PPApplication.logE("[EVENTS_HANDLER_CALL] ScreenOnOffBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SCREEN");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
-
-                        if (action.equals(Intent.ACTION_SCREEN_ON)) {
-                            // search fo events in calendandar
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
                         }
-
                     }
 
-                    PhoneProfilesNotification.drawProfileNotification(false, appContext);
+                    doScreenOnOff(action, appContext);
 
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -300,4 +233,100 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    private void doScreenOnOff(String action, Context appContext) {
+        switch (action) {
+            case Intent.ACTION_SCREEN_ON: {
+                // change screen timeout
+                // WARNING: must be called after PPApplication.isScreenOn = true;
+                setProfileScreenTimeoutSavedWhenScreenOff(appContext);
+
+                // restart scanners for screen on when any is enabled
+                boolean restart = false;
+                if (ApplicationPreferences.applicationEventLocationEnableScanning)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventWifiEnableScanning)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
+                    restart = true;
+                }
+                else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
+                    restart = true;
+                }
+                else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
+                    restart = true;
+                if (restart) {
+                    // for screenOn=true -> used only for Location scanner - start scan with GPS On
+                    PPApplication.restartAllScanners(appContext, false);
+                }
+
+//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of drawProfileNotification");
+                PhoneProfilesNotification.drawProfileNotification(false, appContext);
+
+                if (Event.getGlobalEventsRunning()) {
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
+                }
+
+                break;
+            }
+            case Intent.ACTION_SCREEN_OFF: {
+                // for screen off restart scanners only when it is required for any scanner
+                boolean restart = false;
+                if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning &&
+                        ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)
+                    restart = true;
+                if (ApplicationPreferences.applicationEventLocationEnableScanning &&
+                        ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventWifiEnableScanning &&
+                        ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventBluetoothEnableScanning &&
+                        ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)
+                    restart = true;
+                else if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
+                        ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
+                    restart = true;
+                }
+                else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
+                        ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
+//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
+                    restart = true;
+                }
+                if (restart) {
+                    // for screenOn=false -> used only for Location scanner - use last usage of GPS for scan
+                    //PPApplication.setBlockProfileEventActions(true);
+                    PPApplication.restartAllScanners(appContext, false);
+                }
+
+                if (Event.getGlobalEventsRunning()) {
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                }
+
+//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of drawProfileNotification");
+                PhoneProfilesNotification.drawProfileNotification(false, appContext);
+
+                break;
+            }
+            case Intent.ACTION_USER_PRESENT: {
+                // change screen timeout
+                // WARNING: must be called after PPApplication.isScreenOn = true;
+                setProfileScreenTimeoutSavedWhenScreenOff(appContext);
+
+                if (Event.getGlobalEventsRunning()) {
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
+                }
+
+                break;
+            }
+        }
+    }
 }

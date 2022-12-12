@@ -48,6 +48,9 @@ class MobileCellsListener extends PhoneStateListener {
     MobileCellsListener(@SuppressWarnings("unused") SubscriptionInfo subscriptionInfo,
                         Context context,
                         MobileCellsScanner scanner, TelephonyManager telephonyManager) {
+
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener - constructor", "******** ### *******");
+
         //this.subscriptionInfo = subscriptionInfo;
 //        if (subscriptionInfo != null)
 //            simSlot = subscriptionInfo.getSimSlotIndex()+1;
@@ -60,6 +63,8 @@ class MobileCellsListener extends PhoneStateListener {
         // only for registered cells is returned identify
         // SlimKat in Galaxy Nexus - returns null :-/
         // Honor 7 - returns empty list (not null), Dual SIM?
+
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getAllCellInfo", "******** ### ******* (2)");
 
         if (cellInfo!=null) {
 
@@ -129,6 +134,8 @@ class MobileCellsListener extends PhoneStateListener {
 
     @SuppressLint("MissingPermission")
     private List<CellInfo> getAllCellInfo() {
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getAllCellInfo", "******** ### ******* (1)");
+
         if (telephonyManager != null) {
             List<CellInfo> cellInfo = null;
             if (Permissions.checkLocation(context.getApplicationContext())) {
@@ -149,7 +156,8 @@ class MobileCellsListener extends PhoneStateListener {
     {
         super.onCellInfoChanged(cellInfo);
 
-//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellInfoChanged."+simSlot, "cellInfo="+cellInfo);
+//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellInfoChanged", "cellInfo="+cellInfo);
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellInfoChanged", "******** ### *******");
 
         if (cellInfo == null)
             return;
@@ -180,10 +188,10 @@ class MobileCellsListener extends PhoneStateListener {
                     //    _cellInfo = getAllCellInfo();
                     //else
                     //    getAllCellInfo(_cellInfo);
-                    MobileCellsListener.this.getAllCellInfo(cellInfo);
+                    getAllCellInfo(cellInfo);
 
                     //if (_cellInfo != null) {
-                    MobileCellsListener.this.handleEvents(appContext);
+                    handleEvents(appContext);
                     //}
 
                 } catch (Exception e) {
@@ -207,7 +215,8 @@ class MobileCellsListener extends PhoneStateListener {
     public void onServiceStateChanged (ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
-//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onServiceStateChanged."+simSlot, "xxx");
+//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onServiceStateChanged", "xxx");
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onServiceStateChanged", "******** ### *******");
 
         if (serviceState == null)
             return;
@@ -232,9 +241,9 @@ class MobileCellsListener extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    MobileCellsListener.this.registerCell();
+                    registerCell();
 
-                    MobileCellsListener.this.handleEvents(appContext);
+                    handleEvents(appContext);
 
                 } catch (Exception e) {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -254,6 +263,7 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     private void getCellLocation(CellLocation location) {
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getCellLocation", "******** ### ******* (2)");
         if (location != null) {
 
             if (Permissions.checkLocation(context.getApplicationContext())) {
@@ -296,6 +306,8 @@ class MobileCellsListener extends PhoneStateListener {
     @SuppressWarnings("UnusedReturnValue")
     @SuppressLint("MissingPermission")
     private CellLocation getCellLocation() {
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.getCellLocation", "******** ### ******* (1)");
+
         if (telephonyManager != null) {
             CellLocation location = null;
             if (Permissions.checkLocation(context.getApplicationContext())) {
@@ -315,7 +327,8 @@ class MobileCellsListener extends PhoneStateListener {
     public void onCellLocationChanged (final CellLocation location) {
         super.onCellLocationChanged(location);
 
-//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellLocationChanged."+simSlot, "location="+location);
+//        PPApplication.logE("[IN_LISTENER] MobileCellsListener.onCellLocationChanged", "location="+location);
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.onCellLocationChanged", "******** ### *******");
 
         if (location == null)
             return;
@@ -345,9 +358,9 @@ class MobileCellsListener extends PhoneStateListener {
                     //    _location = getCellLocation();
                     //else
                     //    getCellLocation(_location);
-                    MobileCellsListener.this.getCellLocation(location);
+                    getCellLocation(location);
 
-                    MobileCellsListener.this.handleEvents(appContext);
+                    handleEvents(appContext);
                     //}
 
                 } catch (Exception e) {
@@ -368,6 +381,7 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     void registerCell() {
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.registerCell", "******** ### *******");
         if (getAllCellInfo() == null)
             getCellLocation();
     }
@@ -375,7 +389,9 @@ class MobileCellsListener extends PhoneStateListener {
     void rescanMobileCells() {
         //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
         if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
-                MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
+                MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart) {
+
+//            PPApplication.logE("[TEST BATTERY] MobileCellsListener.rescanMobileCells", "******** ### *******");
 
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.rescanMobileCells"*/);
@@ -397,9 +413,9 @@ class MobileCellsListener extends PhoneStateListener {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        MobileCellsListener.this.registerCell();
+                        registerCell();
 
-                        MobileCellsListener.this.handleEvents(appContext);
+                        handleEvents(appContext);
 
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -422,6 +438,8 @@ class MobileCellsListener extends PhoneStateListener {
     void handleEvents(final Context appContext) {
         if (Event.getGlobalEventsRunning())
         {
+//            PPApplication.logE("[TEST BATTERY] MobileCellsListener.handleEvents", "******** ### *******");
+
             /*
             //if (DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                 // start events handler
@@ -476,9 +494,11 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     private void doAutoRegistration(final int _registeredCell) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
+
+//        PPApplication.logE("[TEST BATTERY] MobileCellsListener.doAutoRegistration", "******** ### *******");
 
         synchronized (PPApplication.mobileCellsScannerMutex) {
             /*PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -493,25 +513,34 @@ class MobileCellsListener extends PhoneStateListener {
 
             boolean notUsedMobileCellsNotificationEnabled = scanner.isNotUsedCellsNotificationEnabled();
 
-            MobileCellsScanner.lastRunningEventsNotOutside = "";
-            MobileCellsScanner.lastPausedEventsOutside = "";
+            //MobileCellsScanner.lastRunningEventsNotOutside = "";
+            MobileCellsScanner.lastPausedEvents = "";
             //List<NotUsedMobileCells> runningEventList = new ArrayList<>();
             //List<NotUsedMobileCells> pausedEventList = new ArrayList<>();
             List<NotUsedMobileCells> mobileCellsEventList = new ArrayList<>();
             if (notUsedMobileCellsNotificationEnabled) {
                 // get running events with enabled Mobile cells sensor
 
-                db.loadMobileCellsSensorRunningPausedEvents(mobileCellsEventList);
+                // get all paused events with enabled mobile cells sensor
+                db.loadMobileCellsSensorPausedEvents(mobileCellsEventList);
+
+                // update of lastPausedEventsOutside, lastRunningEventsNotOutside by from database laoded
+                // events and its cells
+                // this will be used in NotUsedMobileCellsDetectedActivity
                 for (NotUsedMobileCells _event : mobileCellsEventList) {
-                    if (_event.whenOutside) {
-                        if (!MobileCellsScanner.lastPausedEventsOutside.isEmpty())
-                            MobileCellsScanner.lastPausedEventsOutside = MobileCellsScanner.lastPausedEventsOutside + "|";
-                        MobileCellsScanner.lastPausedEventsOutside = MobileCellsScanner.lastPausedEventsOutside + _event.eventId;
+                    if (!MobileCellsScanner.lastPausedEvents.isEmpty())
+                        MobileCellsScanner.lastPausedEvents = MobileCellsScanner.lastPausedEvents + "|";
+                    MobileCellsScanner.lastPausedEvents = MobileCellsScanner.lastPausedEvents + _event.eventId;
+
+                    /*if (_event.whenOutside) {
+                        if (!MobileCellsScanner.lastPausedEvents.isEmpty())
+                            MobileCellsScanner.lastPausedEvents = MobileCellsScanner.lastPausedEvents + "|";
+                        MobileCellsScanner.lastPausedEvents = MobileCellsScanner.lastPausedEvents + _event.eventId;
                     } else {
                         if (!MobileCellsScanner.lastRunningEventsNotOutside.isEmpty())
                             MobileCellsScanner.lastRunningEventsNotOutside = MobileCellsScanner.lastRunningEventsNotOutside + "|";
                         MobileCellsScanner.lastRunningEventsNotOutside = MobileCellsScanner.lastRunningEventsNotOutside + _event.eventId;
-                    }
+                    }*/
                 }
                 /*
                 db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
@@ -536,32 +565,36 @@ class MobileCellsListener extends PhoneStateListener {
 
                     if (!db.isMobileCellSaved(_registeredCell)) {
 
-                        List<MobileCellsData> localCellsList = new ArrayList<>();
-                        localCellsList.add(new MobileCellsData(_registeredCell,
-                                MobileCellsScanner.cellsNameForAutoRegistration, true, false,
-                                Calendar.getInstance().getTimeInMillis(),
-                                MobileCellsScanner.lastRunningEventsNotOutside,
-                                MobileCellsScanner.lastPausedEventsOutside, false));
-                        db.saveMobileCellsList(localCellsList, true, true);
+                        if (!MobileCellsScanner.cellsNameForAutoRegistration.isEmpty()) {
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            localCellsList.add(new MobileCellsData(_registeredCell,
+                                    MobileCellsScanner.cellsNameForAutoRegistration, true, false,
+                                    Calendar.getInstance().getTimeInMillis()//,
+                                    //MobileCellsScanner.lastRunningEventsNotOutside,
+                                    //MobileCellsScanner.lastPausedEventsOutside,
+                                    //false
+                            ));
+                            db.saveMobileCellsList(localCellsList, true, true);
 
-                        synchronized (MobileCellsScanner.autoRegistrationEventList) {
-                            for (Long event_id : MobileCellsScanner.autoRegistrationEventList) {
-                                String currentCells = db.getEventMobileCellsCells(event_id);
-                                if (!currentCells.isEmpty()) {
-                                    String newCells = MobileCellsScanner.addCellId(currentCells, _registeredCell);
-                                    db.updateMobileCellsCells(event_id, newCells);
+                            synchronized (MobileCellsScanner.autoRegistrationEventList) {
+                                for (Long event_id : MobileCellsScanner.autoRegistrationEventList) {
+                                    String currentCells = db.getEventMobileCellsCells(event_id);
+                                    if (!currentCells.isEmpty()) {
+                                        String newCells = MobileCellsScanner.addCellId(currentCells, _registeredCell);
+                                        db.updateMobileCellsCells(event_id, newCells);
 
-                                    // broadcast new cell to
-                                    Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-                                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                                    intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
-                                    intent.setPackage(PPApplication.PACKAGE_NAME);
-                                    context.sendBroadcast(intent);
+                                        // broadcast new cell to
+                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
+                                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELL_VALUE, _registeredCell);
+                                        intent.setPackage(PPApplication.PACKAGE_NAME);
+                                        context.sendBroadcast(intent);
 
 //                                    PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(1)");
-                                    Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
-                                    refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                                    LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+                                        Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+                                        refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                        LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+                                    }
                                 }
                             }
                         }
@@ -573,30 +606,26 @@ class MobileCellsListener extends PhoneStateListener {
                 //boolean showPausedNotification = false;
                 boolean showNotification = false;
 
-                if ((!MobileCellsScanner.lastRunningEventsNotOutside.isEmpty()) || (!MobileCellsScanner.lastPausedEventsOutside.isEmpty())) {
+                if (/*(!MobileCellsScanner.lastRunningEventsNotOutside.isEmpty()) ||*/ (!MobileCellsScanner.lastPausedEvents.isEmpty())) {
+                    // some event has configured moble cells sensor with configured cells
+
                     if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 
                         if (!db.isMobileCellSaved(_registeredCell)) {
 
-                            // add new cell
-                            List<MobileCellsData> localCellsList = new ArrayList<>();
-                            localCellsList.add(new MobileCellsData(_registeredCell, "", true, false,
-                                    Calendar.getInstance().getTimeInMillis(),
-                                    MobileCellsScanner.lastRunningEventsNotOutside,
-                                    MobileCellsScanner.lastPausedEventsOutside, false));
-                            db.saveMobileCellsList(localCellsList, true, false);
                             showNotification = true;
                         }
 
                         if (!showNotification) {
 
                             // it is not new cell
-                            // test if registered cell is configured in running events
+                            // test if registered cell is configured in events
 
+                            // load _registered cell from db
                             List<MobileCellsData> _cellsList = new ArrayList<>();
                             db.addMobileCellsToList(_cellsList, _registeredCell);
 
-                            if ((!_cellsList.isEmpty()) && (!_cellsList.get(0).doNotDetect)) {
+                            if ((!_cellsList.isEmpty()) /*&& (!_cellsList.get(0).doNotDetect)*/) {
                                 boolean found = false;
                                 for (NotUsedMobileCells notUsedMobileCells : mobileCellsEventList) {
                                     //String configuredCells = db.getEventMobileCellsCells(eventId);
@@ -625,133 +654,13 @@ class MobileCellsListener extends PhoneStateListener {
                                     } else
                                         found = true;
                                 }
-                                // found == false = cell is not in running events
+                                // found == false = cell is not in events
                                 showNotification = !found;
                             }
                         }
 
                     }
                 }
-
-                /*
-                if (!lastRunningEventsNotOutside.isEmpty()) {
-
-                    if (isValidCellId(_registeredCell)) {
-
-                        if (!db.isMobileCellSaved(_registeredCell)) {
-
-                            // add new cell
-                            List<MobileCellsData> localCellsList = new ArrayList<>();
-                            localCellsList.add(new MobileCellsData(_registeredCell, "", true, false,
-                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside, false));
-                            db.saveMobileCellsList(localCellsList, true, false);
-                            showRunningNotification = true;
-                        }
-
-                        if (!showRunningNotification) {
-
-                            // it is not new cell
-                            // test if registered cell is configured in running events
-
-                            List<MobileCellsData> _cellsList = new ArrayList<>();
-                            db.addMobileCellsToList(_cellsList, _registeredCell);
-
-                            if ((!_cellsList.isEmpty()) && (!_cellsList.get(0).doNotDetect)) {
-                                boolean found = false;
-                                for (NotUsedMobileCells notUsedMobileCells : runningEventList) {
-                                    //String configuredCells = db.getEventMobileCellsCells(eventId);
-                                    String configuredCells = notUsedMobileCells.cells;
-                                    if (!configuredCells.isEmpty()) {
-                                        if (configuredCells.contains("|" + _registeredCell + "|")) {
-                                            // cell is between others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.startsWith(_registeredCell + "|")) {
-                                            // cell is at start of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.endsWith("|" + _registeredCell)) {
-                                            // cell is at end of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.equals(String.valueOf(_registeredCell))) {
-                                            // only this cell is configured
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    else
-                                        found = true;
-                                }
-                                // found == false = cell is not in running events
-                                showRunningNotification = !found;
-                            }
-                        }
-                    }
-                }
-
-                if (!lastPausedEventsOutside.isEmpty()) {
-
-                    if (isValidCellId(_registeredCell)) {
-
-                        if (!db.isMobileCellSaved(_registeredCell)) {
-
-                            // add new cell
-                            List<MobileCellsData> localCellsList = new ArrayList<>();
-                            localCellsList.add(new MobileCellsData(_registeredCell, "", true, false,
-                                    Calendar.getInstance().getTimeInMillis(), lastRunningEventsNotOutside, lastPausedEventsOutside, false));
-                            db.saveMobileCellsList(localCellsList, true, false);
-                            showPausedNotification = true;
-                        }
-
-                        if (!showPausedNotification) {
-
-                            // it is not new cell
-                            // test if registered cell is configured in running events
-
-                            List<MobileCellsData> _cellsList = new ArrayList<>();
-                            db.addMobileCellsToList(_cellsList, _registeredCell);
-
-                            if ((!_cellsList.isEmpty()) && (!_cellsList.get(0).doNotDetect)) {
-                                boolean found = false;
-                                for (NotUsedMobileCells notUsedMobileCells : pausedEventList) {
-                                    //String configuredCells = db.getEventMobileCellsCells(eventId);
-                                    String configuredCells = notUsedMobileCells.cells;
-                                    if (!configuredCells.isEmpty()) {
-                                        if (configuredCells.contains("|" + _registeredCell + "|")) {
-                                            // cell is between others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.startsWith(_registeredCell + "|")) {
-                                            // cell is at start of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.endsWith("|" + _registeredCell)) {
-                                            // cell is at end of others
-                                            found = true;
-                                            break;
-                                        }
-                                        if (configuredCells.equals(String.valueOf(_registeredCell))) {
-                                            // only this cell is configured
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    else
-                                        found = true;
-                                }
-                                // found == false = cell is not in paused events
-                                showPausedNotification = !found;
-                            }
-                        }
-                    }
-                }
-                */
 
                 //if (showRunningNotification || showPausedNotification) {
                 if (showNotification) {
@@ -813,8 +722,8 @@ class MobileCellsListener extends PhoneStateListener {
 
                         intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
                         intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_CONNECTED_TIME, lastConnectedTime);
-                        intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, MobileCellsScanner.lastRunningEventsNotOutside);
-                        intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_PAUSED_EVENTS, MobileCellsScanner.lastPausedEventsOutside);
+                        //intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_RUNNING_EVENTS, MobileCellsScanner.lastRunningEventsNotOutside);
+                        intent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_LAST_PAUSED_EVENTS, MobileCellsScanner.lastPausedEvents);
 
                         PendingIntent pi = PendingIntent.getActivity(context, _registeredCell, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                         mBuilder.setContentIntent(pi);
@@ -849,7 +758,7 @@ class MobileCellsListener extends PhoneStateListener {
             }*/
 
             //if (forceStart) {
-            if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
+            if (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart) {
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 //                PPApplication.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(2)");
                     // broadcast for event preferences

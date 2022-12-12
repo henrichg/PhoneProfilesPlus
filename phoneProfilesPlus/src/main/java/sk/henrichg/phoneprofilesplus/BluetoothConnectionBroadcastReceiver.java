@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 @SuppressLint("MissingPermission")
@@ -24,7 +25,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -291,7 +292,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             if (connectedDevices != null) {
                 if (onlyOld) {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                    for (BluetoothDeviceData device : connectedDevices) {
+                    //noinspection ForLoopReplaceableByForEach
+                    for (Iterator<BluetoothDeviceData> it = connectedDevices.iterator(); it.hasNext(); ) {
+                        BluetoothDeviceData device = it.next();
                         //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                         Calendar calendar = Calendar.getInstance();
                         long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;

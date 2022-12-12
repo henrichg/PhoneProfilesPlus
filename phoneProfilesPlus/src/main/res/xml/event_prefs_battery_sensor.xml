@@ -18,7 +18,7 @@
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
         app:key="eventBatteryLevelLow"
         app:summary="@string/event_preferences_battery_level_low"
         app:title="@string/event_preferences_battery_level_low"
@@ -27,7 +27,7 @@
         app:max="100"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
         app:key="eventBatteryLevelHight"
         app:summary="@string/event_preferences_battery_level_hight"
         app:title="@string/event_preferences_battery_level_hight"
@@ -36,21 +36,21 @@
         app:max="100"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_battery_charging"
         app:summary="@string/array_event_pref_battery_charging_not_use"
         app:key="eventBatteryCharging"
         app:defaultValue="0"
-        app:entries="@array/eventBatteryChargingArray"
-        app:entryValues="@array/eventBatteryChargingValues"
+        app:ppEntries="@array/eventBatteryChargingArray"
+        app:ppEntryValues="@array/eventBatteryChargingValues"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <MultiSelectListPreference
+    <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:key="eventBatteryPlugged"
         app:title="@string/event_preferences_battery_plugged"
         app:defaultValue="@array/emptyArray"
-        app:entries="@array/eventBatteryPluggedArray"
-        app:entryValues="@array/eventBatteryPluggedValues"
+        app:ppEntries="@array/eventBatteryPluggedArray"
+        app:ppEntryValues="@array/eventBatteryPluggedValues"
         app:dependency="eventBatteryEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat

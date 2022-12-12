@@ -4,8 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/activity_margin_start"
-    android:layout_marginEnd="@dimen/activity_margin_end"
-    android:padding="15dp" >
+    android:layout_marginEnd="@dimen/activity_margin_end">
+
+    <View
+        android:id="@+id/about_application_application_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
     <ScrollView
         android:id="@+id/github_assets_screenshot_activity_scrollView"
@@ -17,6 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="15dp"
             android:orientation="vertical">
 
             <TextView
@@ -44,6 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
         android:layout_alignParentBottom="true">
 
         <View
@@ -51,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_marginTop="20dp"
-            android:background="?attr/dialogDivider"/>
+            android:background="@color/dialog_divider" />
 
         <Button
             android:id="@+id/github_assets_screenshot_activity_close"
@@ -59,10 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
-            android:background="?attr/buttonBackground"
+            android:background="@drawable/pp_button_background_selector"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/donation_activity_close"

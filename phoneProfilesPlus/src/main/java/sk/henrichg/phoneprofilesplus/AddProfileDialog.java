@@ -46,7 +46,7 @@ class AddProfileDialog
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            AddProfileDialog.this.onShow();
+            doShow();
         });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
@@ -63,7 +63,7 @@ class AddProfileDialog
 
     }
 
-    private void onShow(/*DialogInterface dialog*/) {
+    private void doShow() {
         AddProfileDialog.GetProfilesAsyncTask asyncTask = new AddProfileDialog.GetProfilesAsyncTask(this, activity, profileListFragment.activityDataWrapper);
         asyncTask.execute();
 
@@ -122,7 +122,7 @@ class AddProfileDialog
         mDialog.dismiss();
     }
 
-    public void show() {
+    void show() {
         if (!activity.isFinishing())
             mDialog.show();
     }

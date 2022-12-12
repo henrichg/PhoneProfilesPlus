@@ -158,7 +158,7 @@ class EventsHandler {
             boolean manualRestart = sensorType == SENSOR_TYPE_MANUAL_RESTART_EVENTS;
             boolean isRestart = (sensorType == SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return;
 
@@ -172,7 +172,8 @@ class EventsHandler {
 
             this.sensorType = sensorType;
 
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+//            if ((sensorType == SENSOR_TYPE_LOCATION_SCANNER))
+//                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())
@@ -269,7 +270,8 @@ class EventsHandler {
                 if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType/*, false*/) == 0) {
                     // events not exists
 
-//                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
+//                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
+//                        PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
                     PPApplication.setApplicationFullyStarted(context);
 
@@ -628,6 +630,9 @@ class EventsHandler {
                             // block interactive parameters when
                             // - activated profile is default profile
                             // - it is not manual restart of events
+                            //
+                            // this is set, because is not good to again execute interactive parameters
+                            // for already activated default profile
                             PPApplication.setBlockProfileEventActions(true);
                         }
 
@@ -683,6 +688,9 @@ class EventsHandler {
                             // block interactive parameters when
                             // - activated profile is default profile
                             // - it is not manual restart of events
+                            //
+                            // this is set, because is not good to again execute interactive parameters
+                            // for already activated default profile
                             PPApplication.setBlockProfileEventActions(true);
                         }
                     }
@@ -737,9 +745,6 @@ class EventsHandler {
                 }
             //}
 
-            //todo - why sleep si needed ???
-            // for notifed is not needed, palyNotificationSound uses handlerThreadPlayTone
-            // !!! test handle events without doSleep
             //if (doSleep || notified) {
             //    PPApplication.sleep(500);
             //}
@@ -750,6 +755,7 @@ class EventsHandler {
 
             // refresh all GUI - must be for restart scanners
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
+//                PPApplication.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
 
 //                synchronized (PPApplication.profileActivationMutex) {

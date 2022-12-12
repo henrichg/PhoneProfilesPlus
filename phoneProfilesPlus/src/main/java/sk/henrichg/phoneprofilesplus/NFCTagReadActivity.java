@@ -53,7 +53,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
             });
 
             try {
-                NFCTagReadActivity.this.finish();
+                nfcManager.activity.finish();
             } catch (Exception ignored) {};
         }
         */
@@ -89,7 +89,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 PPApplication.eventsHandlerExecutor.submit(runnable);
 
                 try {
-                    NFCTagReadActivity.this.finish();
+                    nfcManager.activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -101,7 +101,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
             public void onTagWritten() {
                 ToastCompat.makeText(getApplicationContext(), "tag write finished", Toast.LENGTH_LONG).show();
                 try {
-                    NFCTagReadActivity.this.finish();
+                    nfcManager.activity.finish();
                 } catch (Exception ignored) {};
             }
         });
@@ -112,7 +112,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
                 ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.ppp_app_name)+") "+getString(R.string.write_nfc_tag_error), Toast.LENGTH_LONG).show();
                 try {
-                    NFCTagReadActivity.this.finish();
+                    nfcManager.activity.finish();
                 } catch (Exception ignored) {};
             }
         });

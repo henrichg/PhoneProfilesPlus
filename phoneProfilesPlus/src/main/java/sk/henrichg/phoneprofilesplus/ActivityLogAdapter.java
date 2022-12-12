@@ -80,6 +80,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, R.string.altype_profileError_setTone_notification);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.string.altype_profileError_setTone_alarm);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.string.altype_profileError_setWallpaper);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH, R.string.altype_profileError_cameraFlash);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, R.string.altype_dataImport_fromPP);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_EXPORT, R.string.altype_dataExport);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, R.string.altype_actionFromExternalApp_profileActivation);
@@ -140,6 +141,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, R.color.altype_error);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, R.color.altype_other);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, R.color.altype_other);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, R.color.altype_other);
@@ -171,7 +173,7 @@ class ActivityLogAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.activity_log_list_item, parent, false);
+        View view = inflater.inflate(R.layout.ppp_activity_log_list_item, parent, false);
 
         MyRowViewHolder rowData  = new MyRowViewHolder();
 

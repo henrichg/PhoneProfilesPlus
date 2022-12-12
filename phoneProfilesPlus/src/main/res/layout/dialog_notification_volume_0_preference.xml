@@ -4,30 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding"
-    android:paddingStart="25dp"
-    android:paddingEnd="25dp"
-    android:paddingBottom="10dp">
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <TextView
-        android:id="@+id/notification_0_pref_dialog_text"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/notification_0_pref_dialog_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/empty_string"
-        android:textSize="16sp" />
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="10dp"
+        android:orientation="vertical">
 
-<!--    <RadioButton-->
-<!--        android:id="@+id/notification_0_pref_dialog_PhoneProfilesSilent_rb"-->
+        <TextView
+            android:id="@+id/notification_0_pref_dialog_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_string"
+            android:textSize="16sp" />
+
+        <!--    <RadioButton-->
+        <!--        android:id="@+id/notification_0_pref_dialog_PhoneProfilesSilent_rb"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:textSize="16sp"-->
-<!--        android:layout_marginTop="3dp"/>-->
-    <RadioButton
-        android:id="@+id/notification_0_pref_dialog_None_rb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginTop="5dp" />
+        <!--        android:layout_marginTop="3dp"/>-->
+        <RadioButton
+            android:id="@+id/notification_0_pref_dialog_None_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
 
 </LinearLayout>
-

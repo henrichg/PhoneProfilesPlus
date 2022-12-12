@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="?attr/colorAccent"
+            android:textColor="@color/accent"
             android:singleLine="false"/>
         <TextView
             android:id="@android:id/summary"
@@ -37,5 +37,6 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?android:attr/textColorSecondary"
             android:singleLine="false"/>
+        <!--        android:textColor="@color/activityPreferenceSummaryTextColor"-->
     </RelativeLayout>
 </LinearLayout>

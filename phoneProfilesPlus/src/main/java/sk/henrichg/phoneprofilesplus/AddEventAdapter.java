@@ -14,8 +14,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -77,7 +78,7 @@ class AddEventAdapter extends BaseAdapter {
         RadioButton radioButton;
         TextView eventName;
         TextView eventPreferencesDescription;
-        RelativeLayout profilesRoot;
+        //RelativeLayout profilesRoot;
         ImageView profileStartIcon;
         TextView profileStartName;
         ImageView profileStartIndicator;
@@ -109,17 +110,17 @@ class AddEventAdapter extends BaseAdapter {
             holder.profileStartIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_start_icon);
             holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
             holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
-            holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
-            if (applicationEditorPrefIndicator)
-            {
-                holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
-                holder.eventPreferencesDescription  = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
+            //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
+            if (applicationEditorPrefIndicator) {
+                //holder.profilesRoot = vi.findViewById(R.id.event_pref_dlg_item_profile_profiles_root);
+                holder.eventPreferencesDescription = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
                 holder.profileStartIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_start_pref_indicator);
                 holder.profileEndIndicator = vi.findViewById(R.id.event_pref_dlg_item_profile_end_pref_indicator);
             }
             vi.setTag(holder);
-            defaultColor = GlobalGUIRoutines.getThemeSecondaryTextColor(context);
+            //defaultColor = GlobalGUIRoutines.getThemeSecondaryTextColor(context);
+            defaultColor = ContextCompat.getColor(context, R.color.activitySecondaryTextColor);
         }
         else
         {
@@ -179,18 +180,21 @@ class AddEventAdapter extends BaseAdapter {
                     if (position == 0) {
                         holder.eventPreferencesDescription.setVisibility(View.GONE);
 
+                        /*
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
                         parameter.setMargins(0, GlobalGUIRoutines.dpToPx(2), 0, 0); // left, top, right, bottom
                         holder.profilesRoot.setLayoutParams(parameter);
+                        */
                     }
                     else {
                         holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                        holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, false, 0, 0));
-
+                        holder.eventPreferencesDescription.setText(StringFormatUtils.fromHtml(eventPrefDescription, true, true, false, 0, 0, true));
+                        /*
                         RelativeLayout.LayoutParams parameter =  (RelativeLayout.LayoutParams) holder.profilesRoot.getLayoutParams();
                         parameter.setMargins(0, -GlobalGUIRoutines.dpToPx(14), 0, 0); // left, top, right, bottom
                         holder.profilesRoot.setLayoutParams(parameter);
+                        */
                     }
                 }
             }

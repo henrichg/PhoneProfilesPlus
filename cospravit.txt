@@ -1,3 +1,13 @@
+Nejde dat appcompat 1.5.1, lebo je konflikt s SmoothBottomBar.
+Pouziva staru verziu: androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0@aar
+A appcompat 1.5.1 vyzaduje androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1@aar
+
+Kua fix. Bude treba toto nahlasit v issues SmoothBottomBar.
+
+Vid: dependencies_grpah_6.0.1.txt
+
+-------------------------
+
 Ked nejde git push, skus v terminaly AS:
 git config credential.helper store
 
@@ -543,44 +553,6 @@ boolean vpnInUse = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
 
 Vid: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-active-in-android
 
-------------------
-
-Co tak uplne nahradit HandlerThread Executorom?
-
-ExecutorService es = Executors.newFixedThreadPool( 3 ) ;  // Specify number of threads.
-Thready zostanu zive, pripadne sa replacnu pri chybe.
-
-Existuje podobne a to funguje tak ze si vytvara thready po svojom, mnozstvo nie je dolezite.
-ExecutorService es = Executors.newCachedThreadPool() ;
-Tu thread po asi minute, ak uz nie je treba (nebezi nic v nom) sa zrusi.
-
-Otazne ale je, ako to bude, s akou prioritou. Lebo tu som malicko navysoval:
-handlerThread = new HandlerThread("PPHandlerThread", THREAD_PRIORITY_MORE_FAVORABLE);
-
-Ze by takto? Zavolat priamo v Runnable?
-Thread.currentThread().setPriority([1..5]);
-
-Alebo zlozitejsie:
-    private ScheduledExecutorService schdExctr = Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
-        private ThreadFactory defaultThreadFactory = Executors.defaultThreadFactory();
-
-        @Override
-        public Thread newThread(Runnable r) {
-            Thread t = defaultThreadFactory.newThread(r);
-            t.setPriority(Thread.MIN_PRIORITY);
-            return t;
-        }
-    });
-Cize treba custom ThreadFactory priradit.
-Hm, zaujimave. :-)
-
-Vid: https://stackoverflow.com/questions/59100491/short-but-frequent-jobs-handlerthread-or-threadpoolexecutor
-"HandlerThread is a structure that creates a singular thread and uses a queue to execute tasks
-!!! but always loops and waits for messages which consumes power !!!,
-while ThreadPoolExecutor creates multiple threads for each job and deletes threads when the jobs are done,"
-
-Hm, hm.
-
 -------------------
 
 Broadcasty pre alarmy:
@@ -631,410 +603,201 @@ x
 
 -------------------
 
-Brightness:
-
-Index = co znamena
------
-0 = level
-1 = menit, nememnit
-2 = automatic
-3 = from shared profile
-4 = menit level
-
-OnePlus, Android 12:
-brightniss 0%:
-2022-08-12 20:37:10.360 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-12 20:37:10.360 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-12 20:37:10.360 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=16.0
-
-brightness 100%:
-2022-08-12 20:37:46.257 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-12 20:37:46.257 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-12 20:37:46.257 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=8191.0
-
-brightness 50%:
-2022-08-12 20:38:39.122 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-12 20:38:39.122 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=128
-2022-08-12 20:38:39.122 27607-27701/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=4082.0
-
-Nexu 5, Android 7.1
-
-manual 0:
-2022-08-13 16:10:12.720 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:10:12.720 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-13 16:10:12.721 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.6044922
-
-manual 100:
-2022-08-13 16:10:45.466 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:10:45.466 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 16:10:45.466 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.6044922
-
-manual 50:
-2022-08-13 16:11:32.191 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:11:32.191 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=128
-2022-08-13 16:11:32.191 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.6044922
-
-adaptive 0:
-2022-08-13 16:12:05.977 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:12:05.977 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=138
-2022-08-13 16:12:05.977 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-adaptive 100:
-2022-08-13 16:12:24.910 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:12:24.910 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=138
-2022-08-13 16:12:24.910 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 16:12:43.630 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:12:43.630 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=138
-2022-08-13 16:12:43.631 6014-6049/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-Linear oboje.
-Meni bud normal alebo adaptive level, nikdy oboje
-
--------------
-
-Honor 7a, Android 8.0
-
-manual 0:
-2022-08-13 16:18:12.545 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:18:12.546 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=4
-2022-08-13 16:18:12.546 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 16:18:41.695 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:18:41.696 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 16:18:41.696 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 16:19:20.053 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:19:20.054 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=86
-2022-08-13 16:19:20.054 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 16:20:51.644 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:20:51.644 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=4
-2022-08-13 16:20:51.644 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.015686275
-
-adaptive 100:
-2022-08-13 16:21:47.057 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:21:47.057 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 16:21:47.057 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 16:22:03.693 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:22:03.693 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=88
-2022-08-13 16:22:03.694 9188-9390/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.34509805
-
-Exponencial oboje
-Meni oboje, ale mozes menit adaptivny level.
-
---------------
-
-Nexus 5x, Android 9.0
-
-manual 0:
-2022-08-13 16:26:13.345 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:26:13.345 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-13 16:26:13.345 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 16:26:41.646 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:26:41.647 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 16:26:41.647 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 16:27:05.824 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:27:05.824 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=30
-2022-08-13 16:27:05.825 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 16:28:05.845 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:28:05.845 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-13 16:28:05.845 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-adaptive 100:
-2022-08-13 16:28:28.122 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:28:28.122 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 16:28:28.122 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 16:29:17.230 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:29:17.230 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=28
-2022-08-13 16:29:17.230 5448-5562/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.25979874
-
-Exponencial oboje
-Meni oboje, ale mozes menit adaptivny level.
-
-----------------
-
-Huawei P40 lite, Android 10
-
-manual 0:
-2022-08-13 16:49:42.173 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:49:42.173 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=4
-2022-08-13 16:49:42.173 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 16:50:02.138 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:50:02.138 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=230
-2022-08-13 16:50:02.138 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 16:50:40.960 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:50:40.960 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=82
-2022-08-13 16:50:40.960 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 16:51:16.918 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:51:16.918 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=4
-2022-08-13 16:51:16.918 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.9652174
-
-adaptive 100:
-2022-08-13 16:51:41.142 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:51:41.142 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=230
-2022-08-13 16:51:41.142 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 16:52:11.550 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:52:11.550 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=77
-2022-08-13 16:52:11.550 15018-15335/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.3304348
-
-Exponencial oboje
-Meni oboje, ale mozes menit adaptivny level.
-
-----------------
-Xiaomi Redmi Note 9 pro, Android 11
-
-manual 0:
-2022-08-13 16:34:46.703 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:34:46.703 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=22
-2022-08-13 16:34:46.703 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 16:35:29.449 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:35:29.449 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=4095
-2022-08-13 16:35:29.449 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 16:35:54.185 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:35:54.185 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=882
-2022-08-13 16:35:54.185 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 16:36:23.849 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:36:23.849 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=22
-2022-08-13 16:36:23.849 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-adaptive 100:
-2022-08-13 16:36:54.218 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:36:54.218 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=4095
-2022-08-13 16:36:54.218 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 16:37:18.020 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:37:18.020 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=918
-2022-08-13 16:37:18.020 17174-17288/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-Exponecial manualne
-Adaptivne je uplne ze divne. Bud da -1 alebo 1 podla togo klam klikne, ci dozadu alebo dobredu. Cize to urcuje smer, nie level.
-Level je dany manulanym levelom. Preco kua? Cize pre Xiaomi pouzivaj manual, na zmenu levelu adaptivneho.
-
---------------
-
-Galaxy S10, Android 11
-
-manual 0:
-2022-08-13 17:15:40.741 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:15:40.741 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=0
-2022-08-13 17:15:40.741 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 17:16:02.701 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:16:02.702 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 17:16:02.702 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 17:16:30.113 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:16:30.113 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=126
-2022-08-13 17:16:30.113 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 17:16:58.466 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:16:58.466 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=0
-2022-08-13 17:16:58.466 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-adaptive 100:
-2022-08-13 17:17:39.882 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:17:39.882 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 17:17:39.882 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 17:17:54.848 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:17:54.848 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=128
-2022-08-13 17:17:54.848 3685-3863/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.15419605
-
-Linear oboje
-Meni oboje len v adaptivnom mode, ale mozes menit adaptivny level.
-
---------------
-
-Pixel 3a, Android 12
-
-manual 0:
-2022-08-13 16:56:21.416 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:56:21.416 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-13 16:56:21.416 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 16:56:41.799 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:56:41.799 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 16:56:41.799 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 16:57:18.359 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 16:57:18.359 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=24
-2022-08-13 16:57:18.359 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 16:58:16.656 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:58:16.656 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-13 16:58:16.656 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-adaptive 100:
-2022-08-13 16:58:39.551 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:58:39.551 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 16:58:39.551 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 16:59:10.294 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 16:59:10.294 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=23
-2022-08-13 16:59:10.294 10516-10690/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.5401081
-
-Exponencial oboje
-Meni oboje, ale mozes menit adaptivny level.
-
---------------
-
-Galaxy tab, Android 12
-
-manual 0:
-2022-08-13 17:23:01.663 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:23:01.663 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=10
-2022-08-13 17:23:01.663 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 17:23:23.002 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:23:23.002 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 17:23:23.002 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 17:23:49.150 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:23:49.150 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=127
-2022-08-13 17:23:49.150 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 17:24:18.642 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:24:18.642 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=10
-2022-08-13 17:24:18.643 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.7352935
-
-adaptive 100:
-2022-08-13 17:24:53.401 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:24:53.401 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 17:24:53.401 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 17:25:40.470 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:25:40.470 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=127
-2022-08-13 17:25:40.470 24016-24153/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.7724198
-
-Linear manual, Exponencial adaptive.
-Meni oboje len v adaptivnom mode, ale mozes menit adaptivny level.
-
---------------
-
-Galaxy S21, Android 12
-
-manual 0:
-2022-08-13 17:33:26.079 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:33:26.079 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=0
-2022-08-13 17:33:26.079 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 17:33:48.546 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:33:48.546 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 17:33:48.546 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 17:34:08.058 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:34:08.058 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=128
-2022-08-13 17:34:08.058 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 17:34:40.925 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:34:40.925 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=0
-2022-08-13 17:34:40.925 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-adaptive 100:
-2022-08-13 17:34:57.292 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:34:57.292 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=255
-2022-08-13 17:34:57.292 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 17:35:46.703 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:35:46.704 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=83
-2022-08-13 17:35:46.704 26169-26292/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.19559112
-
-Linear oboje.
-Meni oboje len v adaptivnom mode, ale mozes menit adaptivny level.
-
---------------
-
-Pixel 6, Android 13 beta
-
-manual 0:
-2022-08-13 17:37:58.560 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:37:58.560 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-13 17:37:58.560 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 100:
-2022-08-13 17:38:22.958 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:38:22.958 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=158
-2022-08-13 17:38:22.958 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-manual 50:
-2022-08-13 17:38:49.939 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=0
-2022-08-13 17:38:49.939 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=16
-2022-08-13 17:38:49.939 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=0.0
-
-adaptive 0:
-2022-08-13 17:39:30.579 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:39:30.579 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=1
-2022-08-13 17:39:30.579 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-1.0
-
-adaptive 100:
-2022-08-13 17:39:59.196 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:39:59.196 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=158
-2022-08-13 17:39:59.196 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=1.0
-
-adaptive 50:
-2022-08-13 17:40:19.396 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightnessMode=1
-2022-08-13 17:40:19.396 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedBrightness=15
-2022-08-13 17:40:19.396 22109-22152/sk.henrichg.phoneprofilesplus E/SettingsContentObserver.onChange: savedAdaptiveBrightness=-0.33538884
-
-Exponencial oboje
-Meni oboje len v adaptivnom mode, ale mozes menit adaptivny level.
+Pamat:
+
+- Toto je volane z EditorActivity.onCreate() ->
+    PPApplication.createApplicationsCache(true);
+    -> spravi prazdnu cache, az prislusny preference dialog to naplni, cize toto nic nezerie
+       pri tych mojich testoch
+- Je volane aj toto na onDestroy ->
+    PPApplication.getApplicationsCache().clearCache(false);
+- Toto je volane casto. Co to robi? ->
+    PPApplication.updateGUI()
+    -> updatuje kompletne cele GUI, uplne vsetko, notifikacia, widgety, Aktivator, Editor, ...
+- Toto je volane casto. Co to robi? ->
+    EditorActivity.refreshGUI()
+    -> nastavi semafor
+       invaliduje options menu -> to je metoda Activity, asi sluzi na prekreslenie overflow menu aktivity
+       vola refreshGUI() fragmentu -> ten updatuje header a listview
+Cize zasa nic. :-(
+
+Editor:
+
+S21:
+Restart mobilu:
+137 MB, kleslo na 81 MB
+Spustenie Editora
+116 MB, kleslo na 98 MB, pootm zasa stuplo na 104 MB. Mozno lebo sa spustil wi-fi scanner. Pockam, ci zasa klesne.
+
+S10:
+81 MB po restarte a dlhom cakani.
+Nikolko krat som zrotoval Editor: 119 MB, cakame na kolko klesne. Kleslo na 98 MB.
+Hm, cize vidiet, ze zostalo 17 MB v pamamti. Skusim dhsie nechat.
+
+Vypol som indikatory v Editore. Uvdime, ci to bude zrat menej a o kolko.
+85 MB po restarte.
+128 po rotacii, teraz necham klesnut. 96 MB, este pockam, ale vypada to, ze v indikatoroch to nie je.
+Tych 15+ MB stale zostava.
+
+V kazdom pripade Editor zanechava nieco v pamati. Ale co kua? :-(
+
+
+
+Aktivator:
+
+S21:
+Zaujimave, teraz po restarte dokonca len 61 MB zostalo. Ktohovie ako sa toto deje. Ten GC je fakt cudny.
+Len som spustil z notifikacie Aktivator, neaktivoval som, stuplo na 78. A neklesa.
+
+S10:
+Po restarte 86 MB, po spusteni Aktivatora 92 MB, nekleslo.
+Skusil som rotaciu. Nekolko krat. Narastlo na 100MB a vypada, ze neklesa. Takze ze by predsa len bolo nieco,
+co zostava v pamati? Este pockam, vypada, z eklesa, len dako pomaly.
+Pri rotacii sa tusim fragment nedestrouje.
+Hm po dlhom case to kleslo na 85 MB. Ze by predsa len ten Aktivator nemal ziadne leaky?
+Len to dlho trva, kym to uvolni pamat.
+
+V Aktivatore pouzivam ApplicationPreferences. Ze by toto zostalo v pamamti? By som sa necudoval, cele je to
+staticke. Aj Permissions.
+
+Jeho fargment ma activityDataWrapper. Ze by toto zostalo v pamamti?
+Ale ako pozeram v onDestroy, tak sa invaliduje cez invalidateDataWrapper(). Ze by tam bola chyba?
+ActivatorListFragment.RefreshGUIAsyncTask()
+
+Volam toto z fragmentu? Nemal by som:
+activateProfile()
+
+TESTNUTE- nespusta sa dalej ani pre aktivitu, ani pre fragment, ani pre adapter
+Fragment aj vola showTargetHelps(); Naco, preco?
+Pozri ci toto nie je problem. Je mozne, ze sa nieco vola aj ked nezobrazuje. Az od aktivity,
+cez fragment, po adapter.
+
+A samozrejme loadAsyncTask. Tu som ale uz robil vcera zmeny. Pozriem znova.
+
+Je mozne, ze by zostali ikony v pamamti? Npriklad ten z headera a k nemu indikatory?
+
+Adapter obsahuje tiez dataWrapper, ale ako odkaz na activityDataWrapper z fragmentu.
 
 -------------------
-- Change: PPP icon changed.
-- Change: Restart events with delay.
-- Added new airplane profile icon.
-- Fix: convert volume values for device during resore of backup.
-- Fixed airplane mode allowed state when parameter is set to "No change".
-- Fixed brightness for OnePlus with Android 12+.
-- Fixed bad detected sim card 0 (default).
-- Fixed set brightness level for adaptive brightness mode.
-- Fix: Extender receivers must be re-registered after sim state change.
-- Fix: brightness for DOOGEE devices.
+
+Intenzita vibrovania:
+
+Nie Samsung zariadenia:
+Pre API 28 az 32 asi treba len zapnutie, vypnutie. Tak ako mam notifikaciu teraz, staci pridat len
+zvonenia a feedback
+
+1. Pre Samsung zariadenia (pre ostatne skryjem) spravim nove category "Vibration intensity". Bude od API 29.
+   Do nej dam nastavenie intenzity pomocou dialogu, co sa podoba na Volume dialog. Len musis nastavit
+   max. hodnotu ako vstup zo styleable a vyhodit prehravanie tonu.
+
+!!!! - nefunguje, stale zobrazuje Vibrate notifications. Oprav.
+2. Od API 33 schovam "Vibration feedback" a zobrazim "Vibration intensity". Pre Samsung bude max value=5
+   pre nie-Samsung max value=3
+   Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
+   Ale len pre nie-Samsung zariadenia.
+
+------------------------------
+
+PPPPutSettings:
+
+vsetko je hotove, vypada to tak.
+Uz len retazce vyries.
+
+----
+
+Co pyta ROOT:
+    <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
+    - service - cize len root
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    - service - cize len root
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    - service - cize len root
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    - service - cize len root
+    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
+    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
+    - service - cize len root
+    <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
+    - java command - cize len root
+
+
+!!! TIETO musis aj v Crowdin pre vsetky jazyky upravit na "(S)(R)":
+    <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
+    - setNotificationLed - notification_light_pulse - nastavuje ale nic nerobi na S21, ale je tma, ze je to experiment
+    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
+    - setAlwaysOnDisplay - aod_mode - funguje aj na S21
+
+
+    preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+    - setVibrateWhenRinging - Settings.System.VIBRATE_WHEN_RINGING, pre Xiaomi: vibrate_in_normal, vibrate_in_silent
+    - tu mam aj Settings.System.putInt() a len ak to spadne, tak root, ano ale ten Settings.System.putInt()
+      podla mna aj tak spadne. Vyskusaj.
+    vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+    - setVibrateNotification - pre Pixel: vibrate_on, pre vsetky: notification_vibration_intensity
+    - toto je len pre API 28, cize asi len emulator, ten nie je rootnuty
+
+    Skus najst parametre pre Xiaomi, teraz PPP pise, ze nie je podporovane - No ako pozeram Redmi Note 9,
+    tak sa to ani neda nastavit v jeho Settings, takze nic
+    A pozri sa na OnePLus
+    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
+    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
+    - setTones - pre Samsung: notification_sound; Pre Huawei: message; ine ie je povolene
+
+    Ze by pre Huawei na toto trebalo G1? Nie, nepomoze. Nechaj to len cez root.
+    - java.lang.IllegalArgumentException: You shouldn't not change private system settings.
+    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
+    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
+    - setTones - pre Samsung: notification_sound_2; Pre Huawei: messageSub1; ine ie je povolene
+
+    Toto je zvlastne, neviem to najst teraz v Note 9. Hm, hm.
+    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
+    - setTones - len pre Xiaomi: ringtone_sound_use_uniform
+
+------------------------
+
+- Added: "Vibration feedback" and "Vibration intensity" profile parameter.
+- Added: Settings.System parameters support without root.
+- Added: Compact version of grid version of List widget.
+- Change: Updates for detection of not used mobile cells.
+- Change: Remove all not used non-named mobile cells.
+- Change: Changed background color to gray.
+- Change: Permanent display of scrollbars in lists.
+- Change: Added title divider for all screens and dialogs.
+- Change: Added dialog for export settings for configuration by user, which location data do not export.
+- Change: Added edit button to Samsung edge panel for change its settings.
+- Change: Bold profile name in all lists.
+- Change: Bold style of profile name in widget header.
+- Change: Bold profile name in event list.
+- Change: Changed selector for selected profile icon in profile icon preference dialog.
+- Change: removed divider for preference category.
+- Change: Choose language - added info about link to crowdin.
+- Change: Display in Wi-Fi SSID, Bluetooth name item list, its edit menu also for configured scanned items, but allow in it only "Copy name".
+- Change: Click to item in Wi-Fi, Bluetooth, NFC tag preference list change its check state.
+- Change: Removed long click to item for Wi-Fi SSID, Bluetooth name, NFC tag preferences.
+- Change: Disable scanners when are not used in events.
+- Change: New Extender version set as required.
+- Change: Added Droid-ify support.
+- Change: Added support for web version of Galaxy Store into "Check app. releases".
+- Change: Replaced old weird solution of Important info launch support from ImportantInfoPreference to more better solution.
+- Change: removed Important info News notification.
+- Change: error log to Activity log, for camera flash.
+- Change: Better call of orientation sensor listener and events handler from it.
+- Change: Call of EventsHandle form mobile data and Wi-Fi callback less frequently.
+- Change: Pixel devices: set notifications vibrate, when is off, do not set "vibrate_on".
+- Change: Do not allow set notifications vibrate also for Xiaomi, OnePlus devices.
+- Change: Change "Accessibility settings" summary, when "Lock device" parameter is changed.
+- Change: Better check for night mode.
+- Fix: Fixed not working send crash report mail via GMal in Android 13. Required is: ACRA 5.9.7 and compiledSDK=33.
+- Fix: Fixed change of language for all GUI.
+- Fix: Rescan for Wi-Fi, Bluetooth, Mobile cells sensors from dialogs.
+- Fix: Radio sensor and mobile data connection status during Wi-Fi hotspot enabled.
+- Fix: Brightness with 0% not working, because is set sys. value to 0 (Pixel 6). Force change to 1 working.
+- Fix: "Mobile data preference" for Huawei and OnePlus devices.
+- Fix: Block execution of interactive profile parameters at PPP start or restart by system.
+- Fix: Fixed bad working Orientation sensor for "Ignore for applications" parameter.
+- Fix: Fixed detection of light/dark theme in internal GUI.
+- Fix: Fixed "Ask for duration" dialog layout in One UI 5.
+- Fix: Fixed not displayed subtitle for profile and event preferences screen on orientation change.
 - Other fixes.
 - Updated translations.
+

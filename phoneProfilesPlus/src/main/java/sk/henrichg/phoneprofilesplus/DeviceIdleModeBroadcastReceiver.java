@@ -11,7 +11,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] DeviceIdleModeBroadcastReceiver.onReceive","xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -53,10 +53,14 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                     rescan = true;
                                 else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                                     rescan = true;
-                                else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+                                else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                                    PPApplication.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
                                     rescan = true;
-                                else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+                                }
+                                else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+//                                    PPApplication.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
                                     rescan = true;
+                                }
                                 else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                     rescan = true;
                                 if (rescan) {

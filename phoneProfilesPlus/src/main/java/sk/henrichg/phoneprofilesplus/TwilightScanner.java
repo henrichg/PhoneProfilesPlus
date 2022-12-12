@@ -73,7 +73,7 @@ class TwilightScanner {
 
                 //final Context appContext = context.getApplicationContext();
 
-                if (!PPApplication.getApplicationStarted(true))
+                if (!PPApplication.getApplicationStarted(true, true))
                     // application is not started
                     return;
 
@@ -526,10 +526,9 @@ class TwilightScanner {
 
     static void doWork() {
         if (PhoneProfilesService.getInstance() != null) {
-            TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
-            if (twilightScanner != null) {
+            if (PPApplication.twilightScanner != null) {
                 // Time zone has changed or alarm expired.
-                twilightScanner.mLocationHandler.requestTwilightUpdate();
+                PPApplication.twilightScanner.mLocationHandler.requestTwilightUpdate();
             }
         }
     }

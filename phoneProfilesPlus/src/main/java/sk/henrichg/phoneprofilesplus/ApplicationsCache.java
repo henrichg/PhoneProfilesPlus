@@ -37,122 +37,119 @@ class ApplicationsCache {
     {
         if (cached) return;
 
-        cancelled = false;
+        synchronized (PPApplication.applicationCacheMutex) {
+            cancelled = false;
 
-        applicationsList.clear();
+            applicationsList.clear();
 
-        PackageManager packageManager = context.getPackageManager();
+            PackageManager packageManager = context.getPackageManager();
 
-        Intent appsIntent = new Intent(Intent.ACTION_MAIN);
-        appsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        int flags = PackageManager.MATCH_ALL;
-        List<ResolveInfo> applications = packageManager.queryIntentActivities(appsIntent, flags);
-        for (int i = 0; i < applications.size(); i++)
-        {
-            ResolveInfo applicationInfo = applications.get(i);
+            Intent appsIntent = new Intent(Intent.ACTION_MAIN);
+            appsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+            int flags = PackageManager.MATCH_ALL;
+            List<ResolveInfo> applications = packageManager.queryIntentActivities(appsIntent, flags);
+            for (int i = 0; i < applications.size(); i++) {
+                ResolveInfo applicationInfo = applications.get(i);
 
-            if ((applicationInfo.activityInfo.applicationInfo.packageName != null) &&
-                    (packageManager.getLaunchIntentForPackage(applicationInfo.activityInfo.applicationInfo.packageName) != null))
-            {
-                Application newInfo = new Application();
+                if ((applicationInfo.activityInfo.applicationInfo.packageName != null) &&
+                        (packageManager.getLaunchIntentForPackage(applicationInfo.activityInfo.applicationInfo.packageName) != null)) {
+                    Application newInfo = new Application();
 
-                newInfo.type = Application.TYPE_APPLICATION;
-                newInfo.appLabel = applicationInfo.loadLabel(packageManager).toString();
-                newInfo.packageName = applicationInfo.activityInfo.applicationInfo.packageName;
-                newInfo.activityName = applicationInfo.activityInfo.name;
+                    newInfo.type = Application.TYPE_APPLICATION;
+                    newInfo.appLabel = applicationInfo.loadLabel(packageManager).toString();
+                    newInfo.packageName = applicationInfo.activityInfo.applicationInfo.packageName;
+                    newInfo.activityName = applicationInfo.activityInfo.name;
 
-                applicationsList.add(newInfo);
-                applicationsNoShortcutsList.add(newInfo);
+                    applicationsList.add(newInfo);
+                    applicationsNoShortcutsList.add(newInfo);
 
-                Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
-                if (appIcon == null){
-                    Drawable icon = applicationInfo.loadIcon(packageManager);
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
-                    if (bitmap != null) {
-                        appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
-                        applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
-                    }
-                    else {
-                        //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                        icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
-                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                    Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
+                    if (appIcon == null) {
+                        Drawable icon = applicationInfo.loadIcon(packageManager);
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                         if (bitmap != null) {
                             appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                             applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
+                        } else {
+                            //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+                            icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+                            bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                            if (bitmap != null) {
+                                appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                                applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
+                            }
                         }
                     }
-                }
-                appIcon = applicationNoShortcutIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
-                if (appIcon == null){
-                    Drawable icon = applicationInfo.loadIcon(packageManager);
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
-                    if (bitmap != null) {
-                        appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
-                        applicationNoShortcutIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
-                    }
-                    else {
-                        //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                        icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
-                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                    appIcon = applicationNoShortcutIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
+                    if (appIcon == null) {
+                        Drawable icon = applicationInfo.loadIcon(packageManager);
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                         if (bitmap != null) {
                             appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                             applicationNoShortcutIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
+                        } else {
+                            //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+                            icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+                            bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                            if (bitmap != null) {
+                                appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                                applicationNoShortcutIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
+                            }
                         }
                     }
+
                 }
 
+                if (cancelled)
+                    return;
             }
 
-            if (cancelled)
-                return;
-        }
+            Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
+            List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
+            for (int i = 0; i < shortcuts.size(); i++) {
+                ResolveInfo shortcutInfo = shortcuts.get(i);
 
-        Intent shortcutsIntent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
-        List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
-        for (int i = 0; i < shortcuts.size(); i++)
-        {
-            ResolveInfo shortcutInfo = shortcuts.get(i);
+                if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&
+                        (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null)) {
 
-            if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&
-                    (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null)) {
+                    Application newInfo = new Application();
 
-                Application newInfo = new Application();
+                    newInfo.type = Application.TYPE_SHORTCUT;
+                    newInfo.appLabel = shortcutInfo.loadLabel(packageManager).toString();
+                    newInfo.packageName = shortcutInfo.activityInfo.applicationInfo.packageName;
+                    newInfo.activityName = shortcutInfo.activityInfo.name;
 
-                newInfo.type = Application.TYPE_SHORTCUT;
-                newInfo.appLabel = shortcutInfo.loadLabel(packageManager).toString();
-                newInfo.packageName = shortcutInfo.activityInfo.applicationInfo.packageName;
-                newInfo.activityName = shortcutInfo.activityInfo.name;
+                    applicationsList.add(newInfo);
 
-                applicationsList.add(newInfo);
-
-                Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
-                if (appIcon == null){
-                    Drawable icon = shortcutInfo.loadIcon(packageManager);
-                    Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
-                    if (bitmap != null) {
-                        appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
-                        applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
-                    }
-                    else {
-                        //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                        icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
-                        bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                    Object appIcon = applicationIconsLru.get(newInfo.packageName + "/" + newInfo.activityName);
+                    if (appIcon == null) {
+                        Drawable icon = shortcutInfo.loadIcon(packageManager);
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                         if (bitmap != null) {
                             appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
                             applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
+                        } else {
+                            //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
+                            icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+                            bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
+                            if (bitmap != null) {
+                                appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
+                                applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
+                            }
                         }
                     }
                 }
+
+                if (cancelled)
+                    return;
             }
 
-            if (cancelled)
-                return;
+            applicationsList.sort(new SortList());
+            applicationsNoShortcutsList.sort(new SortList());
+
+            cached = true;
+
         }
-
-        applicationsList.sort(new SortList());
-        applicationsNoShortcutsList.sort(new SortList());
-
-        cached = true;
     }
 
     List<Application> getApplicationList(boolean noShortcuts)
@@ -180,29 +177,31 @@ class ApplicationsCache {
 
     void clearCache(boolean nullList)
     {
-        for (Application application : applicationsList) {
-            Bitmap icon = getApplicationIcon(application, false);
-            if ((icon != null) && (!icon.isRecycled()))
-                icon.recycle();
-        }
-        applicationsList.clear();
-        applicationIconsLru.evictAll();
+        synchronized (PPApplication.applicationCacheMutex) {
+            for (Application application : applicationsList) {
+                Bitmap icon = getApplicationIcon(application, false);
+                if ((icon != null) && (!icon.isRecycled()))
+                    icon.recycle();
+            }
+            applicationsList.clear();
+            applicationIconsLru.evictAll();
 
-        for (Application application : applicationsNoShortcutsList) {
-            Bitmap icon = getApplicationIcon(application, true);
-            if ((icon != null) && (!icon.isRecycled()))
-                icon.recycle();
-        }
-        applicationsNoShortcutsList.clear();
-        applicationNoShortcutIconsLru.evictAll();
+            for (Application application : applicationsNoShortcutsList) {
+                Bitmap icon = getApplicationIcon(application, true);
+                if ((icon != null) && (!icon.isRecycled()))
+                    icon.recycle();
+            }
+            applicationsNoShortcutsList.clear();
+            applicationNoShortcutIconsLru.evictAll();
 
-        if (nullList) {
-            applicationsList = null;
-            applicationIconsLru = null;
-            applicationsNoShortcutsList = null;
-            applicationNoShortcutIconsLru = null;
+            if (nullList) {
+                applicationsList = null;
+                applicationIconsLru = null;
+                applicationsNoShortcutsList = null;
+                applicationNoShortcutIconsLru = null;
+            }
+            cached = false;
         }
-        cached = false;
     }
 
     void cancelCaching()

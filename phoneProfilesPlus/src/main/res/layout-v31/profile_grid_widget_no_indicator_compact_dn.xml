@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_profile_list_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="?android:attr/colorBackground"
+    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
+    tools:ignore="Overdraw">
+
+    <ImageView
+        android:id="@+id/widget_profile_list_background"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_background_5"
+        android:tint="?android:attr/colorBackground"
+        android:visibility="invisible"
+        tools:ignore="ContentDescription,UseAppTint" />
+
+    <LinearLayout
+        android:id="@+id/widget_profile_list_linLa1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/widget_profile_list_header"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/widget_profile_list_header_restart_events_click"
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/widget_ripple_restart_events">
+
+                <ImageView
+                    android:id="@+id/widget_profile_list_header_restart_events"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@string/menu_restart_events"
+                    android:src="@drawable/ic_widget_restart_events"
+                    tools:ignore="UseAppTint" />
+                <!--                android:tint="?android:attr/textColorSecondary"-->
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/widget_profile_list_header_profile_root"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/widget_profile_list_header_restart_events_click"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/widget_ripple_background">
+
+                <ImageView
+                    android:id="@+id/widget_profile_list_header_profile_icon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/profile_preferences_profileIcon"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_profile_default" />
+
+                <TextView
+                    android:id="@+id/widget_profile_list_header_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/widget_profile_list_header_profile_icon"
+                    android:paddingStart="@dimen/profile_name_widget_margin"
+                    android:paddingEnd="@dimen/profile_name_widget_margin"
+                    android:text="@string/profile_name_default"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    tools:ignore="SpUsage" />
+                <!--                android:textColor="?android:attr/textColorPrimary"-->
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/widget_profile_list_header_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_black"
+            android:tint="?android:attr/textColorSecondary"
+            tools:ignore="ContentDescription,UseAppTint" />
+
+        <!--        <RelativeLayout-->
+        <!--            android:id="@+id/widget_profile_list_header_separator"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:layout_marginStart="10dp"-->
+        <!--            android:layout_marginEnd="10dp"-->
+        <!--            android:layout_marginTop="0dp"-->
+        <!--            android:orientation="horizontal" >-->
+        <!--        </RelativeLayout>-->
+
+        <GridView
+            android:id="@+id/widget_profile_grid_compat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+
+            android:columnWidth="45dp"
+
+            android:gravity="center"
+            android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
+            android:verticalSpacing="5dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:divider="@android:color/transparent"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay" />
+
+        <TextView
+            android:id="@+id/widget_profiles_list_empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/profile_list_empty"
+            android:gravity="center"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="22dp"
+            tools:ignore="SpUsage" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/widget_profile_list_not_rounded_border"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/not_rounded_widget_border"
+        android:visibility="invisible"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/widget_profile_list_rounded_border"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded_widget_border_5"
+        android:tint="?android:attr/textColorSecondary"
+        android:visibility="invisible"
+        tools:ignore="ContentDescription,UseAppTint" />
+
+</FrameLayout>

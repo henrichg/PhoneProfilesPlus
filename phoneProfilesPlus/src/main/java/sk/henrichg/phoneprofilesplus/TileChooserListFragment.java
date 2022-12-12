@@ -27,7 +27,7 @@ public class TileChooserListFragment extends Fragment {
     TextView textViewNoData;
     private LinearLayout progressBar;
 
-    private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
+    private LoadProfileListAsyncTask loadAsyncTask = null;
 
     public TileChooserListFragment() {
     }
@@ -44,6 +44,7 @@ public class TileChooserListFragment extends Fragment {
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        loadAsyncTask = new LoadProfileListAsyncTask(this);
 
     }
 
@@ -86,9 +87,7 @@ public class TileChooserListFragment extends Fragment {
 
         if (!activityDataWrapper.profileListFilled)
         {
-            LoadProfileListAsyncTask asyncTask = new LoadProfileListAsyncTask(this);
-            this.asyncTaskContext = new WeakReference<>(asyncTask );
-            asyncTask.execute();
+            loadAsyncTask.execute();
         }
         else
         {
@@ -165,31 +164,32 @@ public class TileChooserListFragment extends Fragment {
             TileChooserListFragment fragment = this.fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler.removeCallbacks(progressBarRunnable);
-                fragment.progressBar.setVisibility(View.GONE);
+                if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
+                    progressBarHandler.removeCallbacks(progressBarRunnable);
+                    fragment.progressBar.setVisibility(View.GONE);
 
-                // get local profileList
-                this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
+                    // get local profileList
+                    //this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
-                // set copy local profile list into activity profilesDataWrapper
-                fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
-                this.dataWrapper.clearProfileList();
+                    // set copy local profile list into activity profilesDataWrapper
+                    fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
+                    this.dataWrapper.clearProfileList();
 
-                synchronized (fragment.activityDataWrapper.profileList) {
-                    if (fragment.activityDataWrapper.profileList.size() == 0)
-                        fragment.textViewNoData.setVisibility(View.VISIBLE);
+                    synchronized (fragment.activityDataWrapper.profileList) {
+                        if (fragment.activityDataWrapper.profileList.size() == 0)
+                            fragment.textViewNoData.setVisibility(View.VISIBLE);
+                    }
+
+                    fragment.profileListAdapter = new TileChooserListAdapter(fragment, fragment.activityDataWrapper);
+                    fragment.listView.setAdapter(fragment.profileListAdapter);
                 }
-
-                fragment.profileListAdapter = new TileChooserListAdapter(fragment, fragment.activityDataWrapper);
-                fragment.listView.setAdapter(fragment.profileListAdapter);
             }
         }
     }
 
-    private boolean isAsyncTaskPendingOrRunning() {
-        return this.asyncTaskContext != null &&
-              this.asyncTaskContext.get() != null &&
-              !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+    private boolean isAsyncTaskRunning() {
+        return (loadAsyncTask != null) &&
+                loadAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING);
     }
 
     @Override
@@ -197,8 +197,8 @@ public class TileChooserListFragment extends Fragment {
     {
         super.onDestroy();
 
-        if (isAsyncTaskPendingOrRunning()) {
-            this.asyncTaskContext.get().cancel(true);
+        if (isAsyncTaskRunning()) {
+            loadAsyncTask.cancel(true);
         }
 
         if (listView != null)

@@ -58,6 +58,7 @@
             android:paddingTop="5dp"
             android:text="@string/profile_preference_profile_not_set"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"/>
 
@@ -86,6 +87,7 @@
             android:paddingTop="5dp"
             android:text="@string/profile_preference_profile_not_set"
             android:textSize="14sp"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="1"/>
 

@@ -43,8 +43,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                             db.addMobileCellsToList(localCellsList, mobileCellId);
                             if (!localCellsList.isEmpty()) {
                                 MobileCellsData cell = localCellsList.get(0);
-                                cell.doNotDetect = true;
-                                db.saveMobileCellsList(localCellsList, true, false);
+                                db.deleteMobileCell(cell.cellId);
                             }
 
                         } catch (Exception e) {

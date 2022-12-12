@@ -16,7 +16,7 @@
         app:summary="@string/phone_profiles_pref_applicationHideHeaderOrBottomBar_summary"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
         app:key="applicationDeleteOldActivityLogs"
         app:summary="@string/phone_profiles_pref_deleteOldActivityLogs"
         app:title="@string/phone_profiles_pref_deleteOldActivityLogs"

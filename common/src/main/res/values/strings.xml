@@ -498,7 +498,6 @@
     <string name="array_pref_color_white">White</string>
     <string name="array_pref_color_black">Black</string>
     <string name="profile_preferences_notificationLed">Notification LED</string>
-    <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
     <string name="profile_preferences_notificationLedInfo_summary">Experimental. It may not work on your device.</string>
     <string name="event_type_orientation">Orientation</string>
     <string name="event_preferences_category_eventOrientationParameters">Orientation sensor</string>
@@ -634,7 +633,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">unsupported secure lock</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">can\'t be changed</string>
     <string name="event_preferences_sensorsInfo_title">Sensor functionality</string>
-    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Some sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not support colorful icons in the status bar.</string>
     <string name="pref_dlg_change_selection_title">Change selection</string>
@@ -1196,7 +1196,6 @@
     <string name="array_show_profile_in_activator_show">Show</string>
     <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
     <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
-    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">for enable/disable Always-On display</string>
     <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
     <string name="array_ignore_manual_activation_ignore">Ignore</string>
@@ -1280,7 +1279,7 @@
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options\/Developer options = enable\n2. Developer options\/Debugging\/USB debugging = enable\n3. Developer options\/Apps\/Disable permission monitoring = enable.</string>
+    <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options/Developer options = enable\n2. Developer options/Debugging/USB debugging = enable\n3. Developer options/Apps/Disable permission monitoring = enable.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
     <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
     <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
@@ -1427,12 +1426,12 @@
     <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
     <string name="directory_tree_activity_not_found_alert">Directory tree screen can not be displayed.</string>
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info">For \"MIUI\" is possible to disable these dialogs. Click this, to show how.</string>
-    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth connectivity\" set to \"Accept\".</string>
+    <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings/Apps/Manage apps/PhoneProfilesPlus/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth connectivity\" set to \"Accept\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <string name="critical_github_release">Critical app. release</string>
     <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
     <string name="acra_email_subject_text">crash report</string>
-    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
+    <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is the crash report.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
     <string name="notification_channel_crash_report">Crash report</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
@@ -1684,12 +1683,12 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings/Apps/Manage apps/PhoneProfilesPlus/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
     <string name="miui_permissions_alert_dialog_show">Show permissions</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing/Vibrate notifications</string>
     <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
     <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
     <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
@@ -1818,16 +1817,15 @@
     <string name="profile_preferences_indicator_event_end_image">End of event profile preferences indicator</string>
     <string name="configured_profile_preferences_preference_icon_image">Profile preference icon</string>
     <string name="important_infor_traffic_light_icon">Traffic light icon</string>
-    <string name="opaqueness_lightnig_preference_list_item_icon">Opaqueness\/lightning icon</string>
+    <string name="opaqueness_lightnig_preference_list_item_icon">Opaqueness/lightning icon</string>
     <string name="preference_widget_application_icon">Selected application icon</string>
     <string name="preference_widget_color_chooser_icon">Selected color</string>
-    <string name="preference_widget_opaqueness_lightnig_icon">Selected opaqueness\/lightning</string>
+    <string name="preference_widget_opaqueness_lightnig_icon">Selected opaqueness/lightning</string>
     <string name="preference_widget_exclamation_icon">Exclamation</string>
     <string name="preference_widget_image_icon">Selected image</string>
     <string name="preference_widget_information_icon">Information</string>
     <string name="preference_widget_information_clickable_icon">Information, clickable</string>
     <string name="preference_widget_clickabe_prefernce_icon">Clickable preference with sub preferences</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (I).</string>
     <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
     <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
     <string name="profile_preferences_deviceAirplaneMode">Airplane mode</string>
@@ -1840,7 +1838,7 @@
     <string name="phone_profiles_pref_category_shortcut">Shortcut</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo">\"Wi-Fi control\" special access</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_summary">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi. Click this to show how.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"\/\"Special app access\"\/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_message">\"Wi-Fi control\" special access must be allowed. It is required for enable and disable Wi-Fi.\n\nIn device Settings allow \"Apps\"/\"Special app access\"/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_showButton">Show device Settings</string>
     <string name="important_info_profile_grant_1_howTo_20_1">NOTE:</string>
     <string name="important_info_profile_grant_1_howTo_20_2">For some devices must be in Developer options enabled:</string>
@@ -1909,11 +1907,8 @@
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">None installed</string>
     <string name="location_scanner_location_not_working_notification_title">Location not working</string>
     <string name="location_scanner_location_not_working_notification_text">Sorry, but is not possible to get location. Please check device Location settings.</string>
-
     <string name="days_of_week_pref_dialog_button_all_nothing">All / Nothing</string>
-
     <string name="profile_preferences_applicationEnablePeriodicScanning">Enable periodic scanning</string>
-
     <string name="menu_share_settings">Share settings</string>
     <string name="menu_restore_shared_settings">Restore shared settings</string>
     <string name="share_settings_alert_message">This is for sharing settings to cloud storage, such as Google Drive, OneDrive. To do this, select the appropriate cloud application in the share panel.</string>
@@ -1925,18 +1920,14 @@
     <string name="restore_shared_settings_alert_title">Restore shared settings</string>
     <string name="restore_shared_settings_error_on_backup">Error on copying shared file for restore</string>
     <string name="restore_shared_settings_ok_backed_up">Shared file to restore copied</string>
-
     <string name="permission_why_profile_default_assistant">for set PhoneProfilesPlus as default Assistant</string>
     <string name="permission_group_name_microphone">Record audio</string>
-
     <string name="phone_profiles_pref_notificationUseDecorationInfo_summary">Decoration for notification is enabled only when \"Background color\" is of type \"Native\". Decoration is always displayed, when \"Notification style\" is set to \"Native\".</string>
-
     <string name="profile_preferences_deviceAirplaneModeRadiosInfo">Airplane mode radios</string>
     <string name="profile_preferences__deviceAirplaneModeRadiosInfo_summary">Click here to display how to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info1">Is possible to configure, which radios are to be switched off when is enabled in device airplane mode.</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info2">This help is better to open it in computer in his Internet browser. Help is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="profile_preferences_deviceAirplaneModeRadios_info3" translatable="false">\"(HELP) How to configure airplane mode radios\"</string>
-
     <string name="event_preference_sensor_activated_profile_summary">This sensor will start and end an event by profile activation. Parameters: Start profile (profile which starts event), End profile (profile which ends event).</string>
     <string name="event_type_activated_profile">Activated profile</string>
     <string name="event_preferences_activated_profile_startProfile">Start profile</string>
@@ -1944,20 +1935,14 @@
     <string name="event_preferences_category_eventActivatedProfileParameters">Activated profile sensor</string>
     <string name="event_preferences_activated_profile_info">Configured profiles</string>
     <string name="event_preferences_activated_profile_info_summary">Profiles must not be the same. If profiles are the same, both parameters will be marked as error in configuration.</string>
-
     <string name="quick_tile_icon_label">Activate profile</string>
-
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_huawei_alert">Setting screen not found.\n\nPlease go into device settings: \"Settings / Apps / App launch\" and set \"Manage manually\" for PhoneProfilesPlus.</string>
-
     <string name="notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlus. Without this enabled, notifications from PhoneProfilesPlus will not be displayed.</string>
     <string name="enable_notificaitons_button">Enable</string>
-
     <string name="phone_profiles_pref_applicationWidgetUseDynamicColors">Use dynamic colors</string>
-
     <string name="important_info_event_event_sensors_waiting">Purple: sensor is in waiting state. \"Pass\" status is determined.</string>
     <string name="important_info_event_event_sensors_passed">Green with double arrow: sensor is \"passed\".</string>
     <string name="important_info_event_event_sensors_not_pased">Blue: sensor is not \"passed\".</string>
-
     <string name="activity_log_help_message_colors">Used colors</string>
     <string name="activity_log_help_message_colors_profile_activation">Profile activation</string>
     <string name="activity_log_help_message_colors_event_start">Event start</string>
@@ -1966,33 +1951,17 @@
     <string name="activity_log_help_message_colors_event_delay_start_end">Event in delay start/end</string>
     <string name="activity_log_help_message_colors_error">Error</string>
     <string name="activity_log_help_message_colors_others">Other situations</string>
-
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
-
-    <string name="important_info_notification_settings_text1">Recommendation for configuration of parameters \"Settings\"/\"Application notification\":</string>
-    <string name="important_info_notification_settings_text2">Configure parameter \"Notification style\" to \"Custom\", \"Use decoration\" switched off, \"Show profile icon\" switched on, \"Show preferences indicator\" switched on.</string>
-    <string name="important_info_notification_settings_text3">With this configuration, notification will be displayed with profile icon, preferences indicator with icons (as in Editor), \"Restart events\" as icon and notification will be smaller.</string>
-    <string name="important_info_notification_settings_text4">Is possible to expand the notification, which is without decoration, with a gesture: swipe down with two fingers.</string>
-    <string name="important_info_notification_settings_configure">Click here to configure \"Application notification\" with these parameters.</string>
-    <string name="important_info_notification_settings_toast">Configured</string>
-
     <string name="menu_choose_language">Choose language</string>
     <string name="menu_choose_language_system_language">[System]</string>
-    <string name="important_info_choose_language_text1">Choose language:</string>
-    <string name="important_info_choose_language_text2">In Editor menu is added \"Choose language\" option. With this option, you can change application language.\nMenu for this is added also in PhoneProfilesPlusExtender (version 8.0).</string>
-
     <string name="profile_icon_preference_iconColor_help">Icon color</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
-
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with a double arrow sign.</string>
-
     <string name="profile_preferences_deviceAirplaneModeRadios_info4">Current configuration:</string>
-
     <string name="array_pref_wifiModeArray_on_inAirplaneMode">(R) On in Airplane mode</string>
     <string name="array_pref_wifiModeArray_off_inAirplaneMode">(R) Off in Airplane mode</string>
     <string name="array_pref_wifiModeArray_toggle_inAirplaneMode">(R) Toggle in Airplane mode</string>
-
     <string name="event_preference_sensor_roaming_summary">This sensor will start an event when network or data are in roaming. Parameters: Check network, Check data.</string>
     <string name="event_type_roaming">Roaming</string>
     <string name="event_preferences_category_eventRoamingParameters">Roaming sensor</string>
@@ -2000,81 +1969,116 @@
     <string name="pref_event_roaming_check_data">Check data</string>
     <string name="event_preferences_roaming_forSimCard">For SIM card</string>
     <string name="permission_why_event_roaming_preferences">for check, if network or data are in roaming</string>
-
     <string name="array_pref_airplaneModeArray_root_on">(R) On</string>
     <string name="array_pref_airplaneModeArray_root_off">(R) Off</string>
     <string name="array_pref_airplaneModeArray_root_toggle">(R) Toggle</string>
     <string name="array_pref_airplaneModeArray_assistant_on">On with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_off">Off with Assistant</string>
     <string name="array_pref_airplaneModeArray_assistant_toggle">Toggle with Assistant</string>
-
     <string name="preference_not_allowed_reason_not_two_sim_cards">not two SIM cards inserted</string>
-
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOff">Background color - Dark mode off</string>
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOn">Background color - Dark mode on</string>
-
     <string name="phone_profiles_pref_applicationTheme_nightMode">By Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Change colors by Dark mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode (as in Pixel launcher)</string>
     <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Dark mode.</string>
-
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">VPN application:</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">Enable VPN</string>
     <string name="vpn_profile_pref_dlg_disable_vpn">Disable VPN</string>
     <string name="vpn_profile_name_pref_dlg_label">OpenVPN profile name:</string>
     <string name="vpn_tunnel_name_pref_dlg_label">WireGuard tunnel name:</string>
-    <string name="vpn_profile_name_pref_dlg_hint">OpenVPN profile name</string>
-    <string name="vpn_tunnel_name_pref_dlg_hint">WireGuard tunnel name</string>
     <string name="altype_profileError_setVPN">profile - error on set VPN</string>
-    <string name="profile_preferences_deviceVPNInfo_summary2">Connect\/disconnect VPN for OpenVPN is moved from \"Others\"\/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
-    <string name="permission_why_profile_wireguard">for set tunnel up\/down by WireGuard application</string>
+    <string name="profile_preferences_deviceVPNInfo_summary2">Connect/disconnect VPN for OpenVPN is moved from \"Others\"/\"Run applications, shortcuts, intents\" into parameter \"VPN\".</string>
+    <string name="permission_why_profile_wireguard">for set tunnel up/down by WireGuard application</string>
     <string name="vpn_profile_pref_dlg_wireguard_not_comaptible">WireGuard is not installed or is in non-supported version.</string>
     <string name="vpn_profile_pref_dlg_openvpnconnect_not_comaptible">OpenVPN Connect is not installed.</string>
     <string name="vpn_profile_pref_dlg_openvpnforandroid_not_comaptible">OpenVPN for Android is not installed.</string>
-
     <string name="event_type_vpn">VPN</string>
-    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to\/disconnected from VPN. Parameters: Connection status.</string>
+    <string name="event_preference_sensor_vpn_summary">This sensor will start an event when device is connected to/disconnected from VPN. Parameters: Connection status.</string>
     <string name="event_preferences_category_eventVPNParameters">VPN sensor</string>
     <string name="pref_event_vpn_connection_status">Connection status</string>
     <string name="array_pref_vpn_connected">Connected</string>
     <string name="array_pref_vpn_disconnected">Disconnected</string>
-
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Do not set when VPN is already in state</string>
+
+    <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
+
+    <string name="check_releases_droidify_application">Droid-ify installation site:</string>
+    <string name="menu_check_releases_droidify">Check in Droid-ify</string>
+    <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
+    <string name="check_releases_open_droidify">Open Droid-ify</string>
+
+    <string name="profile_context_item_copy_name">Copy name</string>
+
+    <string name="export_settings_delete_location_data_text1">Note: Location data will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
+    <string name="export_settings_delete_location_data_text2">What not export?</string>
+    <string name="export_settings_delete_location_data_geofences">Locations for Location sensor</string>
+    <string name="export_settings_delete_location_data_wifi_ssids">Wi-Fi SSIDs for Wi-Fi sensor</string>
+    <string name="export_settings_delete_location_data_bluetooth_names">Bluetooth names for Bluetooth sensor</string>
+    <string name="export_settings_delete_location_data_mobile_cells">Mobile cells for Mobile cell sensor</string>
+
+    <string name="profile_preferences_category_vibrationIntensity">Vibration intensity</string>
+    <string name="profile_preferences_vibrationIntensityRinging">Incomming call</string>
+    <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
+    <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
+    <string name="profile_preferences_vibrationIntensityAll">Vibration intensity</string>
+
+    <string name="important_info_profile_install_pppps">Some profile preferences need the PPPPutSettings helper application to put setting parameter into the system database. ROOT is not required. These preferences are marked with (S).</string>
+    <string name="important_info_profile_pppps_howTo_1">Profile parameters marked with (S) need helper application PPPPutSettings.</string>
+    <string name="important_info_profile_pppps_howTo_2">This application is in GitHub Releases. Click here to download and install it.</string>
+    <string name="important_info_profile_pppps_howTo_4">After successful installation, all profile parameters marked with (S) will be enabled.</string>
+    <string name="install_pppps_dialog_title">Install PPPPutSettings</string>
+    <string name="install_pppps_text1">Install latest version of PPPPutSettings by clicking button</string>
+    <string name="install_pppps_text2">This opens browser to download PPPPutSettings.apk into folder \"Download\".</string>
+    <string name="install_pppps_text3">Then install this apk by clicking notification about downloaded apk.</string>
+    <string name="install_pppps_text4">Note: Target Android version for PPPPutSettings is 5.1. For this reason is not compatible with Google Play Protect. But PPPPutSettings is safe, only PhoneProfilesPlus is allowed to use it.</string>
+    <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
+    <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
+    <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
+
+    <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
+    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
+
+    <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
+
+    <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
+    <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
+
+    <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
+    <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
 
     <!-- **************************************************************************************** -->
 
-    <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_name" translatable="false">PhoneProfilesPlusExtender</string>
-
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
     <string name="extender_about_application_version">Version:</string>
-    <string name="extender_accessibility_service_profile_force_stop_applications">• Accessibility service for profile parameter \"Force stop applications\"</string>
-    <string name="extender_accessibility_service_event_sensor_applications_orientation">• Accessibility service for event parameters \"Application sensor\" and \"Orientation sensor\"</string>
+    <string name="extender_accessibility_service_profile_force_stop_applications">Accessibility service for profile parameter \"Force stop applications\"</string>
+    <string name="extender_accessibility_service_event_sensor_applications_orientation">Accessibility service for event parameters \"Application sensor\" and \"Orientation sensor\"</string>
     <string name="extender_accessibility_service_enabled">Enabled</string>
     <string name="extender_accessibility_service_disabled">Disabled</string>
     <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
-    <string name="extender_accessibility_service_event_sensor_sms_mms">• Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.</string>
-    <string name="extender_permissions_event_sensor_sms_mms">• Permissions for event parameter \"SMS/MMS sensor\" - permission SMS</string>
+    <string name="extender_accessibility_service_event_sensor_sms_mms">Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.</string>
+    <string name="extender_permissions_event_sensor_sms_mms">Permissions for event parameter \"SMS/MMS sensor\" - permission SMS</string>
     <string name="extender_permissions_not_granted">Not granted</string>
     <string name="extender_permissions_granted">Granted</string>
     <string name="extender_permissions_button">Grant/deny\npermissions</string>
-    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.</string>
-    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone</string>
-    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs</string>
+    <string name="extender_accessibility_service_event_sensor_call">Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.</string>
+    <string name="extender_permissions_event_sensor_call">Permissions for event parameter \"Call sensor\" - permission Phone</string>
+    <string name="extender_permissions_event_sensor_call_28">Permissions for event parameter \"Call sensor\" - permission Phone, Call logs</string>
     <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
-    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\"</string>
+    <string name="extender_accessibility_service_profile_lock_device">Accessibility service for profile parameter \"Lock device\"</string>
     <string name="extender_application_releases">Releases:</string>
     <string name="extender_web_browser_chooser">View web link using</string>
     <string name="extender_acra_email_subject_text">crash report</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
+    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is the crash report.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
     <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Crash report</string>
     <string name="extender_scroll_info">Note: Scroll down in this screen to show all parameters.</string>
-    <string name="extender_battery_optimization_text">• Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group</string>
+    <string name="extender_battery_optimization_text">Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group</string>
     <string name="extender_battery_optimization_optimized">Optimized</string>
     <string name="extender_battery_optimization_not_optimized">Not optimized</string>
     <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
@@ -2087,12 +2091,34 @@
     <string name="extender_notification_permission_title">Permission not granted</string>
     <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
     <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
-
     <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
     <string name="extender_enable_notificaitons_button">Enable</string>
-
     <string name="extender_menu_choose_language">Choose language</string>
     <string name="extender_menu_choose_language_system_language">[System]</string>
+    <string name="extender_application_translations">Translations:</string>
 
+    <!-- **************************************************************************************** -->
+
+    <string name="pppputsettings_permission">PPPPutSettings application permisison</string>
+    <string name="pppputsettings_application_releases">Releases:</string>
+    <string name="pppputsettings_about_application_version">Version:</string>
+    <string name="pppputsettings_notification_channel_grant_permission">Grant permission</string>
+    <string name="pppputsettings_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
+    <string name="pppputsettings_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PPPPutSettings. Without this enabled, notifications from PPPPutSettings will not be displayed.</string>
+    <string name="pppputsettings_web_browser_chooser">View web link using</string>
+    <string name="pppputsettings_enable_notificaitons_button">Enable</string>
+    <string name="pppputsettings_setting_screen_not_found_alert">Setting screen not found.</string>
+    <string name="pppputsettings_permissions_write_settings">Please enable \"Modify system settings\". Without this will not be working put of settings parameter to system database.</string>
+    <string name="pppputsettings_app_name_write_settings_button">Modify system settings</string>
+    <string name="pppputsettings_menu_choose_language">Choose language</string>
+    <string name="pppputsettings_menu_choose_language_system_language">[System]</string>
+    <string name="pppputsettings_application_translations">Translations:</string>
+    <string name="pppputsettings_acra_email_body_device">Device:</string>
+    <string name="pppputsettings_acra_email_body_android_version">Android version:</string>
+    <string name="pppputsettings_acra_email_subject_text">crash report</string>
+    <string name="pppputsettings_acra_email_body_text">PPPPutSettings was crashed. Attached is the crash report.</string>
+    <string name="pppputsettings_acra_notification_title">Sorry, PPPPutSettings crashed</string>
+    <string name="pppputsettings_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
+    <string name="pppputsettings_notification_channel_crash_report">Crash report</string>
 </resources>
 

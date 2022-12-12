@@ -121,7 +121,10 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_END_OF_ACTIVATION_TYPE + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_END_OF_ACTIVATION_TIME + " " + DatabaseHandler.INTEGER_TYPE + ","
                 + DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING + " " + DatabaseHandler.INTEGER_TYPE + ","
-                + DatabaseHandler.KEY_DEVICE_VPN + " " + DatabaseHandler.TEXT_TYPE
+                + DatabaseHandler.KEY_DEVICE_VPN + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + " " + DatabaseHandler.TEXT_TYPE
                 + ")";
     }
 
@@ -628,6 +631,9 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_END_OF_ACTIVATION_TIME, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_APPLICATION_DISABLE_PERIODIC_SCANNING, DatabaseHandler.INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_DEVICE_VPN, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, DatabaseHandler.TEXT_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -2563,7 +2569,10 @@ class DatabaseHandlerCreateUpdateDB {
                                 0,
                                 0,
                                 0,
-                                "0|0|||0"
+                                "0|0|||0",
+                                "-1|1",
+                                "-1|1",
+                                "-1|1"
                         );
 
                         // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
@@ -3306,6 +3315,16 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VPN_ENABLED + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VPN_CONNECTION_STATUS + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_EVENTS + " SET " + DatabaseHandler.KEY_E_VPN_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2501)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + "='-1|1'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + "='-1|1'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "='-1|1'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "='-1|1'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "='-1|1'");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "='-1|1'");
         }
     }
 

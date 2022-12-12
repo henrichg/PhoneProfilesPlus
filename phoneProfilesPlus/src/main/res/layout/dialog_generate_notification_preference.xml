@@ -4,35 +4,45 @@
     android:id="@+id/generateNotificationPrefDialogRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="25dp"
-    android:paddingEnd="25dp"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-<ScrollView
-    android:id="@+id/generateNotificationPrefDialog_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    tools:ignore="UselessParent">
-
-    <LinearLayout
-        android:id="@+id/generateNotificationPrefDialog_linla0"
+    <View
+        android:id="@+id/generateNotificationPrefDialog_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-    <CheckBox
-        android:id="@+id/generateNotificationPrefDialogGenerate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-5dp"
-        android:textSize="16sp"
-        android:text="@string/generate_notification_pref_dialog_generate_chb"/>
+    <ScrollView
+        android:id="@+id/generateNotificationPrefDialog_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
 
-    <TextView
+        <LinearLayout
+            android:id="@+id/generateNotificationPrefDialog_linla0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/generateNotificationPrefDialogGenerate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-5dp"
+                android:textSize="16sp"
+                android:text="@string/generate_notification_pref_dialog_generate_chb" />
+
+            <TextView
         android:id="@+id/generateNotificationPrefDialogIconTypeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,8 +110,16 @@
         android:inputType="textNoSuggestions|textMultiLine"
         android:importantForAutofill="no" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <View
+        android:id="@+id/generateNotificationPrefDialog_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

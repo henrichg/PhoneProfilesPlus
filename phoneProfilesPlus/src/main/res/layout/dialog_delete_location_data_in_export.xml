@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/deleteLocationDataInExportDialog_root2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
+    <!--    android:gravity="center_horizontal"-->
+
+    <View
+        android:id="@+id/deleteLocationDataInExportDialog_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+    <ScrollView
+        android:id="@+id/deleteLocationDataInExportDialog_root3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/deleteLocationDataInExportDialogRoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/deleteLocationDataInExportDialogText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_location_data_text1" />
+
+            <TextView
+                android:id="@+id/deleteLocationDataInExportDialogText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_location_data_text2" />
+
+            <CheckBox
+                android:id="@+id/deleteLocationDataInExportDialogGeofences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_location_data_geofences" />
+
+            <CheckBox
+                android:id="@+id/deleteLocationDataInExportDialogWifiSSIDs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_location_data_wifi_ssids" />
+
+            <CheckBox
+                android:id="@+id/deleteLocationDataInExportDialogBluetoothNames"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_location_data_bluetooth_names" />
+
+            <CheckBox
+                android:id="@+id/deleteLocationDataInExportDialogMobileCells"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/export_settings_delete_location_data_mobile_cells" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/deleteLocationDataInExportDialog_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+</LinearLayout>

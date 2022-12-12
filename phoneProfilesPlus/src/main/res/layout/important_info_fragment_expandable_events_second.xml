@@ -71,7 +71,7 @@
         android:text="@string/info_notification_event_states_stopped"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_stopped"
-        app:drawableStartCompat="?attr/eventStopStatusIndicator"
+        app:drawableStartCompat="@drawable/ic_event_status_stop"
         android:drawablePadding="6dp" />
 
     <TextView
@@ -80,13 +80,14 @@
         android:text="@string/info_notification_event_start_order"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_event_start_order1" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/info_notification_event_start_order_handler_icon"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_event_start_order2"
-        app:drawableEndCompat="?attr/dragHandleIcon" />
+        app:drawableEndCompat="@drawable/ic_drag_handle" />
 
 
     <TextView
@@ -166,7 +167,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_profile_activation7b"
         android:textStyle="bold"
-        app:drawableEndCompat="?attr/importantInfoEventsRestartIcon"
+        app:drawableEndCompat="@drawable/ic_important_info_events_restart"
         android:drawablePadding="4dp"
         android:paddingBottom="10dp"/>
 
@@ -201,7 +202,7 @@
         android:text="@string/important_info_default_profile"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_default_profile"
-        android:textColor="?attr/colorAccent"/>
+        android:textColor="@color/accent" />
 
     <!--
     <TextView
@@ -221,7 +222,7 @@
         android:text="@string/important_info_profile_wifiScanning_location"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_wifiScanning_location"
-        android:textColor="?attr/colorAccent" />
+        android:textColor="@color/accent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -230,7 +231,7 @@
         android:text="@string/important_info_profile_bluetoothScanning_location"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_bluetoothScanning_location"
-        android:textColor="?attr/colorAccent" />
+        android:textColor="@color/accent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -239,7 +240,7 @@
         android:text="@string/important_info_profile_mobileCellsScanning_location"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_mobileCellsScanning_location"
-        android:textColor="?attr/colorAccent" />
+        android:textColor="@color/accent" />
 
     <TextView
         android:layout_width="wrap_content"

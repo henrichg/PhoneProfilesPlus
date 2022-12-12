@@ -19,7 +19,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_application_settings"
         android:textStyle="bold"
-        android:textColor="?attr/colorAccent" />
+        android:textColor="@color/accent" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_app_standby"
         android:textStyle="bold"
-        android:textColor="?attr/colorAccent" />
+        android:textColor="@color/accent" />
 
     <!--
     <TextView
@@ -40,7 +40,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_power_manager"
         android:textStyle="bold"
-        android:textColor="?attr/colorAccent" />
+        android:textColor="@color/accent" />
     -->
 
     <TextView
@@ -51,7 +51,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_do_not_kill_my_app"
         android:textStyle="bold"
-        android:textColor="?attr/colorAccent" />
+        android:textColor="@color/accent" />
 
     <!--
     <TextView

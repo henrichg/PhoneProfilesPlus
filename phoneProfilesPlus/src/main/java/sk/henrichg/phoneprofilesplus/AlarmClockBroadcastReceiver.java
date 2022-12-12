@@ -16,7 +16,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 //        PPApplication.logE("[IN_BROADCAST] AlarmClockBroadcastReceiver.onReceive", "xxx");
 //        PPApplication.logE("[IN_BROADCAST_ALARM] AlarmClockBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             return;
 
         Calendar now = Calendar.getInstance();
@@ -32,7 +32,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
+//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=AlarmClockBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
 
@@ -49,6 +49,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.setEventAlarmClockParameters(_time, alarmPackageName);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);
+
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);

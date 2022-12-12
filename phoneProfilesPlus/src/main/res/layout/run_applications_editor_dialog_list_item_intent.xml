@@ -17,7 +17,8 @@
         android:padding="5dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/tooltip_options_menu"
-        android:src="?attr/editItemMenuIcon"/>
+        android:src="@drawable/ic_list_item_edit_menu"
+        android:focusable="false" />
 
     <RelativeLayout
         android:id="@+id/run_applications_editor_dlg_item_reLa1"

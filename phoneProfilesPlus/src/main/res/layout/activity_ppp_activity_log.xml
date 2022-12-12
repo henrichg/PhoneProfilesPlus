@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_log_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
+    android:fitsSystemWindows="false"
+    android:orientation="vertical"
+    tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity" >
+
+    <LinearLayout
+        android:id="@+id/activity_log_liLa1"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" >
+
+        <LinearLayout
+            android:id="@+id/activity_log_liLa2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/activity_log_header_color"
+                android:layout_width="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/empty_string"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/activity_log_header_log_date_time"
+                android:layout_weight="0.27"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/activity_log_header_log_time"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                tools:ignore="SpUsage"/>
+
+            <TextView
+                android:id="@+id/activity_log_row_log_type_header"
+                android:layout_weight="0.43"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/activity_log_header_data_type"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                tools:ignore="SpUsage" />
+
+            <TextView
+                android:id="@+id/activity_log_header_log_data"
+                android:layout_weight="0.30"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="@string/activity_log_header_data"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                tools:ignore="SpUsage" />
+
+            <!--
+            <TextView
+                android:id="@+id/activity_log_header_event_name"
+                android:layout_weight="0.22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:id="@+id/activity_log_header_profile_name"
+                android:layout_weight="0.30"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp" />
+            -->
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/activity_log_header_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/dialog_divider" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/activity_log_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:choiceMode="singleChoice"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        android:divider="@android:color/transparent"
+        android:listSelector="?attr/listViewItemBackground" />
+
+</LinearLayout>

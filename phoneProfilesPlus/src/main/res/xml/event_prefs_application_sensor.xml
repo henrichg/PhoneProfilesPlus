@@ -9,7 +9,7 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="eventApplicationApplications"
         app:title="@string/event_preferences_applications_applications"

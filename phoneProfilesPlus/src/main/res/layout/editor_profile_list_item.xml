@@ -44,7 +44,7 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/editor_ripple_item_right_button"
             android:contentDescription="@string/tooltip_options_menu"
-            android:src="?attr/editItemMenuIcon"/>
+            android:src="@drawable/ic_list_item_edit_menu" />
         
     </LinearLayout>
     
@@ -67,7 +67,7 @@
             android:paddingEnd="5dp"
             android:layout_marginStart="8dp"
             android:scaleType="center"
-            android:src="?attr/dragHandleIcon"
+            android:src="@drawable/ic_drag_handle"
             android:clickable="true"
             android:focusable="true" />
 
@@ -98,16 +98,18 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="@string/profile_name_default"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/profile_list_profile_pref_indicator"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/profile_preferences_indicator_height"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="3dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_indicator_image"
-                android:scaleType="@integer/profilePrefIndicatorScaleType"
+                android:scaleType="fitStart"
                 android:src="@drawable/ic_profile_pref_volume_on"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp" />

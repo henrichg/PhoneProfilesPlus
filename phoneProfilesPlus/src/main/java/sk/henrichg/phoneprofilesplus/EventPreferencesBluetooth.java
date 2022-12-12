@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -90,8 +89,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         //this._devicesType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_DEVICES_TYPE, "0"));
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -121,7 +119,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
-                    descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b> • ";
                 }
 
                 /*
@@ -131,7 +129,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         String[] deviceTypeListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothDevicesTypeArray);
                         String[] deviceTypeListTypes = context.getResources().getStringArray(R.array.eventBluetoothDevicesTypeValues);
                         index = Arrays.asList(deviceTypeListTypes).indexOf(Integer.toString(this._devicesType));
-                        descr = descr + ": <b>" + deviceTypeListTypeNames[index] + "</b> • ";
+                        descr = descr + ": <b>" + getColorForChangedPreferenceValue(deviceTypeListTypeNames[index], disabled, context) + "</b> • ";
                     }
                 }
                 */
@@ -169,7 +167,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         break;
                     }
                 }
-                descr = descr + "<b>" + selectedBluetoothNames + "</b>";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context) + "</b>";
             }
         }
 
@@ -283,7 +281,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         }*/
         if (key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -298,7 +296,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 boolean btLESupported = BluetoothScanner.bluetoothLESupported(/*context*/);
 
@@ -389,9 +387,9 @@ class EventPreferencesBluetooth extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

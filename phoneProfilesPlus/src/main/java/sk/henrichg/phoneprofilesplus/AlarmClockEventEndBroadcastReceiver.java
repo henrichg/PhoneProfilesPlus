@@ -20,7 +20,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
     private void doWork(/*boolean useHandler,*/ Context context) {
         //Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

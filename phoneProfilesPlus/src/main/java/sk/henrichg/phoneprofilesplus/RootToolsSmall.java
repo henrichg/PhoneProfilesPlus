@@ -34,7 +34,7 @@ class RootToolsSmall {
         return exists;
     }
 
-    public static boolean isRooted() {
+    static boolean isRooted() {
         return hasBinary("/su");
     }
 

@@ -47,8 +47,8 @@
 
                 <ImageView
                     android:id="@+id/widget_profile_list_header_restart_events"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_centerInParent="true"
                     android:scaleType="fitCenter"
                     android:contentDescription="@string/menu_restart_events"
@@ -93,13 +93,14 @@
                         android:id="@+id/widget_profile_list_header_profile_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
+                        android:paddingStart="@dimen/profile_name_widget_margin"
+                        android:paddingEnd="@dimen/profile_name_widget_margin"
                         android:text="@string/profile_name_default"
-                        android:textSize="16dp"
+                        android:textSize="17dp"
+                        android:textStyle="bold"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        tools:ignore="SpUsage"/>
+                        tools:ignore="SpUsage" />
 <!--                    android:textColor="?android:attr/textColorPrimary"-->
 
                     <ImageView
@@ -107,9 +108,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/profile_preferences_indicator_height"
                         android:layout_marginTop="2dp"
+                        android:layout_marginBottom="3dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/profile_preferences_indicator_image"
-                        android:scaleType="@integer/profilePrefIndicatorScaleType"
+                        android:scaleType="fitStart"
                         android:src="@drawable/ic_empty"
                         android:visibility="gone"
                         android:paddingStart="10dp"
@@ -162,7 +164,7 @@
             android:text="@string/profile_list_empty"
             android:gravity="center"
             android:textColor="?android:attr/textColorSecondary"
-            android:textSize="21dp"
+            android:textSize="22dp"
             tools:ignore="SpUsage" />
 
      </LinearLayout>

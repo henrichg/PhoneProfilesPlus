@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
@@ -30,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DataWrapper {
 
-    public final Context context;
+    final Context context;
     //private boolean forGUI = false;
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
@@ -413,7 +412,7 @@ public class DataWrapper {
         return profile;
     }
 
-    public Profile getActivatedProfile(boolean generateIcon, boolean generateIndicators)
+    Profile getActivatedProfile(boolean generateIcon, boolean generateIndicators)
     {
         synchronized (profileList) {
             if (profileListFilled) {
@@ -429,7 +428,7 @@ public class DataWrapper {
         }
     }
 
-    public Profile getActivatedProfile(List<Profile> profileList) {
+    Profile getActivatedProfile(List<Profile> profileList) {
         if (profileList != null) {
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = profileList.iterator(); it.hasNext();) {
@@ -503,7 +502,7 @@ public class DataWrapper {
         return profile;
     }
 
-    public Profile getProfileById(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
+    Profile getProfileById(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
     {
         synchronized (profileList) {
             if ((!profileListFilled) || merged) {
@@ -745,7 +744,7 @@ public class DataWrapper {
 
     void invalidateEventList()
     {
-        clearEventList();
+        //clearEventList();
         synchronized (eventList) {
             //if (eventListFilled)
                 eventList.clear();
@@ -1383,17 +1382,18 @@ public class DataWrapper {
     List<EventTimeline> getEventTimelineList(boolean fromDB)
     {
         synchronized (eventTimelines) {
-            if (!eventTimelineListFilled || fromDB)
+            if (!eventTimelineListFilled || fromDB) {
                 if (fromDB)
                     invalidateEventTimelineList();
                 fillEventTimelineList();
+            }
         }
         return eventTimelines;
     }
 
 //-------------------------------------------------------------------------------------------------------------------
 
-    public void invalidateDataWrapper()
+    void invalidateDataWrapper()
     {
         invalidateProfileList();
         invalidateEventList();
@@ -1480,6 +1480,7 @@ public class DataWrapper {
 
             }
 
+//            PPApplication.logE("[PPP_NOTIFICATION] DataWrapper._activateProfile", "call of updateGUI");
             PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
@@ -1623,7 +1624,7 @@ public class DataWrapper {
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false, false);
+            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             final Profile _profile = profile;
@@ -1640,66 +1641,63 @@ public class DataWrapper {
                 }
             }
             else {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setTitle(activity.getString(R.string.profile_string_0) + ": " + profile._name);
-                dialogBuilder.setMessage(activity.getString(R.string.activate_profile_alert_message));
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                        //if (Permissions.grantProfilePermissions(context, _profile, false, true,
-                        //        /*false, monochrome, monochromeValue,*/
-                        //        _startupSource, true, true, false))
-                        if (!DataWrapperStatic.displayPreferencesErrorNotification(_profile, null, true, context)) {
+                PPAlertDialog dialog = new PPAlertDialog(
+                        activity.getString(R.string.profile_string_0) + ": " + profile._name,
+                        activity.getString(R.string.activate_profile_alert_message),
+                        activity.getString(R.string.alert_button_yes),
+                        activity.getString(R.string.alert_button_no),
+                        null, null,
+                        (dialog1, which) -> {
+                            //if (Permissions.grantProfilePermissions(context, _profile, false, true,
+                            //        /*false, monochrome, monochromeValue,*/
+                            //        _startupSource, true, true, false))
+                            if (!DataWrapperStatic.displayPreferencesErrorNotification(_profile, null, true, context)) {
 
-                            if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
-                                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
-                                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-                                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
-                                if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                                    if (PhoneProfilesService.getInstance() != null) {
-                                        PhoneProfilesService.getInstance().playNotificationSound(
-                                                ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                                if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                                        (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                                        (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                                        (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                                        (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+                                        if (PhoneProfilesService.getInstance() != null) {
+                                            PhoneProfilesService.getInstance().playNotificationSound(
+                                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
                                                 false*/);
-                                        //PPApplication.sleep(500);
+                                            //PPApplication.sleep(500);
+                                        }
                                     }
                                 }
-                            }
 
-                            _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
-                        }
-                        else {
+                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
+                            } else {
+                                Intent returnIntent = new Intent();
+                                _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
+
+                                finishActivity(_startupSource, true, _activity);
+                            }
+                        },
+                        (dialog2, which) -> {
+                            // for startActivityForResult
                             Intent returnIntent = new Intent();
                             _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
 
-                            finishActivity(_startupSource, true, _activity);
-                        }
-                    });
-                dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                    // for startActivityForResult
-                    Intent returnIntent = new Intent();
-                    _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
+                            finishActivity(_startupSource, false, _activity);
+                        },
+                        null,
+                        dialog3 -> {
+                            // for startActivityForResult
+                            Intent returnIntent = new Intent();
+                            _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
 
-                    finishActivity(_startupSource, false, _activity);
-                });
-                dialogBuilder.setOnCancelListener(dialog -> {
-                    // for startActivityForResult
-                    Intent returnIntent = new Intent();
-                    _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
-
-                    finishActivity(_startupSource, false, _activity);
-                });
-                AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+                            finishActivity(_startupSource, false, _activity);
+                        },
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        activity
+                );
 
                 if (!activity.isFinishing())
                     dialog.show();
@@ -1707,7 +1705,7 @@ public class DataWrapper {
         }
         else
         {
-            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false, false);
+            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             if (profile._askForDuration/* && interactive*/) {
@@ -1746,7 +1744,7 @@ public class DataWrapper {
             if (ApplicationPreferences.applicationClose)
             {
                 // close of activity after profile activation is enabled
-                if (PPApplication.getApplicationStarted(false))
+                if (PPApplication.getApplicationStarted(false, false))
                     // application is already started and is possible to close activity
                     finish = finishActivator;
             }
@@ -1774,7 +1772,7 @@ public class DataWrapper {
         }
     }
 
-    public void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
+    void activateProfile(final long profile_id, final int startupSource, final Activity activity, boolean testGrant)
     {
         Profile profile;
 
@@ -1878,6 +1876,7 @@ public class DataWrapper {
                 setProfileActive(profile);
             }
 
+//            PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.activateProfile", "call of updateGUI");
             PPApplication.updateGUI(false, false, context);
 
             // for startActivityForResult
@@ -1902,6 +1901,7 @@ public class DataWrapper {
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
                 //Profile.setActivatedProfileForDuration(context, 0);
 
+//                PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.activateProfileAfterDuration", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
                 return;
             }
@@ -2045,10 +2045,14 @@ public class DataWrapper {
                 restart = true;
             else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 restart = true;
-            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning)
+            else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                PPApplication.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
                 restart = true;
-            else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
+            }
+            else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+//                PPApplication.logE("[TEST BATTERY] DataWrapper._restartEventsWithRescan", "******** ### *******");
                 restart = true;
+            }
             else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                 restart = true;
             if (restart) {
@@ -2162,80 +2166,75 @@ public class DataWrapper {
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert || (activity instanceof EditorActivity))
         {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.restart_events_alert_title);
-            dialogBuilder.setMessage(R.string.restart_events_alert_message);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+            PPAlertDialog dialog = new PPAlertDialog(
+                    activity.getString(R.string.restart_events_alert_title),
+                    activity.getString(R.string.restart_events_alert_message),
+                    activity.getString(R.string.alert_button_yes),
+                    activity.getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        boolean finish;
+                        if (activity instanceof ActivatorActivity)
+                            finish = ApplicationPreferences.applicationClose;
+                        else if ((activity instanceof RestartEventsFromGUIActivity) ||
+                                (activity instanceof BackgroundActivateProfileActivity))
+                            finish = true;
+                        else
+                            finish = false;
+                        if (finish)
+                            activity.finish();
 
-                boolean finish;
-                if (activity instanceof ActivatorActivity)
-                    finish = ApplicationPreferences.applicationClose;
-                else
-                if ((activity instanceof RestartEventsFromGUIActivity) ||
-                        (activity instanceof BackgroundActivateProfileActivity))
-                    finish = true;
-                else
-                    finish = false;
-                if (finish)
-                    activity.finish();
+                        boolean serviceStarted = GlobalUtils.isServiceRunning(context, PhoneProfilesService.class, false);
+                        if (!serviceStarted) {
 
-                boolean serviceStarted = GlobalUtils.isServiceRunning(context, PhoneProfilesService.class, false);
-                if (!serviceStarted) {
+                            AutostartPermissionNotification.showNotification(context, true);
 
-                    AutostartPermissionNotification.showNotification(context, true);
-
-                    PPApplication.setApplicationStarted(context, true);
-                    Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                    serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                            PPApplication.setApplicationStarted(context, true);
+                            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+                            serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                            serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                    PPApplication.logE("[START_PP_SERVICE] DataWrapper.restartEventsWithAlert", "xxx");
-                    PPApplication.startPPService(context, serviceIntent);
-                }
-                else {
-                    if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            PhoneProfilesService.getInstance().playNotificationSound(
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
+                            PPApplication.startPPService(context, serviceIntent);
+                        } else {
+                            if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
+                                if (PhoneProfilesService.getInstance() != null) {
+                                    PhoneProfilesService.getInstance().playNotificationSound(
+                                            ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
                                     false*/);
-                            //PPApplication.sleep(500);
+                                    //PPApplication.sleep(500);
+                                }
+                            }
+
+                            restartEventsWithRescan(true, true, true, true, true, true);
+                            //IgnoreBatteryOptimizationNotification.showNotification(context);
                         }
-                    }
+                    },
+                    (dialogInterface, i) -> {
+                        boolean finish = (!(activity instanceof ActivatorActivity)) &&
+                                (!(activity instanceof EditorActivity));
 
-                    restartEventsWithRescan(true, true, true, true, true, true);
-                    //IgnoreBatteryOptimizationNotification.showNotification(context);
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialogInterface, i) -> {
-                boolean finish = (!(activity instanceof ActivatorActivity)) &&
-                                 (!(activity instanceof EditorActivity));
+                        if (finish)
+                            activity.finish();
+                    },
+                    null,
+                    dialogInterface -> {
+                        boolean finish = (!(activity instanceof ActivatorActivity)) &&
+                                (!(activity instanceof EditorActivity));
 
-                if (finish)
-                    activity.finish();
-            });
-            dialogBuilder.setOnCancelListener(dialogInterface -> {
-                boolean finish = (!(activity instanceof ActivatorActivity)) &&
-                                 (!(activity instanceof EditorActivity));
-
-                if (finish)
-                    activity.finish();
-            });
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+                        if (finish)
+                            activity.finish();
+                    },
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    activity
+            );
 
             if (!activity.isFinishing())
                 dialog.show();
@@ -2296,7 +2295,7 @@ public class DataWrapper {
                             .setInitialDelay(15, TimeUnit.SECONDS)
                             .build();
             try {
-                if (PPApplication.getApplicationStarted(true)) {
+                if (PPApplication.getApplicationStarted(true, true)) {
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
 
@@ -2415,38 +2414,39 @@ public class DataWrapper {
                 return;
         }
         if (eventRunningEnabled) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.stop_events_alert_title);
-            dialogBuilder.setMessage(R.string.stop_events_alert_message);
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                if (globalRunStopEvents(true)) {
-                    //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
+            PPAlertDialog dialog = new PPAlertDialog(
+                    activity.getString(R.string.stop_events_alert_title),
+                    activity.getString(R.string.stop_events_alert_message),
+                    activity.getString(R.string.alert_button_yes),
+                    activity.getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        if (globalRunStopEvents(true)) {
+                            //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
 
-                    PPApplication.updateGUI(true, false, activity);
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                if (checkBox != null)
-                    checkBox.setChecked(true);
-            });
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+//                    PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (1)", "call of updateGUI");
+                            PPApplication.updateGUI(true, false, activity);
+                        }
+                    },
+                    (dialog2, which) -> {
+                        if (checkBox != null)
+                            checkBox.setChecked(true);
+                    },
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    activity
+            );
 
             if (!activity.isFinishing())
                 dialog.show();
         }
         else {
             if (globalRunStopEvents(false)) {
+//                PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (2)", "call of updateGUI");
                 PPApplication.updateGUI(true, false, activity);
             }
         }

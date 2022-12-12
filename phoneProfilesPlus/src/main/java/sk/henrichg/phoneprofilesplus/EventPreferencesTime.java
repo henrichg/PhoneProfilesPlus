@@ -11,7 +11,6 @@ import android.text.SpannableString;
 import android.text.format.DateFormat;
 import android.text.style.CharacterStyle;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -121,9 +120,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
 
-        String sDays = preferences.getString(PREF_EVENT_TIME_DAYS, DaysOfWeekPreferenceX.allValue);
+        String sDays = preferences.getString(PREF_EVENT_TIME_DAYS, DaysOfWeekPreference.allValue);
         String[] splits = sDays.split("\\|");
-        if (splits[0].equals(DaysOfWeekPreferenceX.allValue))
+        if (splits[0].equals(DaysOfWeekPreference.allValue))
         {
             this._sunday = true;
             this._monday = true;
@@ -162,8 +161,7 @@ class EventPreferencesTime extends EventPreferences {
         //this._useEndTime = preferences.getBoolean(PREF_EVENT_TIME_USE_END_TIME, false);
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -202,34 +200,34 @@ class EventPreferencesTime extends EventPreferences {
                 //    descr = descr + " ";
                 //} else
                 {
-                    descr = descr + "<b>";
                     String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
+                    String _descr = "";
                     int dayOfWeek;
                     for (int i = 0; i < 7; i++) {
                         dayOfWeek = getDayOfWeekByLocale(i);
 
                         if (daySet[dayOfWeek])
                             //noinspection StringConcatenationInLoop
-                            descr = descr + namesOfDay[dayOfWeek + 1] + " ";
+                            _descr = _descr + namesOfDay[dayOfWeek + 1] + " ";
                     }
-                    descr = descr + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
                 }
 
-                descr = descr + "• ";
-                descr = descr + context.getString(R.string.event_preferences_time_timeType) + ": <b>";
+                descr = descr + "• " + context.getString(R.string.event_preferences_time_timeType) + ": ";
+                String _descr = "";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
-                        descr = descr + context.getString(R.string.event_preference_sensor_time_type_exact);
+                        _descr = _descr + context.getString(R.string.event_preference_sensor_time_type_exact);
                         break;
                     case TIME_TYPE_SUNRISE_SUNSET:
-                        descr = descr + context.getString(R.string.event_preference_sensor_time_type_sunrise_sunset);
+                        _descr = _descr + context.getString(R.string.event_preference_sensor_time_type_sunrise_sunset);
                         break;
                     case TIME_TYPE_SUNSET_SUNRISE:
-                        descr = descr + context.getString(R.string.event_preference_sensor_time_type_sunset_sunrise);
+                        _descr = _descr + context.getString(R.string.event_preference_sensor_time_type_sunset_sunrise);
                         break;
                 }
-                descr = descr + "</b>";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                 if (_timeType == TIME_TYPE_EXACT) {
                     descr = descr + " • ";
@@ -237,19 +235,19 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + context.getString(R.string.event_preferences_time_startTime)+"-"+
                             context.getString(R.string.event_preferences_time_endTime)+": ";
 
-                    descr = descr + "<b>";
+                    _descr = "";
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
                     calendar.set(Calendar.MINUTE, _startTime % 60);
-                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                    _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                     //if (tmp._useEndTime)
                     //{
                     calendar.set(Calendar.HOUR_OF_DAY, _endTime / 60);
                     calendar.set(Calendar.MINUTE, _endTime % 60);
-                    descr = descr + "-";
-                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                    _descr = _descr + "-";
+                    _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                     //}
-                    descr = descr + "</b>";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                     if (addBullet) {
                         if (Event.getGlobalEventsRunning()) {
@@ -276,9 +274,8 @@ class EventPreferencesTime extends EventPreferences {
                 }
                 else {
                     if (PhoneProfilesService.getInstance() != null) {
-                        TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
-                        if (twilightScanner != null) {
-                            TwilightState twilightState = twilightScanner.getTwilightState(/*true*/);
+                        if (PPApplication.twilightScanner != null) {
+                            TwilightState twilightState = PPApplication.twilightScanner.getTwilightState(/*true*/);
                             if (twilightState != null) {
                                 long startTime = computeAlarm(true, context);
                                 long endTime = computeAlarm(false, context);
@@ -292,14 +289,14 @@ class EventPreferencesTime extends EventPreferences {
                                         descr = descr + context.getString(R.string.event_preference_sensor_time_sunset) + "-" +
                                                 context.getString(R.string.event_preference_sensor_time_sunrise) + ": ";
 
-                                    descr = descr + "<b>";
+                                    _descr = "";
                                     Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(startTime);
-                                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                                    _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                                     calendar.setTimeInMillis(endTime);
-                                    descr = descr + "-";
-                                    descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-                                    descr = descr + "</b>";
+                                    _descr = _descr + "-";
+                                    _descr = _descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                                    descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                                     if (addBullet) {
                                         if (Event.getGlobalEventsRunning()) {
@@ -405,7 +402,7 @@ class EventPreferencesTime extends EventPreferences {
         }
 
         if (key.equals(PREF_EVENT_TIME_TYPE)) {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -503,9 +500,9 @@ class EventPreferencesTime extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {
@@ -704,9 +701,8 @@ class EventPreferencesTime extends EventPreferences {
         }
         else {
             if (PhoneProfilesService.getInstance() != null) {
-                TwilightScanner twilightScanner = PhoneProfilesService.getInstance().getTwilightScanner();
-                if (twilightScanner != null) {
-                    TwilightState twilightState = twilightScanner.getTwilightState(/*false*//*testEvent*/);
+                if (PPApplication.twilightScanner != null) {
+                    TwilightState twilightState = PPApplication.twilightScanner.getTwilightState(/*false*//*testEvent*/);
                     if (twilightState != null) {
                         setAlarm = true;
 

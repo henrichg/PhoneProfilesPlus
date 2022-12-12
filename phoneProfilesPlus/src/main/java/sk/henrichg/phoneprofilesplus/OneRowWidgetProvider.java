@@ -10,7 +10,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -128,32 +127,38 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         (applicationWidgetOneRowChangeColorsByNightMode &&
                          (!applicationWidgetOneRowUseDynamicColors))) {
-                    int nightModeFlags =
-                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                    switch (nightModeFlags) {
-                        case Configuration.UI_MODE_NIGHT_YES:
-                            //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                            applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
-                            //applicationWidgetOneRowShowBorder = false; // do not show border
-                            applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                            applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                            //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                            applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                            //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
-                            break;
-                        case Configuration.UI_MODE_NIGHT_NO:
-                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                            applicationWidgetOneRowBackgroundType = true; // background type = color
-                            applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreferenceX.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
-                            //applicationWidgetOneRowShowBorder = false; // do not show border
-                            applicationWidgetOneRowLightnessBorder = "0";
-                            applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
-                            //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                            applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                            //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
-                            break;
+                    boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                    //int nightModeFlags =
+                    //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    //switch (nightModeFlags) {
+                    //noinspection IfStatementWithIdenticalBranches
+                    if (nightModeOn) {
+                        //case Configuration.UI_MODE_NIGHT_YES:
+
+                        //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetOneRowBackgroundType = true; // background type = color
+                        applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
+                        //applicationWidgetOneRowShowBorder = false; // do not show border
+                        applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
+                        //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                        applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
+                        //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
+                        //break;
+                    } else {
+                        //case Configuration.UI_MODE_NIGHT_NO:
+                        //case Configuration.UI_MODE_NIGHT_UNDEFINED:
+
+                        //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetOneRowBackgroundType = true; // background type = color
+                        applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
+                        //applicationWidgetOneRowShowBorder = false; // do not show border
+                        applicationWidgetOneRowLightnessBorder = "0";
+                        applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
+                        //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                        applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
+                        //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
+                        //break;
                     }
                 }
             }

@@ -30,16 +30,16 @@
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventWiFiEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_wifi_connection_type"
         app:summary="@string/array_event_pref_wifiConnectionType_connected"
         app:key="eventWiFiConnectionType"
         app:defaultValue="1"
-        app:entries="@array/eventWifiConnectionTypeArray"
-        app:entryValues="@array/eventWifiConnectionTypeValues"
+        app:ppEntries="@array/eventWifiConnectionTypeArray"
+        app:ppEntryValues="@array/eventWifiConnectionTypeValues"
         app:dependency="eventWiFiEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.WifiSSIDPreferenceX
+    <sk.henrichg.phoneprofilesplus.WifiSSIDPreference
         app:key="eventWiFiSSID"
         app:summary="@string/event_preferences_wifi_ssid"
         app:title="@string/event_preferences_wifi_ssid"

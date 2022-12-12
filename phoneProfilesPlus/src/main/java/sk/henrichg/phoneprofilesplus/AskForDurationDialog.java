@@ -81,11 +81,6 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mStartupSource = startupSource;
         //mInteractive = true/*interactive*/;
 
-        /*
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
-            */
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + " - " +
                                mActivity.getString(R.string.profile_string_0) + ": " + profile._name);
@@ -149,7 +144,6 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
             //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-            //        /*true, mMonochrome, mMonochromeValue,*/
             //        mStartupSource, true, true, false))
             if (!DataWrapperStatic.displayPreferencesErrorNotification(mProfile, null, false, mActivity.getApplicationContext())) {
                 if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
@@ -161,8 +155,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         if (PhoneProfilesService.getInstance() != null) {
                             PhoneProfilesService.getInstance().playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
-                                    false*/);
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
                             //PPApplication.sleep(500);
                         }
                     }
@@ -359,7 +352,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         });
 
         mAfterDoProfile = mProfile._afterDurationProfile;
-        updateProfileView();
+
+        mDialog.setOnShowListener(dialog -> {
+            updateTextFields(false);
+            updateProfileView();
+        });
 
 /*
         final Button activateWithoutButton = layout.findViewById(R.id.ask_for_duration_dlg_activate_without);
@@ -413,7 +410,12 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (iValue < mMin) iValue = mMin;
         if (iValue > mMax) iValue = mMax;
 
-        if(mDialog!=null && mDialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled()) {
+        Button positiveButton = null;
+
+        if (mDialog != null)
+            positiveButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+        if ((positiveButton != null) && positiveButton.isEnabled()) {
             mEnds.setText(StringFormatUtils.getEndsAsString(iValue));
         } else {
             mEnds.setText("--");
@@ -423,8 +425,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             afterDurationLabel.setEnabled(iValue > mMin);
             afterDoSpinner.setEnabled(iValue > mMin);
             updateProfileView();
-            Button button = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            button.setEnabled(iValue > mMin);
+            if (positiveButton != null)
+                positiveButton.setEnabled(iValue > mMin);
         }
 
         if(updateValueField) {
@@ -442,7 +444,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     }
 
-    public void show() {
+    void show() {
         if (!mActivity.isFinishing())
             mDialog.show();
     }
@@ -537,7 +539,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             (iValue == mMin)) {
             profileLabel.setEnabled(false);
             profileView.setEnabled(false);
-            int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
+            //int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);
+            int disabledColor = ContextCompat.getColor(mActivity, R.color.activityDisabledTextColor);
             profileName.setTextColor(disabledColor);
             profileIcon.setColorFilter(disabledColor, android.graphics.PorterDuff.Mode.MULTIPLY);
             if (profileIndicators != null)
@@ -546,7 +549,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         else {
             profileLabel.setEnabled(true);
             profileView.setEnabled(true);
-            profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
+            //profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
+            profileName.setTextColor(ContextCompat.getColor(mActivity, R.color.accent));
             profileIcon.setColorFilter(null);
             if (profileIndicators != null)
                 profileIndicators.setColorFilter(null);

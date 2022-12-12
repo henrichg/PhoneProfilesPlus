@@ -6,31 +6,34 @@
         android:title="@string/menu_restart_events"
         android:orderInCategory="100"
         app:showAsAction="always|withText"
-        android:icon="?attr/actionEventsRestartIcon"
+        android:icon="@drawable/ic_action_events_restart"
         tools:ignore="AlwaysShowAction"/>
     <item android:id="@+id/menu_run_stop_events"
         android:title="@string/menu_run_events"
         android:orderInCategory="101"
-        android:icon="?attr/actionRunStopEventsIcon"
+        android:icon="@drawable/ic_action_play"
         app:showAsAction="always|withText" />
     <item android:id="@+id/menu_activity_log"
         android:title="@string/menu_activity_log"
         android:orderInCategory="102"
-        android:icon="?attr/actionActivityLogEditorIcon"
+        android:icon="@drawable/ic_action_activity_log_editor"
         app:showAsAction="always|withText" />
 
-    <item android:id="@+id/important_info_menu"
+    <item
+        android:id="@+id/important_info_menu"
         android:title="@string/important_info_activity_title"
         android:orderInCategory="103"
         app:showAsAction="always"
-        android:icon="?attr/actionHelpIcon">
+        android:icon="@drawable/ic_action_help">
 
         <menu>
-            <item android:id="@+id/important_info"
+            <item
+                android:id="@+id/important_info"
                 android:title="@string/important_info_activity_title"
                 android:orderInCategory="100"
                 app:showAsAction="never" />
-            <item android:id="@+id/gui_items_help"
+            <item
+                android:id="@+id/gui_items_help"
                 android:title="@string/gui_items_help"
                 android:orderInCategory="101"
                 app:showAsAction="never" />
@@ -133,6 +136,10 @@
                 android:title="@string/menu_check_releases_github"
                 android:orderInCategory="102"
                 app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_droidify"
+                android:title="@string/menu_check_releases_droidify"
+                android:orderInCategory="103"
+                app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_fdroid"
                 android:title="@string/menu_check_releases_fdroid"
                 android:orderInCategory="103"
@@ -178,6 +185,11 @@
             <item android:id="@+id/menu_show_sound_mode"
                 android:title="Show sound mode"
                 android:orderInCategory="102"
+                app:showAsAction="never"
+                tools:ignore="HardcodedText" />
+            <item android:id="@+id/menu_show_log_file"
+                android:title="Show log/crash file"
+                android:orderInCategory="103"
                 app:showAsAction="never"
                 tools:ignore="HardcodedText" />
         </menu>

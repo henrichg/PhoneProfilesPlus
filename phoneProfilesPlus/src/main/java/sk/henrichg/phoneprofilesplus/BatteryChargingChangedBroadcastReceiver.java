@@ -12,7 +12,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
         //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -37,6 +37,9 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
             //_plugged = -BatteryManager.BATTERY_STATUS_NOT_CHARGING;
             _isCharging = false;
         }*/
+
+//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "PPApplication.isCharging="+PPApplication.isCharging);
+//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "_isCharging="+_isCharging);
 
         if ((PPApplication.isCharging != _isCharging) /*||
             ((_plugged != -1) && (PPApplication.plugged != _plugged))*/) {

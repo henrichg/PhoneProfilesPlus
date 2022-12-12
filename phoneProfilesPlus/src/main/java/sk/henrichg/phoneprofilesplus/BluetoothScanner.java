@@ -45,7 +45,7 @@ class BluetoothScanner {
 
     void doScan(@SuppressWarnings("unused") boolean fromDialog) {
         synchronized (PPApplication.bluetoothScannerMutex) {
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return;
 
@@ -123,7 +123,8 @@ class BluetoothScanner {
                                             //lock();
                                             //if (Build.VERSION.SDK_INT >= 26)
                                             //    CmdBluetooth.setBluetooth(false);
-                                            BluetoothScanWorker.bluetooth.disable();
+                                            if (BluetoothScanWorker.bluetooth.isEnabled())
+                                                BluetoothScanWorker.bluetooth.disable();
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
                                         }
@@ -239,7 +240,8 @@ class BluetoothScanner {
                                                 //lock();
                                                 //if (Build.VERSION.SDK_INT >= 26)
                                                 //    CmdBluetooth.setBluetooth(false);
-                                                BluetoothScanWorker.bluetooth.disable();
+                                                if (BluetoothScanWorker.bluetooth.isEnabled())
+                                                    BluetoothScanWorker.bluetooth.disable();
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
                                             }

@@ -16,8 +16,8 @@
         android:layout_alignParentBottom="true"
         app:backgroundColor="@android:color/transparent"
         app:indicatorColor="@android:color/transparent"
-        app:textColor="@color/bootomNavigationTextColor"
-        app:iconTint="@color/activityWhiteTextColor"
+        app:textColor="@color/smoothBottomBarTextColor"
+        app:iconTint="@color/smoothBottomBarIconTint"
         app:iconTintActive="@color/accent"
         app:iconSize="28dp"
         app:textSize="14sp"
@@ -32,7 +32,7 @@
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="45dp"-->
 <!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="?attr/colorPrimary"-->
+<!--        android:background="@color/primary"-->
 <!--        app:elevation="0dp"-->
 <!--        app:itemIconTint="@drawable/bottom_navigation_colors"-->
 <!--        app:itemTextColor="@drawable/bottom_navigation_colors"-->
@@ -55,7 +55,7 @@
             android:layout_alignParentTop="true"
             android:paddingBottom="0dp"
             android:orientation="vertical"
-            android:background="?attr/colorPrimary"
+            android:background="@color/primary"
             android:elevation="0dp" >
 
             <androidx.appcompat.widget.Toolbar

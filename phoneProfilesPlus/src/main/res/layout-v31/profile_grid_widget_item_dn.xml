@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_profile_list_item"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="90dp"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:orientation="vertical"
@@ -38,7 +38,7 @@
         android:minLines="1"
         android:maxLines = "2"
         android:text="@string/profile_name_default"
-        android:textSize="14dp"
+        android:textSize="15dp"
         tools:ignore="SpUsage" />
 <!--    android:textColor="?android:attr/textColorPrimary"-->
 

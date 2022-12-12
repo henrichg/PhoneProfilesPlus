@@ -22,6 +22,7 @@
 
 package com.stericson.roottools.internal;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -786,6 +787,7 @@ public final class RootToolsInternalMethods {
      * @return <code>String</code> What the mount is mounted as.
      * @throws Exception if we cannot determine how the mount is mounted.
      */
+    @SuppressLint("SuspiciousIndentation")
     public String getMountedAs(String path) throws Exception {
         InternalVariables.mounts = getMounts();
         String mp;

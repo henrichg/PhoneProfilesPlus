@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_important_info_force_scroll_root"
@@ -8,29 +7,45 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end"
-    android:fitsSystemWindows="false" >
+    android:fitsSystemWindows="false">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/activity_important_info_force_scroll_toolbar"
+    <LinearLayout
+        android:id="@+id/activity_important_info_force_scroll_toolbar_linla"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
-        android:elevation="0dp"
-        android:theme="?attr/toolbarTheme"
-        app:popupTheme="?attr/toolbarPopupMenu"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activity_important_info_force_scroll_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            android:elevation="0dp"
+            android:theme="?attr/toolbarTheme"
+            app:popupTheme="?attr/toolbarPopupMenu" />
+
+        <View
+            android:id="@+id/activity_important_info_force_scroll_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialog_divider" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/activity_important_info_force_scroll_frLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/activity_important_info_force_scroll_toolbar" >
+        android:layout_below="@id/activity_important_info_force_scroll_toolbar_linla">
 
         <FrameLayout
             android:id="@+id/activity_important_info_force_scroll_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ImportantInfoActivityForceScroll"  />
+            tools:context=".ImportantInfoActivityForceScroll" />
 
     </FrameLayout>
 

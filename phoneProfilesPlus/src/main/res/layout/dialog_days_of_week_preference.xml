@@ -12,7 +12,7 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginStart="@dimen/divider_margin"
         android:layout_marginEnd="@dimen/divider_margin"
-        android:background="?attr/dialogDivider" />
+        android:background="@color/dialog_divider" />
 
     <ListView
         android:id="@+id/days_of_week_pref_dlg_listview"
@@ -26,6 +26,7 @@
         android:gravity="center"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
         android:divider="@android:color/transparent"
         android:listSelector="?attr/listViewItemBackground" />
 
@@ -42,7 +43,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="@dimen/divider_margin"
             android:layout_marginEnd="@dimen/divider_margin"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
         <Button
             android:id="@+id/days_of_week_pref_dlg_button_all_nothing"
@@ -55,7 +56,7 @@
             android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
             android:textStyle="bold"
-            android:background="?attr/buttonBackground"
+            android:background="@drawable/pp_button_background_selector"
             style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>

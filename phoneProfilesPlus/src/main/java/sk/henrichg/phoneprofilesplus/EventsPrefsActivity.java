@@ -14,13 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -32,7 +29,11 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventsPrefsActivity extends AppCompatActivity {
+public class EventsPrefsActivity extends AppCompatActivity
+                                implements RefreshGUIActivatorEditorListener,
+                                           MobileCellsRegistrationCountDownListener,
+                                           MobileCellsRegistrationStoppedListener
+{
 
     long event_id = 0;
     private int old_event_status;
@@ -47,21 +48,28 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
     private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
-    private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
+
+    static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
+
+        private final RefreshGUIActivatorEditorListener listener;
+
+        public RefreshGUIBroadcastReceiver(RefreshGUIActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
-
-            EventsPrefsActivity.this.changeCurentLightSensorValue();
+            listener.refreshGUIFromListener(intent);
         }
-    };
+    }
+    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
 
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
     //public static final String PREF_START_TARGET_HELPS_FINISHED = "event_preferences_activity_start_target_helps_finiahed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -126,14 +134,14 @@ public class EventsPrefsActivity extends AppCompatActivity {
         if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
-            mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver();
+            mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
             registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter);
         }
 
         if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
-            mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver();
+            mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
             registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter);
         }
 
@@ -235,28 +243,28 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private void finishActivity() {
         if (showSaveMenu) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.not_saved_changes_alert_title);
-            dialogBuilder.setMessage(R.string.not_saved_changes_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                if (checkPreferences(newEventMode, predefinedEventIndex)) {
-                    savePreferences(newEventMode, predefinedEventIndex);
-                    resultCode = RESULT_OK;
-                    finish();
-                }
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> finish());
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.not_saved_changes_alert_title),
+                    getString(R.string.not_saved_changes_alert_message),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        if (checkPreferences(newEventMode, predefinedEventIndex)) {
+                            savePreferences(newEventMode, predefinedEventIndex);
+                            resultCode = RESULT_OK;
+                            finish();
+                        }
+                    },
+                    (dialog2, which) -> finish(),
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();
@@ -426,6 +434,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         if (!enabled) {
             if (!ApplicationPreferences.applicationEventNeverAskForEnableRun) {
                 //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
+
+                /*
                 final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(this);
 
                 FrameLayout container = new FrameLayout(this);
@@ -456,11 +466,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 //dialogBuilder.setView(doNotShowAgain);
                 dialogBuilder.setView(superContainer);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                    /*SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                    editor.apply();*/
-
                     SharedPreferences preferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = preferences1.edit();
                     editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
@@ -486,6 +491,42 @@ public class EventsPrefsActivity extends AppCompatActivity {
 //                        if (negative != null) negative.setAllCaps(false);
 //                    }
 //                });
+                */
+
+                PPAlertDialog dialog = new PPAlertDialog(getString(R.string.phone_preferences_actionMode_save),
+                        getString(R.string.alert_message_enable_event),
+                        getString(R.string.alert_button_yes), getString(R.string.alert_button_no),
+                        null,
+                        getString(R.string.alert_message_enable_event_check_box),
+                        (dialog1, which) -> {
+                            SharedPreferences preferences1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = preferences1.edit();
+                            editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
+                            editor.apply();
+
+                            savePreferences(new_event_mode, predefinedEventIndex);
+                            resultCode = RESULT_OK;
+                            finish();
+                        },
+                        (dialog2, which) -> {
+                            savePreferences(new_event_mode, predefinedEventIndex);
+                            resultCode = RESULT_OK;
+                            finish();
+                        },
+                        null,
+                        null,
+                        (buttonView, isChecked) -> {
+                            SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
+                            editor.apply();
+                            ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
+                        },
+                        true, true,
+                        false, true,
+                        false,
+                        this
+                );
 
                 if (!isFinishing())
                     dialog.show();
@@ -745,28 +786,54 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    public class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
+    private static class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsRegistrationCountDownListener listener;
+
+        public MobileCellsRegistrationCountDownBroadcastReceiver(
+                MobileCellsRegistrationCountDownListener listener){
+            this.listener = listener;
+        }
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive( Context context, Intent intent ) {
+            listener.countDownFromListener(intent);
+        }
+
+    }
+
+    @Override
+    public void countDownFromListener(Intent intent) {
 //            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-            if (fragment != null) {
-                long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
-                ((EventsPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
-            }
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null) {
+            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
+            ((EventsPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
         }
     }
 
-    public class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
+    private static class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
+
+        private final MobileCellsRegistrationStoppedListener listener;
+
+        public MobileCellsRegistrationStoppedBroadcastReceiver(
+                MobileCellsRegistrationStoppedListener listener){
+            this.listener = listener;
+        }
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-            if (fragment != null)
-                ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
+        public void onReceive( Context context, Intent intent ) {
+            listener.registrationStoppedFromListener();
         }
+
+    }
+
+    @Override
+    public void registrationStoppedFromListener() {
+//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null)
+            ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -1005,5 +1072,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
 
     }*/
+
+    @Override
+    public void refreshGUIFromListener(Intent intent) {
+//        PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
+        changeCurentLightSensorValue();
+    }
 
 }

@@ -10,45 +10,45 @@
         app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreference
         app:key="prf_pref_deviceDefaultSIMCards"
         app:defaultValue="0|0|0"
         app:title="@string/profile_preferences_deviceDefaultSIM"
         app:summary="@string/profile_preferences_deviceDefaultSIM"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceMobileData_21_SIM1"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceMobileDataSIM1"
         app:defaultValue="0"
-        app:entries="@array/hardwareModeArray"
-        app:entryValues="@array/hardwareModeValues"
+        app:ppEntries="@array/hardwareModeArray"
+        app:ppEntryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceMobileData_21_SIM2"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceMobileDataSIM2"
         app:defaultValue="0"
-        app:entries="@array/hardwareModeArray"
-        app:entryValues="@array/hardwareModeValues"
+        app:ppEntries="@array/hardwareModeArray"
+        app:ppEntryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceNetworkTypeSIM1"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceNetworkTypeSIM1"
         app:defaultValue="0"
-        app:entries="@array/networkTypeNotSupportedArray"
-        app:entryValues="@array/networkTypeNotSupportedValues"
+        app:ppEntries="@array/networkTypeNotSupportedArray"
+        app:ppEntryValues="@array/networkTypeNotSupportedValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceNetworkTypeSIM2"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceNetworkTypeSIM2"
         app:defaultValue="0"
-        app:entries="@array/networkTypeNotSupportedArray"
-        app:entryValues="@array/networkTypeNotSupportedValues"
+        app:ppEntries="@array/networkTypeNotSupportedArray"
+        app:ppEntryValues="@array/networkTypeNotSupportedValues"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

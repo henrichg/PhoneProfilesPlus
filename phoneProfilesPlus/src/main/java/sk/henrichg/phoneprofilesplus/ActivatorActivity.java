@@ -31,7 +31,11 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivatorActivity extends AppCompatActivity {
+public class ActivatorActivity extends AppCompatActivity
+                                implements RefreshGUIActivatorEditorListener,
+                                           ShowTargetHelpsActivatorEditorListener,
+                                           FinishActivityActivatorEditorListener
+{
 
     private boolean activityStarted = false;
 
@@ -42,82 +46,55 @@ public class ActivatorActivity extends AppCompatActivity {
     public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
 
-    private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
+    static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
+
+        private final RefreshGUIActivatorEditorListener listener;
+
+        public RefreshGUIBroadcastReceiver(RefreshGUIActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] ActivatorActivity.refreshGUIBroadcastReceiver", "xxx");
-            //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
-            boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
-            ActivatorActivity.this.refreshGUI(/*refresh,*//*true,*/  refreshIcons);
+            listener.refreshGUIFromListener(intent);
         }
-    };
+    }
+    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
 
     static final String EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY = "show_target_helps_for_activity";
-    private final BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
+    static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
+        private final ShowTargetHelpsActivatorEditorListener listener;
+
+        public ShowTargetHelpsBroadcastReceiver(ShowTargetHelpsActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] ActivatorActivity.showTargetHelpsBroadcastReceiver", "xxx");
-            if (ActivatorActivity.this.isFinishing()) {
-                if (ActivatorTargetHelpsActivity.activity != null)
-                    ActivatorTargetHelpsActivity.activity.finish();
-                ActivatorTargetHelpsActivity.activity = null;
-                return;
-            }
-            if (ActivatorActivity.this.isDestroyed()) {
-                if (ActivatorTargetHelpsActivity.activity != null)
-                    ActivatorTargetHelpsActivity.activity.finish();
-                ActivatorTargetHelpsActivity.activity = null;
-                return;
-            }
-
-            if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
-                    ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
-                    ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
-
-                boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
-                if (forActivity)
-                    ActivatorActivity.this.showTargetHelps();
-                else {
-                    Fragment fragment = ActivatorActivity.this.getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
-                    if (fragment != null) {
-                        ((ActivatorListFragment) fragment).showTargetHelps();
-                    }
-                }
-            }
-            else {
-                if (ActivatorTargetHelpsActivity.activity != null)
-                    ActivatorTargetHelpsActivity.activity.finish();
-                ActivatorTargetHelpsActivity.activity = null;
-            }
+            listener.showTargetHelpsFromListener(intent);
         }
-    };
+    }
+    private final ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
 
-    private final BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
+    static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
+        private final FinishActivityActivatorEditorListener listener;
+
+        public FinishActivityBroadcastReceiver(FinishActivityActivatorEditorListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive( Context context, Intent intent ) {
-//            PPApplication.logE("[IN_BROADCAST] ActivatorActivity.finishBroadcastReceiver", "xxx");
-            String action = intent.getAction();
-            if (action != null) {
-                if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
-                    String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                    if (what.equals("activator")) {
-                        try {
-                            ActivatorActivity.this.setResult(Activity.RESULT_CANCELED);
-                            ActivatorActivity.this.finishAffinity();
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                    }
-                }
-            }
+            listener.finishActivityFromListener(intent);
         }
-    };
+    }
+    private final FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false, false);
+        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
     //-----------------------------------------------------------------------------------
@@ -253,6 +230,7 @@ public class ActivatorActivity extends AppCompatActivity {
 
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
+//            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of drawProfileNotification");
             PhoneProfilesNotification.drawProfileNotification(true, getApplicationContext());
             DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
             IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
@@ -308,21 +286,6 @@ public class ActivatorActivity extends AppCompatActivity {
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                // start PhoneProfilesService
-                //PPApplication.firstStartServiceStarted = false;
-
-                /*
-                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
-                serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                PPApplication.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(2)");
-                PPApplication.startPPService(this, serviceIntent);
-                */
-
                 return true;
             }
         }
@@ -382,7 +345,7 @@ public class ActivatorActivity extends AppCompatActivity {
         if (menuItem != null)
         {
             menuItem.setVisible(Event.getGlobalEventsRunning());
-            menuItem.setEnabled(PPApplication.getApplicationStarted(true));
+            menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
         }
 
         return ret;
@@ -480,7 +443,7 @@ public class ActivatorActivity extends AppCompatActivity {
             return null;
     }
 
-    public void setEventsRunStopIndicator()
+    void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
         if (Event.getGlobalEventsRunning())
@@ -498,12 +461,12 @@ public class ActivatorActivity extends AppCompatActivity {
         }
     }
 
-    public void startTargetHelpsActivity() {
+    void startTargetHelpsActivity() {
         if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
                 ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
                 ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
 
-            //Log.d("ActivateProfilesActivity.startTargetHelpsActivity", "xxx");
+            //Log.e("ActivatorActivity.startTargetHelpsActivity", "xxx");
 
             //ActivatorTargetHelpsActivity.activatorActivity = this;
             Intent intent = new Intent(this, ActivatorTargetHelpsActivity.class);
@@ -621,6 +584,7 @@ public class ActivatorActivity extends AppCompatActivity {
                         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null)
                         {
+                            //Log.e("ActivatorActivity.showTargetHelps", "start fragment showTargetHelps");
                             ((ActivatorListFragment)fragment).showTargetHelps();
                         }
                     }
@@ -717,6 +681,71 @@ public class ActivatorActivity extends AppCompatActivity {
                     //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
+        }
+    }
+
+    @Override
+    public void refreshGUIFromListener(Intent intent) {
+//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.refreshGUIBroadcastReceiver", "xxx");
+        //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
+        boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+        refreshGUI(refreshIcons);
+    }
+
+    @Override
+    public void showTargetHelpsFromListener(Intent intent) {
+//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.showTargetHelpsBroadcastReceiver", "xxx");
+        if (isFinishing()) {
+            if (ActivatorTargetHelpsActivity.activity != null)
+                ActivatorTargetHelpsActivity.activity.finish();
+            ActivatorTargetHelpsActivity.activity = null;
+            return;
+        }
+        if (isDestroyed()) {
+            if (ActivatorTargetHelpsActivity.activity != null)
+                ActivatorTargetHelpsActivity.activity.finish();
+            ActivatorTargetHelpsActivity.activity = null;
+            return;
+        }
+
+        if (ApplicationPreferences.prefActivatorActivityStartTargetHelps ||
+                ApplicationPreferences.prefActivatorFragmentStartTargetHelps ||
+                ApplicationPreferences.prefActivatorAdapterStartTargetHelps) {
+
+            boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
+            if (forActivity)
+                showTargetHelps();
+            else {
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
+                if (fragment != null) {
+                    //Log.e("ActivatorActivity.showTargetHelpsFromListener", "start fragment showTargetHelps");
+                    ((ActivatorListFragment) fragment).showTargetHelps();
+                }
+            }
+        }
+        else {
+            if (ActivatorTargetHelpsActivity.activity != null)
+                ActivatorTargetHelpsActivity.activity.finish();
+            ActivatorTargetHelpsActivity.activity = null;
+        }
+    }
+
+    @Override
+    public void finishActivityFromListener(Intent intent) {
+//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.finishBroadcastReceiver", "xxx");
+        String action = intent.getAction();
+        if (action != null) {
+            if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
+                String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
+                if (what.equals("activator")) {
+                    try {
+                        setResult(Activity.RESULT_CANCELED);
+                        finishAffinity();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            }
         }
     }
 

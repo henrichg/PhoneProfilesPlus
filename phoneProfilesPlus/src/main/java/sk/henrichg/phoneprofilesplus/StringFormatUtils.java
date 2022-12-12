@@ -3,13 +3,19 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Vibrator;
+import android.text.Editable;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.BulletSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.URLSpan;
+
+import androidx.core.text.HtmlCompat;
+
+import org.xml.sax.XMLReader;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -88,15 +94,15 @@ public class StringFormatUtils {
         return timeDate.concat(AmPm);
     }
 
-    static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp) {
+    static Spanned fromHtml(String source, boolean forBullets, boolean boldBullet, boolean forNumbers, int numberFrom, int sp, boolean trimTrailingWhiteSpaces) {
         Spanned htmlSpanned;
 
         //if (Build.VERSION.SDK_INT >= 24) {
         if (forNumbers)
-            htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
+            htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
         else {
-            htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
-            //htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
+            htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT);
+            //htmlSpanned = HtmlCompat.fromHtml(source, HtmlCompat.FROM_HTML_MODE_COMPACT, null, new GlobalGUIRoutines.LiTagHandler());
         }
         //} else {
         //    if (forBullets || forNumbers)
@@ -107,14 +113,19 @@ public class StringFormatUtils {
 
         htmlSpanned = removeUnderline(htmlSpanned);
 
-        if (forBullets)
-            return addBullets(htmlSpanned);
-        else
-        if (forNumbers)
-            return addNumbers(htmlSpanned, numberFrom, sp);
-        else
-            return  htmlSpanned;
+        SpannableStringBuilder result;
 
+        if (forBullets)
+            result = addBullets(htmlSpanned, boldBullet);
+        else if (forNumbers)
+            result = addNumbers(htmlSpanned, numberFrom, sp);
+        else
+            result = new SpannableStringBuilder(htmlSpanned);
+
+        if (trimTrailingWhiteSpaces)
+            result = trimTrailingWhitespace(result);
+
+        return result;
     }
 
     private static class URLSpanline_none extends URLSpan {
@@ -141,15 +152,18 @@ public class StringFormatUtils {
         return spannableBuilder;
     }
 
-    private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {
+    private static SpannableStringBuilder addBullets(Spanned htmlSpanned, boolean boldBullet) {
         SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
         BulletSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), BulletSpan.class);
         if (spans != null) {
             for (BulletSpan span : spans) {
                 int start = spannableBuilder.getSpanStart(span);
-                int end  = spannableBuilder.getSpanEnd(span);
+                int end = spannableBuilder.getSpanEnd(span);
                 spannableBuilder.removeSpan(span);
-                spannableBuilder.setSpan(new ImprovedBulletSpan(GlobalGUIRoutines.dip(2), GlobalGUIRoutines.dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                int radius = GlobalGUIRoutines.dip(2);
+                if (boldBullet)
+                    radius += 1;
+                spannableBuilder.setSpan(new ImprovedBulletSpan(radius, GlobalGUIRoutines.dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             }
         }
         return spannableBuilder;
@@ -162,7 +176,7 @@ public class StringFormatUtils {
         if (spans != null) {
             for (BulletSpan span : spans) {
                 int start = spannableBuilder.getSpanStart(span);
-                int end  = spannableBuilder.getSpanEnd(span);
+                int end = spannableBuilder.getSpanEnd(span);
                 spannableBuilder.removeSpan(span);
                 ++listItemCount;
                 spannableBuilder.insert(start, listItemCount + ". ");
@@ -172,6 +186,20 @@ public class StringFormatUtils {
         return spannableBuilder;
     }
 
+    public static SpannableStringBuilder trimTrailingWhitespace(SpannableStringBuilder source) {
+
+        if (source == null)
+            return null;
+
+        int i = source.length();
+
+        // loop back to the first non-whitespace character
+        //noinspection StatementWithEmptyBody
+        while (--i >= 0 && Character.isWhitespace(source.charAt(i))) {
+        }
+
+        return (SpannableStringBuilder) source.subSequence(0, i + 1);
+    }
     @SuppressLint("DefaultLocale")
     static String getDurationString(int duration) {
         int hours = duration / 3600;
@@ -244,6 +272,34 @@ public class StringFormatUtils {
         } catch (Exception e) {
             return context.getString(R.string.array_pref_no_change);
         }
+    }
+
+    static class LiTagHandler implements Html.TagHandler {
+
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+
+            class Bullet {
+            }
+
+            if (tag.equals("li") && opening) {
+                output.setSpan(new Bullet(), output.length(), output.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+            if (tag.equals("li") && !opening) {
+                //output.append("\n\n");
+                output.append("\n");
+                Bullet[] spans = output.getSpans(0, output.length(), Bullet.class);
+                if (spans != null) {
+                    Bullet lastMark = spans[spans.length - 1];
+                    int start = output.getSpanStart(lastMark);
+                    output.removeSpan(lastMark);
+                    if (start != output.length()) {
+                        output.setSpan(new BulletSpan(), start, output.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    }
+                }
+            }
+        }
+
     }
 
 }

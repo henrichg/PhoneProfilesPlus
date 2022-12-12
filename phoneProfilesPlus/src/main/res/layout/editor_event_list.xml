@@ -58,16 +58,17 @@
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="?attr/colorAccent" />
+                    android:textColor="@color/accent" />
 
                 <ImageView
                     android:id="@+id/editor_events_activated_profile_pref_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_preferences_indicator_height"
                     android:layout_marginTop="2dp"
+                    android:layout_marginBottom="3dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/profile_preferences_indicator_image"
-                    android:scaleType="@integer/profilePrefIndicatorScaleType"
+                    android:scaleType="fitStart"
                     android:src="@drawable/ic_empty"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp" />
@@ -103,7 +104,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="top"
-            android:background="?attr/dialogDivider" />
+            android:background="@color/dialog_divider" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/editor_events_list"
@@ -113,7 +114,8 @@
             android:paddingBottom="5dp"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            android:scrollbarStyle="outsideOverlay" />
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"/>
 
         <TextView
             android:id="@+id/editor_events_list_empty"
@@ -145,7 +147,7 @@
             android:layout_height="@dimen/divider_height"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="?attr/dialogDivider"
+            android:background="@color/dialog_divider"
             android:layout_gravity="bottom" />
 
     </FrameLayout>
@@ -155,7 +157,7 @@
         android:layout_height="55dp"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary"
         android:theme="?attr/bottomToolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu" >
 
@@ -172,16 +174,15 @@
                 android:id="@+id/editor_events_list_bottom_bar_order_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-5dp"
+                android:layout_marginTop="-4dp"
                 android:layout_marginStart="1dp"
                 android:ellipsize="end"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
                 android:maxLines="1"
                 android:focusable="true"
                 tools:ignore="SpUsage"/>
-<!--            android:textColor="?attr/editorFilterTitleColor"-->
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/editor_events_list_bottom_bar_order"

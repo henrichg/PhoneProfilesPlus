@@ -8,8 +8,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.BatteryManager;
 import android.widget.Toast;
 
-import androidx.preference.ListPreference;
-import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -18,14 +16,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.Preference.OnPreferenceChangeListener;
-//import android.preference.PreferenceManager;
-//import android.preference.MultiSelectListPreference;
-//import me.drakeet.support.toast.ToastCompat;
 
 class EventPreferencesBattery extends EventPreferences {
 
@@ -131,8 +121,7 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -147,14 +136,14 @@ class EventPreferencesBattery extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.pref_event_battery_level);
-                descr = descr + ": <b>" + this._levelLow + "% - " + this._levelHight + "%</b>";
+                descr = descr + ": <b>" + getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context) + "</b>";
 
                 if (this._powerSaveMode)
-                    descr = descr + " • <b>" + context.getString(R.string.pref_event_battery_power_save_mode) + "</b>";
+                    descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context) + "</b>";
                 else {
                     descr = descr + " • " + context.getString(R.string.pref_event_battery_charging);
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                    descr = descr + ": <b>" + charging[this._charging] + "</b>";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(charging[this._charging], disabled, context) + "</b>";
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
@@ -171,7 +160,7 @@ class EventPreferencesBattery extends EventPreferences {
                             }
                         }
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + selectedPlugged + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + "</b>";
                 }
             }
         }
@@ -199,7 +188,7 @@ class EventPreferencesBattery extends EventPreferences {
                 preference.setSummary(value + "%");
         }*/
         if (key.equals(PREF_EVENT_BATTERY_CHARGING)) {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -306,9 +295,9 @@ class EventPreferencesBattery extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BATTERY).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {
@@ -329,9 +318,9 @@ class EventPreferencesBattery extends EventPreferences {
             if (prefMng.findPreference(PREF_EVENT_BATTERY_ENABLED) != null) {
                 final Preference lowLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_LOW);
                 final Preference hightLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_HIGHT);
-                final ListPreference chargingPreference = prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
+                final PPListPreference chargingPreference = prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
                 final SwitchPreferenceCompat powerSaveModePreference = prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
-                final MultiSelectListPreference pluggedPreference = prefMng.findPreference(PREF_EVENT_BATTERY_PLUGGED);
+                final PPMultiSelectListPreference pluggedPreference = prefMng.findPreference(PREF_EVENT_BATTERY_PLUGGED);
                 final PreferenceManager _prefMng = prefMng;
                 final Context _context = context.getApplicationContext();
 
@@ -528,6 +517,11 @@ class EventPreferencesBattery extends EventPreferences {
                 }
             } else
                 eventsHandler.notAllowedBattery = true;
+
+//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "event="+_event._name);
+//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.batteryPassed="+eventsHandler.batteryPassed);
+//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.notAllowedBattery="+eventsHandler.notAllowedBattery);
+
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
                 setSensorPassed(newSensorPassed);

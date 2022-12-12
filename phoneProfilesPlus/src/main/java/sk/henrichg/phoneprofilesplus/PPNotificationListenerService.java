@@ -108,7 +108,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //addNotifiedPackage(sbn.getPackageName(), time);
         //saveNotifiedPackages(context);
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -227,7 +227,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //removeNotifiedPackage(sbn.getPackageName());
         //saveNotifiedPackages(context);
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -432,7 +432,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
     }
 */
-    public static boolean isNotificationListenerServiceEnabled(Context context, boolean checkConnected) {
+    static boolean isNotificationListenerServiceEnabled(Context context,
+                                @SuppressWarnings("SameParameterValue") boolean checkConnected) {
         /*
         ContentResolver contentResolver = context.getContentResolver();
         String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");

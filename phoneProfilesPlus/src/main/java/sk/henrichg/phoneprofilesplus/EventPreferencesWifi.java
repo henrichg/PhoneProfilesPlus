@@ -6,7 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -15,7 +15,6 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -85,8 +84,7 @@ class EventPreferencesWifi extends EventPreferences {
         this._connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_WIFI_CONNECTION_TYPE, "1"));
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -116,7 +114,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_wifi_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-                    descr = descr + ": <b>" + connectionListTypeNames[index] + "</b> • ";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b> • ";
                 }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_ssid) + ": ";
@@ -144,7 +142,7 @@ class EventPreferencesWifi extends EventPreferences {
                         break;
                     }
                 }
-                descr = descr + "<b>" + selectedSSIDs + "</b>";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedSSIDs, disabled, context) + "</b>";
             }
         }
 
@@ -238,7 +236,7 @@ class EventPreferencesWifi extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -319,9 +317,9 @@ class EventPreferencesWifi extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_WIFI_SCANNER).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {
@@ -412,7 +410,7 @@ class EventPreferencesWifi extends EventPreferences {
                             if ((networks != null) && (networks.length > 0)) {
                                 for (Network network : networks) {
                                     try {
-                                        /*if (Build.VERSION.SDK_INT < 28) {
+                                        //if (Build.VERSION.SDK_INT < 28) {
                                             NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                             if (ntkInfo != null) {
                                                 if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
@@ -422,7 +420,7 @@ class EventPreferencesWifi extends EventPreferences {
                                                     }
                                                 }
                                             }
-                                        } else*/ {
+                                        /*} else {
                                             //NetworkInfo networkInfo = connManager.getNetworkInfo(network);
                                             //if ((networkInfo != null) && networkInfo.isConnected()) {
                                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
@@ -431,7 +429,7 @@ class EventPreferencesWifi extends EventPreferences {
                                                     break;
                                                 }
                                             //}
-                                        }
+                                        }*/
                                     } catch (Exception e) {
 //                                        Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);

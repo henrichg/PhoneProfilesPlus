@@ -215,12 +215,12 @@ class SettingsContentObserver  extends ContentObserver {
         if (volumeChange) {
             if (!EventPreferencesVolumes.internalChange) {
 
-                if (PPApplication.getApplicationStarted(true)) {
+                if (PPApplication.getApplicationStarted(true, true)) {
                     // application is started
 
                     if (Event.getGlobalEventsRunning()) {
 
-                        // !!! must be used MainWorker with delay, because is often called this onChange
+                        // !!! must be used MainWorker with delay and REPLACE, because is often called this onChange
                         // for change volumes
                         Data workData = new Data.Builder()
                                 .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
@@ -234,7 +234,7 @@ class SettingsContentObserver  extends ContentObserver {
                                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                         .build();
                         try {
-                            if (PPApplication.getApplicationStarted(true)) {
+                            if (PPApplication.getApplicationStarted(true, true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null) {
 
@@ -317,6 +317,9 @@ class SettingsContentObserver  extends ContentObserver {
             savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
             savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
+            // TODO this is for log brightness values to log file
+            //  use only for check brightness values 0%, 50%, 100% by user,
+            //  when in his device brightness not working good
 //            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
 //            PPApplication.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
 //            PPApplication.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);

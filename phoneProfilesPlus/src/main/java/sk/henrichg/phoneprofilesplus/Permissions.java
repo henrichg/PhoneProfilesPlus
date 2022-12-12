@@ -15,10 +15,7 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.telephony.TelephonyManager;
-import android.widget.FrameLayout;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
@@ -72,12 +69,13 @@ class Permissions {
     static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
     static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
     static final int PERMISSION_BACGROUND_LOCATION = 45;
-    static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
+    //static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
     static final int PERMISSION_PROFILE_WALLPAPER_FOLDER = 47;
     static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
     static final int PERMISSION_PROFILE_MICROPHONE = 49;
     static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
     static final int PERMISSION_PROFILE_WIREGUARD = 51;
+    //static final int PERMISSION_PROFILE_VIBRATION_INTENSITY = 52;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -134,7 +132,7 @@ class Permissions {
     //static ContactsMultiSelectDialogPreference contactsMultiSelectDialogPreference = null;
     //static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
     //static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
-    //static BrightnessDialogPreferenceX brightnessDialogPreference = null;
+    //static BrightnessDialogPreference brightnessDialogPreference = null;
     //static MobileCellsPreference mobileCellsPreference = null;
     //static MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference = null;
     //static RingtonePreference ringtonePreference = null;
@@ -258,7 +256,8 @@ class Permissions {
 
         checkProfileVibrationOnTouch(context, profile, permissions);
         checkProfileVibrateWhenRinging(context, profile, permissions);
-        checkProfileVibrateNotifications(context, profile, permissions);
+        //checkProfileVibrateNotifications(context, profile, permissions);
+        //checkProfileVibrationIntensityForSamsung(context, profile, permissions);
         checkProfileRingtones(context, profile, permissions);
         checkProfileScreenTimeout(context, profile, permissions);
         checkProfileScreenBrightness(context, profile, permissions);
@@ -366,6 +365,7 @@ class Permissions {
         }
     }
 
+    /*
     static void checkProfileVibrateNotifications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
@@ -384,8 +384,35 @@ class Permissions {
             }
         }
     }
+    */
 
-    static boolean checkVibrateNotifications(Context context) {
+    /*
+    static void checkProfileVibrationIntensityForSamsung(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return;
+
+        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+        PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(preferenceAllowed, context);
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            try {
+                if (profile.getVibrationIntensityRingingChange() ||
+                        profile.getVibrationIntensityNotificationsChange() ||
+                        profile.getVibrationIntensityTouchInteractionChange()) {
+                    boolean granted = Settings.System.canWrite(context);
+                    if (granted)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    if (!granted) {
+                        if (permissions != null)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATION_INTENSITY, permission.WRITE_SETTINGS));
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    }
+    */
+
+    /*
+    static boolean checkVibrationIntensityForSamsung(Context context) {
         try {
             if (Build.VERSION.SDK_INT >= 28) {
                 boolean granted = Settings.System.canWrite(context);
@@ -399,6 +426,7 @@ class Permissions {
             return false;
         }
     }
+    */
 
     static void checkProfileNotificationLed(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
@@ -2680,6 +2708,7 @@ class Permissions {
 
     static void grantRootX(final ProfilesPrefsFragment profilesFragment,
                            final Activity activity) {
+        /*
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
         String message = activity.getString(R.string.phone_profiles_pref_grantRootPermission_summary) + "\n";
@@ -2741,7 +2770,7 @@ class Permissions {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     // startActivityForResult not working, it is external application
-                    activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
+                    activity.startActivity(intent);
                     //PPApplication.initRoot();
                     synchronized (PPApplication.rootMutex) {
                         PPApplication.rootMutex.rootChecked = false;
@@ -2759,7 +2788,7 @@ class Permissions {
                     try {
                         intent.putExtra("section", "superuser");
                         // startActivityForResult not working, it is external application
-                        activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
+                        activity.startActivity(intent);
                         //PPApplication.initRoot();
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.rootMutex.rootChecked = false;
@@ -2807,12 +2836,141 @@ class Permissions {
 //                if (negative != null) negative.setAllCaps(false);
 //            }
 //        });
+        */
+
+        boolean checkBoxEnabled = true;
+        boolean checkBoxChecked;
+        if (profilesFragment == null) {
+            checkBoxEnabled = false;
+            checkBoxChecked = false;
+        } else
+            checkBoxChecked = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+        PPAlertDialog dialog = new PPAlertDialog(activity.getString(R.string.phone_profiles_pref_grantRootPermission),
+                activity.getString(R.string.phone_profiles_pref_grantRootPermission_summary),
+                activity.getString(R.string.alert_button_grant), activity.getString(R.string.alert_button_not_grant),
+                null,
+                activity.getString(R.string.alert_message_enable_event_check_box),
+                (dialog1, which) -> {
+                    grantRootChanged = true;
+                    if (profilesFragment == null) {
+                        // always ask for grant root, when grant is invocked from PPP Settings
+                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+                    } else {
+                        //grantRootChanged = true;
+                        profilesFragment.setRedTextToPreferences();
+                    }
+
+                    boolean ok = false;
+                    PackageManager packageManager = activity.getPackageManager();
+                    // SuperSU
+                    Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            // startActivityForResult not working, it is external application
+                            activity.startActivity(intent);
+                            //PPApplication.initRoot();
+                            synchronized (PPApplication.rootMutex) {
+                                PPApplication.rootMutex.rootChecked = false;
+                            }
+                            ok = true;
+                        } catch (Exception ignore) {
+                        }
+                    }
+                    if (!ok) {
+                        // MAGISK
+                        intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                intent.putExtra("section", "superuser");
+                                // startActivityForResult not working, it is external application
+                                activity.startActivity(intent);
+                                //PPApplication.initRoot();
+                                synchronized (PPApplication.rootMutex) {
+                                    PPApplication.rootMutex.rootChecked = false;
+                                }
+                                ok = true;
+                            } catch (Exception ignore) {
+                            }
+                        }
+                    }
+                    if (!ok) {
+                        /*
+                        AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
+                        dialogBuilder1.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder1.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog2 = dialogBuilder1.create();
+
+//                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+                        */
+
+                        PPAlertDialog dialog2 = new PPAlertDialog(
+                                activity.getString(R.string.phone_profiles_pref_grantRootPermission),
+                                activity.getString(R.string.phone_profiles_pref_grantRootPermission_otherManagers),
+                                activity.getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                false,
+                                activity
+                        );
+
+                        if (!activity.isFinishing())
+                            dialog2.show();
+                    }
+                },
+                (dialog2, which) -> {
+                    if (profilesFragment != null) {
+                        grantRootChanged = true;
+                        profilesFragment.setRedTextToPreferences();
+                    }
+                },
+                null,
+                null,
+                (buttonView, isChecked) -> {
+                    if (profilesFragment != null) {
+                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
+                        editor.apply();
+                        ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+                    }
+                },
+                true, true,
+                checkBoxChecked, checkBoxEnabled,
+                false,
+                activity
+        );
 
         if (!activity.isFinishing())
             dialog.show();
     }
 
     static void grantG1Permission(final ProfilesPrefsFragment fragment, final Activity activity) {
+        /*
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.profile_preferences_types_G1_permission);
         dialogBuilder.setMessage(R.string.phone_profiles_pref_grantG1Permission_summary);
@@ -2881,6 +3039,53 @@ class Permissions {
 //                if (negative != null) negative.setAllCaps(false);
 //            }
 //        });
+        */
+
+        PPAlertDialog dialog = new PPAlertDialog(activity.getString(R.string.profile_preferences_types_G1_permission),
+                activity.getString(R.string.phone_profiles_pref_grantG1Permission_summary),
+                activity.getString(R.string.alert_button_grant), activity.getString(R.string.alert_button_not_grant),
+                null,
+                activity.getString(R.string.alert_message_enable_event_check_box),
+                (dialog1, which) -> {
+                    if (fragment != null) {
+                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+                        editor.apply();
+                        ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
+
+                        //grantRootChanged = true;
+                        fragment.setRedTextToPreferences();
+                    }
+
+                    Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
+                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
+                    activity.startActivity(intentLaunch);
+                },
+                (dialog2, which) -> {
+                    if (fragment != null) {
+                        //grantRootChanged = true;
+                        fragment.setRedTextToPreferences();
+                    }
+                },
+                null,
+                null,
+                (buttonView, isChecked) -> {
+                    if (fragment != null) {
+                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, isChecked);
+                        editor.apply();
+                        ApplicationPreferences.applicationNeverAskForGrantG1Permission(activity.getApplicationContext());
+                    }
+                },
+                true, true,
+                ApplicationPreferences.applicationNeverAskForGrantG1Permission, true,
+                false,
+                activity
+        );
 
         if (!activity.isFinishing())
             dialog.show();
@@ -2892,7 +3097,9 @@ class Permissions {
             if (notificationManager != null) {
                 if (!notificationManager.areNotificationsEnabled()) {
 
+                    /*
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                    dialogBuilder.setTitle(R.string.ppp_app_name);
                     dialogBuilder.setMessage(R.string.notifications_permission_text);
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.enable_notificaitons_button, (dialog, which) -> {
@@ -2938,6 +3145,60 @@ class Permissions {
                     AlertDialog dialog = dialogBuilder.create();
                     dialog.setCancelable(false);
                     dialog.setCanceledOnTouchOutside(false);
+                    */
+
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            activity.getString(R.string.ppp_app_name),
+                            activity.getString(R.string.notifications_permission_text),
+                            activity.getString(R.string.enable_notificaitons_button),
+                            null,
+                            null, null,
+                            (dialog1, which) -> {
+                                boolean ok = false;
+
+                                Intent intent = new Intent();
+                                intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                                intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
+
+                                if (GlobalGUIRoutines.activityIntentExists(intent, activity.getApplicationContext())) {
+                                    try {
+                                        activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
+                                        ok = true;
+                                    } catch (Exception e) {
+                                        PPApplication.recordException(e);
+                                    }
+                                }
+                                if (!ok) {
+                                    PPAlertDialog _dialog = new PPAlertDialog(
+                                            activity.getString(R.string.phone_profiles_pref_notificationSystemSettings),
+                                            activity.getString(R.string.setting_screen_not_found_alert),
+                                            activity.getString(android.R.string.ok),
+                                            null,
+                                            null, null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            null,
+                                            true, true,
+                                            false, false,
+                                            true,
+                                            activity
+                                    );
+
+                                    if (!activity.isFinishing())
+                                        _dialog.show();
+                                }
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            false, false,
+                            false, false,
+                            false,
+                            activity
+                    );
 
                     if (!activity.isFinishing())
                         dialog.show();

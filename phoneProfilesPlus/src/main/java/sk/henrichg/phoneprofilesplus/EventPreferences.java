@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
 //import androidx.preference.PreferenceManager;
@@ -88,13 +89,21 @@ abstract class EventPreferences {
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
                 return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ "+sensorTitle+" ]");
             }
-        }
-        else {
+        } else {
             //int labelColor = GlobalGUIRoutines.getThemeWhiteTextColor(context);
             //String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
             //return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
-            return "[ "+sensorTitle+" ]";//+":";
+            return "[ " + sensorTitle + " ]";//+":";
         }
+    }
+
+    String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
+        if (!disabled) {
+            int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+        } else
+            return preferenceValue;
     }
 
     //abstract void setSummary(PreferenceManager prefMng, String key, String value, Context context);

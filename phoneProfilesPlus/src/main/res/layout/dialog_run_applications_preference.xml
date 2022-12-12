@@ -42,7 +42,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <RelativeLayout
                 android:id="@+id/run_applications_pref_dlg_et_btn2"
@@ -92,7 +92,7 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="?attr/dialogDivider" />
+                android:background="@color/dialog_divider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/run_applications_pref_dlg_listview"
@@ -104,7 +104,8 @@
                 android:paddingBottom="5dp"
                 android:clipToPadding="false"
                 android:scrollbars="vertical"
-                android:scrollbarStyle="outsideOverlay" />
+                android:scrollbarStyle="outsideOverlay"
+                android:fadeScrollbars="false" />
 
         </LinearLayout>
 

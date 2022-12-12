@@ -29,17 +29,20 @@
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
 // 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
 
+// TODO toto nastav pre release, vid PhoneProfilesService.doForPackageReplaced()
+// 6900 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
+
 ext.ppVersions = [
-    publishVersion: '6.0.1',
-    publishVersionCode: 6810,
+        publishVersion    : '6.1',
+        publishVersionCode: 6900,
 
-    minSdk: 24,
-    targetSdk: 28,
-    compileSdk: 32,
-    buildTools: '33.0.0',
+        minSdk            : 24,
+        targetSdk         : 28,
+        compileSdk        : 33,
+        buildTools        : '33.0.0',
 
-    appcompatXLib: '1.4.2',
-    recyclerView: '1.2.1',
+        appcompatXLib     : '1.5.1', //'1.4.2',
+        recyclerView      : '1.2.1',
 
-    acra: '5.9.6'
+        acra              : '5.9.7'
 ]

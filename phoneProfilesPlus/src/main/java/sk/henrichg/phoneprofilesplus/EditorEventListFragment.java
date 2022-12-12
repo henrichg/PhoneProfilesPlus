@@ -35,7 +35,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationManagerCompat;
@@ -44,6 +43,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -55,13 +57,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 //import me.drakeet.support.toast.ToastCompat;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
-    public DataWrapper activityDataWrapper;
+    DataWrapper activityDataWrapper;
 
     private View rootView;
     private RelativeLayout activatedProfileHeader;
@@ -77,7 +80,7 @@ public class EditorEventListFragment extends Fragment
     private EditorEventListAdapter eventListAdapter;
     private ItemTouchHelper itemTouchHelper;
 
-    private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
+    private LoadEventListAsyncTask loadAsyncTask = null;
 
     Event scrollToEvent = null;
 
@@ -186,6 +189,7 @@ public class EditorEventListFragment extends Fragment
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
 
         //getActivity().getIntent();
 
@@ -547,77 +551,85 @@ public class EditorEventListFragment extends Fragment
         @Override
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
-            
+
             EditorEventListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
-                progressBarHandler.removeCallbacks(progressBarRunnable);
-                fragment.progressBar.setVisibility(View.GONE);
+                if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
+                    progressBarHandler.removeCallbacks(progressBarRunnable);
+                    fragment.progressBar.setVisibility(View.GONE);
 
-                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                    fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                // get local profileList
-                _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-                // set local profile list into activity dataWrapper
-                fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+                    // get local profileList
+                    //_dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
+                    // set local profile list into activity dataWrapper
+                    fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
-                // get local eventList
-                _dataWrapper.fillEventList();
-                // set local event list into activity dataWrapper
-                fragment.activityDataWrapper.copyEventList(_dataWrapper);
+                    // get local eventList
+                    //_dataWrapper.fillEventList();
+                    // set local event list into activity dataWrapper
+                    fragment.activityDataWrapper.copyEventList(_dataWrapper);
 
 
-                synchronized (fragment.activityDataWrapper.eventList) {
-                    if (fragment.activityDataWrapper.eventList.size() == 0)
-                        fragment.textViewNoData.setVisibility(VISIBLE);
-                }
+                    synchronized (fragment.activityDataWrapper.eventList) {
+                        if (fragment.activityDataWrapper.eventList.size() == 0)
+                            fragment.textViewNoData.setVisibility(VISIBLE);
+                    }
 
-                // get local eventTimelineList
-                _dataWrapper.getEventTimelineList(true);
-                // set copy local event timeline list into activity dataWrapper
-                fragment.activityDataWrapper.copyEventTimelineList(_dataWrapper);
+                    // get local eventTimelineList
+                    _dataWrapper.getEventTimelineList(true);
+                    // set copy local event timeline list into activity dataWrapper
+                    fragment.activityDataWrapper.copyEventTimelineList(_dataWrapper);
 
-                _dataWrapper.clearProfileList();
-                _dataWrapper.clearEventList();
-                _dataWrapper.clearEventTimelineList();
+                    _dataWrapper.clearProfileList();
+                    _dataWrapper.clearEventList();
+                    _dataWrapper.clearEventTimelineList();
 
-                fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
+                    fragment.eventListAdapter = new EditorEventListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
-                // added touch helper for drag and drop items
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
-                fragment.itemTouchHelper = new ItemTouchHelper(callback);
-                fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
+                    // added touch helper for drag and drop items
+                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(fragment.eventListAdapter, false, false);
+                    fragment.itemTouchHelper = new ItemTouchHelper(callback);
+                    fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
 
-                fragment.listView.setAdapter(fragment.eventListAdapter);
+                    fragment.listView.setAdapter(fragment.eventListAdapter);
 
-                Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
-                fragment.updateHeader(profile);
+                    Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
+                    fragment.updateHeader(profile);
 
-                fragment.eventListAdapter.notifyDataSetChanged(false);
+                    fragment.eventListAdapter.notifyDataSetChanged(false);
 
-                if (defaultEventsGenerated)
-                {
-                    if ((fragment.getActivity() != null ) && (!fragment.getActivity().isFinishing()))
-                        PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
-                                fragment.getString(R.string.toast_predefined_events_generated),
-                                Toast.LENGTH_SHORT);
+                    if (defaultEventsGenerated) {
+                        if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
+                            PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
+                                    fragment.getString(R.string.toast_predefined_events_generated),
+                                    Toast.LENGTH_SHORT);
+                    }
                 }
             }
         }
     }
 
-    boolean isAsyncTaskPendingOrRunning() {
+    boolean isAsyncTaskRunning() {
         try {
-            return this.asyncTaskContext != null &&
-                    this.asyncTaskContext.get() != null &&
-                    !this.asyncTaskContext.get().getStatus().equals(AsyncTask.Status.FINISHED);
+            //Log.e("EditorEventListFragment.isAsyncTaskRunning", "loadAsyncTask="+loadAsyncTask);
+            //Log.e("EditorEventListFragment.isAsyncTaskRunning", "loadAsyncTask.getStatus()="+loadAsyncTask.getStatus());
+
+            return (loadAsyncTask != null) &&
+                    loadAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING);
         } catch (Exception e) {
             return false;
         }
     }
 
     void stopRunningAsyncTask() {
-        this.asyncTaskContext.get().cancel(true);
+        loadAsyncTask.cancel(true);
+        if (activityDataWrapper != null) {
+            synchronized (activityDataWrapper.eventList) {
+                activityDataWrapper.invalidateDataWrapper();
+            }
+        }
     }
 
     @Override
@@ -625,7 +637,8 @@ public class EditorEventListFragment extends Fragment
     {
         super.onDestroy();
 
-        if (isAsyncTaskPendingOrRunning()) {
+        if (isAsyncTaskRunning()) {
+            //Log.e("EditorEventListFragment.onDestroy", "AsyncTask not finished");
             stopRunningAsyncTask();
         }
 
@@ -797,6 +810,32 @@ public class EditorEventListFragment extends Fragment
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
+                            .setInitialDelay(30, TimeUnit.MINUTES)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+                    workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
         } else {
             if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                 // pause event
@@ -826,6 +865,31 @@ public class EditorEventListFragment extends Fragment
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
             PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
+                            .setInitialDelay(30, TimeUnit.MINUTES)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+                    workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
         }
         return true;
     }
@@ -901,12 +965,13 @@ public class EditorEventListFragment extends Fragment
         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
         PPApplication.runCommand(getActivity(), commandIntent);
 
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
     }
 
-    public void showEditMenu(View view)
+    void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
@@ -966,24 +1031,23 @@ public class EditorEventListFragment extends Fragment
     private void deleteEventWithAlert(Event event)
     {
         final Event _event = event;
-        //noinspection ConstantConditions
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
-        dialogBuilder.setMessage(getString(R.string.delete_event_alert_message));
-        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteEvent(_event));
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-        AlertDialog dialog = dialogBuilder.create();
 
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
+        PPAlertDialog dialog = new PPAlertDialog(
+                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.delete_event_alert_message),
+                getString(R.string.alert_button_yes),
+                getString(R.string.alert_button_no),
+                null, null,
+                (dialog1, which) -> deleteEvent(_event),
+                null,
+                null,
+                null,
+                null,
+                true, true,
+                false, false,
+                true,
+                getActivity()
+        );
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             dialog.show();
@@ -992,63 +1056,62 @@ public class EditorEventListFragment extends Fragment
     private void deleteAllEvents()
     {
         if (eventListAdapter != null) {
-            //noinspection ConstantConditions
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-            dialogBuilder.setTitle(getString(R.string.alert_title_delete_all_events));
-            dialogBuilder.setMessage(getString(R.string.alert_message_delete_all_events));
-            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.alert_title_delete_all_events),
+                    getString(R.string.alert_message_delete_all_events),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                activityDataWrapper.stopAllEventsFromMainThread(true, true);
+                        activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
-                synchronized (activityDataWrapper.eventList) {
-                    // remove notifications about event parameters errors
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
-                    //noinspection ForLoopReplaceableByForEach
-                    for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
-                        Event event = it.next();
-                        try {
-                            notificationManager.cancel(
-                                    PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
-                                    PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
+                        synchronized (activityDataWrapper.eventList) {
+                            // remove notifications about event parameters errors
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(activityDataWrapper.context);
+                            //noinspection ForLoopReplaceableByForEach
+                            for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
+                                Event event = it.next();
+                                try {
+                                    notificationManager.cancel(
+                                            PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG + "_" + event._id,
+                                            PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            }
                         }
-                    }
-                }
 
-                eventListAdapter.clear();
-                // this is in eventListAdapter.clear()
-                //eventListAdapter.notifyDataSetChanged();
+                        eventListAdapter.clear();
+                        // this is in eventListAdapter.clear()
+                        //eventListAdapter.notifyDataSetChanged();
 
-                if (getActivity() != null) {
-                    /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
-                    PPApplication.startPPService(getActivity(), serviceIntent);*/
-                    Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                    //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
-                    PPApplication.runCommand(getActivity(), commandIntent);
-                }
+                        if (getActivity() != null) {
+                            /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
+                            PPApplication.startPPService(getActivity(), serviceIntent);*/
+                            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
+                            commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
+                            PPApplication.runCommand(getActivity(), commandIntent);
+                        }
 
-                onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-            AlertDialog dialog = dialogBuilder.create();
-
-//            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                @Override
-//                public void onShow(DialogInterface dialog) {
-//                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                    if (positive != null) positive.setAllCaps(false);
-//                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                    if (negative != null) negative.setAllCaps(false);
-//                }
-//            });
+                        onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    getActivity()
+            );
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();
@@ -1200,8 +1263,10 @@ public class EditorEventListFragment extends Fragment
     @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
-        if (isAsyncTaskPendingOrRunning()) {
-            this.asyncTaskContext.get().cancel(true);
+//        Log.e("EditorEventListFragment.changeListOrder", "fromOnViewCreated="+fromOnViewCreated);
+        if (isAsyncTaskRunning()) {
+            //Log.e("EditorEventListFragment.changeListOrder", "AsyncTask running");
+            stopRunningAsyncTask();
         }
 
         this.orderType = orderType;
@@ -1209,9 +1274,10 @@ public class EditorEventListFragment extends Fragment
         if (fromOnViewCreated) {
             synchronized (activityDataWrapper.eventList) {
                 if (!activityDataWrapper.eventListFilled) {
-                    LoadEventListAsyncTask asyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
-                    this.asyncTaskContext = new WeakReference<>(asyncTask);
-                    asyncTask.execute();
+//                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
+                    // start new AsyncTask, because old may be cancelled
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     if (eventListAdapter != null) {
@@ -1249,48 +1315,54 @@ public class EditorEventListFragment extends Fragment
         }
         else {
             synchronized (activityDataWrapper.eventList) {
-                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
+                if (!activityDataWrapper.eventListFilled) {
+//                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
+                    // start new AsyncTask, because old may be cancelled
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask.execute();
+                } else {
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
-                if (filterType == FILTER_TYPE_START_ORDER)
-                    EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
-                else
-                    EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
-                synchronized (activityDataWrapper.profileList) {
-                    Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
-                            ApplicationPreferences.applicationEditorPrefIndicator);
-                    updateHeader(profile);
-                }
-                eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
+                    if (filterType == FILTER_TYPE_START_ORDER)
+                        EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
+                    else
+                        EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                    synchronized (activityDataWrapper.profileList) {
+                        Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
+                                ApplicationPreferences.applicationEditorPrefIndicator);
+                        updateHeader(profile);
+                    }
+                    eventListAdapter = new EditorEventListAdapter(this, activityDataWrapper, filterType, this);
 
-                // added touch helper for drag and drop items
-                ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
-                itemTouchHelper = new ItemTouchHelper(callback);
-                itemTouchHelper.attachToRecyclerView(listView);
+                    // added touch helper for drag and drop items
+                    ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(eventListAdapter, false, false);
+                    itemTouchHelper = new ItemTouchHelper(callback);
+                    itemTouchHelper.attachToRecyclerView(listView);
 
-                listView.setAdapter(eventListAdapter);
+                    listView.setAdapter(eventListAdapter);
 
-                int eventPos = ListView.INVALID_POSITION;
-                if (scrollToEvent != null) {
-                    eventPos = eventListAdapter.getItemPosition(scrollToEvent);
-                    scrollToEvent = null;
-                }
+                    int eventPos = ListView.INVALID_POSITION;
+                    if (scrollToEvent != null) {
+                        eventPos = eventListAdapter.getItemPosition(scrollToEvent);
+                        scrollToEvent = null;
+                    }
 
-                eventListAdapter.notifyDataSetChanged();
+                    eventListAdapter.notifyDataSetChanged();
 
-                if (eventPos != ListView.INVALID_POSITION) {
-                    if (listView != null) {
-                        // set event visible in list
-                        //int last = listView.getLastVisiblePosition();
-                        //int first = listView.getFirstVisiblePosition();
-                        //if ((eventPos <= first) || (eventPos >= last)) {
-                        //    listView.setSelection(eventPos);
-                        //}
-                        RecyclerView.LayoutManager lm = listView.getLayoutManager();
-                        if (lm != null)
-                            lm.scrollToPosition(eventPos);
+                    if (eventPos != ListView.INVALID_POSITION) {
+                        if (listView != null) {
+                            // set event visible in list
+                            //int last = listView.getLastVisiblePosition();
+                            //int first = listView.getFirstVisiblePosition();
+                            //if ((eventPos <= first) || (eventPos >= last)) {
+                            //    listView.setSelection(eventPos);
+                            //}
+                            RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                            if (lm != null)
+                                lm.scrollToPosition(eventPos);
+                        }
                     }
                 }
-
             }
         }
     }
@@ -1981,39 +2053,6 @@ public class EditorEventListFragment extends Fragment
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
     }
-
-    /*
-    void updateEventForceRun(final Event event) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        int noPause = event._forceRun ? 1 : 0;
-        dialogBuilder.setSingleChoiceItems(R.array.ignoreManualActivationArray, noPause, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                event._forceRun = which == 1;
-                DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
-                eventListAdapter.notifyDataSetChanged();
-
-                EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
-
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = dialogBuilder.create();
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-        if (!getActivity().isFinishing())
-            dialog.show();
-    }
-    */
 
     void showHeaderAndBottomToolbar() {
         if (activatedProfileHeader != null)

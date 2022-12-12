@@ -159,6 +159,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR = "unregister_receivers_for_call_sensor";
     static final String EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR = "register_receivers_for_sms_sensor";
     static final String EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR = "unregister_receivers_for_sms_sensor";
+    static final String EXTRA_DISABLE_NOT_USED_SCANNERS = "disable_not_used_scanners";
 
     //static final String EXTRA_SHOW_TOAST = "show_toast";
 
@@ -265,6 +266,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {}
         }*/
         // show notification to avoid ANR in api level 26+
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of showProfileNotification");
         PhoneProfilesNotification.showProfileNotification(getApplicationContext(),
                 !isServiceRunning, isServiceRunning, true);
 
@@ -396,7 +398,7 @@ public class PhoneProfilesService extends Service
                         .setInitialDelay(PPApplication.APPLICATION_START_DELAY, TimeUnit.MILLISECONDS)
                         .build();
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, false)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     workManager.enqueueUniqueWork(MainWorker.APPLICATION_FULLY_STARTED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
@@ -1265,40 +1267,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            boolean allowed = false;
-
-            dataWrapper.fillEventList();
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
-            /*if (!allowed) {
-                String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
-                if (powerSaveModeInternal.equals("1") || powerSaveModeInternal.equals("2")) {
-                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALL_SENSORS);
-                    if (eventsExists) {
-                        allowed = ApplicationPreferences.applicationEventWifiEnableScanning &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED);
-                        if (!allowed)
-                            allowed = ApplicationPreferences.applicationEventBluetoothEnableScanning &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-                        if (!allowed)
-                            allowed = ApplicationPreferences.applicationEventLocationEnableScanning &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-                        if (!allowed)
-                            allowed = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-                        if (!allowed)
-                            allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-                    }
-                }
-            }*/
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY_WITH_LEVEL/*, false*/);
+            }
             if (allowed) {
                 // get power save mode from PPP settings (tested will be value "1" = 5%, "2" = 15%)
                 if (PPApplication.batteryLevelChangedReceiver == null) {
@@ -1326,14 +1300,16 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            boolean allowed = false;
-
-            dataWrapper.fillEventList();
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean eventsExists = false;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY/*, false*/);
+            }
             if (!eventsExists) {
+                allowed = false;
+                dataWrapper.fillEventList();
                 eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALL_SCANNER_SENSORS/*, false*/);
                 if (eventsExists) {
                     allowed = ApplicationPreferences.applicationEventWifiEnableScanning &&
@@ -1347,18 +1323,20 @@ public class PhoneProfilesService extends Service
                         allowed = ApplicationPreferences.applicationEventLocationEnableScanning &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
-                    if (!allowed)
+                    if (!allowed) {
+//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.registerBatteryChargingChangedReceiver", "******** ### *******");
                         allowed = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
-                    if (!allowed)
+                    }
+                    if (!allowed) {
+//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.registerBatteryChargingChangedReceiver", "******** ### *******");
                         allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
+                    }
                     if (!allowed)
-                        allowed = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;/* &&
-                                (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED);*/
+                        allowed = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;
                 }
             }
             if (allowed) {
@@ -1397,12 +1375,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ACCESSORY/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, appContext).allowed ==
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ACCESSORY/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.headsetPlugReceiver == null) {
                     PPApplication.headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
@@ -1454,12 +1432,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
+            }
             if (allowed) {
                 /*if (smsBroadcastReceiver == null) {
                     smsBroadcastReceiver = new SMSBroadcastReceiver();
@@ -1487,7 +1465,7 @@ public class PhoneProfilesService extends Service
                     appContext.registerReceiver(PPApplication.smsEventEndBroadcastReceiver, intentFilter22);
                 }
 
-                Log.e("PhoneProfilesService.registerReceiverForSMSSensor", "xxx");
+//                Log.e("PhoneProfilesService.registerReceiverForSMSSensor", "xxx");
             }
             else
                 registerReceiverForSMSSensor(false, dataWrapper);
@@ -1523,12 +1501,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALENDAR/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALENDAR/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.eventCalendarBroadcastReceiver == null) {
                     PPApplication.eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
@@ -1568,12 +1546,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_AIRPLANE_MODE/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_AIRPLANE_MODE/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.airplaneModeStateChangedBroadcastReceiver == null) {
                     PPApplication.airplaneModeStateChangedBroadcastReceiver = new AirplaneModeStateChangedBroadcastReceiver();
@@ -1602,12 +1580,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_NFC/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_NFC/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.nfcStateChangedBroadcastReceiver == null) {
                     if (PPApplication.HAS_FEATURE_NFC) {
@@ -1639,12 +1617,12 @@ public class PhoneProfilesService extends Service
                 }
             }
             if (register) {
-                dataWrapper.fillEventList();
-                boolean allowed = false;
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA/*, false*/);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (allowed) {
+                    dataWrapper.fillEventList();
+                    allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA/*, false*/);
+                }
                 if (allowed) {
                     if (PPApplication.mobileDataStateChangedContentObserver == null) {
                         PPApplication.mobileDataStateChangedContentObserver = new MobileDataStateChangedContentObserver(appContext, new Handler(PPApplication.handlerThreadBroadcast.getLooper()));
@@ -1670,16 +1648,15 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = false;
-            if (Build.VERSION.SDK_INT >= 26) {
-                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS/*, false*/);
-                eventsExists = eventsExists || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS/*, false*/);
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                if (Build.VERSION.SDK_INT >= 26) {
+                    dataWrapper.fillEventList();
+                    allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS/*, false*/);
+                    allowed = allowed || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS/*, false*/);
+                }
             }
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 if (PPApplication.defaultSIMChangedBroadcastReceiver == null) {
                     PPApplication.defaultSIMChangedBroadcastReceiver = new DefaultSIMChangedBroadcastReceiver();
@@ -1718,12 +1695,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALARM_CLOCK/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALARM_CLOCK/*, false*/);
+            }
             if (allowed) {
                 /*if (android.os.Build.VERSION.SDK_INT < 21) {
                     if (alarmClockBroadcastReceiver == null) {
@@ -1794,12 +1771,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed ==
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.notificationEventEndBroadcastReceiver == null) {
                     PPApplication.notificationEventEndBroadcastReceiver = new NotificationEventEndBroadcastReceiver();
@@ -1811,44 +1788,6 @@ public class PhoneProfilesService extends Service
                 registerReceiverForNotificationSensor(false, dataWrapper);
         }
     }
-
-    /*
-    private void registerReceiverForOrientationSensor(boolean register, DataWrapper dataWrapper) {
-        Context appContext = getApplicationContext();
-        if (!register) {
-            if (PPApplication.orientationEventBroadcastReceiver != null) {
-                try {
-                    appContext.unregisterReceiver(PPApplication.orientationEventBroadcastReceiver);
-                    PPApplication.orientationEventBroadcastReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.orientationEventBroadcastReceiver = null;
-                }
-            }
-        }
-        if (register) {
-            if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-                boolean eventAllowed = false;
-                if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)) {
-                    // start only for screen On
-                    dataWrapper.fillEventList();
-                    boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION);
-                    if (eventsExists)
-                        eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                if (eventAllowed) {
-                    if (PPApplication.orientationEventBroadcastReceiver == null) {
-                        PPApplication.orientationEventBroadcastReceiver = new OrientationEventBroadcastReceiver();
-                        IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
-                        appContext.registerReceiver(PPApplication.orientationEventBroadcastReceiver, intentFilter22);
-                    }
-                } else
-                    registerReceiverForOrientationSensor(false, dataWrapper);
-            } else
-                registerReceiverForOrientationSensor(false, dataWrapper);
-        }
-    }
-    */
 
     private void registerReceiverForDeviceBootSensor(boolean register, DataWrapper dataWrapper) {
         //if (android.os.Build.VERSION.SDK_INT < 21)
@@ -1866,12 +1805,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.deviceBootEventEndBroadcastReceiver == null) {
                     PPApplication.deviceBootEventEndBroadcastReceiver = new DeviceBootEventEndBroadcastReceiver();
@@ -1900,12 +1839,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_PERIODIC/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_PERIODIC/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.periodicEventEndBroadcastReceiver == null) {
                     PPApplication.periodicEventEndBroadcastReceiver = new PeriodicEventEndBroadcastReceiver();
@@ -1931,12 +1870,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ACTIVATED_PROFILE/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ACTIVATED_PROFILE/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.activatedProfileEventBroadcastReceiver == null) {
                     PPApplication.activatedProfileEventBroadcastReceiver = new ActivatedProfileEventBroadcastReceiver();
@@ -2033,24 +1972,23 @@ public class PhoneProfilesService extends Service
             unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
         }
         if (register) {
-            dataWrapper.fillProfileList(false, false);
-            dataWrapper.fillEventList();
+            boolean smsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
+            boolean callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
+            if (smsAllowed || callAllowed) {
+                //dataWrapper.fillProfileList(false, false);
+                dataWrapper.fillEventList();
+            }
+            if (smsAllowed)
+                smsAllowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
+            if (callAllowed)
+                callAllowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
 
-            boolean smsAllowed = false;
-            boolean callAllowed = false;
-            boolean smsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
-            if (smsExists)
-                smsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED);
-            boolean callExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
-            if (callExists)
-                callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED);
-
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsExists="+smsExists);
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsAllowed="+smsAllowed);
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callExists="+callExists);
-            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callAllowed="+callAllowed);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsExists="+smsExists);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "smsAllowed="+smsAllowed);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callExists="+callExists);
+//            Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "callAllowed="+callAllowed);
 
             if (smsAllowed || callAllowed) {
                 if (smsAllowed) {
@@ -2068,7 +2006,7 @@ public class PhoneProfilesService extends Service
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_REGISTER);
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
-                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "SMS");
+//                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "SMS");
                 }
                 else
                     unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
@@ -2088,7 +2026,7 @@ public class PhoneProfilesService extends Service
                     intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_REGISTER);
                     sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
-                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "Call");
+//                    Log.e("PhoneProfilesService.registerPPPExtenderReceiverForSMSCall", "Call");
                 }
                 else
                     unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
@@ -2110,40 +2048,41 @@ public class PhoneProfilesService extends Service
             unregisterPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
         }
         if (register) {
-            dataWrapper.fillProfileList(false, false);
-            dataWrapper.fillEventList();
+            boolean forceStopAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, false, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean lockDeviceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, false, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean applicationsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
+            boolean orientationAllowed = (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
+            boolean smsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
+            boolean callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
 
-            boolean forceStopAllowed = false;
-            boolean applicationsAllowed = false;
-            boolean orientationAllowed = false;
-            boolean smsAllowed = false;
-            boolean callAllowed = false;
-            boolean lockDeviceAllowed = false;
-            boolean forceStopExists = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_FORCE_STOP/*, false*/);
-            if (forceStopExists)
-                forceStopAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, false, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            boolean lockDeviceExists = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_LOCK_DEVICE/*, false*/);
-            if (lockDeviceExists)
-                lockDeviceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, false, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            boolean applicationExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
-            if (applicationExists)
-                applicationsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED);
-            boolean orientationExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
-            if (orientationExists)
-                orientationAllowed = (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED);
-            boolean smsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
-            if (smsExists)
-                smsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED);
-            boolean callExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
-            if (callExists)
-                callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED);
             if (forceStopAllowed || applicationsAllowed || orientationAllowed || smsAllowed || callAllowed || lockDeviceAllowed) {
+                dataWrapper.fillProfileList(false, false);
+                dataWrapper.fillEventList();
+
+                if (forceStopAllowed)
+                    forceStopAllowed = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_FORCE_STOP/*, false*/);
+
+                if (lockDeviceAllowed)
+                    lockDeviceAllowed = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_LOCK_DEVICE/*, false*/);
+
+                if (applicationsAllowed)
+                    applicationsAllowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
+
+                if (orientationAllowed)
+                    orientationAllowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+
+                if (smsAllowed)
+                    smsAllowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_SMS/*, false*/);
+
+                if (callAllowed)
+                    callAllowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
+
                 if (forceStopAllowed) {
                     if (PPApplication.pppExtenderForceStopApplicationBroadcastReceiver == null) {
                         PPApplication.pppExtenderForceStopApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
@@ -2250,43 +2189,50 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_GPS/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+            if (ApplicationPreferences.applicationEventLocationEnableScanning) {
+                boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (!eventsExists) {
-                if (ApplicationPreferences.applicationEventLocationEnableScanning) {
+                boolean eventsExists = false;
+                if (allowed) {
+                    dataWrapper.fillEventList();
+                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_GPS/*, false*/);
+                }
+                if (!eventsExists) {
+                    allowed = false;
                     // location scanner is enabled
                     //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)) {
                         // start only for screen On
-                        eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
-                        if (eventsExists)
-                            allowed =  Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED;
+                        allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                        if (allowed) {
+                            dataWrapper.fillEventList();
+                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
+                        }
+                        if (!eventsExists)
+                            allowed = false;
                     }
                 }
-            }
-            if (allowed) {
-                if (PPApplication.locationModeChangedBroadcastReceiver == null) {
-                    PPApplication.locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
-                    IntentFilter intentFilter18 = new IntentFilter();
-                    intentFilter18.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
-                    //if (android.os.Build.VERSION.SDK_INT >= 19)
+
+                if (allowed) {
+                    if (PPApplication.locationModeChangedBroadcastReceiver == null) {
+                        PPApplication.locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
+                        IntentFilter intentFilter18 = new IntentFilter();
+                        intentFilter18.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
+                        //if (android.os.Build.VERSION.SDK_INT >= 19)
                         intentFilter18.addAction(LocationManager.MODE_CHANGED_ACTION);
-                    appContext.registerReceiver(PPApplication.locationModeChangedBroadcastReceiver, intentFilter18);
-                }
-            }
-            else
+                        appContext.registerReceiver(PPApplication.locationModeChangedBroadcastReceiver, intentFilter18);
+                    }
+                } else
+                    registerLocationModeChangedBroadcastReceiver(false, dataWrapper);
+            } else
                 registerLocationModeChangedBroadcastReceiver(false, dataWrapper);
         }
     }
 
     private void registerBluetoothStateChangedBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
+        if (!forceRegister && BluetoothNamePreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.bluetoothStateChangedBroadcastReceiver != null) {
@@ -2299,125 +2245,53 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            if (BluetoothNamePreferenceX.forceRegister)
-                allowed = true;
-            else {
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH/*, false*/);
-                if (eventsExists)
+            if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+                boolean allowed;
+                boolean eventsExists = false;
+                if (BluetoothNamePreference.forceRegister)
+                    allowed = true;
+                else {
                     allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                             PreferenceAllowed.PREFERENCE_ALLOWED;
-                if (!eventsExists) {
-                    if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+                    if (allowed) {
+                        dataWrapper.fillEventList();
+                        eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH/*, false*/);
+                    }
+                    if (!eventsExists) {
+                        allowed = false;
                         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)) {
                             // start only for screen On
-                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED/*, false*/);
+                            allowed = (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
+                                    PreferenceAllowed.PREFERENCE_ALLOWED);
+                            if (allowed) {
+                                dataWrapper.fillEventList();
+                                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED/*, false*/);
+                                if (!eventsExists)
+                                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
+                            }
                             if (!eventsExists)
-                                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
-                            if (eventsExists)
-                                allowed = (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                                allowed = false;
                         }
                     }
                 }
-            }
-            if (allowed) {
-                if (PPApplication.bluetoothStateChangedBroadcastReceiver == null) {
-                    PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
-                    IntentFilter intentFilter15 = new IntentFilter();
-                    intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-                    appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
-                }
-            }
-            else
+                if (allowed) {
+                    if (PPApplication.bluetoothStateChangedBroadcastReceiver == null) {
+                        PPApplication.bluetoothStateChangedBroadcastReceiver = new BluetoothStateChangedBroadcastReceiver();
+                        IntentFilter intentFilter15 = new IntentFilter();
+                        intentFilter15.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+                        appContext.registerReceiver(PPApplication.bluetoothStateChangedBroadcastReceiver, intentFilter15);
+                    }
+                } else
+                    registerBluetoothStateChangedBroadcastReceiver(false, dataWrapper, forceRegister);
+            } else
                 registerBluetoothStateChangedBroadcastReceiver(false, dataWrapper, forceRegister);
         }
     }
 
-    /*
-    private void registerBluetoothConnectionBroadcastReceiver(boolean register, boolean checkDatabase, boolean forceRegister) {
-        final Context appContext = getApplicationContext();
-        if (!forceRegister && BluetoothNamePreference.forceRegister)
-            return;
-        if (!register) {
-            if (bluetoothConnectionBroadcastReceiver != null) {
-                try {
-                    unregisterReceiver(bluetoothConnectionBroadcastReceiver);
-                    bluetoothConnectionBroadcastReceiver = null;
-                } catch (Exception e) {
-                    bluetoothConnectionBroadcastReceiver = null;
-                }
-            }
-        }
-        if (register) {
-            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (allowed) {
-                int eventCount = 1;
-                int eventScannerCount = 1;
-                if (checkDatabase) {
-                    //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext))) {
-                        // start only for screen On
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_CONNECTED);
-                        eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY);
-                    }
-                    else {
-                        eventScannerCount = 0;
-                        eventCount = 0;
-                    }
-                }
-                eventCount = eventCount + eventScannerCount;
-                if (eventCount > 0) {
-                    if (bluetoothConnectionBroadcastReceiver == null) {
-
-                        // add not registered bluetooth devices (but not watches :-( )
-                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                PowerManager.WakeLock wakeLock = null;
-                                try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService_registerBluetoothConnectionBroadcastReceiver");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                                List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
-                                BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
-                                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                } finally (
-                                if ((wakeLock != null) && wakeLock.isHeld())
-                                    wakeLock.release();
-                                }
-                                }
-                        });
-
-                        bluetoothConnectionBroadcastReceiver = new BluetoothConnectionBroadcastReceiver();
-                        IntentFilter intentFilter14 = new IntentFilter();
-                        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
-                        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-                        intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
-                        intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
-                        registerReceiver(bluetoothConnectionBroadcastReceiver, intentFilter14);
-                    }
-                } else {
-                    registerBluetoothConnectionBroadcastReceiver(false, false, forceRegister);
-                }
-            }
-            else
-                registerBluetoothConnectionBroadcastReceiver(false, false, forceRegister);
-        }
-    }
-    */
-
     private void registerBluetoothScannerReceivers(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
+        if (!forceRegister && BluetoothNamePreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.bluetoothScanReceiver != null) {
@@ -2438,18 +2312,22 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
+            if (ApplicationPreferences.applicationEventBluetoothEnableScanning || BluetoothNamePreference.forceRegister) {
                 boolean allowed = false;
-                if (BluetoothNamePreferenceX.forceRegister)
+                boolean eventsExists = false;
+                if (BluetoothNamePreference.forceRegister)
                     allowed = true;
                 else {
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)) {
                         // start only for screen On
-                        dataWrapper.fillEventList();
-                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
-                        if (eventsExists)
-                            allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED;
+                        allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
+                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                        if (allowed) {
+                            dataWrapper.fillEventList();
+                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
+                        }
+                        if (!eventsExists)
+                            allowed = false;
                     }
                 }
                 if (allowed) {
@@ -2475,7 +2353,7 @@ public class PhoneProfilesService extends Service
 
     private void registerWifiAPStateChangeBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
+        if (!forceRegister && WifiSSIDPreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.wifiAPStateChangeBroadcastReceiver != null) {
@@ -2488,17 +2366,21 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventWifiEnableScanning) {
+            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreference.forceRegister) {
                 boolean allowed = false;
-                if (WifiSSIDPreferenceX.forceRegister)
+                boolean eventsExists = false;
+                if (WifiSSIDPreference.forceRegister)
                     allowed = true;
                 else {
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
-                        dataWrapper.fillEventList();
-                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
-                        if (eventsExists)
-                            allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED;
+                        allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
+                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                        if (allowed) {
+                            dataWrapper.fillEventList();
+                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
+                        }
+                        if (!eventsExists)
+                            allowed = false;
                     }
                 }
                 if (allowed) {
@@ -2517,193 +2399,9 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    /*
-    private void registerPowerSaveModeReceiver(boolean register, DataWrapper dataWrapper) {
-        Context appContext = getApplicationContext();
-        if (!register) {
-            if (PPApplication.powerSaveModeReceiver != null) {
-                try {
-                    appContext.unregisterReceiver(PPApplication.powerSaveModeReceiver);
-                    PPApplication.powerSaveModeReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.powerSaveModeReceiver = null;
-                }
-            }
-        }
-        if (register) {
-            //String powerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal;
-
-            dataWrapper.fillEventList();
-            boolean allowed = false; //powerSaveModeInternal.equals("3");
-            //if (!allowed) {
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BATTERY);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
-//                if (!eventsExists) {
-//                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ALL_SENSORS);
-//                    if (eventsExists) {
-//                        allowed = ApplicationPreferences.applicationEventWifiEnableScanning &&
-//                                (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-//                                        PreferenceAllowed.PREFERENCE_ALLOWED);
-//                        if (!allowed)
-//                            allowed = ApplicationPreferences.applicationEventBluetoothEnableScanning &&
-//                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-//                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-//                        if (!allowed)
-//                            allowed = ApplicationPreferences.applicationEventLocationEnableScanning &&
-//                                    (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-//                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-//                        if (!allowed)
-//                            allowed = ApplicationPreferences.applicationEventMobileCellEnableScanning &&
-//                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-//                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-//                        if (!allowed)
-//                            allowed = ApplicationPreferences.applicationEventOrientationEnableScanning &&
-//                                    (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-//                                            PreferenceAllowed.PREFERENCE_ALLOWED);
-//                    }
-//                }
-            //}
-            if (allowed) {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    if (PPApplication.powerSaveModeReceiver == null) {
-                        PPApplication.powerSaveModeReceiver = new PowerSaveModeBroadcastReceiver();
-                        IntentFilter intentFilter10 = new IntentFilter();
-                        intentFilter10.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
-                        appContext.registerReceiver(PPApplication.powerSaveModeReceiver, intentFilter10);
-                    }
-                //}
-            }
-            else
-                registerPowerSaveModeReceiver(false, dataWrapper);
-        }
-    }
-    */
-
-    /*private void registerWifiStateChangedBroadcastReceiver(boolean register, boolean checkDatabase, boolean forceRegister) {
-        Context appContext = getApplicationContext();
-        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
-            return;
-        if (!register) {
-            if (wifiStateChangedBroadcastReceiver != null) {
-                try {
-                    appContext.unregisterReceiver(wifiStateChangedBroadcastReceiver);
-                    wifiStateChangedBroadcastReceiver = null;
-                } catch (Exception e) {
-                    wifiStateChangedBroadcastReceiver = null;
-                }
-            }
-        }
-        if (register) {
-            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PreferenceAllowed.PREFERENCE_ALLOWED;
-            if (profileAllowed || eventAllowed) {
-                int profileCount = 1;
-                int eventCount = 1;
-                int eventScannerCount = 1;
-                if (checkDatabase) { // || (wifiStateChangedBroadcastReceiver == null)) {
-                    if (profileAllowed) {
-                        //profileCount = 0;
-                        profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID);
-                    }
-                    if (eventAllowed) {
-                        if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
-                            //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext))) {
-                                // start only for screen On
-                                eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_NEARBY, false);
-                                eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFI_CONNECTED, false);
-                                eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_WIFI, false);
-                            } else {
-                                eventCount = 0;
-                                eventScannerCount = 0;
-                            }
-                        } else {
-                            eventCount = 0;
-                            eventScannerCount = 0;
-                        }
-                    }
-                    eventCount = eventCount + eventScannerCount;
-                }
-                if ((profileCount > 0) || (eventCount > 0)) {
-                    if (wifiStateChangedBroadcastReceiver == null) {
-                        wifiStateChangedBroadcastReceiver = new WifiStateChangedBroadcastReceiver();
-                        IntentFilter intentFilter8 = new IntentFilter();
-                        intentFilter8.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-                        appContext.registerReceiver(wifiStateChangedBroadcastReceiver, intentFilter8);
-                    }
-                } else {
-                    registerWifiStateChangedBroadcastReceiver(false, false, forceRegister);
-                }
-            }
-            else
-                registerWifiStateChangedBroadcastReceiver(false, false, forceRegister);
-        }
-    }*/
-
-    /*
-    private void registerWifiConnectionBroadcastReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
-        Context appContext = getApplicationContext();
-        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
-            return;
-        if (!register) {
-            if (PPApplication.wifiConnectionBroadcastReceiver != null) {
-                try {
-                    appContext.unregisterReceiver(PPApplication.wifiConnectionBroadcastReceiver);
-                    PPApplication.wifiConnectionBroadcastReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.wifiConnectionBroadcastReceiver = null;
-                }
-            }
-        }
-        if (register) {
-            boolean profileAllowed = false;
-            boolean eventAllowed = false;
-
-            if (WifiSSIDPreferenceX.forceRegister) {
-                profileAllowed = true;
-                eventAllowed = true;
-            }
-            else {
-                dataWrapper.fillProfileList(false, false);
-                boolean profileExists = dataWrapper.profileTypeExists(DatabaseHandler.PTYPE_CONNECT_TO_SSID);
-                if (profileExists)
-                    profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
-
-                if (ApplicationPreferences.applicationEventWifiEnableScanning) {
-                    if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
-                        // start only for screen On
-                        dataWrapper.fillEventList();
-                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY);
-                        if (!eventsExists)
-                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_CONNECTED);
-                        if (eventsExists)
-                            eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                }
-            }
-            if (profileAllowed || eventAllowed) {
-                if (PPApplication.wifiConnectionBroadcastReceiver == null) {
-                    PPApplication.wifiConnectionBroadcastReceiver = new WifiConnectionBroadcastReceiver();
-                    IntentFilter intentFilter13 = new IntentFilter();
-                    intentFilter13.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-                    appContext.registerReceiver(PPApplication.wifiConnectionBroadcastReceiver, intentFilter13);
-                }
-            }
-            else
-                registerWifiConnectionBroadcastReceiver(false, dataWrapper, forceRegister);
-        }
-    }
-    */
-
     private void registerWifiScannerReceiver(boolean register, DataWrapper dataWrapper, boolean forceRegister) {
         Context appContext = getApplicationContext();
-        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
+        if (!forceRegister && WifiSSIDPreference.forceRegister)
             return;
         if (!register) {
             if (PPApplication.wifiScanReceiver != null) {
@@ -2716,18 +2414,22 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            if (ApplicationPreferences.applicationEventWifiEnableScanning) {
+            if (ApplicationPreferences.applicationEventWifiEnableScanning || WifiSSIDPreference.forceRegister) {
                 boolean allowed = false;
-                if (WifiSSIDPreferenceX.forceRegister)
+                boolean eventsExists = false;
+                if (WifiSSIDPreference.forceRegister)
                     allowed = true;
                 else {
                     if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
                         // start only for screen On
-                        dataWrapper.fillEventList();
-                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
-                        if (eventsExists)
-                            allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED;
+                        allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
+                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                        if (allowed) {
+                            dataWrapper.fillEventList();
+                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
+                        }
+                        if (!eventsExists)
+                            allowed = false;
                     }
                 }
                 if (allowed) {
@@ -2758,12 +2460,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_TIME/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, getApplicationContext()).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, getApplicationContext()).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_TIME/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.eventTimeBroadcastReceiver == null) {
                     PPApplication.eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
@@ -2789,12 +2491,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NFC/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, getApplicationContext()).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, getApplicationContext()).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NFC/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.nfcEventEndBroadcastReceiver == null) {
                     PPApplication.nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
@@ -2820,12 +2522,12 @@ public class PhoneProfilesService extends Service
             }
         }
         if (register) {
-            dataWrapper.fillEventList();
-            boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
-            if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, getApplicationContext()).allowed ==
-                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, getApplicationContext()).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                dataWrapper.fillEventList();
+                allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALL/*, false*/);
+            }
             if (allowed) {
                 if (PPApplication.missedCallEventEndBroadcastReceiver == null) {
                     PPApplication.missedCallEventEndBroadcastReceiver = new MissedCallEventEndBroadcastReceiver();
@@ -2833,7 +2535,7 @@ public class PhoneProfilesService extends Service
                     appContext.registerReceiver(PPApplication.missedCallEventEndBroadcastReceiver, intentFilter23);
                 }
 
-                Log.e("PhoneProfilesService.registerReceiverForCallSensor", "xxx");
+//                Log.e("PhoneProfilesService.registerReceiverForCallSensor", "xxx");
             }
             else
                 registerReceiverForCallSensor(false, dataWrapper);
@@ -2862,13 +2564,12 @@ public class PhoneProfilesService extends Service
                 }
             }
             if (register) {
-                boolean allowed = false;
-
-                dataWrapper.fillEventList();
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_VPN/*, false*/);
-                if (eventsExists)
-                    allowed = Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (allowed) {
+                    dataWrapper.fillEventList();
+                    allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_VPN/*, false*/);
+                }
                 if (allowed) {
                     if (PPApplication.vpnConnectionCallback == null) {
                         try {
@@ -2911,13 +2612,17 @@ public class PhoneProfilesService extends Service
         if (register) {
             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                 boolean allowed = false;
+                boolean eventsExists = false;
                 if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)) {
                     // start only for screen On
-                    dataWrapper.fillEventList();
-                    boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
-                    if (eventsExists)
-                        allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                    allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                    if (allowed) {
+                        dataWrapper.fillEventList();
+                        eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
+                    }
+                    if (!eventsExists)
+                        allowed = false;
                 }
                 if (allowed) {
                     if (PPApplication.locationScannerSwitchGPSBroadcastReceiver == null) {
@@ -3001,19 +2706,23 @@ public class PhoneProfilesService extends Service
     void scheduleWifiWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
 
-        if (/*!forceStart &&*/ WifiSSIDPreferenceX.forceRegister)
+        if (/*!forceStart &&*/ WifiSSIDPreference.forceRegister)
             return;
 
         //if (schedule) {
         if (ApplicationPreferences.applicationEventWifiEnableScanning) {
             boolean eventAllowed = false;
+            boolean eventsExists = false;
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn)) {
                 // start only for screen On
-                dataWrapper.fillEventList();
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
-                if (eventsExists)
-                    eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (eventAllowed) {
+                    dataWrapper.fillEventList();
+                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
+                }
+                if (!eventsExists)
+                    eventAllowed = false;
             }
             if (eventAllowed) {
                 //if (!(WifiScanWorker.isWorkScheduled(false) || WifiScanWorker.isWorkScheduled(true))) {
@@ -3023,12 +2732,10 @@ public class PhoneProfilesService extends Service
                         WifiScanWorker.scheduleWork(appContext, true);
                 //    }
                 //}
-            } else {
+            } else
                 cancelWifiWorker(appContext, true, false);
-            }
-        } else {
+        } else
             cancelWifiWorker(appContext, true, false);
-        }
         //}
         //else
         //    cancelWifiWorker(appContext, handler);
@@ -3052,19 +2759,23 @@ public class PhoneProfilesService extends Service
     private void scheduleBluetoothWorker(final DataWrapper dataWrapper) {
         final Context appContext = getApplicationContext();
 
-        if (/*!forceStart &&*/ BluetoothNamePreferenceX.forceRegister)
+        if (/*!forceStart &&*/ BluetoothNamePreference.forceRegister)
             return;
 
         //if (schedule) {
         if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
             boolean eventAllowed = false;
+            boolean eventsExists = false;
             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn)) {
                 // start only for screen On
-                dataWrapper.fillEventList();
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
-                if (eventsExists)
-                    eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (eventAllowed) {
+                    dataWrapper.fillEventList();
+                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
+                }
+                if (!eventsExists)
+                    eventAllowed = false;
             }
             if (eventAllowed) {
                 /*if (BluetoothScanWorker.isWorkScheduled(false) || BluetoothScanWorker.isWorkScheduled(true)) {
@@ -3080,49 +2791,6 @@ public class PhoneProfilesService extends Service
         //    cancelBluetoothWorker(appContext, handler);
     }
 
-    /*
-    private void cancelGeofenceWorker(boolean forSchedule) {
-        if ((!forSchedule) ||
-                (GeofenceScanWorker.isWorkScheduled(false) || GeofenceScanWorker.isWorkScheduled(true))) {
-            GeofenceScanWorker.cancelWork(true);
-        }
-    }
-
-    private void scheduleGeofenceWorker(final DataWrapper dataWrapper) {
-        final Context appContext = getApplicationContext();
-
-        //if (schedule) {
-        if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-            boolean eventAllowed = false;
-            if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)) {
-                // start only for screen On
-                dataWrapper.fillEventList();
-                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION);
-                if (eventsExists)
-                    eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                            PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            if (eventAllowed) {
-                // location scanner is enabled
-                if (GeofenceScanWorker.isWorkScheduled(false) || GeofenceScanWorker.isWorkScheduled(true)) {
-                    GeofenceScanWorker.cancelWork(true);
-                }
-                synchronized (PPApplication.locationScannerMutex) {
-                    if (isLocationScannerStarted()) {
-                        getGeofencesScanner().updateTransitionsByLastKnownLocation();
-                    }
-                }
-                GeofenceScanWorker.scheduleWork(appContext, true);
-            } else
-                cancelGeofenceWorker(true);
-        } else
-            cancelGeofenceWorker(true);
-        //}
-        //else
-        //    cancelGeofenceWorker(appContext, handler);
-    }
-    */
-
     private void cancelSearchCalendarEventsWorker(boolean forSchedule, boolean useHandler) {
         if ((!forSchedule) ||
                 (SearchCalendarEventsWorker.isWorkScheduled(false) || SearchCalendarEventsWorker.isWorkScheduled(true))) {
@@ -3135,12 +2803,12 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         //if (schedule) {
-        dataWrapper.fillEventList();
-        boolean eventAllowed = false;
-        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALENDAR/*, false*/);
-        if (eventsExists)
-            eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
+        boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
                 PreferenceAllowed.PREFERENCE_ALLOWED;
+        if (eventAllowed) {
+            dataWrapper.fillEventList();
+            eventAllowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_CALENDAR/*, false*/);
+        }
         if (eventAllowed) {
             //if (!(SearchCalendarEventsWorker.isWorkScheduled(false) || SearchCalendarEventsWorker.isWorkScheduled(true))) {
                 //if (rescan)
@@ -3153,28 +2821,33 @@ public class PhoneProfilesService extends Service
         //    cancelSearchCalendarEventsWorker(appContext, handler);
     }
 
-    private void startLocationScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop, DataWrapper dataWrapper, boolean forScreenOn) {
+    private void startLocationScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop,
+                                      DataWrapper dataWrapper, boolean forScreenOn) {
         synchronized (PPApplication.locationScannerMutex) {
             Context appContext = getApplicationContext();
             if (stop) {
-                if (isLocationScannerStarted()) {
+                if (PPApplication.locationScanner != null) {
                     stopLocationScanner();
                 }
             }
             if (start) {
                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                     boolean eventAllowed = false;
+                    boolean eventsExists = false;
                     boolean applicationEventLocationScanOnlyWhenScreenIsOn = ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn;
                     if ((PPApplication.isScreenOn) || (!applicationEventLocationScanOnlyWhenScreenIsOn)) {
                         // start only for screen On
-                        dataWrapper.fillEventList();
-                        boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
-                        if (eventsExists)
-                            eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                                    PreferenceAllowed.PREFERENCE_ALLOWED;
+                        eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                        if (eventAllowed) {
+                            dataWrapper.fillEventList();
+                            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
+                        }
+                        if (!eventsExists)
+                            eventAllowed = false;
                     }
                     if (eventAllowed) {
-                        if (!isLocationScannerStarted()) {
+                        if (PPApplication.locationScanner == null) {
                             startLocationScanner(forScreenOn && PPApplication.isScreenOn &&
                                     applicationEventLocationScanOnlyWhenScreenIsOn);
                         }
@@ -3186,41 +2859,49 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startMobileCellsScanner(final boolean start, final boolean stop, final DataWrapper dataWrapper,
+    private void startMobileCellsScanner(final boolean start, final boolean stop,
+                                         final DataWrapper dataWrapper,
                                          final boolean forceStart, final boolean rescan) {
         synchronized (PPApplication.mobileCellsScannerMutex) {
             final Context appContext = getApplicationContext();
 
-            // keep this: it is required to use handlerThreadBroadcast for cal listener
+            // keep this: it is required to use handlerThreadBroadcast for cells listener
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(() -> {
-                if (!forceStart && (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart))
+                if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
                     return;
                 if (stop) {
-                    if (isMobileCellsScannerStarted()) {
+                    if (PPApplication.mobileCellsScanner != null) {
                         stopMobileCellsScanner();
                     }
                 }
                 if (start) {
                     //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
-                            MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
+                            MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart) {
+//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### *******");
                         boolean eventAllowed = false;
-                        if (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart)
+                        boolean eventsExists = false;
+                        if (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart)
                             eventAllowed = true;
                         else {
                             if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn)) {
                                 // start only for screen On
-                                dataWrapper.fillEventList();
-                                boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS/*, false*/);
-                                if (eventsExists)
-                                    eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                                            PreferenceAllowed.PREFERENCE_ALLOWED);
+                                eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                                if (eventAllowed) {
+                                    dataWrapper.fillEventList();
+                                    eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS/*, false*/);
+                                }
+                                if (!eventsExists)
+                                    eventAllowed = false;
                             }
                         }
                         if (eventAllowed) {
-                            if (!isMobileCellsScannerStarted()) {
+//                            Log.e("PhoneProfilesService.startMobileCellsScanner", "***************");
+                            if (PPApplication.mobileCellsScanner == null) {
+//                                PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### ******* called startMobileCellsScanner()");
                                 startMobileCellsScanner();
                             } else {
                                 if (rescan) {
@@ -3236,7 +2917,8 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startOrientationScanner(boolean start, boolean stop, DataWrapper dataWrapper/*, boolean forceStart*/) {
+    private void startOrientationScanner(boolean start, boolean stop,
+                                         DataWrapper dataWrapper/*, boolean forceStart*/) {
         synchronized (PPApplication.orientationScannerMutex) {
             Context appContext = getApplicationContext();
             //if (!forceStart && EventsPrefsFragment.forceStart)
@@ -3250,21 +2932,28 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning /*||
                         EventsPrefsFragment.forceStart*/) {
+//                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### *******");
                     boolean eventAllowed = false;
+                    boolean eventsExists = false;
                     /*if (EventsPrefsFragment.forceStart)
                         eventAllowed = true;
                     else*/ {
                         if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)) {
                             // start only for screen On
-                            dataWrapper.fillEventList();
-                            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
-                            if (eventsExists)
-                                eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED;
+                            eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                    PreferenceAllowed.PREFERENCE_ALLOWED;
+                            if (eventAllowed) {
+                                dataWrapper.fillEventList();
+                                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                            }
+                            if (!eventsExists)
+                                eventAllowed = false;
                         }
                     }
                     if (eventAllowed) {
+//                        Log.e("PhoneProfilesService.startOrientationScanner", "***************");
                         if (!isOrientationScannerStarted()) {
+//                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startOrientationScanner", "******** ### ******* called startOrientationScanner()");
                             startOrientationScanner();
 //                            PPApplication.logE("[SHEDULE_SCANNER] PhoneProfilesService.startOrientationScanner", "START");
                         }
@@ -3282,7 +2971,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.twilightScannerMutex) {
             //Context appContext = getApplicationContext();
             if (stop) {
-                if (isTwilightScannerStarted()) {
+                if (PPApplication.twilightScanner != null) {
                     stopTwilightScanner();
                 }
             }
@@ -3290,7 +2979,7 @@ public class PhoneProfilesService extends Service
                 dataWrapper.fillEventList();
                 boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_TIME_TWILIGHT/*, false*/);
                 if (eventsExists) {
-                    if (!isTwilightScannerStarted()) {
+                    if (PPApplication.twilightScanner == null) {
                         startTwilightScanner();
                     }
                 } else {
@@ -3300,7 +2989,8 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void startNotificationScanner(boolean start, boolean stop, DataWrapper dataWrapper) {
+    private void startNotificationScanner(boolean start, boolean stop,
+                                          DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
         if (stop) {
             if (PPApplication.notificationScannerRunning) {
@@ -3310,13 +3000,17 @@ public class PhoneProfilesService extends Service
         if (start) {
             if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                 boolean eventAllowed = false;
+                boolean eventsExists = false;
                 if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn)) {
                     // start only for screen On
-                    dataWrapper.fillEventList();
-                    boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
-                    if (eventsExists)
-                        eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed ==
-                                PreferenceAllowed.PREFERENCE_ALLOWED;
+                    eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed ==
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
+                    if (eventAllowed) {
+                        dataWrapper.fillEventList();
+                        eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
+                    }
+                    if (!eventsExists)
+                        eventAllowed = false;
                 }
                 if (eventAllowed) {
                     if (!PPApplication.notificationScannerRunning) {
@@ -3468,7 +3162,7 @@ public class PhoneProfilesService extends Service
         startTwilightScanner(true, true, dataWrapper);
         startNotificationScanner(true, true, dataWrapper);
 
-        schedulePeriodicScanningWorker(/*dataWrapper, true*/);
+        schedulePeriodicScanningWorker();
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true, */dataWrapper/*, true*/);
@@ -3506,7 +3200,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForTimeSensor(false, null);
         registerReceiverForNFCSensor(false, null);
         registerReceiverForCallSensor(false, null);
-        registerLocationScannerReceiver(false, null);
+        registerLocationScannerReceiver(false,  null);
         registerReceiverForNotificationSensor(false, null);
         //registerReceiverForOrientationSensor(false, null);
 
@@ -3572,7 +3266,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForActivatedProfileSensor(true, dataWrapper);
         registerVPNCallback(true, dataWrapper);
 
-        schedulePeriodicScanningWorker(/*dataWrapper, true*/);
+        schedulePeriodicScanningWorker();
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true,*/ dataWrapper /*, true*/);
@@ -3779,6 +3473,8 @@ public class PhoneProfilesService extends Service
                     }
                 }*/
 
+                PPApplication.setBlockProfileEventActions(true);
+
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
                 dataWrapper.fillProfileList(false, false);
@@ -3841,12 +3537,36 @@ public class PhoneProfilesService extends Service
 
                 // set alarm for Alarm clock sensor from last saved time in
                 // NextAlarmClockBroadcastReceiver.onReceived()
+
+                // convert old saved alarm clock to new format
+                long prefEventAlarmClockTime = ApplicationPreferences.
+                        getSharedPreferences(appContext).getLong("eventAlarmClockTime", 0L);
+                String prefEventAlarmClockPackageName = ApplicationPreferences.
+                        getSharedPreferences(appContext).getString("eventAlarmClockPackageName", "");
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                editor.remove("eventAlarmClockTime");
+                editor.remove("eventAlarmClockPackageName");
+                editor.apply();
+                NextAlarmClockBroadcastReceiver.setEventAlarmClockTime(prefEventAlarmClockPackageName, prefEventAlarmClockTime, appContext);
+
                 AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
-                    NextAlarmClockBroadcastReceiver.setAlarm(
-                            ApplicationPreferences.prefEventAlarmClockTime,
-                            ApplicationPreferences.prefEventAlarmClockPackageName,
-                            alarmManager, appContext);
+                    List<NextAlarmClockData> times = NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes(appContext);
+                    if (times != null) {
+                        for (NextAlarmClockData _time : times) {
+//                            @SuppressLint("SimpleDateFormat")
+//                            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+//                            String ___time = sdf.format(_time.time);
+//                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock alarm time="+___time);
+//                            PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock package name=" + _time.packageName);
+
+                            NextAlarmClockBroadcastReceiver.setAlarm(
+                                    _time.time,
+                                    _time.packageName,
+                                    alarmManager, appContext);
+
+                        }
+                    }
                 }
 
                 // show info notification
@@ -3959,7 +3679,7 @@ public class PhoneProfilesService extends Service
                 // start events
 
                 if (__activateProfiles) {
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
+                    editor = ApplicationPreferences.getEditor(appContext);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
@@ -4063,7 +3783,7 @@ public class PhoneProfilesService extends Service
                                     .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplication.getApplicationStarted(true, false)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
@@ -4467,6 +4187,69 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
+                if (actualVersionCode <= 6900) {
+                    if ((PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31)) ||
+                        (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+                        String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR,
+                                ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE);
+                        String layoutType = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE,
+                                ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE_DEFAULT_VALUE);
+                        if (backgroundColor.equals("0") && layoutType.equals("0")) {
+                            // is not possible to use decoration when notificication background is not "Native" (0)
+                            // and enable decorator only when layout type is "Expandable"
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION,
+                                    ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION_DEFAULT_VALUE_PIXEL_SAMSUNG);
+                            editor.apply();
+                        }
+                    }
+                    if (Build.VERSION.SDK_INT >= 30) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+
+                        String backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                        backgroundColorNightModeOn = preferences.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                        if (backgroundColorNightModeOn.equalsIgnoreCase("#ff201a18")) {
+                            // color is set to old brown color, this change it to new gray color
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON,
+                                    ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+                            editor.apply();
+                        }
+                    }
+
+                    // remove all not used non-named mobile cells
+                    DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                    db.deleteNonNamedNotUsedCells();
+                }
+
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);
@@ -4513,9 +4296,13 @@ public class PhoneProfilesService extends Service
     {
         Context appContext = getApplicationContext();
 
+        PPApplication.logE("PhoneProfilesService.onStartCommand", "intent="+intent);
+        PPApplication.logE("PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+
         //startForegroundNotification = true;
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of showProfileNotification");
         PhoneProfilesNotification.showProfileNotification(appContext, !isServiceRunning, true, true);
 
         PPApplication.normalServiceStart = (intent != null);
@@ -4577,6 +4364,8 @@ public class PhoneProfilesService extends Service
                         PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 
                         if (ppService != null) {
+                            boolean disableNotUsedScanners = intent.getBooleanExtra(EXTRA_DISABLE_NOT_USED_SCANNERS, false);
+
                             /*if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                                 PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
                                 // not needed, is already called in start of onStartCommand
@@ -4640,13 +4429,27 @@ public class PhoneProfilesService extends Service
                             */
                             /*else*/ if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                if (disableNotUsedScanners) {
+//                                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "disableNotUsedScanners - EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
+                                    PhoneProfilesService.disableNotUsedScanners(dataWrapper);
+                                }
                                 ppService.registerEventsReceiversAndWorkers(true);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                if (disableNotUsedScanners) {
+//                                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "disableNotUsedScanners - EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
+                                    PhoneProfilesService.disableNotUsedScanners(dataWrapper);
+                                }
                                 ppService.unregisterEventsReceiversAndWorkers(false);
                             } else if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                                if (disableNotUsedScanners) {
+//                                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "disableNotUsedScanners - EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
+                                    PhoneProfilesService.disableNotUsedScanners(dataWrapper);
+                                }
                                 ppService.registerPPPExtenderReceiver(true, dataWrapper);
                                 ppService.reregisterEventsReceiversAndWorkers();
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
@@ -4671,59 +4474,60 @@ public class PhoneProfilesService extends Service
                             } else if (intent.getBooleanExtra(EXTRA_STOP_SIMULATING_RINGING_CALL_NO_DISABLE_INTERNAL_CHANGE, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
                                 ppService.stopSimulatingRingingCall(false, appContext);*/
-                                //TODO
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerPPPExtenderReceiverForSMSCall(true, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_PPP_EXTENDER_FOR_SMS_CALL_RECEIVER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerPPPExtenderReceiverForSMSCall(false, dataWrapper);
                             }  else if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_CALL_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForCallSensor(true, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_CALL_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForCallSensor(false, dataWrapper);
                             }  else if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_FOR_SMS_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForSMSSensor(true, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR, false)) {
-                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR");
+//                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_FOR_SMS_SENSOR");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 registerReceiverForSMSSensor(false, dataWrapper);
                             } else if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                                     if (PPApplication.locationScanner != null) {
-                                        String provider = PPApplication.locationScanner.getProvider();
+                                        String provider = PPApplication.locationScanner.getProvider(true);
                                         PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
                                     }
                                 }
 
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                                boolean eventsFilled = false;
+                                //boolean eventsFilled = false;
                                 if (ApplicationPreferences.applicationEventWifiEnableScanning) {
-                                    dataWrapper.fillEventList();
-                                    eventsFilled = true;
+                                    //dataWrapper.fillEventList();
+                                    //eventsFilled = true;
                                     ppService.scheduleWifiWorker(dataWrapper);
                                 }
                                 if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
-                                    if (!eventsFilled) {
-                                        dataWrapper.fillEventList();
-                                    }
+                                    //if (!eventsFilled) {
+                                    //    dataWrapper.fillEventList();
+                                    //}
                                     ppService.scheduleBluetoothWorker(dataWrapper);
                                 }
 
                                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
                                     if (PPApplication.mobileCellsScanner != null)
                                         PPApplication.mobileCellsScanner.rescanMobileCells();
                                 }
                                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+//                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
                                     if (PPApplication.orientationScanner != null) {
                                         PPApplication.startHandlerThreadOrientationScanner();
                                         if (PPApplication.handlerThreadOrientationScanner != null)
@@ -4786,7 +4590,7 @@ public class PhoneProfilesService extends Service
                             else if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
 //                                PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                                dataWrapper.fillEventList();
+                                //dataWrapper.fillEventList();
                                 //dataWrapper.fillProfileList(false, false);
                                 switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                                     /*case PPApplication.SCANNER_START_LOCATION_SCANNER:
@@ -4852,7 +4656,7 @@ public class PhoneProfilesService extends Service
                                         break;
                                     case PPApplication.SCANNER_RESTART_PERIODIC_SCANNING_SCANNER:
 //                                        PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "SCANNER_RESTART_PERIODIC_SCANNING_SCANNER");
-                                        ppService.schedulePeriodicScanningWorker(/*dataWrapper, true*/);
+                                        ppService.schedulePeriodicScanningWorker();
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
@@ -4884,7 +4688,7 @@ public class PhoneProfilesService extends Service
                                         ppService.startMobileCellsScanner(true, false, dataWrapper, true, false);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
 
-                                        if (MobileCellsPreferenceX.forceStart) {
+                                        if (MobileCellsPreference.forceStart) {
                                             Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView");
                                             LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                         }
@@ -4927,7 +4731,7 @@ public class PhoneProfilesService extends Service
                                         if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
                                             boolean canRestart = (!ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
-                                                ppService.schedulePeriodicScanningWorker(/*dataWrapper, true*/);
+                                                ppService.schedulePeriodicScanningWorker();
                                             }
                                         }
 
@@ -4960,6 +4764,7 @@ public class PhoneProfilesService extends Service
 
                                         // mobile cells
                                         if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
+//                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
                                             boolean canRestart = (!ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 //MobileCellsScanner.forceStart = false;
@@ -4979,6 +4784,7 @@ public class PhoneProfilesService extends Service
 
                                         // orientation
                                         if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
+//                                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (2)");
                                             boolean canRestart = (!ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                             if ((!fromBatteryChange) || canRestart) {
                                                 ppService.startOrientationScanner(true, true, dataWrapper/*, false*/);
@@ -5037,6 +4843,70 @@ public class PhoneProfilesService extends Service
     }
 
 
+    static void disableNotUsedScanners(final DataWrapper dataWrapper) {
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            boolean eventsExists;
+
+            dataWrapper.fillEventList();
+
+            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_LOCATION/*, false*/);
+            if (!eventsExists) {
+                SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                SharedPreferences.Editor editor = applicationPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, false);
+                editor.apply();
+                ApplicationPreferences.applicationEventLocationEnableScanning = false;
+            }
+
+            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_WIFI_NEARBY/*, false*/);
+            if (!eventsExists) {
+                SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                SharedPreferences.Editor editor = applicationPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, false);
+                editor.apply();
+                ApplicationPreferences.applicationEventWifiEnableScanning = false;
+            }
+
+            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY/*, false*/);
+            if (!eventsExists) {
+                SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                SharedPreferences.Editor editor = applicationPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, false);
+                editor.apply();
+                ApplicationPreferences.applicationEventBluetoothEnableScanning = false;
+            }
+
+            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_MOBILE_CELLS/*, false*/);
+            if (!eventsExists) {
+                SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                SharedPreferences.Editor editor = applicationPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, false);
+                editor.apply();
+                ApplicationPreferences.applicationEventMobileCellEnableScanning = false;
+            }
+
+            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+            if (!eventsExists) {
+                SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                SharedPreferences.Editor editor = applicationPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, false);
+                editor.apply();
+                ApplicationPreferences.applicationEventOrientationEnableScanning = false;
+            }
+
+            eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_NOTIFICATION/*, false*/);
+            if (!eventsExists) {
+                SharedPreferences applicationPreferences = ApplicationPreferences.getSharedPreferences(dataWrapper.context);
+                SharedPreferences.Editor editor = applicationPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false);
+                editor.apply();
+                ApplicationPreferences.applicationEventNotificationEnableScanning = false;
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------------
+
     @Override
     public IBinder onBind(Intent intent)
     {
@@ -5048,6 +4918,7 @@ public class PhoneProfilesService extends Service
         super.onConfigurationChanged(newConfig);
 //        PPApplication.logE("[IN_LISTENER] PhoneProfilesService.onConfigurationChanged", "xxx");
 
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onConfigurationChanged", "call of updateGUI");
         PPApplication.updateGUI(false, false, getApplicationContext());
     }
 
@@ -5064,7 +4935,7 @@ public class PhoneProfilesService extends Service
             PPApplication.locationScanner.connect(resetUseGPS);
         }
         else {
-            String provider = PPApplication.locationScanner.getProvider();
+            String provider = PPApplication.locationScanner.getProvider(true);
             PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
         }
     }
@@ -5076,13 +4947,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    /*
     boolean isLocationScannerStarted() {
         return (PPApplication.locationScanner != null);
     }
+    */
 
+    /*
     LocationScanner getLocationScanner() {
         return PPApplication.locationScanner;
     }
+    */
 
     //--------------------------------------------------------------------------
 
@@ -5110,14 +4985,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    /*
     boolean isMobileCellsScannerStarted() {
         return (PPApplication.mobileCellsScanner != null);
     }
+    */
 
-
+    /*
     MobileCellsScanner getMobileCellsScanner() {
         return PPApplication.mobileCellsScanner;
     }
+    */
 
     //--------------------------------------------------------------------------
 
@@ -5151,7 +5029,10 @@ public class PhoneProfilesService extends Service
     }
 
     private void startListeningOrientationSensors() {
+//        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (1)");
         if (!PPApplication.mStartedOrientationSensors) {
+//            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startListeningOrientationSensors", "******** ### ******* (2)");
+
             PPApplication.orientationScanner = new OrientationScanner();
             PPApplication.startHandlerThreadOrientationScanner();
             Handler orentationScannerHandler = new Handler(PPApplication.handlerThreadOrientationScanner.getLooper());
@@ -5180,6 +5061,7 @@ public class PhoneProfilesService extends Service
             //    return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval;
+
             if (isPowerSaveMode) {
                 if (applicationEventOrientationScanInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
@@ -5193,6 +5075,8 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
+
+            interval = interval / 2;
 
             if (PPApplication.accelerometerSensor != null) {
                 PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);
@@ -5382,14 +5266,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    /*
     private boolean isTwilightScannerStarted() {
         return (PPApplication.twilightScanner != null);
     }
+    */
 
-
+    /*
     TwilightScanner getTwilightScanner() {
         return PPApplication.twilightScanner;
     }
+    */
 
     //---------------------------
 
@@ -5664,7 +5551,7 @@ public class PhoneProfilesService extends Service
                     int _ringingVolume;
                     String ringtoneVolumeFromProfile = intent.getStringExtra(EXTRA_NEW_RINGER_VOLUME);
                     if (ProfileStatic.getVolumeChange(ringtoneVolumeFromProfile)) {
-                        _ringingVolume = ProfileStatic.getVolumeRingtoneValue(ringtoneVolumeFromProfile);
+                        _ringingVolume = ProfileStatic.getVolumeValue(ringtoneVolumeFromProfile);
                     }
                     else {
                         _ringingVolume = ringingVolume;
@@ -6139,7 +6026,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public void playNotificationSound(final String notificationSound,
+    void playNotificationSound(final String notificationSound,
                                        final boolean notificationVibrate/*,
                                        final boolean playAlsoInSilentMode*/) {
 

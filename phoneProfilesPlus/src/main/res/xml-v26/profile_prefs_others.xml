@@ -4,24 +4,24 @@
     app:title="@string/profile_preferences_category_others"
     app:key="prf_pref_othersCategory" >
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_devicePowerSaveMode"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_devicePowerSaveMode"
         app:defaultValue="0"
-        app:entries="@array/hardwareModeArray"
-        app:entryValues="@array/hardwareModeValues"
+        app:ppEntries="@array/hardwareModeArray"
+        app:ppEntryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsChange"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceRunApplicationChange"
         app:defaultValue="0"
-        app:entries="@array/runApplicationArray"
-        app:entryValues="@array/runApplicationValues"
+        app:ppEntries="@array/runApplicationArray"
+        app:ppEntryValues="@array/runApplicationValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.RunApplicationsDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.RunApplicationsDialogPreference
         app:defaultValue="-"
         app:key="prf_pref_deviceRunApplicationPackageName"
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
@@ -39,13 +39,13 @@
         app:summary="@string/profile_preferences_deviceCloseAllApplicationsInfo_summary"
         app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceCloseAllApplications"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceCloseAllApplications"
         app:defaultValue="0"
-        app:entries="@array/closeAllApplicationsArray"
-        app:entryValues="@array/closeAllApplicationsValues"
+        app:ppEntries="@array/closeAllApplicationsArray"
+        app:ppEntryValues="@array/closeAllApplicationsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
@@ -55,7 +55,7 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsForceStopApplications" />
 
-    <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreference
         app:defaultValue="0|0||"
         app:key="prf_pref_generateNotification"
         app:title="@string/profile_preferences_generateNotification"

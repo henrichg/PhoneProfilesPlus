@@ -9,15 +9,15 @@
         app:title="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
         app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceForceStopApplicationChange"
         app:defaultValue="0"
-        app:entries="@array/forceStopApplicationArray"
-        app:entryValues="@array/forceStopApplicationValues"
+        app:ppEntries="@array/forceStopApplicationArray"
+        app:ppEntryValues="@array/forceStopApplicationValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
         app:defaultValue="@string/dash_string"
         app:key="prf_pref_deviceForceStopApplicationPackageName"
         app:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"

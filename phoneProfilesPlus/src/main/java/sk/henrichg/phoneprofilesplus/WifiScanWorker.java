@@ -60,7 +60,7 @@ public class WifiScanWorker extends Worker {
 //            for (String tag : tags)
 //                PPApplication.logE("[IN_WORKER] WifiScanWorker.doWork", "tag=" + tag);
 
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return Result.success();
 
@@ -185,7 +185,7 @@ public class WifiScanWorker extends Worker {
 
     private static void _scheduleWork(final Context context, final boolean shortInterval) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -321,7 +321,7 @@ public class WifiScanWorker extends Worker {
         }
 
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     long start = SystemClock.uptimeMillis();
@@ -387,7 +387,7 @@ public class WifiScanWorker extends Worker {
 
     private static boolean isWorkRunning(boolean shortWork) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
@@ -427,7 +427,7 @@ public class WifiScanWorker extends Worker {
 
     static boolean isWorkScheduled(boolean shortWork) {
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
                     ListenableFuture<List<WorkInfo>> statuses;
@@ -467,7 +467,7 @@ public class WifiScanWorker extends Worker {
 
     //---------------------------------------------------------------
 
-    public static void initialize(Context context, boolean clearScanResult)
+    static void initialize(Context context, boolean clearScanResult)
     {
         setScanRequest(context, false);
         setWaitForResults(context, false);
@@ -507,7 +507,7 @@ public class WifiScanWorker extends Worker {
         fillWifiConfigurationList(context/*, false*/);
     }
 
-    public static void lock(Context context)
+    static void lock(Context context)
     {
         if (wifi == null)
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -525,7 +525,7 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    public static void unlock()
+    static void unlock()
     {
         try {
             if ((wifiLock != null) && (wifiLock.isHeld())) {
@@ -731,6 +731,7 @@ public class WifiScanWorker extends Worker {
             wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         if (Permissions.checkLocation(context)) {
+            @SuppressLint("MissingPermission")
             List<ScanResult> _scanResults = wifi.getScanResults();
             //if (PPApplication.logEnabled()) {
                 //int wifiState = wifi.getWifiState();

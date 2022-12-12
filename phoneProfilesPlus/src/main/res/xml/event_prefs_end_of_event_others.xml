@@ -10,7 +10,7 @@
         app:defaultValue="false"
         app:disableDependentsState="true"
         app:layout="@layout/mp_preference_material_widget"/>
-    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreference
         app:key="eventDelayEnd"
         app:summary="@string/event_preferences_delayStart"
         app:title="@string/event_preferences_delayStart"
@@ -29,7 +29,7 @@
     <!--        app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
     <!--        app:widgetLayout="@layout/widget_info_preference"-->
     <!--        app:layout="@layout/mp_preference_material_widget" />-->
-        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        <sk.henrichg.phoneprofilesplus.RingtonePreference
             app:key="eventEndNotificationSound"
             app:summary="@string/ringtone_preference_not_set"
             app:title="@string/event_preferences_notificationSound"

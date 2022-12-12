@@ -99,7 +99,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     } else {
                         isIconResourceID = true;
                         iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
-                        profileName = PhoneProfilesDashClockExtension.this.getString(R.string.profiles_header_profile_name_no_activated);
+                        profileName = appContext.getString(R.string.profiles_header_profile_name_no_activated);
                     }
                     int iconResource;
                     if (isIconResourceID)
@@ -137,14 +137,15 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
 
                         // Publish the extension data update.
-                        PhoneProfilesDashClockExtension.this.publishUpdate(new ExtensionData()
-                                .visible(true)
-                                .icon(iconResource)
-                                .status(status)
-                                .expandedTitle(profileName)
-                                .expandedBody(indicators.getString(profile, /*0,*/ instance))
-                                .contentDescription("PhoneProfilesPlus - " + profileName)
-                                .clickIntent(intent));
+                        if (instance != null)
+                            instance.publishUpdate(new ExtensionData()
+                                    .visible(true)
+                                    .icon(iconResource)
+                                    .status(status)
+                                    .expandedTitle(profileName)
+                                    .expandedBody(indicators.getString(profile, /*0,*/ instance))
+                                    .contentDescription("PhoneProfilesPlus - " + profileName)
+                                    .clickIntent(intent));
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);

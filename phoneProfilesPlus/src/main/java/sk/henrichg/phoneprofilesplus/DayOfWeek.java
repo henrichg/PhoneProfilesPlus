@@ -3,9 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import androidx.annotation.NonNull;
 
 class DayOfWeek {
-    public String name = "";
-    public String value = "";
-    public boolean checked = false;
+    String name = "";
+    String value = "";
+    boolean checked = false;
 
     DayOfWeek() {
     }

@@ -6,9 +6,10 @@ class MobileCell {
     String _name;
     boolean _new;
     long _lastConnectedTime;
-    String _lastRunningEvents;
-    String _lastPausedEvents;
-    boolean _doNotDetect;
+    //String _lastRunningEvents;
+    //String _lastPausedEvents;
+    //boolean _doNotDetect;
 
-    MobileCell() {}
+    MobileCell() {
+    }
 }

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_important_info_scroll_view"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:fadeScrollbars="false">
 
     <LinearLayout
         android:id="@+id/fragment_important_info_liLa1"
@@ -83,7 +84,7 @@
 <!--            android:textSize="@dimen/important_info_text_size"-->
 <!--            android:id="@+id/activity_info_notification_privacy_policy_backup_files_2_news"-->
 <!--            android:textStyle="bold"-->
-<!--            android:textColor="?attr/colorAccent"-->
+<!--            android:textColor="@color/accent"-->
 <!--            android:visibility="gone" />-->
 
         <TextView
@@ -94,6 +95,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_accessibility_service_new_version"
             android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,8 +104,9 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_accessibility_service_new_version_2"
             android:textStyle="bold"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="@color/accent" />
 
+<!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -156,7 +159,8 @@
             android:text="@string/important_info_notification_settings_configure"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/important_info_notification_settings_configure"
-            android:textColor="?attr/colorAccent"/>
+            android:textColor="@color/accent"/>
+-->
 
         <!--
         <TextView
@@ -208,7 +212,7 @@
             android:text="@string/important_info_profile_wifiScanning_location"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_wifiScanning_location_news"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="@color/accent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -217,7 +221,7 @@
             android:text="@string/important_info_profile_bluetoothScanning_location"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_bluetoothScanning_location_news"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="@color/accent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -226,7 +230,7 @@
             android:text="@string/important_info_profile_mobileCellsScanning_location"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_mobileCellsScanning_location_news"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="@color/accent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -235,7 +239,7 @@
             android:text="@string/important_info_profile_zenMode"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_profile_zenMode_news"
-            android:textColor="?attr/colorAccent"/>
+            android:textColor="@color/accent"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -249,7 +253,7 @@
             android:text="@string/info_notification_event_start_order_handler_icon"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_event_start_order2_news"
-            app:drawableEndCompat="?attr/dragHandleIcon" />
+            app:drawableEndCompat="@drawable/ic_drag_handle" />
 
         <TextView
             android:layout_width="wrap_content"

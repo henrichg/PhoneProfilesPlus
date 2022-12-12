@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -26,38 +25,13 @@ public class ActivityLogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_activity_log);
+        setContentView(R.layout.activity_ppp_activity_log);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
-
-        /*
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-            // create our manager instance after the content view is set
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            // enable status bar tint
-            tintManager.setStatusBarTintEnabled(true);
-            // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext(), true)) {
-                case "color":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
-                    break;
-                case "white":
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
-                    break;
-                default:
-                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
-                    break;
-            }
-        }
-        */
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -98,18 +72,18 @@ public class ActivityLogActivity extends AppCompatActivity {
         menuItem.setTitle(getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
 
-        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, false, getApplicationContext());
-        if (theme != 0) {
-            TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
-            int attributeResourceId = a.getResourceId(0, 0);
-            a.recycle();
-            menuItem.setIcon(attributeResourceId);
-        }
+        //int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, false, false, getApplicationContext());
+        //if (theme != 0) {
+        //TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
+        //int attributeResourceId = a.getResourceId(0, 0);
+        //a.recycle();
+        //menuItem.setIcon(attributeResourceId);
+        menuItem.setIcon(R.drawable.ic_action_activity_log_pause);
+        //}
 
         if (PPApplication.prefActivityLogEnabled) {
             menuItem.setTitle(R.string.menu_activity_log_pause);
-        }
-        else {
+        } else {
             menuItem.setTitle(R.string.menu_activity_log_play);
         }
         return super.onPrepareOptionsMenu(menu);
@@ -130,25 +104,25 @@ public class ActivityLogActivity extends AppCompatActivity {
         }
         else
         if (itemId == R.id.menu_activity_log_clear) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder.setTitle(R.string.activity_log_clear_alert_title);
-            dialogBuilder.setMessage(R.string.activity_log_clear_alert_message);
-            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
-                activityLogAdapter.reload(dataWrapper);
-            });
-            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-            AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.activity_log_clear_alert_title),
+                    getString(R.string.activity_log_clear_alert_message),
+                    getString(R.string.alert_button_yes),
+                    getString(R.string.alert_button_no),
+                    null, null,
+                    (dialog1, which) -> {
+                        DatabaseHandler.getInstance(getApplicationContext()).clearActivityLog();
+                        activityLogAdapter.reload(dataWrapper);
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    true, true,
+                    false, false,
+                    true,
+                    this
+            );
 
             if (!isFinishing())
                 dialog.show();
@@ -184,79 +158,80 @@ public class ActivityLogActivity extends AppCompatActivity {
 
             message = message + "<b>" + getString(R.string.activity_log_help_message_colors) + ":</b><br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_profile_activation) + ": ";
             int color = ContextCompat.getColor(this, R.color.altype_profile);
             String colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_profile_activation) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_event_start) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_eventStart);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_start) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_event_end) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_eventEnd);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_end) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_restart_events) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_restartEvents);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_restart_events) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_eventDelayStartEnd);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_error) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_error);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_error) + "<br>";
 
-            message = message + getString(R.string.activity_log_help_message_colors_others) + ": ";
             color = ContextCompat.getColor(this, R.color.altype_other);
             colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;") + "<br>";
-
-            message = message + "<br>";
-            message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
-
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation);
+            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, "&#x25a0;");
+            message = message + "&nbsp;&nbsp;" + getString(R.string.activity_log_help_message_colors_others);
 
             message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
+
+            message = message + "<ul><li><b>" + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + "</li></ul>";
+
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_profileActivation) + "\":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_profileName) + "<br>";
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
 
-            message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":</b><br>";
             message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + "<br>";
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
 
-            message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes);
+            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes) + "</li></ul>";
 
-            message = message + "<br><br>";
-            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + "<br>";
+            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes);
+            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + "</li></ul>";
 
-            infoTextView.setText(StringFormatUtils.fromHtml(message, true, false, 0, 0));
+            infoTextView.setText(StringFormatUtils.fromHtml(message, true, true, false, 0, 0, true));
+
             infoTextView.setClickable(true);
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
 

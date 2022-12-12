@@ -27,7 +27,7 @@ public class RestartEventsWithDelayWorker extends Worker {
 //            long start = System.currentTimeMillis();
 //            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- START");
 
-            if (!PPApplication.getApplicationStarted(true))
+            if (!PPApplication.getApplicationStarted(true, true))
                 // application is not started
                 return Result.success();
 

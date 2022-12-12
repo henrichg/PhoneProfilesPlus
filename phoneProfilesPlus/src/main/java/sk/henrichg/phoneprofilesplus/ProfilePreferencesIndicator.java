@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -92,8 +91,9 @@ class ProfilePreferencesIndicator {
                 (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND)) {
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                        == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                    == Configuration.UI_MODE_NIGHT_YES;
 
             boolean setAlpha = true;
 
@@ -102,8 +102,7 @@ class ProfilePreferencesIndicator {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
-                }
-                else {
+                } else {
                     if (!monochrome) {
                         if (nightModeOn) {
                             if (disabled)
@@ -189,14 +188,14 @@ class ProfilePreferencesIndicator {
 
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                        == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                    == Configuration.UI_MODE_NIGHT_YES;
 
             int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
             if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
-            }
-            else {
+            } else {
                 if (!monochrome) {
                     if (nightModeOn) {
                         if (disabled)
@@ -241,8 +240,9 @@ class ProfilePreferencesIndicator {
             (indicatorsType == DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND)) {
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                == Configuration.UI_MODE_NIGHT_YES;
 
             boolean setAlpha = true;
 
@@ -317,15 +317,15 @@ class ProfilePreferencesIndicator {
 
             Paint paint = new Paint();
 
-            boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                        == Configuration.UI_MODE_NIGHT_YES;
+            boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+            //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+            //                    == Configuration.UI_MODE_NIGHT_YES;
 
             if (!monochrome) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
-                }
-                else {
+                } else {
                     if (nightModeOn) {
                         if (disabled)
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabledDynamic_dark), PorterDuff.Mode.SRC_ATOP));
@@ -377,12 +377,13 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean vibrateWhenRingingAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     boolean vibrateNotificationsAllowed = false;
-                    if (Build.VERSION.SDK_INT >= 28)
+                    if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
                         vibrateNotificationsAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+                    }
                     boolean addVibrateIndicator = false;
                     if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
                         addVibrateIndicator = true;
-                    if (Build.VERSION.SDK_INT >= 28) {
+                    if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
                         if (vibrateNotificationsAllowed && ((profile._vibrateNotifications == 1) || (profile._vibrateNotifications == 3)))
                             addVibrateIndicator = true;
                     }
@@ -645,7 +646,7 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeAll);
                         if (fillStrings)
-                            strings[countDrawables++] = "vola";
+                            strings[countDrawables++] = "volu";
                         else {
                             disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
@@ -2177,7 +2178,25 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-
+            // vibration intensity
+            if (profile.getVibrationIntensityRingingChange() ||
+                    profile.getVibrationIntensityNotificationsChange() ||
+                    profile.getVibrationIntensityTouchInteractionChange()) {
+                if ((ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationIntensityAll);
+                    if (fillStrings)
+                        strings[countDrawables++] = "vibi";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_intensity;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
         }
         else
             countDrawables = -1;

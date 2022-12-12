@@ -21,7 +21,7 @@
 <!--            android:layout_height="@dimen/divider_height"-->
 <!--            android:layout_marginStart="@dimen/divider_margin"-->
 <!--            android:layout_marginEnd="@dimen/divider_margin"-->
-<!--            android:background="?attr/dialogDivider" />-->
+<!--            android:background="@color/dialog_divider" />-->
 
         <RelativeLayout
             android:id="@+id/location_editor_et_btn4"
@@ -44,7 +44,7 @@
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
                 android:minHeight="40dp"
-                android:background="?attr/buttonBackground"
+                android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
             <Button
@@ -60,7 +60,7 @@
                 android:textColor="@color/action_button_text_color"
                 android:textStyle="bold"
                 android:minHeight="40dp"
-                android:background="?attr/buttonBackground"
+                android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
         </RelativeLayout>
@@ -79,7 +79,7 @@
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="@dimen/divider_height"-->
 <!--            android:layout_marginBottom="5dp"-->
-<!--            android:background="?attr/dialogDivider" />-->
+        <!--            android:background="@color/dialog_divider" />-->
 
         <RelativeLayout
             android:id="@+id/location_editor_et_btn_reLa1"
@@ -113,7 +113,7 @@
                 android:layout_toEndOf="@id/location_pref_dlg_radius_label"
                 android:textColor="@color/accent"
                 android:textStyle="bold"
-                android:background="?attr/buttonBackground"
+                android:background="@drawable/pp_button_background_selector"
                 android:textSize="16sp"
                 android:text="0"
                 android:clickable="true"

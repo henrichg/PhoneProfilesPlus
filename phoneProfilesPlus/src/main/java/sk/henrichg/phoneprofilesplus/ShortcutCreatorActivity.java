@@ -13,7 +13,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
 //        PPApplication.logE("[BACKGROUND_ACTIVITY] ShortcutCreatorActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, true, false);
+        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, true, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
     // set window dimensions ----------------------------------------------------------

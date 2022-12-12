@@ -1,13 +1,19 @@
 .gradle
 /local.properties
 /.idea/workspace.xml
-/.idea/libraries
-/.idea/caches
+/.idea/libraries/
+/.idea/caches/
 /.idea/misc.xml
-/build
+/build/
 
-/RootShell/build
-/RootTools/build
-/android-betterpickers/build
-/time-duration-picker/build
-/phoneProfilesPlus/build
+/android-betterpickers/build/
+/AndroidClearChroma/build/
+/common/build/
+/noobcameraflash/build/
+/phoneProfilesImport/build/
+/phoneProfilesPlus/build/
+/recyclerview-fastscroll/build/
+/RootShell/build/
+/RootTools/build/
+/time-duration-picker/build/
+/ToastCompat/build/

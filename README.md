@@ -1,9 +1,9 @@
 <img src="art/ic_launcher-web.png" width="100" height="100">  
 
-PhoneProfilesPlus
-=================
+PhoneProfilesPlus (aka PPP)
+===========================
 
-[![version](https://img.shields.io/badge/version-6.0.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.0.1)
+[![version](https://img.shields.io/badge/version-6.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.1)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -11,21 +11,21 @@ PhoneProfilesPlus
 
 __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__  
 Latest version is 4.2.0.3 and will never by upgraded.  
-Reason: Google restrictions:
-1. Android - All Wi-Fi related functions not working since Android 10.
+Reason: Google restrictions:  
+1. Android - All Wi-Fi related functions not working since Android 10.  
 2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:  
    `targetSdkVersion targetSdk`  
    and in PPP must be target sdk = 28. Android 10 is 29.
 
 In stores, in which is currently deployed PPP, restriction about target sdk does not apply.
 
-__[GitHub release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
+### Another sources of PhoneProfilesPlus:
 
-__Another sources of PhoneProfilesPlus (PPP):__
+__[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
-__Galaxy Store (for Samsung devices)__
+__[Galaxy Store PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
 
 __[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)__  
 __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
@@ -33,20 +33,22 @@ __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobi
 __[APKPure PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__  
 __[APKPure application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)__
 
-__[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
+__[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 __[F-Droid application (download)](https://www.f-droid.org/)__
 
-__[Droid-ify - F-Droid alternative](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
-&nbsp;&nbsp;&nbsp;IzzyOnDroid repository is included
+__Droid-ify (F-Droid alternative)__  
+__[Droid-ify PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__  
+__[Droid-ify applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
+&nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
 ---
 
-__Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
+__What is PhoneProfilesPlus:__
 
-__This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.__
-
-__In it is also possibility to automatically activate Profiles by Events.__
+Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...  
+This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.  
+In it is also possibility to automatically activate Profiles by Events.  
 
 [Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
 
@@ -69,25 +71,25 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Screenshots
 - [[1]](art/phoneScreenshots/01.png),
-  [[2]](art/phoneScreenshots/02.png),
-  [[3]](art/phoneScreenshots/03.png),
-  [[4]](art/phoneScreenshots/04.png),
-  [[5]](art/phoneScreenshots/05.png),
-  [[6]](art/phoneScreenshots/06.png),
-  [[7]](art/phoneScreenshots/07.png),
-  [[8]](art/phoneScreenshots/08.png),
-  [[9]](art/phoneScreenshots/09.png),
-  [[10]](art/phoneScreenshots/10.png),
-  [[11]](art/phoneScreenshots/11.png),
-  [[12]](art/phoneScreenshots/12.png),
-  [[13]](art/phoneScreenshots/13.png)
+[[2]](art/phoneScreenshots/02.png),
+[[3]](art/phoneScreenshots/03.png),
+[[4]](art/phoneScreenshots/04.png),
+[[5]](art/phoneScreenshots/05.png),
+[[6]](art/phoneScreenshots/06.png),
+[[7]](art/phoneScreenshots/07.png),
+[[8]](art/phoneScreenshots/08.png),
+[[9]](art/phoneScreenshots/09.png),
+[[10]](art/phoneScreenshots/10.png),
+[[11]](art/phoneScreenshots/11.png),
+[[12]](art/phoneScreenshots/12.png),
+[[13]](art/phoneScreenshots/13.png)
 
 ##### Supported Android versions
 
 - From Android 7.0
 - minSdkVersion = 24
 - targetSdkVersion = 28
-- compiledSdkVersion = 32
+- compiledSdkVersion = 33
 
 ##### Required external libs - open-source
 
@@ -118,7 +120,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
 - Advance-Android-Tutorials (only modified class ZipManager.java) - https://github.com/stacktipslab/Advance-Android-Tutorials
-- Multi-language_App (only modified class LocaleHelper.java) https://github.com/anurajr1/Multi-language_App
+- Multi-language_App (only modified class LocaleHelper.java) - https://github.com/anurajr1/Multi-language_App
 
 ##### Required external libs - not open-source
 

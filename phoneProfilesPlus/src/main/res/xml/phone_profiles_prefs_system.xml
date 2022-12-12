@@ -30,13 +30,13 @@
             app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
             app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:key="applicationForceSetMergeRingNotificationVolumes"
             app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
             app:summary="@string/array_pref_forceSetMergeRingNotificationVolumes_keepDetected"
             app:defaultValue="0"
-            app:entries="@array/forceSetMergeRingNotificationVolumesArray"
-            app:entryValues="@array/forceSetMergeRingNotificationVolumesValues"
+            app:ppEntries="@array/forceSetMergeRingNotificationVolumesArray"
+            app:ppEntryValues="@array/forceSetMergeRingNotificationVolumesValues"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 

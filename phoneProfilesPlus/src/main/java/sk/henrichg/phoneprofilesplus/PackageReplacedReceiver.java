@@ -34,12 +34,17 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        // reset GitHub version for critical check releaaes notification
                         CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
+
+                        // reset alarm for month check releaaes notification
+                        CheckPPPReleasesBroadcastReceiver.setShowPPPReleasesNotification(context, 0);
+                        CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
 
                         boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
                         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);
 
-                        if ((!serviceStarted) && PPApplication.getApplicationStarted(false)) {
+                        if ((!serviceStarted) && PPApplication.getApplicationStarted(false, false)) {
                             // service is not started
 
                             //AutostartPermissionNotification.showNotification(appContext, false);
@@ -55,7 +60,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
-//                            PPApplication.logE("[START_PP_SERVICE] PackageReplacedReceiver.onReceive", "xxx");
+//                                PPApplication.logE("[START_PP_SERVICE] PackageReplacedReceiver.onReceive", "xxx");
                                 PPApplication.startPPService(appContext, serviceIntent);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);

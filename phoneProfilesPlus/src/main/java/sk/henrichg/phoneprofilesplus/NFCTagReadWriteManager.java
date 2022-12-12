@@ -28,7 +28,7 @@ import sk.henrichg.phoneprofilesplus.NFCTagWriteException.NFCErrorType;
 
 class NFCTagReadWriteManager {
     private NfcAdapter nfcAdapter;
-    private final Activity activity;
+    final Activity activity;
     private PendingIntent pendingIntent;
 
     //boolean uidRead = false;

@@ -1,47 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/exportPPDataDialogRoot"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/exportPPDataDialog_root2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
+    <!--    android:gravity="center_horizontal"-->
 
-    <CheckBox
-        android:id="@+id/exportPPDataDataProfiles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:textSize="16sp"
-        android:text="@string/export_pp_data_dialog_profiles_chb" />
-
-    <CheckBox
-        android:id="@+id/exportPPDataDataDeleteConfiguredProfiles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:textSize="16sp"
-        android:text="@string/export_pp_data_dialog_delete_configured_profiles_chb" />
-
-    <CheckBox
-        android:id="@+id/exportPPDataDataApplicationPreferences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:textSize="16sp"
-        android:text="@string/export_pp_data_dialog_application_preferences_chb" />
-
-    <TextView
+    <View
+        android:id="@+id/exportPPDataDialog_titleBarDivider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/export_pp_data_dialog_start_pp" />
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+    <ScrollView
+        android:id="@+id/exportPPDataDialog_root3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/exportPPDataDialogRoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/exportPPDataDataProfiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:textSize="16sp"
+                android:text="@string/export_pp_data_dialog_profiles_chb" />
+
+            <CheckBox
+                android:id="@+id/exportPPDataDataDeleteConfiguredProfiles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:textSize="16sp"
+                android:text="@string/export_pp_data_dialog_delete_configured_profiles_chb" />
+
+            <CheckBox
+                android:id="@+id/exportPPDataDataApplicationPreferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:textSize="16sp"
+                android:text="@string/export_pp_data_dialog_application_preferences_chb" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/export_pp_data_dialog_start_pp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/exportPPDataDialog_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
 </LinearLayout>

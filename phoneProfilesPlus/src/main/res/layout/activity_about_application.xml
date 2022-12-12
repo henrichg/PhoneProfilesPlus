@@ -1,230 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/about_application_application_root2"
+    android:id="@+id/about_application_application_root3"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/activity_margin_start"
-    android:layout_marginEnd="@dimen/activity_margin_end"
-    android:fitsSystemWindows="false" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/about_application_liLa2"
+    <View
+        android:id="@+id/about_application_application_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+    <RelativeLayout
+        android:id="@+id/about_application_application_root2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="15dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:layout_alignParentBottom="true">
+        android:layout_marginStart="@dimen/activity_margin_start"
+        android:layout_marginEnd="@dimen/activity_margin_end"
+        android:fitsSystemWindows="false">
 
-        <View
-            android:id="@+id/about_application_divider"
+        <LinearLayout
+            android:id="@+id/about_application_liLa2"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/divider_height"
-            android:background="?attr/dialogDivider"/>
-<!--        android:layout_marginTop="20dp"-->
-
-        <Button
-            android:id="@+id/about_application_close"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:minHeight="40dp"
-            android:textColor="@color/action_button_text_color"
-            android:textStyle="bold"
-            android:background="?attr/buttonBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/donation_activity_close"
-            style="?android:attr/borderlessButtonStyle"/>
+            android:orientation="vertical"
+            android:paddingBottom="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_alignParentBottom="true">
 
-    </LinearLayout>
+            <View
+                android:id="@+id/about_application_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/dialog_divider" />
+            <!--        android:layout_marginTop="20dp"-->
 
-<ScrollView
-    android:id="@+id/about_application_application_scroll_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    android:layout_alignParentTop="true"
-    android:layout_above="@id/about_application_liLa2"
-    tools:ignore="UselessParent">
+            <Button
+                android:id="@+id/about_application_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:minHeight="40dp"
+                android:textColor="@color/action_button_text_color"
+                android:textStyle="bold"
+                android:background="@drawable/pp_button_background_selector"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/donation_activity_close"
+                style="?android:attr/borderlessButtonStyle" />
 
-    <LinearLayout
-        android:id="@+id/about_application_application_root"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/important_info_left_margin"
-        android:paddingEnd="@dimen/important_info_right_margin"
-        android:orientation="vertical" >
-<!--        android:paddingTop="@dimen/important_info_top_margin"-->
-<!--        android:paddingBottom="@dimen/important_info_bottom_margin"-->
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/about_application_application_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_horizontal"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/about_application_application_icon"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_ppp_app_icon"/>
-
-        <TextView
-            android:id="@+id/about_application_application_name"
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:id="@+id/about_application_application_scroll_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:text="@string/ppp_app_name"
-            android:textSize="17sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/about_application_application_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:text="@string/ppp_app_name"
-            android:textSize="15sp"/>
+            android:scrollbarStyle="outsideOverlay"
+            android:fadeScrollbars="false"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/about_application_liLa2"
+            tools:ignore="UselessParent">
 
-<!--
-        <TextView
-            android:id="@+id/about_application_rate_application"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/about_application_rate_in_googlePlay"
-            android:textSize="15sp"
-            android:textStyle="bold"/>
--->
+            <LinearLayout
+                android:id="@+id/about_application_application_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/important_info_left_margin"
+                android:paddingEnd="@dimen/important_info_right_margin"
+                android:paddingTop="@dimen/alert_dialog_top_padding"
+                android:paddingBottom="@dimen/alert_dialog_top_padding"
+                android:orientation="vertical">
+                <!--        android:paddingTop="@dimen/important_info_top_margin"-->
+                <!--        android:paddingBottom="@dimen/important_info_bottom_margin"-->
 
-        <Button
-            android:id="@+id/about_application_donate_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
-            android:textColor="@color/action_button_text_color"
-            android:textStyle="bold"
-            android:background="?attr/buttonBackground"
-            android:minHeight="40dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/about_application_donate_button"
-            style="?android:attr/borderlessButtonStyle" />
+                <ImageView
+                    android:id="@+id/about_application_application_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/about_application_application_icon"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_ppp_app_icon" />
 
-        <TextView
-            android:id="@+id/about_application_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_author"
-            android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/about_application_application_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/ppp_app_name"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/about_application_support"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/about_application_support"
-            android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/about_application_application_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ppp_app_name"
+                    android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/about_application_privacy_policy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/about_application_privacy_policy"
-            android:textSize="15sp"/>
+                <!--
+                        <TextView
+                            android:id="@+id/about_application_rate_application"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center_horizontal"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/about_application_rate_in_googlePlay"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+                -->
 
-        <TextView
-            android:id="@+id/about_application_translations_thanks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_help_me_with_translation"
-            android:textSize="15sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/about_application_translations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_translations"
-            android:textSize="15sp"/>
+                <Button
+                    android:id="@+id/about_application_donate_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/action_button_text_color"
+                    android:textStyle="bold"
+                    android:background="@drawable/pp_button_background_selector"
+                    android:minHeight="40dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/about_application_donate_button"
+                    style="?android:attr/borderlessButtonStyle" />
 
-        <TextView
-            android:id="@+id/about_application_releases"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_releases"
-            android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/about_application_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_author"
+                    android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/about_application_source_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_source_code"
-            android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/about_application_support"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/about_application_support"
+                    android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/about_application_extender_source_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_extender_source_code"
-            android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/about_application_privacy_policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/about_application_privacy_policy"
+                    android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/about_application_xda_developers_community"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_xda_developers_community"
-            android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/about_application_translations_thanks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_help_me_with_translation"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-        <!--
-        <TextView
-            android:id="@+id/about_application_google_plus_community"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/about_application_google_plus_community"
-            android:textSize="15sp"/>
-        -->
+                <TextView
+                    android:id="@+id/about_application_translations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_translations"
+                    android:textSize="15sp" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/about_application_releases"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_releases"
+                    android:textSize="15sp" />
 
-</ScrollView>
+                <TextView
+                    android:id="@+id/about_application_source_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_source_code"
+                    android:textSize="15sp" />
 
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/about_application_extender_source_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_extender_source_code"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/about_application_pppps_source_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_pppps_source_code"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/about_application_xda_developers_community"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_xda_developers_community"
+                    android:textSize="15sp" />
+
+                <!--
+                <TextView
+                    android:id="@+id/about_application_google_plus_community"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/about_application_google_plus_community"
+                    android:textSize="15sp"/>
+                -->
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</LinearLayout>
+

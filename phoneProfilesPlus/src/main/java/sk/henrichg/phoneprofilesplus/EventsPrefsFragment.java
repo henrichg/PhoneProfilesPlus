@@ -106,6 +106,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         final RecyclerView view = super.onCreateRecyclerView(inflater, parent, state);
         view.setItemAnimator(null);
         view.setLayoutAnimation(null);
+
+        // do not use this, because this generates exception on orientation change:
+        // java.lang.NullPointerException: Attempt to invoke virtual method 'android.widget.ScrollBarDrawable
+        // android.widget.ScrollBarDrawable.mutate()' on a null object reference
+        //view.setScrollbarFadingEnabled(false);
+
         return view;
     }
 
@@ -113,151 +119,189 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onDisplayPreferenceDialog(@NonNull Preference preference) {
         PreferenceDialogFragmentCompat dialogFragment = null;
 
-        if (preference instanceof ProfilePreferenceX) {
-            ((ProfilePreferenceX) preference).fragment = new ProfilePreferenceFragmentX();
-            dialogFragment = ((ProfilePreferenceX) preference).fragment;
+        if (preference instanceof PPListPreference)
+        {
+            ((PPListPreference)preference).fragment = new PPListPreferenceFragment();
+            dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof InfoDialogPreferenceX) {
-            ((InfoDialogPreferenceX) preference).fragment = new InfoDialogPreferenceFragmentX();
-            dialogFragment = ((InfoDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof PPMultiSelectListPreference)
+        {
+            ((PPMultiSelectListPreference)preference).fragment = new PPMultiSelectListPreferenceFragment();
+            dialogFragment = ((PPMultiSelectListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof DurationDialogPreferenceX) {
-            ((DurationDialogPreferenceX) preference).fragment = new DurationDialogPreferenceFragmentX();
-            dialogFragment = ((DurationDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof ProfilePreference) {
+            ((ProfilePreference) preference).fragment = new ProfilePreferenceFragment();
+            dialogFragment = ((ProfilePreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof ApplicationsMultiSelectDialogPreferenceX) {
-            ((ApplicationsMultiSelectDialogPreferenceX) preference).fragment = new ApplicationsMultiSelectDialogPreferenceFragmentX();
-            dialogFragment = ((ApplicationsMultiSelectDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof InfoDialogPreference) {
+            ((InfoDialogPreference) preference).fragment = new InfoDialogPreferenceFragment();
+            dialogFragment = ((InfoDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof BetterNumberPickerPreferenceX) {
-            ((BetterNumberPickerPreferenceX) preference).fragment = new BetterNumberPickerPreferenceFragmentX();
-            dialogFragment = ((BetterNumberPickerPreferenceX) preference).fragment;
+        else
+        if (preference instanceof DurationDialogPreference) {
+            ((DurationDialogPreference) preference).fragment = new DurationDialogPreferenceFragment();
+            dialogFragment = ((DurationDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof RingtonePreferenceX) {
-            ((RingtonePreferenceX) preference).fragment = new RingtonePreferenceFragmentX();
-            dialogFragment = ((RingtonePreferenceX) preference).fragment;
+        else
+        if (preference instanceof ApplicationsMultiSelectDialogPreference) {
+            ((ApplicationsMultiSelectDialogPreference) preference).fragment = new ApplicationsMultiSelectDialogPreferenceFragment();
+            dialogFragment = ((ApplicationsMultiSelectDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof LocationGeofencePreferenceX) {
-            ((LocationGeofencePreferenceX) preference).fragment = new LocationGeofencePreferenceFragmentX();
-            dialogFragment = ((LocationGeofencePreferenceX) preference).fragment;
+        else
+        if (preference instanceof BetterNumberPickerPreference) {
+            ((BetterNumberPickerPreference) preference).fragment = new BetterNumberPickerPreferenceFragment();
+            dialogFragment = ((BetterNumberPickerPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-
-        if (preference instanceof ProfileMultiSelectPreferenceX) {
-            ((ProfileMultiSelectPreferenceX) preference).fragment = new ProfileMultiSelectPreferenceFragmentX();
-            dialogFragment = ((ProfileMultiSelectPreferenceX) preference).fragment;
+        else
+        if (preference instanceof RingtonePreference) {
+            ((RingtonePreference) preference).fragment = new RingtonePreferenceFragment();
+            dialogFragment = ((RingtonePreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof DaysOfWeekPreferenceX) {
-            ((DaysOfWeekPreferenceX) preference).fragment = new DaysOfWeekPreferenceFragmentX();
-            dialogFragment = ((DaysOfWeekPreferenceX) preference).fragment;
+        else
+        if (preference instanceof LocationGeofencePreference) {
+            ((LocationGeofencePreference) preference).fragment = new LocationGeofencePreferenceFragment();
+            dialogFragment = ((LocationGeofencePreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        /*if (preference instanceof TimePreferenceX) {
+        else
+        if (preference instanceof ProfileMultiSelectPreference) {
+            ((ProfileMultiSelectPreference) preference).fragment = new ProfileMultiSelectPreferenceFragment();
+            dialogFragment = ((ProfileMultiSelectPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        else
+        if (preference instanceof DaysOfWeekPreference) {
+            ((DaysOfWeekPreference) preference).fragment = new DaysOfWeekPreferenceFragment();
+            dialogFragment = ((DaysOfWeekPreference) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        /*
+        else
+        if (preference instanceof TimePreferenceX) {
             ((TimePreferenceX) preference).fragment = new TimePreferenceFragmentX();
             dialogFragment = ((TimePreferenceX) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }*/
-        if (preference instanceof TimeDialogPreferenceX) {
-            ((TimeDialogPreferenceX) preference).fragment = new TimeDialogPreferenceFragmentX();
-            dialogFragment = ((TimeDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof TimeDialogPreference) {
+            ((TimeDialogPreference) preference).fragment = new TimeDialogPreferenceFragment();
+            dialogFragment = ((TimeDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof CalendarsMultiSelectDialogPreferenceX) {
-            ((CalendarsMultiSelectDialogPreferenceX) preference).fragment = new CalendarsMultiSelectDialogPreferenceFragmentX();
-            dialogFragment = ((CalendarsMultiSelectDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof CalendarsMultiSelectDialogPreference) {
+            ((CalendarsMultiSelectDialogPreference) preference).fragment = new CalendarsMultiSelectDialogPreferenceFragment();
+            dialogFragment = ((CalendarsMultiSelectDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof SearchStringPreferenceX) {
-            ((SearchStringPreferenceX) preference).fragment = new SearchStringPreferenceFragmentX();
-            dialogFragment = ((SearchStringPreferenceX) preference).fragment;
+        else
+        if (preference instanceof SearchStringPreference) {
+            ((SearchStringPreference) preference).fragment = new SearchStringPreferenceFragment();
+            dialogFragment = ((SearchStringPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof ContactGroupsMultiSelectDialogPreferenceX) {
-            ((ContactGroupsMultiSelectDialogPreferenceX) preference).fragment = new ContactGroupsMultiSelectDialogPreferenceFragmentX();
-            dialogFragment = ((ContactGroupsMultiSelectDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof ContactGroupsMultiSelectDialogPreference) {
+            ((ContactGroupsMultiSelectDialogPreference) preference).fragment = new ContactGroupsMultiSelectDialogPreferenceFragment();
+            dialogFragment = ((ContactGroupsMultiSelectDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof ContactsMultiSelectDialogPreferenceX) {
-            ((ContactsMultiSelectDialogPreferenceX) preference).fragment = new ContactsMultiSelectDialogPreferenceFragmentX();
-            dialogFragment = ((ContactsMultiSelectDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof ContactsMultiSelectDialogPreference) {
+            ((ContactsMultiSelectDialogPreference) preference).fragment = new ContactsMultiSelectDialogPreferenceFragment();
+            dialogFragment = ((ContactsMultiSelectDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof WifiSSIDPreferenceX) {
-            ((WifiSSIDPreferenceX) preference).fragment = new WifiSSIDPreferenceFragmentX();
-            dialogFragment = ((WifiSSIDPreferenceX) preference).fragment;
+        else
+        if (preference instanceof WifiSSIDPreference) {
+            ((WifiSSIDPreference) preference).fragment = new WifiSSIDPreferenceFragment();
+            dialogFragment = ((WifiSSIDPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof BluetoothNamePreferenceX) {
-            ((BluetoothNamePreferenceX) preference).fragment = new BluetoothNamePreferenceFragmentX();
-            dialogFragment = ((BluetoothNamePreferenceX) preference).fragment;
+        else
+        if (preference instanceof BluetoothNamePreference) {
+            ((BluetoothNamePreference) preference).fragment = new BluetoothNamePreferenceFragment();
+            dialogFragment = ((BluetoothNamePreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof MobileCellsRegistrationDialogPreferenceX) {
-            ((MobileCellsRegistrationDialogPreferenceX) preference).fragment = new MobileCellsRegistrationDialogPreferenceFragmentX();
-            dialogFragment = ((MobileCellsRegistrationDialogPreferenceX) preference).fragment;
+        else
+        if (preference instanceof MobileCellsRegistrationDialogPreference) {
+            ((MobileCellsRegistrationDialogPreference) preference).fragment = new MobileCellsRegistrationDialogPreferenceFragment();
+            dialogFragment = ((MobileCellsRegistrationDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof MobileCellsPreferenceX) {
-            ((MobileCellsPreferenceX) preference).fragment = new MobileCellsPreferenceFragmentX();
-            dialogFragment = ((MobileCellsPreferenceX) preference).fragment;
+        else
+        if (preference instanceof MobileCellsPreference) {
+            ((MobileCellsPreference) preference).fragment = new MobileCellsPreferenceFragment();
+            dialogFragment = ((MobileCellsPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof NFCTagPreferenceX) {
-            ((NFCTagPreferenceX) preference).fragment = new NFCTagPreferenceFragmentX();
-            dialogFragment = ((NFCTagPreferenceX) preference).fragment;
+        else
+        if (preference instanceof NFCTagPreference) {
+            ((NFCTagPreference) preference).fragment = new NFCTagPreferenceFragment();
+            dialogFragment = ((NFCTagPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof VolumeDialogPreferenceX)
+        else
+        if (preference instanceof VolumeDialogPreference)
         {
-            ((VolumeDialogPreferenceX)preference).fragment = new VolumeDialogPreferenceFragmentX();
-            dialogFragment = ((VolumeDialogPreferenceX)preference).fragment;
+            ((VolumeDialogPreference)preference).fragment = new VolumeDialogPreferenceFragment();
+            dialogFragment = ((VolumeDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -300,15 +344,20 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (getActivity() == null)
                 return;
 
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             if (nestedFragment) {
                 toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
-            }
-            else {
+                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+            } else {
                 toolbar.setTitle(getString(R.string.title_activity_event_preferences));
+                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
             }
 
         }, 200);
+
+        setDivider(null); // this remove dividers for categories
 
         setRedTextToPreferences();
 
@@ -334,21 +383,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -404,21 +454,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference12.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -458,21 +509,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference14.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -499,21 +551,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference15.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -550,21 +603,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     }
                     if (!ok) {
                         if (getActivity() != null) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
+                            PPAlertDialog dialog = new PPAlertDialog(
+                                    preference16.getTitle(),
+                                    getString(R.string.setting_screen_not_found_alert),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    getActivity()
+                            );
 
                             if (!getActivity().isFinishing())
                                 dialog.show();
@@ -605,21 +659,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference18.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -688,21 +743,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!ok) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference113.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -777,7 +833,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
-        MobileCellsRegistrationDialogPreferenceX mobileCellsRegistrationDialogPreference =
+        MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference =
                 prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
         if (mobileCellsRegistrationDialogPreference != null) {
             mobileCellsRegistrationDialogPreference.event_id = activity.event_id;
@@ -825,21 +881,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference120.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -884,21 +941,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference123.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -926,21 +984,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference124.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -968,21 +1027,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference125.getTitle(),
+                                getString(R.string.event_preferences_extender_not_installed),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -1026,21 +1086,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
                 if (!activityExists) {
                     if (getActivity() != null) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
-
-//                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference126.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
 
                         if (!getActivity().isFinishing())
                             dialog.show();
@@ -1050,12 +1111,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
-        InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("eventSensorsInfo");
+        InfoDialogPreference infoDialogPreference = prefMng.findPreference("eventSensorsInfo");
         if (infoDialogPreference != null) {
-            String info = getString(R.string.event_preferences_sensorsInfo_summary);
-            info = "• " + info;
-            info = info.replace("\n\n", "\n\n• ");
+            String info = "<ul><li>" + getString(R.string.event_preferences_sensorsInfo_summary) + "</li></ul>" +
+                    "<br>" +
+                    "<ul><li>" + getString(R.string.event_preferences_sensorsInfo_summary_2) + "</li></ul>";
             infoDialogPreference.setInfoText(info);
+            infoDialogPreference.setIsHtml(true);
         }
 
     }
@@ -1076,6 +1138,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
             event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
     }
@@ -1168,6 +1231,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
 
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
@@ -1191,9 +1255,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_PERIODIC_SCANNING_APP_SETTINGS) {
             event._eventPreferencesPeriodic.checkPreferences(prefMng, !nestedFragment, context);
         }
-        if (requestCode == LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR) {
+        if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
-                LocationGeofencePreferenceX preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
+                LocationGeofencePreference preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
                 if (preference != null) {
                     preference.setGeofenceFromEditor(/*geofenceId*/);
                 }
@@ -1217,43 +1281,47 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
-            WifiSSIDPreferenceX preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
+            WifiSSIDPreference preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
             if (preference != null) {
                 preference.setLocationEnableStatus();
             }
 
             event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (2)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
-            BluetoothNamePreferenceX preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+            BluetoothNamePreference preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
             if (preference != null) {
                 preference.setLocationEnableStatus();
             }
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (3)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
-            LocationGeofencePreferenceX preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
+            LocationGeofencePreference preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
             if (preference != null) {
                 preference.setLocationEnableStatus();
             }
 
             event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (4)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
-            MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
+            MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
             if (preference != null) {
                 preference.setLocationEnableStatus();
             }
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (5)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
@@ -1261,6 +1329,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (6)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
@@ -1269,7 +1338,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context, false);
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE)) {
-            RingtonePreferenceX preference = prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_START);
+            RingtonePreference preference = prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_START);
             if (preference != null)
                 preference.refreshListView();
             preference = prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_END);
@@ -1277,36 +1346,36 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 preference.refreshListView();
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)) {
-            WifiSSIDPreferenceX wifiPreference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
+            WifiSSIDPreference wifiPreference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
             if (wifiPreference != null)
                 wifiPreference.refreshListView(true, "");
-            BluetoothNamePreferenceX bluetoothPreference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+            BluetoothNamePreference bluetoothPreference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
             if (bluetoothPreference != null)
                 bluetoothPreference.refreshListView(true, "");
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)) {
-            MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
+            MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
             if (preference != null)
                 preference.refreshListView(true, Integer.MAX_VALUE);
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)) {
-            MobileCellsRegistrationDialogPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
+            MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
             if (preference != null)
                 preference.startRegistration();
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CALENDAR_DIALOG)) {
-            CalendarsMultiSelectDialogPreferenceX preference = prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_CALENDARS);
+            CalendarsMultiSelectDialogPreference preference = prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_CALENDARS);
             if (preference != null)
                 preference.refreshListView(true);
         }
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONTACT_DIALOG)) {
-            ContactsMultiSelectDialogPreferenceX preference1 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACTS);
+            ContactsMultiSelectDialogPreference preference1 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACTS);
             if (preference1 != null)
                 preference1.refreshListView(true);
             preference1 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACTS);
             if (preference1 != null)
                 preference1.refreshListView(true);
-            ContactGroupsMultiSelectDialogPreferenceX preference2 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACT_GROUPS);
+            ContactGroupsMultiSelectDialogPreference preference2 = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACT_GROUPS);
             if (preference2 != null)
                 preference2.refreshListView(true);
             preference2 = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACT_GROUPS);
@@ -1315,7 +1384,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
         /*if (requestCode == NFCTagPreference.RESULT_NFC_TAG_READ_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
-                NFCTagPreferenceX preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
+                NFCTagPreference preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
                 if (preference != null) {
                     String tagName = data.getStringExtra(NFCTagReadActivity.EXTRA_TAG_NAME);
                     String tagUid = data.getStringExtra(NFCTagReadActivity.EXTRA_TAG_UID);
@@ -1324,9 +1393,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }*/
-        if (requestCode == NFCTagPreferenceX.RESULT_NFC_TAG_WRITE) {
+        if (requestCode == NFCTagPreference.RESULT_NFC_TAG_WRITE) {
             if (resultCode == Activity.RESULT_OK) {
-                NFCTagPreferenceX preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
+                NFCTagPreference preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
                 if (preference != null) {
                     String tagName = data.getStringExtra(NFCTagWriteActivity.EXTRA_TAG_NAME);
                     //String tagUid = data.getStringExtra(NFCTagWriteActivity.EXTRA_TAG_UID);
@@ -1637,7 +1706,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doMobileCellsRegistrationCountDownBroadcastReceiver(long millisUntilFinished) {
-        MobileCellsRegistrationDialogPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
+        MobileCellsRegistrationDialogPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
         if (preference != null) {
             //Log.d("mobileCellsRegistrationCountDownBroadcastReceiver", "xxx");
             preference.updateInterface(millisUntilFinished, false);
@@ -1646,7 +1715,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doMobileCellsRegistrationStoppedBroadcastReceiver() {
-        MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
+        MobileCellsPreference preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
         if (preference != null)
             preference.refreshListView(true, Integer.MAX_VALUE);
     }
@@ -1878,21 +1947,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
         if (!ok) {
             if (getActivity() != null) {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog = dialogBuilder.create();
-
-//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                    @Override
-//                    public void onShow(DialogInterface dialog) {
-//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                        if (positive != null) positive.setAllCaps(false);
-//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                        if (negative != null) negative.setAllCaps(false);
-//                    }
-//                });
+                PPAlertDialog dialog = new PPAlertDialog(
+                        getString(R.string.event_preferences_applications_AccessibilitySettings_title),
+                        getString(R.string.setting_screen_not_found_alert),
+                        getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        getActivity()
+                );
 
                 if (!getActivity().isFinishing())
                     dialog.show();

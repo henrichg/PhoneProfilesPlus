@@ -6,6 +6,14 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
+    <!--    <View-->
+    <!--        android:id="@+id/brightnessPrefDialog_titleBarDivider"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/divider_height"-->
+    <!--        android:layout_marginStart="@dimen/divider_margin"-->
+    <!--        android:layout_marginEnd="@dimen/divider_margin"-->
+    <!--        android:background="@color/dialog_divider" />-->
+
     <sk.henrichg.phoneprofilesplus.PPNumberPicker
         android:id="@+id/better_number_picker"
         android:layout_width="match_parent"

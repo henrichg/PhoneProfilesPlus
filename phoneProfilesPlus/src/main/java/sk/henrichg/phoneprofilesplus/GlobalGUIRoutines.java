@@ -5,6 +5,7 @@ import static android.os.Looper.getMainLooper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
@@ -17,13 +18,9 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
-import android.text.Editable;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.style.BulletSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
@@ -34,14 +31,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.color.DynamicColors;
-
-import org.xml.sax.XMLReader;
 
 import java.util.List;
 
@@ -109,19 +103,23 @@ class GlobalGUIRoutines {
     }
 */
 
-    public static void setTheme(Activity activity, boolean forPopup,
+    static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar/*, boolean withDrawerLayout*/,
                                 boolean forActivator, boolean forDialog,
-                                boolean forLocationEditor)
+                                boolean forLocationEditor, boolean forPreference)
     {
-        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, forDialog, forLocationEditor, activity);
+        int theme = getTheme(forPopup, withToolbar,
+                /*withDrawerLayout,*/ forActivator,
+                forDialog, forLocationEditor, forPreference,
+                activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/
                         boolean forActivator, boolean forDialog,
-                        boolean forLocationEditor, Context context) {
+                        boolean forLocationEditor, boolean forPreferences,
+                        Context context) {
         switch (ApplicationPreferences.applicationTheme(context, false)) {
             /*case "color":
                 if (forPopup) {
@@ -239,15 +237,25 @@ class GlobalGUIRoutines {
         if (forActivator) {
             if (PPApplication.deviceIsOnePlus)
                 return R.style.ActivatorTheme_dayNight_noRipple;
-            else
-                return R.style.ActivatorTheme_dayNight;
+            else {
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                    (Build.VERSION.SDK_INT >= 33))
+                    return R.style.ActivatorTheme_dayNight_samsung;
+                else
+                    return R.style.ActivatorTheme_dayNight;
+            }
         }
         else
         if (forDialog) {
             if (PPApplication.deviceIsOnePlus)
                 return R.style.DialogTheme_dayNight_noRipple;
-            else
-                return R.style.DialogTheme_dayNight;
+            else {
+                if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
+                        (Build.VERSION.SDK_INT >= 33))
+                    return R.style.DialogTheme_dayNight_samsung;
+                else
+                    return R.style.DialogTheme_dayNight;
+            }
         }
         else
         if (forLocationEditor) {
@@ -255,6 +263,13 @@ class GlobalGUIRoutines {
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
             else
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
+        }
+        else
+        if (forPreferences) {
+            if (PPApplication.deviceIsOnePlus)
+                return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
+            else
+                return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
         }
         else
         if (forPopup) {
@@ -289,6 +304,18 @@ class GlobalGUIRoutines {
                     return R.style.Theme_PhoneProfilesTheme_dayNight;
             }
         }
+    }
+
+    static boolean isNightModeEnabled(Context appContext) {
+        if (Build.VERSION.SDK_INT >= 30)
+            return appContext.getResources().getConfiguration().isNightModeActive();
+
+        int nightModeFlags =
+                appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            return true;
+        }
+        return false;
     }
 
     private static void switchNightMode(Context appContext) {
@@ -586,34 +613,42 @@ class GlobalGUIRoutines {
     }
     */
 
+    /*
     static int getThemeAccentColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
         return value.data;
     }
+    */
 
+    /*
     static int getThemeWhiteTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityWhiteTextColor, value, true);
         return value.data;
     }
+    */
+    /*
     static int getThemeNormalTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityNormalTextColor, value, true);
         return value.data;
     }
-
+    */
+    /*
     static int getThemeDisabledTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityDisabledTextColor, value, true);
         return value.data;
     }
-
+    */
+    /*
     static int getThemeCommandBackgroundColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityCommandBackgroundColor, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getThemeColorControlHighlight(final Context context) {
@@ -630,12 +665,13 @@ class GlobalGUIRoutines {
         return value.data;
     }
     */
-
+    /*
     static int getThemeEventStopColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.eventStopTextColor, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getThemeEventStopStatusIndicator(final Context context) {
@@ -661,7 +697,7 @@ class GlobalGUIRoutines {
     */
 
     static int getThemeSensorPassStatusColor(final int passStatus, final Context context) {
-        final TypedValue value = new TypedValue();
+        /*final TypedValue value = new TypedValue();
         if (passStatus == EventPreferences.SENSOR_PASSED_PASSED)
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusPassed, value, true);
         else
@@ -669,7 +705,13 @@ class GlobalGUIRoutines {
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusNotPassed, value, true);
         else
             context.getTheme().resolveAttribute(R.attr.sensorPassStatusWaiting, value, true);
-        return value.data;
+        return value.data;*/
+        if (passStatus == EventPreferences.SENSOR_PASSED_PASSED)
+            return ContextCompat.getColor(context, R.color.sensor_pass_status_passed);
+        else if (passStatus == EventPreferences.SENSOR_PASSED_NOT_PASSED)
+            return ContextCompat.getColor(context, R.color.sensor_pass_status_not_passed);
+        else
+            return ContextCompat.getColor(context, R.color.sensor_pass_status_waiting);
     }
 
     /*
@@ -690,18 +732,20 @@ class GlobalGUIRoutines {
         return value.data;
     }
     */
-
+    /*
     static private int getThemeEditorSpinnerDropDownTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.editorSpinnerDropDownTextColor, value, true);
         return value.data;
     }
-
+    */
+    /*
     static int getThemeDialogDividerColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.dialogDivider, value, true);
         return value.data;
     }
+    */
 
     /*
     static private int getThemeEditorFilterBackgroundColor(final Context context) {
@@ -710,38 +754,42 @@ class GlobalGUIRoutines {
         return value.data;
     }
     */
-
+    /*
     static private int getThemeDialogBackgroundColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityBackgroundColor, value, true);
         return value.data;
     }
+    */
 
     static void setThemeTimeDurationPickerDisplay(TimeDurationPicker timeDurationPicker, final Context context) {
-        boolean nightModeOn = (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
+        //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+//                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+//                                    == Configuration.UI_MODE_NIGHT_YES;
 
-        if (/*ApplicationPreferences.applicationTheme(activity, true).equals("white")*/!nightModeOn) {
+        if (ApplicationPreferences.applicationTheme(context, true).equals("white")/*!nightModeOn*/) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace_light));
             timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear_light));
-        }
-        else {
+        } else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
             timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
         }
-        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
-        timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
+        //timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
+        timeDurationPicker.setDurationDisplayBackgroundColor(ContextCompat.getColor(context, R.color.activityBackgroundColor));
+        //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
+        timeDurationPicker.setSeparatorColor(ContextCompat.getColor(context, R.color.dialog_divider));
     }
-
+    /*
     static int getThemeSecondaryTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activitySecondaryTextColor, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)
@@ -854,33 +902,6 @@ class GlobalGUIRoutines {
         }
     }
 
-    static class LiTagHandler implements Html.TagHandler {
-
-        @Override
-        public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
-
-            class Bullet {}
-
-            if (tag.equals("li") && opening) {
-                output.setSpan(new Bullet(), output.length(), output.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-            }
-            if (tag.equals("li") && !opening) {
-                //output.append("\n\n");
-                output.append("\n");
-                Bullet[] spans = output.getSpans(0, output.length(), Bullet.class);
-                if (spans != null) {
-                    Bullet lastMark = spans[spans.length-1];
-                    int start = output.getSpanStart(lastMark);
-                    output.removeSpan(lastMark);
-                    if (start != output.length()) {
-                        output.setSpan(new BulletSpan(), start, output.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                    }
-                }
-            }
-        }
-
-    }
-
     static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
 
         private int mSelectedIndex = -1;
@@ -898,9 +919,11 @@ class GlobalGUIRoutines {
             TextView itemText = itemView.findViewById(android.R.id.text1);
             if (itemText != null) {
                 if (position == mSelectedIndex) {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent));
                 } else {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
                 }
             }
 
@@ -986,105 +1009,89 @@ class GlobalGUIRoutines {
             nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
         }
 
+        String positiveText;
+        DialogInterface.OnClickListener positiveClick;
+        String negativeText = null;
+        DialogInterface.OnClickListener negativeClick = null;
+
         if ((profile != null) || (event != null)) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(nTitle);
-            dialogBuilder.setMessage(nText);
+            //AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            //dialogBuilder.setTitle(nTitle);
+            //dialogBuilder.setMessage(nText);
             if (forProfile) {
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (profile != null) {
-                                intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                                intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-                            }
-                            else {
+                positiveText = activity.getString(R.string.show_dialog_about_red_text_show_profile_preferences);
+                positiveClick = (dialog, which) -> {
+                    Intent intent;
+                    if (profile != null) {
+                        intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
+                        if (forActivator)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                        intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+                    } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                            }
-                            activity.startActivity(intent);
+                    }
+                    activity.startActivity(intent);
 
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
+                    try {
+                        // close Activator
+                        if (forActivator)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                };
                 if (forActivator) {
-                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                            (dialog, which) -> {
-                                Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                                activity.startActivity(intent);
+                    negativeText = activity.getString(R.string.show_dialog_about_red_text_show_editor);
+                    negativeClick = (dialog, which) -> {
+                        Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                        activity.startActivity(intent);
 
-                                try {
-                                    // close Activator
-                                    activity.finish();
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            });
+                        try {
+                            // close Activator
+                            activity.finish();
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    };
                 }
             }
             else {
-                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
-                        (dialog, which) -> {
-                            Intent intent;
-                            if (event != null) {
-                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                                intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-                                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-                            }
-                            else {
+                positiveText = activity.getString(R.string.show_dialog_about_red_text_show_event_preferences);
+                positiveClick = (dialog, which) -> {
+                    Intent intent;
+                    if (event != null) {
+                        intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                        if (forActivator)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                        intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                        intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                    } else {
                                 intent = new Intent(activity.getBaseContext(), EditorActivity.class);
                                 if (forActivator)
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            }
-                            activity.startActivity(intent);
+                    }
+                    activity.startActivity(intent);
 
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                /*
-                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
-                        (dialog, which) -> {
-                            Intent intent = new Intent(activity.getBaseContext(), EditorActivity.class);
-                            if (forActivator)
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
-                            activity.startActivity(intent);
-
-                            try {
-                                // close Activator
-                                if (forActivator)
-                                    activity.finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        });
-                 */
+                    try {
+                        // close Activator
+                        if (forActivator)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                };
             }
-            dialogBuilder.setCancelable(!forActivator);
-            AlertDialog dialog = dialogBuilder.create();
+            //dialogBuilder.setCancelable(!forActivator);
+            //AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                @Override
@@ -1095,6 +1102,19 @@ class GlobalGUIRoutines {
 //                    if (negative != null) negative.setAllCaps(false);
 //                }
 //            });
+
+            PPAlertDialog dialog = new PPAlertDialog(nTitle, nText,
+                    positiveText, negativeText, null, null,
+                    positiveClick,
+                    negativeClick,
+                    null,
+                    null,
+                    null,
+                    !forActivator, !forActivator,
+                    false, false,
+                    false,
+                    activity
+            );
 
             if (!activity.isFinishing())
                 dialog.show();

@@ -9,19 +9,19 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
         app:key="eventCalendarCalendars"
         app:defaultValue="@string/empty_string"
         app:title="@string/event_preferences_calendar_calendars"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_calendar_day_contains_event"
         app:summary="@string/array_event_pref_calendarDayContainsEvent_notTestIt"
         app:key="eventCalendarDayContainsEvent"
         app:defaultValue="0"
-        app:entries="@array/eventCalendarDayContainsEventArray"
-        app:entryValues="@array/eventCalendarDayContainsEventValues"
+        app:ppEntries="@array/eventCalendarDayContainsEventArray"
+        app:ppEntryValues="@array/eventCalendarDayContainsEventValues"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
@@ -34,16 +34,16 @@
             app:defaultValue="false"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preferences_calendar_search_field"
             app:summary="@string/array_event_pref_calendarSearchField_eventName"
             app:key="eventCalendarSearchField"
             app:defaultValue="0"
-            app:entries="@array/eventCalendarSearchFieldArray"
-            app:entryValues="@array/eventCalendarSearchFieldValues"
+            app:ppEntries="@array/eventCalendarSearchFieldArray"
+            app:ppEntryValues="@array/eventCalendarSearchFieldValues"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.SearchStringPreferenceX
+        <sk.henrichg.phoneprofilesplus.SearchStringPreference
             app:key="eventCalendarSearchString"
             app:summary="@string/event_preferences_calendar_search_string"
             app:title="@string/event_preferences_calendar_search_string"
@@ -56,32 +56,32 @@
 <!--            app:defaultValue="false"-->
 <!--            app:dependency="eventCalendarEnabled"-->
 <!--            app:layout="@layout/mp_preference_material_widget" />-->
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preferences_calendar_all_day_events"
             app:summary="@string/array_event_pref_calendarAllDayEvents_dontCheck"
             app:key="eventCalendarAllDayEvents"
             app:defaultValue="0"
-            app:entries="@array/eventCalendarAllDayEventsArray"
-            app:entryValues="@array/eventCalendarAllDayEventsValues"
+            app:ppEntries="@array/eventCalendarAllDayEventsArray"
+            app:ppEntryValues="@array/eventCalendarAllDayEventsValues"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preference_calendar_availability"
             app:summary="@string/array_event_pref_calendarAvailability_noCheck"
             app:key="eventCalendarAvailability"
             app:defaultValue="0"
-            app:entries="@array/eventCalendarAvailabilityArray"
-            app:entryValues="@array/eventCalendarAvailabilityValues"
+            app:ppEntries="@array/eventCalendarAvailabilityArray"
+            app:ppEntryValues="@array/eventCalendarAvailabilityValues"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/event_preference_calendar_status"
             app:summary="@string/array_event_pref_calendarStatus_noCheck"
             app:key="eventCalendarStatus"
             app:defaultValue="0"
-            app:entries="@array/eventCalendarStatusArray"
-            app:entryValues="@array/eventCalendarStatusValues"
+            app:ppEntries="@array/eventCalendarStatusArray"
+            app:ppEntryValues="@array/eventCalendarStatusValues"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
@@ -89,7 +89,7 @@
         app:key="eventCalendarOtherParametersCategory"
         app:title="@string/event_preferences_other_parameters"
         app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
             app:key="eventCalendarStartBeforeEvent"
             app:summary="@string/event_preferences_startBeforeEvent"
             app:title="@string/event_preferences_startBeforeEvent"

@@ -1,44 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_samsung_edge_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout
-    android:id="@+id/widget_samsung_edge_liLa1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="bottom"
-    tools:ignore="UselessParent">
-
-    <GridView
-        android:id="@+id/widget_samsung_edge_grid"
+    <LinearLayout
+        android:id="@+id/widget_samsung_edge_bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:columnWidth="70dp"
-        android:gravity="center"
-        android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
-        android:verticalSpacing="5dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:divider="@android:color/transparent"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:listSelector="@drawable/widget_ripple_list_item" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true">
 
-    <TextView
-        android:id="@+id/widget_samsung_edge_empty"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="@string/profile_list_empty"
-        android:gravity="center"
-        android:textSize="15dp"
-        tools:ignore="SpUsage" />
+        <ImageView
+            android:id="@+id/widget_samsung_edge_settings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_widget_settings"
+            android:contentDescription="@string/samsung_edge_panel_settings_description"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/widget_ripple_samsung_edge_settings" />
 
-</LinearLayout>
+    </LinearLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/widget_samsung_edge_profiles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/widget_samsung_edge_bottom_bar">
+
+        <LinearLayout
+            android:id="@+id/widget_samsung_edge_liLa1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            tools:ignore="UselessParent">
+
+            <GridView
+                android:id="@+id/widget_samsung_edge_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:columnWidth="70dp"
+                android:gravity="center"
+                android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
+                android:verticalSpacing="5dp"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth"
+                android:divider="@android:color/transparent"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:listSelector="@drawable/widget_ripple_list_item" />
+
+            <TextView
+                android:id="@+id/widget_samsung_edge_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/profile_list_empty"
+                android:gravity="center"
+                android:textSize="15dp"
+                tools:ignore="SpUsage" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

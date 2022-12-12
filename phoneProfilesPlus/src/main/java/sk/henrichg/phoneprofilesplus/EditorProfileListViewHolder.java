@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class EditorProfileListViewHolder extends RecyclerView.ViewHolder
@@ -83,16 +84,17 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             (profile.isAccessibilityServiceEnabled(context) != 1)
            )*/
         if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, context)){
-            profileName.setTypeface(null, Typeface.NORMAL);
+            profileName.setTypeface(null, Typeface.BOLD);
             //profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);
         }
-        else
-        {
-            profileName.setTypeface(null, Typeface.NORMAL);
+        else {
+            profileName.setTypeface(null, Typeface.BOLD);
             //profileName.setTextSize(15);
             //noinspection ConstantConditions
-            profileName.setTextColor(GlobalGUIRoutines.getThemeWhiteTextColor(editorFragment.getActivity()));
+            //profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
+            //noinspection ConstantConditions
+            profileName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
         }
 
         String indicators = "";

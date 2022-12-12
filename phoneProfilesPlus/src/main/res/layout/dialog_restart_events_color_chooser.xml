@@ -1,464 +1,495 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dialog_color_chooser_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_color_chooser_root2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    android:fadeScrollbars="false"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="3dp">
 
-    <LinearLayout
-        android:id="@+id/dialog_color_chooser_scroll_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
-        tools:ignore="UselessParent">
+    <View
+        android:id="@+id/dialog_color_chooser_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
 
-        <HorizontalScrollView
-            android:id="@+id/dialog_color_chooser_horizontalScrollView1"
+    <ScrollView
+        android:id="@+id/dialog_color_chooser_root"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false">
+
+        <LinearLayout
+            android:id="@+id/dialog_color_chooser_scroll_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbarStyle="outsideOverlay" >
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            tools:ignore="UselessParent">
 
-            <LinearLayout
-                android:id="@+id/dialog_color_chooser_liLa1"
+            <HorizontalScrollView
+                android:id="@+id/dialog_color_chooser_horizontalScrollView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:scrollbarStyle="outsideOverlay"
+                android:fadeScrollbars="false">
 
                 <LinearLayout
-                    android:id="@+id/restart_events_icon_color_chooser_liLa2"
+                    android:id="@+id/dialog_color_chooser_liLa1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_default_color"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:padding="10dp"
-                        android:layout_marginStart="14dp">
-                        <ImageView
-                            android:id="@+id/restart_events_icon_color_chooser_imageView0"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_check"
-                            tools:ignore="ContentDescription"/>
-                    </FrameLayout>
-                    <TextView
-                        android:id="@+id/dialog_color_chooser_default_color_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/colorChooser_pref_dialog_defaultIconColor"
-                        android:textSize="16sp"
-                        android:clickable="true"
-                        android:focusable="true" />
-                </LinearLayout>
+                    android:orientation="vertical">
 
-                <androidx.gridlayout.widget.GridLayout
-                    android:id="@+id/dialog_color_chooser_grid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    app:columnCount="4"
-                    app:rowCount="5"
-                    app:orientation="vertical"
-                    android:clipToPadding="false">
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa1"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView1"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check_dark"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription"/>
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa2"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView2"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check_dark"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa3"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView3"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa4"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView4"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa5"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView5"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa7"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView7"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa8"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView8"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa9"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView9"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa10"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView10"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa11"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView11"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa12"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView12"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa13"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView13"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa14"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView14"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa15"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView15"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa16"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView16"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa17"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView17"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check_dark"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa18"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView18"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check_dark"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa19"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView19"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check_dark"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa20"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView20"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_frLa21"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_margin="4dp"
-                        tools:background="#000">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView21"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/ic_check"
-                            android:layout_gravity="center"
-                            tools:ignore="ContentDescription" />
-
-                    </FrameLayout>
-
-                </androidx.gridlayout.widget.GridLayout>
-
-                <LinearLayout
-                    android:id="@+id/dialog_color_chooser_custom_color_liLa1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:id="@+id/dialog_color_chooser_custom_color"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:padding="10dp"
-                        android:layout_marginStart="14dp">
-
-                        <ImageView
-                            android:id="@+id/dialog_color_chooser_imageView22"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_check"
-                            tools:ignore="ContentDescription" />
-                    </FrameLayout>
-                    <TextView
-                        android:id="@+id/dialog_color_chooser_custom_color_label"
+                    <LinearLayout
+                        android:id="@+id/restart_events_icon_color_chooser_liLa2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/colorChooser_pref_dialog_customColor"
-                        android:textSize="16sp"
-                        android:textColor="?attr/colorAccent"
-                        android:textStyle="bold"
-                        android:background="?attr/buttonBackground"
-                        android:clickable="true"
-                        android:focusable="true" />
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_default_color"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:padding="10dp"
+                            android:layout_marginStart="14dp">
+
+                            <ImageView
+                                android:id="@+id/restart_events_icon_color_chooser_imageView0"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_check"
+                                tools:ignore="ContentDescription"/>
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/dialog_color_chooser_default_color_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/colorChooser_pref_dialog_defaultIconColor"
+                            android:textSize="16sp"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
+                    <androidx.gridlayout.widget.GridLayout
+                        android:id="@+id/dialog_color_chooser_grid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        app:columnCount="4"
+                        app:rowCount="5"
+                        app:orientation="vertical"
+                        android:clipToPadding="false">
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa1"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView1"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check_dark"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription"/>
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa2"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView2"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check_dark"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa3"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView3"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa4"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView4"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa5"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView5"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa7"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView7"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa8"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView8"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa9"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView9"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa10"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView10"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa11"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView11"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa12"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView12"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa13"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView13"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa14"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView14"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa15"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView15"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa16"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView16"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa17"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView17"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check_dark"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa18"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView18"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check_dark"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa19"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView19"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check_dark"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa20"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView20"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_frLa21"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:layout_margin="4dp"
+                            tools:background="#000">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView21"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:src="@drawable/ic_check"
+                                android:layout_gravity="center"
+                                tools:ignore="ContentDescription" />
+
+                        </FrameLayout>
+
+                    </androidx.gridlayout.widget.GridLayout>
+
+                    <LinearLayout
+                        android:id="@+id/dialog_color_chooser_custom_color_liLa1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:id="@+id/dialog_color_chooser_custom_color"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:padding="10dp"
+                            android:layout_marginStart="14dp">
+
+                            <ImageView
+                                android:id="@+id/dialog_color_chooser_imageView22"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_check"
+                                tools:ignore="ContentDescription" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/dialog_color_chooser_custom_color_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/colorChooser_pref_dialog_customColor"
+                            android:textSize="16sp"
+                            android:textColor="@color/accent"
+                            android:textStyle="bold"
+                            android:background="@drawable/pp_button_background_selector"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
 
-        </HorizontalScrollView>
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+    <View
+        android:id="@+id/dialog_color_chooser_buttonsDivider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:background="@color/dialog_divider" />
+
+</LinearLayout>

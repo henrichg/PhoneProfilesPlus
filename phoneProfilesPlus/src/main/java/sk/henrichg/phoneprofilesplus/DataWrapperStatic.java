@@ -129,8 +129,11 @@ public class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING)),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN)
-        );
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION)
+                );
     }
 
     static Event getNonInitializedEvent(String name, int startOrder)
@@ -207,13 +210,13 @@ public class DataWrapperStatic {
 
             String _eventName = getLastStartedEventName(dataWrapper, profile);
             if (!_eventName.equals("?"))
-                eventName = "[" + _eventName + "]";
+                eventName = "[ " + _eventName + " ]";
 
             if (!manualIndicators.isEmpty())
                 eventName = manualIndicators + " " + eventName;
         }
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, false))
             eventName = eventName + " ";
 
         Spannable sName;
@@ -276,7 +279,7 @@ public class DataWrapperStatic {
 
     static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
     {
-        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
+        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false, false))
         {
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
@@ -603,7 +606,7 @@ public class DataWrapperStatic {
     }
 
     static void setDynamicLauncherShortcuts(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N_MR1) {
+        if (android.os.Build.VERSION.SDK_INT >= 25) {
             try {
                 ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
 
@@ -643,9 +646,11 @@ public class DataWrapperStatic {
                         }
                     }
 
-                    //noinspection ConstantConditions
+//                    PPApplication.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
+
+                    shortcutManager.removeAllDynamicShortcuts();
                     if (shortcuts.size() > 0)
-                        shortcutManager.setDynamicShortcuts(shortcuts);
+                        shortcutManager.addDynamicShortcuts(shortcuts);
                 }
             } catch (Exception e) {
 //                java.lang.IllegalStateException: Launcher activity not found for package sk.henrichg.phoneprofilesplus
@@ -669,7 +674,7 @@ public class DataWrapperStatic {
         if ((profile == null) && (event == null))
             return false;
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, false))
             return false;
 
         if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {

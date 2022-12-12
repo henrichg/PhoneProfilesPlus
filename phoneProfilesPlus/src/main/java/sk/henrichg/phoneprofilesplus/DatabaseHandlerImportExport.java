@@ -773,6 +773,9 @@ class DatabaseHandlerImportExport {
                 cursorImportDB.close();
         }
 
+        // remove all not used non-named mobile cells
+        instance.deleteNonNamedNotUsedCells();
+
     }
 
     static private void importProfiles(SQLiteDatabase db, SQLiteDatabase exportedDBObj,
@@ -1282,7 +1285,9 @@ class DatabaseHandlerImportExport {
     }
 
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-    static int exportDB(DatabaseHandler instance)
+    static int exportDB(DatabaseHandler instance,
+                        boolean deleteGeofences, boolean deleteWifiSSIDs,
+                        boolean deleteBluetoothNames, boolean deleteMobileCells)
     {
         instance.importExportLock.lock();
         try {
@@ -1343,6 +1348,44 @@ class DatabaseHandlerImportExport {
                                 PPApplication.recordException(ee);
                             }
 
+                            if (ok) {
+                                SQLiteDatabase exportedDBObj = null;
+                                try {
+                                    try {
+                                        exportedDBObj = SQLiteDatabase.openDatabase(exportedDB.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+
+                                        if (deleteGeofences) {
+                                            ContentValues values = new ContentValues();
+                                            values.put(DatabaseHandler.KEY_E_LOCATION_GEOFENCES, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                            exportedDBObj.delete(DatabaseHandler.TABLE_GEOFENCES, null, null);
+                                        }
+                                        if (deleteWifiSSIDs) {
+                                            ContentValues values = new ContentValues();
+                                            values.put(DatabaseHandler.KEY_E_WIFI_SSID, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                        }
+                                        if (deleteBluetoothNames) {
+                                            ContentValues values = new ContentValues();
+                                            values.put(DatabaseHandler.KEY_E_BLUETOOTH_ADAPTER_NAME, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                        }
+                                        if (deleteMobileCells) {
+                                            ContentValues values = new ContentValues();
+                                            values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_CELLS, "");
+                                            exportedDBObj.update(DatabaseHandler.TABLE_EVENTS, values, null, null);
+                                            exportedDBObj.delete(DatabaseHandler.TABLE_MOBILE_CELLS, null, null);
+                                        }
+
+                                    } catch (Exception ee) {
+                                        PPApplication.recordException(ee);
+                                        ok = false;
+                                    }
+                                } finally {
+                                    if (exportedDBObj != null)
+                                        exportedDBObj.close();
+                                }
+                            }
                             if (ok)
                                 ret = 1;
                         }

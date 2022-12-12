@@ -31,7 +31,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static public void setAlarm(Context context)
+    static void setAlarm(Context context)
     {
         removeAlarm(context);
 
@@ -129,7 +129,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
             return;
 

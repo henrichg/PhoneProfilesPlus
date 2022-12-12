@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
@@ -50,7 +49,8 @@ import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.math.BigDecimal;
 
-public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
+public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
+                        implements LocationGeofenceEditorActivityOSMNetworkOfflineListener{
     private LocationManager mLocationManager;
     private boolean mListenerEnabled = false;
 
@@ -113,7 +113,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, true);
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -137,7 +137,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         //mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
 
         Intent intent = getIntent();
-        geofenceId = intent.getLongExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, 0);
+        geofenceId = intent.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
 
         if (geofenceId > 0) {
             geofence = DatabaseHandler.getInstance(getApplicationContext()).getGeofence(geofenceId);
@@ -164,8 +164,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         //mMap.setTilesScaledToDpi(true);
         //mMap.getTileProvider().clearTileCache();
 
-        boolean nightModeOn = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                                    == Configuration.UI_MODE_NIGHT_YES;
+        //boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(getApplicationContext());
+//                (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+//                                    == Configuration.UI_MODE_NIGHT_YES;
+        String applicationTheme = ApplicationPreferences.applicationTheme(this, true);
+        boolean nightModeOn = !applicationTheme.equals("white");
 
         /*boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
@@ -378,7 +381,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
 
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofence._id);
+                returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
@@ -394,11 +397,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         AppCompatImageButton myLocationButton = findViewById(R.id.location_editor_my_location);
         TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_change_location_dialog_title));
         myLocationButton.setOnClickListener(v -> {
-            AlertDialog changeLocationDialog = new AlertDialog.Builder(this)
-                    .setTitle(R.string.location_editor_change_location_dialog_title)
-                    .setCancelable(true)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setItems(R.array.locationEditorChangeLocationArray, (dialog, which) -> {
+            SingleSelectListDialog changeLocationDialog = new SingleSelectListDialog(
+                    R.string.location_editor_change_location_dialog_title,
+                    R.array.locationEditorChangeLocationArray,
+                    SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                    (dialog, which) -> {
                         IMapController _mapController = mMap.getController();
                         switch (which) {
                             case 0:
@@ -417,18 +420,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                                 break;
                             default:
                         }
-                    })
-                    .create();
-
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                    },
+                    false,
+                    this);
 
             changeLocationDialog.show();
         });
@@ -436,26 +430,17 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         addressButton = findViewById(R.id.location_editor_address_btn);
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
         addressButton.setOnClickListener(v -> {
-            AlertDialog renameGeofenceDialog = new AlertDialog.Builder(this)
-                    .setTitle(R.string.location_editor_rename_with_address_button_tooltip)
-                    .setCancelable(true)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setItems(R.array.locationEditorRenameLocationArray, (dialog, which) -> {
+            SingleSelectListDialog renameGeofenceDialog = new SingleSelectListDialog(
+                    R.string.location_editor_rename_with_address_button_tooltip,
+                    R.array.locationEditorRenameLocationArray,
+                    SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                    (dialog, which) -> {
                         if (which == 0) {
                             getGeofenceAddress(/*true*/);
                         }
-                    })
-                    .create();
-
-//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
+                    },
+                    true,
+                    this);
 
             renameGeofenceDialog.show();
         });
@@ -475,7 +460,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         if (checkOnlineStatusBroadcatReceiver == null) {
-            checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver();
+            checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(checkOnlineStatusBroadcatReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver"));
         }
@@ -665,7 +650,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         if (!errorLocationDisplayed) {
             errorLocationDisplayed = true;
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
+            /*
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.location_editor_title);
             dialogBuilder.setMessage(R.string.location_editor_enable_location_summary);
             dialogBuilder.setCancelable(true);
@@ -674,11 +660,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 boolean ok = false;
                 //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, LocationGeofenceEditorActivityOSM.this.getApplicationContext())) {
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getApplicationContext())) {
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        LocationGeofenceEditorActivityOSM.this.startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
+                        startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
                         PPApplication.recordException(e);
@@ -701,7 +687,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 //                                }
 //                            });
 
-                    if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
+                    if (!isFinishing())
                         _dialog.show();
                 }
 
@@ -723,8 +709,62 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             //                if (negative != null) negative.setAllCaps(false);
             //            }
             //        });
+            */
 
-            if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
+            PPAlertDialog dialog = new PPAlertDialog(
+                    getString(R.string.location_editor_title),
+                    getString(R.string.location_editor_enable_location_summary),
+                    getString(android.R.string.ok),
+                    getString(android.R.string.cancel),
+                    null, null,
+                    (dialog1, which) -> {
+                        boolean ok = false;
+                        //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getApplicationContext())) {
+                            try {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
+                                ok = true;
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
+                        if (!ok) {
+                            PPAlertDialog _dialog = new PPAlertDialog(
+                                    getString(R.string.location_settings_button_tooltip),
+                                    getString(R.string.setting_screen_not_found_alert),
+                                    getString(android.R.string.ok),
+                                    null,
+                                    null, null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    true, true,
+                                    false, false,
+                                    true,
+                                    this
+                            );
+
+                            if (!isFinishing())
+                                _dialog.show();
+                        }
+
+                        errorLocationDisplayed = false;
+                    },
+                    (dialog12, which) -> errorLocationDisplayed = false,
+                    null,
+                    dialog13 -> errorLocationDisplayed = false,
+                    null,
+                    true, true,
+                    false, false,
+                    false,
+                    this
+            );
+
+            if (!isFinishing())
                 dialog.show();
         }
     }
@@ -859,7 +899,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                         .build();
 
         try {
-            if (PPApplication.getApplicationStarted(true)) {
+            if (PPApplication.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -1309,39 +1349,69 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void showDialogAndRefreshFromListener(Context context) {
+        if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
+            if (!isFinishing()) {
+                /*
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.location_editor_title);
+                dialogBuilder.setMessage(R.string.location_editor_connection_is_offline);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-    public class LocationGeofenceEditorOnlineStatusBroadcastReceiver extends BroadcastReceiver
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
+
+                //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                //            @Override
+                //            public void onShow(DialogInterface dialog) {
+                //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                //                if (positive != null) positive.setAllCaps(false);
+                //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                //                if (negative != null) negative.setAllCaps(false);
+                //            }
+                //        });
+                */
+
+                PPAlertDialog dialog = new PPAlertDialog(
+                        getString(R.string.location_editor_title),
+                        getString(R.string.location_editor_connection_is_offline),
+                        getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        false,
+                        this
+                );
+
+                if (!isFinishing())
+                    dialog.show();
+            }
+        }
+
+        if (!isFinishing())
+            refreshActivity(true, CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
+    }
+
+    static private class LocationGeofenceEditorOnlineStatusBroadcastReceiver extends BroadcastReceiver
     {
+
+        private final LocationGeofenceEditorActivityOSMNetworkOfflineListener listener;
+
+        public LocationGeofenceEditorOnlineStatusBroadcastReceiver(LocationGeofenceEditorActivityOSMNetworkOfflineListener listener){
+            this.listener = listener;
+        }
+
         @Override
         public void onReceive(Context context, Intent intent)
         {
-            if (!CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext())) {
-                if (!LocationGeofenceEditorActivityOSM.this.isFinishing()) {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LocationGeofenceEditorActivityOSM.this);
-                    dialogBuilder.setTitle(R.string.location_editor_title);
-                    dialogBuilder.setMessage(R.string.location_editor_connection_is_offline);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-
-                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    //            @Override
-                    //            public void onShow(DialogInterface dialog) {
-                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    //                if (positive != null) positive.setAllCaps(false);
-                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    //                if (negative != null) negative.setAllCaps(false);
-                    //            }
-                    //        });
-
-                    if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
-                        dialog.show();
-                }
-            }
-
-            if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
-                refreshActivity(true, CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
+            listener.showDialogAndRefreshFromListener(context);
         }
     }
 

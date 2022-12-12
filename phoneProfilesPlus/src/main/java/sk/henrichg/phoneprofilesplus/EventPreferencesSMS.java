@@ -10,7 +10,6 @@ import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -122,8 +121,7 @@ class EventPreferencesSMS extends EventPreferences {
         this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_FOR_SIM_CARD, "0"));
     }
 
-    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
-    {
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
         if (!this._enabled) {
@@ -158,14 +156,14 @@ class EventPreferencesSMS extends EventPreferences {
                     //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
 
                     descr = descr + context.getString(R.string.event_preferences_sms_contact_groups) + ": ";
-                    descr = descr + "<b>" + ContactGroupsMultiSelectDialogPreferenceX.getSummary(_contactGroups, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.event_preferences_sms_contacts) + ": ";
-                    descr = descr + "<b>" + ContactsMultiSelectDialogPreferenceX.getSummary(_contacts, false, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context) + "</b> • ";
 
                     descr = descr + context.getString(R.string.pref_event_sms_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-                    descr = descr + ": <b>" + contactListTypes[this._contactListType] + "</b>";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
 
                     if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
@@ -187,14 +185,14 @@ class EventPreferencesSMS extends EventPreferences {
                         if (hasSIMCard) {
                             descr = descr + " • " + context.getString(R.string.event_preferences_sms_forSimCard);
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);
-                            descr = descr + ": <b>" + forSimCard[this._forSIMCard] + "</b>";
+                            descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                         }
                     }
 
                     if (this._permanentRun)
-                        descr = descr + " • <b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
+                        descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
                     else
-                        descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + StringFormatUtils.getDurationString(this._duration) + "</b>";
+                        descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                 }
             }
             else {
@@ -221,7 +219,7 @@ class EventPreferencesSMS extends EventPreferences {
 
         if (/*key.equals(PREF_EVENT_SMS_EVENT) ||*/ key.equals(PREF_EVENT_SMS_CONTACT_LIST_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
+            PPListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -265,7 +263,7 @@ class EventPreferencesSMS extends EventPreferences {
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
                         hasSIMCard = simExists;
-                        ListPreference listPreference = prefMng.findPreference(key);
+                        PPListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(value);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -417,9 +415,9 @@ class EventPreferencesSMS extends EventPreferences {
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SMS).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
                 if (enabled)
-                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
+                    preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
-                    preference.setSummary(tmp.getPreferencesDescription(false, false, context));
+                    preference.setSummary(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context));
             }
         }
         else {

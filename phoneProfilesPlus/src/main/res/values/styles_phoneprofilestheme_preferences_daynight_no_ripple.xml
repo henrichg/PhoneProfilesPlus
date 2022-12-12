@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.PhoneProfilesTheme_preferences_dayNight_noRipple" parent="@style/Base.Theme.PhoneProfilesTheme_preferences_dayNight">
+        <item name="listViewItemBackground">@drawable/listview_item_background_selector_no_ripple</item>
+        <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector_no_ripple</item>
+
+        <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>
+        <item name="android:dropDownListViewStyle">@style/PopupMenuItemStyle</item>
+        <item name="dropDownListViewStyle">@style/PopupMenuItemStyle</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
+        <item name="android:navigationBarColor">@color/navigationBar</item>
+    </style>
+
+</resources>

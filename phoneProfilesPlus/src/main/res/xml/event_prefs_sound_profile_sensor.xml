@@ -9,20 +9,20 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <MultiSelectListPreference
+    <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:title="@string/event_preferences_soundProfile_ringerModes"
         app:key="eventSoundProfileRingerModes"
         app:defaultValue="@array/emptyArray"
-        app:entries="@array/eventSoundProfileRingerModeArray"
-        app:entryValues="@array/eventSoundProfileRingerModeValues"
+        app:ppEntries="@array/eventSoundProfileRingerModeArray"
+        app:ppEntryValues="@array/eventSoundProfileRingerModeValues"
         app:dependency="eventSoundProfileEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <MultiSelectListPreference
+    <sk.henrichg.phoneprofilesplus.PPMultiSelectListPreference
         app:title="@string/event_preferences_soundProfile_zenModes"
         app:key="eventSoundProfileZenModes"
         app:defaultValue="@array/emptyArray"
-        app:entries="@array/eventSoundProfileZenModeArray"
-        app:entryValues="@array/eventSoundProfileZenModeValues"
+        app:ppEntries="@array/eventSoundProfileZenModeArray"
+        app:ppEntryValues="@array/eventSoundProfileZenModeValues"
         app:dependency="eventSoundProfileEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 

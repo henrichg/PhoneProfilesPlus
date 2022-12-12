@@ -48,10 +48,13 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG = "handleEventsSoundProfileWork";
     static final String HANDLE_EVENTS_PERIODIC_WORK_TAG = "handleEventsPeriodicWork";
     static final String HANDLE_EVENTS_VOLUMES_WORK_TAG = "handleEventsVolumesWork";
+    static final String HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG = "handleEventsMobileDataNetworkCallbackWork";
+    static final String HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG = "handleEventsWifiNetworkCallbackWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
     static final String PROFILE_DURATION_WORK_TAG = "profileDurationWork";
+    static final String DISABLE_NOT_USED_SCANNERS_WORK_TAG = "dislableNotUsedScannersWork";
 
     final Context context;
 
@@ -68,10 +71,6 @@ public class MainWorker extends Worker {
         try {
 //            long start = System.currentTimeMillis();
 
-            if (!PPApplication.getApplicationStarted(true))
-                // application is not started
-                return Result.success();
-
             Context appContext = context.getApplicationContext();
 
             Set<String> tags = getTags();
@@ -85,22 +84,13 @@ public class MainWorker extends Worker {
 //                    PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "--------------- START tag=" + tag);
 
                 switch (tag) {
-                    //case WifiScanWorker.WORK_TAG_START_SCAN:
-                    //    WifiScanWorker.startScan(appContext);
-                    //    break;
                     case ORIENTATION_SCANNER_WORK_TAG:
+//                        PPApplication.logE("[TEST BATTERY] ******** MainWorker.doWork", "******** ### *******");
                     case HANDLE_EVENTS_VOLUMES_WORK_TAG: // !!! this is required, look at SettingsContentObserver.onChange()
-                    //case HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG:
-                    //case HANDLE_EVENTS_WIFI_SCANNER_FROM_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_MOBILE_CELLS_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
-                    //case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
-                    //case HANDLE_EVENTS_PERIODIC_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
                         if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
                             // start events handler
@@ -108,42 +98,44 @@ public class MainWorker extends Worker {
                             eventsHandler.handleEvents(sensorType);
                         }
                         break;
+
+                    case HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+                        MobileDataNetworkCallback._doConnection(appContext);
+                        break;
+                    case HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+                        WifiNetworkCallback._doConnection(appContext);
+                        break;
                     case LOCATION_SCANNER_SWITCH_GPS_TAG_WORK:
+                        if (!PPApplication.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
 //                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         LocationScannerSwitchGPSBroadcastReceiver.doWork(appContext);
                         break;
-                    //case LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK:
-                    //    LockDeviceActivityFinishBroadcastReceiver.doWork();
-                    //    break;
-                    //case LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK:
-//                        PPApplication.logE("[WORKER_CALL] MainWorker.doWork", "xxx");
-                    //    LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
-                    //    break;
-                    //case CLOSE_ALL_APPLICATIONS_WORK_TAG:
-                    //    if (!PPApplication.blockProfileEventActions) {
-                    //        try {
-                    //            Intent startMain = new Intent(Intent.ACTION_MAIN);
-                    //            startMain.addCategory(Intent.CATEGORY_HOME);
-                    //            startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                    //            appContext.startActivity(startMain);
-                            /*} catch (SecurityException e) {
-                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
-                                String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
-                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
-                    //        } catch (Exception e) {
-                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
-                    //            String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
-                    //            ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
-                    //        }
-                    //    }
-                    //    break;
                     case APPLICATION_FULLY_STARTED_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, false))
+                            // application is not started
+                            return Result.success();
+
                         PPApplication.setApplicationFullyStarted(appContext);
                         PPApplication.showToastForProfileActivation = true;
                         break;
                     case ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, false))
+                            // application is not started
+                            return Result.success();
+
                         int oldAccessibilityServiceForPPPExtenderConnected = PPApplication.accessibilityServiceForPPPExtenderConnected;
                         if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false, false
                                 /*, "MainWorker.doWork (ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)"*/)) {
@@ -201,6 +193,10 @@ public class MainWorker extends Worker {
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, false))
+                            // application is not started
+                            return Result.success();
+
                         doAfterFirstStart(appContext,
                                 getInputData().getBoolean(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true),
                                 getInputData().getBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, false),
@@ -212,24 +208,21 @@ public class MainWorker extends Worker {
                     case SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG:
                         AvoidRescheduleReceiverWorker.enqueueWork();
                         break;
-                    //case SCHEDULE_LONG_INTERVAL_BLUETOOTH_WORK_TAG:
-                    //    BluetoothScanWorker.scheduleWork(appContext, false);
-                    //    break;
-                    //case SCHEDULE_LONG_INTERVAL_GEOFENCE_WORK_TAG:
-                    //    GeofenceScanWorker.scheduleWork(appContext, false);
-                    //    break;
-                    //case SCHEDULE_LONG_INTERVAL_PERIODIC_EVENTS_HANDLER_WORK_TAG:
-                    //    PeriodicEventsHandlerWorker.enqueueWork(appContext);
-                    //    break;
-                    //case SCHEDULE_LONG_INTERVAL_SEARCH_CALENDAR_WORK_TAG:
-                    //    SearchCalendarEventsWorker.scheduleWork(false);
-                    //    break;
-                    //case SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG:
-//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
-                    //    WifiScanWorker.scheduleWork(appContext, false);
-                    //    break;
+                    case DISABLE_NOT_USED_SCANNERS_WORK_TAG:
+                        if (!PPApplication.getApplicationStarted(true, false))
+                            // application is not started
+                            return Result.success();
+
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
+                        PhoneProfilesService.disableNotUsedScanners(dataWrapper);
+                        break;
                     default:
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {
+                            if (!PPApplication.getApplicationStarted(true, true))
+                                // application is not started
+                                return Result.success();
+
                             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
                             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
                             int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EVENT_MANUAL);
@@ -237,18 +230,36 @@ public class MainWorker extends Worker {
                         }
                         else
                         if (tag.startsWith(RUN_APPLICATION_WITH_DELAY_WORK_TAG)) {
+                            if (!PPApplication.getApplicationStarted(true, true))
+                                // application is not started
+                                return Result.success();
+
                             String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
                             String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
                             RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
                         }
                         else
-                        if (tag.startsWith(EVENT_DELAY_START_TAG_WORK))
+                        if (tag.startsWith(EVENT_DELAY_START_TAG_WORK)) {
+                            if (!PPApplication.getApplicationStarted(true, true))
+                                // application is not started
+                                return Result.success();
+
                             EventDelayStartBroadcastReceiver.doWork(false, appContext);
+                        }
                         else
-                        if (tag.startsWith(EVENT_DELAY_END_TAG_WORK))
+                        if (tag.startsWith(EVENT_DELAY_END_TAG_WORK)) {
+                            if (!PPApplication.getApplicationStarted(true, true))
+                                // application is not started
+                                return Result.success();
+
                             EventDelayEndBroadcastReceiver.doWork(false, appContext);
+                        }
                         else
                         if (tag.startsWith(START_EVENT_NOTIFICATION_WORK_TAG)) {
+                            if (!PPApplication.getApplicationStarted(true, true))
+                                // application is not started
+                                return Result.success();
+
                             long eventId = getInputData().getLong(PPApplication.EXTRA_EVENT_ID, 0);
                             StartEventNotificationBroadcastReceiver.doWork(false, appContext, eventId);
                         }
@@ -307,6 +318,8 @@ public class MainWorker extends Worker {
         if (Event.getGlobalEventsRunning()) {
             PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");
 
+            dataWrapper.fillEventList();
+
             if (activateProfiles) {
                 if (!DataWrapperStatic.getIsManualProfileActivation(false, appContext)) {
                     PPApplication.logE("MainWorker.doAfterFirstStart", "pause all events");
@@ -353,9 +366,8 @@ public class MainWorker extends Worker {
 //                            wakeLock.acquire(10 * 60 * 1000);
 //                        }
 
-                        // This is fix for 2, 3 restarts of events after first start.
-                        // Bradcasts, observers, callbacks registration starts events and this is not good
                         PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+                        PhoneProfilesService.disableNotUsedScanners(dataWrapper);
                         PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
                         PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
@@ -483,6 +495,7 @@ public class MainWorker extends Worker {
 
 //        PPApplication.setApplicationFullyStarted(appContext, showToast);
 
+//        PPApplication.logE("[PPP_NOTIFICATION] MainWorker.doAfterFirstStart", "call of forceUpdateGUI");
         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
         //}
 

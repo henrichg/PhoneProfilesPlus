@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary"
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"/>
@@ -22,24 +22,36 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_important_info_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@id/activity_important_info_toolbar"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:background="?attr/colorPrimary"
+        android:layout_marginBottom="10dp"
+        android:background="@color/primary"
         android:elevation="0dp"
-        android:minHeight="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:tabTextAppearance="@style/ImportantInfoTextAppearanceTab"
         app:tabMode="scrollable"
-        app:tabPaddingStart="0dp"
-        app:tabPaddingEnd="15dp"/>
+        app:tabMinWidth="1dp"
+        app:tabIndicatorFullWidth="false"
+        app:tabPaddingStart="5dp"
+        app:tabPaddingEnd="5dp" />
+    <!--    android:minHeight="?attr/actionBarSize"-->
+    <!--    app:tabPaddingTop="10dp"-->
 
     <FrameLayout
         android:id="@+id/activity_important_info_frLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_important_info_tab_layout">
+
+        <View
+            android:id="@+id/activity_important_info_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"
+            android:background="@color/dialog_divider" />
 
         <!--
         <View

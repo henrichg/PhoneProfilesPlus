@@ -52,14 +52,14 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_8) + "</li>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_9) + "</li>";
         text = text + "</ul>";
-        textView.setText(StringFormatUtils.fromHtml(text, true, false, 0, 0));
+        textView.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
 
         textView = view.findViewById(R.id.activity_info_quick_guide_text_2);
         text = "<ol>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_2) + "</li>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_3) + "</li>";
         text = text + "</ol>";
-        textView.setText(StringFormatUtils.fromHtml(text, false, true, 1, 17));
+        textView.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
 
         AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),
                 getString(R.string.important_info_contact),

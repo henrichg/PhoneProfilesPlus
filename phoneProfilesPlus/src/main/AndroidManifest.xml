@@ -77,6 +77,7 @@
 
     <uses-permission android:name="sk.henrichg.phoneprofiles.EXPORT_PP_DATA_PERMISSION" />
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
+    <uses-permission android:name="sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION"/>
 
     <!-- for Samsung SLook -->
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
@@ -404,7 +405,7 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".RunApplicationEditorIntentActivityX"
+            android:name=".RunApplicationEditorIntentActivity"
             android:label="@string/intent_editor_title"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
@@ -511,6 +512,10 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
+        <activity
+            android:name=".LogCrashActivity"
+            android:label="@string/empty_string">
+        </activity>
 
 
         <!-- implicit broadcast receivers, in Android O exception group -->
@@ -616,18 +621,24 @@
         <service
             android:name=".PhoneProfilesService"
             android:label="@string/ppp_app_name"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_ppp_app_icon"
             android:enabled="true"
             android:stopWithTask="false"
-            android:foregroundServiceType="location|connectedDevice"/>
+            android:foregroundServiceType="location|connectedDevice" />
 
         <!-- widget services -->
         <service
-            android:name=".ProfileListWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:name=".ProfileListWidgetServiceList"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".ProfileListWidgetServiceGrid"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service
+            android:name=".ProfileListWidgetServiceCompactGrid"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".SamsungEdgeService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service
             android:name=".PhoneProfilesDashClockExtension"
             android:enabled="true"
