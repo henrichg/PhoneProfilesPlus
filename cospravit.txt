@@ -603,21 +603,6 @@ x
 
 -------------------
 
-- Change: PPP icon changed.
-- Change: Restart events with delay.
-- Added new airplane profile icon.
-- Fix: convert volume values for device during resore of backup.
-- Fixed airplane mode allowed state when parameter is set to "No change".
-- Fixed brightness for OnePlus with Android 12+.
-- Fixed bad detected sim card 0 (default).
-- Fixed set brightness level for adaptive brightness mode.
-- Fix: Extender receivers must be re-registered after sim state change.
-- Fix: brightness for DOOGEE devices.
-- Other fixes.
-- Updated translations.
-
-----------------------
-
 Pamat:
 
 - Toto je volane z EditorActivity.onCreate() ->
@@ -769,3 +754,50 @@ Co pyta ROOT:
     - setTones - len pre Xiaomi: ringtone_sound_use_uniform
 
 ------------------------
+
+- Added: "Vibration feedback" and "Vibration intensity" profile parameter.
+- Added: Settings.System parameters support without root.
+- Added: Compact version of grid version of List widget.
+- Change: Updates for detection of not used mobile cells.
+- Change: Remove all not used non-named mobile cells.
+- Change: Changed background color to gray.
+- Change: Permanent display of scrollbars in lists.
+- Change: Added title divider for all screens and dialogs.
+- Change: Added dialog for export settings for configuration by user, which location data do not export.
+- Change: Added edit button to Samsung edge panel for change its settings.
+- Change: Bold profile name in all lists.
+- Change: Bold style of profile name in widget header.
+- Change: Bold profile name in event list.
+- Change: Changed selector for selected profile icon in profile icon preference dialog.
+- Change: removed divider for preference category.
+- Change: Choose language - added info about link to crowdin.
+- Change: Display in Wi-Fi SSID, Bluetooth name item list, its edit menu also for configured scanned items, but allow in it only "Copy name".
+- Change: Click to item in Wi-Fi, Bluetooth, NFC tag preference list change its check state.
+- Change: Removed long click to item for Wi-Fi SSID, Bluetooth name, NFC tag preferences.
+- Change: Disable scanners when are not used in events.
+- Change: New Extender version set as required.
+- Change: Added Droid-ify support.
+- Change: Added support for web version of Galaxy Store into "Check app. releases".
+- Change: Replaced old weird solution of Important info launch support from ImportantInfoPreference to more better solution.
+- Change: removed Important info News notification.
+- Change: error log to Activity log, for camera flash.
+- Change: Better call of orientation sensor listener and events handler from it.
+- Change: Call of EventsHandle form mobile data and Wi-Fi callback less frequently.
+- Change: Pixel devices: set notifications vibrate, when is off, do not set "vibrate_on".
+- Change: Do not allow set notifications vibrate also for Xiaomi, OnePlus devices.
+- Change: Change "Accessibility settings" summary, when "Lock device" parameter is changed.
+- Change: Better check for night mode.
+- Fix: Fixed not working send crash report mail via GMal in Android 13. Required is: ACRA 5.9.7 and compiledSDK=33.
+- Fix: Fixed change of language for all GUI.
+- Fix: Rescan for Wi-Fi, Bluetooth, Mobile cells sensors from dialogs.
+- Fix: Radio sensor and mobile data connection status during Wi-Fi hotspot enabled.
+- Fix: Brightness with 0% not working, because is set sys. value to 0 (Pixel 6). Force change to 1 working.
+- Fix: "Mobile data preference" for Huawei and OnePlus devices.
+- Fix: Block execution of interactive profile parameters at PPP start or restart by system.
+- Fix: Fixed bad working Orientation sensor for "Ignore for applications" parameter.
+- Fix: Fixed detection of light/dark theme in internal GUI.
+- Fix: Fixed "Ask for duration" dialog layout in One UI 5.
+- Fix: Fixed not displayed subtitle for profile and event preferences screen on orientation change.
+- Other fixes.
+- Updated translations.
+
