@@ -25,8 +25,7 @@ __[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfil
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
-__Galaxy Store (for Samsung devices)__  
-__[Galaxy Store PPP release](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
+__[Galaxy Store PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
 
 __[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)__  
 __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
