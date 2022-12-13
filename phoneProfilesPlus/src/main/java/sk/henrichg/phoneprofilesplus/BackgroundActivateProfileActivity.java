@@ -104,6 +104,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
         PPApplication.setApplicationFullyStarted(getApplicationContext());
+        PPApplication.logE("[APPLICATION_FULLY_STARTED] BackgroundActivateProfileActivity.showNotStartedToast", "xxx");
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted;

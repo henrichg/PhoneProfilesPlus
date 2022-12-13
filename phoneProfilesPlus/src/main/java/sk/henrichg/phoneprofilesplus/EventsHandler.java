@@ -259,6 +259,7 @@ class EventsHandler {
                     (!manualRestart)){
                 // not any event is paused or running
                 PPApplication.setApplicationFullyStarted(context);
+                PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(1)");
 
                 doEndHandler(null, null);
 
@@ -274,6 +275,7 @@ class EventsHandler {
 //                        PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
                     PPApplication.setApplicationFullyStarted(context);
+                    PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
 
                     doEndHandler(null, null);
 
@@ -752,6 +754,7 @@ class EventsHandler {
             doEndHandler(dataWrapper, mergedProfile);
 
             PPApplication.setApplicationFullyStarted(context);
+            PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(3)");
 
             // refresh all GUI - must be for restart scanners
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {

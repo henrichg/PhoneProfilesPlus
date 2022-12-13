@@ -129,6 +129,7 @@ public class MainWorker extends Worker {
                             return Result.success();
 
                         PPApplication.setApplicationFullyStarted(appContext);
+                        PPApplication.logE("[APPLICATION_FULLY_STARTED] MainWorker.doWork", "(1)");
                         PPApplication.showToastForProfileActivation = true;
                         break;
                     case ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG:
@@ -487,6 +488,7 @@ public class MainWorker extends Worker {
 //            PPApplication.basicExecutorPool.submit(runnable);
 
             PPApplication.setApplicationFullyStarted(appContext);
+            PPApplication.logE("[APPLICATION_FULLY_STARTED] MainWorker.doWork", "(2)");
 
             dataWrapper.activateProfileAtFirstStart();
             //PPApplication.updateNotificationAndWidgets(true, true, appContext);

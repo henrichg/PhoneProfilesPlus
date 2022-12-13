@@ -638,6 +638,7 @@ public class EditorActivity extends AppCompatActivity
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
         PPApplication.setApplicationFullyStarted(getApplicationContext());
+        PPApplication.logE("[APPLICATION_FULLY_STARTED] EditorActivity.showNotStartedToast", "xxx");
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted;
