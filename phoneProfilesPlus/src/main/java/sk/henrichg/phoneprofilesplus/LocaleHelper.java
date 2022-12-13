@@ -16,22 +16,39 @@ public class LocaleHelper {
     private static final String SELECTED_COUNTRY = "Locale.Helper.Selected.Country";
     private static final String SELECTED_SCRIPT = "Locale.Helper.Selected.Script";
 
+    private static final String IS_SET_SYSTEM_LANGUAGE = "Locale.Helper.IsSetSystemLanguage";
+
     public static Context onAttach(Context context) {
-        LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
         String language;
         String country;
         String script;
-        try {
-            //noinspection ConstantConditions
-            language = getPersistedData(context, SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
-            //noinspection ConstantConditions
-            country = getPersistedData(context, SELECTED_COUNTRY, systemLocales.get(0).getCountry());
-            //noinspection ConstantConditions
-            script = getPersistedData(context, SELECTED_SCRIPT, systemLocales.get(0).getScript());
-        } catch (Exception e) {
-            language = "en";
-            country = "";
-            script = "";
+        LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
+        if (getIsSetSystemLanguage(context)) {
+            try {
+                //noinspection ConstantConditions
+                language = systemLocales.get(0).getLanguage();
+                //noinspection ConstantConditions
+                country = systemLocales.get(0).getCountry();
+                //noinspection ConstantConditions
+                script = systemLocales.get(0).getScript();
+            } catch (Exception e) {
+                language = "en";
+                country = "";
+                script = "";
+            }
+        } else {
+            try {
+                //noinspection ConstantConditions
+                language = getPersistedData(context, SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
+                //noinspection ConstantConditions
+                country = getPersistedData(context, SELECTED_COUNTRY, systemLocales.get(0).getCountry());
+                //noinspection ConstantConditions
+                script = getPersistedData(context, SELECTED_SCRIPT, systemLocales.get(0).getScript());
+            } catch (Exception e) {
+                language = "en";
+                country = "";
+                script = "";
+            }
         }
         /*if (language.equals("[sys]")) {
             language = systemLocales.get(0).getLanguage();
@@ -62,6 +79,18 @@ public class LocaleHelper {
 
     public static String getScript(Context context) {
         return getPersistedData(context, SELECTED_SCRIPT, Locale.getDefault().getScript());
+    }
+
+    public static boolean getIsSetSystemLanguage(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(IS_SET_SYSTEM_LANGUAGE, true);
+    }
+
+    public static void setIsSetSystemLanguage(Context context, boolean value) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(IS_SET_SYSTEM_LANGUAGE, value);
+        editor.apply();
     }
 
     public static Context setLocale(Context context,

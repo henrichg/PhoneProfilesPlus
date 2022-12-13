@@ -101,6 +101,10 @@ class ChooseLanguageDialog
         String storedCountry = LocaleHelper.getCountry(activity.getApplicationContext());
         String storedScript = LocaleHelper.getScript(activity.getApplicationContext());
 
+//        Log.e("ChooseLanguageDialog.doShow", "storedLanguage="+storedLanguage);
+//        Log.e("ChooseLanguageDialog.doShow", "storedCountry="+storedCountry);
+//        Log.e("ChooseLanguageDialog.doShow", "storedScript="+storedScript);
+
         final String[] languageValues = activity.getResources().getStringArray(R.array.chooseLanguageValues);
 
         for (String languageValue : languageValues) {
@@ -144,38 +148,49 @@ class ChooseLanguageDialog
         final String[] languageNameChoices = new String[languages.size()];
         for(int i = 0; i < languages.size(); i++) languageNameChoices[i] = languages.get(i).name;
 
-        for (int i = 0; i < languages.size(); i++) {
-            Language language = languages.get(i);
-            String sLanguage = language.language;
-            String country = language.country;
-            String script = language.script;
+        if (LocaleHelper.getIsSetSystemLanguage(activity.getApplicationContext())) {
+            activity.selectedLanguage = 0;
+//            Log.e("ChooseLanguageDialog.doShow", "is set system languauge");
+        } else {
+//            Log.e("ChooseLanguageDialog.doShow", "is NOT set system languauge");
+            for (int i = 0; i < languages.size(); i++) {
+                Language language = languages.get(i);
+                String sLanguage = language.language;
+                String country = language.country;
+                String script = language.script;
 
-            if (sLanguage.equals(storedLanguage) &&
-                    storedCountry.isEmpty() &&
-                    storedScript.isEmpty()) {
-                activity.selectedLanguage = i;
-                break;
-            }
-            if (sLanguage.equals(storedLanguage) &&
-                    country.equals(storedCountry) &&
-                    storedScript.isEmpty()) {
-                activity.selectedLanguage = i;
-                break;
-            }
-            if (sLanguage.equals(storedLanguage) &&
-                    storedCountry.isEmpty() &&
-                    script.equals(storedScript)) {
-                activity.selectedLanguage = i;
-                break;
-            }
-            if (sLanguage.equals(storedLanguage) &&
-                    country.equals(storedCountry) &&
-                    script.equals(storedScript)) {
-                activity.selectedLanguage = i;
-                break;
+                if (sLanguage.equals(storedLanguage) &&
+                        storedCountry.isEmpty() &&
+                        storedScript.isEmpty()) {
+                    activity.selectedLanguage = i;
+//                Log.e("ChooseLanguageDialog.doShow", "(1)");
+                    break;
+                }
+                if (sLanguage.equals(storedLanguage) &&
+                        country.equals(storedCountry) &&
+                        storedScript.isEmpty()) {
+                    activity.selectedLanguage = i;
+//                Log.e("ChooseLanguageDialog.doShow", "(2)");
+                    break;
+                }
+                if (sLanguage.equals(storedLanguage) &&
+                        storedCountry.isEmpty() &&
+                        script.equals(storedScript)) {
+                    activity.selectedLanguage = i;
+//                Log.e("ChooseLanguageDialog.doShow", "(3)");
+                    break;
+                }
+                if (sLanguage.equals(storedLanguage) &&
+                        country.equals(storedCountry) &&
+                        script.equals(storedScript)) {
+                    activity.selectedLanguage = i;
+//                Log.e("ChooseLanguageDialog.doShow", "(4)");
+                    break;
+                }
             }
         }
 
+//        Log.e("ChooseLanguageDialog.doShow", "activity.selectedLanguage="+activity.selectedLanguage);
         ChooseLanguageAdapter chooseLanguageAdapter = new ChooseLanguageAdapter(this, activity, languageNameChoices);
         listView.setAdapter(chooseLanguageAdapter);
         listView.setSelection(activity.selectedLanguage);
@@ -185,11 +200,16 @@ class ChooseLanguageDialog
     void doOnItemSelected(int position)
     {
         activity.selectedLanguage = position;
+        LocaleHelper.setIsSetSystemLanguage(activity.getApplicationContext(), position == 0);
 
         Language language = languages.get(activity.selectedLanguage);
         activity.defaultLanguage = language.language;
         activity.defaultCountry = language.country;
         activity.defaultScript = language.script;
+//        Log.e("ChooseLanguageDialog.doOnItemSelected", "activity.defaultLanguage="+activity.defaultLanguage);
+//        Log.e("ChooseLanguageDialog.doOnItemSelected", "activity.defaultCountry="+activity.defaultCountry);
+//        Log.e("ChooseLanguageDialog.doOnItemSelected", "activity.defaultScript="+activity.defaultScript);
+
 
         LocaleHelper.setLocale(activity.getApplicationContext(),
                 activity.defaultLanguage, activity.defaultCountry, activity.defaultScript, true);
