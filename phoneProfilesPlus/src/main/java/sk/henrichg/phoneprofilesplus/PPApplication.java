@@ -270,7 +270,7 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
-                                                +"|[PPP_NOTIFICATION]"
+                                                //+"|[PPP_NOTIFICATION]"
                                                 //+"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
 
