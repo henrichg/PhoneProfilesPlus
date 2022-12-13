@@ -575,7 +575,7 @@ public class PhoneProfilesNotification {
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
         }
         else {
-            notificationBuilder.setContentTitle(profileName);
+            notificationBuilder.setContentTitle(profileName.toString());
         }
 
         // profile preferences indicator
@@ -734,14 +734,14 @@ public class PhoneProfilesNotification {
                 // this style is used, because indicators are hidden in collapse mode
                 if (notificationShowProfileIcon)
                     notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                                    .setBigContentTitle(profileName)
+                                    .setBigContentTitle(profileName.toString())
                                     .setSummaryText(indicators)
                                     .bigLargeIcon(notificationIconData.imageBitmap)
                             //.bigPicture(BitmapManipulator.getBitmapFromResource(R.drawable.ic_empty, false, dataWrapper.context))
                     );
                 else
                     notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
-                                    .setBigContentTitle(profileName)
+                                    .setBigContentTitle(profileName.toString())
                                     .setSummaryText(indicators)
                                     .bigLargeIcon(null)
                             //.bigPicture(BitmapManipulator.getBitmapFromResource(R.drawable.ic_empty, false, dataWrapper.context))
