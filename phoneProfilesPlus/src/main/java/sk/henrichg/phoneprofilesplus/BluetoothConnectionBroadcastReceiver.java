@@ -299,7 +299,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         Calendar calendar = Calendar.getInstance();
                         long bootTime = calendar.getTimeInMillis() - SystemClock.elapsedRealtime() - gmtOffset;
                         if (device.timestamp < bootTime)
-                            connectedDevices.remove(device);
+                            //connectedDevices.remove(device);
+                            it.remove();
                     }
                 }
                 else
