@@ -5094,49 +5094,53 @@ public class DatabaseHandlerEvents {
     }
 
     static void deleteNonNamedNotUsedCells(DatabaseHandler instance) {
-        // load cells from db
-        List<MobileCellsData> cellsList = new ArrayList<>();
-        addMobileCellsToList(instance, cellsList, 0);
-        // load events from db
-        List<Event> eventList;
-        eventList = getAllEvents(instance);
-        //noinspection ForLoopReplaceableByForEach
-        for (Iterator<MobileCellsData> it = cellsList.iterator(); it.hasNext(); ) {
-            MobileCellsData cell = it.next();
-            if (cell.name.isEmpty()) {
-                boolean found = false;
-                for (Event event : eventList) {
-                    if (event._eventPreferencesMobileCells != null) {
-                        if ((event._eventPreferencesMobileCells._enabled)) {
-                            if (event._eventPreferencesMobileCells._cells.contains("|" + cell.cellId + "|")) {
-                                // cell is between others
-                                found = true;
-                                break;
-                            }
-                            if (event._eventPreferencesMobileCells._cells.startsWith(cell.cellId + "|")) {
-                                // cell is at start of others
-                                found = true;
-                                break;
-                            }
-                            if (event._eventPreferencesMobileCells._cells.endsWith("|" + cell.cellId)) {
-                                // cell is at end of others
-                                found = true;
-                                break;
-                            }
-                            if (event._eventPreferencesMobileCells._cells.equals(String.valueOf(cell.cellId))) {
-                                // only this cell is configured
-                                found = true;
-                                break;
+        try {
+            // load cells from db
+            List<MobileCellsData> cellsList = new ArrayList<>();
+            addMobileCellsToList(instance, cellsList, 0);
+            // load events from db
+            List<Event> eventList;
+            eventList = getAllEvents(instance);
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<MobileCellsData> it = cellsList.iterator(); it.hasNext(); ) {
+                MobileCellsData cell = it.next();
+                if (cell.name.isEmpty()) {
+                    boolean found = false;
+                    for (Event event : eventList) {
+                        if (event._eventPreferencesMobileCells != null) {
+                            if ((event._eventPreferencesMobileCells._enabled)) {
+                                if (event._eventPreferencesMobileCells._cells.contains("|" + cell.cellId + "|")) {
+                                    // cell is between others
+                                    found = true;
+                                    break;
+                                }
+                                if (event._eventPreferencesMobileCells._cells.startsWith(cell.cellId + "|")) {
+                                    // cell is at start of others
+                                    found = true;
+                                    break;
+                                }
+                                if (event._eventPreferencesMobileCells._cells.endsWith("|" + cell.cellId)) {
+                                    // cell is at end of others
+                                    found = true;
+                                    break;
+                                }
+                                if (event._eventPreferencesMobileCells._cells.equals(String.valueOf(cell.cellId))) {
+                                    // only this cell is configured
+                                    found = true;
+                                    break;
+                                }
                             }
                         }
                     }
-                }
-                if (!found) {
-                    deleteMobileCell(instance, cell.cellId);
-                    //cellsList.remove(cell);
-                    it.remove();
+                    if (!found) {
+                        deleteMobileCell(instance, cell.cellId);
+                        //cellsList.remove(cell);
+                        it.remove();
+                    }
                 }
             }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
         }
     }
 
