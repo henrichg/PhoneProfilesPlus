@@ -5132,9 +5132,9 @@ public class DatabaseHandlerEvents {
                     }
                 }
                 if (!found) {
+                    deleteMobileCell(instance, cell.cellId);
                     //cellsList.remove(cell);
                     it.remove();
-                    deleteMobileCell(instance, cell.cellId);
                 }
             }
         }
