@@ -730,7 +730,8 @@ public class PhoneProfilesNotification {
 
         }
         else {
-            if (Build.VERSION.SDK_INT >= 31)
+            if (Build.VERSION.SDK_INT >= 31) {
+                // this style is used, because indicators are hidden in collapse mode
                 if (notificationShowProfileIcon)
                     notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
                                     .setBigContentTitle(profileName)
@@ -745,6 +746,10 @@ public class PhoneProfilesNotification {
                                     .bigLargeIcon(null)
                             //.bigPicture(BitmapManipulator.getBitmapFromResource(R.drawable.ic_empty, false, dataWrapper.context))
                     );
+                /*notificationBuilder.setContentText(indicators);
+                if (notificationShowProfileIcon)
+                    notificationBuilder.setLargeIcon(notificationIconData.imageBitmap);*/
+            }
             else
                 notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
             //notificationBuilder.setStyle(null);
@@ -1077,6 +1082,7 @@ public class PhoneProfilesNotification {
                         notificationBuilder.setLargeIcon(null);
                     }
                     else {
+                        // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
                         if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
@@ -1144,6 +1150,7 @@ public class PhoneProfilesNotification {
                         }
                         notificationBuilder.setLargeIcon(null);
                     } else {
+                        // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
                         if ((Build.VERSION.SDK_INT < 31) && notificationShowProfileIcon)
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
@@ -1240,6 +1247,7 @@ public class PhoneProfilesNotification {
                             iconBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_profile_default);
                         if (notificationProfileIconColor.equals("1"))
                             iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
+                        // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
                         if (Build.VERSION.SDK_INT < 31)
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
@@ -1291,6 +1299,7 @@ public class PhoneProfilesNotification {
             else {
                 if (notificationShowProfileIcon) {
                     iconBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_empty);
+                    // icon will be set in NotificationCompat.BigPictureStyle() for level 31+
                     if (Build.VERSION.SDK_INT < 31)
                         notificationBuilder.setLargeIcon(iconBitmap);
                 }
