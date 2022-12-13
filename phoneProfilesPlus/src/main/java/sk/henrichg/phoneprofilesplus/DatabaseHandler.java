@@ -860,7 +860,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Getting All Events
     List<Event> getAllEvents() {
-        return DatabaseHandlerEvents.getAllEvents(this);
+        return DatabaseHandlerEvents.getAllEvents(this, false);
     }
 
     // Updating single event
@@ -1185,7 +1185,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // add mobile cells to list
     void addMobileCellsToList(List<MobileCellsData> cellsList, int onlyCellId) {
-        DatabaseHandlerEvents.addMobileCellsToList(this, cellsList, onlyCellId);
+        DatabaseHandlerEvents.addMobileCellsToList(this, cellsList, onlyCellId, false);
     }
 
     void saveMobileCellsList(List<MobileCellsData> cellsList, boolean _new, boolean renameExistingCell) {
@@ -1197,7 +1197,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void deleteMobileCell(int mobileCell) {
-        DatabaseHandlerEvents.deleteMobileCell(this, mobileCell);
+        DatabaseHandlerEvents.deleteMobileCell(this, mobileCell, false);
     }
 
     void updateMobileCellLastConnectedTime(int mobileCell, long lastConnectedTime) {
@@ -1231,7 +1231,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void deleteNonNamedNotUsedCells() {
-        DatabaseHandlerEvents.deleteNonNamedNotUsedCells(this);
+        DatabaseHandlerEvents.deleteNonNamedNotUsedCells(this, false);
     }
 
 // NFC_TAGS ----------------------------------------------------------------------

@@ -774,7 +774,7 @@ class DatabaseHandlerImportExport {
         }
 
         // remove all not used non-named mobile cells
-        instance.deleteNonNamedNotUsedCells();
+        DatabaseHandlerEvents.deleteNonNamedNotUsedCells(instance, true);
 
     }
 
