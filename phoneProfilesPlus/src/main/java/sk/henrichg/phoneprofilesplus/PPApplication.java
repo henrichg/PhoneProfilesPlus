@@ -270,9 +270,9 @@ public class PPApplication extends Application
                                                 //+"|[DB_LOCK]"
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
-                                                //+"|[PPP_NOTIFICATION]"
+                                                +"|[PPP_NOTIFICATION]"
                                                 //+"|[DUAL_SIM]"
-                                                +"|[APPLICATION_FULLY_STARTED]"
+                                                //+"|[APPLICATION_FULLY_STARTED]"
 
                                                 //+"|EventPreferencesOrientation"
                                                 //+"|LocationScanner.updateTransitionsByLastKnownLocation"
@@ -1643,7 +1643,7 @@ public class PPApplication extends Application
         boolean oldApplicationFullyStarted = applicationFullyStarted;
         applicationFullyStarted = true; //started;
 
-        PPApplication.logE("[APPLICATION_FULLY_STARTED] PPApplication.setApplicationFullyStarted", "oldApplicationFullyStarted="+oldApplicationFullyStarted);
+//        PPApplication.logE("[APPLICATION_FULLY_STARTED] PPApplication.setApplicationFullyStarted", "oldApplicationFullyStarted="+oldApplicationFullyStarted);
 
         final Context appContext = context.getApplicationContext();
 
