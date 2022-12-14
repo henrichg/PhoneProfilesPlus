@@ -28,11 +28,13 @@
 // 6700 = separated shortcut parameters from widhet icon parameters
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
 // 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
-// 6905 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
+
+// TODO - set this for new release
+// 6920 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
 
 ext.ppVersions = [
         publishVersion    : '6.1.0.2b',
-        publishVersionCode: 6908,
+        publishVersionCode: 6909,
 
         minSdk            : 24,
         targetSdk         : 28,

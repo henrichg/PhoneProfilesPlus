@@ -4187,7 +4187,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (actualVersionCode <= 6910) {
+                if (actualVersionCode <= 6920) {
                     if ((PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31)) ||
                         (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
