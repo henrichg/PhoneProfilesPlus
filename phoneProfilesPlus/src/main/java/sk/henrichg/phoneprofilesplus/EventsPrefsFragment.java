@@ -1812,7 +1812,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             return;
         }
 
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+        PackageManager packageManager = getActivity().getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        boolean galaxyStoreInstalled = (_intent != null);
+
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -926,7 +927,11 @@ public class ImportantInfoHelpFragment extends Fragment {
             return;
         }
 
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        boolean galaxyStoreInstalled = (_intent != null);
+
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
