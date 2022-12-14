@@ -731,28 +731,25 @@ public class PhoneProfilesNotification {
         }
         else {
             if (Build.VERSION.SDK_INT >= 31) {
-                // this style is used, because indicators are hidden in collapse mode
+                // this style is used, because large icon and indicators are hidden in collapsed mode
+                // but is reserved small space for bigPicture in expanded mode:-(
                 if (notificationShowProfileIcon)
                     notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
                                     .setBigContentTitle(profileName.toString())
                                     .setSummaryText(indicators)
                                     .bigLargeIcon(notificationIconData.imageBitmap)
-                            //.bigPicture(BitmapManipulator.getBitmapFromResource(R.drawable.ic_empty, false, dataWrapper.context))
+                                    .bigPicture((Bitmap)null)
                     );
                 else
                     notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
                                     .setBigContentTitle(profileName.toString())
                                     .setSummaryText(indicators)
                                     .bigLargeIcon(null)
-                            //.bigPicture(BitmapManipulator.getBitmapFromResource(R.drawable.ic_empty, false, dataWrapper.context))
+                                    .bigPicture((Bitmap)null)
                     );
-                /*notificationBuilder.setContentText(indicators);
-                if (notificationShowProfileIcon)
-                    notificationBuilder.setLargeIcon(notificationIconData.imageBitmap);*/
             }
             else
                 notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
-            //notificationBuilder.setStyle(null);
         }
 
         if ((notificationShowButtonExit) && useDecorator) {
