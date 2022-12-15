@@ -657,7 +657,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         if (translationTextView != null) {
             String str1 = fragment.getString(R.string.about_application_translations);
-            String str2 = str1 + " " + PPApplication.CROWDIN_URL + "\u00A0\u21D2";
+            String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + "\u00A0\u21D2";
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -697,9 +697,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
             String str2;
             if (DebugVersion.enabled)
-                str2 = str1 + " " + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + "\u00A0\u21D2";
+                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + "\u00A0\u21D2";
             else
-                str2 = str1 + " " + PPApplication.HELP_HOW_TO_GRANT_G1_URL + "\u00A0\u21D2";
+                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL + "\u00A0\u21D2";
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
