@@ -726,7 +726,7 @@ class EventsHandler {
                     PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
                             null,
                             DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
-                            mergedProfilesCount + " [" + usedEventsCount + "]");
+                            mergedProfilesCount + "\u00A0[\u00A0" + usedEventsCount + "\u00A0]");
 
                     dataWrapper.activateProfileFromEvent(0, mergedProfile._id, false, true, isRestart);
                     // wait for profile activation
