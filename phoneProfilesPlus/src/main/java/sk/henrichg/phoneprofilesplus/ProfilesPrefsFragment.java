@@ -2906,7 +2906,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID));
             if (value != null) {
                 if (value.equals(Profile.CONNECTTOSSID_JUSTANY))
-                    value = getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
+                    value = "[\u00A0" + getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any) + "\u00A0]";
+                else
+                    value = value.replace("\"", "");
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)

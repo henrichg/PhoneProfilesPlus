@@ -127,10 +127,10 @@ class EventPreferencesWifi extends EventPreferences {
                     } else if (splits.length == 1) {
                         switch (_ssid) {
                             case ALL_SSIDS_VALUE:
-                                selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                                selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]";
                                 break;
                             case CONFIGURED_SSIDS_VALUE:
-                                selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                                selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]";
                                 break;
                             default:
                                 selectedSSIDs = selectedSSIDs + _ssid;

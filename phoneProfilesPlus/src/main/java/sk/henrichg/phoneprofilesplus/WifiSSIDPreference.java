@@ -116,10 +116,10 @@ public class WifiSSIDPreference extends DialogPreference {
             } else if (splits.length == 1) {
                 switch (_ssid) {
                     case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                        setSummary(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                        setSummary("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]");
                         break;
                     case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                        setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                        setSummary("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]");
                         break;
                     default:
                         setSummary(_ssid);

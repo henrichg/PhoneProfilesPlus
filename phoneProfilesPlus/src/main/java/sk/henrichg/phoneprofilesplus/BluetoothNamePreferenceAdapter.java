@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         //int position;
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // BluetoothDevice to display
@@ -76,9 +78,9 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         holder.itemEditMenu.setFocusableInTouchMode(false);
 
         if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE))
-            holder.bluetoothName.setText(/*"[DU] " + */context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb));
+            holder.bluetoothName.setText(/*"[DU] " + */"[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]");
         else if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
-            holder.bluetoothName.setText(/*"[DU] " + */context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
+            holder.bluetoothName.setText(/*"[DU] " + */"[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]");
         else {
             /*String sType;
             if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_CLASSIC)
@@ -96,7 +98,9 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
             else
             if (bluetoothDevice.scanned)
                 btName = "(S)";
-            btName = btName + " " + /*"[" + sType + "] " +*/ bluetoothDevice.getName();
+            if (!btName.isEmpty())
+                btName = btName + " ";
+            btName = btName + /*"[" + sType + "] " +*/ bluetoothDevice.getName();
 
             holder.bluetoothName.setText(btName);
         }
