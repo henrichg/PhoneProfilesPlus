@@ -801,3 +801,14 @@ Co pyta ROOT:
 - Other fixes.
 - Updated translations.
 
+----------
+
+Retazce, kde daj medzeru za a pred hranatu zatvorku:
+    <string name="applications_editor_dialog_not_selected">[not selected]</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
+    <string name="application_editor_intent_action_none">[None]</string>
+    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="extender_menu_choose_language_system_language">[System]</string>
+    <string name="pppputsettings_menu_choose_language_system_language">[System]</string>
+Sprav to tak, ze zatvorky z retazcov vyhod a pridaj ich v kode.
