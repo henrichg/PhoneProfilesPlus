@@ -1740,7 +1740,7 @@ class ApplicationPreferences {
 
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
-    static boolean pplicationWidgetIconChangeColorsByNightModeDefaultValue(Context context) {
+    static boolean applicationWidgetIconChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
         if (PPApplication.isPixelLauncherDefault(context) ||
                 PPApplication.isOneUILauncherDefault(context))
@@ -1766,7 +1766,7 @@ class ApplicationPreferences {
             editor.apply();
         }*/
 
-        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, pplicationWidgetIconChangeColorsByNightModeDefaultValue(context));
+        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetIconChangeColorsByNightModeDefaultValue(context));
     }
 
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
