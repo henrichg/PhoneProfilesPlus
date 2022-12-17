@@ -40,6 +40,7 @@
         android:textSize="13dp"
         android:gravity="center_horizontal"
         tools:ignore="SpUsage" />
+<!--    android:fontFamily="sans-serif-condensed"-->
 
 </LinearLayout>
 
