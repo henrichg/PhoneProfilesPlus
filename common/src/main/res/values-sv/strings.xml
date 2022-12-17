@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Röd färg: händelser är stoppade - händelser kan köras via redigering med menyalternativet \"aktivera händelsekörningar\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Starta om händelser ikon:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Trafikljus\" ikon:</string>
-    <string name="important_info_android_doze_mode">I Android 6+ är \"Doze mode\" infört och \"App Standby\". När du stött på problem med profil aktiveringen från händelser, om du lämnar en enhet oansluten och stationära under en tid, med skärmen off, lägg till PhoneProfilesPlus till \"Batteri\"→\"batteri optimering inte\"→\"optimerad\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
     <string name="info_notification_event_states">Händelsen kan vara i 6 stadier:</string>
     <string name="info_notification_event_states_running">Körs: event är igång och körs. Händelse parametrar är uppfyllda.</string>
     <string name="info_notification_event_states_paused">Pausade: händelsen körs inte. Händelse parametrar inte är uppfyllda. Händelse väntar på att parametrar uppfylls.</string>
@@ -1045,7 +1045,7 @@
     <string name="default_profile_name_battery_ok">OK battery</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
-    <string name="applications_editor_dialog_not_selected">[not selected]</string>
+    <string name="applications_editor_dialog_not_selected">[ not selected ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Background color</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Native</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dark</string>
@@ -1264,15 +1264,15 @@
     <string name="profile_preferences_red_texts_text_1">Profile</string>
     <string name="event_preferences_red_texts_text_1">Event</string>
     <string name="event_preferences_red_texts_title">Error in event preferences</string>
-    <string name="preferences_red_texts_text_2">has some errors in it\'s preferences.</string>
+    <string name="preferences_red_texts_text_2">has some errors in its preferences.</string>
     <string name="preferences_red_texts_text_click">Click this notification to open it.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi and Bluetooth confirm dialogs</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">For \"ColorOs\" is possible to disable these dialogs. Click this, to show how.</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_message_fix">In device system settings:\n1. Developer options/Developer options = enable\n2. Developer options/Debugging/USB debugging = enable\n3. Developer options/Apps/Disable permission monitoring = enable.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
-    <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
-    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
-    <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
+    <string name="event_preferences_red_texts_text_2">For this, is not possible to change its run.</string>
+    <string name="profile_preferences_red_texts_in_header">Some profiles has errors in its preferences. These profiles are marked with red color. Please fix it.</string>
+    <string name="event_preferences_red_texts_in_header">Some events has errors in its preferences. These events are marked with red color. Please fix it.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">for connect to SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Connect to SSID requires some permissions.</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">Please grant them in next dialog. List of configured SSID will then be shown.</string>
@@ -1397,7 +1397,7 @@
     <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
     <string name="menu_check_github_releases">Check app. releases</string>
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
-    <string name="check_github_releases_install_info_1">Download latest version of PhoneProfilesPlus.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
+    <string name="check_github_releases_install_info_1">Download latest version of PhoneProfilesPlus.apk from its GitHub. Then click to notification about downloaded apk and install it.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
     <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
@@ -1418,7 +1418,7 @@
     <string name="phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message">In device Settings/Apps/Manage apps/PhoneProfilesPlus/Other permissions: \"Change Wi-Fi connectivity\" and \"Change Bluetooth connectivity\" set to \"Accept\".</string>
     <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <string name="critical_github_release">Critical app. release</string>
-    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
+    <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from its GitHub.</string>
     <string name="acra_email_subject_text">crash report</string>
     <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is the crash report.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
@@ -1463,7 +1463,7 @@
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <string name="donation_paypal_donate_button">Donate</string>
     <string name="normal_github_release">New app. release</string>
-    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
+    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from its GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
     <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X is the number of activated profiles, Y is the number of events that activated the profiles.</string>
     <string name="activity_log_help_message_data_for">for</string>
     <string name="activity_log_help_message_data_profileName">Profile name. It may contains [M] (=manual activation) followed by end of duration in parentheses.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profile name [ event name ]. Profile name is last activated profile and event name is last started event.</string>
     <string name="activity_log_help_message_data_displayedInGUI">This information is also displayed in all GUI elements (application notification, Activator, Editor, widgets, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">all others for profiles</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Profile name.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">Not set</string>
     <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
     <string name="application_editor_intent_hint_not_selected">Not selected</string>
-    <string name="application_editor_intent_action_none">[None]</string>
-    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="application_editor_intent_action_none">[ None ]</string>
+    <string name="application_editor_intent_action_custom">[ Custom ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) application, (S) shortcut, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Not set</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">None installed</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">Other situations</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
     <string name="menu_choose_language">Choose language</string>
-    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="menu_choose_language_system_language">[ System ]</string>
     <string name="profile_icon_preference_iconColor_help">Icon color</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>

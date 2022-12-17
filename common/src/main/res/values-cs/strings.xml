@@ -1038,14 +1038,14 @@
     <string name="phone_profiles_pref_notificationLayoutType_small">Malé</string>
     <string name="event_preferences_applications_LaunchExtender_title">Spustit PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_LaunchExtender_summary">Prosím udělte povolení Telefon v PhoneProfilesPlusExtender. Je potřebné pro příjem hovorů Extender.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Prosím udělte povolení SMS v PhoneProfilesPlusExtender. Je potřebné pro příjem SMS / MMS Extender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Prosím udělte povolení SMS v PhoneProfilesPlusExtender. Je potřebné pro příjem SMS/MMS Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender není nainstalován.</string>
     <string name="array_event_pref_peripheralType_headphones">Sluchátka bez mikrofonu</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender není nainstalován!</string>
     <string name="default_profile_name_battery_ok">OK baterie</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikace</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Odkazy</string>
-    <string name="applications_editor_dialog_not_selected">[nevybrané]</string>
+    <string name="applications_editor_dialog_not_selected">[ nevybrané ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Barva pozadí</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Nativní</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Tmavá</string>
@@ -1243,7 +1243,7 @@
     <string name="event_preferences_orientation_light_not_enabled">neaktivní</string>
     <string name="pref_event_screen_startWhenLocked">Start, když je zamčené</string>
     <string name="event_preferences_screen_start_when_locked">Start, když je zamčené</string>
-    <string name="event_preference_sensor_screen_summary">Tento senzor spustí událost podle zapnutí / vypnutí obrazovky. Parametry: Typ události (obrazovka se zapnula/vypnula), Start když je odemčené/zamčené (událost nastane když zařízení na odemknuté/zamčené).</string>
+    <string name="event_preference_sensor_screen_summary">Tento senzor spustí událost podle zapnutí/vypnutí obrazovky. Parametry: Typ události (obrazovka se zapnula/vypnula), Start když je odemčené/zamčené (událost nastane když zařízení na odemknuté/zamčené).</string>
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Zobrazit indikátory parametrů profilu v aktivátor, Editoru, odkazu</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Zobrazit indikátory parametrů profilu v oznámení</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Zobrazit indikátory parametrů profilu ve widgetech</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X je počet aktivovaných profilů, Y je počet událostí, které aktivovaly profily.</string>
     <string name="activity_log_help_message_data_for">pro</string>
     <string name="activity_log_help_message_data_profileName">Název profilu. Může obsahovat [M] (=ruční aktivace), po němž následuje konec trvání v závorkách.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Název profilu [název události]. Název profilu je naposledy aktivován profil a název události je poslední započata událost.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Název profilu [ název události ]. Název profilu je naposledy aktivován profil a název události je poslední započata událost.</string>
     <string name="activity_log_help_message_data_displayedInGUI">Tyto informace se rovněž zobrazují ve všech GUI prvcích (notifikace aplikace, Activator, Editor, widgety, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">všechny ostatní pro profily</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Název profilu.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">Nenastaveno</string>
     <string name="application_editor_intent_hint_custom_not_set">Vlastní nastaveno</string>
     <string name="application_editor_intent_hint_not_selected">Nevybráno</string>
-    <string name="application_editor_intent_action_none">[Nic]</string>
-    <string name="application_editor_intent_action_custom">[Vlastní]</string>
+    <string name="application_editor_intent_action_none">[ Nic ]</string>
+    <string name="application_editor_intent_action_custom">[ Vlastní ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) aplikace, (S) odkaz, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Nenastaveno</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Žádné nainstalované</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">Ostatní situace</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Barva ikony \"Restart událostí\"</string>
     <string name="menu_choose_language">Zvolit jazyk</string>
-    <string name="menu_choose_language_system_language">[Systémový]</string>
+    <string name="menu_choose_language_system_language">[ Systémový ]</string>
     <string name="profile_icon_preference_iconColor_help">Barva ikony</string>
     <string name="profile_icon_preference_iconColor_help_info_1">V tmavém tématu aplikace může mít barva ikony v náhledu zvýšený jas.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Ikona s tímto zvýšeným jasem se bude používat v celém GUI aplikace. Také v oznámení a widgetech, pokud je jejich pozadí tmavé.</string>

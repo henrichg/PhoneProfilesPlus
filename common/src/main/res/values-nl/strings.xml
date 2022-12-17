@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Rode kleur: events zijn gestopt - events kun je ingeschakelen in het Editor menu-item \"Activeer Events uitvoeren\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Herstart events icoon:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Verkeerslicht\" icoon:</string>
-    <string name="important_info_android_doze_mode">In Android 6+ is \"Doze mode\" en \"App standby\" geïmplementeerd. Je kunt problemen krijgen met profiel activering vanuit events wanneer je apparaat niet oplaadt en stil ligt voor een periode met het scherm uit. Los dit op door PhoneProfilesPlus in \"Batterij\"→\"Batterijoptimalisatie\"→\"Niet optimaliseren\" toe te voegen.</string>
+    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
     <string name="info_notification_event_states">Het event kan 6 statussen hebben:</string>
     <string name="info_notification_event_states_running">Uitvoeren: event is gestart en loopt. Event parameters zijn goed.</string>
     <string name="info_notification_event_states_paused">Gepauzeerd: event is gepauzeerd. Aan event parameters wordt niet voldaan. Het event wacht tot wordt voldaan aan de parameters.</string>
@@ -1045,7 +1045,7 @@
     <string name="default_profile_name_battery_ok">batterij OK</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Programma\'s</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Snelkoppelingen</string>
-    <string name="applications_editor_dialog_not_selected">[niet geselecteerd]</string>
+    <string name="applications_editor_dialog_not_selected">[ niet geselecteerd ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Achtergrondkleur</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Standaard</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Donker</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X is het aantal geactiveerde profielen, Y is het aantal events dat de profielen heeft geactiveerd.</string>
     <string name="activity_log_help_message_data_for">voor</string>
     <string name="activity_log_help_message_data_profileName">Profielnaam. Het kan [M] (=handmatige activering) bevatten gevolgd door einde tijdsduur tussen haakjes.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Profielnaam [event name]. Profielnaam is het laatste geactiveerde profiel en eventnaam is het laatste gestartte event.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profielnaam [ eventnaam ]. Profielnaam is het laatste geactiveerde profiel en eventnaam is het laatste gestartte event.</string>
     <string name="activity_log_help_message_data_displayedInGUI">Deze informatie zie je ook in alle GUI elementen (applicatie-notificatie, Activator, Editor, widgets, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">alle andere voor profielen</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Profielnaam.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">Niet ingesteld</string>
     <string name="application_editor_intent_hint_custom_not_set">Aangepaste niet ingesteld</string>
     <string name="application_editor_intent_hint_not_selected">Niet geselecteerd</string>
-    <string name="application_editor_intent_action_none">[None]</string>
-    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="application_editor_intent_action_none">[ None ]</string>
+    <string name="application_editor_intent_action_custom">[ Custom ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) applicatie, (S) snelkoppeling, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Niet ingesteld</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Geen geïnstalleerd</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">Andere situaties</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Event herstarten\" icoon kleur</string>
     <string name="menu_choose_language">Taal kiezen</string>
-    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="menu_choose_language_system_language">[ System ]</string>
     <string name="profile_icon_preference_iconColor_help">Icoonkleur</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In een donker toepassingsthema kan de kleur van het voorbeeldicoon meer helderheid geven.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Een icoon met deze verhoogde helderheid wordt gebruikt in de GUI van de applicatie. Ook in notificaties en widgets als hun achtergrond donker is.</string>

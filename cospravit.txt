@@ -805,9 +805,10 @@ Co pyta ROOT:
 
 Retazce, kde daj medzeru za a pred hranatu zatvorku:
     <string name="applications_editor_dialog_not_selected">[not selected]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string> - tu sprav s &nbsp;, pouizva sa v fromHTML
+    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
     <string name="application_editor_intent_action_none">[None]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
     <string name="application_editor_intent_action_custom">[Custom]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
     <string name="menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
     <string name="extender_menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
     <string name="pppputsettings_menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
+

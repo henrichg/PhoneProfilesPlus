@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">红色: 事件已停止 - 可以在编辑器功能菜单项目“激活事件运行”来执行。</string>
     <string name="important_info_profile_activation_restart_events_icon">重新启动事件图标：</string>
     <string name="important_info_profile_activation_traffic_light_icon">“红绿灯”图标：</string>
-    <string name="important_info_android_doze_mode">在 Android 6+ 中实现了“打盹模式”和“应用程序待机”。如果把设备限制一段时间后屏幕熄灭，事件激活情景遇到问题，请把 PhoneProfilesPlus 添加到“电池”→“电池优化”→“未优化”中。</string>
+    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
     <string name="info_notification_event_states">事件有 6 个状态：</string>
     <string name="info_notification_event_states_running">运行中: 事件已经开始并正在运行；事件参数已满足要求。</string>
     <string name="info_notification_event_states_paused">暂停: 事件没有运行；事件参数不满足要求；或事件正在等待参数满足要求。</string>
@@ -1045,7 +1045,7 @@
     <string name="default_profile_name_battery_ok">好的电池</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) 应用程序</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) 快捷方式</string>
-    <string name="applications_editor_dialog_not_selected">[未选中]</string>
+    <string name="applications_editor_dialog_not_selected">[ 未选中 ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">背景颜色</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">原生</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">暗色</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X 是已激活情景的数量，Y 是已激活情景的事件数量。</string>
     <string name="activity_log_help_message_data_for">为</string>
     <string name="activity_log_help_message_data_profileName">情景名称。它可以包含 [M] (=手动激活) ，然后在括号中以结束时间结束。</string>
-    <string name="activity_log_help_message_data_profileNameEventName">情景名称[事件名称]。情景名称为最近激活的情景，事件名称是最近开始的事件。</string>
+    <string name="activity_log_help_message_data_profileNameEventName">情景名称 [ 事件名称 ]。情景名称为最近激活的情景，事件名称是最近开始的事件。</string>
     <string name="activity_log_help_message_data_displayedInGUI">此信息也显示在所有GUI元素中(应用程序通知、激活清单、编辑器、小部件、 …)。</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">所有其它情景</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">情景名称.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">未设置</string>
     <string name="application_editor_intent_hint_custom_not_set">自定义未设置</string>
     <string name="application_editor_intent_hint_not_selected">未选中</string>
-    <string name="application_editor_intent_action_none">[None]</string>
-    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="application_editor_intent_action_none">[ None ]</string>
+    <string name="application_editor_intent_action_custom">[ Custom ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) 应用程序, (S) 快捷方式, (I) intent。</string>
     <string name="generated_notification_intent_hint_not_set">未设置</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">未安装</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">其他情况</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"重新启动事件\"图标颜色</string>
     <string name="menu_choose_language">选择语言</string>
-    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="menu_choose_language_system_language">[ System ]</string>
     <string name="profile_icon_preference_iconColor_help">图标颜色</string>
     <string name="profile_icon_preference_iconColor_help_info_1">在暗色主题中，预览图标的颜色可能会提高亮度。</string>
     <string name="profile_icon_preference_iconColor_help_info_2">这种增强亮度的图标将应用在整个图形界面中。包括通知和小部件，当它们的背景是暗色时。</string>

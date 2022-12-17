@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Rosso: gli eventi sono fermi - l\'avvio degli eventi può essere abilitato con la voce di menu dell\'Editor \"Abilita esecuzione eventi\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Icona per il riavvio degli eventi:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Icona del \"semaforo\":</string>
-    <string name="important_info_android_doze_mode">In Android 6+ sono presenti la \"Modalità Doze\" e \"App Standby\". Quando si riscontrano problemi con l\'attivazione del profilo da eventi se si lascia il dispositivo fermo e scollegato per un periodo di tempo con schermo spento, aggiungere PhoneProfilesPlus in \"Batteria\"→\"Ottimizzazione della batteria\"→\"Non ottimizzato\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
     <string name="info_notification_event_states">L\'evento può trovarsi in 6 diversi stati:</string>
     <string name="info_notification_event_states_running">In esecuzione: l\'evento è avviato ed in esecuzione. Le condizioni dell\'evento sono soddisfatte.</string>
     <string name="info_notification_event_states_paused">In pausa: l\'evento non è in esecuzione. Le condizioni dell\'evento non sono soddisfatte. L\'evento è in attesa che vengano soddisfatte le condizioni richieste.</string>
@@ -1045,7 +1045,7 @@
     <string name="default_profile_name_battery_ok">Batteria OK</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applicazioni</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Scorciatoie</string>
-    <string name="applications_editor_dialog_not_selected">[non selezionato]</string>
+    <string name="applications_editor_dialog_not_selected">[ non selezionato ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Colore di sfondo</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Nativo</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Scuro</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X è il numero di profili attivati, Y è il numero di eventi che hanno attivato i profili.</string>
     <string name="activity_log_help_message_data_for">per</string>
     <string name="activity_log_help_message_data_profileName">Nome del profilo. Potrebbe contenere [M] (=attivazione manuale) seguito dalla fine della durata tra parentesi.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Nome del profilo [nome evento]. Il nome del profilo è l\'ultimo profilo attivato e il nome dell\'evento è l\'ultimo evento avviato.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Nome del profilo [ nome evento ]. Il nome del profilo è l\'ultimo profilo attivato e il nome dell\'evento è l\'ultimo evento avviato.</string>
     <string name="activity_log_help_message_data_displayedInGUI">Quest\'informazione è mostrata anche in tutti gli elementi della GUI (notifica dell\'applicazione, Attivatore, Editor, widget, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">tutti gli altri per i profili</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Nome del profilo.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">Non impostato</string>
     <string name="application_editor_intent_hint_custom_not_set">Personalizzato non impostato</string>
     <string name="application_editor_intent_hint_not_selected">Non selezionato</string>
-    <string name="application_editor_intent_action_none">[None]</string>
-    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="application_editor_intent_action_none">[ None ]</string>
+    <string name="application_editor_intent_action_custom">[ Custom ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) applicazione, (S) scorciatoia, (I) intento.</string>
     <string name="generated_notification_intent_hint_not_set">Non impostato</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Nessuno installato</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">Other situations</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
     <string name="menu_choose_language">Choose language</string>
-    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="menu_choose_language_system_language">[ System ]</string>
     <string name="profile_icon_preference_iconColor_help">Icon color</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>

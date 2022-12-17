@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Червоний колір: події зупинено - запуск подій може бути відновлено за допомогою пункту меню редактора \"Дозволити запуск подій\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Іконка перезапуску подій:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Іконка «Світлофор»:</string>
-    <string name="important_info_android_doze_mode">В Android 6+ реалізовано режим \"Doze\" та \"App Standby\". Якщо ви зіткнулись із проблемами активації профілю із подій, коли пристрій вимкнувся після вимкнення екрану, додайте PhoneProfilesPlus в список \"Батарея\"→\"Економія заряду батареї\"→\"Не економити заряд\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
     <string name="info_notification_event_states">Подія може перебувати у 6-х станах:</string>
     <string name="info_notification_event_states_running">Виконується: подію запущено. Параметри подій задовільняють всім вимогам.</string>
     <string name="info_notification_event_states_paused">Призупинено: подія не виконується. Параметри події не відповідають вимогам. Подія очікує на задоволення всіх параметрів.</string>
@@ -1045,7 +1045,7 @@
     <string name="default_profile_name_battery_ok">OK аккумулятор</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Застосунки</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлики</string>
-    <string name="applications_editor_dialog_not_selected">[не вибрано]</string>
+    <string name="applications_editor_dialog_not_selected">[ не вибрано ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Колір фону</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Оригінальний</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Темний</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X - це кількість активованих профілів, Y - це кількість подій, які активували профілі.</string>
     <string name="activity_log_help_message_data_for">для</string>
     <string name="activity_log_help_message_data_profileName">Назва профілю. Може містити [M] (=ручна активація) а потім закінчення тривалості в дужках.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Назва профілю [назва події]. Назва профілю - останній активований профіль, назва події - остання запущена подія.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Назва профілю [ назва події ]. Назва профілю - останній активований профіль, назва події - остання запущена подія.</string>
     <string name="activity_log_help_message_data_displayedInGUI">Ця інформація також показується в усіх елементах графічного інтерфейсу (сповіщеннях застосунку, Активаторі, Редакторі, віджетах, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">решта по профілям</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Назва профілю.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">Не визначено</string>
     <string name="application_editor_intent_hint_custom_not_set">Не визначено користувачем</string>
     <string name="application_editor_intent_hint_not_selected">Не обрано</string>
-    <string name="application_editor_intent_action_none">[Нічого]</string>
-    <string name="application_editor_intent_action_custom">[Власне]</string>
+    <string name="application_editor_intent_action_none">[ Нічого ]</string>
+    <string name="application_editor_intent_action_custom">[ Власне ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(А) застосунок, (S) ярлик, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Не встановлено</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Не встановлено</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">Інші випадки</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Колір іконки \"Перезавантажити події\"</string>
     <string name="menu_choose_language">Виберіть мову</string>
-    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="menu_choose_language_system_language">[ System ]</string>
     <string name="profile_icon_preference_iconColor_help">Колір іконки</string>
     <string name="profile_icon_preference_iconColor_help_info_1">Якщо обрана темна, тема, то колір іконки, при попередньому перегляді, може мати підвищену яскравість.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Іконка з цією підвищеною яскравістю буде використовуватися у всьому інтерфейсі застосунку. Також у сповіщеннях і віджетах, коли їх фон темний.</string>

@@ -1045,7 +1045,7 @@
     <string name="default_profile_name_battery_ok">OK baterija</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikacije</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Prečaci</string>
-    <string name="applications_editor_dialog_not_selected">[nema odabranih]</string>
+    <string name="applications_editor_dialog_not_selected">[ nema odabranih ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Boja pozadine</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Izvorno</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Tamna</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X je broj aktiviranih profila. Y je broj događaja koji su aktivirali profile.</string>
     <string name="activity_log_help_message_data_for">za</string>
     <string name="activity_log_help_message_data_profileName">Ime profila. Može da sadrži [M] (= ručna aktivacija) praćeno sa krajem trajanja u zagradi.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Ime profila [ ime događaja]. Ime profila je poslednji aktivirani profil a ime događaja je poslednji pokrenuti događaj.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Ime profila [ ime događaja ]. Ime profila je poslednji aktivirani profil a ime događaja je poslednji pokrenuti događaj.</string>
     <string name="activity_log_help_message_data_displayedInGUI">Ova informacija je takođe prikazana u svim elementima prikaza ( obaveštenja , Aktivator, Editor ; vidžeti, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">sve ostalo za profile</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Naziv profila.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">Not set</string>
     <string name="application_editor_intent_hint_custom_not_set">Custom not set</string>
     <string name="application_editor_intent_hint_not_selected">Not selected</string>
-    <string name="application_editor_intent_action_none">[None]</string>
-    <string name="application_editor_intent_action_custom">[Custom]</string>
+    <string name="application_editor_intent_action_none">[ None ]</string>
+    <string name="application_editor_intent_action_custom">[ Custom ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) application, (S) shortcut, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Not set</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">None installed</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">Other situations</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"Restart events\" icon color</string>
     <string name="menu_choose_language">Choose language</string>
-    <string name="menu_choose_language_system_language">[System]</string>
+    <string name="menu_choose_language_system_language">[ System ]</string>
     <string name="profile_icon_preference_iconColor_help">Icon color</string>
     <string name="profile_icon_preference_iconColor_help_info_1">In a dark application theme, the color of the preview icon may have increased brightness.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">An icon with this increased brightness will be used throughout the GUI of the application. Also in notification and widgets, when their background is dark.</string>
