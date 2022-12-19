@@ -136,10 +136,10 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
-        removeAlarm(alarmPackageName, alarmManager, context);
-
-        if (alarmTime == 0)
+        if (alarmTime == 0) {
+            removeAlarm(alarmPackageName, alarmManager, context);
             return;
+        }
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(alarmTime);
@@ -152,17 +152,23 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         alarmCalendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
         alarmCalendar.set(Calendar.MILLISECOND, 0);
         alarmCalendar.set(Calendar.SECOND, 0);
-        // removed 5 seconds, because must be received before set it again
+        // removed 5 seconds, because must be received by ACTION_ALARM_CLOCK_BROADCAST_RECEIVER
+        // before set it again
         alarmCalendar.add(Calendar.SECOND, -5);
 
-//        @SuppressLint("SimpleDateFormat")
-//        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
-//        String time = sdf.format(alarmCalendar.getTimeInMillis());
-//        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
-//        PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
-
         Calendar now = Calendar.getInstance();
+
+        // alarm is not stored in shared prefs PREF_EVENT_ALARM_CLOCK_TIME_*
+
+//            @SuppressLint("SimpleDateFormat")
+//            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
+//            String time = sdf.format(alarmCalendar.getTimeInMillis());
+//            PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
+//            PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmPackageName="+alarmPackageName);
+
         if ((alarmCalendar.getTimeInMillis() >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
+
+            removeAlarm(alarmPackageName, alarmManager, context);
 
             setEventAlarmClockTime(alarmPackageName, alarmTime, context);
 
@@ -188,14 +194,15 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, hashData(alarmPackageName), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            Intent editorIntent = new Intent(context, EditorActivity.class);
-            editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmCalendar.getTimeInMillis(), infoPendingIntent);
-            alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            // Do not use this!!! User sends me e-mail with problems about usage of setAlarmClock
+//                Intent editorIntent = new Intent(context, EditorActivity.class);
+//                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmCalendar.getTimeInMillis(), infoPendingIntent);
+//                alarmManager.setAlarmClock(clockInfo, pendingIntent);
 
             //if (android.os.Build.VERSION.SDK_INT >= 23)
-//            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
             //else //if (android.os.Build.VERSION.SDK_INT >= 19)
             //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else
