@@ -4264,8 +4264,8 @@ public class PhoneProfilesService extends Service
 
                     // remove all not used non-named mobile cells
                     //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "before call of deleteNonNamedNotUsedCells()");
-                    DatabaseHandler db = DatabaseHandler.getInstance(appContext);
-                    db.deleteNonNamedNotUsedCells();
+                    //DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                    //db.deleteNonNamedNotUsedCells();
                     //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "after call of deleteNonNamedNotUsedCells()");
                 }
                 if (actualVersionCode <= 6920) {
