@@ -4204,7 +4204,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (actualVersionCode <= 6920) {
+                if (actualVersionCode <= 6905) {
                     if ((PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31)) ||
                         (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && (Build.VERSION.SDK_INT >= 33))) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
@@ -4262,6 +4262,13 @@ public class PhoneProfilesService extends Service
                         }
                     }
 
+                    // remove all not used non-named mobile cells
+                    //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "before call of deleteNonNamedNotUsedCells()");
+                    DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                    db.deleteNonNamedNotUsedCells();
+                    //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "after call of deleteNonNamedNotUsedCells()");
+                }
+                if (actualVersionCode <= 6920) {
                     // remove all not used non-named mobile cells
                     //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "before call of deleteNonNamedNotUsedCells()");
                     DatabaseHandler db = DatabaseHandler.getInstance(appContext);
