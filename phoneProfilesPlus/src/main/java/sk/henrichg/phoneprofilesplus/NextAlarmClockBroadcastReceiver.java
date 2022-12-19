@@ -152,8 +152,12 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         alarmCalendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
         alarmCalendar.set(Calendar.MILLISECOND, 0);
         alarmCalendar.set(Calendar.SECOND, 0);
-        // removed 5 seconds, because must be received by ACTION_ALARM_CLOCK_BROADCAST_RECEIVER
-        // before set it again
+
+        // removed 5 seconds, because of:
+        // - normally is alarmTime for future
+        // - when is reached (boradcasted is ACTION_ALARM_CLOCK_BROADCAST_RECEIVER),
+        //   received from system is again NextAlarmClockBroadcastReceiver with alarmTime = now time
+        // - and with this situation must be be alarmCalendar < now time
         alarmCalendar.add(Calendar.SECOND, -5);
 
         Calendar now = Calendar.getInstance();
