@@ -158,6 +158,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         // - when is reached (boradcasted is ACTION_ALARM_CLOCK_BROADCAST_RECEIVER),
         //   received from system is again NextAlarmClockBroadcastReceiver with alarmTime = now time
         // - and with this situation must be be alarmCalendar < now time
+        //   this prevents to configure alarm again
         alarmCalendar.add(Calendar.SECOND, -5);
 
         Calendar now = Calendar.getInstance();
