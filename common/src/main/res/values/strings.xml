@@ -1408,7 +1408,7 @@
     <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
     <string name="menu_check_github_releases">Check app. releases</string>
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
-    <string name="check_github_releases_install_info_1">Download latest version of PhoneProfilesPlus.apk from its GitHub. Then click to notification about downloaded apk and install it.</string>
+    <string name="check_github_releases_install_info_1">Download the latest version of PhoneProfilesPlus.apk from its GitHub repository, then click on notification about the downloaded apk and install it.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
     <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
@@ -1474,7 +1474,7 @@
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <string name="donation_paypal_donate_button">Donate</string>
     <string name="normal_github_release">New app. release</string>
-    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from its GitHub.</string>
+    <string name="normal_github_release_notification">Click this notification to download the new PhoneProfilesPlus release from its GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
     <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
