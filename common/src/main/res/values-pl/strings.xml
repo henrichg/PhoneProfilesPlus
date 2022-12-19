@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Czerwone światło: zdarzenia są zatrzymane - zdarzenia można odblokować za pomocą polecenia \"Uaktywnij zdarzenia\" w menu Edytora.</string>
     <string name="important_info_profile_activation_restart_events_icon">Ikona restartu zdarzeń:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ikona \"Sygnalizacja świetlna\":</string>
-    <string name="important_info_android_doze_mode">Android 6+ posiada funkcje oszczędzające energię: \"Doze mode\" i \"App standby\". Dodaj PhoneProfilesPlus do \"Ustawienia→Użycie baterii→Optymalizacja baterii→Bez optymalizacji\" jeśli napotykasz problemy z aktywacją profili przez zdarzenia w czasie, gdy telefon leży nieruchomo, odłączony od prądu i z wygaszonym ekranem.</string>
+    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
     <string name="info_notification_event_states">Zdarzenie może być w jednym z 6 stanów:</string>
     <string name="info_notification_event_states_running">Uruchomiono: zdarzenie jest uruchomione i działa. Parametry zdarzeń są spełnione.</string>
     <string name="info_notification_event_states_paused">Wstrzymane: zdarzenie nie jest uruchomione. Parametry zdarzenia nie są spełnione. Zdarzenie oczekuje na spełnienie parametrów.</string>
@@ -1045,7 +1045,7 @@
     <string name="default_profile_name_battery_ok">Bateria naładowana</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikacje</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Skróty</string>
-    <string name="applications_editor_dialog_not_selected">[niewybrane]</string>
+    <string name="applications_editor_dialog_not_selected">[ niewybrane ]</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Kolor tła</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Natywny</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Ciemny</string>
@@ -1632,7 +1632,7 @@
     <string name="activity_log_help_message_mergedProfileActivation">X to liczba aktywowanych profili, Y to liczba zdarzeń, które aktywowały profil.</string>
     <string name="activity_log_help_message_data_for">dla</string>
     <string name="activity_log_help_message_data_profileName">Nazwa profilu. Może zawierać [M] (=ręczna aktywacja), a następnie koniec czasu trwania w nawiasach.</string>
-    <string name="activity_log_help_message_data_profileNameEventName">Nazwa profilu [nazwa zdarzenia]. Nazwa profilu jest ostatnim aktywowanym profilem, a nazwa zdarzenia jest ostatnio uruchomionym zdarzeniem.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Nazwa profilu [ nazwa zdarzenia ]. Nazwa profilu jest ostatnim aktywowanym profilem, a nazwa zdarzenia jest ostatnio uruchomionym zdarzeniem.</string>
     <string name="activity_log_help_message_data_displayedInGUI">Ta informacja jest również wyświetlana we wszystkich elementach interfejsu użytkownika (powiadomienie aplikacji, Aktywator, Edytor, widżety, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">wszystkie pozostałe dla profili</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Nazwa profilu.</string>
@@ -1886,8 +1886,8 @@
     <string name="application_editor_intent_hint_not_set">Nie ustawiono</string>
     <string name="application_editor_intent_hint_custom_not_set">Niestandardowe nie ustawione</string>
     <string name="application_editor_intent_hint_not_selected">Nie wybrane</string>
-    <string name="application_editor_intent_action_none">[Żaden]</string>
-    <string name="application_editor_intent_action_custom">[Niestandardowy]</string>
+    <string name="application_editor_intent_action_none">[ Żaden ]</string>
+    <string name="application_editor_intent_action_custom">[ Niestandardowy ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) aplikacja, (S) skrót, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Nie ustawione</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Brak zainstalowanych</string>
@@ -1938,7 +1938,7 @@
     <string name="activity_log_help_message_colors_others">Inne sytuacje</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">Kolor ikony \"Zrestartuj zdarzenia\"</string>
     <string name="menu_choose_language">Wybierz język</string>
-    <string name="menu_choose_language_system_language">[Systemowy]</string>
+    <string name="menu_choose_language_system_language">[ Systemowy ]</string>
     <string name="profile_icon_preference_iconColor_help">Kolor ikony</string>
     <string name="profile_icon_preference_iconColor_help_info_1">W ciemnym szablonie aplikacji kolor ikony podglądu może mieć zwiększoną jasność.</string>
     <string name="profile_icon_preference_iconColor_help_info_2">Ikona z tą zwiększoną jasnością będzie używana w interfejsie użytkownika aplikacji. Również w powiadomieniach i widżetach, gdy tło jest ciemne.</string>

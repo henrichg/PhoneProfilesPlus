@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ class WifiSSIDPreferenceAdapter extends BaseAdapter
         //int position;
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // SSID to display
@@ -78,10 +80,10 @@ class WifiSSIDPreferenceAdapter extends BaseAdapter
 
         switch (wifiSSID.ssid) {
             case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                holder.SSIDName.setText("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]");
                 break;
             case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                holder.SSIDName.setText("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]");
                 break;
             default:
                 String ssidName = "";
@@ -89,7 +91,9 @@ class WifiSSIDPreferenceAdapter extends BaseAdapter
                     ssidName = "(C)";
                 else if (wifiSSID.scanned)
                     ssidName = "(S)";
-                ssidName = ssidName + " " + wifiSSID.ssid;
+                if (!ssidName.isEmpty())
+                    ssidName = ssidName + " ";
+                ssidName = ssidName + wifiSSID.ssid;
                 holder.SSIDName.setText(ssidName);
                 break;
         }

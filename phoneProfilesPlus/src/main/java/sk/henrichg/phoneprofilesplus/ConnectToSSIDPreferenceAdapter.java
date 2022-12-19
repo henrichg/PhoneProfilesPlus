@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,14 @@ import android.widget.TextView;
 class ConnectToSSIDPreferenceAdapter extends BaseAdapter
 {
     private final ConnectToSSIDDialogPreference preference;
+    private final Context context;
 
     private final LayoutInflater inflater;
 
     ConnectToSSIDPreferenceAdapter(Context context, ConnectToSSIDDialogPreference preference)
     {
         this.preference = preference;
+        this.context = context;
 
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
@@ -40,6 +43,7 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
         //int position;
     }
 
+    @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // SSID to display
@@ -63,9 +67,10 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
         }
 
         if (Profile.CONNECTTOSSID_JUSTANY.equals(wifiSSID.ssid)) {
-            holder.SSIDName.setText(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
+            holder.SSIDName.setText("[\u00A0" + context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any) + "\u00A0]");
         } else {
-            holder.SSIDName.setText(wifiSSID.ssid);
+            String ssid = wifiSSID.ssid.replace("\"", "");
+            holder.SSIDName.setText(ssid);
         }
 
         holder.radioButton.setTag(position);

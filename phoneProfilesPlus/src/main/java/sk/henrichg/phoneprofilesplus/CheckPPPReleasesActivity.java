@@ -294,7 +294,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             button.setVisibility(View.GONE);
 
             CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL + " \u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL + "\u00A0\u21D2";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -432,7 +432,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (text != null) {
             if (!fdroidInstalled) {
                 CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
-                CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + " \u21D2";
+                CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + "\u00A0\u21D2";
                 Spannable sbt = new SpannableString(str2);
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -465,7 +465,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp_to_configure);
         CharSequence str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
-        CharSequence str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL + " \u21D2";
+        CharSequence str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL + "\u00A0\u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -495,7 +495,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_fdroid_go_to_repository_with_ppp);
         if (text != null) {
             str1 = activity.getString(R.string.check_releases_fdroid_go_to_repository_with_ppp);
-            str2 = str1 + " " + PPApplication.FDROID_PPP_RELEASES_URL + " \u21D2";
+            str2 = str1 + " " + PPApplication.FDROID_PPP_RELEASES_URL + "\u00A0\u21D2";
             sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             clickableSpan = new ClickableSpan() {
@@ -675,7 +675,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
             text.setVisibility(View.VISIBLE);
             CharSequence str1 = activity.getString(R.string.check_releases_amazon_appstore_application);
-            CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " \u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " \u21D2";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -796,7 +796,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text.setVisibility(View.VISIBLE);
                 buttonsDivider.setVisibility(View.VISIBLE);
                 CharSequence str1 = activity.getString(R.string.check_releases_appgallery_application);
-                CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + " \u21D2";
+                CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + "\u00A0\u21D2";
                 Spannable sbt = new SpannableString(str2);
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -933,7 +933,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             buttonsDivider.setVisibility(View.VISIBLE);
 
             CharSequence str1 = activity.getString(R.string.check_releases_apkpure_appstore_application);
-            CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + " \u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + "\u00A0\u21D2";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -1064,7 +1064,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             buttonsDivider.setVisibility(View.VISIBLE);
 
             CharSequence str1 = activity.getString(R.string.check_releases_droidify_application);
-            CharSequence str2 = str1 + " " + PPApplication.DROIDIFY_APPLICATION_URL + " \u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.DROIDIFY_APPLICATION_URL + "\u00A0\u21D2";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {

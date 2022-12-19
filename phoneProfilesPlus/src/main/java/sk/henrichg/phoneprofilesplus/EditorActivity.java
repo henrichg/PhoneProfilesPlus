@@ -638,6 +638,7 @@ public class EditorActivity extends AppCompatActivity
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
         PPApplication.setApplicationFullyStarted(getApplicationContext());
+//        PPApplication.logE("[APPLICATION_FULLY_STARTED] EditorActivity.showNotStartedToast", "xxx");
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted;
@@ -5380,6 +5381,23 @@ public class EditorActivity extends AppCompatActivity
                         activity.exportProgressDialog = null;
                     }
                     GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (result != 1) {
+                    try {
+                        // delete both files
+                        File sd = activity.getApplicationContext().getExternalFilesDir(null);
+                        File importFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
+                        if (importFile.exists()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            importFile.delete();
+                        }
+                        importFile = new File(sd, DatabaseHandler.EXPORT_DBFILENAME);
+                        if (importFile.exists()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            importFile.delete();
+                        }
+                    } catch (Exception ignored) {}
                 }
 
                 if ((dataWrapper != null) && (result == 1)) {

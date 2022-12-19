@@ -125,26 +125,38 @@ class MobileCellsScanner {
             int simCount = telephonyManager.getPhoneCount();
             if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
-                    telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
-                            PhoneStateListener.LISTEN_CELL_INFO
-                                    | PhoneStateListener.LISTEN_CELL_LOCATION // is required for some devices, especially with AP level < 26
-                                    | PhoneStateListener.LISTEN_SERVICE_STATE
-                    );
+                    try {
+                        telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
+                                PhoneStateListener.LISTEN_CELL_INFO
+                                        | PhoneStateListener.LISTEN_CELL_LOCATION // is required for some devices, especially with AP level < 26
+                                        | PhoneStateListener.LISTEN_SERVICE_STATE
+                        );
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
                 }
                 if ((telephonyManagerSIM2 != null) && (mobileCellsListenerSIM2 != null)) {
-                    telephonyManagerSIM2.listen(mobileCellsListenerSIM2,
-                            PhoneStateListener.LISTEN_CELL_INFO
-                                    | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
-                                    | PhoneStateListener.LISTEN_SERVICE_STATE
-                    );
+                    try {
+                        telephonyManagerSIM2.listen(mobileCellsListenerSIM2,
+                                PhoneStateListener.LISTEN_CELL_INFO
+                                        | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
+                                        | PhoneStateListener.LISTEN_SERVICE_STATE
+                        );
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
                 }
             }
             else {
-                telephonyManagerDefault.listen(mobileCellsListenerDefault,
-                        PhoneStateListener.LISTEN_CELL_INFO
-                                | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
-                                | PhoneStateListener.LISTEN_SERVICE_STATE
-                        );
+                try {
+                    telephonyManagerDefault.listen(mobileCellsListenerDefault,
+                            PhoneStateListener.LISTEN_CELL_INFO
+                                    | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
+                                    | PhoneStateListener.LISTEN_SERVICE_STATE
+                            );
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
 
         }

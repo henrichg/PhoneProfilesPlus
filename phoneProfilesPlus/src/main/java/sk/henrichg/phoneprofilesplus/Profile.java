@@ -2995,7 +2995,7 @@ public class Profile {
                 }
             }
             if (!showEndTime) {
-                durationString = "[ " + context.getString(R.string.profile_event_name_ask_for_duration) + " ]";
+                durationString = "[\u00A0" + context.getString(R.string.profile_event_name_ask_for_duration) + "\u00A0]";
             }
         }
         else

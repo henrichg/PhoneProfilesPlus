@@ -1749,7 +1749,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         CharSequence str1 = getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + " \u21D2";
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0\u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -1812,7 +1812,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             return;
         }
 
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+        PackageManager packageManager = getActivity().getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        boolean galaxyStoreInstalled = (_intent != null);
+
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 

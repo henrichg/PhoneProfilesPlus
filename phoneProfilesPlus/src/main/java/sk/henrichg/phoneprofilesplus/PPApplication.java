@@ -272,6 +272,7 @@ public class PPApplication extends Application
                                                 //+"|[VOLUMES]"
                                                 //+"|[PPP_NOTIFICATION]"
                                                 //+"|[DUAL_SIM]"
+                                                //+"|[APPLICATION_FULLY_STARTED]"
 
                                                 //+"|EventPreferencesOrientation"
                                                 //+"|LocationScanner.updateTransitionsByLastKnownLocation"
@@ -1641,6 +1642,8 @@ public class PPApplication extends Application
     static void setApplicationFullyStarted(Context context) {
         boolean oldApplicationFullyStarted = applicationFullyStarted;
         applicationFullyStarted = true; //started;
+
+//        PPApplication.logE("[APPLICATION_FULLY_STARTED] PPApplication.setApplicationFullyStarted", "oldApplicationFullyStarted="+oldApplicationFullyStarted);
 
         final Context appContext = context.getApplicationContext();
 

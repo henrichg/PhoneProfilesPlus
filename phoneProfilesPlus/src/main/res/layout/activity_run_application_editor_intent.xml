@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:layout_alignParentTop="true"
-            android:background="@color/dialog_divider" />
+            android:background="@color/dialog_divider"/>
 
         <Button
             android:id="@+id/application_editor_intent_ok"
@@ -105,14 +105,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_intent_name"/>
             <EditText
                 android:id="@+id/application_editor_intent_intent_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
@@ -127,21 +127,22 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_intent_type"/>
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/application_editor_intent_intent_type_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="26dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginTop="5dp"
                 android:popupElevation="0dp"
@@ -156,26 +157,38 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_package_name"/>
             <EditText
                 android:id="@+id/application_editor_intent_package_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
+
+            <View
+                android:id="@+id/application_editor_intent_divider10"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView4"
@@ -183,14 +196,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_class_name"/>
             <EditText
                 android:id="@+id/application_editor_intent_class_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
@@ -205,21 +218,22 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_action"/>
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/application_editor_intent_action_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="26dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginTop="5dp"
                 android:popupElevation="0dp"
@@ -229,7 +243,7 @@
                 android:id="@+id/application_editor_intent_action_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_hint_custom_not_set"
                 android:inputType="textNoSuggestions"
@@ -244,26 +258,38 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_data"/>
             <EditText
                 android:id="@+id/application_editor_intent_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
                 android:importantForAutofill="no"
                 style="@style/IntentEditorEditTextStyle" />
+
+            <View
+                android:id="@+id/application_editor_intent_divider11"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView7"
@@ -271,14 +297,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="10dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_mime_type"/>
             <EditText
                 android:id="@+id/application_editor_intent_mime_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp"
                 android:hint="@string/application_editor_intent_hint_not_set"
                 android:inputType="textNoSuggestions"
@@ -293,7 +319,8 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView8"
@@ -301,14 +328,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_categories"/>
             <RelativeLayout
                 android:id="@+id/application_editor_intent_reLa1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp" >
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/application_editor_intent_category_btn"
@@ -342,7 +369,8 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView9"
@@ -350,14 +378,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_flags"/>
             <RelativeLayout
                 android:id="@+id/application_editor_intent_reLa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="15dp" >
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/application_editor_intent_flags_btn"
@@ -391,14 +419,15 @@
                 android:layout_height="@dimen/divider_height"
                 android:layout_marginStart="@dimen/divider_margin"
                 android:layout_marginEnd="@dimen/divider_margin"
-                android:background="@color/dialog_divider" />
+                android:background="@color/dialog_divider"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/application_editor_intent_textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="@string/application_editor_intent_extras"/>
 
@@ -421,7 +450,7 @@
                     android:id="@+id/application_editor_intent_extra_key_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
@@ -431,7 +460,7 @@
                     android:id="@+id/application_editor_intent_extra_value_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
@@ -446,7 +475,7 @@
                         android:id="@+id/application_editor_intent_extra_1_textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="19dp"
+                        android:layout_marginStart="29dp"
                         android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -479,7 +508,7 @@
                     android:id="@+id/application_editor_intent_extra_key_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
@@ -489,7 +518,7 @@
                     android:id="@+id/application_editor_intent_extra_value_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
@@ -504,7 +533,7 @@
                         android:id="@+id/application_editor_intent_extra_2_textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="19dp"
+                        android:layout_marginStart="29dp"
                         android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -537,7 +566,7 @@
                     android:id="@+id/application_editor_intent_extra_key_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
@@ -547,7 +576,7 @@
                     android:id="@+id/application_editor_intent_extra_value_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
@@ -562,7 +591,7 @@
                         android:id="@+id/application_editor_intent_extra_3_textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="19dp"
+                        android:layout_marginStart="29dp"
                         android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -595,7 +624,7 @@
                     android:id="@+id/application_editor_intent_extra_key_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
@@ -605,7 +634,7 @@
                     android:id="@+id/application_editor_intent_extra_value_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
@@ -620,7 +649,7 @@
                         android:id="@+id/application_editor_intent_extra_4_textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="19dp"
+                        android:layout_marginStart="29dp"
                         android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner
@@ -653,7 +682,7 @@
                     android:id="@+id/application_editor_intent_extra_key_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_key"
                     android:inputType="textNoSuggestions"
@@ -663,7 +692,7 @@
                     android:id="@+id/application_editor_intent_extra_value_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/application_editor_intent_extra_value"
                     android:inputType="textNoSuggestions"
@@ -678,7 +707,7 @@
                         android:id="@+id/application_editor_intent_extra_5_textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="19dp"
+                        android:layout_marginStart="29dp"
                         android:textSize="16sp"
                         android:text="@string/application_editor_intent_extra_type"/>
                     <androidx.appcompat.widget.AppCompatSpinner

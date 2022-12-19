@@ -77,23 +77,20 @@ abstract class EventPreferences {
             if (/*(!Event.getGlobalEventsRunning()) ||*/ (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ "+sensorTitle+" ]");
+                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[&nbsp;"+sensorTitle+"&nbsp;]");
             }
             if ((sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ » "+sensorTitle+" ]");
+                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[&nbsp;»&nbsp;"+sensorTitle+"&nbsp;]");
             }
             else {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
                 String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[ "+sensorTitle+" ]");
+                return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, "[&nbsp;"+sensorTitle+"&nbsp;]");
             }
         } else {
-            //int labelColor = GlobalGUIRoutines.getThemeWhiteTextColor(context);
-            //String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            //return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
-            return "[ " + sensorTitle + " ]";//+":";
+            return "[&nbsp;" + sensorTitle + "&nbsp;]";//+":";
         }
     }
 

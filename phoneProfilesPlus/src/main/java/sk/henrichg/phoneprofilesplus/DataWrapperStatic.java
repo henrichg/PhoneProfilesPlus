@@ -210,7 +210,7 @@ public class DataWrapperStatic {
 
             String _eventName = getLastStartedEventName(dataWrapper, profile);
             if (!_eventName.equals("?"))
-                eventName = "[ " + _eventName + " ]";
+                eventName = "[\u00A0" + _eventName + "\u00A0]";
 
             if (!manualIndicators.isEmpty())
                 eventName = manualIndicators + " " + eventName;

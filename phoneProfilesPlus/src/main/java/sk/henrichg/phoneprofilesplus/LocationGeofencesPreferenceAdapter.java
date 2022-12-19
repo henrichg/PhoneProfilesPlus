@@ -76,8 +76,10 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         ViewHolder rowData = (ViewHolder) view.getTag();
 
         // must be set, without this not working long click
-        rowData.checkBox.setFocusable(false);
-        rowData.checkBox.setFocusableInTouchMode(false);
+        if (preferenceFragment.preference.onlyEdit == 0) {
+            rowData.checkBox.setFocusable(false);
+            rowData.checkBox.setFocusableInTouchMode(false);
+        }
         rowData.itemEditMenu.setFocusable(false);
         rowData.itemEditMenu.setFocusableInTouchMode(false);
 

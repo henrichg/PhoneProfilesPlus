@@ -197,7 +197,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
 
             message = message + "<ul><li><b>" + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":</b><br>";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X&nbsp;[&nbsp;Y&nbsp;]\":</b><br>";
             message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + "</li></ul>";
 
             message = message + "<br>";

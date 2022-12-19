@@ -144,10 +144,10 @@ class EventPreferencesBluetooth extends EventPreferences {
                     } else if (splits.length == 1) {
                         switch (_bluetoothName) {
                             case ALL_BLUETOOTH_NAMES_VALUE:
-                                selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
+                                selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]";
                                 break;
                             case CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                                selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
+                                selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]";
                                 break;
                             default:
                                 /*if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {

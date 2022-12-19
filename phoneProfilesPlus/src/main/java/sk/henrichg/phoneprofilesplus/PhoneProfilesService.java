@@ -1082,18 +1082,30 @@ public class PhoneProfilesService extends Service
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
                                         if (subscriptionInfo.getSimSlotIndex() == 0) {
                                             if (PPApplication.telephonyManagerSIM1 == null) {
-                                                PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                                PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(context, 1);
-                                                PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1,
-                                                        PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                                                try {
+                                                    PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                                    PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(context, 1);
+                                                    PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1,
+                                                            PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                                                } catch (Exception e) {
+                                                    PPApplication.phoneCallsListenerSIM1 = null;
+                                                    PPApplication.telephonyManagerSIM1 = null;
+                                                    PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                         if ((subscriptionInfo.getSimSlotIndex() == 1)) {
                                             if (PPApplication.telephonyManagerSIM2 == null) {
-                                                PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
-                                                PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(context, 2);
-                                                PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2,
-                                                        PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                                                try {
+                                                    PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                                    PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(context, 2);
+                                                    PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2,
+                                                            PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                                                } catch (Exception e) {
+                                                    PPApplication.phoneCallsListenerSIM2 = null;
+                                                    PPApplication.telephonyManagerSIM2 = null;
+                                                    PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                     }
@@ -1101,9 +1113,14 @@ public class PhoneProfilesService extends Service
                             }
                         }
                     } else {
-                        PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(context, 0);
-                        PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul,
-                                PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                        try {
+                            PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(context, 0);
+                            PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul,
+                                    PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
+                        } catch (Exception e) {
+                            PPApplication.phoneCallsListenerDefaul = null;
+                            PPApplication.recordException(e);
+                        }
                     }
                 }
             }
@@ -4246,8 +4263,17 @@ public class PhoneProfilesService extends Service
                     }
 
                     // remove all not used non-named mobile cells
+                    //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "before call of deleteNonNamedNotUsedCells()");
+                    //DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                    //db.deleteNonNamedNotUsedCells();
+                    //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "after call of deleteNonNamedNotUsedCells()");
+                }
+                if (actualVersionCode <= 6920) {
+                    // remove all not used non-named mobile cells
+                    //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "before call of deleteNonNamedNotUsedCells()");
                     DatabaseHandler db = DatabaseHandler.getInstance(appContext);
                     db.deleteNonNamedNotUsedCells();
+                    //PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "after call of deleteNonNamedNotUsedCells()");
                 }
 
             }

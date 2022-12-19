@@ -177,12 +177,14 @@ public class DatabaseHandlerEvents {
     }
 
     // Getting All Events
-    static List<Event> getAllEvents(DatabaseHandler instance) {
-        instance.importExportLock.lock();
+    static List<Event> getAllEvents(DatabaseHandler instance, boolean calledFromImportDB) {
+        if (!calledFromImportDB)
+            instance.importExportLock.lock();
         try {
             List<Event> eventList = new ArrayList<>();
             try {
-                instance.startRunningCommand();
+                if (!calledFromImportDB)
+                    instance.startRunningCommand();
 
                 // Select All Query
                 final String selectQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
@@ -269,7 +271,8 @@ public class DatabaseHandlerEvents {
             }
             return eventList;
         } finally {
-            instance.stopRunningCommand();
+            if (!calledFromImportDB)
+                instance.stopRunningCommand();
         }
     }
 
@@ -4550,11 +4553,14 @@ public class DatabaseHandlerEvents {
     }
 
     // add mobile cells to list
-    static void addMobileCellsToList(DatabaseHandler instance, List<MobileCellsData> cellsList, int onlyCellId) {
-        instance.importExportLock.lock();
+    static void addMobileCellsToList(DatabaseHandler instance, List<MobileCellsData> cellsList, int onlyCellId,
+                                     boolean calledFromImportDB) {
+        if (!calledFromImportDB)
+            instance.importExportLock.lock();
         try {
             try {
-                instance.startRunningCommand();
+                if (!calledFromImportDB)
+                    instance.startRunningCommand();
 
                 // Select All Query
                 String selectQuery = "SELECT " + DatabaseHandler.KEY_MC_CELL_ID + "," +
@@ -4586,7 +4592,7 @@ public class DatabaseHandlerEvents {
                         //String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
                         //String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
                         //boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
-                        //Log.d("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
+                        //Log.e("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                         boolean found = false;
                         for (MobileCellsData cell : cellsList) {
                             if (cell.cellId == cellId) {
@@ -4608,7 +4614,8 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            instance.stopRunningCommand();
+            if (!calledFromImportDB)
+                instance.stopRunningCommand();
         }
     }
 
@@ -4793,11 +4800,13 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    static void deleteMobileCell(DatabaseHandler inctance, int mobileCell) {
-        inctance.importExportLock.lock();
+    static void deleteMobileCell(DatabaseHandler inctance, int mobileCell, boolean calledFromImportDB) {
+        if (!calledFromImportDB)
+            inctance.importExportLock.lock();
         try {
             try {
-                inctance.startRunningCommand();
+                if (!calledFromImportDB)
+                    inctance.startRunningCommand();
 
                 //SQLiteDatabase db = this.getWritableDatabase();
                 SQLiteDatabase db = inctance.getMyWritableDatabase();
@@ -4823,7 +4832,8 @@ public class DatabaseHandlerEvents {
                 PPApplication.recordException(e);
             }
         } finally {
-            inctance.stopRunningCommand();
+            if (!calledFromImportDB)
+                inctance.stopRunningCommand();
         }
     }
 
@@ -5093,14 +5103,14 @@ public class DatabaseHandlerEvents {
         }
     }
 
-    static void deleteNonNamedNotUsedCells(DatabaseHandler instance) {
+    static void deleteNonNamedNotUsedCells(DatabaseHandler instance, boolean calledFromImportDB) {
         try {
             // load cells from db
             List<MobileCellsData> cellsList = new ArrayList<>();
-            addMobileCellsToList(instance, cellsList, 0);
+            addMobileCellsToList(instance, cellsList, 0, calledFromImportDB);
             // load events from db
             List<Event> eventList;
-            eventList = getAllEvents(instance);
+            eventList = getAllEvents(instance, calledFromImportDB);
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<MobileCellsData> it = cellsList.iterator(); it.hasNext(); ) {
                 MobileCellsData cell = it.next();
@@ -5133,7 +5143,7 @@ public class DatabaseHandlerEvents {
                         }
                     }
                     if (!found) {
-                        deleteMobileCell(instance, cell.cellId);
+                        deleteMobileCell(instance, cell.cellId, calledFromImportDB);
                         //cellsList.remove(cell);
                         it.remove();
                     }

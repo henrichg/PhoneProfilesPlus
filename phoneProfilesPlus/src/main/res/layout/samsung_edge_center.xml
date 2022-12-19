@@ -78,6 +78,7 @@
                     android:textColor="#33b5e5"
                     android:textSize="16dp"
                     tools:ignore="SpUsage" />
+<!--                android:fontFamily="sans-serif-condensed"-->
 
             </LinearLayout>
 

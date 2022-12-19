@@ -1098,6 +1098,7 @@ public class DataWrapper {
             else {
                 //Event.setGlobalEventsRunning(context, false);
                 PPApplication.setApplicationFullyStarted(context);
+//                PPApplication.logE("[APPLICATION_FULLY_STARTED] DataWrapper.startEventsAtFirstStart", "xxx");
                 activateProfileAtFirstStart();
             }
         }
