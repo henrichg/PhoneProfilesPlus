@@ -4549,8 +4549,10 @@ public class PhoneProfilesService extends Service
 
                                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
-                                    if (PPApplication.mobileCellsScanner != null)
-                                        PPApplication.mobileCellsScanner.rescanMobileCells();
+                                    synchronized (PPApplication.mobileCellsScannerMutex) {
+                                        if (PPApplication.mobileCellsScanner != null)
+                                            PPApplication.mobileCellsScanner.rescanMobileCells();
+                                    }
                                 }
                                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                                    PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "******** ### ******* (1)");
@@ -4996,18 +4998,23 @@ public class PhoneProfilesService extends Service
         }*/
 
         if (PPApplication.mobileCellsScanner == null) {
-            PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
+            synchronized (PPApplication.mobileCellsScannerMutex) {
+                PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
+            }
             PPApplication.mobileCellsScanner.connect();
-        }
-        else {
+        } else {
             PPApplication.mobileCellsScanner.rescanMobileCells();
         }
     }
 
     private void stopMobileCellsScanner() {
-        if (PPApplication.mobileCellsScanner != null) {
-            PPApplication.mobileCellsScanner.disconnect();
-            PPApplication.mobileCellsScanner = null;
+        synchronized (PPApplication.mobileCellsScannerMutex) {
+            if (PPApplication.mobileCellsScanner != null) {
+                PPApplication.mobileCellsScanner.disconnect();
+                synchronized (PPApplication.mobileCellsScannerMutex) {
+                    PPApplication.mobileCellsScanner = null;
+                }
+            }
         }
     }
 
