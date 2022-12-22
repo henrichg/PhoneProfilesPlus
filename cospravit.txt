@@ -696,63 +696,6 @@ zvonenia a feedback
    Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
    Ale len pre nie-Samsung zariadenia.
 
-------------------------------
-
-PPPPutSettings:
-
-vsetko je hotove, vypada to tak.
-Uz len retazce vyries.
-
-----
-
-Co pyta ROOT:
-    <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
-    - service - cize len root
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    - service - cize len root
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
-    - service - cize len root
-    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
-    - service - cize len root
-    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
-    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
-    - service - cize len root
-    <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
-    - java command - cize len root
-
-
-!!! TIETO musis aj v Crowdin pre vsetky jazyky upravit na "(S)(R)":
-    <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
-    - setNotificationLed - notification_light_pulse - nastavuje ale nic nerobi na S21, ale je tma, ze je to experiment
-    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
-    - setAlwaysOnDisplay - aod_mode - funguje aj na S21
-
-
-    preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
-    - setVibrateWhenRinging - Settings.System.VIBRATE_WHEN_RINGING, pre Xiaomi: vibrate_in_normal, vibrate_in_silent
-    - tu mam aj Settings.System.putInt() a len ak to spadne, tak root, ano ale ten Settings.System.putInt()
-      podla mna aj tak spadne. Vyskusaj.
-    vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
-    - setVibrateNotification - pre Pixel: vibrate_on, pre vsetky: notification_vibration_intensity
-    - toto je len pre API 28, cize asi len emulator, ten nie je rootnuty
-
-    Skus najst parametre pre Xiaomi, teraz PPP pise, ze nie je podporovane - No ako pozeram Redmi Note 9,
-    tak sa to ani neda nastavit v jeho Settings, takze nic
-    A pozri sa na OnePLus
-    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
-    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
-    - setTones - pre Samsung: notification_sound; Pre Huawei: message; ine ie je povolene
-
-    Ze by pre Huawei na toto trebalo G1? Nie, nepomoze. Nechaj to len cez root.
-    - java.lang.IllegalArgumentException: You shouldn't not change private system settings.
-    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
-    - setTones - pre Samsung: notification_sound_2; Pre Huawei: messageSub1; ine ie je povolene
-
-    Toto je zvlastne, neviem to najst teraz v Note 9. Hm, hm.
-    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
-    - setTones - len pre Xiaomi: ringtone_sound_use_uniform
-
 ------------------------
 
 - Added: "Vibration feedback" and "Vibration intensity" profile parameter.
@@ -802,13 +745,4 @@ Co pyta ROOT:
 - Updated translations.
 
 ----------
-
-Retazce, kde daj medzeru za a pred hranatu zatvorku:
-    <string name="applications_editor_dialog_not_selected">[not selected]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="application_editor_intent_action_none">[None]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="application_editor_intent_action_custom">[Custom]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="extender_menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="pppputsettings_menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
 

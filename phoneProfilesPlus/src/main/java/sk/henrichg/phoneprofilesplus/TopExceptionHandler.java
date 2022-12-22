@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.DeadSystemException;
+import android.os.DeadSystemRuntimeException;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
@@ -114,7 +115,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 ignore = true;
             }
             //if (Build.VERSION.SDK_INT >= 24) {
-                if (e instanceof DeadSystemException) {
+                if ((e instanceof DeadSystemException) ||
+                        (e instanceof DeadSystemRuntimeException)) {
                     // ignore these exceptions
                     // these are from dead of system for example:
                     // java.lang.RuntimeException: Unable to create service
