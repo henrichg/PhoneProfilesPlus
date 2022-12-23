@@ -835,6 +835,7 @@ public class EditorActivity extends AppCompatActivity
             menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
         }
 
+        /*
         menuItem = menu.findItem(R.id.menu_dark_theme);
         if (menuItem != null)
         {
@@ -852,6 +853,7 @@ public class EditorActivity extends AppCompatActivity
                 menuItem.setEnabled(false);
             }
         }
+        */
 
         menuItem = menu.findItem(R.id.menu_email_debug_logs_to_author);
         if (menuItem != null)
@@ -993,6 +995,7 @@ public class EditorActivity extends AppCompatActivity
             return true;
         }
         else
+        /*
         if (itemId == R.id.menu_dark_theme) {
             String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
             if (!theme.equals("night_mode")) {
@@ -1001,7 +1004,7 @@ public class EditorActivity extends AppCompatActivity
                 if (theme.equals("dark")) {
                     //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "white");
                     //theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white"/*theme*/);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
                     editor.apply();
                     ApplicationPreferences.applicationTheme = "white";
                 } else {
@@ -1013,6 +1016,15 @@ public class EditorActivity extends AppCompatActivity
                 GlobalGUIRoutines.switchNightMode(getApplicationContext(), false);
                 GlobalGUIRoutines.reloadActivity(this, true);
             }
+            return true;
+        }
+        else
+        */
+        if (itemId == R.id.menu_appliction_theme) {
+            intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "applicationInterfaceCategoryRoot");
+            //noinspection deprecation
+            startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
             return true;
         }
         else
