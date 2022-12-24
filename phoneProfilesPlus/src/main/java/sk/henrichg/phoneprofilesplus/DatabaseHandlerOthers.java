@@ -338,7 +338,7 @@ class DatabaseHandlerOthers {
                                                 locationMode = 4;
                                             else
                                             if (gps == 2)
-                                                locationMode = 1;
+                                                locationMode = 3;
                                             else
                                             if (gps == 3)
                                                 locationMode = 6;
