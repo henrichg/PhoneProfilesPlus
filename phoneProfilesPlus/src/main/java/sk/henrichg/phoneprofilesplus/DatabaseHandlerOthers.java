@@ -341,7 +341,7 @@ class DatabaseHandlerOthers {
                                                 locationMode = 1;
                                             else
                                             if (gps == 3)
-                                                locationMode = 5;
+                                                locationMode = 6;
                                             if (locationMode != 0) {
                                                 values.clear();
                                                 values.put(DatabaseHandler.KEY_DEVICE_LOCATION_MODE, locationMode);
