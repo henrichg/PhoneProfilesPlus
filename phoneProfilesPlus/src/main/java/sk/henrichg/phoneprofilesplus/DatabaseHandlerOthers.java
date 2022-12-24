@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Vibrator;
+import android.provider.Settings;
 
 class DatabaseHandlerOthers {
 
@@ -330,6 +331,26 @@ class DatabaseHandlerOthers {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                                    if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION) {
+                                        int locationMode = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_LOCATION_MODE));
+                                        if ((Build.VERSION.SDK_INT >= 29) && (locationMode == 0)) {
+                                            int gps = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_GPS));
+                                            if (gps == 1)
+                                                locationMode = 4;
+                                            else
+                                            if (gps == 2)
+                                                locationMode = 1;
+                                            else
+                                            if (gps == 3)
+                                                locationMode = 5;
+                                            if (locationMode != 0) {
+                                                values.clear();
+                                                values.put(DatabaseHandler.KEY_DEVICE_LOCATION_MODE, locationMode);
+                                                db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                                        new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                            }
+                                        }
+                                    }
                                     values.clear();
                                     values.put(DatabaseHandler.KEY_DEVICE_GPS, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",

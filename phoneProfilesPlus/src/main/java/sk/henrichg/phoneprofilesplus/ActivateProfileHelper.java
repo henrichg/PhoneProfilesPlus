@@ -6355,8 +6355,8 @@ class ActivateProfileHelper {
             isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         else
             ok = false;
-        //Log.e("ActivateProfileHelper.setGPS", "GPS="+isEnabled);
-        //Log.e("ActivateProfileHelper.setGPS", "enable="+enable);
+        Log.e("ActivateProfileHelper.setGPS", "GPS="+isEnabled);
+        Log.e("ActivateProfileHelper.setGPS", "enable="+enable);
         if (!ok)
             return;
 
@@ -6486,13 +6486,11 @@ class ActivateProfileHelper {
                 isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             else
                 ok = false;
-            //Log.e("ActivateProfileHelper.setGPS", "GPS="+isEnabled);
-            //Log.e("ActivateProfileHelper.setGPS", "enable="+enable);
             if (!ok)
                 return;
         }
-        Log.e("ActivateProfileHelper.setGPS", "GPS="+isGPSEnabled);
-        Log.e("ActivateProfileHelper.setGPS", "mode="+mode);
+        Log.e("ActivateProfileHelper.setLocationMode", "GPS="+isGPSEnabled);
+        Log.e("ActivateProfileHelper.setLocationMode", "mode="+mode);
 
         //boolean G1OK = false;
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS

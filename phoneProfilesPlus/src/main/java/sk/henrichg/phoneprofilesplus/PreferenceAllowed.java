@@ -29,7 +29,7 @@ class PreferenceAllowed {
     private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 6;
     static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 7;
     private static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 8;
-    private static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 9;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 9;
     static final int PREFERENCE_NOT_ALLOWED_NO_SIM_CARD = 10;
     static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION = 11;
     static final int PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED = 12;
@@ -560,83 +560,78 @@ class PreferenceAllowed {
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(PreferenceAllowed preferenceAllowed,
             Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
 
-        Context appContext = context.getApplicationContext();
+        if (Build.VERSION.SDK_INT < 29) {
+            Context appContext = context.getApplicationContext();
 
-        boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+            boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
-        String preferenceKey = Profile.PREF_PROFILE_DEVICE_GPS;
+            String preferenceKey = Profile.PREF_PROFILE_DEVICE_GPS;
 
-        if (PPApplication.HAS_FEATURE_LOCATION_GPS)
-        {
-            // device has gps
-            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
-            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                if (profile != null) {
-                    if (profile._deviceGPS!= 0)
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            }
-            else
-            if (RootUtils.isRooted(fromUIThread))
-            {
-                // device is rooted
-
-                if (profile != null) {
-                    // test if grant root is disabled
-                    if (profile._deviceGPS != 0) {
-                        if (applicationNeverAskForGrantRoot) {
-                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                        }
-                    }
-                }
-                else
-                if (sharedPreferences != null) {
-                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                        if (applicationNeverAskForGrantRoot) {
-                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            // not needed to test all parameters
-                            return;
-                        }
-                    }
-                }
-
-                if (RootUtils.settingsBinaryExists(fromUIThread)) {
+            if (PPApplication.HAS_FEATURE_LOCATION_GPS) {
+                // device has gps
+                // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
+                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     if (profile != null) {
-                        if (profile._deviceGPS!= 0)
+                        if (profile._deviceGPS != 0)
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    }
-                    else
+                    } else
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else if (RootUtils.isRooted(fromUIThread)) {
+                    // device is rooted
+
+                    if (profile != null) {
+                        // test if grant root is disabled
+                        if (profile._deviceGPS != 0) {
+                            if (applicationNeverAskForGrantRoot) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            }
+                        }
+                    } else if (sharedPreferences != null) {
+                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            if (applicationNeverAskForGrantRoot) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                // not needed to test all parameters
+                                return;
+                            }
+                        }
+                    }
+
+                    if (RootUtils.settingsBinaryExists(fromUIThread)) {
+                        if (profile != null) {
+                            if (profile._deviceGPS != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    }
                 }
-                else {
-                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                }
-            }
                 /*else
                 if (ActivateProfileHelper.canExploitGPS(appContext))
                 {
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                 }*/
-            else {
-                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-                if ((profile != null) && (profile._deviceGPS != 0)) {
-                    //return preferenceAllowed;
-                    //preferenceAllowed.notAllowedRoot = true;
-                    preferenceAllowed.notAllowedG1 = true;
+                else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                    if ((profile != null) && (profile._deviceGPS != 0)) {
+                        //return preferenceAllowed;
+                        //preferenceAllowed.notAllowedRoot = true;
+                        preferenceAllowed.notAllowedG1 = true;
+                    }
                 }
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-        }
-        else {
+        } else {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
+            preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
         }
-
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(PreferenceAllowed preferenceAllowed,
