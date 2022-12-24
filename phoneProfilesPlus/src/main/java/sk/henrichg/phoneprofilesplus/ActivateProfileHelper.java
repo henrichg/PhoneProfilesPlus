@@ -114,6 +114,9 @@ class ActivateProfileHelper {
 
     //static final String EXTRA_PROFILE_NAME = "profile_name";
 
+    static final int LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY = -100;
+    static final int LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY = -110;
+
     @SuppressLint("MissingPermission")
     private static void doExecuteForRadios(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences)
     {
@@ -761,6 +764,12 @@ class ActivateProfileHelper {
                     case 4:
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
                         break;
+                    case 5:
+                        setLocationMode(appContext, LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY);
+                        break;
+                    case 6:
+                        setLocationMode(appContext, LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY);
+                        break;
                 }
             }
         }
@@ -787,6 +796,7 @@ class ActivateProfileHelper {
                     else
                         ok = false;
                 //}
+                //Log.e("ActivateProfileHelper.doExecuteForRadios", "GPS="+isEnabled);
                 if (ok) {
                     switch (profile._deviceGPS) {
                         case 1:
@@ -798,6 +808,7 @@ class ActivateProfileHelper {
                             //setLocationMode(appContext, false);
                             break;
                         case 3:
+                            //Log.e("ActivateProfileHelper.doExecuteForRadios", "TOGGLE");
                             //setLocationMode(appContext, true);
                             //setLocationMode(appContext, false);
                             setGPS(appContext, !isEnabled);
@@ -6344,6 +6355,8 @@ class ActivateProfileHelper {
             isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         else
             ok = false;
+        //Log.e("ActivateProfileHelper.setGPS", "GPS="+isEnabled);
+        //Log.e("ActivateProfileHelper.setGPS", "enable="+enable);
         if (!ok)
             return;
 
@@ -6353,11 +6366,19 @@ class ActivateProfileHelper {
             boolean G1OK = false;
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                //Log.e("ActivateProfileHelper.setGPS", "(G1) granted");
                 try {
-                    String newSet;
-                    newSet = "+gps";
-                    //noinspection deprecation
-                    Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                    /* not working :-(
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        Log.e("ActivateProfileHelper.setGPS", "setProviderEnabledForUser()");
+                        locationManager.setProviderEnabledForUser(LocationManager.GPS_PROVIDER, true, android.os.Process.myUserHandle());
+                    }
+                    else*/ {
+                        String newSet;
+                        newSet = "+gps";
+                        //noinspection deprecation
+                        Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                    }
                     G1OK = true;
                 } catch (Exception ee) {
                     Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee));
@@ -6401,11 +6422,19 @@ class ActivateProfileHelper {
             boolean G1OK = false;
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                //Log.e("ActivateProfileHelper.setGPS", "(G1) granted");
                 try {
-                    String newSet;// = "";
-                    newSet = "-gps";
-                    //noinspection deprecation
-                    Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                    /* not working :-(
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        Log.e("ActivateProfileHelper.setGPS", "setProviderEnabledForUser()");
+                        locationManager.setProviderEnabledForUser(LocationManager.GPS_PROVIDER, true, android.os.Process.myUserHandle());
+                    }
+                    else*/ {
+                        String newSet;// = "";
+                        newSet = "-gps";
+                        //noinspection deprecation
+                        Settings.Secure.putString(appContext.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
+                    }
                     G1OK = true;
                 } catch (Exception ee) {
                     Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(ee));
@@ -6448,11 +6477,47 @@ class ActivateProfileHelper {
     {
         Context appContext = context.getApplicationContext();
 
+        boolean isGPSEnabled = false;
+        if ((mode == LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY) ||
+            (mode == LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY)) {
+            boolean ok = true;
+            LocationManager locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
+            if (locationManager != null)
+                isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            else
+                ok = false;
+            //Log.e("ActivateProfileHelper.setGPS", "GPS="+isEnabled);
+            //Log.e("ActivateProfileHelper.setGPS", "enable="+enable);
+            if (!ok)
+                return;
+        }
+        Log.e("ActivateProfileHelper.setGPS", "GPS="+isGPSEnabled);
+        Log.e("ActivateProfileHelper.setGPS", "mode="+mode);
+
         //boolean G1OK = false;
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             try {
-                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
+                if (mode == LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY) {
+                    if (isGPSEnabled)
+                        Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+                    else
+                        Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+                }
+                else
+                if (mode == LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY) {
+                    if (isGPSEnabled) {
+                        if (Build.VERSION.SDK_INT >= 29)
+                            //noinspection deprecation
+                            Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+                        else
+                            Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
+                    }
+                    else
+                        Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
+                } else {
+                    Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
+                }
                 //G1OK = true;
             } catch (Exception ee) {
                 Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(ee));

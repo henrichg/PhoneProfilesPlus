@@ -2001,29 +2001,23 @@
     <string name="array_pref_vpn_connected">Connected</string>
     <string name="array_pref_vpn_disconnected">Disconnected</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Do not set when VPN is already in state</string>
-
     <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
-
     <string name="check_releases_droidify_application">Droid-ify installation site:</string>
     <string name="menu_check_releases_droidify">Check in Droid-ify</string>
     <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
     <string name="check_releases_open_droidify">Open Droid-ify</string>
-
     <string name="profile_context_item_copy_name">Copy name</string>
-
     <string name="export_settings_delete_location_data_text1">Note: Location data will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
     <string name="export_settings_delete_location_data_text2">What not export?</string>
     <string name="export_settings_delete_location_data_geofences">Locations for Location sensor</string>
     <string name="export_settings_delete_location_data_wifi_ssids">Wi-Fi SSIDs for Wi-Fi sensor</string>
     <string name="export_settings_delete_location_data_bluetooth_names">Bluetooth names for Bluetooth sensor</string>
     <string name="export_settings_delete_location_data_mobile_cells">Mobile cells for Mobile cell sensor</string>
-
     <string name="profile_preferences_category_vibrationIntensity">Vibration intensity</string>
     <string name="profile_preferences_vibrationIntensityRinging">Incomming call</string>
     <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
     <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
     <string name="profile_preferences_vibrationIntensityAll">Vibration intensity</string>
-
     <string name="important_info_profile_install_pppps">Some profile preferences need the PPPPutSettings helper application to put setting parameter into the system database. ROOT is not required. These preferences are marked with (S).</string>
     <string name="important_info_profile_pppps_howTo_1">Profile parameters marked with (S) need helper application PPPPutSettings.</string>
     <string name="important_info_profile_pppps_howTo_2">This application is in GitHub Releases. Click here to download and install it.</string>
@@ -2036,18 +2030,17 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
-
     <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
-
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
-
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
-
     <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
+
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off&lt;-&gt;High accuracy)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving&lt;-&gt;High accuracy)</string>
 
     <!-- **************************************************************************************** -->
 
