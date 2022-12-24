@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string-array name="notificationBackgroundColorArray">
         <item>@string/phone_profiles_pref_notificationBackgroundColor_android</item>
         <item>@string/phone_profiles_pref_notificationBackgroundColor_dark</item>
@@ -24,22 +24,6 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
-    </string-array>
-    <string-array name="locationModeArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_locationModeArray_off</item>
-        <item>@string/array_pref_locationModeArray_sensorsOnly</item>
-        <item>@string/array_pref_locationModeArray_batterySaving</item>
-        <item>@string/array_pref_locationModeArray_highAccuracy</item>
-        <item>@string/array_pref_locationModeArray_toggleOffHighAccuracy</item>
-    </string-array>
-    <string-array name="locationModeValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
     </string-array>
 
 </resources>

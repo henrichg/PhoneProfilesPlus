@@ -690,16 +690,6 @@ class DatabaseHandlerOthers {
                                     values.put(DatabaseHandler.KEY_DEVICE_LOCATION_MODE, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
-                                } else {
-                                    int locationMode = profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_LOCATION_MODE));
-                                    if ((Build.VERSION.SDK_INT >= 29) &&
-                                        (locationMode == ActivateProfileHelper.LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY)) {
-                                        locationMode = ActivateProfileHelper.LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY;
-                                        values.clear();
-                                        values.put(DatabaseHandler.KEY_DEVICE_LOCATION_MODE, locationMode);
-                                        db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
-                                                new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
-                                    }
                                 }
                             }
 

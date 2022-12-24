@@ -114,8 +114,8 @@ class ActivateProfileHelper {
 
     //static final String EXTRA_PROFILE_NAME = "profile_name";
 
-    static final int LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY = -100;
-    static final int LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY = -110;
+    //static final int LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY = -100;
+    //static final int LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY = -110;
 
     @SuppressLint("MissingPermission")
     private static void doExecuteForRadios(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences)
@@ -756,19 +756,44 @@ class ActivateProfileHelper {
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
                         break;
                     case 2:
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
+                        GlobalUtils.sleep(200);
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
                         break;
                     case 3:
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
+                        GlobalUtils.sleep(200);
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
                         break;
                     case 4:
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
+                        GlobalUtils.sleep(200);
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
                         break;
                     case 5:
-                        setLocationMode(appContext, LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY);
+                        //Log.e("ActivateProfileHelper.doExecuteForRadios", "mode=LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY");
+                        int locationMode = getLocationMode(appContext);
+                        //Log.e("ActivateProfileHelper.doExecuteForRadios", "actual locationMode="+locationMode);
+                        if (locationMode != Settings.Secure.LOCATION_MODE_OFF)
+                            locationMode = Settings.Secure.LOCATION_MODE_OFF;
+                        else {
+                            locationMode = Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
+                            setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
+                            GlobalUtils.sleep(200);
+                        }
+                        setLocationMode(appContext, locationMode);
                         break;
                     case 6:
-                        setLocationMode(appContext, LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY);
+                        //Log.e("ActivateProfileHelper.doExecuteForRadios", "mode=LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY");
+                        locationMode = getLocationMode(appContext);
+                        //Log.e("ActivateProfileHelper.doExecuteForRadios", "actual locationMode="+locationMode);
+                        if (locationMode != Settings.Secure.LOCATION_MODE_BATTERY_SAVING)
+                            locationMode = Settings.Secure.LOCATION_MODE_BATTERY_SAVING;
+                        else
+                            locationMode = Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
+                        setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
+                        GlobalUtils.sleep(200);
+                        setLocationMode(appContext, locationMode);
                         break;
                 }
             }
@@ -6473,49 +6498,19 @@ class ActivateProfileHelper {
         }
     }
 
+    static int getLocationMode(Context context) {
+        return Settings.Secure.getInt(context.getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
+    }
+
     private static void setLocationMode(Context context, int mode)
     {
         Context appContext = context.getApplicationContext();
-
-        boolean isGPSEnabled = false;
-        if ((mode == LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY) ||
-            (mode == LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY)) {
-            boolean ok = true;
-            LocationManager locationManager = (LocationManager) appContext.getSystemService(Context.LOCATION_SERVICE);
-            if (locationManager != null)
-                isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            else
-                ok = false;
-            if (!ok)
-                return;
-        }
-        Log.e("ActivateProfileHelper.setLocationMode", "GPS="+isGPSEnabled);
-        Log.e("ActivateProfileHelper.setLocationMode", "mode="+mode);
 
         //boolean G1OK = false;
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             try {
-                if (mode == LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY) {
-                    if (isGPSEnabled)
-                        Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-                    else
-                        Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
-                }
-                else
-                if (mode == LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY) {
-                    if (isGPSEnabled) {
-                        if (Build.VERSION.SDK_INT >= 29)
-                            //noinspection deprecation
-                            Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-                        else
-                            Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
-                    }
-                    else
-                        Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
-                } else {
-                    Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
-                }
+                Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
                 //G1OK = true;
             } catch (Exception ee) {
                 Log.e("ActivateProfileHelper.setLocationMode", Log.getStackTraceString(ee));
