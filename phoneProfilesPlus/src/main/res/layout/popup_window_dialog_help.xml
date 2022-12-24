@@ -32,7 +32,10 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="7dp">
 
                 <TextView
                     android:id="@+id/dialog_help_popup_window_text"
