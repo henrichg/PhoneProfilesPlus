@@ -240,7 +240,9 @@ public class StringFormatUtils {
             ++index;
         }
         try {
-            return arrayStrings[index];
+            String str = arrayStrings[index].replace("<", "&#60;");
+            str = str.replace(">", "&#62;");
+            return str;
         } catch (Exception e) {
             return context.getString(R.string.array_pref_no_change);
         }
