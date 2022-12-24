@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Vibrator;
-import android.provider.Settings;
 
 class DatabaseHandlerOthers {
 
