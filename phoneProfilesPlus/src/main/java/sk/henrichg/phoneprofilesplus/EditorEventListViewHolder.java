@@ -459,7 +459,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             eventItemEditMenu.setOnClickListener(v -> editorFragment.showEditMenu(eventItemEditMenu));
 
             TooltipCompat.setTooltipText(eventStatus, context.getString(R.string.editor_event_list_item_event_status));
-            final ImageView _eventStatusView = eventStatus;
             final Event _event = this.event;
             eventStatus.setOnClickListener(view -> {
                 if (editorFragment.getActivity() == null)
@@ -468,45 +467,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (!editorFragment.getActivity().isFinishing()) {
                     EventStatusPopupWindow popup = new EventStatusPopupWindow(editorFragment, _event);
 
-                    /*
-                    View contentView = popup.getContentView();
-                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    int popupWidth = contentView.getMeasuredWidth();
-                    int popupHeight = contentView.getMeasuredHeight();
-                    */
-
                     ViewGroup activityView = editorFragment.getActivity().findViewById(android.R.id.content);
-                    //View activityView = editorFragment.getActivity().getWindow().getDecorView().getRootView();
-                    //int activityHeight = activityView.getHeight();
-                    //int activityWidth = activityView.getWidth();
-                    int activityTop = activityView.getTop();
-                    int activityLeft = activityView.getLeft();
 
-                    //int[] activityLocation = new int[2];
-                    //_eventStatusView.getLocationOnScreen(location);
-                    //activityView.getLocationInWindow(activityLocation);
-
-                    //int[] statusViewLocation = new int[2];
-                    //_eventStatusView.getLocationOnScreen(statusViewLocation);
-                    //_eventStatusView.getLocationInWindow(statusViewLocation);
-
-                    //noinspection UnusedAssignment
-                    int x = 0;
-                    //noinspection UnusedAssignment
+                    int x = GlobalGUIRoutines.dpToPx(10);
                     int y = 0;
 
-                    //if ((statusViewLocation[0] + popupWidth) > activityWidth)
-                    //    x = -(statusViewLocation[0] - (activityWidth - popupWidth));
-                    x = activityLeft + _eventStatusView.getLeft();
-
-                    //if ((statusViewLocation[1] + popupHeight) > activityHeight)
-                    //    y = -(statusViewLocation[1] - (activityHeight - popupHeight));
-                    //y = activityHeight / 2 + activityTop;
-                    y = activityTop;
-
-                    //popup.setClippingEnabled(false); // disabled for draw outside activity
-                    //popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                    //        RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
                     popup.showOnAnchor(activityView, RelativePopupWindow.VerticalPosition.CENTER,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
                 }
