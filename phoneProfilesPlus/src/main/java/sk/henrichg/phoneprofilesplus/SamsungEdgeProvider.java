@@ -462,12 +462,14 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     @Override
     public void onUpdate(Context context, final SlookCocktailManager cocktailManager, final int[] cocktailIds) {
-        super.onUpdate(context, cocktailManager, cocktailIds);
+        final Context appContext = context;
+        LocaleHelper.setApplicationLocale(appContext);
+
+        super.onUpdate(appContext, cocktailManager, cocktailIds);
 //        PPApplication.logE("[IN_LISTENER] SamsungEdgeProvider.onUpdate", "xxx");
         if (cocktailIds.length > 0) {
             //final int[] _cocktailIds = cocktailIds;
 
-            final Context appContext = context;
             //PPApplication.startHandlerThreadWidget();
             //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
@@ -497,18 +499,20 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        super.onReceive(context, intent); // calls onUpdate, is required for widget
+        final Context appContext = context;
+        LocaleHelper.setApplicationLocale(appContext);
+
+        super.onReceive(appContext, intent); // calls onUpdate, is required for widget
 //        PPApplication.logE("[IN_BROADCAST] SamsungEdgeProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_EDGEPANEL))) {
-            final SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
-            final int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
+            final SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(appContext);
+            final int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(appContext, SamsungEdgeProvider.class));
 
             if ((cocktailIds != null) && (cocktailIds.length > 0)) {
-                final Context appContext = context;
                 //PPApplication.startHandlerThreadWidget();
                 //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                 //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {

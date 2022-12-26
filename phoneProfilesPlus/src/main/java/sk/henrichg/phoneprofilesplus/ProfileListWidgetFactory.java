@@ -91,6 +91,9 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             //Log.e("ProfileListWidgetFactory.getViewAt", "applicationWidgetListGridLayout="+applicationWidgetListGridLayout);
             //Log.e("ProfileListWidgetFactory.getViewAt", "applicationWidgetListCompactGrid="+applicationWidgetListCompactGrid);
 
+            Context appContext  = context;
+            LocaleHelper.setApplicationLocale(appContext);
+
             RemoteViews row;
 
             String applicationWidgetListLightnessT;
@@ -124,7 +127,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     if (//PPApplication.isPixelLauncherDefault(context) ||
                             (applicationWidgetListChangeColorsByNightMode &&
                                     (!applicationWidgetListUseDynamicColors))) {
-                        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(appContext);
                         //int nightModeFlags =
                         //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                         //switch (nightModeFlags) {
@@ -179,7 +182,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                     (Integer.parseInt(applicationWidgetListLightnessB) <= 25)) ||
                             (applicationWidgetListBackgroundType &&
                                     (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetListBackgroundColor)) < 0.23)))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                        bitmap = profile.increaseProfileIconBrightnessForContext(appContext, profile._iconBitmap);
                 }
                 if (profile.getIsIconResourceID()) {
                     if (bitmap != null)
@@ -245,7 +248,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                             row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
                         else {
                             // must be removed android:textColor in layout
-                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
                             if (color != 0) {
                                 row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
                             }
@@ -258,7 +261,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                             row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xCC, red, green, blue));
                         else {
                             // must be removed android:textColor in layout
-                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
                             if (color != 0) {
                                 row.setTextColor(R.id.widget_profile_list_item_profile_name,
                                         Color.argb(0xCC, Color.red(color), Color.green(color), Color.blue(color)));
@@ -271,7 +274,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
                     else {
                         // must be removed android:textColor in layout
-                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
+                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
                         if (color != 0) {
                             row.setTextColor(R.id.widget_profile_list_item_profile_name, color);
                         }
@@ -313,7 +316,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     }
                 } else {
                     Spannable profileName = profile.getProfileNameWithDuration("", "",
-                            true/*applicationWidgetListGridLayout*/, applicationWidgetListGridLayout, context.getApplicationContext());
+                            true/*applicationWidgetListGridLayout*/, applicationWidgetListGridLayout, appContext);
                     row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
 
                     //if (profile._name.contains("Profile"))

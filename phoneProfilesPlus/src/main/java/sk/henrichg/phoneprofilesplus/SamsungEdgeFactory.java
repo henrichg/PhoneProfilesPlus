@@ -148,6 +148,8 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     public RemoteViews getViewAt(int position) {
+        Context appContext  = context;
+        LocaleHelper.setApplicationLocale(appContext);
 
         RemoteViews row;
         //if (!applicationSamsungEdgeGridLayout)
@@ -181,7 +183,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
                 if (Build.VERSION.SDK_INT >= 30) {
                     if (applicationSamsungEdgeChangeColorsByNightMode) {
-                        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
+                        boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(appContext);
                         //int nightModeFlags =
                         //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                         //switch (nightModeFlags) {
@@ -214,7 +216,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                         (Integer.parseInt(applicationSamsungEdgeLightnessB) <= 25)) ||
                     (applicationSamsungEdgeBackgroundType &&
                         (ColorUtils.calculateLuminance(Integer.parseInt(applicationSamsungEdgeBackgroundColor)) < 0.23)))
-                    bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+                    bitmap = profile.increaseProfileIconBrightnessForContext(appContext, profile._iconBitmap);
             }
             if (profile.getIsIconResourceID()) {
                 if (bitmap != null)
@@ -275,7 +277,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_samsung_edge_item_profile_name, sb);
             } else {
-                Spannable profileName = profile.getProfileNameWithDuration("", "", true, false, context.getApplicationContext());
+                Spannable profileName = profile.getProfileNameWithDuration("", "", true, false, appContext);
                 row.setTextViewText(R.id.widget_samsung_edge_item_profile_name, profileName);
             }
             /*if (!applicationSamsungEdgeGridLayout) {

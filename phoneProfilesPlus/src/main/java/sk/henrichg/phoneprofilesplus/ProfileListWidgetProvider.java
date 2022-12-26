@@ -884,6 +884,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         if (appWidgetIds.length > 0) {
 
             final Context appContext = context;
+            LocaleHelper.setApplicationLocale(appContext);
+
             //PPApplication.startHandlerThreadWidget();
             //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
@@ -914,7 +916,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        super.onReceive(context, intent); // calls onUpdate, is required for widget
+        final Context appContext = context;
+        LocaleHelper.setApplicationLocale(appContext);
+
+        super.onReceive(appContext, intent); // calls onUpdate, is required for widget
 //        PPApplication.logE("[IN_BROADCAST] ProfileListWidgetProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
@@ -923,11 +928,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (action.equalsIgnoreCase("com.motorola.blur.home.ACTION_SET_WIDGET_SIZE")) {
                 //final int spanX = intent.getIntExtra("spanX", 1);
                 //final int spanY = intent.getIntExtra("spanY", 1);
-                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
+                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);
+                final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
-                    final Context appContext = context;
                     //PPApplication.startHandlerThreadWidget();
                     //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                     //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
@@ -959,11 +963,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             }
             else
             if (action.equalsIgnoreCase(ACTION_REFRESH_LISTWIDGET)) {
-                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
+                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);
+                final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(appContext, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
-                    final Context appContext = context;
                     //PPApplication.startHandlerThreadWidget();
                     //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                     //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
@@ -1125,9 +1128,13 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
 
     private static void updateAfterWidgetOptionsChanged(Context context, int appWidgetId) {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        //noinspection UnnecessaryLocalVariable
+        Context appContext = context;
+        LocaleHelper.setApplicationLocale(appContext);
 
-        doOnUpdate(context, appWidgetManager, appWidgetId, false/*, false*/);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);
+
+        doOnUpdate(appContext, appWidgetManager, appWidgetId, false/*, false*/);
     }
 
     /*
