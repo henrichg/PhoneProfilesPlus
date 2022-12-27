@@ -1961,6 +1961,9 @@ public class PPApplication extends Application
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
+        // dynamic shortcuts
+        DataWrapperStatic.setDynamicLauncherShortcuts(context);
+
         // restart tile - this invoke onStartListening()
         // require in manifest file for TileService this meta data:
         //     <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"

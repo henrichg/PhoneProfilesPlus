@@ -146,6 +146,7 @@ public class PPTileService extends TileService {
         final Tile tile = getQsTile();
         if (tile == null)
             return;
+        LocaleHelper.setApplicationLocale(this);
 
         int tileId = getTileId();
 

@@ -41,6 +41,7 @@ public class PhoneProfilesNotification {
 //        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification._showProfileNotification", "start");
 
         final Context appContext = dataWrapper.context;
+        LocaleHelper.setApplicationLocale(appContext);
 
         ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(appContext, PhoneProfilesService.class);
         if (serviceInfo == null) {

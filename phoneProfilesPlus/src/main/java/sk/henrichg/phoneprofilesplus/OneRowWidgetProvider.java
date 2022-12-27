@@ -31,6 +31,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
+            LocaleHelper.setApplicationLocale(appContext);
             //PPApplication.startHandlerThreadWidget();
             //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
@@ -711,18 +712,20 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        super.onReceive(context, intent); // calls onUpdate, is required for widget
+        final Context appContext = context;
+        LocaleHelper.setApplicationLocale(appContext);
+
+        super.onReceive(appContext, intent); // calls onUpdate, is required for widget
 
         String action = intent.getAction();
 //        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
-            AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
-                final int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+                final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowWidgetProvider.class));
                 if ((ids != null) && (ids.length > 0)) {
-                    final Context appContext = context;
                     final AppWidgetManager appWidgetManager = manager;
                     //PPApplication.startHandlerThreadWidget();
                     //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());

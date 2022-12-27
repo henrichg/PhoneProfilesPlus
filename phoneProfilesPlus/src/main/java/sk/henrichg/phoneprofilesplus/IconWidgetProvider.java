@@ -28,6 +28,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //        PPApplication.logE("[IN_LISTENER] IconWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
+            LocaleHelper.setApplicationLocale(appContext);
             //PPApplication.startHandlerThreadWidget();
             //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
@@ -672,18 +673,20 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, final Intent intent) {
-        super.onReceive(context, intent); // calls onUpdate, is required for widget
+        final Context appContext = context;
+        LocaleHelper.setApplicationLocale(appContext);
+
+        super.onReceive(appContext, intent); // calls onUpdate, is required for widget
 //        PPApplication.logE("[IN_BROADCAST] IconWidgetProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
-            AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
-                final int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+                final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, IconWidgetProvider.class));
                 if ((ids != null) && (ids.length > 0)) {
-                    final Context appContext = context;
                     final AppWidgetManager appWidgetManager = manager;
                     //PPApplication.startHandlerThreadWidget();
                     //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());

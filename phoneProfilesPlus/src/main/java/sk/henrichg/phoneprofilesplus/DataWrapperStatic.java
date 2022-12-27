@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.NonNull;
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -188,7 +189,7 @@ public class DataWrapperStatic {
 
     static private Spannable _getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper)
+            boolean durationInNextLine, DataWrapper dataWrapper, Context context)
     {
         if (profile == null)
             return new SpannableString("");
@@ -198,8 +199,8 @@ public class DataWrapperStatic {
         if (addEventName)
         {
             if (Event.getGlobalEventsRunning()) {
-                if (Event.getEventsBlocked(dataWrapper.context)) {
-                    if (Event.getForceRunEventRunning(dataWrapper.context))
+                if (Event.getEventsBlocked(context)) {
+                    if (Event.getForceRunEventRunning(context))
                         manualIndicators = "[»]";
                     else
                         manualIndicators = "[M]";
@@ -208,7 +209,7 @@ public class DataWrapperStatic {
             else
                 manualIndicators = "[M]";
 
-            String _eventName = getLastStartedEventName(dataWrapper, profile);
+            String _eventName = getLastStartedEventName(dataWrapper, profile, context);
             if (!_eventName.equals("?"))
                 eventName = "[\u00A0" + _eventName + "\u00A0]";
 
@@ -222,7 +223,7 @@ public class DataWrapperStatic {
         Spannable sName;
         if (addDuration) {
             if (!addEventName || manualIndicators.equals("[M]"))
-                sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, dataWrapper.context);
+                sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, context);
             else {
                 String name = profile._name;
                 if (!eventName.isEmpty())
@@ -254,19 +255,16 @@ public class DataWrapperStatic {
 
     static Spannable getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper) {
-        if (dataWrapper != null) {
-            return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
-        }
-        else {
-            return _getProfileNameWithManualIndicator(profile, false, indicators, addDuration, multiLine, durationInNextLine, null);
-        }
+            boolean durationInNextLine, @NonNull DataWrapper dataWrapper) {
+        Context context = dataWrapper.context;
+        LocaleHelper.setApplicationLocale(context);
+        return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper, context);
     }
 
     @SuppressWarnings("SameParameterValue")
     static String getProfileNameWithManualIndicatorAsString(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper) {
+            boolean durationInNextLine, @NonNull DataWrapper dataWrapper) {
         Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
         Spannable sbt = new SpannableString(sProfileName);
         Object[] spansToRemove = sbt.getSpans(0, sProfileName.length(), Object.class);
@@ -277,7 +275,7 @@ public class DataWrapperStatic {
         return sbt.toString();
     }
 
-    static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
+    static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile, Context context)
     {
         if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false, false))
         {
@@ -290,7 +288,7 @@ public class DataWrapperStatic {
                         Event event = dataWrapper.getEventById(event_id);
                         if (event != null) {
                             //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
-                            if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._ignoreManualActivation)) {
+                            if ((!Event.getEventsBlocked(context)) || (event._ignoreManualActivation)) {
                                 //Profile profile;
                                 //profile = dataWrapper.getActivatedProfile(false, false);
                                 //if ((profile != null) && (event._fkProfileStart == profile._id))
@@ -305,20 +303,20 @@ public class DataWrapperStatic {
                     } else {
                         long profileId = ApplicationPreferences.applicationDefaultProfile;
                         //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                        if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                        if ((!Event.getEventsBlocked(context)) &&
                                 (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                                 (profileId == forProfile._id)) {
                             //Profile profile;
                             //profile = dataWrapper.getActivatedProfile(false, false);
                             //if ((profile != null) && (profile._id == profileId))
-                            return dataWrapper.context.getString(R.string.event_name_background_profile);
+                            return context.getString(R.string.event_name_background_profile);
                             //else
                             //    return "?";
                         } else
                             return "?";
                     }
                 } else {
-                    String eventName = DatabaseHandler.getInstance(dataWrapper.context).getLastStartedEventName();
+                    String eventName = DatabaseHandler.getInstance(context).getLastStartedEventName();
                     if (!eventName.equals("?")) {
                         return eventName;
                     }
@@ -350,13 +348,13 @@ public class DataWrapperStatic {
                     else {
                         long profileId = ApplicationPreferences.applicationDefaultProfile;
                         //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                        if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                        if ((!Event.getEventsBlocked(context)) &&
                                 (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                                 (profileId == forProfile._id)) {
                             //Profile profile;
                             //profile = dataWrapper.getActivatedProfileFromDB(false, false);
                             //if ((profile != null) && (profile._id == profileId))
-                            return dataWrapper.context.getString(R.string.event_name_background_profile);
+                            return context.getString(R.string.event_name_background_profile);
                             //else
                             //    return "?";
                         } else
@@ -608,28 +606,32 @@ public class DataWrapperStatic {
     static void setDynamicLauncherShortcuts(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 25) {
             try {
-                ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+                //noinspection UnnecessaryLocalVariable
+                final Context appContext = context;
+                LocaleHelper.setApplicationLocale(appContext);
+
+                ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
 
                 if (shortcutManager != null) {
                     final int limit = 4;
 
                     //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
-                    List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesInQuickTilesForDynamicShortcuts();
-                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(/*false*/);
+                    List<Profile> countedProfiles = DatabaseHandler.getInstance(appContext).getProfilesInQuickTilesForDynamicShortcuts();
+                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts(/*false*/);
 
                     ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
                     //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
-                    Profile _profile = getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+                    Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
                             "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
-                    _profile.generateIconBitmap(context, false, 0, false);
+                    _profile.generateIconBitmap(appContext, false, 0, false);
                     // first profile is restart events
-                    shortcuts.add(createShortcutInfo(_profile, true, context));
+                    shortcuts.add(createShortcutInfo(_profile, true, appContext));
 
                     int shortcutsCount = 0;
                     for (Profile profile : countedProfiles) {
-                        profile.generateIconBitmap(context, false, 0, false);
-                        shortcuts.add(createShortcutInfo(profile, false, context));
+                        profile.generateIconBitmap(appContext, false, 0, false);
+                        shortcuts.add(createShortcutInfo(profile, false, appContext));
                         ++shortcutsCount;
                         if (shortcutsCount == limit)
                             break;
@@ -638,8 +640,8 @@ public class DataWrapperStatic {
                     //int shortcutsCount = countedProfiles.size();
                     if (shortcutsCount < limit) {
                         for (Profile profile : notCountedProfiles) {
-                            profile.generateIconBitmap(context, false, 0, false);
-                            shortcuts.add(createShortcutInfo(profile, false, context));
+                            profile.generateIconBitmap(appContext, false, 0, false);
+                            shortcuts.add(createShortcutInfo(profile, false, appContext));
                             ++shortcutsCount;
                             if (shortcutsCount == limit)
                                 break;
