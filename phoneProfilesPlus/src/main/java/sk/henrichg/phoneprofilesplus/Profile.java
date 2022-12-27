@@ -2985,8 +2985,8 @@ public class Profile {
         if (!eventName.isEmpty())
             profileName = profileName + " " + eventName;
         String durationString = "";
+        boolean showEndTime = false;
         if (_askForDuration) {
-            boolean showEndTime = false;
             if (_checked) {
                 long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                 if (endDurationTime > 0) {
@@ -3001,7 +3001,6 @@ public class Profile {
         else
         if (_endOfActivationType == 0) {
             if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
-                boolean showEndTime = false;
                 if (_checked) {
                     long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                     if (endDurationTime > 0) {
@@ -3018,7 +3017,6 @@ public class Profile {
         else
         if (_endOfActivationType == 1) {
             if (_afterDurationDo != AFTER_DURATION_DO_NOTHING) {
-                boolean showEndTime = false;
                 if (_checked) {
                     // saved was configured ond of activation time
                     // (look at ProfileDurationAlarmBroadcastReceiver.setAlarm())
@@ -3041,7 +3039,7 @@ public class Profile {
                     }
                 }
                 if (!showEndTime) {
-                    if (!_checked)
+                    //if (!_checked)
                         durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
                 }
             }
@@ -3053,9 +3051,10 @@ public class Profile {
             else
                 profileName = profileName + " " + indicators;
         }
+        //todo
         if (!durationString.isEmpty()) {
             if (durationInNextLine) {
-                if (_checked)
+                if (showEndTime /*_checked*/)
                     profileName = durationString + "\n" + profileName;
                 else
                     profileName = profileName + "\n" + durationString;
@@ -3065,7 +3064,7 @@ public class Profile {
         }
         Spannable sbt = new SpannableString(profileName);
         if (!durationString.isEmpty()) {
-            if (durationInNextLine && _checked)
+            if (durationInNextLine && showEndTime/*_checked*/)
                 sbt.setSpan(new RelativeSizeSpan(0.8f), 0, durationString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             else
                 sbt.setSpan(new RelativeSizeSpan(0.8f), startSpan, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
