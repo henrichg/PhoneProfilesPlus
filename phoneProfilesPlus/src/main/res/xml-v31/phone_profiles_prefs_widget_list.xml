@@ -26,7 +26,7 @@
         app:title="@string/phone_profiles_pref_applicationCompactGrid"
         app:summary="@string/phone_profiles_pref_applicationCompactGrid_info_summary"
         app:dependency="applicationWidgetListGridLayout"
-        app:widgetLayout="@layout/preference_widget_exclamation_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetListCompactGrid"
