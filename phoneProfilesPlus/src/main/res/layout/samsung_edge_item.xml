@@ -27,6 +27,7 @@
         android:text="@string/profile_name_default"
         android:textSize="16dp"
         android:textColor="#ffffffff"
+        android:fontFamily="sans-serif-condensed"
         tools:ignore="SpUsage" />
 
 </LinearLayout>

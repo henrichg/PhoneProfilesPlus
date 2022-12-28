@@ -77,6 +77,7 @@
                     android:text="@string/profile_name_default"
                     android:textColor="#33b5e5"
                     android:textSize="16dp"
+                    android:fontFamily="sans-serif-condensed"
                     tools:ignore="SpUsage" />
 <!--                android:fontFamily="sans-serif-condensed"-->
 

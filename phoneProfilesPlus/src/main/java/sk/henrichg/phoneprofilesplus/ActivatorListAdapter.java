@@ -216,9 +216,9 @@ class ActivatorListAdapter extends BaseAdapter
             } else*/
             {
                 if (applicationActivatorGridLayout) {
-                    //Typeface typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
-                    //holder.profileName.setTypeface(typeface, Typeface.NORMAL);
-                    holder.profileName.setTypeface(null, Typeface.NORMAL);
+                    Typeface typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
+                    holder.profileName.setTypeface(typeface, Typeface.NORMAL);
+                    //holder.profileName.setTypeface(null, Typeface.NORMAL);
                     holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
                 } else {
                     holder.profileName.setTypeface(null, Typeface.BOLD);
