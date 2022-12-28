@@ -219,7 +219,7 @@ class ActivatorListAdapter extends BaseAdapter
                     Typeface typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
                     holder.profileName.setTypeface(typeface, Typeface.NORMAL);
                     //holder.profileName.setTypeface(null, Typeface.NORMAL);
-                    holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                    holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                 } else {
                     holder.profileName.setTypeface(null, Typeface.BOLD);
                     holder.profileName.setTextSize(15);

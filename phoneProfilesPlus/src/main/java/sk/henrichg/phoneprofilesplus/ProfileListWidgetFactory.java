@@ -269,6 +269,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                         }
                     }
                 } else {
+                    if (applicationWidgetListGridLayout)
+                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
+                    else
+                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 17);
+
                     if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
                         row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
