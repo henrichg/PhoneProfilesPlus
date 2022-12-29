@@ -237,6 +237,7 @@ public class MainWorker extends Worker {
 
                             String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
                             String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
+//                            Log.e("MainWorker.dWork", "call of RunApplicationWithDelayBroadcastReceiver.doWork");
                             RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
                         }
                         else

@@ -272,6 +272,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             if (profile != null) {
                                 SharedPreferences sharedPreferences = appContext.getSharedPreferences("temp_pppExtenderBroadcastReceiver", Context.MODE_PRIVATE);
                                 profile.saveProfileToSharedPreferences(sharedPreferences);
+//                                Log.e("PPPExtenderBroadcastReceiver.onReceive", "call of ActivateProfileHelper.executeForInteractivePreferences");
                                 ActivateProfileHelper.executeForInteractivePreferences(profile, appContext, sharedPreferences);
                             }
 

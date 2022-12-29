@@ -53,6 +53,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+//                        Log.e("RunApplicationWithDelayBroadcastReceiver.onReceive", "call of RunApplicationWithDelayBroadcastReceiver.doWork");
                         doWork(appContext, profileName, runApplicationData);
 
                     } catch (Exception e) {
@@ -233,6 +234,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             // application is not started
             return;
 
+//        Log.e("RunApplicationWithDelayBroadcastReceiver.doWork", "call of ActivateProfileHelper.doExecuteForRunApplications");
         ActivateProfileHelper.doExecuteForRunApplications(context, profileName, runApplicationData);
     }
 

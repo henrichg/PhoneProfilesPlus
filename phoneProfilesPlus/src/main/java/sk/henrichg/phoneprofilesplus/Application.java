@@ -195,15 +195,21 @@ class Application  implements Parcelable {
                 }
             } else {
                 // activity not exists
+                //Log.e("Application.getStartApplicationDelay", "packageNameActivity.length <> 2");
                 shortcutIntent = value.substring(0, 3);
+                //Log.e("Application.getStartApplicationDelay", "shortcutIntent="+shortcutIntent);
                 if (shortcutIntent.equals("(i)")) {
-                    try {
-                        startApplicationDelay = Integer.parseInt(packageNameActivity[0]);
-                    } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                    String[] packageNameDelay = value.split("#");
+                    if (packageNameDelay.length >= 2) {
+                        //Log.e("Application.getStartApplicationDelay", "packageNameDelay[1]="+packageNameDelay[1]);
+                        try {
+                            startApplicationDelay = Integer.parseInt(packageNameDelay[1]);
+                        } catch (Exception e) {
+                            //PPApplication.recordException(e);
+                        }
                     }
                 }
-                else {
+                /*else {
                     String[] packageNameDelay = value.split("#");
                     if (packageNameDelay.length >= 2) {
                         try {
@@ -212,7 +218,7 @@ class Application  implements Parcelable {
                             //PPApplication.recordException(e);
                         }
                     }
-                }
+                }*/
             }
             return startApplicationDelay;
         }

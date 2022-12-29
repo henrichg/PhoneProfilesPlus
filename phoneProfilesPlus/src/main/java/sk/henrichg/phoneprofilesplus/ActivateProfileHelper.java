@@ -3849,10 +3849,13 @@ class ActivateProfileHelper {
                         //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
 
                         for (String split : splits) {
+//                            Log.e("ActivateProfileHelper.executeForRunApplications", "split="+split);
                             int startApplicationDelay = Application.getStartApplicationDelay(split);
+//                            Log.e("ActivateProfileHelper.executeForRunApplications", "startApplicationDelay="+startApplicationDelay);
                             if (Application.getStartApplicationDelay(split) > 0) {
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
+//                                Log.e("ActivateProfileHelper.executeForRunApplications", "call of ActivateProfileHelper.doExecuteForRunApplications");
                                 doExecuteForRunApplications(appContext, profile._name, split);
                             }
                             GlobalUtils.sleep(1000);
@@ -4124,6 +4127,7 @@ class ActivateProfileHelper {
 
         if (profile._deviceRunApplicationChange == 1)
         {
+//            Log.e("ActivateProfileHelper.executeForInteractivePreferences", "call of ActivateProfileHelper.executeForRunApplications");
             executeForRunApplications(profile, appContext);
         }
 
@@ -5091,6 +5095,7 @@ class ActivateProfileHelper {
             }
         }
         else {
+//            Log.e("ActivateProfileHelper.execute", "call of ActivateProfileHelper.executeForInteractivePreferences");
             executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
         }
     }
