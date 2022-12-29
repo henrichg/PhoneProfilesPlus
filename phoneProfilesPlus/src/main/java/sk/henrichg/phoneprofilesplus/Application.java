@@ -196,7 +196,7 @@ class Application  implements Parcelable {
             } else {
                 // activity not exists
                 //Log.e("Application.getStartApplicationDelay", "packageNameActivity.length <> 2");
-                shortcutIntent = value.substring(0, 3);
+                //shortcutIntent = value.substring(0, 3);
                 //Log.e("Application.getStartApplicationDelay", "shortcutIntent="+shortcutIntent);
                 //if (shortcutIntent.equals("(i)")) {
                     String[] packageNameDelay = value.split("#");
