@@ -272,7 +272,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     if (applicationWidgetListGridLayout)
                         row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
                     else
-                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 17);
+                        row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_DIP, 16);
 
                     if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                             applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
@@ -330,11 +330,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 }
                 if (!applicationWidgetListGridLayout) {
                     if (applicationWidgetListPrefIndicator) {
-                        if (profile._preferencesIndicator != null)
+                        if (profile._preferencesIndicator != null) {
                             row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
-                        else
+                            row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.VISIBLE);
+                        }
+                        else {
                             row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
-                        row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.VISIBLE);
+                            row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.GONE);
+                        }
                     } else
                         //row.setImageViewResource(R.id.widget_profile_list_profile_pref_indicator, R.drawable.ic_empty);
                         row.setViewVisibility(R.id.widget_profile_list_profile_pref_indicator, View.GONE);
