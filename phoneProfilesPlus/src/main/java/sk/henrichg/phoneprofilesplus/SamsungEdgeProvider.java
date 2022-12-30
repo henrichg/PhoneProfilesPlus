@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 
@@ -311,7 +312,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             green = red; blue = red;
             widget.setTextColor(R.id.widget_samsung_edge_header_profile_name, Color.argb(0xFF, red, green, blue));
             widget.setTextViewTextSize(R.id.widget_samsung_edge_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
-            widget.setTextViewText(R.id.widget_samsung_edge_header_profile_name, profileName);
+            Spannable sb = new SpannableString(profileName);
+            sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            widget.setTextViewText(R.id.widget_samsung_edge_header_profile_name, sb);
             /*if (applicationSamsungEdgePrefIndicator)
             {
                 if (profile._preferencesIndicator != null)
