@@ -23,6 +23,7 @@
         android:id="@+id/widget_samsung_edge_item_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
         android:layout_gravity="center_vertical"
         android:text="@string/profile_name_default"
         android:textSize="15dp"
