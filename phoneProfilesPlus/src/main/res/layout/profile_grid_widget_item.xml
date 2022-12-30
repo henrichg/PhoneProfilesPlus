@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_profile_list_item"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="85dp"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
     android:orientation="vertical"
