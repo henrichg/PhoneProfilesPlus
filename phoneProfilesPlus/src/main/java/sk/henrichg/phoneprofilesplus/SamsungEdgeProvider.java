@@ -311,7 +311,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             //if (applicationWidgetListLightnessT.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100)) red = 0xFF;
             green = red; blue = red;
             widget.setTextColor(R.id.widget_samsung_edge_header_profile_name, Color.argb(0xFF, red, green, blue));
-            widget.setTextViewTextSize(R.id.widget_samsung_edge_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 15);
+            widget.setTextViewTextSize(R.id.widget_samsung_edge_header_profile_name, TypedValue.COMPLEX_UNIT_DIP, 16);
             Spannable sb = new SpannableString(profileName);
             sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             widget.setTextViewText(R.id.widget_samsung_edge_header_profile_name, sb);
