@@ -460,9 +460,9 @@ public class EditorActivity extends AppCompatActivity
 
         filterSpinner = findViewById(R.id.editor_filter_spinner);
         String[] filterItems = new String[] {
-                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
-                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
+                /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_all),
+                /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
         };
         GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
@@ -1325,14 +1325,16 @@ public class EditorActivity extends AppCompatActivity
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
             final EditorActivity activity = this;
+            editorToolbar.setTitle(getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.title_activity_editor));
+            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
                 if (!activity.isFinishing()) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (0)");
                     String[] filterItems = new String[]{
-                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_all),
-                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_all),
+                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                     };
                     GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                             activity,
@@ -1350,17 +1352,19 @@ public class EditorActivity extends AppCompatActivity
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
             final EditorActivity activity = this;
+            editorToolbar.setTitle(getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.title_activity_editor));
+            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
                 if (!activity.isFinishing()) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (1)");
                     String[] filterItems = new String[]{
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_start_order),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_all),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_running),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_paused),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_stopped)
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_start_order),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_all),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_running),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_paused),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_stopped)
                     };
                     GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                             activity,
