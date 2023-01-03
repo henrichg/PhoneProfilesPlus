@@ -18,4 +18,6 @@
 
     <color name="bpBlue">#33b5e5</color>
 
+    <color name="pp_rippleRectangeleItemBackgroundColor">#FFBFBFBF</color>
+
 </resources>

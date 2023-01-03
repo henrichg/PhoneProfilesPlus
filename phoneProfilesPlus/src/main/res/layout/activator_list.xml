@@ -87,11 +87,11 @@
             android:layout_marginStart="9dp"
             android:layout_marginEnd="9dp"
             android:clipToPadding="false"
-            android:drawSelectorOnTop="true"
             android:scrollbarStyle="outsideOverlay"
             android:fadeScrollbars="false"
             android:listSelector="?attr/listViewItemBackground"
             android:divider="@android:color/transparent" />
+<!--        android:drawSelectorOnTop="true"-->
 
         <TextView
             android:id="@+id/act_prof_list_empty"
