@@ -105,8 +105,8 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         @Override
         public void onLongPress(MotionEvent e) {
             // Notified when a long press occurs.
-            String text = mBuffer.toString().replace("\u00A0\u21D2", "");
-            text = text.replace(" \u21D2", "");
+            String text = mBuffer.toString().replace("\u00A0»»", "");
+            text = text.replace(" »»", "");
 
             if (mListener != null) {
                 //Log.e(TAG, "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
@@ -154,8 +154,8 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         @Override
         public boolean onSingleTapConfirmed(MotionEvent event) {
             // Notified when tap occurs.
-            String linkText = getLinkText(mWidget, mBuffer, event).replace("\u00A0\u21D2", "");
-            linkText = linkText.replace(" \u21D2", "");
+            String linkText = getLinkText(mWidget, mBuffer, event).replace("\u00A0»»", "");
+            linkText = linkText.replace(" »»", "");
             final String linkUrl = getLinkURL(mWidget, mBuffer, event);
 
             LinkType linkTypeUrl = getLinkTye(linkUrl);

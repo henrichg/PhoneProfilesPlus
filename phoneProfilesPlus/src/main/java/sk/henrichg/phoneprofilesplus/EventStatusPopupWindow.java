@@ -17,7 +17,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
         //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.event_status_popup_window_text7);
-        textView.setText(fragment.getString(R.string.popup_window_events_status_show_info) + "\u00A0\u21D2");
+        textView.setText(fragment.getString(R.string.popup_window_events_status_show_info) + "\u00A0»»");
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
             if (fragment.getActivity() != null) {

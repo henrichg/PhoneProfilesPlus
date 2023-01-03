@@ -659,14 +659,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     "• " + getString(R.string.important_info_profile_install_pppps)+"\n\n"+
                     // [0=tab of Important info, 1=fragment (0=System, 1=Profiles, 2=Events), TextView from Important info]
                     "<II0 [0,1,"+R.id.activity_info_notification_profile_pppps_howTo_1+"]>"+
-                    getString(R.string.profile_preferences_types_G1_show_info)+ " \u21D2"+
+                    getString(R.string.profile_preferences_types_G1_show_info)+ " »»"+
                     "<II0/>"+
                     "\n\n"+
 
                     "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
                     // [0=tab of Important info, 1=fragment (0=System, 1=Profiles, 2=Events), TextView from Important info]
                     "<II1 [0,1,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
-                    getString(R.string.profile_preferences_types_G1_show_info)+ " \u21D2"+
+                    getString(R.string.profile_preferences_types_G1_show_info)+ " »»"+
                     "<II1/>"+
                     "\n\n"+
 
@@ -679,21 +679,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             "<li>" + getString(R.string.important_info_profile_install_pppps) + "<br><br>" +
                             "<a href='" + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                             R.id.activity_info_notification_profile_pppps_howTo_1 + "'>" +
-                            getString(R.string.profile_preferences_types_G1_show_info) + "&nbsp;&#8658;</a><br><br>" +
+                            getString(R.string.profile_preferences_types_G1_show_info) + "&nbsp;»»</a><br><br>" +
                             "</li>" +
                             "<li>" + getString(R.string.important_info_profile_grant) + "<br><br>" +
                             "<a href='" + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                             R.id.activity_info_notification_profile_grant_1_howTo_1 + "'>" +
-                            getString(R.string.profile_preferences_types_G1_show_info) + "&nbsp;&#8658;</a><br><br>" +
+                            getString(R.string.profile_preferences_types_G1_show_info) + "&nbsp;»»</a><br><br>" +
                             "</li>" +
                             "<li>" + getString(R.string.important_info_profile_root) + "<br><br>" +
                             "</li>" +
                             "<li>" + getString(R.string.important_info_profile_interactive) +
                             "</li>" +
                             /*
-                            "<li>" + "<a href=mailto:henrich.gron@gmail.com>E-mail to Henrisko&nbsp;&#8658;</a><br>" +
+                            "<li>" + "<a href=mailto:henrich.gron@gmail.com>E-mail to Henrisko&nbsp;»»</a><br>" +
                             "</li>" +
-                            "<li>" + "<a href=" + PPApplication.HELP_WIFI_SCAN_THROTTLING + "> Show web aboyt wi-fi throttling&nbsp;&#8658;</a>" +
+                            "<li>" + "<a href=" + PPApplication.HELP_WIFI_SCAN_THROTTLING + "> Show web aboyt wi-fi throttling&nbsp;»»</a>" +
                             */
                             "</ul>"
             );
@@ -1405,8 +1405,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             String infoText =
                     getString(R.string.profile_preferences_deviceVPNInfo_infoText)+"<br><br>"+
-                            "<a href=" + url1 + ">OpenVPN Connect&nbsp;&#8658;</a>"+"<br><br>"+
-                            "<a href=" + url2 + ">OpenVPN for Android&nbsp;&#8658;</a>";
+                            "<a href=" + url1 + ">OpenVPN Connect&nbsp;»»</a>"+"<br><br>"+
+                            "<a href=" + url2 + ">OpenVPN for Android&nbsp;»»</a>";
 
             infoDialogPreference.setInfoText(infoText);
             infoDialogPreference.setIsHtml(true);
@@ -1482,7 +1482,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     "<b>"+getString(R.string.profile_preferences_deviceAirplaneModeRadios_info1) + "</b><br><br>" +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info2) + " " +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info3) + ":<br>" +
-                            "<a href=" + url + ">" + url+ "&nbsp;&#8658;</a><br><br>";
+                            "<a href=" + url + ">" + url+ "&nbsp;»»</a><br><br>";
 
             String configuredRadios = Settings.Global.getString(context.getContentResolver(), "airplane_mode_radios");
 
@@ -6787,7 +6787,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         CharSequence str1 = getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0\u21D2";
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0»»";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -7097,7 +7097,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         text = layout.findViewById(R.id.install_pppps_from_github_dialog_github_releases);
         CharSequence str1 = getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + "\u00A0\u21D2";
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + "\u00A0»»";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {

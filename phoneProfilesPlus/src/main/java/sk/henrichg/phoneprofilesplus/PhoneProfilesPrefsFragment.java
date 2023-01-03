@@ -1860,7 +1860,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info7) + "<br><br>" +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info8) + " " +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info9) + ":<br>" +
-                        "<a href=" + url + ">" + url+ "&nbsp;&#8658;</a>";
+                        "<a href=" + url + ">" + url+ "&nbsp;»»</a>";
 
                 infoDialogPreference.setInfoText(infoText);
                 infoDialogPreference.setIsHtml(true);
