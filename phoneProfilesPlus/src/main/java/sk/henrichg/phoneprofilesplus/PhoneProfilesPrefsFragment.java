@@ -83,6 +83,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
     private static final String PREF_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "applicationEventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 1994;
+    private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1 = "notificationProfileIconColorInfo1";
+    private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2 = "notificationProfileIconColorInfo2";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -2450,6 +2452,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY);
 
+        setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
+        setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
+
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
@@ -3465,7 +3470,39 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
 
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR) ||
+                key.equals(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1) ||
+                key.equals(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2)) {
+            PPListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
+            if (listPreference != null) {
+                String stringValue = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR,
+                        ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR_DEFAULT_VALUE);
 
+                int index = listPreference.findIndexOfValue(stringValue);
+
+                // Set the summary to reflect the new value.
+                // added support for "%" in list items
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                if (summary != null) {
+                    String sSummary = summary.toString();
+                    sSummary = sSummary.replace("%", "%%");
+
+                    Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
+                    if (infoPref != null)
+                        infoPref.setSummary(sSummary);
+                    infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
+                    if (infoPref != null)
+                        infoPref.setSummary(sSummary);
+                } else {
+                    Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
+                    if (infoPref != null)
+                        infoPref.setSummary(null);
+                    infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
+                    if (infoPref != null)
+                        infoPref.setSummary(null);
+                }
+            }
+        }
 
         // Do not bind toggles.
         if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
