@@ -84,17 +84,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_1"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -120,17 +121,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_2"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -157,17 +159,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_3"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -194,17 +197,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_4"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -232,17 +236,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_5"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -269,17 +274,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_6"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -306,17 +312,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_7"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -343,17 +350,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_8"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -380,17 +388,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_9"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -417,17 +426,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_10"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -454,17 +464,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_11"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -491,17 +502,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_12"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -528,17 +540,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_13"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -565,17 +578,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_14"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 
@@ -602,17 +616,18 @@
                     android:src="@drawable/ic_profile_default"
                     android:contentDescription="@string/profile_preferences_profileIcon" />
 
-                <RelativeLayout
+                <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_15"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
-                    android:orientation="horizontal">
-                    <!--        android:visibility="gone"-->
-
-                </RelativeLayout>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_black"
+                    android:tint="?android:attr/textColorSecondary"
+                    tools:ignore="ContentDescription,UseAppTint" />
+                <!--    android:visibility="gone"-->
 
             </LinearLayout>
 

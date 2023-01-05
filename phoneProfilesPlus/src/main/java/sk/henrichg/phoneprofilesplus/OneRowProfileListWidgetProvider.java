@@ -54,56 +54,52 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
     private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
                            /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds)
     {
-        String applicationWidgetOneRowIconLightness;
-        String applicationWidgetOneRowIconColor;
-        boolean applicationWidgetOneRowCustomIconLightness;
-        boolean applicationWidgetOneRowPrefIndicator;
-        String applicationWidgetOneRowPrefIndicatorLightness;
-        boolean applicationWidgetOneRowBackgroundType;
-        String applicationWidgetOneRowBackgroundColor;
-        String applicationWidgetOneRowLightnessB;
-        String applicationWidgetOneRowBackground;
-        boolean applicationWidgetOneRowShowBorder;
-        String applicationWidgetOneRowLightnessBorder;
-        boolean applicationWidgetOneRowRoundedCorners;
-        String applicationWidgetOneRowLightnessT;
-        int applicationWidgetOneRowRoundedCornersRadius;
-        String applicationWidgetOneRowLayoutHeight;
-        //boolean applicationWidgetOneRowHigherLayout;
-        boolean applicationWidgetOneRowChangeColorsByNightMode;
-        boolean applicationWidgetOneRowUseDynamicColors;
-        String applicationWidgetOneRowBackgroundColorNightModeOff;
-        String applicationWidgetOneRowBackgroundColorNightModeOn;
+        String applicationWidgetOneRowProfileListIconLightness;
+        String applicationWidgetOneRowProfileListIconColor;
+        boolean applicationWidgetOneRowProfileListCustomIconLightness;
+        String applicationWidgetOneRowProfileListArrowsMarkLightness;
+        boolean applicationWidgetOneRowProfileListBackgroundType;
+        String applicationWidgetOneRowProfileListBackgroundColor;
+        String applicationWidgetOneRowProfileListLightnessB;
+        String applicationWidgetOneRowProfileListBackground;
+        boolean applicationWidgetOneRowProfileListShowBorder;
+        String applicationWidgetOneRowProfileListLightnessBorder;
+        boolean applicationWidgetOneRowProfileListRoundedCorners;
+        int applicationWidgetOneRowProfileListRoundedCornersRadius;
+        String applicationWidgetOneRowProfileListLayoutHeight;
+        boolean applicationWidgetOneRowProfileListChangeColorsByNightMode;
+        boolean applicationWidgetOneRowProfileListUseDynamicColors;
+        String applicationWidgetOneRowProfileListBackgroundColorNightModeOff;
+        String applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
 
-            applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
-            applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
-            applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
-            applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator;
-            applicationWidgetOneRowPrefIndicatorLightness = ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness;
-            applicationWidgetOneRowBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType;
-            applicationWidgetOneRowBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor;
-            applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB;
-            applicationWidgetOneRowBackground = ApplicationPreferences.applicationWidgetOneRowBackground;
-            applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
-            applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
-            applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
-            applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
-            applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+            applicationWidgetOneRowProfileListIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
+            applicationWidgetOneRowProfileListIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
+            applicationWidgetOneRowProfileListCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
+
+            applicationWidgetOneRowProfileListArrowsMarkLightness = ApplicationPreferences.applicationWidgetOneRowArrowsMarkLightness;
+
+            applicationWidgetOneRowProfileListBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType;
+            applicationWidgetOneRowProfileListBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor;
+            applicationWidgetOneRowProfileListLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB;
+            applicationWidgetOneRowProfileListBackground = ApplicationPreferences.applicationWidgetOneRowBackground;
+            applicationWidgetOneRowProfileListShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
+            applicationWidgetOneRowProfileListLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
+            applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+            applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
 
             // "Rounded corners" parameter is removed, is forced to true
-            if (!applicationWidgetOneRowRoundedCorners) {
+            if (!applicationWidgetOneRowProfileListRoundedCorners) {
                 //applicationWidgetOneRowRoundedCorners = true;
-                applicationWidgetOneRowRoundedCornersRadius = 1;
+                applicationWidgetOneRowProfileListRoundedCornersRadius = 1;
             }
 
-            applicationWidgetOneRowLayoutHeight = ApplicationPreferences.applicationWidgetOneRowLayoutHeight;
-            //applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
-            applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
-            applicationWidgetOneRowUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
-            applicationWidgetOneRowBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOff;
-            applicationWidgetOneRowBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
+            applicationWidgetOneRowProfileListLayoutHeight = ApplicationPreferences.applicationWidgetOneRowLayoutHeight;
+            applicationWidgetOneRowProfileListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
+            applicationWidgetOneRowProfileListUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
+            applicationWidgetOneRowProfileListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOff;
+            applicationWidgetOneRowProfileListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -119,15 +115,14 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
                     //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
-                    //applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
-                    applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
-                    //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                    //applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+                    applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
                 }
                 if (Build.VERSION.SDK_INT < 31)
-                    applicationWidgetOneRowUseDynamicColors = false;
+                    applicationWidgetOneRowProfileListUseDynamicColors = false;
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        (applicationWidgetOneRowChangeColorsByNightMode &&
-                         (!applicationWidgetOneRowUseDynamicColors))) {
+                        (applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                         (!applicationWidgetOneRowProfileListUseDynamicColors))) {
                     boolean nightModeOn = GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext());
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -136,29 +131,27 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
-                        //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                        applicationWidgetOneRowBackgroundType = true; // background type = color
-                        applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOn)); // color of background
-                        //applicationWidgetOneRowShowBorder = false; // do not show border
-                        applicationWidgetOneRowLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
-                        applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of text = white
-                        //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
-                        //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62; // lightness of preference indicators
+                        //applicationWidgetOneRowProfileListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetOneRowProfileListBackgroundType = true; // background type = color
+                        applicationWidgetOneRowProfileListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowProfileListBackgroundColorNightModeOn)); // color of background
+                        //applicationWidgetOneRowProfileListShowBorder = false; // do not show border
+                        applicationWidgetOneRowProfileListLightnessBorder = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+                        applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87; // lightness of arrows and mark = white
+                        //applicationWidgetOneRowProfileListIconColor = "0"; // icon type = colorful
+                        applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75;
                         //break;
                     } else {
                         //case Configuration.UI_MODE_NIGHT_NO:
                         //case Configuration.UI_MODE_NIGHT_UNDEFINED:
 
-                        //applicationWidgetOneRowBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
-                        applicationWidgetOneRowBackgroundType = true; // background type = color
-                        applicationWidgetOneRowBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowBackgroundColorNightModeOff)); // color of background
-                        //applicationWidgetOneRowShowBorder = false; // do not show border
-                        applicationWidgetOneRowLightnessBorder = "0";
-                        applicationWidgetOneRowLightnessT = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness of text = black
-                        //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
-                        //applicationWidgetOneRowPrefIndicatorLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50; // lightness of preference indicators
+                        //applicationWidgetOneRowProfileListBackground = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100; // fully opaque
+                        applicationWidgetOneRowProfileListBackgroundType = true; // background type = color
+                        applicationWidgetOneRowProfileListBackgroundColor = String.valueOf(ColorChooserPreference.parseValue(applicationWidgetOneRowProfileListBackgroundColorNightModeOff)); // color of background
+                        //applicationWidgetOneRowProfileListShowBorder = false; // do not show border
+                        applicationWidgetOneRowProfileListLightnessBorder = "0";
+                        applicationWidgetOneRowProfileListArrowsMarkLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12; // lightness arrows and mark = black
+                        //applicationWidgetOneRowProfileListIconColor = "0"; // icon type = colorful
+                        applicationWidgetOneRowProfileListIconLightness = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62;
                         //break;
                     }
                 }
@@ -166,7 +159,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         int monochromeValue = 0xFF;
-        switch (applicationWidgetOneRowIconLightness) {
+        switch (applicationWidgetOneRowProfileListIconLightness) {
             case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 monochromeValue = 0x00;
                 break;
@@ -199,7 +192,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
         float prefIndicatorLightnessValue = 0f;
         int prefIndicatorMonochromeValue = 0x00;
-        switch (applicationWidgetOneRowPrefIndicatorLightness) {
+        switch (applicationWidgetOneRowProfileListArrowsMarkLightness) {
             case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                 prefIndicatorLightnessValue = -128f;
                 //noinspection ConstantConditions
@@ -240,21 +233,21 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
-        if (applicationWidgetOneRowChangeColorsByNightMode &&
-            applicationWidgetOneRowIconColor.equals("0")) {
-            if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowUseDynamicColors)
+        if (applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+            applicationWidgetOneRowProfileListIconColor.equals("0")) {
+            if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListUseDynamicColors)
                 indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
             else
                 indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;
         }
         else
-        if (applicationWidgetOneRowBackgroundType) {
-            if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)
+        if (applicationWidgetOneRowProfileListBackgroundType) {
+            if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)
                 indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
             else
                 indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
         } else {
-            if (Integer.parseInt(applicationWidgetOneRowBackground) <= 37)
+            if (Integer.parseInt(applicationWidgetOneRowProfileListBackground) <= 37)
                 indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
             else
                 indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
@@ -262,8 +255,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
-                    applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
-                    applicationWidgetOneRowCustomIconLightness,
+                    applicationWidgetOneRowProfileListIconColor.equals("1"), monochromeValue,
+                    applicationWidgetOneRowProfileListCustomIconLightness,
                     indicatorType, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
 
         Profile profile;
@@ -271,20 +264,20 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         //if ((!fullyStarted) /*|| applicationPackageReplaced*/)
         //    profile = null;
         //else
-            profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
+            profile = dataWrapper.getActivatedProfile(true, false);
 
         //try {
             // set background
             int redBackground = 0x00;
             int greenBackground;
             int blueBackground;
-            if (applicationWidgetOneRowBackgroundType) {
-                int bgColor = Integer.parseInt(applicationWidgetOneRowBackgroundColor);
+            if (applicationWidgetOneRowProfileListBackgroundType) {
+                int bgColor = Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor);
                 redBackground = Color.red(bgColor);
                 greenBackground = Color.green(bgColor);
                 blueBackground = Color.blue(bgColor);
             } else {
-                switch (applicationWidgetOneRowLightnessB) {
+                switch (applicationWidgetOneRowProfileListLightnessB) {
                     case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                         //noinspection ConstantConditions
                         redBackground = 0x00;
@@ -319,7 +312,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             }
 
             int alphaBackground = 0x40;
-            switch (applicationWidgetOneRowBackground) {
+            switch (applicationWidgetOneRowProfileListBackground) {
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     alphaBackground = 0x00;
                     break;
@@ -353,8 +346,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             int redBorder = 0xFF;
             int greenBorder;
             int blueBorder;
-            if (applicationWidgetOneRowShowBorder) {
-                switch (applicationWidgetOneRowLightnessBorder) {
+            if (applicationWidgetOneRowProfileListShowBorder) {
+                switch (applicationWidgetOneRowProfileListLightnessBorder) {
                     case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                         redBorder = 0x00;
                         break;
@@ -389,7 +382,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             blueBorder = redBorder;
 
             int redText = 0xFF;
-            switch (applicationWidgetOneRowLightnessT) {
+            switch (applicationWidgetOneRowProfileListArrowsMarkLightness) {
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
                     redText = 0x00;
                     break;
@@ -438,9 +431,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
 
                 profile.generateIconBitmap(context.getApplicationContext(),
-                        applicationWidgetOneRowIconColor.equals("1"),
+                        applicationWidgetOneRowProfileListIconColor.equals("1"),
                         monochromeValue,
-                        applicationWidgetOneRowCustomIconLightness);
+                        applicationWidgetOneRowProfileListCustomIconLightness);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = new SpannableString(profile._name);
@@ -460,40 +453,22 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
                 RemoteViews remoteViews;
 
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
-                    if (applicationWidgetOneRowLayoutHeight.equals("0")) {
-                        if (applicationWidgetOneRowPrefIndicator)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
-                        else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
-                    } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
-                        if (applicationWidgetOneRowPrefIndicator)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
-                        else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
+                    if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
+                    } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
                     } else {
-                        if (applicationWidgetOneRowPrefIndicator)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget);
-                        else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget);
                     }
                 } else {
-                    if (applicationWidgetOneRowLayoutHeight.equals("0")) {
-                        if (applicationWidgetOneRowPrefIndicator)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_dn);
-                        else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator_dn);
-                    } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
-                        if (applicationWidgetOneRowPrefIndicator)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_dn);
-                        else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator_dn);
+                    if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_dn);
+                    } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_dn);
                     } else {
-                        if (applicationWidgetOneRowPrefIndicator)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_dn);
-                        else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_no_indicator_dn);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_dn);
                     }
                 }
 
@@ -506,7 +481,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
                 } else {
-                    switch (applicationWidgetOneRowRoundedCornersRadius) {
+                    switch (applicationWidgetOneRowProfileListRoundedCornersRadius) {
                         case 1:
                             roundedBackground = R.drawable.rounded_widget_background_1;
                             roundedBorder = R.drawable.rounded_widget_border_1;
@@ -580,7 +555,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
                 remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
-                if (applicationWidgetOneRowShowBorder) {
+                if (applicationWidgetOneRowProfileListShowBorder) {
                     remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
                 }
                 else {
@@ -588,27 +563,27 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
                 remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
 
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                     //remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, 0, 0, 0));
                     remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
                 }
 
                 remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
 
-                if (applicationWidgetOneRowShowBorder) {
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                            applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors))
+                if (applicationWidgetOneRowProfileListShowBorder) {
+                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                            applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
                         remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                 }
 
                 Bitmap bitmap = null;
-                if (applicationWidgetOneRowIconColor.equals("0")) {
-                    if (applicationWidgetOneRowChangeColorsByNightMode ||
-                       ((!applicationWidgetOneRowBackgroundType) &&
-                           (Integer.parseInt(applicationWidgetOneRowLightnessB) <= 25)) ||
-                       (applicationWidgetOneRowBackgroundType &&
-                           (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowBackgroundColor)) < 0.23)))
+                if (applicationWidgetOneRowProfileListIconColor.equals("0")) {
+                    if (applicationWidgetOneRowProfileListChangeColorsByNightMode ||
+                       ((!applicationWidgetOneRowProfileListBackgroundType) &&
+                           (Integer.parseInt(applicationWidgetOneRowProfileListLightnessB) <= 25)) ||
+                       (applicationWidgetOneRowProfileListBackgroundType &&
+                           (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)))
                         bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 }
                 if (isIconResourceID) {
@@ -632,8 +607,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     }
                 }
 
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                     remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
                 }
                 else {
@@ -645,18 +620,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
 
                 remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
-                if (applicationWidgetOneRowPrefIndicator) {
-                    if (profile._preferencesIndicator == null)
-                        //remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_pref_indicator, R.drawable.ic_empty);
-                        remoteViews.setViewVisibility(R.id.widget_one_row_header_profile_pref_indicator, GONE);
-                    else {
-                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_pref_indicator, profile._preferencesIndicator);
-                        remoteViews.setViewVisibility(R.id.widget_one_row_header_profile_pref_indicator, VISIBLE);
-                    }
-                }
 
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
-                        applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
+                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                     //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                     bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
