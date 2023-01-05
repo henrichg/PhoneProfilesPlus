@@ -516,6 +516,14 @@
             android:name=".LogCrashActivity"
             android:label="@string/empty_string">
         </activity>
+        <activity
+            android:name=".LaunchWidgetOneRowProfileListConfigurationActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:label="@string/empty_string"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+        </activity>
 
 
         <!-- implicit broadcast receivers, in Android O exception group -->
@@ -615,6 +623,20 @@
             <meta-data
                 android:name="com.samsung.android.cocktail.provider"
                 android:resource="@xml/samsung_edge"/>
+        </receiver>
+        <receiver
+            android:name=".OneRowProfileListWidgetProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_one_row_profile_list">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/one_row_profile_list_widget_info"/>
         </receiver>
 
         <!-- main service -->

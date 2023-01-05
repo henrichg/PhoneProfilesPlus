@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- size = (74 x n) - 2 --> 
+<!-- old size (70 x n) - 30 --> 
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:minWidth="250dp"
+    android:minHeight="40dp" 
+    android:minResizeWidth="110dp" 
+    android:minResizeHeight="40dp"
+    android:initialLayout="@layout/empty_widget"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"
+    android:previewImage="@drawable/one_row_profile_list_widget_preview"
+    android:description="@string/one_row_profile_list_widget_description"
+    android:widgetCategory="home_screen"
+
+    android:configure="sk.henrichg.phoneprofilesplus.LaunchWidgetOneRowProfileListConfigurationActivity"
+    android:widgetFeatures="reconfigurable"
+    tools:targetApi="p" />
+<!--    android:widgetFeatures="reconfigurable|configuration_optional" />-->

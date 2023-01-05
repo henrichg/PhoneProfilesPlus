@@ -2041,6 +2041,8 @@
 
     <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
     <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
+    <string name="widget_label_one_row_profile_list">Single row profile list</string>
+    <string name="one_row_profile_list_widget_description">Displays list of profiles without their names in one line.</string>
 
     <!-- **************************************************************************************** -->
 
