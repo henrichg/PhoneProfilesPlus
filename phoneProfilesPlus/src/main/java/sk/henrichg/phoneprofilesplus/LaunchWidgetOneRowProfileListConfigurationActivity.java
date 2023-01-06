@@ -36,7 +36,7 @@ public class LaunchWidgetOneRowProfileListConfigurationActivity extends AppCompa
 
         try {
             Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
-            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryWidgetOneRowRoot");
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryWidgetOneRowProfileListRoot");
             //noinspection deprecation
             startActivityForResult(intent, 100);
         } catch (Exception e) {

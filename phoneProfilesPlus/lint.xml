@@ -139,6 +139,8 @@
         <ignore path="src/main/res/drawable/phoneprofilesplusextender_assets_screenshot.webp" />
         <ignore path="src/main/res/drawable/samsung_edge_panel.png" />
         <ignore path="src/main/res/drawable/samsung_edge_panel.webp" />
+        <ignore path="src/main/res/drawable/one_row_profile_list_widget_preview.png" />
+        <ignore path="src/main/res/drawable/one_row_profile_list_widget_preview.webp" />
     </issue>
     <issue id="ProtectedPermissions" severity="warning" />
     <issue id="UnspecifiedImmutableFlag"  severity="ignore" />

@@ -317,6 +317,8 @@ public class PhoneProfilesService extends Service
                 new IntentFilter(ProfileListWidgetProvider.ACTION_REFRESH_LISTWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.edgePanelBroadcastReceiver,
                 new IntentFilter(SamsungEdgeProvider.ACTION_REFRESH_EDGEPANEL));
+        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.oneRowProfileListWidgetBroadcastReceiver,
+                new IntentFilter(OneRowProfileListWidgetProvider.ACTION_REFRESH_ONEROWPROFILELISTWIDGET));
 
         /*
         PPApplication.setNotificationProfileName(appContext, "");

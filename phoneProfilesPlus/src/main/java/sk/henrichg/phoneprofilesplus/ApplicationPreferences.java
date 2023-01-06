@@ -246,6 +246,25 @@ class ApplicationPreferences {
     static volatile String  applicationSamsungEdgeBackgroundColorNightModeOn;
     static volatile String applicationWidgetIconLayoutHeight;
 
+    static volatile String applicationWidgetOneRowProfileListBackground;
+    static volatile String applicationWidgetOneRowProfileListLightnessB;
+    static volatile String applicationWidgetOneRowProfileListIconColor;
+    static volatile String applicationWidgetOneRowProfileListIconLightness;
+    static volatile boolean applicationWidgetOneRowProfileListRoundedCorners;
+    static volatile boolean applicationWidgetOneRowProfileListBackgroundType;
+    static volatile String  applicationWidgetOneRowProfileListBackgroundColor;
+    static volatile String applicationWidgetOneRowProfileListLightnessBorder;
+    static volatile boolean applicationWidgetOneRowProfileListShowBorder;
+    static volatile boolean applicationWidgetOneRowProfileListCustomIconLightness;
+    static volatile int applicationWidgetOneRowProfileListRoundedCornersRadius;
+    static volatile String applicationWidgetOneRowProfileListLayoutHeight;
+    static volatile boolean applicationWidgetOneRowProfileListChangeColorsByNightMode;
+    static volatile boolean applicationWidgetOneRowProfileListUseDynamicColors;
+    static volatile String  applicationWidgetOneRowProfileListBackgroundColorNightModeOff;
+    static volatile String  applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
+    static volatile String applicationWidgetOneRowProfileListArrowsMarkLightness;
+    static volatile int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
+
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyTo;
@@ -512,6 +531,25 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationSamsungEdgeBackgroundColorNightModeOff";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationSamsungEdgeBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT = "applicationWidgetIconLayoutHeight";
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND = "applicationWidgetOneRowProfileListBackground";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B = "applicationWidgetOneRowProfileListLightnessB";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR = "applicationWidgetOneRowProfileListIconColor";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS = "applicationWidgetOneRowProfileListIconLightness";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS = "applicationWidgetOneRowProfileListRoundedCorners";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE = "applicationWidgetOneRowProfileListBackgroundType";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR = "applicationWidgetOneRowProfileListBackgroundColor";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER = "applicationWidgetOneRowProfileListLightnessBorder";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER = "applicationWidgetOneRowProfileListShowBorder";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS = "applicationWidgetOneRowProfileListCustomIconLightness";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS = "applicationWidgetOneRowProfileListRoundedCornersRadius";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT = "applicationWidgetOneRowProfileListLayoutHeight";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetOneRowProfileListChangeColorsByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS = "applicationWidgetOneRowProfileListUseDynamicColors";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationWidgetOneRowProfileListBackgroundColorNightModeOff";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationWidgetOneRowProfileListBackgroundColorNightModeOn";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS = "applicationWidgetOneRowProfileListArrowsMarkLightness";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE = "applicationWidgetOneRowProfileListNumberOfProfilesPerPage";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -1958,6 +1996,135 @@ class ApplicationPreferences {
     static void applicationWidgetIconLayoutHeight(Context context) {
         applicationWidgetIconLayoutHeight = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE);
     }
+
+
+
+    static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
+    static String applicationWidgetOneRowProfileListBackgroundDefaultValue(Context context) {
+        String defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
+    static void applicationWidgetOneRowProfileListBackground(Context context) {
+        applicationWidgetOneRowProfileListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND, applicationWidgetOneRowProfileListBackgroundDefaultValue(context));
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B_DEFAULT_VALUE = "0";
+    static void applicationWidgetOneRowProfileListLightnessB(Context context) {
+        applicationWidgetOneRowProfileListLightnessB = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR_DEFAULT_VALUE = "0";
+    static void applicationWidgetOneRowProfileListIconColor(Context context) {
+        applicationWidgetOneRowProfileListIconColor = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static void applicationWidgetOneRowProfileListIconLightness(Context context) {
+        applicationWidgetOneRowProfileListIconLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_DEFAULT_VALUE = true;
+    static void applicationWidgetOneRowProfileListRoundedCorners(Context context) {
+        applicationWidgetOneRowProfileListRoundedCorners = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListBackgroundType(Context context) {
+        applicationWidgetOneRowProfileListBackgroundType = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_DEFAULT_VALUE = "-1"; // white color
+    static void applicationWidgetOneRowProfileListBackgroundColor(Context context) {
+        applicationWidgetOneRowProfileListBackgroundColor = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static void applicationWidgetOneRowProfileListLightnessBorder(Context context) {
+        applicationWidgetOneRowProfileListLightnessBorder = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListShowBorder(Context context) {
+        applicationWidgetOneRowProfileListShowBorder = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListCustomIconLightness(Context context) {
+        applicationWidgetOneRowProfileListCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE = "5";
+    static void applicationWidgetOneRowProfileListRoundedCornersRadius(Context context) {
+        applicationWidgetOneRowProfileListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS_DEFAULT_VALUE));
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT_DEFAULT_VALUE = "0";
+    static void applicationWidgetOneRowProfileListLayoutHeight(Context context) {
+        applicationWidgetOneRowProfileListLayoutHeight = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT_DEFAULT_VALUE);
+    }
+
+    static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
+    static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
+    static boolean applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(Context context) {
+        boolean defaultValue;
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
+        else
+            defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
+        return defaultValue;
+    }
+    static void applicationWidgetOneRowProfileListChangeColorsByNightMode(Context context) {
+        // copy bad preference into ok preference
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.putBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS));
+            editor.apply();
+        }
+
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationWidgetOneRowProfileListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE, applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(context));
+    }
+
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE = true;
+    static void applicationWidgetOneRowProfileListUseDynamicColors(Context context) {
+        applicationWidgetOneRowProfileListUseDynamicColors = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_USE_DYNAMIC_COLORS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE = "#fffcfcfc";
+    static void applicationWidgetOneRowProfileListBackgroundColorNightModeOff(Context context) {
+        applicationWidgetOneRowProfileListBackgroundColorNightModeOff = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_OFF_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE = "#ff1b1b1b";
+    static void applicationWidgetOneRowProfileListBackgroundColorNightModeOn(Context context) {
+        applicationWidgetOneRowProfileListBackgroundColorNightModeOn = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_COLOR_NIGHT_MODE_ON_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
+    static void applicationWidgetOneRowProfileListArrowsMarkLightness(Context context) {
+        applicationWidgetOneRowProfileListArrowsMarkLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE = "5";
+    static void applicationWidgetOneRowProfileListNumberOfProfilesPerPage(Context context) {
+        applicationWidgetOneRowProfileListNumberOfProfilesPerPage = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE));
+    }
+
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

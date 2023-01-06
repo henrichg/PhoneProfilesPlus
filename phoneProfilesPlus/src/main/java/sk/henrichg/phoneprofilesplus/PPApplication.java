@@ -11,6 +11,7 @@ import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -769,6 +770,7 @@ public class PPApplication extends Application
     static final OneRowWidgetProvider oneRowWidgetBroadcastReceiver = new OneRowWidgetProvider();
     static final ProfileListWidgetProvider listWidgetBroadcastReceiver = new ProfileListWidgetProvider();
     static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
+    static final OneRowProfileListWidgetProvider oneRowProfileListWidgetBroadcastReceiver = new OneRowProfileListWidgetProvider();
 
     static volatile TimeChangedReceiver timeChangedReceiver = null;
     static volatile StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
@@ -1937,6 +1939,13 @@ public class PPApplication extends Application
             PPApplication.recordException(e);
         }
 
+        // one row profile list widget
+        try {
+            OneRowProfileListWidgetProvider.updateWidgets(context/*, true*/);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
         // Samsung edge panel
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
             try {
@@ -2366,6 +2375,26 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff(context);
             ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetIconLayoutHeight(context);
+
+            ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListLightnessB(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListIconColor(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundType(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColor(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListShowBorder(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListLayoutHeight(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOff(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOn(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage(context);
+
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

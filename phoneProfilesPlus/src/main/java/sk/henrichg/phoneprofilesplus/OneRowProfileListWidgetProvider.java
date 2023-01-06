@@ -23,7 +23,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
-    static final String ACTION_REFRESH_ONEROWWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWWIDGET";
+    static final String ACTION_REFRESH_ONEROWPROFILELISTWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWPROFILELISTWIDGET";
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
@@ -71,23 +71,25 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetOneRowProfileListUseDynamicColors;
         String applicationWidgetOneRowProfileListBackgroundColorNightModeOff;
         String applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
+        int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
 
-            applicationWidgetOneRowProfileListIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
-            applicationWidgetOneRowProfileListIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
-            applicationWidgetOneRowProfileListCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
+            applicationWidgetOneRowProfileListIconLightness = ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness;
+            applicationWidgetOneRowProfileListIconColor = ApplicationPreferences.applicationWidgetOneRowProfileListIconColor;
+            applicationWidgetOneRowProfileListCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowProfileListCustomIconLightness;
 
-            applicationWidgetOneRowProfileListArrowsMarkLightness = ApplicationPreferences.applicationWidgetOneRowArrowsMarkLightness;
+            applicationWidgetOneRowProfileListArrowsMarkLightness = ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness;
+            applicationWidgetOneRowProfileListNumberOfProfilesPerPage = ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
 
-            applicationWidgetOneRowProfileListBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType;
-            applicationWidgetOneRowProfileListBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor;
-            applicationWidgetOneRowProfileListLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB;
-            applicationWidgetOneRowProfileListBackground = ApplicationPreferences.applicationWidgetOneRowBackground;
-            applicationWidgetOneRowProfileListShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
-            applicationWidgetOneRowProfileListLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
-            applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
-            applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+            applicationWidgetOneRowProfileListBackgroundType = ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundType;
+            applicationWidgetOneRowProfileListBackgroundColor = ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColor;
+            applicationWidgetOneRowProfileListLightnessB = ApplicationPreferences.applicationWidgetOneRowProfileListLightnessB;
+            applicationWidgetOneRowProfileListBackground = ApplicationPreferences.applicationWidgetOneRowProfileListBackground;
+            applicationWidgetOneRowProfileListShowBorder = ApplicationPreferences.applicationWidgetOneRowProfileListShowBorder;
+            applicationWidgetOneRowProfileListLightnessBorder = ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder;
+            applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners;
+            applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetOneRowProfileListRoundedCorners) {
@@ -95,28 +97,26 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 applicationWidgetOneRowProfileListRoundedCornersRadius = 1;
             }
 
-            applicationWidgetOneRowProfileListLayoutHeight = ApplicationPreferences.applicationWidgetOneRowLayoutHeight;
-            applicationWidgetOneRowProfileListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
-            applicationWidgetOneRowProfileListUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
-            applicationWidgetOneRowProfileListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOff;
-            applicationWidgetOneRowProfileListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
+            applicationWidgetOneRowProfileListLayoutHeight = ApplicationPreferences.applicationWidgetOneRowProfileListLayoutHeight;
+            applicationWidgetOneRowProfileListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode;
+            applicationWidgetOneRowProfileListUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors;
+            applicationWidgetOneRowProfileListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOff;
+            applicationWidgetOneRowProfileListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOn;
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context)) {
-                    ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
-                    ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
+                    ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners = true;
+                    ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius = 15;
                     //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
-                            ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
-                            String.valueOf(ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius));
-                    //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                    //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS,
+                            ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS,
+                            String.valueOf(ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius));
                     editor.apply();
-                    //applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
-                    applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+                    //applicationWidgetOneRowProfileListRoundedCorners = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners;
+                    applicationWidgetOneRowProfileListRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius;
                 }
                 if (Build.VERSION.SDK_INT < 31)
                     applicationWidgetOneRowProfileListUseDynamicColors = false;
@@ -687,7 +687,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 //        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
-                (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
+                (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWPROFILELISTWIDGET))) {
             AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
             if (manager != null) {
                 final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
@@ -811,7 +811,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         PPApplication.setWidgetProfileName(context, 2, pName);*/
 
 //        PPApplication.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
-        Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
+        Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         //Intent intent3 = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
