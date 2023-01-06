@@ -2120,7 +2120,7 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListArrowsMarkLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE = "5";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE = "6";
     static void applicationWidgetOneRowProfileListNumberOfProfilesPerPage(Context context) {
         applicationWidgetOneRowProfileListNumberOfProfilesPerPage = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE));
     }
