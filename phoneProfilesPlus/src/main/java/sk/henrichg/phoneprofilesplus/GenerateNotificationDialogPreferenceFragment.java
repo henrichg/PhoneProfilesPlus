@@ -131,12 +131,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         notificationBodyEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
         notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
 
-        generateChBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                enableViews();
-            }
-        });
+        generateChBtn.setOnCheckedChangeListener((buttonView, isChecked) -> enableViews());
 
         return mDialog;
     }

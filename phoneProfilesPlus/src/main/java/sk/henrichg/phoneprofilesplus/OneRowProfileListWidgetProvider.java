@@ -418,19 +418,19 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                         applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                     if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_widget);
                     } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_higher_widget);
                     } else {
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_highest_widget);
                     }
                 } else {
                     if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_dn);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_widget_dn);
                     } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_dn);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_higher_widget_dn);
                     } else {
-                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_highest_widget_dn);
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_highest_widget_dn);
                     }
                 }
 
@@ -507,36 +507,36 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     }
                 }
                 if (roundedBackground != 0)
-                    remoteViews.setImageViewResource(R.id.widget_one_row_background, roundedBackground);
+                    remoteViews.setImageViewResource(R.id.widget_one_row_profile_list_background, roundedBackground);
                 else
-                    remoteViews.setImageViewResource(R.id.widget_one_row_background, R.drawable.ic_empty);
+                    remoteViews.setImageViewResource(R.id.widget_one_row_profile_list_background, R.drawable.ic_empty);
                 if (roundedBorder != 0)
-                    remoteViews.setImageViewResource(R.id.widget_one_row_rounded_border, roundedBorder);
+                    remoteViews.setImageViewResource(R.id.widget_one_row_profile_list_rounded_border, roundedBorder);
                 else
-                    remoteViews.setImageViewResource(R.id.widget_one_row_rounded_border, R.drawable.ic_empty);
+                    remoteViews.setImageViewResource(R.id.widget_one_row_profile_list_rounded_border, R.drawable.ic_empty);
 
-                remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
-                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
+                remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_background, VISIBLE);
+                remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_not_rounded_border, View.GONE);
                 if (applicationWidgetOneRowProfileListShowBorder) {
-                    remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
+                    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_rounded_border, VISIBLE);
                 }
                 else {
-                    remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
+                    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_rounded_border, View.GONE);
                 }
-                remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
+                remoteViews.setInt(R.id.widget_one_row_profile_list_root, "setBackgroundColor", 0x00000000);
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                         applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
-                    //remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, 0, 0, 0));
-                    remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+                    //remoteViews.setInt(R.id.widget_one_row_profile_list_background, "setColorFilter", Color.argb(0xFF, 0, 0, 0));
+                    remoteViews.setInt(R.id.widget_one_row_profile_list_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
                 }
 
-                remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alphaBackground);
+                remoteViews.setInt(R.id.widget_one_row_profile_list_background, "setImageAlpha", alphaBackground);
 
                 if (applicationWidgetOneRowProfileListShowBorder) {
                     if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                             applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
-                        remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+                        remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                 }
 
                 Bitmap bitmap = null;
@@ -548,6 +548,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                            (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)))
                         bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
                 }
+                /*
                 if (isIconResourceID) {
                     if (bitmap != null)
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
@@ -568,6 +569,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
                     }
                 }
+                */
 
                 //todo mark for activated profile
                 if (profile._checked) {
@@ -618,7 +620,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events_click, pIntentRE);
                 //} else
                 //    remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events_click, View.GONE);
+                //todo ----
 
+                /*
                 // intent for start LauncherActivity on widget click
                 Intent intent = new Intent(context, LauncherActivity.class);
                 // clear all opened activities
@@ -626,6 +630,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
+                */
 
                 // widget update
                 try {

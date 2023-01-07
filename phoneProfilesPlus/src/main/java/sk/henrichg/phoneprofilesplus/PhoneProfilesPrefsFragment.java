@@ -1656,6 +1656,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
+            preference = findPreference("applicationWidgetOneRowProfileListNotWorkingMIUIInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("categoryWidgetOneRowProfileList");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
             preference = findPreference("notificationAppInstedProfileIconInStatusBarInfo");
             if (preference != null) {
                 PreferenceCategory preferenceCategory = findPreference("notificationStatusBarCategory");
@@ -2907,6 +2913,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //if (_preference != null)
             //    _preference.setEnabled(!changeWidgetOneRowProfileListColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS);
+            //noinspection IfStatementWithIdenticalBranches
             if (changeWidgetOneRowProfileListColorsByNightMode) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
