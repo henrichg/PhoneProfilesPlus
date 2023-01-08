@@ -24,7 +24,7 @@
         app:key="applicationWidgetOneRowProfileListNumberOfProfilesPerPage"
         app:summary="@string/phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage"
         app:title="@string/phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage"
-        app:defaultValue="8"
+        app:defaultValue="6"
         app:min="1"
         app:max="15"
         app:layout="@layout/mp_preference_material_widget" />
