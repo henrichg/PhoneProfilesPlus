@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.app.PendingIntent;
@@ -19,6 +18,9 @@ import android.widget.RemoteViews;
 
 import androidx.core.graphics.ColorUtils;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import java.util.Comparator;
+import java.util.List;
 
 public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
@@ -54,6 +56,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             R.id.widget_one_row_profile_list_profile_icon_13_root, R.id.widget_one_row_profile_list_profile_icon_14_root,
             R.id.widget_one_row_profile_list_profile_icon_15_root
     };
+
+    private static int displayedPage = 0;
+    private static int profileCount = 0;
 
     static final String ACTION_REFRESH_ONEROWPROFILELISTWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWPROFILELISTWIDGET";
     private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_LEFT_ARROW_CLICK";
@@ -231,34 +236,40 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 break;
         }
 
-        /*
-        int indicatorType;// = DataWrapper.IT_FOR_WIDGET;
-        if (applicationWidgetOneRowProfileListChangeColorsByNightMode &&
-            applicationWidgetOneRowProfileListIconColor.equals("0")) {
-            if ((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListUseDynamicColors)
-                indicatorType = DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS;
-            else
-                indicatorType = DataWrapper.IT_FOR_WIDGET_NATIVE_BACKGROUND;
-        }
-        else
-        if (applicationWidgetOneRowProfileListBackgroundType) {
-            if (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)
-                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
-            else
-                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
-        } else {
-            if (Integer.parseInt(applicationWidgetOneRowProfileListBackground) <= 37)
-                indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
-            else
-                indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
-        }
-        */
-
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowProfileListIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowProfileListCustomIconLightness,
-                    DataWrapper.IT_FOR_EDITOR, 0, 0);
-        dataWrapper.fillProfileList(true, false);
+                    DataWrapper.IT_FOR_WIDGET, 0, 0);
+        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
+
+        // add activated profile, when has not enabled _showInActivator
+        Profile activatedProfile = dataWrapper.getActivatedProfile(newProfileList);
+        if ((activatedProfile != null) && (!activatedProfile._showInActivator))
+        {
+            activatedProfile._showInActivator = true;
+            activatedProfile._porder = -1;
+        }
+        newProfileList.sort(new OneRowProfileListWidgetProvider.ProfileComparator());
+
+        Profile restartEvents = null;
+        if (Event.getGlobalEventsRunning()) {
+            //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
+            restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+                    "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+            restartEvents._showInActivator = true;
+            restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
+            newProfileList.add(0, restartEvents);
+        }
+        if (restartEvents != null)
+            dataWrapper.generateProfileIcon(restartEvents, true, false);
+
+        dataWrapper.setProfileList(newProfileList);
+
+        profileCount = 0;
+        for (Profile profile : dataWrapper.profileList) {
+            if (profile._showInActivator)
+                profileCount++;
+        }
 
         //try {
             // set background
@@ -551,27 +562,33 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
 
                 int profileIdx = 0;
+                int displayedProfileIdx = 0;
+                int firstProfileIdxInPage = applicationWidgetOneRowProfileListNumberOfProfilesPerPage * displayedPage;
+                //Log.e("OneRowProfileListWidgetProvider._onUpdate", "displayedPage="+displayedPage);
+                //Log.e("OneRowProfileListWidgetProvider._onUpdate", "firstProfileInPage="+firstProfileInPage);
                 for (Profile profile : dataWrapper.profileList) {
-                    // checked profile must be displayed event when is not displayed in Activator
-                    if (profile._showInActivator || profile._checked) {
-                        setProfileIcon(profile, profileIconId[profileIdx], profileMarkId[profileIdx], profileRootId[profileIdx],
-                                            applicationWidgetOneRowProfileListIconColor,
-                                            monochromeValue,
-                                            applicationWidgetOneRowProfileListCustomIconLightness,
-                                            applicationWidgetOneRowProfileListChangeColorsByNightMode,
-                                            applicationWidgetOneRowProfileListBackgroundType,
-                                            applicationWidgetOneRowProfileListLightnessB,
-                                            applicationWidgetOneRowProfileListBackgroundColor,
-                                            applicationWidgetOneRowProfileListUseDynamicColors,
-                                            markRedColor,  markGreenColor, markBlueColor,
-                                            remoteViews, context);
-                        remoteViews.setViewVisibility(profileIconId[profileIdx], View.VISIBLE);
-
+                    if (profile._showInActivator) {
+                        if (profileIdx >= firstProfileIdxInPage) {
+                            setProfileIcon(profile,
+                                    profileIconId[displayedProfileIdx], profileMarkId[displayedProfileIdx], profileRootId[displayedProfileIdx],
+                                    applicationWidgetOneRowProfileListIconColor,
+                                    monochromeValue,
+                                    applicationWidgetOneRowProfileListCustomIconLightness,
+                                    applicationWidgetOneRowProfileListChangeColorsByNightMode,
+                                    applicationWidgetOneRowProfileListBackgroundType,
+                                    applicationWidgetOneRowProfileListLightnessB,
+                                    applicationWidgetOneRowProfileListBackgroundColor,
+                                    applicationWidgetOneRowProfileListUseDynamicColors,
+                                    markRedColor, markGreenColor, markBlueColor,
+                                    remoteViews, context);
+                            remoteViews.setViewVisibility(profileIconId[displayedProfileIdx], View.VISIBLE);
+                            ++displayedProfileIdx;
+                        }
                         profileIdx++;
                     }
                 }
                 // invisible all not used profile icons
-                for (int i = profileIdx; i < 15; i++) {
+                for (int i = displayedProfileIdx; i < 15; i++) {
                     remoteViews.setViewVisibility(profileIconId[i], View.INVISIBLE);
                     remoteViews.setViewVisibility(profileMarkId[i], View.INVISIBLE);
                     remoteViews.setOnClickPendingIntent(profileRootId[i], null);
@@ -606,20 +623,23 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
                 //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 // left arrow
-                //remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, VISIBLE);
+                if (displayedPage > 0)
+                    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, VISIBLE);
+                else
+                    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, View.GONE);
                 Intent intentLeftArrow = new Intent(context, OneRowProfileListWidgetProvider.class);
                 intentLeftArrow.setAction(ACTION_LEFT_ARROW_CLICK);
                 PendingIntent pIntentLeftArrow = PendingIntent.getBroadcast(context, 2, intentLeftArrow, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_profile_list_scroll_left_arrow, pIntentLeftArrow);
                 // right arrow
-                //remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, VISIBLE);
+                if (displayedPage < profileCount / applicationWidgetOneRowProfileListNumberOfProfilesPerPage)
+                    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, VISIBLE);
+                else
+                    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, View.GONE);
                 Intent intentRightArrow = new Intent(context, OneRowProfileListWidgetProvider.class);
                 intentRightArrow.setAction(ACTION_RIGHT_ARROW_CLICK);
                 PendingIntent pIntentRightArrow = PendingIntent.getBroadcast(context, 3, intentRightArrow, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_profile_list_scroll_right_arrow, pIntentRightArrow);
-                //} else
-                //    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, View.GONE);
-                //    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, View.GONE);
 
                 // widget update
                 try {
@@ -679,129 +699,27 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
             }
             else
-            if (action.equalsIgnoreCase(ACTION_LEFT_ARROW_CLICK)) {
-
+            if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
+                if (displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) {
+                    ++displayedPage;
+                    updateWidgets(appContext);
+                }
             }
             else
-            if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
-
-            }
-        }
-    }
-/*
-    @Override
-    public void onDeleted (Context context, int[] appWidgetIds) {
-    }
-
-    @Override
-    public void onDisabled (Context context) {
-    }
-
-    @Override
-    public void onEnabled (Context context) {
-    }
-
-    @Override
-    public void onRestored (Context context,
-                            int[] oldWidgetIds,
-                            int[] newWidgetIds) {
-    }
-
-    @Override
-    public void onAppWidgetOptionsChanged (Context context,
-                                           AppWidgetManager appWidgetManager,
-                                           int appWidgetId,
-                                           Bundle newOptions) {
-    }
-*/
-    static void updateWidgets(Context context/*, boolean refresh*/) {
-        /*String applicationWidgetOneRowIconLightness;
-        String applicationWidgetOneRowIconColor;
-        boolean applicationWidgetOneRowCustomIconLightness;
-        boolean applicationWidgetOneRowPrefIndicator;
-        synchronized (PPApplication.applicationPreferencesMutex) {
-            applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
-            applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
-            applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
-            applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator;
-        }
-
-        int monochromeValue = 0xFF;
-        switch (applicationWidgetOneRowIconLightness) {
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
-                monochromeValue = 0x00;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
-                monochromeValue = 0x20;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
-                monochromeValue = 0x40;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
-                monochromeValue = 0x60;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
-                monochromeValue = 0x80;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
-                monochromeValue = 0xA0;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
-                monochromeValue = 0xC0;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
-                monochromeValue = 0xE0;
-                break;
-            case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
-                monochromeValue = 0xFF;
-                break;
-        }
-
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
-                applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
-                applicationWidgetOneRowCustomIconLightness);
-        Profile profile = dataWrapper.getActivatedProfile(true, applicationWidgetOneRowPrefIndicator);
-        */
-
-        /*DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-        Profile profile = dataWrapper.getActivatedProfile(false, false);
-
-        String pName;
-
-        if (profile != null)
-            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
-        else
-            pName = context.getString(R.string.profiles_header_profile_name_no_activated);
-
-        if (!refresh) {
-            String pNameWidget = PPApplication.prefWidgetProfileName2;
-
-            if (!pNameWidget.isEmpty()) {
-                if (pName.equals(pNameWidget)) {
-                    return;
+            if (action.equalsIgnoreCase(ACTION_LEFT_ARROW_CLICK)) {
+                if (displayedPage > 0) {
+                    --displayedPage;
+                    updateWidgets(appContext);
                 }
             }
         }
+    }
 
-        PPApplication.setWidgetProfileName(context, 2, pName);*/
+    static void updateWidgets(Context context/*, boolean refresh*/) {
 
 //        PPApplication.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
-
-        //Intent intent3 = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        //context.sendBroadcast(intent3);
-
-        //Intent intent = new Intent(context, OneRowWidgetProvider.class);
-        //intent.setAction(ACTION_REFRESH_ONEROWWIDGET);
-        //context.sendBroadcast(intent);
-
-        /*AppWidgetManager manager = AppWidgetManager.getInstance(context.getApplicationContext());
-        if (manager != null) {
-            int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
-            if ((ids != null) && (ids.length > 0))
-                _onUpdate(context.getApplicationContext(), manager, profile, dataWrapper, ids);
-        }*/
     }
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {
@@ -817,7 +735,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     }*/
 
-    private static void setProfileIcon(Profile profile, int imageViewId, int markViewId, int rootId,
+    private static void setProfileIcon(Profile profile,
+                                int imageViewId, int markViewId, int rootId,
                                 String applicationWidgetOneRowProfileListIconColor,
                                 int monochromeValue,
                                 boolean applicationWidgetOneRowProfileListCustomIconLightness,
@@ -889,10 +808,23 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         Intent clickIntent = new Intent(context, BackgroundActivateProfileActivity.class);
-        clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        if (Event.getGlobalEventsRunning() && (profile._id == Profile.RESTART_EVENTS_PROFILE_ID))
+            clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
+        else
+            clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
         PendingIntent clickPI=PendingIntent.getActivity(context, PROFILE_ID_ACTIVATE_PROFILE_ID + (int) profile._id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(rootId, clickPI);
+    }
+
+    private static class ProfileComparator implements Comparator<Profile> {
+
+        public int compare(Profile lhs, Profile rhs) {
+            int res = 0;
+            if ((lhs != null) && (rhs != null))
+                res = lhs._porder - rhs._porder;
+            return res;
+        }
     }
 
 }
