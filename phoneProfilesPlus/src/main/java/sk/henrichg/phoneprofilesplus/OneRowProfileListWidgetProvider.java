@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -43,9 +44,21 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             R.id.widget_one_row_profile_list_profile_mark_15
     };
 
+    private static final int[] profileRootId = {
+            R.id.widget_one_row_profile_list_profile_icon_1_root, R.id.widget_one_row_profile_list_profile_icon_2_root,
+            R.id.widget_one_row_profile_list_profile_icon_3_root, R.id.widget_one_row_profile_list_profile_icon_4_root,
+            R.id.widget_one_row_profile_list_profile_icon_5_root, R.id.widget_one_row_profile_list_profile_icon_6_root,
+            R.id.widget_one_row_profile_list_profile_icon_7_root, R.id.widget_one_row_profile_list_profile_icon_8_root,
+            R.id.widget_one_row_profile_list_profile_icon_9_root, R.id.widget_one_row_profile_list_profile_icon_10_root,
+            R.id.widget_one_row_profile_list_profile_icon_11_root, R.id.widget_one_row_profile_list_profile_icon_12_root,
+            R.id.widget_one_row_profile_list_profile_icon_13_root, R.id.widget_one_row_profile_list_profile_icon_14_root,
+            R.id.widget_one_row_profile_list_profile_icon_15_root
+    };
+
     static final String ACTION_REFRESH_ONEROWPROFILELISTWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWPROFILELISTWIDGET";
     private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_LEFT_ARROW_CLICK";
     private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_RIGHT_ARROW_CLICK";
+    private static final int PROFILE_ID_ACTIVATE_PROFILE_ID = 1000;
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
@@ -541,7 +554,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 for (Profile profile : dataWrapper.profileList) {
                     // checked profile must be displayed event when is not displayed in Activator
                     if (profile._showInActivator || profile._checked) {
-                        setProfileIcon(profile, profileIconId[profileIdx], profileMarkId[profileIdx],
+                        setProfileIcon(profile, profileIconId[profileIdx], profileMarkId[profileIdx], profileRootId[profileIdx],
                                             applicationWidgetOneRowProfileListIconColor,
                                             monochromeValue,
                                             applicationWidgetOneRowProfileListCustomIconLightness,
@@ -561,7 +574,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 for (int i = profileIdx; i < 15; i++) {
                     remoteViews.setViewVisibility(profileIconId[i], View.INVISIBLE);
                     remoteViews.setViewVisibility(profileMarkId[i], View.INVISIBLE);
-                    remoteViews.setOnClickPendingIntent(profileMarkId[i], null);
+                    remoteViews.setOnClickPendingIntent(profileRootId[i], null);
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
@@ -804,7 +817,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     }*/
 
-    private static void setProfileIcon(Profile profile, int imageViewId, int markViewId,
+    private static void setProfileIcon(Profile profile, int imageViewId, int markViewId, int rootId,
                                 String applicationWidgetOneRowProfileListIconColor,
                                 int monochromeValue,
                                 boolean applicationWidgetOneRowProfileListCustomIconLightness,
@@ -875,11 +888,11 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             remoteViews.setViewVisibility(markViewId, View.INVISIBLE);
         }
 
-        Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
+        Intent clickIntent = new Intent(context, BackgroundActivateProfileActivity.class);
         clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-        PendingIntent clickPI=PendingIntent.getActivity(context, 300, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(imageViewId, clickPI);
+        PendingIntent clickPI=PendingIntent.getActivity(context, PROFILE_ID_ACTIVATE_PROFILE_ID + (int) profile._id, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(rootId, clickPI);
     }
 
 }

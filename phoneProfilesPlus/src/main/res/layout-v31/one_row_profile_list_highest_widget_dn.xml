@@ -13,8 +13,6 @@
         android:id="@+id/widget_one_row_profile_list_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="10dp"
-        android:paddingEnd="0dp"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
         android:tint="?android:attr/colorBackground"
@@ -31,15 +29,19 @@
 
         <ImageView
             android:id="@+id/widget_one_row_profile_list_scroll_right_arrow"
-            android:layout_width="20dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="45dp"
             android:layout_marginStart="5dp"
+            android:padding="5dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_widget_profile_list_scroll_right" />
+            android:src="@drawable/ic_widget_profile_list_scroll_right"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/widget_ripple_list_item" />
 
         <LinearLayout
             android:id="@+id/widget_one_row_profile_list_profiles"
@@ -52,25 +54,29 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_profile_list_scroll_left_arrow"
-                android:layout_width="20dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="5dp"
+                android:layout_width="30dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="-5dp"
+                android:padding="5dp"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/profile_preferences_profileIcon"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_widget_profile_list_scroll_left" />
-
+                android:src="@drawable/ic_widget_profile_list_scroll_left"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/widget_ripple_list_item" />
 
             <LinearLayout
                 android:id="@+id/widget_one_row_profile_list_profile_icon_1_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -103,11 +109,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_2_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -141,11 +148,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_3_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -179,11 +187,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_4_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -218,11 +227,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_5_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -256,11 +266,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_6_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -294,11 +305,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_7_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -332,11 +344,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_8_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -370,11 +383,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_9_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -408,11 +422,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_10_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -446,11 +461,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_11_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -484,11 +500,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_12_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -522,11 +539,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_13_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -560,11 +578,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_14_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
@@ -598,11 +617,12 @@
                 android:id="@+id/widget_one_row_profile_list_profile_icon_15_root"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="3dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true"
                 android:background="@drawable/widget_ripple_list_item">
 
                 <ImageView
