@@ -22,6 +22,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ONEROWPROFILELISTWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWPROFILELISTWIDGET";
+    private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_LEFT_ARROW_CLICK";
+    private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_RIGHT_ARROW_CLICK";
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
@@ -379,7 +381,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             int blueText = redText;
 
             // todo use this for arrows
-            int restartEventsLightness = redText;
+            int arrowsLightness = redText;
 
             boolean isIconResourceID;
             String iconIdentifier;
@@ -598,39 +600,47 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                         applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                     //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
-                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
-                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
-                    remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                    // left arrow
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
+                    remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
+                    // right arrow
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                    bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
+                    remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_right_arrow, bitmap);
                     //}
                 } else {
                     // good, color of this is as in notification ;-)
                     // but must be removed android:tint in layout
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
                     if (color != 0) {
-                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
+                        // left arrow
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
-                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
+                        // right arrow
+                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_right, true, context);
+                        bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
+                        remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_right_arrow, bitmap);
                     }
                 }
-
                 //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
-                //remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
-                Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
-                PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-                remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events_click, pIntentRE);
+                // left arrow
+                //remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, VISIBLE);
+                Intent intentLeftArrow = new Intent(context, OneRowProfileListWidgetProvider.class);
+                intentLeftArrow.setAction(ACTION_LEFT_ARROW_CLICK);
+                PendingIntent pIntentLeftArrow = PendingIntent.getBroadcast(context, 2, intentLeftArrow, PendingIntent.FLAG_UPDATE_CURRENT);
+                remoteViews.setOnClickPendingIntent(R.id.widget_one_row_profile_list_scroll_left_arrow, pIntentLeftArrow);
+                // right arrow
+                //remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, VISIBLE);
+                Intent intentRightArrow = new Intent(context, OneRowProfileListWidgetProvider.class);
+                intentRightArrow.setAction(ACTION_RIGHT_ARROW_CLICK);
+                PendingIntent pIntentRightArrow = PendingIntent.getBroadcast(context, 3, intentRightArrow, PendingIntent.FLAG_UPDATE_CURRENT);
+                remoteViews.setOnClickPendingIntent(R.id.widget_one_row_profile_list_scroll_right_arrow, pIntentRightArrow);
                 //} else
-                //    remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events_click, View.GONE);
+                //    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, View.GONE);
+                //    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, View.GONE);
                 //todo ----
-
-                /*
-                // intent for start LauncherActivity on widget click
-                Intent intent = new Intent(context, LauncherActivity.class);
-                // clear all opened activities
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-                PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
-                */
 
                 // widget update
                 try {
@@ -663,30 +673,39 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         String action = intent.getAction();
 //        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
 
-        if ((action != null) &&
-                (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWPROFILELISTWIDGET))) {
-            AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
-            if (manager != null) {
-                final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
-                if ((ids != null) && (ids.length > 0)) {
-                    final AppWidgetManager appWidgetManager = manager;
-                    //PPApplication.startHandlerThreadWidget();
-                    //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    //__handler.post(new PPHandlerThreadRunnable(context, manager) {
-                    //__handler.post(() -> {
-                    Runnable runnable = () -> {
+        if (action != null) {
+            if (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWPROFILELISTWIDGET)) {
+                AppWidgetManager manager = AppWidgetManager.getInstance(appContext);
+                if (manager != null) {
+                    final int[] ids = manager.getAppWidgetIds(new ComponentName(appContext, OneRowProfileListWidgetProvider.class));
+                    if ((ids != null) && (ids.length > 0)) {
+                        final AppWidgetManager appWidgetManager = manager;
+                        //PPApplication.startHandlerThreadWidget();
+                        //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                        //__handler.post(new PPHandlerThreadRunnable(context, manager) {
+                        //__handler.post(() -> {
+                        Runnable runnable = () -> {
 //                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                            //Context appContext= appContextWeakRef.get();
+                            //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                        //if ((appContext != null) && (appWidgetManager != null)) {
+                            //if ((appContext != null) && (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
-                        //}
-                    }; //);
-                    PPApplication.createDelayedGuiExecutor();
-                    PPApplication.delayedGuiExecutor.submit(runnable);
+                            //}
+                        }; //);
+                        PPApplication.createDelayedGuiExecutor();
+                        PPApplication.delayedGuiExecutor.submit(runnable);
+                    }
                 }
+            }
+            else
+            if (action.equalsIgnoreCase(ACTION_LEFT_ARROW_CLICK)) {
+
+            }
+            else
+            if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
+
             }
         }
     }
