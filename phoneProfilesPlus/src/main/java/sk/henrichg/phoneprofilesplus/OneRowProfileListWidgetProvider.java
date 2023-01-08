@@ -21,6 +21,28 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
+    private static final int[] profileIconId = {
+            R.id.widget_one_row_profile_list_profile_icon_1, R.id.widget_one_row_profile_list_profile_icon_2,
+            R.id.widget_one_row_profile_list_profile_icon_3, R.id.widget_one_row_profile_list_profile_icon_4,
+            R.id.widget_one_row_profile_list_profile_icon_5, R.id.widget_one_row_profile_list_profile_icon_6,
+            R.id.widget_one_row_profile_list_profile_icon_7, R.id.widget_one_row_profile_list_profile_icon_8,
+            R.id.widget_one_row_profile_list_profile_icon_9, R.id.widget_one_row_profile_list_profile_icon_10,
+            R.id.widget_one_row_profile_list_profile_icon_11, R.id.widget_one_row_profile_list_profile_icon_12,
+            R.id.widget_one_row_profile_list_profile_icon_13, R.id.widget_one_row_profile_list_profile_icon_14,
+            R.id.widget_one_row_profile_list_profile_icon_15
+    };
+
+    private static final int[] profileMarkId = {
+            R.id.widget_one_row_profile_list_profile_mark_1, R.id.widget_one_row_profile_list_profile_mark_2,
+            R.id.widget_one_row_profile_list_profile_mark_3, R.id.widget_one_row_profile_list_profile_mark_4,
+            R.id.widget_one_row_profile_list_profile_mark_5, R.id.widget_one_row_profile_list_profile_mark_6,
+            R.id.widget_one_row_profile_list_profile_mark_7, R.id.widget_one_row_profile_list_profile_mark_8,
+            R.id.widget_one_row_profile_list_profile_mark_9, R.id.widget_one_row_profile_list_profile_mark_10,
+            R.id.widget_one_row_profile_list_profile_mark_11, R.id.widget_one_row_profile_list_profile_mark_12,
+            R.id.widget_one_row_profile_list_profile_mark_13, R.id.widget_one_row_profile_list_profile_mark_14,
+            R.id.widget_one_row_profile_list_profile_mark_15
+    };
+
     static final String ACTION_REFRESH_ONEROWPROFILELISTWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWPROFILELISTWIDGET";
     private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_LEFT_ARROW_CLICK";
     private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_RIGHT_ARROW_CLICK";
@@ -223,13 +245,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     applicationWidgetOneRowProfileListIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowProfileListCustomIconLightness,
                     DataWrapper.IT_FOR_EDITOR, 0, 0);
-
-        Profile profile;
-        //boolean fullyStarted = PPApplication.applicationFullyStarted;
-        //if ((!fullyStarted) /*|| applicationPackageReplaced*/)
-        //    profile = null;
-        //else
-            profile = dataWrapper.getActivatedProfile(true, false);
+        dataWrapper.fillProfileList(true, false);
 
         //try {
             // set background
@@ -346,62 +362,42 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             greenBorder = redBorder;
             blueBorder = redBorder;
 
-            int redText = 0xFF;
+            int markRedColor = 0xFF;
             switch (applicationWidgetOneRowProfileListArrowsMarkLightness) {
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0:
-                    redText = 0x00;
+                    markRedColor = 0x00;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_12:
-                    redText = 0x20;
+                    markRedColor = 0x20;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25:
-                    redText = 0x40;
+                    markRedColor = 0x40;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_37:
-                    redText = 0x60;
+                    markRedColor = 0x60;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50:
-                    redText = 0x80;
+                    markRedColor = 0x80;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_62:
-                    redText = 0xA0;
+                    markRedColor = 0xA0;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_75:
-                    redText = 0xC0;
+                    markRedColor = 0xC0;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_87:
-                    redText = 0xE0;
+                    markRedColor = 0xE0;
                     break;
                 case GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100:
                     //noinspection ConstantConditions
-                    redText = 0xFF;
+                    markRedColor = 0xFF;
                     break;
             }
-            int greenText = redText;
-            int blueText = redText;
+            int markGreenColor = markRedColor;
+            int markBlueColor = markRedColor;
 
-            // todo use this for arrows
-            int arrowsLightness = redText;
+            int arrowsLightness = markRedColor;
 
-            boolean isIconResourceID;
-            String iconIdentifier;
-            //noinspection IfStatementWithIdenticalBranches
-            if (profile != null) {
-                isIconResourceID = profile.getIsIconResourceID();
-                iconIdentifier = profile.getIconIdentifier();
-            } else {
-                // create empty profile and set icon resource
-                profile = new Profile();
-                profile._name = context.getString(R.string.profiles_header_profile_name_no_activated);
-                profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
-
-                profile.generateIconBitmap(context.getApplicationContext(),
-                        applicationWidgetOneRowProfileListIconColor.equals("1"),
-                        monochromeValue,
-                        applicationWidgetOneRowProfileListCustomIconLightness);
-                isIconResourceID = profile.getIsIconResourceID();
-                iconIdentifier = profile.getIconIdentifier();
-            }
 
             // get all OneRowWidgetProvider widgets in launcher
             //ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
@@ -541,67 +537,38 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         remoteViews.setInt(R.id.widget_one_row_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                 }
 
-                Bitmap bitmap = null;
-                if (applicationWidgetOneRowProfileListIconColor.equals("0")) {
-                    if (applicationWidgetOneRowProfileListChangeColorsByNightMode ||
-                       ((!applicationWidgetOneRowProfileListBackgroundType) &&
-                           (Integer.parseInt(applicationWidgetOneRowProfileListLightnessB) <= 25)) ||
-                       (applicationWidgetOneRowProfileListBackgroundType &&
-                           (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)))
-                        bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
-                }
-                /*
-                if (isIconResourceID) {
-                    if (bitmap != null)
-                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
-                    else {
-                        if (profile._iconBitmap != null)
-                            remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
-                        else {
-                            //remoteViews.setImageViewResource(R.id.activate_profile_widget_icon, 0);
-                            //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
-                            int iconResource = ProfileStatic.getIconResource(iconIdentifier);
-                            remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_icon, iconResource);
-                        }
-                    }
-                } else {
-                    if (bitmap != null)
-                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, bitmap);
-                    else {
-                        remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_icon, profile._iconBitmap);
-                    }
-                }
-                */
+                int profileIdx = 0;
+                for (Profile profile : dataWrapper.profileList) {
+                    // checked profile must be displayed event when is not displayed in Activator
+                    // TODO - add click intent for profile activation
+                    if (profile._showInActivator || profile._checked) {
+                        setProfileIcon(profile, profileIconId[profileIdx], profileMarkId[profileIdx],
+                                            applicationWidgetOneRowProfileListIconColor,
+                                            monochromeValue,
+                                            applicationWidgetOneRowProfileListCustomIconLightness,
+                                            applicationWidgetOneRowProfileListChangeColorsByNightMode,
+                                            applicationWidgetOneRowProfileListBackgroundType,
+                                            applicationWidgetOneRowProfileListLightnessB,
+                                            applicationWidgetOneRowProfileListBackgroundColor,
+                                            applicationWidgetOneRowProfileListUseDynamicColors,
+                                            markRedColor,  markGreenColor, markBlueColor,
+                                            remoteViews, context);
+                        remoteViews.setViewVisibility(profileIconId[profileIdx], View.VISIBLE);
 
-                //todo mark for activated profile
-                if (profile._checked) {
-                    if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
-                            applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
-                        remoteViews.setInt(R.id.widget_profile_list_item_activated_profile_mark, "setBackgroundColor", Color.argb(0xFF, redText, greenText, blueText));
-                    remoteViews.setViewVisibility(R.id.widget_profile_list_item_activated_profile_mark, View.VISIBLE);
-                } else {
-                    remoteViews.setViewVisibility(R.id.widget_profile_list_item_activated_profile_mark, View.INVISIBLE);
-                }
-                /*
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
-                        applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
-                    remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, redText, greenText, blueText));
-                }
-                else {
-                    // must be removed android:textColor in layout
-                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, context);
-                    if (color != 0) {
-                        remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, color);
+                        profileIdx++;
                     }
                 }
-                */
+                // invisible all not used profile icons
+                for (int i = profileIdx; i < 15; i++) {
+                    remoteViews.setViewVisibility(profileIconId[profileIdx], View.INVISIBLE);
+                    remoteViews.setViewVisibility(profileMarkId[profileIdx], View.INVISIBLE);
+                }
 
-                //todo arrows
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                         applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                     //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                     // left arrow
-                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                    Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
                     // right arrow
@@ -615,7 +582,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
                     if (color != 0) {
                         // left arrow
-                        bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
+                        Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
                         bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_left_arrow, bitmap);
                         // right arrow
@@ -640,7 +607,6 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 //} else
                 //    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, View.GONE);
                 //    remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, View.GONE);
-                //todo ----
 
                 // widget update
                 try {
@@ -837,5 +803,77 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         }
 
     }*/
+
+    private static void setProfileIcon(Profile profile, int imageViewId, int markViewId,
+                                String applicationWidgetOneRowProfileListIconColor,
+                                int monochromeValue,
+                                boolean applicationWidgetOneRowProfileListCustomIconLightness,
+                                boolean applicationWidgetOneRowProfileListChangeColorsByNightMode,
+                                boolean applicationWidgetOneRowProfileListBackgroundType,
+                                String applicationWidgetOneRowProfileListLightnessB,
+                                String applicationWidgetOneRowProfileListBackgroundColor,
+                                boolean applicationWidgetOneRowProfileListUseDynamicColors,
+                                int markRedColor, int markGreenColor, int markBlueColor,
+                                RemoteViews remoteViews, Context context) {
+
+        boolean isIconResourceID;
+        String iconIdentifier;
+        //noinspection IfStatementWithIdenticalBranches
+        if (profile != null) {
+            isIconResourceID = profile.getIsIconResourceID();
+            iconIdentifier = profile.getIconIdentifier();
+        } else {
+            // create empty profile and set icon resource
+            profile = new Profile();
+            profile._name = context.getString(R.string.profiles_header_profile_name_no_activated);
+            profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
+
+            profile.generateIconBitmap(context.getApplicationContext(),
+                    applicationWidgetOneRowProfileListIconColor.equals("1"),
+                    monochromeValue,
+                    applicationWidgetOneRowProfileListCustomIconLightness);
+            isIconResourceID = profile.getIsIconResourceID();
+            iconIdentifier = profile.getIconIdentifier();
+        }
+
+        Bitmap bitmap = null;
+        if (applicationWidgetOneRowProfileListIconColor.equals("0")) {
+            if (applicationWidgetOneRowProfileListChangeColorsByNightMode ||
+                    ((!applicationWidgetOneRowProfileListBackgroundType) &&
+                            (Integer.parseInt(applicationWidgetOneRowProfileListLightnessB) <= 25)) ||
+                    (applicationWidgetOneRowProfileListBackgroundType &&
+                            (ColorUtils.calculateLuminance(Integer.parseInt(applicationWidgetOneRowProfileListBackgroundColor)) < 0.23)))
+                bitmap = profile.increaseProfileIconBrightnessForContext(context, profile._iconBitmap);
+        }
+        if (isIconResourceID) {
+            if (bitmap != null)
+                remoteViews.setImageViewBitmap(imageViewId, bitmap);
+            else {
+                if (profile._iconBitmap != null)
+                    remoteViews.setImageViewBitmap(imageViewId, profile._iconBitmap);
+                else {
+                    //remoteViews.setImageViewResource(imageViewId, 0);
+                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.PPApplication.PACKAGE_NAME);
+                    int iconResource = ProfileStatic.getIconResource(iconIdentifier);
+                    remoteViews.setImageViewResource(imageViewId, iconResource);
+                }
+            }
+        } else {
+            if (bitmap != null)
+                remoteViews.setImageViewBitmap(imageViewId, bitmap);
+            else {
+                remoteViews.setImageViewBitmap(imageViewId, profile._iconBitmap);
+            }
+        }
+
+        if (profile._checked) {
+            if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
+                    applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
+                remoteViews.setInt(markViewId, "setBackgroundColor", Color.argb(0xFF, markRedColor, markGreenColor, markBlueColor));
+            remoteViews.setViewVisibility(markViewId, View.VISIBLE);
+        } else {
+            remoteViews.setViewVisibility(markViewId, View.INVISIBLE);
+        }
+    }
 
 }
