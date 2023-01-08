@@ -540,7 +540,6 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 int profileIdx = 0;
                 for (Profile profile : dataWrapper.profileList) {
                     // checked profile must be displayed event when is not displayed in Activator
-                    // TODO - add click intent for profile activation
                     if (profile._showInActivator || profile._checked) {
                         setProfileIcon(profile, profileIconId[profileIdx], profileMarkId[profileIdx],
                                             applicationWidgetOneRowProfileListIconColor,
@@ -560,8 +559,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
                 // invisible all not used profile icons
                 for (int i = profileIdx; i < 15; i++) {
-                    remoteViews.setViewVisibility(profileIconId[profileIdx], View.INVISIBLE);
-                    remoteViews.setViewVisibility(profileMarkId[profileIdx], View.INVISIBLE);
+                    remoteViews.setViewVisibility(profileIconId[i], View.INVISIBLE);
+                    remoteViews.setViewVisibility(profileMarkId[i], View.INVISIBLE);
+                    remoteViews.setOnClickPendingIntent(profileMarkId[i], null);
                 }
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
@@ -874,6 +874,12 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         } else {
             remoteViews.setViewVisibility(markViewId, View.INVISIBLE);
         }
+
+        Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
+        clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+        clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+        PendingIntent clickPI=PendingIntent.getActivity(context, 300, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(imageViewId, clickPI);
     }
 
 }
