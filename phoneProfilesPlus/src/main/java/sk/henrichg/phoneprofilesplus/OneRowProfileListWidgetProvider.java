@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -59,6 +58,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     private static int displayedPage = 0;
     private static int profileCount = 0;
+
+    private static final int MAX_PROFILE_COUNT = 15;
 
     static final String ACTION_REFRESH_ONEROWPROFILELISTWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ONEROWPROFILELISTWIDGET";
     private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_LEFT_ARROW_CLICK";
@@ -270,6 +271,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             if (profile._showInActivator)
                 profileCount++;
         }
+        if (profileCount > MAX_PROFILE_COUNT)
+            profileCount = MAX_PROFILE_COUNT;
 
         //try {
             // set background
@@ -585,10 +588,12 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             ++displayedProfileIdx;
                         }
                         profileIdx++;
+                        if (displayedProfileIdx == MAX_PROFILE_COUNT)
+                            break;
                     }
                 }
                 // invisible all not used profile icons
-                for (int i = displayedProfileIdx; i < 15; i++) {
+                for (int i = displayedProfileIdx; i < MAX_PROFILE_COUNT; i++) {
                     remoteViews.setViewVisibility(profileIconId[i], View.INVISIBLE);
                     remoteViews.setViewVisibility(profileMarkId[i], View.INVISIBLE);
                     remoteViews.setOnClickPendingIntent(profileRootId[i], null);
@@ -632,7 +637,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 PendingIntent pIntentLeftArrow = PendingIntent.getBroadcast(context, 2, intentLeftArrow, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_profile_list_scroll_left_arrow, pIntentLeftArrow);
                 // right arrow
-                if (displayedPage < profileCount / applicationWidgetOneRowProfileListNumberOfProfilesPerPage)
+                if ((displayedPage < profileCount / applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
+                        (profileCount > applicationWidgetOneRowProfileListNumberOfProfilesPerPage))
                     remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, VISIBLE);
                 else
                     remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_right_arrow, View.GONE);
@@ -700,7 +706,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             }
             else
             if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
-                if (displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) {
+                if ((displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
+                        (profileCount > ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage)) {
                     ++displayedPage;
                     updateWidgets(appContext);
                 }
