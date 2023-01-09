@@ -584,7 +584,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                     applicationWidgetOneRowProfileListUseDynamicColors,
                                     markRedColor, markGreenColor, markBlueColor,
                                     remoteViews, context);
-                            remoteViews.setViewVisibility(profileIconId[displayedProfileIdx], View.VISIBLE);
+                            //remoteViews.setViewVisibility(profileIconId[displayedProfileIdx], View.VISIBLE);
                             ++displayedProfileIdx;
                         }
                         profileIdx++;
@@ -594,8 +594,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
                 // invisible all not used profile icons
                 for (int i = displayedProfileIdx; i < MAX_PROFILE_COUNT; i++) {
-                    remoteViews.setViewVisibility(profileIconId[i], View.INVISIBLE);
-                    remoteViews.setViewVisibility(profileMarkId[i], View.INVISIBLE);
+                    remoteViews.setViewVisibility(profileRootId[i], View.GONE);
+                    //remoteViews.setViewVisibility(profileIconId[i], View.INVISIBLE);
+                    //remoteViews.setViewVisibility(profileMarkId[i], View.INVISIBLE);
                     remoteViews.setOnClickPendingIntent(profileRootId[i], null);
                 }
 
@@ -754,6 +755,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                                 boolean applicationWidgetOneRowProfileListUseDynamicColors,
                                 int markRedColor, int markGreenColor, int markBlueColor,
                                 RemoteViews remoteViews, Context context) {
+
+        remoteViews.setViewVisibility(rootId, VISIBLE);
 
         boolean isIconResourceID;
         String iconIdentifier;
