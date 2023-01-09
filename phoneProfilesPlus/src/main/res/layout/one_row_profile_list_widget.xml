@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/widget_one_row_profile_list_scroll_right_arrow"
-            android:layout_width="30dp"
+            android:layout_width="28dp"
             android:layout_height="45dp"
             android:layout_marginStart="5dp"
             android:padding="5dp"
@@ -52,9 +52,9 @@
 
             <ImageView
                 android:id="@+id/widget_one_row_profile_list_scroll_left_arrow"
-                android:layout_width="30dp"
+                android:layout_width="28dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="-5dp"
+                android:layout_marginStart="0dp"
                 android:padding="5dp"
                 android:layout_gravity="center_vertical"
                 android:adjustViewBounds="true"
