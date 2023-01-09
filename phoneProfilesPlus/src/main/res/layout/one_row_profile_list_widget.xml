@@ -21,8 +21,8 @@
         android:id="@+id/widget_one_row_profile_list_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:layout_gravity="center" >
 
         <ImageView
