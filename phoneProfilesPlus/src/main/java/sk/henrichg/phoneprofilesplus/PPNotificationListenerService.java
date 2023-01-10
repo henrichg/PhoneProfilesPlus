@@ -67,7 +67,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn,
                                      NotificationListenerService.RankingMap rankingMap) {
         super.onNotificationPosted(sbn, rankingMap);
-        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
+//        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         if (!PPApplication.notificationScannerRunning)
             return;
@@ -90,20 +90,20 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
 
         if (sbn == null) {
-            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn=null");
+//            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn=null");
             return;
         }
 
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME)) {
-            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn= for PPP");
+//            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn= for PPP");
             return;
         }
         // check also systemui notificatyion, may be required for notification sensor
         //if (packageName.equals("com.android.systemui"))
         //    return;
 
-        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
+//        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "sbn="+sbn);
 
         final Context appContext = getApplicationContext();
 
@@ -188,7 +188,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             */
         }
 
-        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "END");
+//        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "END");
 
     }
 
@@ -197,7 +197,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                                       NotificationListenerService.RankingMap rankingMap,
                                       int reason) {
         super.onNotificationRemoved(sbn, rankingMap, reason);
-        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
+//        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "PPApplication.notificationScannerRunning="+PPApplication.notificationScannerRunning);
 
         if (!PPApplication.notificationScannerRunning)
             return;
@@ -220,20 +220,20 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
 
         if (sbn == null) {
-            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn=null");
+//            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn=null");
             return;
         }
 
         String packageName = sbn.getPackageName();
         if (packageName.equals(PPApplication.PACKAGE_NAME)) {
-            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn=for PPP");
+//            PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn=for PPP");
             return;
         }
         // check also systemui notificatyion, may be required for notification sensor
         //if (packageName.equals("com.android.systemui"))
         //    return;
 
-        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
+//        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "sbn="+sbn);
 
         final Context appContext = getApplicationContext();
 
@@ -316,7 +316,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
         }
         */
 
-        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "END");
+//        PPApplication.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "END");
     }
 
     @Override
