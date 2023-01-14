@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Klik hier om PhoneProfilesPlusExtender te installeren. Een actieve service is nodig voor het ontvangen van SMS en MMS.</string>
     <string name="permission_not_granted">Niet verleend</string>
     <string name="permission_granted">Verleend</string>
-    <string name="menu_dark_theme_on">Schakel donker thema in</string>
-    <string name="menu_dark_theme_off">Schakel donker thema uit</string>
     <string name="important_info_email_body_device">Apparaat:</string>
     <string name="important_info_email_body_android_version">Android versie:</string>
     <string name="important_info_email_body_problems">Problemen:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Met dit type raster worden profielnamen niet weergegeven, maar meer profielen passen in één rij.</string>
     <string name="check_releases_go_to_galaxy_store">Ga naar Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Sorry, het is niet mogelijk om PhoneProfilesPlus te installeren vanaf deze website. De Galaxy Store ondersteunt Galaxy apparaten.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Schakel locatie (Uit &lt;-&gt; Hoge nauwkeurigheid)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Schakel locatie (Spaarstand batterij &lt;-&gt; Hoge nauwkeurigheid)</string>
+    <string name="widget_label_one_row_profile_list">Één rij profiellijst</string>
+    <string name="one_row_profile_list_widget_description">Toont een lijst van profielen zonder de namen in één regel.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Één rij profiellijst</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Aantal profielen per pagina</string>
 </resources>

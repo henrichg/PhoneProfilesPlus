@@ -405,6 +405,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             mNotificationManager.notify(
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_TAG,
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

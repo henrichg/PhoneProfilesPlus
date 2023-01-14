@@ -35,6 +35,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 
         this.context = context;
 
+        //noinspection resource
         final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];
         for (int i = 0; i < ta.length(); i++) {

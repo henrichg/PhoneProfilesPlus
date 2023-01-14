@@ -54,6 +54,7 @@ public class RingtonePreference extends DialogPreference {
     {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PPRingtonePreference);
 
         ringtoneType = typedArray.getString(R.styleable.PPRingtonePreference_ringtoneType);

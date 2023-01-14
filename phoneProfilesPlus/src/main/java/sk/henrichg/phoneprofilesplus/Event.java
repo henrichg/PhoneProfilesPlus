@@ -3278,6 +3278,8 @@ class Event {
                     String notificationTag = PPApplication.NOTIFY_EVENT_START_NOTIFICATION_TAG+"_"+_id;
                     //mNotificationManager.cancel(notificationTag, notificationID);
                     mNotificationManager.notify(notificationTag, notificationID, notification);
+                } catch (SecurityException en) {
+                    // todo show dialog about grant notificication permission
                 } catch (Exception e) {
                     //Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
                     PPApplication.recordException(e);

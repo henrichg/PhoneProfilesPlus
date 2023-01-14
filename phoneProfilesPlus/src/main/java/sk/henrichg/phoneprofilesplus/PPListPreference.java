@@ -25,6 +25,7 @@ public class PPListPreference extends DialogPreference {
     public PPListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPListDialogPreference);
 

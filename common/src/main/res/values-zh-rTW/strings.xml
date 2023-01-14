@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">不支援的安全鎖定</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">無法變更</string>
     <string name="event_preferences_sensorsInfo_title">感測器功能</string>
-    <string name="event_preferences_sensorsInfo_summary">事件只有在所有勾選了 \"啟用測應器\" 的感應器的參數條件被滿足才會開始. 執行中的事件會在任一感測器的參數條件不再被滿足時結束. 所以請只勾選您在該事件所需要的感測器. 已勾選的感測器名稱會以粗體文字表示.</string>
-    <string name="event_preferences_sensorsInfo_summary_2">某些感測器的參數是必要的. 這些參數名稱會加上底線顯示. 若有些必要參數沒有被設置, 事件不會開始, 而且 \"啟用感測器\" 選項會自動反勾選.</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Some sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">彩色圖示</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">部分裝置不支援狀態列中的彩色圖示。</string>
     <string name="pref_dlg_change_selection_title">變更選擇</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">按此處安裝 PhoneProfilesPlusExtender。需執行服務才能接收簡訊與多媒體簡訊。</string>
     <string name="permission_not_granted">未授權</string>
     <string name="permission_granted">已授權</string>
-    <string name="menu_dark_theme_on">開啟深色主題</string>
-    <string name="menu_dark_theme_off">關閉深色主題</string>
     <string name="important_info_email_body_device">裝置:</string>
     <string name="important_info_email_body_android_version">Android 版本:</string>
     <string name="important_info_email_body_problems">問題:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
     <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
+    <string name="widget_label_one_row_profile_list">Single row profile list</string>
+    <string name="one_row_profile_list_widget_description">Displays a list of profiles without their names in one line.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
 </resources>

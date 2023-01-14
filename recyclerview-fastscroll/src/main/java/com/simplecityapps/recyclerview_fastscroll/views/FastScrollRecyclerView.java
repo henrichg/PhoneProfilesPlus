@@ -83,6 +83,7 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     public FastScrollRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        //noinspection resource
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.FastScrollRecyclerView, 0, 0);
         try {

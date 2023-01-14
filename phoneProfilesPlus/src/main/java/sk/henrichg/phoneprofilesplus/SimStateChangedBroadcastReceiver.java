@@ -25,7 +25,7 @@ import android.os.PowerManager;
  * LOADED (all ICC records, including IMSI, are loaded)
  * <p>
  * Note: some of these are not documented in
- * https://developer.android.com/reference/android/telephony/TelephonyManager.html
+ * <a href="https://developer.android.com/reference/android/telephony/TelephonyManager.html">...</a>
  * but they can be found deeper in the source code, namely in com.android.internal.telephony.IccCardConstants.
  */
 public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {

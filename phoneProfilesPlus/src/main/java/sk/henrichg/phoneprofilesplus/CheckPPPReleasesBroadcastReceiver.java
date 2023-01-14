@@ -125,6 +125,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doWork(/*boolean useHandler,*/ Context context) {
         if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
@@ -267,6 +268,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             mNotificationManager.notify(
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
             PPApplication.recordException(e);

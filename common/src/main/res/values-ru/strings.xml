@@ -357,7 +357,7 @@
     <string name="array_pref_zenModeArray_alarms">Только уведомления</string>
     <string name="profile_preferences_zenMode_alarms_summary">Только оповещения</string>
     <string name="phone_profiles_pref_applicationShortcutEmblem">Добавить иконку на ярлык</string>
-    <string name="permission_group_name_write_settings">Изменение настроек системы</string>
+    <string name="permission_group_name_write_settings">Изменение системных настроек</string>
     <string name="permission_group_name_storage">Хранилище</string>
     <string name="permission_group_name_phone">Телефон</string>
     <string name="permissions_alert_title">Запрос разрешений</string>
@@ -378,9 +378,9 @@
     <string name="permissions_for_export_app_data_text2">Пожалуйста, предоставьте их в следующем диалоговом окне. Затем настройки будут сохранены.</string>
     <string name="permissions_for_import_app_data_text1">Восстановление параметров приложения требует некоторых разрешений.</string>
     <string name="permissions_for_import_app_data_text2">Пожалуйста, предоставьте их в следующем диалоговом окне. Затем данные будут восстановлены.</string>
-    <string name="permissions_write_settings_not_allowed_confirm">Вы не разрешили «Изменить настройки». Не спрашивать больше?</string>
+    <string name="permissions_write_settings_not_allowed_confirm">Вы не разрешили \"Изменение системных настроек\". Больше не спрашивать?</string>
     <string name="phone_profiles_pref_category_permissions">Разрешения</string>
-    <string name="phone_profiles_pref_writeSystemSettingPermissions">Изменять системные настройки</string>
+    <string name="phone_profiles_pref_writeSystemSettingPermissions">Изменение системных настроек</string>
     <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">Найдите приложение PhoneProfilesPlus и разрешите доступ.</string>
     <string name="phone_profiles_pref_applicationPermissions">Разрешения для приложения</string>
     <string name="phone_profiles_pref_applicationPermissions_summary">Пожалуйста, дайте разрешения приложению в разделе \"Разрешения\".</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Нажмите сюда, чтобы установить PhoneProfilesPlusExtender. Эта служба нужна для получения SMS и MMS.</string>
     <string name="permission_not_granted">Не предоставлено</string>
     <string name="permission_granted">Предоставлено</string>
-    <string name="menu_dark_theme_on">Включить тёмную тему</string>
-    <string name="menu_dark_theme_off">Выключить тёмную тему</string>
     <string name="important_info_email_body_device">Устройство:</string>
     <string name="important_info_email_body_android_version">Версия Android:</string>
     <string name="important_info_email_body_problems">Проблемы:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">При этом типе сетки названия профилей не отображаются, но в одну строку помещается больше профилей.</string>
     <string name="check_releases_go_to_galaxy_store">Перейти в Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">К сожалению, невозможно установить PhoneProfilesPlus с этого сайта. Galaxy Store поддерживает только устройства Galaxy.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Переключить местоположение (Выключено &lt;-&gt; По всем источникам)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Переключить местоположение (По координатам сети &lt;-&gt; По всем источникам)</string>
+    <string name="widget_label_one_row_profile_list">Однострочный список профилей</string>
+    <string name="one_row_profile_list_widget_description">Отображает список профилей (без названий) в одну строку.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Виджет: Однострочный список профилей</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Количество профилей на страницу</string>
 </resources>

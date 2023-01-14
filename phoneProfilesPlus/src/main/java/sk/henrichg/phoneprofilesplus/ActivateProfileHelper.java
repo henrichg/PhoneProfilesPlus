@@ -3823,6 +3823,7 @@ class ActivateProfileHelper {
             //__handler.post(new PPHandlerThreadRunnable(
             //        context.getApplicationContext(), profile, null) {
             //__handler.post(() -> {
+            //noinspection SuspiciousIndentAfterControlStatement
             Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
@@ -4457,6 +4458,8 @@ class ActivateProfileHelper {
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {
             mNotificationManager.notify(notificationTag, notificationId, notification);
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -5070,6 +5073,8 @@ class ActivateProfileHelper {
                         PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
                         PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int)profile._id,
                         notification);
+            } catch (SecurityException en) {
+                // todo show dialog about grant notificication permission
             } catch (Exception e) {
                 //Log.e("CheckGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
@@ -5576,6 +5581,8 @@ class ActivateProfileHelper {
                         mNotificationManager.notify(
                                 PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
                                 PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID, notification);
+                    } catch (SecurityException en) {
+                        // todo show dialog about grant notificication permission
                     } catch (Exception e) {
                         //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
@@ -6652,6 +6659,7 @@ class ActivateProfileHelper {
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, null) {
         //__handler.post(() -> {
+        //noinspection SuspiciousIndentAfterControlStatement
         Runnable runnable = () -> {
 //                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
 
@@ -7695,6 +7703,8 @@ class ActivateProfileHelper {
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {
             mNotificationManager.notify(notificationTag, notificationId, notification);
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplication.recordException(e);

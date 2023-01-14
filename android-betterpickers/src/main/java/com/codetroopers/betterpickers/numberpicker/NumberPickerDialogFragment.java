@@ -165,6 +165,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
 
         if (mTheme != -1) {
             if (getActivity() != null) {
+                //noinspection resource
                 TypedArray a = getActivity().getApplicationContext().obtainStyledAttributes(mTheme, R.styleable.BetterPickersDialogFragment);
 
                 mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);

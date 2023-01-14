@@ -205,6 +205,8 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                 mNotificationManager.notify(
                         PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG,
                         PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID, notification);
+            } catch (SecurityException en) {
+                // todo show dialog about grant notificication permission
             } catch (Exception e) {
                 //Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);

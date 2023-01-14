@@ -94,6 +94,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 */
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 

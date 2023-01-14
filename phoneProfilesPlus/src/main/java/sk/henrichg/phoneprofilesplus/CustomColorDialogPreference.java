@@ -46,6 +46,7 @@ public class CustomColorDialogPreference extends DialogPreference {
 
         prefContext = context;
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ChromaPreference);
 

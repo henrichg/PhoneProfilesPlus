@@ -220,6 +220,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
         @SuppressWarnings("TryWithIdenticalCatches")
         protected boolean hasClassAnnotation(File file) {
             READ_STATE readState = READ_STATE.STARTING;
+            //noinspection RegExpSimplifiable
             Pattern p = Pattern.compile(" class ([A-Za-z0-9_]+)");
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(file));

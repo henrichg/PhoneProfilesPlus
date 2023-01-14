@@ -18,6 +18,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     static final String PREF_EVENT_ALARM_CLOCK_TIME_COUNT = "eventAlarmClockTimeCount";
     static final String PREF_EVENT_ALARM_CLOCK_TIME = "eventAlarmClockTime";
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");

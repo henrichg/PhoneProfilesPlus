@@ -30,6 +30,7 @@ public class PPMultiSelectListPreference extends DialogPreference {
     public PPMultiSelectListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPListDialogPreference);
 

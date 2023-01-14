@@ -596,6 +596,7 @@ public class EditorProfileListFragment extends Fragment
         int editMode;
 
         if (profile != null)
+        //noinspection SuspiciousIndentAfterControlStatement
         {
             // edit profile
             int profilePos = profileListAdapter.getItemPosition(profile);

@@ -31,6 +31,7 @@ public class ProfilePreference extends DialogPreference {
     {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PPProfilePreference);
 
         addNoActivateItem = typedArray.getInt(R.styleable.PPProfilePreference_addNoActivateItem, 0);

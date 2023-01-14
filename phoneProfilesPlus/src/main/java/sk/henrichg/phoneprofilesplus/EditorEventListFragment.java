@@ -661,6 +661,7 @@ public class EditorEventListFragment extends Fragment
         int editMode;
 
         if (event != null)
+        //noinspection SuspiciousIndentAfterControlStatement
         {
             // edit event
             int eventPos = eventListAdapter.getItemPosition(event);

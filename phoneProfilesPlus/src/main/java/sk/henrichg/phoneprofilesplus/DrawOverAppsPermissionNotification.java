@@ -109,6 +109,8 @@ class DrawOverAppsPermissionNotification {
             mNotificationManager.notify(
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_TAG,
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

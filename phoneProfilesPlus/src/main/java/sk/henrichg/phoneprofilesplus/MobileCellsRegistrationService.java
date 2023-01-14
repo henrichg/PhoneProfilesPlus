@@ -292,6 +292,8 @@ public class MobileCellsRegistrationService extends Service
             mNotificationManager.notify(
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

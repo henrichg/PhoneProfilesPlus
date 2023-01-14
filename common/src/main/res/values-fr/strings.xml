@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Rouge : les événements sont arrêtés - on peut lancer les événements dans le menu de l\'éditeur.</string>
     <string name="important_info_profile_activation_restart_events_icon">Icône de redémarrage des événements :</string>
     <string name="important_info_profile_activation_traffic_light_icon">Icône \"Feu\":</string>
-    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ implémente le \"mode Doze\" et \"App Standby\".  Concernant les problèmes d\'activation du profil d\'événement lorsque vous laissez l\'appareil débranché et immobile pendant un certain temps avec l\'écran éteint, cliquez ici pour ajouter PhoneProfilesPlus dans \"Non optimisé\".</string>
     <string name="info_notification_event_states">L\'événement peut être dans 6 États :</string>
     <string name="info_notification_event_states_running">Lancé : l\'événement est lancé et en cours d\'exécution. Paramètres de déclenchement sont remplies.</string>
     <string name="info_notification_event_states_paused">En pause : L\'événement ne fonctionne pas. Les paramètres de déclenchement ne sont pas remplies.</string>
@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">verrouillage sécurisée non pris en charge</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">ne peut pas être changé</string>
     <string name="event_preferences_sensorsInfo_title">Fonctionnalité des capteurs</string>
-    <string name="event_preferences_sensorsInfo_summary">L\'événement sera lancé si, les paramètres de toutes les capteurs avec le paramètre \"Activer le capteur\" cochée, sont remplies. L\'événement en cours d’exécution sera achevée, si n’importe quel paramètre d\'un capteur n’est pas valide. Cochez \"Activer le capteur\" uniquement pour les capteurs nécessaires pour cet événement. Le nom du capteur avec \"Activer le capteur\" coché est marquée en gras.</string>
-    <string name="event_preferences_sensorsInfo_summary_2">Certains paramètres de capteur sont obligatoires : leurs noms sont soulignés. Si un paramètre obligatoire n’est pas configuré, l\'événement ne sera pas démarré et le paramètre \"Activer le capteur\" sera décoché.</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Some sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Icône colorée</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Certains appareils ne supporte pas les icônes colorées dans la barre d’État.</string>
     <string name="pref_dlg_change_selection_title">Changer la sélection</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Cliquez ici pour installer PhoneProfilesPlusExtender. Ce service en cours d\’exécution est nécessaire pour recevoir des SMS et MMS. </string>
     <string name="permission_not_granted">Non accordée </string>
     <string name="permission_granted">Accordée</string>
-    <string name="menu_dark_theme_on">Activer le thème sombre </string>
-    <string name="menu_dark_theme_off">Désactiver le thème sombre </string>
     <string name="important_info_email_body_device">Appareil:</string>
     <string name="important_info_email_body_android_version">Version Android :</string>
     <string name="important_info_email_body_problems">Problèmes:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Avec ce type de grille, les noms de profil ne seront pas affichés, mais plus de profils peuvent tenir sur une seule ligne.</string>
     <string name="check_releases_go_to_galaxy_store">Aller sur le Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Désolé, il n\'est pas possible d\'installer PhoneProfilesPlus à partir de ce site Web. Le Galaxy Store limite la prise en charge aux appareils Galaxy uniquement.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Activer/désactiver la localisation (Arrêt &lt;-&gt; Haute précision)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Activer/désactiver la localisation (utilise moins la batterie &lt;-&gt; Haute précision)</string>
+    <string name="widget_label_one_row_profile_list">Liste des profils sur une ligne</string>
+    <string name="one_row_profile_list_widget_description">Affiche une liste de profils sans leurs noms en une ligne.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget : Liste des profils sur une ligne</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Nombre de profils par page</string>
 </resources>

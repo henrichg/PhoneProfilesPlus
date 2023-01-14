@@ -308,7 +308,7 @@ public class RootUtils {
 
         if (isRooted(false)) {
             synchronized (PPApplication.rootMutex) {
-                //noinspection RegExpRedundantEscape
+                //noinspection RegExpRedundantEscape,RegExpSimplifiable
                 final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
 
                 Command command = new Command(0, /*false,*/ "service list") {

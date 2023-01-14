@@ -2295,6 +2295,7 @@ public class EditorActivity extends AppCompatActivity
                         PPApplication.recordException(ee);
                     }
 
+                    //noinspection IOStreamConstructor
                     input = new ObjectInputStream(new FileInputStream(src));
                     Editor prefEdit;
                     //if (what == 1) {

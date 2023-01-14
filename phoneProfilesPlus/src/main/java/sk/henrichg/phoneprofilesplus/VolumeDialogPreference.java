@@ -56,6 +56,7 @@ public class VolumeDialogPreference extends DialogPreference {
 
         _context = context;
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
             R.styleable.PPVolumeDialogPreference);
 

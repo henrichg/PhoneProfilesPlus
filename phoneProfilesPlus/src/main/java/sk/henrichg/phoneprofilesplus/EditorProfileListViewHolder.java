@@ -33,6 +33,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
     private final Context context;
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     EditorProfileListViewHolder(View itemView, EditorProfileListFragment editorFragment, Context context, int filterType) {
         super(itemView);
 

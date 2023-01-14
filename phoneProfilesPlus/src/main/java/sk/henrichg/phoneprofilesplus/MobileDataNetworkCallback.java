@@ -54,6 +54,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
         doConnection();
     }
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 

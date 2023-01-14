@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nicht unterstützte Sperre</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">Kann nicht geändert werden</string>
     <string name="event_preferences_sensorsInfo_title">Funktionalität der Sensoren</string>
-    <string name="event_preferences_sensorsInfo_summary">Ereignisse werden gestartet, wenn alle aktiven Parameter eines Ereignisses erfüllt sind. Laufende Ereignisse werden beendet, wenn einer der Parameter nicht mehr erfüllt ist. Aktiviere nur die Parameter mit \"Parameter aktivieren\", die für dieses Ereignis gebraucht werden. Aktive Parameter haben fette Schrift.</string>
-    <string name="event_preferences_sensorsInfo_summary_2">Einige Parameter sind erforderlich, diese sind unterstrichen. Wenn ein erforderlicher Parameter nicht gesetzt ist, wird das Ereignis nicht aktiviert.</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Some sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Farbiges Symbol</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Einige Geräte unterstützen keine farbigen Icons in der Statusleiste.</string>
     <string name="pref_dlg_change_selection_title">Auswahl ändern</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Klicken Sie hier, um PhoneProfilesPlusExtender zu installieren. Dieser Dienst wird für den Empfang von SMS und MMS benötigt.</string>
     <string name="permission_not_granted">Nicht gewährt</string>
     <string name="permission_granted">Gewährt</string>
-    <string name="menu_dark_theme_on">Dunkles Thema aktivieren</string>
-    <string name="menu_dark_theme_off">Dunkles Thema deaktivieren</string>
     <string name="important_info_email_body_device">Gerät:</string>
     <string name="important_info_email_body_android_version">Android-Version:</string>
     <string name="important_info_email_body_problems">Probleme:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Bei dieser Art von Raster werden die Profilnamen nicht angezeigt, aber es können mehr Profile in eine Zeile passen.</string>
     <string name="check_releases_go_to_galaxy_store">Galaxy Store aufrufen</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Leider ist es nicht möglich, PhoneProfilesPlus von dieser Website aus zu installieren. Der Galaxy Store bietet nur Unterstützung für Galaxy-Geräte.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Standort wechseln (Aus &lt;-&gt; Hohe Genauigkeit)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Standort wechseln (Batteriesparend &lt;-&gt; Hohe Genauigkeit)</string>
+    <string name="widget_label_one_row_profile_list">Einzeilige Profilliste</string>
+    <string name="one_row_profile_list_widget_description">Zeigt eine Liste von Profilen ohne deren Namen in einer Zeile an.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Einzeilige Profilliste</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Anzahl der Profile pro Seite</string>
 </resources>

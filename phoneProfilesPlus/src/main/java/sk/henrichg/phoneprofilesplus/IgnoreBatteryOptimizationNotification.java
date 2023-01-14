@@ -147,6 +147,8 @@ class IgnoreBatteryOptimizationNotification {
             mNotificationManager.notify(
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

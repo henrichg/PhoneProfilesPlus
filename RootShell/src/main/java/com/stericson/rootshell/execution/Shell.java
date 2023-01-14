@@ -532,6 +532,7 @@ public class Shell {
                 File f = new File("/sys/fs/selinux/enforce");
                 if (f.exists()) {
                     try {
+                        //noinspection IOStreamConstructor
                         InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
                         //noinspection TryFinallyCanBeTryWithResources
                         try {

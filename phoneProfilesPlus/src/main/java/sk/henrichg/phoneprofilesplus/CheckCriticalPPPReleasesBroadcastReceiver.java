@@ -282,6 +282,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                     mNotificationManager.notify(
                                             PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
                                             PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+                                } catch (SecurityException en) {
+                                    // todo show dialog about grant notificication permission
                                 } catch (Exception e) {
                                     //Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                     PPApplication.recordException(e);

@@ -50,6 +50,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         applicationList = new ArrayList<>();
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPApplicationsMultiSelectDialogPreference);
 

@@ -57,6 +57,7 @@ public class NumberView extends LinearLayout {
      */
     public void setTheme(int themeResId) {
         if (themeResId != -1) {
+            //noinspection resource
             @SuppressLint("CustomViewStyleable")
             TypedArray a = getContext().obtainStyledAttributes(themeResId, R.styleable.BetterPickersDialogFragment);
 

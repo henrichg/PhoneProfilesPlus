@@ -45,6 +45,7 @@ class AddEventAdapter extends BaseAdapter {
         profileStartNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
         profileEndNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedEndProfilesArray);
 
+        //noinspection resource
         TypedArray profileStartIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
         profileStartIconsArray = new int[profileStartIconsTypedArray.length()];
         for (int i = 0; i < profileStartIconsTypedArray.length(); i++) {
@@ -52,6 +53,7 @@ class AddEventAdapter extends BaseAdapter {
         }
         profileStartIconsTypedArray.recycle();
 
+        //noinspection resource
         TypedArray profileEndIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedEndProfileIconsArray);
         profileEndIconsArray = new int[profileEndIconsTypedArray.length()];
         for (int i = 0; i < profileEndIconsTypedArray.length(); i++) {

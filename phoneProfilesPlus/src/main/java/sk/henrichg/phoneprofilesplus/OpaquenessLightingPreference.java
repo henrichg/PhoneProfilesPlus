@@ -93,6 +93,7 @@ public class OpaquenessLightingPreference extends DialogPreference {
     {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.OpaquenessLightingPference);
 
         showLighting = typedArray.getBoolean(R.styleable.OpaquenessLightingPference_showLighting, false);

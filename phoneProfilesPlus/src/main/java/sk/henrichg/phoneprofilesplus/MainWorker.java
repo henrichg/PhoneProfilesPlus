@@ -178,6 +178,8 @@ public class MainWorker extends Worker {
                                         mNotificationManager.notify(
                                                 PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
                                                 PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID, mBuilder.build());
+                                    } catch (SecurityException en) {
+                                        // todo show dialog about grant notificication permission
                                     } catch (Exception e) {
                                         //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);

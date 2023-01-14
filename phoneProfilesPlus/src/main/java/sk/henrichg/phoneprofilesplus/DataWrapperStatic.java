@@ -796,6 +796,8 @@ public class DataWrapperStatic {
             // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
             // mNotificationManager.cancel(notificationID);
             mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("EditorActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

@@ -92,6 +92,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         }
     }
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private static void _onUpdate(Context context, AppWidgetManager appWidgetManager,
                            /*Profile _profile, DataWrapper _dataWrapper,*/ int[] appWidgetIds)
     {

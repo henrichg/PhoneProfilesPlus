@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Haz clic aquí para instalar PhoneProfilesPlusExtender. Es necesario que el servicio esté en ejecución para recibir SMS y MMS.</string>
     <string name="permission_not_granted">No concedido</string>
     <string name="permission_granted">Concedido</string>
-    <string name="menu_dark_theme_on">Activar tema oscuro</string>
-    <string name="menu_dark_theme_off">Desactivar tema oscuro</string>
     <string name="important_info_email_body_device">Dispositivo:</string>
     <string name="important_info_email_body_android_version">Versión de Android:</string>
     <string name="important_info_email_body_problems">Problemas:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Con este tipo de cuadrícula, los nombres de perfil no se mostrarán, pero cabrán más perfiles pueden por fila.</string>
     <string name="check_releases_go_to_galaxy_store">Ir a Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Lo sentimos, no es posible instalar PhoneProfilesPlus desde esta página web. La Galaxy Store limita el soporte sólo a dispositivos Galaxy.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Alternar ubicación (apagado &lt;-&gt; Alta precisión)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Alternar ubicación (ahorro de batería &lt;-&gt; Alta precisión)</string>
+    <string name="widget_label_one_row_profile_list">Lista de perfiles de una fila</string>
+    <string name="one_row_profile_list_widget_description">Muestra una lista de perfiles sin sus nombres en una sola línea.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Lista de perfiles de una fila</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Número de perfiles por página</string>
 </resources>

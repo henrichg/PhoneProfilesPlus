@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">Kırmızı renk parlak: Durumlar durduruldu - Düzenleyici menüsündeki \"Durumların çalışmasına izin ver\" maddesi ile Durumların çalışmasına izin verilebilir.</string>
     <string name="important_info_profile_activation_restart_events_icon">Durumları tekrar başlat simgesi:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
-    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
+    <string name="important_info_android_doze_mode">Android 6+\'da \"Uyku modu\" ve \"Uygulama Bekletme\" uygulanmaktadır. Durumlar vasıtasıyla Tercihi faaliyete geçirmede sorun yaşanırsa şunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı ilave etmeniz lazımdır.</string>
     <string name="info_notification_event_states">Durum, 6 vaziyette olabilir:</string>
     <string name="info_notification_event_states_running">Çalışıyor: Durum başlamış ve çalışır durumdadır. Durum değerleri karşılanmıştır.</string>
     <string name="info_notification_event_states_paused">Fasıla verildi: Durum çalışmıyor. Durum değerleri yerine gelmiş değildir. Durum, değerlerin yerine gelmesini bekliyor.</string>
@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">mümkün olmayan güvenlik kilidi</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">değiştirilemez</string>
     <string name="event_preferences_sensorsInfo_title">Şartın kabiliyeti</string>
-    <string name="event_preferences_sensorsInfo_summary">\"Şarta izin ver\" şartı ile işaretlenmiş Şartların tamamının değerleri karşılanınca Durum başlatılır. Eğer herhangi bir Şart değeri karşılanmazsa çalışan Durum sona erecek. Bu halde sadece ihtiyaç duyulan şartlar için \"Şarta izin ver\"i seçin. \"Şarta izin ver\" ile seçilmiş Şart ismi, kalın metin ile işaretlenir.</string>
-    <string name="event_preferences_sensorsInfo_summary_2">Bazı Şart değerleri lüzumludur. Lüzumlu değer ismi, altı çizili metin ile işaretlenir. Lüzumlu herhangi bir değer ayarlanmadı ise Durum başlatılmaz ve \"Şarta izin ver\" değeri işaretlenmemiş demektir.</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Some sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Renkli simge</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Bazı cihazlar Durum çubuğundaki renkli simgelere imkân vermez.</string>
     <string name="pref_dlg_change_selection_title">Seçimi değiştir</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">PhoneProfilesPlusExtender\'ı kurmak için buraya dokunun. Çalışan hizmet, SMS ve MMS almak için lüzumlu.</string>
     <string name="permission_not_granted">İzin verilmedi</string>
     <string name="permission_granted">İzin verildi</string>
-    <string name="menu_dark_theme_on">Koyu Temaya geç</string>
-    <string name="menu_dark_theme_off">Koyu temayı kapat</string>
     <string name="important_info_email_body_device">Cihaz:</string>
     <string name="important_info_email_body_android_version">Android sürümü:</string>
     <string name="important_info_email_body_problems">Problemler:</string>
@@ -1886,8 +1884,8 @@
     <string name="application_editor_intent_hint_not_set">Ayarlanmadı</string>
     <string name="application_editor_intent_hint_custom_not_set">Özelleştirme ayarlanmadı</string>
     <string name="application_editor_intent_hint_not_selected">Seçilmedi</string>
-    <string name="application_editor_intent_action_none">[ None ]</string>
-    <string name="application_editor_intent_action_custom">[ Custom ]</string>
+    <string name="application_editor_intent_action_none">[ Hiçbiri ]</string>
+    <string name="application_editor_intent_action_custom">[ Hususi ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) Uygulama, (S) kısayol, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Ayarlanmadı</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Yüklü Yok</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Bu tür bir ızgara ile, Tercih isimleri görüntülenmez, ancak bir satıra daha fazla Tercih sığabilir.</string>
     <string name="check_releases_go_to_galaxy_store">Galaxy Store\'a git</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Maalesef, PhoneProfilesPlus\'ı bu web sitesinden yüklemek mümkün değil. Galaxy Store, desteği yalnızca Galaxy cihazlarıyla sınırlar.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Konum\'u Aç/Kapa (Kapalı &lt;-&gt; Yüksek doğruluk)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Konum\'u Aç/Kapa (Pil koruma &lt;-&gt; Yüksek doğruluk)</string>
+    <string name="widget_label_one_row_profile_list">Tek satır Tercih listesi</string>
+    <string name="one_row_profile_list_widget_description">Bir satırda isimleri olmayan Tercihlerin bir listesini görüntüler.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Tek satır Tercih listesi</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Sayfa başına Tercih sayısı</string>
 </resources>

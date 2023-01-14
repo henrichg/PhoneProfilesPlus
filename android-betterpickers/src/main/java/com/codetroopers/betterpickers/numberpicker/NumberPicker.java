@@ -109,6 +109,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public void setTheme(int themeResId) {
         mTheme = themeResId;
         if (mTheme != -1) {
+            //noinspection resource
             @SuppressLint("CustomViewStyleable")
             TypedArray a = getContext().obtainStyledAttributes(themeResId, R.styleable.BetterPickersDialogFragment);
 

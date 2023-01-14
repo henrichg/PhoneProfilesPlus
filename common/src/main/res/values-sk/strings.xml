@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nepodporovaný bezpečnostný zámok</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">nie je možné zmeniť</string>
     <string name="event_preferences_sensorsInfo_title">Funkcionalita senzorov</string>
-    <string name="event_preferences_sensorsInfo_summary">Udalosť sa spustí, ak parametre všetkých senzorov so zaškrtnutým parametrom \"Povoľ senzor\", sú splnené. Beh udalosti bude ukončený, ak ľubovoľný parameter senzora nie je splnený. Zaškrtnite \"Povoľ senzor\" iba pre senzory potrebné pre túto udalosť. Meno senzora so zaškrtnutým \"Povoľ senzor\" je označené tučným textom.\n\nNiektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter \"Povoľ senzor\" nie je aktivovaný.</string>
-    <string name="event_preferences_sensorsInfo_summary_2">Niektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter \"Povoľ senzor\" nie je aktivovaný.</string>
+    <string name="event_preferences_sensorsInfo_summary">Udalosť sa spustí, ak parametre všetkých senzorov so zaškrtnutým parametrom \"Povoľ senzor\", sú splnené. Beh udalosti bude ukončený, ak ľubovoľný parameter senzora nie je splnený. Zaškrtnite iba tie senzory, ktoré potrebujete pre túto udalosť. Názov zaškrtnutého senzora je označené tučným písmom.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Niektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter \"Povoľ senzor\" nebude zaškrtnutý.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Farebná ikona</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Niektoré zariadenia nepodporujú farebné ikony v stavovom riadku.</string>
     <string name="pref_dlg_change_selection_title">Zmeniť výber</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Kliknite tu pre inštaláciu PhoneProfilesPlusExtender. Bežiaci servis je potrebný pre príjem SMS a MMS.</string>
     <string name="permission_not_granted">Odoprené</string>
     <string name="permission_granted">Udelené</string>
-    <string name="menu_dark_theme_on">Zapnúť tmavú tému</string>
-    <string name="menu_dark_theme_off">Vypnúť tmavú tému</string>
     <string name="important_info_email_body_device">Zariadenie:</string>
     <string name="important_info_email_body_android_version">Verzia Android:</string>
     <string name="important_info_email_body_problems">Problémy:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">Pri tomto type mriežky sa nebudú zobrazovať názvy profilov, ale do jedného riadku sa zmestí viac profilov.</string>
     <string name="check_releases_go_to_galaxy_store">Ísť do Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Ľutujem, z tejto webstránky nie je možné nainštalovať PhoneProfilesPlus. Galaxy Store obmedzuje podporu iba na zariadenia Galaxy.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Prepnúť polohu (Vypnuté &lt;-&gt; Vysoká presnosť)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Prepnúť polohu (Režim šetrenia batérie &lt;-&gt; Vysoká presnosť)</string>
+    <string name="widget_label_one_row_profile_list">Jednoriadkový zoznam profilov</string>
+    <string name="one_row_profile_list_widget_description">Zobrazí zoznam profilov bez ich názvov v jednom riadku.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Miniaplikácia: Jednoriadkový zoznam profilov</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Počet profilov na stránku</string>
 </resources>

@@ -128,6 +128,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doWork(/*boolean useHandler,*/ Context context) {
         if (!PPApplication.getApplicationStarted(true, true))
             // application is not started
@@ -287,6 +288,8 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                     mNotificationManager.notify(
                             PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_TAG,
                             PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, notification);
+                } catch (SecurityException en) {
+                    // todo show dialog about grant notificication permission
                 } catch (Exception e) {
                     //Log.e("DonationBroadcastReceiver._doWork", Log.getStackTraceString(e));
                     PPApplication.recordException(e);

@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">nepodporovaný bezpečnostní zámek</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">není možné změnit</string>
     <string name="event_preferences_sensorsInfo_title">Funkcionalita senzorů</string>
-    <string name="event_preferences_sensorsInfo_summary">Událost se spustí, pokud parametry všech senzorů se zaškrtnutým parametrem \"Povolit senzor\", jsou splněny. Běh události bude ukončen, pokud libovolný parametr senzoru není splněn. Zaškrtněte \"Povolit senzor\" pouze pro senzory potřebné pro tuto událost. Jméno senzoru se zaškrtnutým \"Povolit senzor\" je označeno tučným textem.</string>
-    <string name="event_preferences_sensorsInfo_summary_2">Některé parametry senzoru jsou vyžadovány. Název vyžadovaného parametru je označen podtrženým textem. Pokud některý vyžadovaný parametr není nastaven, událost se nespustí a parametr \"Povolit senzor\" není aktivován.</string>
+    <string name="event_preferences_sensorsInfo_summary">Událost se spustí, pokud parametry všech senzorů se zaškrtnutým parametrem \"Povol senzor\", jsou splněny. Běh události bude ukončen, pokud libovolný parametr senzoru není splněn. Zaškrtněte pouze ty senzory, které potřebujete pro tuto událost. Název zaškrtnutého senzoru je označeno tučným písmem.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Některé parametry senzoru jsou vyžadovány. Název vyžadovaného parametru je označen podtrženým textem. Pokud některý vyžadovaný parametr není nakonfigurován, událost se nespustí a parametr \"Povol senzor\" nebude zaškrtnut.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Barevná ikona</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Některá zařízení nepodporují barevné ikony ve stavovém řádku.</string>
     <string name="pref_dlg_change_selection_title">Změnit výběr</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Klikněte zde pro instalaci PhoneProfilesPlusExtender. běžící servis je potřebný pro příjem SMS a MMS.</string>
     <string name="permission_not_granted">Odepřeno</string>
     <string name="permission_granted">Uděleno</string>
-    <string name="menu_dark_theme_on">Zapnout tmavé téma</string>
-    <string name="menu_dark_theme_off">Vypnout tmavé téma</string>
     <string name="important_info_email_body_device">Zařízení:</string>
     <string name="important_info_email_body_android_version">Verze Android:</string>
     <string name="important_info_email_body_problems">Problémy:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">S tímto typem mřížky nebudou zobrazeny názvy profilů, ale více profilů se vejde do jednoho řádku.</string>
     <string name="check_releases_go_to_galaxy_store">Jít do Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Lituji, z této webové stránky nelze nainstalovat PhoneProfilesPlus. Galaxy Store omezuje podporu pouze na zařízení Galaxy.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Přepnout polohu (Vypnuto &lt;-&gt; Vysoká přesnost)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Přepnout polohu (Režim šetření baterie &lt;-&gt; Vysoká přesnost)</string>
+    <string name="widget_label_one_row_profile_list">Jednořádkový seznam profilů</string>
+    <string name="one_row_profile_list_widget_description">Zobrazí seznam profilů bez jejich názvů v jednom řádku.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Jednořádkový seznam profilů</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Počet profilů na stránku</string>
 </resources>

@@ -125,6 +125,7 @@ public class FastScroller {
 
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
+        //noinspection resource
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.FastScrollRecyclerView, 0, 0);
         try {

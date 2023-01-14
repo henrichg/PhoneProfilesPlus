@@ -256,6 +256,7 @@ class LocationScanner
     /**
      * Requests location updates from the FusedLocationApi.
      */
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     @SuppressLint("SuspiciousIndentation")
     String startLocationUpdates() {
         if (!ApplicationPreferences.applicationEventLocationEnableScanning)
@@ -524,6 +525,8 @@ class LocationScanner
             mNotificationManager.notify(
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_TAG,
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

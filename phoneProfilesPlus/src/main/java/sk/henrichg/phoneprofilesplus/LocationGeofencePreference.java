@@ -31,6 +31,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
     public LocationGeofencePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        //noinspection resource
         TypedArray locationGeofenceType = context.obtainStyledAttributes(attrs,
                 R.styleable.PPLocationGeofencePreference, 0, 0);
 

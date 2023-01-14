@@ -741,6 +741,8 @@ class MobileCellsListener extends PhoneStateListener {
                             _mNotificationManager.notify(
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_" + registeredCell,
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + _registeredCell, mBuilder.build());
+                        } catch (SecurityException en) {
+                            // todo show dialog about grant notificication permission
                         } catch (Exception e) {
                             //Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
                             PPApplication.recordException(e);

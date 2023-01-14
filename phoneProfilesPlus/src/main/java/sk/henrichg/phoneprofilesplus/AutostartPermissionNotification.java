@@ -110,6 +110,8 @@ class AutostartPermissionNotification {
             mNotificationManager.notify(
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_TAG,
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

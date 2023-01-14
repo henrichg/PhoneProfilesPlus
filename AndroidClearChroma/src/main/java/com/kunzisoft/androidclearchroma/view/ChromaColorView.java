@@ -80,6 +80,7 @@ public class ChromaColorView extends RelativeLayout {
 
     private void init(Context context, @Nullable AttributeSet attributeSet) {
 
+        //noinspection resource
         TypedArray a = getContext().obtainStyledAttributes(attributeSet, R.styleable.ChromaColorView);
         try {
             currentColor = a.getColor(R.styleable.ChromaPreference_chromaInitialColor, currentColor);

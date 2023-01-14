@@ -32,6 +32,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
         _context = context;
 
+        //noinspection resource
         TypedArray locationGeofenceType = context.obtainStyledAttributes(attrs,
                 R.styleable.PPContactsMultiSelectDialogPreference, 0, 0);
         withoutNumbers = locationGeofenceType.getBoolean(R.styleable.PPContactsMultiSelectDialogPreference_withoutNumbers, false);

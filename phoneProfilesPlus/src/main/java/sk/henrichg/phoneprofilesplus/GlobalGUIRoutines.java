@@ -848,6 +848,7 @@ class GlobalGUIRoutines {
                 };*/
                 int[] attrsToResolve = { colorAttr };
                 // now resolve them
+                //noinspection resource
                 TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
                 /*int color = ta.getColor(0, 0);
                 int onPrimary = ta.getColor(1, 0);

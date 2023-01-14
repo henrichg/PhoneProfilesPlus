@@ -957,7 +957,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     //------------------------------------------
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "NullableProblems"})
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         try {

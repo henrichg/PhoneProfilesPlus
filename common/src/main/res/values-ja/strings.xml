@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">サポートされていないセキュアロック</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">変更できません</string>
     <string name="event_preferences_sensorsInfo_title">センサー機能</string>
-    <string name="event_preferences_sensorsInfo_summary">「センサーを有効化」がオンになっているセンサーパラメーターがすべて満たされた場合にのみイベントが開始されます。オンになっているセンサーパラメーターが満たされていない場合、イベントは終了します。 イベントに必要なセンサーのみをオンにしてください。オンになっているセンサー名は太字で表示されます。</string>
-    <string name="event_preferences_sensorsInfo_summary_2">いくつかのセンサーパラメーターが必要です。必須パラメーター名は下線付きのテキストで表示されます。 必要なパラメータが設定されていない場合、イベントは開始されず、パラメーター「センサーを有効化」はオフになります。</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Some sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">色付きアイコン</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">ステータスバーの色付きアイコンをサポートしていないデバイスもあります。</string>
     <string name="pref_dlg_change_selection_title">選択範囲を変更</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
     <string name="permission_not_granted">Not granted</string>
     <string name="permission_granted">許可済み</string>
-    <string name="menu_dark_theme_on">ダークテーマをオン</string>
-    <string name="menu_dark_theme_off">ダークテーマをオフ</string>
     <string name="important_info_email_body_device">Device:</string>
     <string name="important_info_email_body_android_version">Android バージョン:</string>
     <string name="important_info_email_body_problems">Problems:</string>
@@ -1397,7 +1395,7 @@
     <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
     <string name="menu_check_github_releases">アプリのリリースを確認</string>
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
-    <string name="check_github_releases_install_info_1">Download latest version of PhoneProfilesPlus.apk from its GitHub. Then click to notification about downloaded apk and install it.</string>
+    <string name="check_github_releases_install_info_1">Download the latest version of PhoneProfilesPlus.apk from its GitHub repository, then click on notification about the downloaded apk and install it.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="donation_paypal">PayPalで寄付をお願いします：</string>
     <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
@@ -1463,7 +1461,7 @@
     <string name="editor_drawer_order_end_profile_name">終了するプロファイル名</string>
     <string name="donation_paypal_donate_button">Donate</string>
     <string name="normal_github_release">New app. release</string>
-    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from its GitHub.</string>
+    <string name="normal_github_release_notification">Click this notification to download the new PhoneProfilesPlus release from its GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
     <string name="profile_preferences_PPPExtender_installed_summary">インストール済み:</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">インストールされていません</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
     <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
+    <string name="widget_label_one_row_profile_list">Single row profile list</string>
+    <string name="one_row_profile_list_widget_description">Displays a list of profiles without their names in one line.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
 </resources>

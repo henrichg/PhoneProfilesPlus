@@ -18,7 +18,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
             final String action = intent.getAction();
             if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)/* ||
                     action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIME_TICK)*/) {
+                    action.equals(Intent.ACTION_TIME_TICK)*/) //noinspection SuspiciousIndentAfterControlStatement
+            {
 
                 //final Context appContext = context.getApplicationContext();
 

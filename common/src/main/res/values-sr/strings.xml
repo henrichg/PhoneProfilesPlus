@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
     <string name="permission_not_granted">Not granted</string>
     <string name="permission_granted">Granted</string>
-    <string name="menu_dark_theme_on">Switch on dark theme</string>
-    <string name="menu_dark_theme_off">Switch off dark theme</string>
     <string name="important_info_email_body_device">Device:</string>
     <string name="important_info_email_body_android_version">Android version:</string>
     <string name="important_info_email_body_problems">Problems:</string>
@@ -1397,7 +1395,7 @@
     <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
     <string name="menu_check_github_releases">Check app. releases</string>
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
-    <string name="check_github_releases_install_info_1">Download latest version of PhoneProfilesPlus.apk from its GitHub. Then click to notification about downloaded apk and install it.</string>
+    <string name="check_github_releases_install_info_1">Download the latest version of PhoneProfilesPlus.apk from its GitHub repository, then click on notification about the downloaded apk and install it.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
     <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
@@ -1463,7 +1461,7 @@
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <string name="donation_paypal_donate_button">Donate</string>
     <string name="normal_github_release">New app. release</string>
-    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from its GitHub.</string>
+    <string name="normal_github_release_notification">Click this notification to download the new PhoneProfilesPlus release from its GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
     <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
     <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
+    <string name="widget_label_one_row_profile_list">Single row profile list</string>
+    <string name="one_row_profile_list_widget_description">Displays a list of profiles without their names in one line.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
 </resources>

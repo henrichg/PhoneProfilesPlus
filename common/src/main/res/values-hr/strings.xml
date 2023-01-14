@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Klikni ovdje za instalaciju PhoneProfilesPlusExtender -a. Korišćenje ovog servisa je neophodno za prijem SMS-a i MMS-a.</string>
     <string name="permission_not_granted">Nije odobreno</string>
     <string name="permission_granted">Odobreno</string>
-    <string name="menu_dark_theme_on">Pređi na tamnu temu</string>
-    <string name="menu_dark_theme_off">Isključi tamnu temu</string>
     <string name="important_info_email_body_device">Uređaj:</string>
     <string name="important_info_email_body_android_version">Verzija Androida:</string>
     <string name="important_info_email_body_problems">Problemi:</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
     <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
+    <string name="widget_label_one_row_profile_list">Single row profile list</string>
+    <string name="one_row_profile_list_widget_description">Displays a list of profiles without their names in one line.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
 </resources>

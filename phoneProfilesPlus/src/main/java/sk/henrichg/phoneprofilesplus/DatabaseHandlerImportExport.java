@@ -1316,7 +1316,9 @@ class DatabaseHandlerImportExport {
                             src = new FileInputStream(dataDB);
                             dst = new FileOutputStream(exportedDB);
 
+                            //noinspection resource
                             FileChannel srcCh = new FileInputStream(dataDB).getChannel();
+                            //noinspection resource
                             FileChannel dstCh = new FileOutputStream(exportedDB).getChannel();
 
                             srcCh.force(true);

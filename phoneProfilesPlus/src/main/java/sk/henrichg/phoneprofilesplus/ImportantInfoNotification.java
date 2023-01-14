@@ -169,6 +169,8 @@ class ImportantInfoNotification {
             mNotificationManager.notify(
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

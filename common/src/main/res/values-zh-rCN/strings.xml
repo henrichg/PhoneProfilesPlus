@@ -435,7 +435,7 @@
     <string name="important_info_profile_activation_text11">红色: 事件已停止 - 可以在编辑器功能菜单项目“激活事件运行”来执行。</string>
     <string name="important_info_profile_activation_restart_events_icon">重新启动事件图标：</string>
     <string name="important_info_profile_activation_traffic_light_icon">“红绿灯”图标：</string>
-    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ 实现了“Doze模式”和“应用程序待机”。 关于事件配置文件激活的问题，如果您将设备断开电源，锁屏后后保持静止一段时间。 点此添加 PhoneProfilesPlus 到“未优化”。</string>
     <string name="info_notification_event_states">事件有 6 个状态：</string>
     <string name="info_notification_event_states_running">运行中: 事件已经开始并正在运行；事件参数已满足要求。</string>
     <string name="info_notification_event_states_paused">暂停: 事件没有运行；事件参数不满足要求；或事件正在等待参数满足要求。</string>
@@ -627,8 +627,8 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">不受支持的安全锁定</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">不能更改</string>
     <string name="event_preferences_sensorsInfo_title">传感器功能</string>
-    <string name="event_preferences_sensorsInfo_summary">只有满足所有“启用传感器”选取的传感器参数时，才会启动事件。如果未满足某些已选取的传感器参数，则运行事件将结束。仅选取此事件所需的传感器。已选取的传感器名称标有粗体文字。</string>
-    <string name="event_preferences_sensorsInfo_summary_2">需要一些传感器参数。下划线文字是需要的参数名称。如果未配置某些所需参数，则不会启动事件，并且“启用传感器”将取消勾选。</string>
+    <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.</string>
+    <string name="event_preferences_sensorsInfo_summary_2">Some sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">彩色图标</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">某些设备做不支持在状态栏中显示彩色图标。</string>
     <string name="pref_dlg_change_selection_title">更改选择</string>
@@ -1012,8 +1012,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">单击此处安装PhoneProfilesPlusExtender。接收短信和彩信需要运行服务。</string>
     <string name="permission_not_granted">未授权</string>
     <string name="permission_granted">已授权</string>
-    <string name="menu_dark_theme_on">打开暗色主题</string>
-    <string name="menu_dark_theme_off">关闭暗色主题</string>
     <string name="important_info_email_body_device">设备：</string>
     <string name="important_info_email_body_android_version">Android版本：</string>
     <string name="important_info_email_body_problems">问题：</string>
@@ -1886,8 +1884,8 @@
     <string name="application_editor_intent_hint_not_set">未设置</string>
     <string name="application_editor_intent_hint_custom_not_set">自定义未设置</string>
     <string name="application_editor_intent_hint_not_selected">未选中</string>
-    <string name="application_editor_intent_action_none">[ None ]</string>
-    <string name="application_editor_intent_action_custom">[ Custom ]</string>
+    <string name="application_editor_intent_action_none">[ 无 ]</string>
+    <string name="application_editor_intent_action_custom">[ 自定义 ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) 应用程序, (S) 快捷方式, (I) intent。</string>
     <string name="generated_notification_intent_hint_not_set">未设置</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">未安装</string>
@@ -1938,7 +1936,7 @@
     <string name="activity_log_help_message_colors_others">其他情况</string>
     <string name="phone_profiles_pref_applicationRestartEventsIconColor">\"重新启动事件\"图标颜色</string>
     <string name="menu_choose_language">选择语言</string>
-    <string name="menu_choose_language_system_language">[ System ]</string>
+    <string name="menu_choose_language_system_language">[ 系统 ]</string>
     <string name="profile_icon_preference_iconColor_help">图标颜色</string>
     <string name="profile_icon_preference_iconColor_help_info_1">在暗色主题中，预览图标的颜色可能会提高亮度。</string>
     <string name="profile_icon_preference_iconColor_help_info_2">这种增强亮度的图标将应用在整个图形界面中。包括通知和小部件，当它们的背景是暗色时。</string>
@@ -2023,4 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">使用这种网格，将不显示情景名称，但更多情景可以放在一行中。</string>
     <string name="check_releases_go_to_galaxy_store">转到Galaxy商店</string>
     <string name="check_releases_web_galaxy_store_install_restriction">抱歉，无法从此网站安装 PhoneProfilesPlus。Galaxy Store 仅支持 Galaxy 设备。</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">切换定位 (关闭 &lt;-&gt; 高精度)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">切换定位 (省电 &lt;-&gt; 高精度)</string>
+    <string name="widget_label_one_row_profile_list">单行情景列表</string>
+    <string name="one_row_profile_list_widget_description">在一行中显示不含名称的情景列表。</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">小部件：单行情景列表</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">每页情景数量</string>
 </resources>

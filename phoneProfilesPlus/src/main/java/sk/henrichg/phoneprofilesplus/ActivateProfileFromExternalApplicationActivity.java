@@ -152,6 +152,8 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             mNotificationManager.notify(
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_TAG,
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            // todo show dialog about grant notificication permission
         } catch (Exception e) {
             //Log.e("ActivateProfileFromExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

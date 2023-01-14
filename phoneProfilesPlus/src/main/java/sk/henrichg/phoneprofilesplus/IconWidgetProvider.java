@@ -381,7 +381,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
             // get all IconWidgetProvider widgets in launcher
 
             // prepare view for widget update
-            for (int widgetId : appWidgetIds) {
+            for (int widgetId : appWidgetIds) //noinspection SuspiciousIndentAfterControlStatement
+            {
                 //Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
                 //bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ICON);
                 //appWidgetManager.updateAppWidgetOptions(widgetId, bundle);

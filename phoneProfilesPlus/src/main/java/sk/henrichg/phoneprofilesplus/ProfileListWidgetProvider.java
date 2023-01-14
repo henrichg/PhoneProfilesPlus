@@ -34,6 +34,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     //private boolean isLargeLayout;
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private static RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, /*boolean largeLayout,*/ DataWrapper dataWrapper)
     {
         boolean applicationWidgetListHeader;
