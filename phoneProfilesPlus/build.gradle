@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
 
 android {
+    namespace 'sk.henrichg.phoneprofilesplus'
+
     compileSdkVersion ppVersions.compileSdk
     buildToolsVersion ppVersions.buildTools
 
@@ -41,8 +43,6 @@ android {
         abortOnError false
         disable 'ManifestResource', 'LongLogTag', 'AppBundleLocaleChanges'
     }
-    namespace 'sk.henrichg.phoneprofilesplus'
-
 }
 
 dependencies {

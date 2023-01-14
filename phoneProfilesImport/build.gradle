@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply from: '../dependencies.gradle'
 
 android {
+    namespace 'sk.henrichg.phoneprofiles'
+
     compileSdkVersion ppVersions.compileSdk
     buildToolsVersion ppVersions.buildTools
 
@@ -22,7 +24,6 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
-    namespace 'sk.henrichg.phoneprofiles'
 }
 
 dependencies {

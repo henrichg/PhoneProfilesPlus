@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply from: '../dependencies.gradle'
 
 android {
+    namespace 'me.drakeet.support.toast'
+
     compileSdkVersion ppVersions.compileSdk
     buildToolsVersion ppVersions.buildTools
 
@@ -22,8 +24,6 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
-    namespace 'me.drakeet.support.toast'
-
 }
 
 dependencies {
