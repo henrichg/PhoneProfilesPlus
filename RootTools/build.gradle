@@ -22,6 +22,7 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+    namespace 'com.stericson.roottools'
 }
 
 dependencies {
