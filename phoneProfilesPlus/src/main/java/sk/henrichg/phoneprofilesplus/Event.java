@@ -2179,7 +2179,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (log && (status != this._status)) {
-            doLogForPauseEvent(dataWrapper.context, allowRestart);
+            doLogForPauseEvent(dataWrapper.context, allowRestart && (!forRestartEvents));
         }
 
 

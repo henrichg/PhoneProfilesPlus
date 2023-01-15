@@ -746,3 +746,54 @@ zvonenia a feedback
 
 ----------
 
+Event.doActivateEndProfile()
+  Mam to tam aj s commentom, ze to tam musi byt:
+
+    if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart && !forRestartEvents) {
+
+  forRestartEvents a allowRestart su parametere. Kukni co znamenaju.
+  Naplnaju sa v pauseEvent()
+
+  allowRestaert
+    Povoluje restart udalosti.
+
+    Je false v ActionForExternalApplicationActivity, lebo tam sa potom vola DataWrapper.restartEventsWithRescan()
+    Je false v DataWrapper.pauseAllEvents()
+    Je false v EditorEventListFragment.runStopEvent()
+    Je false v Editor.stopEvent()
+    je false v EventPrefsActivity.saveUpdateOfPreference()
+
+    V EventHanlder.doHanleEvent() je true alebo false podla EventsHandler.forRestartEvents.
+
+  forRestartEvents
+    Urcuje, ci sa ma volat restart udalosti aj ked je restart povoleny. To je taky dodatocny parameter.
+    Vsade kde je false je dovolene restartovat.
+
+    Je false v ActionForExternalApplicationActivity, lebo tam sa potom vola DataWrapper.restartEventsWithRescan()
+    Je false v DataWrapper.pauseAllEvents()
+    Je false v EditorEventListFragment.runStopEvent()
+    Je false v Editor.stopEvent()
+    je false v EventPrefsActivity.saveUpdateOfPreference()
+
+    V EventHanlder.handleEvents() je vo volani doHandleEvent() true, ak ide o restart udalosti.
+    V EventHanlder.handleEvents() je vo volani doHandleEvent() false, ak nejde o restart udalosti.
+
+    Ci ide or restaet udalosti, urcuje EventsHanlder.isRestart
+    Naplnene to je takto:
+      boolean manualRestart = sensorType == SENSOR_TYPE_MANUAL_RESTART_EVENTS;
+      boolean isRestart = (sensorType == SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
+    Ktory z tychto senzor typov sa nastavi urcuje parameter manualRestart v DataWrapper._restartEvents()
+    Tam je volane:
+      eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MANUAL_RESTART_EVENTS);
+    elebo
+      eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
+
+    Cize naozaj len ak sa vola restart udalosti sa nastavi EventsHanlder.isRestart na true.
+
+Event.doLogForPauseEvent() sa vola vzdy ked sa vola restart udalosti. Volane je z pauseEvent().
+Preto je tak vela restartov logovanych v Activity log. Asi je parameter log true.
+Toto oprav, aby sa nepovolene restary nelogovali.
+
+Cize implementovane to mam dobre, problem je len ten log. Ten zrus, ak sa naozaj restart nerobi.
+Aj v Activity log Andyho restart udalosti nie je volany donekonecna, cize nekonecny loop nevznika.
+Ale zalogovany mam kazdy restart, aj ked sa nezavola.
