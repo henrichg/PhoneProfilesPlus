@@ -236,14 +236,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             _eventName = _eventName + " ";
                         else
                             _eventName = _eventName + "\n";
-                        _eventName = _eventName + "[# " + profile._name + "]";
+                        _eventName = _eventName + "[#:" + profile._name + "]";
                     }
                 } else {
                     if (addedLF)
                         _eventName = _eventName + " ";
                     else
                         _eventName = _eventName + "\n";
-                    _eventName = _eventName + "[# " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length + "]";
+                    _eventName = _eventName + "[#:" + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length + "]";
                 }
             }
 
