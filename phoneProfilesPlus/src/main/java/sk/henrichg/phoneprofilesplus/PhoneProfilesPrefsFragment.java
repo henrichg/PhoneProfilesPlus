@@ -1156,6 +1156,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary3);
             preference.setSummary(summary);
         }
+
         if (Build.VERSION.SDK_INT >= 27) {
             preference = findPreference(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS);
             if (preference != null) {

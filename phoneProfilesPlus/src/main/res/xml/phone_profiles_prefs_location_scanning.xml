@@ -34,9 +34,10 @@
         app:layout="@layout/mp_preference_category" >
         <Preference
             app:key="applicationEventLocationUpdateIntervalInfo"
-            app:title="@string/empty_string"
+            app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
             app:dependency="applicationEventLocationEnableScannig"
+            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
             app:key="applicationEventLocationUpdateInterval"
