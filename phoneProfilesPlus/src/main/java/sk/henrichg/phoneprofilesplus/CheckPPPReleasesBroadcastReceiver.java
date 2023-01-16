@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -269,9 +270,9 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
-            //Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+            //Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -110,7 +111,7 @@ class DrawOverAppsPermissionNotification {
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_TAG,
                     PPApplication.DRAW_OVER_APPS_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("DrawOverAppsPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

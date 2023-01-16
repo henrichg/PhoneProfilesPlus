@@ -23,6 +23,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -742,9 +743,9 @@ class MobileCellsListener extends PhoneStateListener {
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_TAG + "_" + registeredCell,
                                     PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID + _registeredCell, mBuilder.build());
                         } catch (SecurityException en) {
-                            // todo show dialog about grant notificication permission
+                            Log.e("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(en));
                         } catch (Exception e) {
-                            //Log.e("PhoneProfilesService.doAutoRegistration", Log.getStackTraceString(e));
+                            //Log.e("MobileCellsListener.doAutoRegistration", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         }
                     }

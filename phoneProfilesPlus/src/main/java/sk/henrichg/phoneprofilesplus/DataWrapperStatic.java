@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -797,9 +798,9 @@ public class DataWrapperStatic {
             // mNotificationManager.cancel(notificationID);
             mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
-            //Log.e("EditorActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
+            //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 

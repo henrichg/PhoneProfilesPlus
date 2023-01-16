@@ -4459,7 +4459,7 @@ class ActivateProfileHelper {
         try {
             mNotificationManager.notify(notificationTag, notificationId, notification);
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -5074,9 +5074,9 @@ class ActivateProfileHelper {
                         PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int)profile._id,
                         notification);
             } catch (SecurityException en) {
-                // todo show dialog about grant notificication permission
+                Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(en));
             } catch (Exception e) {
-                //Log.e("CheckGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         }
@@ -5582,9 +5582,9 @@ class ActivateProfileHelper {
                                 PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
                                 PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID, notification);
                     } catch (SecurityException en) {
-                        // todo show dialog about grant notificication permission
+                        Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(en));
                     } catch (Exception e) {
-                        //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+                        //Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
                 } catch (Exception e) {
@@ -7704,9 +7704,9 @@ class ActivateProfileHelper {
         try {
             mNotificationManager.notify(notificationTag, notificationId, notification);
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("ActivateProfileHelper.showError", Log.getStackTraceString(en));
         } catch (Exception e) {
-            //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
+            //Log.e("ActivateProfileHelper.showError", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 

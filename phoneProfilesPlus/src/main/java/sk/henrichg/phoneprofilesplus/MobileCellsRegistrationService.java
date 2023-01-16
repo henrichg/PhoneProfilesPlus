@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -293,7 +294,7 @@ public class MobileCellsRegistrationService extends Service
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

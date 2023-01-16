@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -179,9 +180,9 @@ public class MainWorker extends Worker {
                                                 PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
                                                 PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID, mBuilder.build());
                                     } catch (SecurityException en) {
-                                        // todo show dialog about grant notificication permission
+                                        Log.e("MainWorker.doWork", Log.getStackTraceString(en));
                                     } catch (Exception e) {
-                                        //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+                                        //Log.e("MainWorker.doWork", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     }
                                 }

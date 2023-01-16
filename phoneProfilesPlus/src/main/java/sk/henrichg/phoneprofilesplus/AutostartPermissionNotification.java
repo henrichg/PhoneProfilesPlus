@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -111,7 +112,7 @@ class AutostartPermissionNotification {
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_TAG,
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);

@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -3279,7 +3280,7 @@ class Event {
                     //mNotificationManager.cancel(notificationTag, notificationID);
                     mNotificationManager.notify(notificationTag, notificationID, notification);
                 } catch (SecurityException en) {
-                    // todo show dialog about grant notificication permission
+                    Log.e("Event.notifyEventStart", Log.getStackTraceString(en));
                 } catch (Exception e) {
                     //Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
                     PPApplication.recordException(e);

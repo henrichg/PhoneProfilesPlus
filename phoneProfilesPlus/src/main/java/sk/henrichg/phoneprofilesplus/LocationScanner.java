@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -526,9 +527,9 @@ class LocationScanner
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_TAG,
                     PPApplication.LOCATION_NOT_WORKING_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("LocationScanner.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
-            //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+            //Log.e("LocationScanner.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
     }

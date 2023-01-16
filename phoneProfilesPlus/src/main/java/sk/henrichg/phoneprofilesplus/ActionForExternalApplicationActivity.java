@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -406,7 +407,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_TAG,
                     PPApplication.ACTION_FOR_EXTERNAL_APPLICATION_NOTIFICATION_ID, mBuilder.build());
         } catch (SecurityException en) {
-            // todo show dialog about grant notificication permission
+            Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
