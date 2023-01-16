@@ -1102,11 +1102,11 @@ class EventPreferencesCalendar extends EventPreferences {
         try {
             cur = cr.query(builder.build(), INSTANCE_PROJECTION, null, null, null);
         } catch (SecurityException e) {
-            //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            //Log.e("EventPreferencesCalendar.saveCalendarEventExists", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
             cur = null;
         } catch (Exception e) {
-            //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            //Log.e("EventPreferencesCalendar.saveCalendarEventExists", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             cur = null;
         }

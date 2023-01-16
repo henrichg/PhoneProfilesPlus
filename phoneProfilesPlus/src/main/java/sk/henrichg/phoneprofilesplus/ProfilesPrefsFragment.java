@@ -3099,7 +3099,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             try {
                 vpnApplication = Integer.parseInt(splits[0]);
             } catch (Exception e) {
-                //Log.e("VolumeDialogPreference.getValueVDP", Log.getStackTraceString(e));
+                //Log.e("ProfilesPrefsFragment.setCategorySummaryRadios", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
                 vpnApplication = 0;
             }
@@ -3120,7 +3120,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             try {
                 enableVPN = Integer.parseInt(splits[1]) == 0;
             } catch (Exception e) {
-                //Log.e("VolumeDialogPreference.getValueVDP", Log.getStackTraceString(e));
+                //Log.e("ProfilesPrefsFragment.setCategorySummaryRadios", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
             if (enableVPN)

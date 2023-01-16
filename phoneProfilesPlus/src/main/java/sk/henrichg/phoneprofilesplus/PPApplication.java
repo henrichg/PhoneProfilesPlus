@@ -994,7 +994,7 @@ public class PPApplication extends Application
             //}
             //FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         } catch (Exception e) {
-            Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
+            Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
         }*/
 
         if (checkAppReplacingState()) {
@@ -3938,7 +3938,7 @@ public class PPApplication extends Application
                             _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
 
                         } catch (Exception e) {
-//                            Log.e("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            Log.e("[IN_EXECUTOR] PPApplication.exitApp", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -3971,7 +3971,7 @@ public class PPApplication extends Application
                     ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", fragment.getString(R.string.app_name));
                 } catch (Exception e) {
                     // This vendor is not in the DontKillMyApp list
-                    Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
+                    Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
                 }
                 return null;
             }
@@ -4010,7 +4010,7 @@ public class PPApplication extends Application
                         } catch (Exception ignored) {}
                     }
                 } catch (Exception e) {
-                    Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
+                    Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
                     String url = "https://dontkillmyapp.com/";
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));

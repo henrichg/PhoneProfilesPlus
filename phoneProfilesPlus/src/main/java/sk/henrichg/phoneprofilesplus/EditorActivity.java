@@ -5460,7 +5460,7 @@ public class EditorActivity extends AppCompatActivity
                             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                         } catch (Exception e) {
-                            //Log.e("EditorActivity.doExportData", Log.getStackTraceString(e));
+                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         }
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));

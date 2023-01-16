@@ -757,7 +757,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                     break;
                                                 }
                                             } catch (Exception e) {
-                                                //                                            Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
+                                                // Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
                                                 PPApplication.recordException(e);
                                             }
                                         }
@@ -857,7 +857,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                             break;
                                         }
                                     } catch (Exception e) {
-//                                    Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
+//                                    Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
                                         PPApplication.recordException(e);
                                     }
                                 }

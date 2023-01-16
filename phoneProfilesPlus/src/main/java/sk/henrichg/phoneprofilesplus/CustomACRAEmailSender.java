@@ -118,7 +118,7 @@ public class CustomACRAEmailSender implements ReportSender {
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments); //ArrayList<Uri> of attachment Uri's
                     intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
                 }
-//                Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
+//                Log.e("CustomACRAEmailSender.send", "intents.size()="+intents.size());
                 if (intents.size() > 0) {
                     try {
                         Intent chooser = Intent.createChooser(intents.get(0), context.getString(R.string.email_chooser));

@@ -1754,7 +1754,7 @@ class DatabaseHandlerProfiles {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteShortcut", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerProfiles.deleteShortcut", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2037,7 +2037,7 @@ class DatabaseHandlerProfiles {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateIntent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerProfiles.updateIntent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2196,7 +2196,7 @@ class DatabaseHandlerProfiles {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteIntent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerProfiles.deleteIntent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();

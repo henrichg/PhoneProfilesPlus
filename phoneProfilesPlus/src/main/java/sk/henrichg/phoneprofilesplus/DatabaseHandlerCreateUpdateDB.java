@@ -976,7 +976,7 @@ class DatabaseHandlerCreateUpdateDB {
                                 values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
                             }
                         } catch (Exception e) {
-                            //Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
+                            //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                             values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
                         }
@@ -998,7 +998,7 @@ class DatabaseHandlerCreateUpdateDB {
             } catch (Exception e) {
                 //Error in between database transaction
                 PPApplication.recordException(e);
-                //Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
+                //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
             } finally {
                 if (database == null)
                     db.endTransaction();
@@ -3015,7 +3015,7 @@ class DatabaseHandlerCreateUpdateDB {
                     cursor.close();
                 }
             } catch (Exception ignored) {
-                //Log.e("DatabaseHandler.updateDb", Log.getStackTraceString(e));
+                //Log.e("DatabaseHandlerCreateUpdateDB.updateDb", Log.getStackTraceString(e));
             }
         }
 
@@ -3047,7 +3047,7 @@ class DatabaseHandlerCreateUpdateDB {
                     cursor.close();
                 }
             } catch (Exception ignored) {
-                //Log.e("DatabaseHandler.updateDb", Log.getStackTraceString(e));
+                //Log.e("DatabaseHandlerCreateUpdateDB.updateDb", Log.getStackTraceString(e));
             }
         }
 

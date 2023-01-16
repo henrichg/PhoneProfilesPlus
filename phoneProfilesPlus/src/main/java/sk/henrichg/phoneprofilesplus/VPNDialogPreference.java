@@ -57,7 +57,7 @@ public class VPNDialogPreference extends DialogPreference {
             if (splits.length > 4)
                 doNotSetWhenIsinState = splits[4].equals("1");
         } catch (Exception e) {
-            //Log.e("VolumeDialogPreference.getValueVDP", Log.getStackTraceString(e));
+            //Log.e("VPNDialogPreference.getValueVDP", Log.getStackTraceString(e));
             PPApplication.recordException(e);
             vpnApplication = 0;
             enableVPN = true;

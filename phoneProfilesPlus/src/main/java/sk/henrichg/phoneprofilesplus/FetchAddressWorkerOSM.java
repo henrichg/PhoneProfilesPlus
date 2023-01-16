@@ -69,7 +69,7 @@ public class FetchAddressWorkerOSM extends Worker {
             // Handle case where no address was found.
             if (addresses == null || addresses.size() == 0) {
                 //if (errorMessage.isEmpty()) {
-                //Log.e("FetchAddressIntentService.onHandleIntent", "No address found");
+                //Log.e("FetchAddressWorkerOSM.doWork", "No address found");
                 //}
                 outputData = generateResult(LocationGeofenceEditorActivityOSM.FAILURE_RESULT,
                         getApplicationContext().getString(R.string.event_preferences_location_no_address_found),

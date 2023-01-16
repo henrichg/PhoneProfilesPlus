@@ -205,7 +205,7 @@ class BitmapManipulator {
                 final int rawWidth = options.outWidth;
                 return (rawWidth <= ICON_BITMAP_SIZE_MULTIPLIER * width) && (rawHeight <= ICON_BITMAP_SIZE_MULTIPLIER * height);
             } catch (Exception e) {
-                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                //Log.e("BitmapManipulator.checkBitmapSize", Log.getStackTraceString(e));
                 return false;
             }
         }

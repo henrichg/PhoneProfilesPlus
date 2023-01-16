@@ -734,7 +734,7 @@ class ActivateProfileHelper {
                             //}
                         } catch (Exception e) {
                             // WTF?: DOOGEE - X5pro -> java.lang.SecurityException: Permission Denial: Enable bluetooth requires com.mediatek.permission.CTA_ENABLE_BT
-                            //Log.e("ActivateProfileHelper.doExecuteForRadio", Log.getStackTraceString(e));
+                            //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                             //PPApplication.recordException(e);;
                         }
                     }
@@ -1771,7 +1771,7 @@ class ActivateProfileHelper {
                                     RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                    //Log.e("ActivateProfileHelper._setVibrationIntensity", Log.getStackTraceString(e));
                                     //PPApplication.recordException(e);
                                 }
                             }
@@ -1805,7 +1805,7 @@ class ActivateProfileHelper {
                                         RootUtils.commandWait(command, "ActivateProfileHelper.setVibrationIntensity");
                                     } catch (Exception e) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                        //Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+                                        //Log.e("ActivateProfileHelper._setVibrationIntensity", Log.getStackTraceString(e));
                                         //PPApplication.recordException(e);
                                     }
                                 }
@@ -2014,7 +2014,7 @@ class ActivateProfileHelper {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                                 // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
-                                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
 
@@ -2084,7 +2084,7 @@ class ActivateProfileHelper {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                                 // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
-                                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
                             //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
@@ -2406,7 +2406,7 @@ class ActivateProfileHelper {
                                         // java.lang.SecurityException: UID 10157 does not have permission to
                                         // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                                         // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
-                                        //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                         //PPApplication.recordException(e);
                                     }
 
@@ -2439,7 +2439,7 @@ class ActivateProfileHelper {
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
                                                     } catch (Exception e) {
                                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                         //PPApplication.recordException(e);
                                                     }
                                                 }
@@ -2469,7 +2469,7 @@ class ActivateProfileHelper {
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
                                                     } catch (Exception e) {
                                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                         //PPApplication.recordException(e);
                                                     }
                                                 }
@@ -2536,7 +2536,7 @@ class ActivateProfileHelper {
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                     //PPApplication.recordException(e);
                                                 }
                                             }
@@ -2564,7 +2564,7 @@ class ActivateProfileHelper {
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                     //PPApplication.recordException(e);
                                                 }
                                             }
@@ -2605,7 +2605,7 @@ class ActivateProfileHelper {
                                         // java.lang.SecurityException: UID 10157 does not have permission to
                                         // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                                         // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
-                                        //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                         //PPApplication.recordException(e);
                                     }
 
@@ -2638,7 +2638,7 @@ class ActivateProfileHelper {
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 2 with root");
                                                     } catch (Exception e) {
                                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                         //PPApplication.recordException(e);
                                                     }
                                                 }
@@ -2669,7 +2669,7 @@ class ActivateProfileHelper {
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
                                                     } catch (Exception e) {
                                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                        //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                         //PPApplication.recordException(e);
                                                     }
                                                 }
@@ -2736,7 +2736,7 @@ class ActivateProfileHelper {
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification fro SIM2 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                     //PPApplication.recordException(e);
                                                 }
                                             }
@@ -2763,7 +2763,7 @@ class ActivateProfileHelper {
 //                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                    //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                                     //PPApplication.recordException(e);
                                                 }
                                             }
@@ -2813,7 +2813,7 @@ class ActivateProfileHelper {
 //                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "same ringtone fro bth sim cards with root");
                                         } catch (Exception e) {
                                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
                                             //PPApplication.recordException(e);
                                         }
                                     }
@@ -4931,11 +4931,11 @@ class ActivateProfileHelper {
                                 //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                                 appContext.startActivity(startMain);
                             /*} catch (SecurityException e) {
-                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                                 String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
                                 ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
                             } catch (Exception e) {
-                                //Log.e("DelayedWorksWorker.doWork", Log.getStackTraceString(e));
+                                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                                 ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
                             }
@@ -5588,7 +5588,7 @@ class ActivateProfileHelper {
                         PPApplication.recordException(e);
                     }
                 } catch (Exception e) {
-//                        Log.e("ActivateProfileHelper.setKeepScreenOnPermanent", Log.getStackTraceString(e));
+//                        Log.e("ActivateProfileHelper.createKeepScreenOnView", Log.getStackTraceString(e));
                     PPApplication.keepScreenOnView = null;
                     setKeepScreenOnPermanent(context, false);
                     removeKeepScreenOnNotification(appContext);
@@ -6069,7 +6069,7 @@ class ActivateProfileHelper {
                         roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
                     } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                        Log.e("ActivateProfileHelper.getPreferredNetworkType", Log.getStackTraceString(e));
                     }
                 }
 
@@ -7619,7 +7619,7 @@ class ActivateProfileHelper {
         }
         catch (Exception e) {
             // extender is not installed = package not found
-            //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //Log.e("ActivateProfileHelper.isPPPPutSSettingsInstalled", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
             //return 0;
             return false;
@@ -7639,7 +7639,7 @@ class ActivateProfileHelper {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
         } catch (Exception e) {
-            Log.e("ActivateProfileHelper.setVibrationIntensity", Log.getStackTraceString(e));
+            Log.e("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
         }
         // WARNING: do not remove this sleep !!!
         // Is required to set time space between two calls of this method.

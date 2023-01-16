@@ -99,7 +99,7 @@ class LocationScanner
                     PPApplication.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                 } catch (Exception ee) {
-                    //Log.e("##### LocationScanner.onConnected", Log.getStackTraceString(e));
+                    //Log.e("##### LocationScanner.connect", Log.getStackTraceString(e));
                     PPApplication.recordException(ee);
                 }
 

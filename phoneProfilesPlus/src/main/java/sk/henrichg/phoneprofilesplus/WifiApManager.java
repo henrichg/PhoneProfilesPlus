@@ -103,7 +103,7 @@ final class WifiApManager {
             //noinspection ConstantConditions
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
-            //Log.e("$$$ WifiAP", "WifiApManager.isWifiAPEnabled-exception="+e);
+            //Log.e("WifiApManager.isWifiAPEnabled", e);
             PPApplication.recordException(e);
             return false;
         }

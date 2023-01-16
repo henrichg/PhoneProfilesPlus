@@ -1142,7 +1142,7 @@ class DatabaseHandlerOthers {
 
                 //db.close();
             } catch (Exception e) {
-//                Log.e("DatabaseHandler.disableNotAllowedPreferences", Log.getStackTraceString(e));
+//                Log.e("DatabaseHandlerOthers.disableNotAllowedPreferences", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
             }
         } finally {

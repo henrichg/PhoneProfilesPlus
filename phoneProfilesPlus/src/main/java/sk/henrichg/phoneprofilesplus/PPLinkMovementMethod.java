@@ -109,7 +109,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
             text = text.replace(" »»", "");
 
             if (mListener != null) {
-                //Log.e(TAG, "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
+                //Log.e("PPLinkMovementMethod.onLongPress", "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
                 //        "Text: " + text + "\n<----");
 
                 mListener.onLongClick(text);
@@ -223,7 +223,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
             URLSpan[] link = buffer.getSpans(off, off, URLSpan.class);
 
             if (link.length != 0) {
-                //Log.e("PPLinkMovementMethod", link[0].getURL());
+                //Log.e("PPLinkMovementMethod.getLinkURL", link[0].getURL());
                 return link[0].getURL();
 
                 /*return buffer.subSequence(buffer.getSpanStart(link[0]),

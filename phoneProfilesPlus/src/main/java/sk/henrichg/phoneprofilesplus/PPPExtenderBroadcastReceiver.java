@@ -568,7 +568,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
         catch (Exception e) {
             // extender is not installed = package not found
-            //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //Log.e("PPPExtenderBroadcastReceiver.getExtenderVersionName", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
             return "";
         }

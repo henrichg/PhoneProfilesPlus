@@ -321,17 +321,17 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             }
 
                         } catch (Exception e) {
-//                            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+//                            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
                         }
 
                     },
                     error -> {
-//                        Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(error));
+//                        Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(error));
                     });
             queue.add(stringRequest);
 
         } catch (Exception e) {
-//            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+//            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
         }
     }
 

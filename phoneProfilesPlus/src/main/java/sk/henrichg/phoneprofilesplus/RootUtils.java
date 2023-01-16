@@ -103,7 +103,7 @@ public class RootUtils {
                 //PPApplication.recordException(e);
             }
         } catch (Exception e) {
-            //Log.e("PPApplication._isRooted", Log.getStackTraceString(e));
+            //Log.e("RootUtils._isRooted", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
         //if (rooted)
@@ -144,7 +144,7 @@ public class RootUtils {
                         //rootMutex.grantRootChecked = true;
                     }*/
                 } catch (Exception e) {
-                    //Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
+                    //Log.e("RootUtils.isRootGranted", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //rootMutex.rootGranted = false;
                 }
@@ -261,7 +261,7 @@ public class RootUtils {
                 commandWait(command);
                 suVersionChecked = true;
             } catch (Exception e) {
-                Log.e("PPApplication.getSUVersion", Log.getStackTraceString(e));
+                Log.e("RootUtils.getSUVersion", Log.getStackTraceString(e));
             }
         }
         return suVersion;
@@ -415,7 +415,7 @@ public class RootUtils {
                     }
 
                 } catch (Exception e) {
-                    //Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
+                    //Log.e("RootUtils.getServicesList", Log.getStackTraceString(e));
                 }
             }
         }
@@ -461,7 +461,7 @@ public class RootUtils {
                                 //PPApplication.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
                                 break;
                             } catch (Exception e) {
-                                //Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+                                //Log.e("RootUtils.getTransactionCode", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
                         }
@@ -469,7 +469,7 @@ public class RootUtils {
                 }
             }
         } catch (ClassNotFoundException e) {
-            //Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
+            //Log.e("RootUtils.getTransactionCode", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
         }
         return code;
@@ -519,13 +519,13 @@ public class RootUtils {
                     waitTill *= waitTillMultiplier;
                     //}
                 } catch (InterruptedException e) {
-                    //Log.e("PPApplication.commandWait", Log.getStackTraceString(e));
+                    //Log.e("RootUtils.commandWait", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 }
             }
         }
         if (!cmd.isFinished()){
-            //Log.e("PPApplication.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            //Log.e("RootUtils.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
             PPApplication.logToACRA("E/GlobalUtils.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }

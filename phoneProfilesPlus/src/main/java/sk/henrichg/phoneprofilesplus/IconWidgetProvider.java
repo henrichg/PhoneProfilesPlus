@@ -666,7 +666,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 }
             }
         //} catch (Exception e) {
-            //Log.e("IconWidgetProvider.onUpdate", Log.getStackTraceString(e));
+            //Log.e("IconWidgetProvider._onUpdate", Log.getStackTraceString(e));
         //}
 
         dataWrapper.invalidateDataWrapper();

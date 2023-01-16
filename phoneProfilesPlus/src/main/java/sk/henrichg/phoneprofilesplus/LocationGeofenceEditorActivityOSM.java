@@ -948,7 +948,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                 }
             }
         } catch (Exception e) {
-            //Log.e("LocationGeofenceEditorActivityOSM.startIntentService", Log.getStackTraceString(e));
+            //Log.e("LocationGeofenceEditorActivityOSM.startWorkerForFetchAddress", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 

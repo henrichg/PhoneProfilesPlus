@@ -543,7 +543,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             startActivity(testIntent);
                             ok = true;
                         } catch (Exception e) {
-                            //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
+                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
                             //PPApplication.recordException(e);
                         }
                     } else {
@@ -551,7 +551,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             sendBroadcast(testIntent);
                             ok = true;
                         } catch (Exception e) {
-                            //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
+                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
                         }
                     }
                 }

@@ -1553,7 +1553,7 @@ public class PhoneProfilesNotification {
                 } catch (Exception ignored) {}
             }
         } catch (Exception e) {
-            //Log.e("PhoneProfilesService._showProfileNotification", Log.getStackTraceString(e));
+            //Log.e("PhoneProfilesNotification.clearProfileNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
 //            PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification.clearProfileNotification", Log.getStackTraceString(e));
         }

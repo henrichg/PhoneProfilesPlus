@@ -122,17 +122,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                                     checkInGitHub(activity, true);
                                 }
                             } catch (Exception e) {
-//                            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
                             }
 
                         },
                         error -> {
-//                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
+//                        Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(error));
                         });
                 queue.add(stringRequest);
 
             } catch (Exception e) {
-//            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
             }
         }
 
@@ -538,7 +538,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
+                    //Log.e("CheckPPPReleasesActivity.checkInFDroid", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 }
             }
@@ -976,7 +976,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
+                    //Log.e("CheckPPPReleasesActivity.checkInAPKPure", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 }
             }
@@ -1107,7 +1107,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
+                    //Log.e("CheckPPPReleasesActivity.checkInDroidify", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 }
             }

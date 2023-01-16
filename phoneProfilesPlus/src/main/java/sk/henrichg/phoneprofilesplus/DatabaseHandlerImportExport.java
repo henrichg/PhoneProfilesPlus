@@ -117,7 +117,7 @@ class DatabaseHandlerImportExport {
                             // java.lang.IllegalArgumentException: Bad stream type X
                             //PPApplication.recordException(e);
                         } catch (Exception e) {
-                            //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
+                            //Log.e("DatabaseHandlerImportExport.afterImportDb", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         }
 
@@ -1267,14 +1267,14 @@ class DatabaseHandlerImportExport {
                         }
                     }
                 } catch (Exception e1) {
-                    //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e1));
+                    //Log.e("DatabaseHandlerImportExport.importDB", Log.getStackTraceString(e1));
                     //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
                     PPApplication.recordException(e1);
                     ret = DatabaseHandler.IMPORT_ERROR_BUG;
                 }
 
             } catch (Exception e2) {
-                //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e2));
+                //Log.e("DatabaseHandlerImportExport.importDB", Log.getStackTraceString(e2));
                 //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
                 PPApplication.recordException(e2);
             }
@@ -1392,7 +1392,7 @@ class DatabaseHandlerImportExport {
                                 ret = 1;
                         }
                     } catch (Exception e) {
-                        //Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
+                        //Log.e("DatabaseHandlerImportExport.exportDB", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     }
                 } finally {

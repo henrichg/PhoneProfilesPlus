@@ -329,7 +329,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEvent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -1985,7 +1985,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventStatus", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEventStatus", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2024,7 +2024,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventBlocked", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEventBlocked", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2062,7 +2062,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.unblockAllEvents", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.unblockAllEvents", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2101,7 +2101,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateAllEventsStatus", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateAllEventsStatus", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2398,7 +2398,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEventSensorPassed", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2457,7 +2457,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateAllEventSensorsPassedForEvent", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2515,7 +2515,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.clearAllEventsSensorPassed", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateAllEventsSensorsPassed", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2721,7 +2721,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventCalendarTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEventCalendarTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2799,7 +2799,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventCalendarTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEventCalendarTodayExists", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2877,7 +2877,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventInDelayStart", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEventInDelayStart", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2915,7 +2915,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.resetAllEventsInDelayStart", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.resetAllEventsInDelayStart", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -2993,7 +2993,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEventInDelayEnd", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateEventInDelayEnd", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3033,7 +3033,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateSMSStartTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateSMSStartTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3110,7 +3110,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateNFCStartTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateNFCStartTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3185,7 +3185,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateCallStartTimes", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateCallStartTimes", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3262,7 +3262,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateAlarmClockStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateAlarmClockStartTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3338,7 +3338,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateDeviceBootStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateDeviceBootStartTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3412,7 +3412,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updatePeriodicCounter", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3451,7 +3451,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updatePeriodicStartTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -3787,7 +3787,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteAllEventTimelines", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.deleteAllEventTimelines", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -4020,7 +4020,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateEvent", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateGeofence", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -4055,7 +4055,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateGeofenceTransition", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateGeofenceTransition", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //} finally {
                     //db.endTransaction();
@@ -4090,7 +4090,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.clearAllGeofenceTransitions", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.clearAllGeofenceTransitions", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                     //} finally {
                     //db.endTransaction();
@@ -4162,7 +4162,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteGeofence", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.deleteGeofence", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -4227,7 +4227,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.checkGeofence", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.checkGeofence", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -4537,7 +4537,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateMobileCell", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateMobileCell", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -4592,7 +4592,7 @@ public class DatabaseHandlerEvents {
                         //String lastRunningEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_RUNNING_EVENTS));
                         //String lastPausedEvents = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_LAST_PAUSED_EVENTS));
                         //boolean doNotDetect = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_MC_DO_NOT_DETECT)) == 1;
-                        //Log.e("DatabaseHandler.addMobileCellsToList", "cellId="+cellId + " new="+_new);
+                        //Log.e("DatabaseHandlerEvents.addMobileCellsToList", "cellId="+cellId + " new="+_new);
                         boolean found = false;
                         for (MobileCellsData cell : cellsList) {
                             if (cell.cellId == cellId) {
@@ -4821,7 +4821,7 @@ public class DatabaseHandlerEvents {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteMobileCell", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.deleteMobileCell", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -4860,7 +4860,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -4972,7 +4972,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateMobileCellsCells", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateMobileCellsCells", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -5262,7 +5262,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateNFCTag", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.updateNFCTag", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();
@@ -5298,7 +5298,7 @@ public class DatabaseHandlerEvents {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteNFCTag", Log.getStackTraceString(e));
+                    //Log.e("DatabaseHandlerEvents.deleteNFCTag", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     db.endTransaction();

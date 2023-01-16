@@ -440,7 +440,7 @@ class ContactsCache {
                 cached = true;
             }
         } catch (SecurityException e) {
-            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
 
             _contactList.clear();
@@ -448,7 +448,7 @@ class ContactsCache {
 
             cached = false;
         } catch (Exception e) {
-            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
             PPApplication.recordException(e);
 
             _contactList.clear();

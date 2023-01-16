@@ -53,7 +53,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                                         PPApplication.commandWait(command, "TopExceptionHandler.uncaughtException");
                                     } catch (Exception ee) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                        //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                        //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(e));
                                         //PPApplication.recordException(e);
                                     }
                                 }
