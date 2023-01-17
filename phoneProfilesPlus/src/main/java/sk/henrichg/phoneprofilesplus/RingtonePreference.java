@@ -159,7 +159,7 @@ public class RingtonePreference extends DialogPreference {
                         mediaPlayer = null;
 
                         if (oldMediaVolume > -1)
-                            ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume);
+                            ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true);
                         if (oldMediaMuted) {
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -273,7 +273,7 @@ public class RingtonePreference extends DialogPreference {
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         }
-                        ActivateProfileHelper.setMediaVolume(appContext, audioManager, mediaVolume);
+                        ActivateProfileHelper.setMediaVolume(appContext, audioManager, mediaVolume, true);
 
                         mediaPlayer.start();
                         ringtoneIsPlayed = true;
@@ -300,7 +300,7 @@ public class RingtonePreference extends DialogPreference {
                                         }
 
                                         if (oldMediaVolume > -1)
-                                            ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume);
+                                            ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true);
                                         if (oldMediaMuted) {
                                             EventPreferencesVolumes.internalChange = true;
                                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);

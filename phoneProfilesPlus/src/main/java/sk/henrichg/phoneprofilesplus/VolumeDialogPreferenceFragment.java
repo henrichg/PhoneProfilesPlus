@@ -199,7 +199,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
             //if ((appContext != null) && (audioManager != null)) {
                 if (preference.defaultValueMusic != -1)
-                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.defaultValueMusic);
+                    ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.defaultValueMusic, true);
                 if (preference.oldMediaMuted) {
                     EventPreferencesVolumes.internalChange = true;
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
@@ -297,7 +297,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
 
                 PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
             }
-            ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume);
+            ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume, true);
 
             final Context appContext = context.getApplicationContext();
             //final AudioManager audioManager = preference.audioManager;

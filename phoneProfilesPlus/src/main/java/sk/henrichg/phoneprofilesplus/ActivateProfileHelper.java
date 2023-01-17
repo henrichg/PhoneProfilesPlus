@@ -1435,14 +1435,18 @@ class ActivateProfileHelper {
                 boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
                 if (!musicMuted) {
                     if (profile.getVolumeMediaChange()) {
-                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue());
+                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue(), false);
                     }
                 }
             }
         }
     }
 
-    static void setMediaVolume(Context context, AudioManager audioManager, int value) {
+    static void setMediaVolume(Context context, AudioManager audioManager, int value, boolean allowDuringMusicPlay) {
+//        Log.e("ActivateProfileHelper.setMediaVolume", "isMusicActive="+audioManager.isMusicActive());
+        if (!allowDuringMusicPlay && audioManager.isMusicActive())
+            return;
+
         // Fatal Exception: java.lang.SecurityException: Only SystemUI can disable the safe media volume:
         // Neither user 10118 nor current process has android.permission.STATUS_BAR_SERVICE.
         try {
