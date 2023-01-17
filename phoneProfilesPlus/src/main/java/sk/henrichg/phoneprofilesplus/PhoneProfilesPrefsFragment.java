@@ -1795,7 +1795,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity()) ||
-                    PPApplication.isOneUILauncherDefault(getActivity())) {
+                    PPApplication.isOneUILauncherDefault(getActivity()) ||
+                    PPApplication.isMIUILauncherDefault(getActivity())) {
                 //preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
                 //if (preference != null)
                 //    preference.setVisible(false);

@@ -149,7 +149,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
             if (Build.VERSION.SDK_INT >= 30) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context)) {
+                        PPApplication.isOneUILauncherDefault(context) ||
+                        PPApplication.isMIUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners = true;
                     ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius = 15;
                     //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
@@ -468,6 +469,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 } else if (PPApplication.isOneUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
+                } else if (PPApplication.isMIUILauncherDefault(context)) {
+                    roundedBackground = R.drawable.rounded_widget_background_miui_launcher;
+                    roundedBorder = R.drawable.rounded_widget_border_miui_launcher;
                 } else {
                     switch (applicationWidgetOneRowProfileListRoundedCornersRadius) {
                         case 1:

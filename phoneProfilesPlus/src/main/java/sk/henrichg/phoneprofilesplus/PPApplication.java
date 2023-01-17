@@ -4502,6 +4502,38 @@ public class PPApplication extends Application
             return false;
     }
 
+    // check if One UI 4 Samsung Launcher is default --------------------------------------------------
+
+    static boolean isMIUILauncherDefault(Context context) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (context != null) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+
+                    //ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+
+                    ResolveInfo defaultLauncher;
+                    //if (Build.VERSION.SDK_INT < 33)
+                    //noinspection deprecation
+                    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    //else
+                    //    defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY));
+
+                    //Log.e("PPApplication.isMIUILauncherDefault", "defaultLauncher="+defaultLauncher);
+                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                            "com.miui.home");
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
     // get PPP version from relases.md ----------------------------------------------
 
     static class PPPReleaseData {
