@@ -2021,10 +2021,10 @@
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">W tym typie siatki nazwy profili nie będą wyświetlane, ale więcej profili może zmieścić się w jednym rzędzie.</string>
     <string name="check_releases_go_to_galaxy_store">Przejdź do Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Niestety, zainstalowanie PhoneProfilesPlus z tej strony nie jest możliwe. Galaxy Store ogranicza wsparcie tylko do urządzeń Galaxy.</string>
-    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
-    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
-    <string name="widget_label_one_row_profile_list">Single row profile list</string>
-    <string name="one_row_profile_list_widget_description">Displays a list of profiles without their names in one line.</string>
-    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
-    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Przełącz lokalizację (Wyłączona &lt;-&gt; Wysoka dokładność)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Przełącz lokalizację (oszczędzanie baterii &lt;-&gt; Wysoka dokładność)</string>
+    <string name="widget_label_one_row_profile_list">Jednowierszowa lista profili</string>
+    <string name="one_row_profile_list_widget_description">Wyświetla listę profili bez ich nazw w jednym wierszu.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widżet: Jednowierszowa lista profili</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Liczba profili na stronie</string>
 </resources>
