@@ -123,8 +123,10 @@ class BluetoothScanner {
                                             //lock();
                                             //if (Build.VERSION.SDK_INT >= 26)
                                             //    CmdBluetooth.setBluetooth(false);
-                                            if (BluetoothScanWorker.bluetooth.isEnabled())
+                                            if (BluetoothScanWorker.bluetooth.isEnabled()) {
+//                                                Log.e("BluetoothScanner.doScan", "######## (1) disable bluetooth");
                                                 BluetoothScanWorker.bluetooth.disable();
+                                            }
                                         } catch (Exception e) {
                                             PPApplication.recordException(e);
                                         }
@@ -240,8 +242,10 @@ class BluetoothScanner {
                                                 //lock();
                                                 //if (Build.VERSION.SDK_INT >= 26)
                                                 //    CmdBluetooth.setBluetooth(false);
-                                                if (BluetoothScanWorker.bluetooth.isEnabled())
+                                                if (BluetoothScanWorker.bluetooth.isEnabled()) {
+//                                                    Log.e("BluetoothScanner.doScan", "######## (2) disable bluetooth");
                                                     BluetoothScanWorker.bluetooth.disable();
+                                                }
                                             } catch (Exception e) {
                                                 PPApplication.recordException(e);
                                             }
@@ -348,6 +352,7 @@ class BluetoothScanner {
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(true);
                             //else
+//                            Log.e("BluetoothScanner.enableBluetooth", "######## enable bluetooth");
                                 _bluetooth.enable();
                         }
 

@@ -42,12 +42,17 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)) {
             // BluetoothConnectionBroadcastReceiver
 
+//            PPApplication.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "action="+action);
+
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+//            PPApplication.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "device="+device);
+
             if (device == null)
                 return;
 
             //final boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
             final String newName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
+//            PPApplication.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "newName="+newName);
 
             if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
                 if (newName == null) {

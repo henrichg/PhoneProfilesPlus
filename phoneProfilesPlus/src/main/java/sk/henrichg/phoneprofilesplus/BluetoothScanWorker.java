@@ -612,12 +612,15 @@ public class BluetoothScanWorker extends Worker {
             bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
         if (bluetooth != null) {
-            if (bluetooth.isDiscovering())
+            if (bluetooth.isDiscovering()) {
+//                Log.e("BluetoothScanWorker.startCLScan", "######## cancelDiscovery");
                 bluetooth.cancelDiscovery();
+            }
 
             BluetoothScanner.bluetoothDiscoveryStarted = false;
 
             if (Permissions.checkLocation(context)) {
+//                Log.e("BluetoothScanWorker.startCLScan", "######## startDiscovery");
                 boolean startScan = bluetooth.startDiscovery();
 
                 if (!startScan) {
@@ -626,8 +629,10 @@ public class BluetoothScanWorker extends Worker {
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(false);
                             //else
-                            if (bluetooth.isEnabled())
+                            if (bluetooth.isEnabled()) {
+//                                Log.e("BluetoothScanWorker.startCLScan", "######## disable bluetooth");
                                 bluetooth.disable();
+                            }
                         }
                     }
                 }
@@ -642,6 +647,7 @@ public class BluetoothScanWorker extends Worker {
             bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
         if (bluetooth != null) {
             if (bluetooth.isDiscovering()) {
+//                Log.e("BluetoothScanWorke,stopCLScanr", "######## cancelDiscovery");
                 bluetooth.cancelDiscovery();
             }
         }

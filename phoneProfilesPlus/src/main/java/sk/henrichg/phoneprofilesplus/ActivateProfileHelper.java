@@ -727,10 +727,14 @@ class ActivateProfileHelper {
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(isBluetoothEnabled);
                             //else {
-                                if (isBluetoothEnabled)
+                                if (isBluetoothEnabled) {
+//                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## enable bluetooth");
                                     bluetoothAdapter.enable();
-                                else
+                                }
+                                else {
+//                                    Log.e("ActivateProfileHelper.doExecuteForRadios", "######## disable bluetooth");
                                     bluetoothAdapter.disable();
+                                }
                             //}
                         } catch (Exception e) {
                             // WTF?: DOOGEE - X5pro -> java.lang.SecurityException: Permission Denial: Enable bluetooth requires com.mediatek.permission.CTA_ENABLE_BT
