@@ -1453,6 +1453,7 @@ class ActivateProfileHelper {
             //EventPreferencesVolumes.internalChange = true;
             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
+//            Log.e("ActivateProfileHelper.setMediaVolume", "audioManager.setStreamVolume");
         } catch (SecurityException e) {
             //PPApplication.recordException(e);
 
