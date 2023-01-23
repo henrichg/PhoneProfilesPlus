@@ -2048,7 +2048,7 @@
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In OnePlus devices, change of media volume not working, when device is in background.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In OnePlus devices, change of media volume not working, when device is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>
 
-    <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to show Wi-Fi configuration screen. In it is option for configuring Wi-Fi networks.</string>
+    <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
 
     <!-- **************************************************************************************** -->
 
