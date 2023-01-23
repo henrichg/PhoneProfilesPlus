@@ -60,6 +60,19 @@
             android:layout_marginBottom="3dp"
             android:background="@color/dialog_divider" />
 
+        <TextView
+            android:id="@+id/connect_to_ssid_pref_dlg_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:paddingTop="10dp"
+            android:textSize="14sp"
+            android:text="@string/connect_to_ssid_dialog_help"
+            android:textColor="@color/accent"
+            android:clickable="true"
+            android:focusable="true"/>
+
     </LinearLayout>
 
 </FrameLayout>
