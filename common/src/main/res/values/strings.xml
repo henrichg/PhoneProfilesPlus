@@ -2045,6 +2045,9 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
 
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In OnePlus devices, change of media volume not working, when device is in background.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In OnePlus devices, change of media volume not working, when device is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

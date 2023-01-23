@@ -1455,8 +1455,10 @@ class ActivateProfileHelper {
         // Neither user 10118 nor current process has android.permission.STATUS_BAR_SERVICE.
         try {
             //EventPreferencesVolumes.internalChange = true;
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
+            //if (PPApplication.deviceIsOnePlus)
+            //    Settings.System.putInt(context.getContentResolver(), Settings.System.VOLUME_MUSIC, value);
+            //else
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 //            Log.e("ActivateProfileHelper.setMediaVolume", "audioManager.setStreamVolume");
         } catch (SecurityException e) {
             //PPApplication.recordException(e);

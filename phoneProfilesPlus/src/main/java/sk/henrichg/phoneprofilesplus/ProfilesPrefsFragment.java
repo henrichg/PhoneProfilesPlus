@@ -40,6 +40,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -1492,6 +1493,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setIsHtml(true);
         }
 
+        preference = findPreference("prf_pref_volumeMediaOnePlusInfo");
+        if (!PPApplication.deviceIsOnePlus) {
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = findPreference("prf_pref_volumeTypeCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= 33) {
+                if (preference != null)
+                    preference.setSummary(R.string.profile_preferences_volumeMediaOnePlusInfo_33_summary);
+            }
+        }
     }
 
     @Override
