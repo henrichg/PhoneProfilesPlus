@@ -63,11 +63,13 @@ class PPListPreferenceAdapter extends BaseAdapter
         holder.radioButton.setTag(position);
         holder.radioButton.setChecked(preference.value.equals(preference.entryValues[position].toString()));
         holder.radioButton.setOnClickListener(v -> {
-            RadioButton rb = (RadioButton) v;
-            preference.value = preference.entryValues[(Integer)rb.getTag()].toString();
-            //notifyDataSetChanged();
-            preference.persistValue();
-            preference.fragment.dismiss();
+            if (preference.fragment != null) {
+                RadioButton rb = (RadioButton) v;
+                preference.value = preference.entryValues[(Integer) rb.getTag()].toString();
+                //notifyDataSetChanged();
+                preference.persistValue();
+                preference.fragment.dismiss();
+            }
         });
 
         return vi;
