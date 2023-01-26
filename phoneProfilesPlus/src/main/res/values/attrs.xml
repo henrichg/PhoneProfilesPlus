@@ -79,6 +79,9 @@
         <attr name="vibrationIntensityType" format="string" />
         <attr name="viNoChange" format="integer" />
     </declare-styleable>
+    <declare-styleable name="PPppppsDialogPreference">
+        <attr name="forPreference" format="string" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
     <!--    <attr name="activityBackgroundColor" format="reference" />-->

@@ -2051,6 +2051,23 @@
 
     <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
 
+    <string name="pppps_pref_dialog_title">PPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Install PPPPutSettings</string>
+    <string name="pppps_pref_dialog_launch_button">Launch PPPPutSettings</string>
+    <string name="pppps_pref_dialog_close_button">Close</string>
+    <string name="pppps_pref_dialog_launchPPPPS_title">Launch PPPPutSettings</string>
+    <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings is not installed.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_not_installed_summary">Not installed</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_install_summary">For parameters marked with \"(S)\" to work properly, click here to install PPPPutSettings.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_installed_summary">Installed:</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_new_version_summary">New version of PPPPutSettings is required. Click here to upgrade it.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">Click here to check for changes and upgrade PPPPutSettings.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Please grant permission \"Modify ssytem settings\" in PPPPutSettings. Is required for properly working PPPPutSettings.</string>
+    <string name="pppps_pref_dialog_install_pppps_installed_version">Installed version:</string>
+    <string name="pppps_pref_dialog_install_pppps_latest_version">Latest version:</string>
+
+    <string name="extender_pref_dialog_accessibility_settings_button">Enable/Disable\nAccessibility service</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

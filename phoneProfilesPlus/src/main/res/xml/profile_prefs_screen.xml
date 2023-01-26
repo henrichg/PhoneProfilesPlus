@@ -84,4 +84,10 @@
         app:ppEntryValues="@array/headsUpNotificationsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference
+        app:title="@string/pppps_pref_dialog_title"
+        app:summary="@string/empty_string"
+        app:key="prf_pref_screenPPPPS"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

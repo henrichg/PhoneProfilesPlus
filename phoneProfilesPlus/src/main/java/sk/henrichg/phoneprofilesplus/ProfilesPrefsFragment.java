@@ -320,6 +320,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof PPPPSDialogPreference)
+        {
+            ((PPPPSDialogPreference)preference).fragment = new PPPPSDialogPreferenceFragment();
+            dialogFragment = ((PPPPSDialogPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -6618,7 +6627,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not installed PPPPs
                 if (preferenceAllowed.notAllowedPPPPS) {
-                    boolean installedPPPPS = ActivateProfileHelper.isPPPPutSSettingsInstalled(context);
+                    boolean installedPPPPS = ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST;
                     preference = prefMng.findPreference(PRF_NOT_INSTALLED_PPPPS);
                     if (installedPPPPS) {
                         if (preference != null) {
