@@ -26,7 +26,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_lockDeviceLaunchExtender"
-        app:title="@string/event_preferences_applications_LaunchExtender_title"
+        app:title="@string/extender_pref_dialog_launch_button"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 

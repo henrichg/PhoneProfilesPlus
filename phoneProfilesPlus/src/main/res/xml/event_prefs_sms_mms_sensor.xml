@@ -71,7 +71,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventSMSLaunchExtender"
-        app:title="@string/event_preferences_applications_LaunchExtender_title"
+        app:title="@string/extender_pref_dialog_launch_button"
         app:summary="@string/event_preferences_sms_LaunchExtender_summary"
         app:dependency="eventSMSEnabled"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"

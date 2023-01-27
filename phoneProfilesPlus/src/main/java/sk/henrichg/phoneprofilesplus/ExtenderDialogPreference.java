@@ -1,70 +1,74 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
-public class PPPPSDialogPreference extends DialogPreference {
+public class ExtenderDialogPreference extends DialogPreference {
 
-    PPPPSDialogPreferenceFragment fragment;
+    ExtenderDialogPreferenceFragment fragment;
 
     final Context _context;
 
     // Custom xml attributes.
-    //String forPreference;
+    String installSummary;
+    String lauchSummary;
 
-    public PPPPSDialogPreference(Context context, AttributeSet attrs) {
+    public ExtenderDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         _context = context;
 
-        /*
         //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
-                R.styleable.PPppppsDialogPreference);
+                R.styleable.PPExtenderDialogPreference);
 
-        forPreference = typedArray.getString(
-                R.styleable.PPppppsDialogPreference_forPreference);
+        installSummary = typedArray.getString(
+                R.styleable.PPExtenderDialogPreference_installSummary);
+        lauchSummary = typedArray.getString(
+                R.styleable.PPExtenderDialogPreference_launchSummary);
 
         typedArray.recycle();
-        */
     }
 
     @Override
     public void onAttached() {
-        setSummaryPPPPSDP();
+        setSummaryEDP();
     }
 
     @Override
     protected void onSetInitialValue(Object defaultValue)
     {
-        setSummaryPPPPSDP();
+        setSummaryEDP();
     }
 
-    private void setSummaryPPPPSDP()
+    private void setSummaryEDP()
     {
         String prefVolumeDataSummary;
 
-        int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(_context);
-        if (ppppsVersion == 0) {
-            prefVolumeDataSummary = _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary) + "\n\n";
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
+        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+        if (extenderVersion == 0) {
+            prefVolumeDataSummary = _context.getString(R.string.extender_pref_dialog_PPPExtender_not_installed_summary);
+
+            if ((installSummary != null) && (!installSummary.isEmpty()))
+                prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + installSummary;
         }
         else {
-            String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(_context);
-            prefVolumeDataSummary =  _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_installed_summary) +
-                    " " + ppppsVersionName + " (" + ppppsVersion + ")\n\n";
-            if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
+            String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(_context);
+            prefVolumeDataSummary =  _context.getString(R.string.extender_pref_dialog_PPPExtender_installed_summary) +
+                    " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
+                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.extender_pref_dialog_PPPExtender_new_version_summary);
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.extender_pref_dialog_PPPExtender_upgrade_summary);
         }
 
-        prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" +
-                _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings);
+        if ((lauchSummary != null) && (!lauchSummary.isEmpty()))
+            prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + lauchSummary;
 
 //        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
         setSummary(prefVolumeDataSummary);
@@ -109,7 +113,7 @@ public class PPPPSDialogPreference extends DialogPreference {
         }*/
 
         //noinspection UnnecessaryLocalVariable
-        final PPPPSDialogPreference.SavedState myState = new PPPPSDialogPreference.SavedState(superState);
+        final ExtenderDialogPreference.SavedState myState = new ExtenderDialogPreference.SavedState(superState);
         return myState;
     }
 
@@ -119,15 +123,15 @@ public class PPPPSDialogPreference extends DialogPreference {
         if ((state == null) || (!state.getClass().equals(SavedState.class))) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
-            setSummaryPPPPSDP();
+            setSummaryEDP();
             return;
         }
 
         // restore instance state
-        PPPPSDialogPreference.SavedState myState = (PPPPSDialogPreference.SavedState)state;
+        ExtenderDialogPreference.SavedState myState = (ExtenderDialogPreference.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
 
-        setSummaryPPPPSDP();
+        setSummaryEDP();
     }
 
     // SavedState class
@@ -150,14 +154,14 @@ public class PPPPSDialogPreference extends DialogPreference {
         }
 
         public static final Creator<SavedState> CREATOR =
-                new Creator<PPPPSDialogPreference.SavedState>() {
-                    public PPPPSDialogPreference.SavedState createFromParcel(Parcel in)
+                new Creator<ExtenderDialogPreference.SavedState>() {
+                    public ExtenderDialogPreference.SavedState createFromParcel(Parcel in)
                     {
-                        return new PPPPSDialogPreference.SavedState(in);
+                        return new ExtenderDialogPreference.SavedState(in);
                     }
-                    public PPPPSDialogPreference.SavedState[] newArray(int size)
+                    public ExtenderDialogPreference.SavedState[] newArray(int size)
                     {
-                        return new PPPPSDialogPreference.SavedState[size];
+                        return new ExtenderDialogPreference.SavedState[size];
                     }
 
                 };

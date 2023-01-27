@@ -813,7 +813,6 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">To enable \"Applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">To enable \"Ignore for applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
-    <string name="event_preferences_applications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
     <string name="about_application_extender_source_code">Source code - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Default profile</string>
@@ -888,7 +887,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
-    <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="shortcut_activate_profile">Activate profile:</string>
@@ -1041,10 +1039,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Large</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Small</string>
-    <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
-    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
     <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
     <string name="default_profile_name_battery_ok">OK battery</string>
@@ -1474,8 +1470,6 @@
     <string name="normal_github_release">New app. release</string>
     <string name="normal_github_release_notification">Click this notification to download the new PhoneProfilesPlus release from its GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
     <string name="accessibility_service_enabled">Enabled</string>
     <string name="accessibility_service_disabled">Disabled</string>
     <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
@@ -2065,6 +2059,19 @@
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Please grant permission \"Modify system settings\" in PPPPutSettings. Is required for properly working PPPPutSettings.</string>
     <string name="pppps_pref_dialog_install_pppps_installed_version">Installed version:</string>
     <string name="pppps_pref_dialog_install_pppps_latest_version">Latest version:</string>
+
+    <string name="extender_pref_dialog_title">PhoneProfilesPlusExtender</string>
+    <string name="extender_pref_dialog_install_button">Install PhoneProfilesPlusExtender</string>
+    <string name="extender_pref_dialog_launch_button">Launch PhoneProfilesPlusExtender</string>
+    <string name="extender_pref_dialog_close_button">Close</string>
+    <string name="extender_pref_dialog_launchPPPExtender_title">Launch PhoneProfilesPlusExtender</string>
+    <string name="extender_pref_dialog_PPPExtender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="extender_pref_dialog_PPPExtender_not_installed_summary">Not installed</string>
+    <string name="extender_pref_dialog_PPPExtender_installed_summary">Installed:</string>
+    <string name="extender_pref_dialog_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
+    <string name="extender_pref_dialog_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
+    <string name="extender_pref_dialog_install_extender_installed_version">Installed version:</string>
+    <string name="extender_pref_dialog_install_extender_required_version">Required version:</string>
 
     <string name="extender_pref_dialog_accessibility_settings_button">Enable/Disable\nAccessibility service</string>
 
