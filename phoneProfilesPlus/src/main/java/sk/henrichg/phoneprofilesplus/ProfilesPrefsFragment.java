@@ -28,6 +28,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1521,14 +1522,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onResume() {
         super.onResume();
 
-        if (!nestedFragment) {
-            if (getActivity() == null)
-                return;
+        if (getActivity() == null)
+            return;
 
+        Log.e("ProfilesPrefsFragment.onResume", "xxxxxx");
+
+        // this is important for update preferences after PPPPS and Extender installation
+        updateAllSummary();
+
+        if (!nestedFragment) {
             //final Context context = getActivity().getBaseContext();
 
-            disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
-            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+            //disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+            //disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setRedTextToPreferences();
 //            PPApplication.logE("[PPP_NOTIFICATION] ProfilesPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, getActivity());
@@ -5955,6 +5961,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
         disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
         disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
+        disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
@@ -6627,7 +6634,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not installed PPPPs
                 if (preferenceAllowed.notAllowedPPPPS) {
-                    boolean installedPPPPS = ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST;
+                    boolean installedPPPPS = ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0;
                     preference = prefMng.findPreference(PRF_NOT_INSTALLED_PPPPS);
                     if (installedPPPPS) {
                         if (preference != null) {

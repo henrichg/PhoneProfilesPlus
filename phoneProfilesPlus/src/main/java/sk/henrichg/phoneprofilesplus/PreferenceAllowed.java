@@ -900,7 +900,7 @@ class PreferenceAllowed {
         String preferenceKey = Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING;
 
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {
                     if (profile._vibrateWhenRinging != 0)
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -989,7 +989,7 @@ class PreferenceAllowed {
 
                 String preferenceKey = Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS;
 
-                if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                     if (profile != null) {
                         if (profile._vibrateNotifications != 0)
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1076,7 +1076,7 @@ class PreferenceAllowed {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {
                     if (profile.getVibrationIntensityRingingChange())
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1140,7 +1140,7 @@ class PreferenceAllowed {
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
 //        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "_preferenceAllowed.allowed="+_preferenceAllowed.allowed);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {
                     if (profile.getVibrationIntensityNotificationsChange())
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1204,7 +1204,7 @@ class PreferenceAllowed {
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {
                     if (profile.getVibrationIntensityTouchInteractionChange())
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -1560,7 +1560,7 @@ class PreferenceAllowed {
 
         int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
         if (value != -10) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
 //                Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED", "installed");
                 if (profile != null) {
                     if (profile._notificationLed != 0)
@@ -1817,7 +1817,7 @@ class PreferenceAllowed {
         String preferenceKey = Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY;
 
         if (android.os.Build.VERSION.SDK_INT >= 26) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+            if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {
                     if (profile._alwaysOnDisplay != 0)
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
@@ -2202,7 +2202,7 @@ class PreferenceAllowed {
                             rootRequired = true;
                         boolean ppppsInstalled = false;
                         if (!rootRequired) {
-                            ppppsInstalled = ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST;
+                            ppppsInstalled = ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0;
                         }
                         if (!rootRequired && ppppsInstalled) {
                             if (profile != null) {
@@ -2304,7 +2304,7 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                        if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                             if (profile != null) {
                                 if (profile._soundSameRingtoneForBothSIMCards != 0)
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;

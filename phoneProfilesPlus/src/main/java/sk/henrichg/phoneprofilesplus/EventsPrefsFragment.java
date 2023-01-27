@@ -21,6 +21,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1126,17 +1127,23 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     public void onResume() {
         super.onResume();
 
-        if (!nestedFragment) {
-            if (getActivity() == null)
-                return;
+        if (getActivity() == null)
+            return;
 
+        Log.e("EventPrefsFragment.onResume", "xxxxxx");
+
+        // this is important for update preferences after PPPPS and Extender installation
+        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity());
+        event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
+
+        if (!nestedFragment) {
             final Context context = getActivity().getBaseContext();
 
-            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
-            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
-            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
-            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
-            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
 //            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);

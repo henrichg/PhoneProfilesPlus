@@ -1631,7 +1631,7 @@ class ActivateProfileHelper {
                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
                             //PPApplication.recordException(ee);
 
-                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                            if (isPPPPutSettingsInstalled(appContext) > 0) {
                                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                                     putSettingsParameter(context, "system", Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     putSettingsParameter(context, "system", "vibrate_in_normal", String.valueOf(lValue));
@@ -1707,7 +1707,7 @@ class ActivateProfileHelper {
             Context appContext = context.getApplicationContext();
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                if (isPPPPutSettingsInstalled(appContext) > 0) {
                     if (PPApplication.deviceIsPixel) {
                         if (lValue > 0) {
                             putSettingsParameter(context, "system", "vibrate_on", "1");
@@ -1770,7 +1770,7 @@ class ActivateProfileHelper {
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             PPApplication.deviceIsOnePlus) {
 
-                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST)
+                        if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, "system", parameterName, String.valueOf(value));
                         else {
                             synchronized (PPApplication.rootMutex) {
@@ -1789,7 +1789,7 @@ class ActivateProfileHelper {
                             }
                         }
                     } else {
-                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST)
+                        if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, "system", parameterName, String.valueOf(value));
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2435,7 +2435,7 @@ class ActivateProfileHelper {
 
                                         //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
 
-                                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                                        if (isPPPPutSettingsInstalled(appContext) > 0) {
                                             putSettingsParameter(context, "system", "notification_sound", uri.toString());
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2465,7 +2465,7 @@ class ActivateProfileHelper {
                                         } catch (Exception ignored) {
                                         }
 
-                                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                                        if (isPPPPutSettingsInstalled(appContext) > 0) {
                                             putSettingsParameter(context, "system", "message", uri.toString());
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2532,7 +2532,7 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                                    if (isPPPPutSettingsInstalled(appContext) > 0) {
                                         putSettingsParameter(context, "system", "notification_sound", "");
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2560,7 +2560,7 @@ class ActivateProfileHelper {
                                     // notifikacie ine ako sms - zvlastna katergoria v Huawei
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                                    if (isPPPPutSettingsInstalled(appContext) > 0) {
                                         putSettingsParameter(context, "system", "message", "");
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2634,7 +2634,7 @@ class ActivateProfileHelper {
 
                                         //Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
 
-                                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                                        if (isPPPPutSettingsInstalled(appContext) > 0) {
                                             putSettingsParameter(context, "system", "notification_sound_2", uri.toString());
                                         } else {
                                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2732,7 +2732,7 @@ class ActivateProfileHelper {
 
                                     //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
-                                    if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                                    if (isPPPPutSettingsInstalled(appContext) > 0)  {
                                         putSettingsParameter(context, "system", "notification_sound_2", "");
                                     } else {
                                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -2809,7 +2809,7 @@ class ActivateProfileHelper {
                             if (profile._soundSameRingtoneForBothSIMCards == 2)
                                 value = "0";
 
-                            if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+                            if (isPPPPutSettingsInstalled(appContext) > 0) {
                                 putSettingsParameter(context, "system", "ringtone_sound_use_uniform", value);
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -3015,7 +3015,7 @@ class ActivateProfileHelper {
 
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST)
+                        if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, "system", "notification_light_pulse", String.valueOf(value));
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -3152,7 +3152,7 @@ class ActivateProfileHelper {
 
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        if (isPPPPutSettingsInstalled(appContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST)
+                        if (isPPPPutSettingsInstalled(appContext) > 0)
                             putSettingsParameter(context, "system", "aod_mode", String.valueOf(value));
                         else {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&

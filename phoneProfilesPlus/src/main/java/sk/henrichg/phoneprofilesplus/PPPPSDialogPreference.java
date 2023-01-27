@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -16,13 +15,14 @@ public class PPPPSDialogPreference extends DialogPreference {
     final Context _context;
 
     // Custom xml attributes.
-    String forPreference;
+    //String forPreference;
 
     public PPPPSDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         _context = context;
 
+        /*
         //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPppppsDialogPreference);
@@ -31,6 +31,7 @@ public class PPPPSDialogPreference extends DialogPreference {
                 R.styleable.PPppppsDialogPreference_forPreference);
 
         typedArray.recycle();
+        */
     }
 
     @Override
@@ -66,7 +67,7 @@ public class PPPPSDialogPreference extends DialogPreference {
         prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" +
                 _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings);
 
-        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
+//        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
         setSummary(prefVolumeDataSummary);
     }
 

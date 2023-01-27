@@ -151,8 +151,10 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             i.setData(Uri.parse(url));
             try {
                 startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                preference.fragment.dismiss();
             } catch (Exception e) {
                 PPApplication.recordException(e);
+                preference.fragment.dismiss();
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -185,8 +187,10 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     dialog.cancel();
                     //if (activity != null)
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    preference.fragment.dismiss();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
+                    preference.fragment.dismiss();
                 }
             }
         };
@@ -216,7 +220,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             return;
         }
 
-        if (ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext) >= PPApplication.VERSION_CODE_PPPPS_LATEST) {
+        if (ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext) > 0) {
             PackageManager packageManager = prefContext.getPackageManager();
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_PPPPS);
             if (intent != null) {
@@ -224,8 +228,10 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     startActivity(intent);
+                    preference.fragment.dismiss();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
+                    preference.fragment.dismiss();
                 }
             }
         }
@@ -240,7 +246,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         null,
                         null,
                         null,
-                        null,
+                        dialog13 -> preference.fragment.dismiss(),
                         null,
                         true, true,
                         false, false,
