@@ -194,6 +194,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     preference.fragment.dismiss();
             } catch (Exception e) {
                 PPApplication.recordException(e);
+                if (preference != null)
+                    preference.fragment.dismiss();
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -357,8 +359,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 try {
                     startActivity(intent);
+                    if (preference != null)
+                        preference.fragment.dismiss();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
+                    if (preference != null)
+                        preference.fragment.dismiss();
                 }
             }
         }
