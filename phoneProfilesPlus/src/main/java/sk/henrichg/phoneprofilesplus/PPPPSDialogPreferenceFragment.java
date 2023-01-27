@@ -246,7 +246,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         null,
                         null,
                         null,
-                        dialog13 -> preference.fragment.dismiss(),
+                        null,
                         null,
                         true, true,
                         false, false,

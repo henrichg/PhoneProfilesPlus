@@ -110,8 +110,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         nestedFragment = !(this instanceof ProfilesPrefsActivity.ProfilesPrefsRoot);
 
         initPreferenceFragment(/*savedInstanceState*/);
-
-        updateAllSummary();
     }
 
     @Override
@@ -388,6 +386,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         */
 
+        updateAllSummary();
+        /*
         setCategorySummary("prf_pref_activationDurationCategoryRoot", context);
         setCategorySummary("prf_pref_soundProfileCategoryRoot", context);
         setCategorySummary("prf_pref_volumeCategoryRoot", context);
@@ -404,6 +404,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
         setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY, context);
+        */
 
         setRedTextToPreferences();
 
@@ -1619,6 +1620,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     void doOnActivityResult(int requestCode, int resultCode, Intent data) {
+        if (getActivity() == null)
+            return;
+
+        final Context context = getActivity().getBaseContext();
+
         if (requestCode == (Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE)) {
             setRedTextToPreferences();
         }
@@ -1755,10 +1761,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
-            setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
-            setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
-            disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
-            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+            // this is important for update all preferences
+            updateAllSummary();
+//            setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
+//            setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
+//            disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+//            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+
+            setRedTextToPreferences();
+//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");
+            PPApplication.updateGUI(true, false, context);
+
             // show save menu
             ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
             if (activity != null) {
@@ -5833,6 +5846,28 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        final Context context = getActivity().getBaseContext();
+
+        // disable depended preferences
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+        disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+        disableDependedPref(Profile.PREF_PROFILE_AFTER_DURATION_DO);
+        disableDependedPref(Profile.PREF_PROFILE_ASK_FOR_DURATION);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
+        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
+        disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
         setSummary(Profile.PREF_PROFILE_NAME);
@@ -5943,25 +5978,23 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS);
         setSummary(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION);
 
-        // disable depended preferences
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
-        disableDependedPref(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
-        disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
-        disableDependedPref(Profile.PREF_PROFILE_AFTER_DURATION_DO);
-        disableDependedPref(Profile.PREF_PROFILE_ASK_FOR_DURATION);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
-        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
-        disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+        setCategorySummary("prf_pref_activationDurationCategoryRoot", context);
+        setCategorySummary("prf_pref_soundProfileCategoryRoot", context);
+        setCategorySummary("prf_pref_volumeCategoryRoot", context);
+        setCategorySummary("prf_pref_soundsCategoryRoot", context);
+        setCategorySummary("prf_pref_touchEffectsCategoryRoot", context);
+        setCategorySummary("prf_pref_vibrationIntensityCategoryRoot", context);
+        setCategorySummary("prf_pref_radiosCategoryRoot", context);
+        setCategorySummary("prf_pref_screenCategoryRoot", context);
+        setCategorySummary("prf_pref_ledAccessoriesCategoryRoot", context);
+        setCategorySummary("prf_pref_othersCategoryRoot", context);
+        setCategorySummary("prf_pref_applicationCategoryRoot", context);
+        setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY, context);
+        setCategorySummary(PREF_LOCK_DEVICE_CATEGORY, context);
+        setCategorySummary(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
+        setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
+        setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY, context);
+
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

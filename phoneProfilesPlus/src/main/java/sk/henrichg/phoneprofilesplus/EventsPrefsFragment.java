@@ -90,10 +90,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         nestedFragment = !(this instanceof EventsPrefsActivity.EventsPrefsRoot);
 
         initPreferenceFragment(/*savedInstanceState*/);
-
-        if (getActivity() != null) {
-            event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
-        }
     }
 
     @Override
@@ -363,7 +359,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         setRedTextToPreferences();
 
         // update preference summary and also category summary
-        event.checkSensorsPreferences(prefMng, !nestedFragment, context);
+        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
+        event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
 
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
@@ -1133,7 +1130,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         Log.e("EventPrefsFragment.onResume", "xxxxxx");
 
         // this is important for update preferences after PPPPS and Extender installation
-        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity());
+        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
         event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
 
         if (!nestedFragment) {
@@ -1196,7 +1193,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity());
+        event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
         event.setSummary(prefMng, key, sharedPreferences, getActivity(), true);
 
         setRedTextToPreferences();
@@ -1223,19 +1220,22 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
-            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
-            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
-            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
-            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
-
-            event._eventPreferencesApplication.setSummary(prefMng,
-                    EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, preferences, context);
-            event._eventPreferencesOrientation.setSummary(prefMng,
-                    EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, preferences, context);
-            event._eventPreferencesSMS.setSummary(prefMng,
-                    EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, preferences, context);
-            event._eventPreferencesCall.setSummary(prefMng,
-                    EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
+            // this is important for update all preferences
+            event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
+            event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
+//            event._eventPreferencesApplication.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesOrientation.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesSMS.checkPreferences(prefMng, !nestedFragment, context);
+//            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
+//
+//            event._eventPreferencesApplication.setSummary(prefMng,
+//                    EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, preferences, context);
+//            event._eventPreferencesOrientation.setSummary(prefMng,
+//                    EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, preferences, context);
+//            event._eventPreferencesSMS.setSummary(prefMng,
+//                    EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, preferences, context);
+//            event._eventPreferencesCall.setSummary(prefMng,
+//                    EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
 
             setRedTextToPreferences();
 //            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");

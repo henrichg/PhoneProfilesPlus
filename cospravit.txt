@@ -744,29 +744,4 @@ zvonenia a feedback
 - Other fixes.
 - Updated translations.
 
-----------
-
-Extender a preferences:
-- Install cast je vzdy povolena, v nej sa zobrazuje, ci je Extender nainstalovany, aka verzia
-  a ci klik robi instalaciu alebo upgrade.
-  Klik spusta installExtender()
-- V disableDependedPref() sa disabluju spriahnute preferences, napriklad vyber aplikacie ktora sam ma
-  stopnut. To aby uzivatel bol prinuteny Extender instalovat.
-  A tiez sa pri nich zobrazuje, ze preco je to disablobane, cize lebo nie je Extender v pozadovanej verzii.
-  A aj samotne summary je rozne podla toho pre ake preference pripadne jeho parameter (Lock device)
-  je summary robene.
-- Cast na spustenie Extendera: nie je disablovane, ak nie je Extender nainstalovany, zobrazi sa o tom
-  dialog.
-
-Je to zial komplikovanejsie, nez som predpokladal.
-
-----
-
-PPPPS a preferences:
-- Pridaj install/upgrade cast ako pre Extender.
-- Pridaj cast na spustenie PPPPS tiez ako pre Extender.
-- Spriahnute preferences netreba riesit, to uz je poriesene. Navyse nie je povinne mat PPPPS nainstalovany.
-  Lebo bud ma PPPPS alebo root alebo to oznaci cervene a pri aktivacii to vyhodi error notifikaciu.
-
-----------
 
