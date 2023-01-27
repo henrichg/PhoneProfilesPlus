@@ -28,7 +28,6 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
     private ListView listView;
     private LinearLayout linlaProgress;
     private LinearLayout linLaListView;
-    private TextView helpTextView;
 
     private ConnectToSSIDPreferenceAdapter listAdapter;
 
@@ -56,7 +55,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
         listView = view.findViewById(R.id.connect_to_ssid_pref_dlg_listview);
         linlaProgress = view.findViewById(R.id.connect_to_ssid_pref_dlg_linla_progress);
         linLaListView = view.findViewById(R.id.connect_to_ssid_pref_dlg_root2);
-        helpTextView = view.findViewById(R.id.connect_to_ssid_pref_dlg_help);
+        TextView helpTextView = view.findViewById(R.id.connect_to_ssid_pref_dlg_help);
 
         listAdapter = new ConnectToSSIDPreferenceAdapter(prefContext, preference);
 

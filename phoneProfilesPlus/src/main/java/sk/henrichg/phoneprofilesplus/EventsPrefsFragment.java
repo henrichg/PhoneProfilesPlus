@@ -872,7 +872,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference120.getTitle(),
-                                getString(R.string.extender_pref_dialog_pppps_not_installed),
+                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -932,7 +932,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference123.getTitle(),
-                                getString(R.string.extender_pref_dialog_pppps_not_installed),
+                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -975,7 +975,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference124.getTitle(),
-                                getString(R.string.extender_pref_dialog_pppps_not_installed),
+                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -1018,7 +1018,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference125.getTitle(),
-                                getString(R.string.extender_pref_dialog_pppps_not_installed),
+                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,

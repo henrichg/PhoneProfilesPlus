@@ -15,8 +15,8 @@ public class ExtenderDialogPreference extends DialogPreference {
     final Context _context;
 
     // Custom xml attributes.
-    String installSummary;
-    String lauchSummary;
+    final String installSummary;
+    final String lauchSummary;
 
     public ExtenderDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,19 +52,19 @@ public class ExtenderDialogPreference extends DialogPreference {
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
         if (extenderVersion == 0) {
-            prefVolumeDataSummary = _context.getString(R.string.extender_pref_dialog_PPPExtender_not_installed_summary);
+            prefVolumeDataSummary = _context.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary);
 
             if ((installSummary != null) && (!installSummary.isEmpty()))
                 prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + installSummary;
         }
         else {
             String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(_context);
-            prefVolumeDataSummary =  _context.getString(R.string.extender_pref_dialog_PPPExtender_installed_summary) +
+            prefVolumeDataSummary =  _context.getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
                     " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
             if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.extender_pref_dialog_PPPExtender_new_version_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.extender_pref_dialog_PPPExtender_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
         }
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))

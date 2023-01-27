@@ -48,7 +48,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/pp_button_background_selector"
-                android:text="@string/extender_pref_dialog_install_button"
+                android:text="@string/pppextender_pref_dialog_install_button"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorAccent"
                 android:textStyle="bold" />
@@ -90,7 +90,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/pp_button_background_selector"
-                android:text="@string/extender_pref_dialog_launch_button"
+                android:text="@string/pppextender_pref_dialog_launch_button"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorAccent"
                 android:textStyle="bold" />

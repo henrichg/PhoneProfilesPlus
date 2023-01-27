@@ -42,10 +42,10 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
-        dialogBuilder.setTitle(R.string.extender_pref_dialog_title);
+        dialogBuilder.setTitle(R.string.pppextender_pref_dialog_title);
         dialogBuilder.setIcon(preference.getIcon());
         dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(R.string.extender_pref_dialog_close_button, null);
+        dialogBuilder.setNegativeButton(R.string.pppextender_pref_dialog_close_button, null);
 
         LayoutInflater inflater = ((Activity)prefContext).getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_extender_preference, null);
@@ -66,19 +66,19 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             String prefVolumeDataSummary;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext);
             if (ppppsVersion == 0) {
-                prefVolumeDataSummary = prefContext.getString(R.string.extender_pref_dialog_PPPExtender_not_installed_summary) + "\n\n";
+                prefVolumeDataSummary = prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) + "\n\n";
 
                 if ((preference.installSummary != null) && (!preference.installSummary.isEmpty()))
                     prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + preference.installSummary;
             }
             else {
                 String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(prefContext);
-                prefVolumeDataSummary =  prefContext.getString(R.string.extender_pref_dialog_PPPExtender_installed_summary) +
+                prefVolumeDataSummary =  prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
                         " " + ppppsVersionName + " (" + ppppsVersion + ")\n\n";
                 if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.extender_pref_dialog_PPPExtender_new_version_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
                 else
-                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.extender_pref_dialog_PPPExtender_upgrade_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
             }
             extenderVersionText.setText(prefVolumeDataSummary);
 
@@ -365,8 +365,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         else {
             if (getActivity() != null) {
                 PPAlertDialog dialog = new PPAlertDialog(
-                        getString(R.string.extender_pref_dialog_launchPPPExtender_title),
-                        getString(R.string.extender_pref_dialog_PPPExtender_not_installed),
+                        getString(R.string.pppextender_pref_dialog_launchPPPExtender_title),
+                        getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
                         getString(android.R.string.ok),
                         null,
                         null, null,

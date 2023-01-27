@@ -155,18 +155,18 @@ class EventPreferencesApplication extends EventPreferences {
             if (preference != null) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
-                    String summary = context.getString(R.string.extender_pref_dialog_PPPExtender_not_installed_summary);// +
+                    String summary = context.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary);// +
                             //"\n\n" + context.getString(R.string.event_preferences_applications_PPPExtender_install_summary);
                     preference.setSummary(summary);
                 }
                 else {
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
-                    String summary = context.getString(R.string.extender_pref_dialog_PPPExtender_installed_summary) +
+                    String summary = context.getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
                     if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                        summary = summary + context.getString(R.string.extender_pref_dialog_PPPExtender_new_version_summary);
+                        summary = summary + context.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
                     else
-                        summary = summary + context.getString(R.string.extender_pref_dialog_PPPExtender_upgrade_summary);
+                        summary = summary + context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
                     preference.setSummary(summary);
                 }
             }
