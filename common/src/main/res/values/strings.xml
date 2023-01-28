@@ -2070,8 +2070,6 @@
     <string name="pppextender_pref_dialog_PPPExtender_installed_summary">Installed:</string>
     <string name="pppextender_pref_dialog_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
-    <string name="pppextender_pref_dialog_install_extender_installed_version">Installed version:</string>
-    <string name="pppextender_pref_dialog_install_extender_required_version">Required version:</string>
 
     <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/Disable\nAccessibility service</string>
 
@@ -2088,7 +2086,6 @@
 <!--    - pppextender_pref_dialog_PPPExtender_installed_summary-->
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
 <!--    - pppextender_pref_dialog_PPPExtender_not_installed_summary-->
-
 
     <!-- **************************************************************************************** -->
 
