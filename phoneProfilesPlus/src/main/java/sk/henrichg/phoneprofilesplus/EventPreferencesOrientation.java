@@ -44,11 +44,12 @@ class EventPreferencesOrientation extends EventPreferences {
     static final String PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE = "eventOrientationCurrentLightValue";
     private static final String PREF_EVENT_ORIENTATION_LIGHT_MIN = "eventOrientationLightMin";
     private static final String PREF_EVENT_ORIENTATION_LIGHT_MAX = "eventOrientationLightMax";
-    static final String PREF_EVENT_ORIENTATION_INSTALL_EXTENDER = "eventOrientationInstallExtender";
+    static final String PREF_EVENT_ORIENTATION_EXTENDER = "eventOrientationExtender";
+    //static final String PREF_EVENT_ORIENTATION_INSTALL_EXTENDER = "eventOrientationInstallExtender";
     static final String PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
     private static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
     private static final String PREF_EVENT_ORIENTATION_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
-    static final String PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER = "eventOrientationLaunchExtender";
+    //static final String PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER = "eventOrientationLaunchExtender";
 
     private static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategoryRoot";
 
@@ -396,7 +397,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
         }
-
+        /*
         if (key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -418,6 +419,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
         }
+        */
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
@@ -570,7 +572,8 @@ class EventPreferencesOrientation extends EventPreferences {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS) ||
-            key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER) ||
+            key.equals(PREF_EVENT_ORIENTATION_EXTENDER) ||
+            //key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER) ||
             key.equals(PREF_EVENT_ORIENTATION_APP_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
@@ -587,7 +590,8 @@ class EventPreferencesOrientation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_LIGHT_MIN, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_LIGHT_MAX, preferences, context);
-        setSummary(prefMng, PREF_EVENT_ORIENTATION_INSTALL_EXTENDER, preferences, context);
+        setSummary(prefMng, PREF_EVENT_ORIENTATION_EXTENDER, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_ORIENTATION_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, preferences, context);
         setSummary(prefMng, PREF_EVENT_ORIENTATION_APP_SETTINGS, preferences, context);
     }

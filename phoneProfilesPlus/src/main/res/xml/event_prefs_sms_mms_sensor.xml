@@ -55,13 +55,23 @@
         app:dMax="86400"
         app:dependency="eventSMSEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="eventSMSInstallExtender"
-        app:title="@string/install_extender_dialog_title"
-        app:summary="@string/event_preferences_sms_PPPExtender_install_summary"
+
+    <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
+        app:title="@string/pppextender_pref_dialog_title"
+        app:summary="@string/empty_string"
+        app:installSummary="@string/event_preferences_sms_PPPExtender_install_summary"
+        app:launchSummary="@string/event_preferences_sms_LaunchExtender_summary"
+        app:key="eventSMSExtender"
         app:dependency="eventSMSEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
+
+<!--    <Preference-->
+<!--        app:key="eventSMSInstallExtender"-->
+<!--        app:title="@string/install_extender_dialog_title"-->
+<!--        app:summary="@string/event_preferences_sms_PPPExtender_install_summary"-->
+<!--        app:dependency="eventSMSEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <Preference
         app:key="eventSMSAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
@@ -69,12 +79,12 @@
         app:dependency="eventSMSEnabled"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="eventSMSLaunchExtender"
-        app:title="@string/pppextender_pref_dialog_launch_button"
-        app:summary="@string/event_preferences_sms_LaunchExtender_summary"
-        app:dependency="eventSMSEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="eventSMSLaunchExtender"-->
+<!--        app:title="@string/pppextender_pref_dialog_launch_button"-->
+<!--        app:summary="@string/event_preferences_sms_LaunchExtender_summary"-->
+<!--        app:dependency="eventSMSEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     
 </androidx.preference.PreferenceScreen>

@@ -35,6 +35,7 @@ public class PPPPSDialogPreference extends DialogPreference {
 
     @Override
     public void onAttached() {
+        super.onAttached();
         setSummaryPPPPSDP();
     }
 

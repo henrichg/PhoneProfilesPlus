@@ -37,9 +37,10 @@ class EventPreferencesSMS extends EventPreferences {
     private static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
     private static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
     private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
-    static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
+    static final String PREF_EVENT_SMS_EXTENDER = "eventSMSExtender";
+    //static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
     static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
-    static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
+    //static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
     private static final String PREF_EVENT_SMS_FOR_SIM_CARD = "eventSMSForSimCard";
 
     static final String PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM = "eventSMSEnabledEnabledNoCheckSim";
@@ -293,7 +294,7 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             }
         }
-
+        /*
         if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -315,6 +316,7 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             }
         }
+        */
 
         Event event = new Event();
         event.createEventPreferences();
@@ -378,7 +380,8 @@ class EventPreferencesSMS extends EventPreferences {
             key.equals(PREF_EVENT_SMS_CONTACTS) ||
             key.equals(PREF_EVENT_SMS_CONTACT_GROUPS) ||
             key.equals(PREF_EVENT_SMS_DURATION) ||
-            key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER) ||
+            key.equals(PREF_EVENT_SMS_EXTENDER) ||
+            //key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER) ||
             key.equals(PREF_EVENT_SMS_FOR_SIM_CARD))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
@@ -394,7 +397,8 @@ class EventPreferencesSMS extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_DURATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SMS_INSTALL_EXTENDER, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_EXTENDER, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_SMS_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_FOR_SIM_CARD, preferences, context);
     }
 

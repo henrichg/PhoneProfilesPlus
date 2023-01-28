@@ -12,22 +12,31 @@
         app:ppEntries="@array/lockDeviceArray"
         app:ppEntryValues="@array/lockDeviceValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="prf_pref_lockDeviceInstallExtender"
-        app:title="@string/install_extender_dialog_title"
-        app:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+
+    <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
+        app:title="@string/pppextender_pref_dialog_title"
+        app:summary="@string/empty_string"
+        app:installSummary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
+        app:key="prf_pref_lockDeviceExtender"
         app:layout="@layout/mp_preference_material_widget" />
+    <!--    app:launchSummary=""-->
+
+<!--    <Preference-->
+<!--        app:key="prf_pref_lockDeviceInstallExtender"-->
+<!--        app:title="@string/install_extender_dialog_title"-->
+<!--        app:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <Preference
         app:key="prf_pref_lockDeviceAccessibilitySettings"
         app:title="@string/profile_preferences_lockDevice_AccessibilitySettings_title"
         app:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="prf_pref_lockDeviceLaunchExtender"
-        app:title="@string/pppextender_pref_dialog_launch_button"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="prf_pref_lockDeviceLaunchExtender"-->
+<!--        app:title="@string/pppextender_pref_dialog_launch_button"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
 
 </androidx.preference.PreferenceScreen>

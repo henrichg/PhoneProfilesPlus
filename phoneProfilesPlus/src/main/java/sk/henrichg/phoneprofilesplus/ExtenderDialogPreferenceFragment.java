@@ -64,18 +64,18 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         mDialog.setOnShowListener(dialog -> {
             String prefVolumeDataSummary;
-            int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext);
-            if (ppppsVersion == 0) {
+            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
+            if (extenderVersion == 0) {
                 prefVolumeDataSummary = prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) + "\n\n";
 
                 if ((preference.installSummary != null) && (!preference.installSummary.isEmpty()))
                     prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + preference.installSummary;
             }
             else {
-                String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(prefContext);
+                String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
-                        " " + ppppsVersionName + " (" + ppppsVersion + ")\n\n";
-                if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
+                        " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
+                if (extenderVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
                     prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
                 else
                     prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
@@ -84,9 +84,10 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
             if ((preference.lauchSummary != null) && (!preference.lauchSummary.isEmpty())) {
                 prefVolumeDataSummary = preference.lauchSummary;
+                extenderLaunchText.setVisibility(View.VISIBLE);
                 extenderLaunchText.setText(prefVolumeDataSummary);
             } else
-                extenderLaunchText.setText(R.string.empty_string);
+                extenderLaunchText.setVisibility(View.GONE);
 
             //enableViews();
         });

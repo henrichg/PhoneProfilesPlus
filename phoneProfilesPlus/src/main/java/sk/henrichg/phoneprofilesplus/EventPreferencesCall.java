@@ -37,9 +37,10 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
     private static final String PREF_EVENT_CALL_PERMANENT_RUN = "eventCallPermanentRun";
     private static final String PREF_EVENT_CALL_DURATION = "eventCallDuration";
-    static final String PREF_EVENT_CALL_INSTALL_EXTENDER = "eventCallInstallExtender";
+    static final String PREF_EVENT_CALL_EXTENDER = "eventCallExtender";
+    //static final String PREF_EVENT_CALL_INSTALL_EXTENDER = "eventCallInstallExtender";
     static final String PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS = "eventCallAccessibilitySettings";
-    static final String PREF_EVENT_CALL_LAUNCH_EXTENDER = "eventCallLaunchExtender";
+    //static final String PREF_EVENT_CALL_LAUNCH_EXTENDER = "eventCallLaunchExtender";
     private static final String PREF_EVENT_CALL_FOR_SIM_CARD = "eventCallForSimCard";
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
@@ -335,6 +336,7 @@ class EventPreferencesCall extends EventPreferences {
             }
         }
 
+        /*
         if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -356,6 +358,7 @@ class EventPreferencesCall extends EventPreferences {
                 }
             }
         }
+        */
 
         Event event = new Event();
         event.createEventPreferences();
@@ -421,7 +424,8 @@ class EventPreferencesCall extends EventPreferences {
                 key.equals(PREF_EVENT_CALL_CONTACTS) ||
                 key.equals(PREF_EVENT_CALL_CONTACT_GROUPS) ||
                 key.equals(PREF_EVENT_CALL_DURATION) ||
-                key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER) ||
+                key.equals(PREF_EVENT_CALL_EXTENDER) ||
+                //key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER) ||
                 key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -435,8 +439,8 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_CONTACT_GROUPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_DURATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
-        setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_EXTENDER, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_FOR_SIM_CARD, preferences, context);
     }
 

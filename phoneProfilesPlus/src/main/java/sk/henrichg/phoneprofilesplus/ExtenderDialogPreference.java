@@ -37,6 +37,7 @@ public class ExtenderDialogPreference extends DialogPreference {
 
     @Override
     public void onAttached() {
+        super.onAttached();
         setSummaryEDP();
     }
 

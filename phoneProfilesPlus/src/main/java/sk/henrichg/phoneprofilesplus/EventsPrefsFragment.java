@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -294,6 +293,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        else
+        if (preference instanceof ExtenderDialogPreference)
+        {
+            ((ExtenderDialogPreference)preference).fragment = new ExtenderDialogPreferenceFragment();
+            dialogFragment = ((ExtenderDialogPreference)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null) {
             if ((getActivity() != null) && (!getActivity().isFinishing())) {
@@ -396,6 +404,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        /*
         Preference extenderPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -404,6 +413,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         Preference accessibilityPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -685,6 +695,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        /*
         extenderPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -693,6 +704,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         Preference orientationPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (orientationPreference != null) {
             //orientationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -834,7 +846,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             mobileCellsPreference.event_id = event_id;
         }
         */
-
+        /*
         extenderPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -843,6 +855,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         Preference smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -851,6 +864,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        /*
         smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_LAUNCH_EXTENDER);
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -894,7 +908,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
-
+        */
+        /*
         extenderPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -903,6 +918,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         Preference callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (callPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -911,6 +927,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        /*
         callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_LAUNCH_EXTENDER);
         if (callPreference != null) {
             //callPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -954,6 +971,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
+        /*
         accessibilityPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_LAUNCH_EXTENDER);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -997,6 +1016,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
+        /*
         accessibilityPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -1040,6 +1061,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         preference = prefMng.findPreference(EventPreferencesBattery.PREF_EVENT_BATTERY_BATTERY_SAVER_SYSTEM_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);

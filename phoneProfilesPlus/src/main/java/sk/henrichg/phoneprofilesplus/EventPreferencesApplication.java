@@ -23,9 +23,10 @@ class EventPreferencesApplication extends EventPreferences {
 
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
     static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
-    static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
+    static final String PREF_EVENT_APPLICATION_EXTENDER = "eventApplicationExtender";
+    //static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
     static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
-    static final String PREF_EVENT_APPLICATION_LAUNCH_EXTENDER = "eventApplicationLaunchExtender";
+    //static final String PREF_EVENT_APPLICATION_LAUNCH_EXTENDER = "eventApplicationLaunchExtender";
 
     private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategoryRoot";
 
@@ -150,6 +151,7 @@ class EventPreferencesApplication extends EventPreferences {
             }
         }
 
+        /*
         if (key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -171,6 +173,7 @@ class EventPreferencesApplication extends EventPreferences {
                 }
             }
         }
+        */
 
         Event event = new Event();
         event.createEventPreferences();
@@ -220,7 +223,8 @@ class EventPreferencesApplication extends EventPreferences {
             setSummary(prefMng, key, /*value ? "true" : "false",*/ context);
         }
         if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS) ||
-            key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER))
+            key.equals(PREF_EVENT_APPLICATION_EXTENDER))
+            //key.equals(PREF_EVENT_APPLICATION_INSTALL_ EXTENDER))
         {
             setSummary(prefMng, key, /*preferences.getString(key, ""),*/ context);
         }
@@ -230,7 +234,8 @@ class EventPreferencesApplication extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_APPLICATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_APPLICATION_APPLICATIONS, preferences, context);
-        setSummary(prefMng, PREF_EVENT_APPLICATION_INSTALL_EXTENDER, preferences, context);
+        setSummary(prefMng, PREF_EVENT_APPLICATION_EXTENDER, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_APPLICATION_INSTALL_EXTENDER, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
