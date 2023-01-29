@@ -309,7 +309,7 @@ class EventPreferencesApplication extends EventPreferences {
                                 /*, "EventPreferencesApplication.checkPreferences"*/);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
                 if (applicationsPreference != null) {
-                    applicationsPreference.setEnabled(accessibilityEnabled);
+                    //applicationsPreference.setEnabled(accessibilityEnabled);
                     applicationsPreference.setSummaryAMSDP();
                 }
 

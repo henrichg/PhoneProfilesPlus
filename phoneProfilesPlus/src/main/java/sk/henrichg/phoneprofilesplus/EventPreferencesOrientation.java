@@ -799,7 +799,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         /*, "EventPreferencesOrientation.checkPreferences"*/);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
                 if (applicationsPreference != null) {
-                    applicationsPreference.setEnabled(enabled);
+                    //applicationsPreference.setEnabled(enabled);
                     applicationsPreference.setSummaryAMSDP();
                 }
                 setSummary(prefMng, PREF_EVENT_ORIENTATION_APP_SETTINGS, preferences, context);
