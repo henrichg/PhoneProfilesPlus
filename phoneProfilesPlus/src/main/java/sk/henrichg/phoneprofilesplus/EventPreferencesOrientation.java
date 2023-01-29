@@ -420,10 +420,6 @@ class EventPreferencesOrientation extends EventPreferences {
             }
         }
         */
-        if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
-            Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false, false);
-        }
 
         Event event = new Event();
         event.createEventPreferences();
@@ -491,6 +487,13 @@ class EventPreferencesOrientation extends EventPreferences {
             preference.setSummary(summary);
 
             //GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
+        }
+        //TODO
+        preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
+        if (preference != null) {
+            String _value = prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, "");
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !_value.isEmpty(), false, false,
+                    !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), false);
         }
 
     }
@@ -606,10 +609,13 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_ORIENTATION_ENABLED, false);
+                boolean runnable = tmp.isRunnable(context) &&
+                        (tmp.isAccessibilityServiceEnabled(context, false) == 1) &&
+                        (PPApplication.accessibilityServiceForPPPExtenderConnected == 1);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
