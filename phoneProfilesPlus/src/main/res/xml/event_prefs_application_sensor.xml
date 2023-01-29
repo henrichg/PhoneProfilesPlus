@@ -22,6 +22,7 @@
         app:title="@string/pppextender_pref_dialog_title"
         app:summary="@string/empty_string"
         app:installSummary="@string/event_preferences_applications_PPPExtender_install_summary"
+        app:enableExtenderSummaryDisabled="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
         app:key="eventApplicationExtender"
         app:dependency="eventApplicationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
@@ -36,7 +37,7 @@
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
     <Preference
         app:key="eventApplicationAccessibilitySettings"
-        app:title="@string/event_preferences_applications_AccessibilitySettings_title"
+        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"
         app:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
         app:dependency="eventApplicationEnabled"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"

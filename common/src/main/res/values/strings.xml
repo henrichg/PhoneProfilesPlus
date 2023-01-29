@@ -427,7 +427,6 @@
     <string name="event_type_applications">Applications</string>
     <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
     <string name="event_preferences_applications_applications">Applications</string>
-    <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT required to change adaptive level.</string>
     <string name="important_info_profile_activation_text1">Profiles can be activated in one of two modes:</string>
     <string name="important_info_profile_activation_text2">Manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profiles are indicated with \"[M]\" in front of the profile name.</string>
@@ -887,7 +886,6 @@
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="shortcut_activate_profile">Activate profile:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
@@ -1096,7 +1094,6 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
     <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
@@ -2046,8 +2043,8 @@
     <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
 
     <string name="pppps_pref_dialog_title">PPPPutSettings</string>
-    <string name="pppps_pref_dialog_install_button">Install PPPPutSettings</string>
-    <string name="pppps_pref_dialog_launch_button">Launch PPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Install\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_launch_button">Launch\nPPPPutSettings</string>
     <string name="pppps_pref_dialog_close_button">Close</string>
     <string name="pppps_pref_dialog_launchPPPPS_title">Launch PPPPutSettings</string>
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings is not installed.</string>
@@ -2061,17 +2058,17 @@
     <string name="pppps_pref_dialog_install_pppps_latest_version">Latest version:</string>
 
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_install_button">Install PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_launch_button">Launch PhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_install_button">Install\nPhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_launch_button">Launch\nPhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/Disable\nAccessibility settings</string>
     <string name="pppextender_pref_dialog_close_button">Close</string>
     <string name="pppextender_pref_dialog_launchPPPExtender_title">Launch PhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_enablePPPExtender_title">Accessibility settings</string>
     <string name="pppextender_pref_dialog_PPPExtender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
     <string name="pppextender_pref_dialog_PPPExtender_not_installed_summary">Not installed</string>
     <string name="pppextender_pref_dialog_PPPExtender_installed_summary">Installed:</string>
     <string name="pppextender_pref_dialog_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
     <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
-
-    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/Disable\nAccessibility service</string>
 
 <!--Tieto stare retazce potom vyhod, ked ich prelozis v novych    -->
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
@@ -2086,6 +2083,10 @@
 <!--    - pppextender_pref_dialog_PPPExtender_installed_summary-->
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
 <!--    - pppextender_pref_dialog_PPPExtender_not_installed_summary-->
+    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
+    <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
+<!--    - pppextender_pref_dialog_enablePPPExtender_title-->
 
     <!-- **************************************************************************************** -->
 

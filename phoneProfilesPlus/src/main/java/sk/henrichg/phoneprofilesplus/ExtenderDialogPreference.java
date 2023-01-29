@@ -17,6 +17,9 @@ public class ExtenderDialogPreference extends DialogPreference {
     // Custom xml attributes.
     final String installSummary;
     final String lauchSummary;
+    final String enableExtenderSummaryDisabled;
+    final String enbaleExtenderPreferenceNameToTest;
+    final String enbaleExtenderPreferenceValueToTest;
 
     public ExtenderDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -31,6 +34,12 @@ public class ExtenderDialogPreference extends DialogPreference {
                 R.styleable.PPExtenderDialogPreference_installSummary);
         lauchSummary = typedArray.getString(
                 R.styleable.PPExtenderDialogPreference_launchSummary);
+        enableExtenderSummaryDisabled = typedArray.getString(
+                R.styleable.PPExtenderDialogPreference_enableExtenderSummaryDisabled);
+        enbaleExtenderPreferenceNameToTest = typedArray.getString(
+                R.styleable.PPExtenderDialogPreference_enbaleExtenderPreferenceNameToTest);
+        enbaleExtenderPreferenceValueToTest = typedArray.getString(
+                R.styleable.PPExtenderDialogPreference_enbaleExtenderPreferenceValueToTest);
 
         typedArray.recycle();
     }
@@ -47,7 +56,7 @@ public class ExtenderDialogPreference extends DialogPreference {
         setSummaryEDP();
     }
 
-    private void setSummaryEDP()
+    void setSummaryEDP()
     {
         String prefVolumeDataSummary;
 
@@ -67,6 +76,59 @@ public class ExtenderDialogPreference extends DialogPreference {
             else
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
         }
+
+        int accessibilityEnabled;// = -99;
+        if (extenderVersion == 0)
+            // not installed
+            accessibilityEnabled = -2;
+        else
+        if ((extenderVersion > 0) &&
+                (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+            // old version
+            accessibilityEnabled = -1;
+        else
+            accessibilityEnabled = -98;
+        if (accessibilityEnabled == -98) {
+            // Extender is in right version
+            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true))
+                // accessibility enabled
+                accessibilityEnabled = 1;
+            else
+                // accessibility disabled
+                accessibilityEnabled = 0;
+        }
+        //if (accessibilityEnabled == -99)
+        //    accessibilityEnabled = 1;
+        boolean _accessibilityEnabled = accessibilityEnabled == 1;
+        boolean preferenceValueOK = true;
+        if ((enbaleExtenderPreferenceNameToTest != null) && (!enbaleExtenderPreferenceNameToTest.isEmpty())) {
+            String preferenceValue = getSharedPreferences().getString(enbaleExtenderPreferenceNameToTest, "");
+            preferenceValueOK = preferenceValue.equals(enbaleExtenderPreferenceValueToTest);
+        }
+        String summary;
+        if (preferenceValueOK) {
+            if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
+                summary = _context.getString(R.string.accessibility_service_enabled);
+            else {
+                if (accessibilityEnabled == -1) {
+                    summary = _context.getString(R.string.accessibility_service_not_used);
+                    summary = summary + "\n" + _context.getString(R.string.preference_not_used_extender_reason) + " " +
+                            _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else {
+                    summary = _context.getString(R.string.accessibility_service_disabled);
+                    if ((enableExtenderSummaryDisabled != null) && (!enableExtenderSummaryDisabled.isEmpty()))
+                        summary = summary + "\n\n" + enableExtenderSummaryDisabled;
+                    else
+                        summary = summary + "\n\n" + _context.getString(R.string.event_preferences_applications_AccessibilitySettingsForExtender_summary);
+                }
+            }
+        }
+        else {
+            summary = _context.getString(R.string.accessibility_service_not_used);
+        }
+        prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" +
+                _context.getString(R.string.pppextender_pref_dialog_enablePPPExtender_title) + ": " +
+                summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))
             prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + lauchSummary;

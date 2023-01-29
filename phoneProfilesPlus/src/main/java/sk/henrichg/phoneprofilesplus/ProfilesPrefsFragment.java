@@ -5855,10 +5855,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             key.equals(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
             boolean b = preferences.getBoolean(key, false);
             value = Boolean.toString(b);
+            setSummary(key, value);
         }
         else
+        if (key.equals(PREF_FORCE_STOP_APPLICATIONS_EXTENDER) ||
+                key.equals(PREF_LOCK_DEVICE_EXTENDER)) {
+            ExtenderDialogPreference preference = prefMng.findPreference(key);
+            if (preference != null)
+                preference.setSummaryEDP();
+        }
+        else {
             value = preferences.getString(key, "");
-        setSummary(key, value);
+            setSummary(key, value);
+        }
     }
 
     private void updateAllSummary() {
@@ -7020,7 +7029,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!ok) {
             if (getActivity() != null) {
                 PPAlertDialog dialog = new PPAlertDialog(
-                        getString(R.string.event_preferences_applications_AccessibilitySettings_title),
+                        getString(R.string.pppextender_pref_dialog_enablePPPExtender_title),
                         getString(R.string.setting_screen_not_found_alert),
                         getString(android.R.string.ok),
                         null,
@@ -7047,7 +7056,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
 
         boolean ok = false;
-        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
+        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_VOICE_INPUT_SETTINGS, getActivity())) {
             try {
                 //activity.startActivity(new Intent("android.settings.VOICE_INPUT_SETTINGS"));
 

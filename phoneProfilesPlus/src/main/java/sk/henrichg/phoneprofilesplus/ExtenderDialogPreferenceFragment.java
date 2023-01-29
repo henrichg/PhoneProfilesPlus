@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -32,6 +33,9 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
     private AlertDialog mDialog;
     private TextView extenderVersionText = null;
     private TextView extenderLaunchText = null;
+    private TextView extenderAccessibilitySettings = null;
+
+    static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
 
     @SuppressLint("SetTextI18n")
     @NonNull
@@ -53,12 +57,16 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         extenderVersionText = layout.findViewById(R.id.extenderPrefDialog_extender_version);
         extenderLaunchText = layout.findViewById(R.id.extenderPrefDialog_extender_launch);
+        extenderAccessibilitySettings = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings);
 
         Button extenderInstallButton = layout.findViewById(R.id.extenderPrefDialog_extender_install_button);
         extenderInstallButton.setOnClickListener(v -> installPPPExtender(getActivity(), preference));
 
         Button extenderLaunchButton = layout.findViewById(R.id.extenderPrefDialog_extender_launch_button);
         extenderLaunchButton.setOnClickListener(v -> launchPPPExtender());
+
+        Button extenderAccessibilitySettingsButton = layout.findViewById(R.id.extenderPrefDialog_accessibiloty_settings_button);
+        extenderAccessibilitySettingsButton.setOnClickListener(v -> enableExtender());
 
         mDialog = dialogBuilder.create();
 
@@ -88,6 +96,60 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 extenderLaunchText.setText(prefVolumeDataSummary);
             } else
                 extenderLaunchText.setVisibility(View.GONE);
+
+            //-----
+            int accessibilityEnabled;// = -99;
+            if (extenderVersion == 0)
+                // not installed
+                accessibilityEnabled = -2;
+            else
+            if ((extenderVersion > 0) &&
+                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                // old version
+                accessibilityEnabled = -1;
+            else
+                accessibilityEnabled = -98;
+            if (accessibilityEnabled == -98) {
+                // Extender is in right version
+                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(prefContext, false, true))
+                    // accessibility enabled
+                    accessibilityEnabled = 1;
+                else
+                    // accessibility disabled
+                    accessibilityEnabled = 0;
+            }
+            //if (accessibilityEnabled == -99)
+            //    accessibilityEnabled = 1;
+            boolean _accessibilityEnabled = accessibilityEnabled == 1;
+            boolean preferenceValueOK = true;
+            if ((preference.enbaleExtenderPreferenceNameToTest != null) && (!preference.enbaleExtenderPreferenceNameToTest.isEmpty())) {
+                String preferenceValue = preference.getSharedPreferences().getString(preference.enbaleExtenderPreferenceNameToTest, "");
+                preferenceValueOK = preferenceValue.equals(preference.enbaleExtenderPreferenceValueToTest);
+            }
+            String summary;
+            if (preferenceValueOK) {
+                if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
+                    summary = prefContext.getString(R.string.accessibility_service_enabled);
+                else {
+                    if (accessibilityEnabled == -1) {
+                        summary = prefContext.getString(R.string.accessibility_service_not_used);
+                        summary = summary + "\n" + prefContext.getString(R.string.preference_not_used_extender_reason) + " " +
+                                prefContext.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                    } else {
+                        summary = prefContext.getString(R.string.accessibility_service_disabled);
+                        //if ((preference.enableExtenderSummaryDisabled != null) && (!preference.enableExtenderSummaryDisabled.isEmpty()))
+                        //    summary = summary + "\n\n" + preference.enableExtenderSummaryDisabled;
+                        //else
+                        //    summary = summary + "\n\n" + prefContext.getString(R.string.event_preferences_applications_AccessibilitySettingsForExtender_summary);
+                    }
+                }
+            }
+            else {
+                summary = prefContext.getString(R.string.accessibility_service_not_used);
+            }
+            extenderAccessibilitySettings.setText(prefContext.getString(R.string.pppextender_pref_dialog_enablePPPExtender_title) + ": " + summary);
+
+            //----
 
             //enableViews();
         });
@@ -392,6 +454,52 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     dialog.show();
             }
         }
+    }
+
+    private void enableExtender() {
+        if (getActivity() == null) {
+            return;
+        }
+
+        boolean ok = false;
+        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                //noinspection deprecation
+                startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                ok = true;
+                if (preference != null)
+                    preference.fragment.dismiss();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+                if (preference != null)
+                    preference.fragment.dismiss();
+            }
+        }
+        if (!ok) {
+            if (getActivity() != null) {
+                PPAlertDialog dialog = new PPAlertDialog(
+                        getString(R.string.pppextender_pref_dialog_enablePPPExtender_title),
+                        getString(R.string.setting_screen_not_found_alert),
+                        getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        getActivity()
+                );
+
+                if (!getActivity().isFinishing())
+                    dialog.show();
+            }
+        }
+
     }
 
 }

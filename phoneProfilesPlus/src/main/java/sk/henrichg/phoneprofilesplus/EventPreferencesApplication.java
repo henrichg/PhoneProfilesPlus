@@ -187,6 +187,14 @@ class EventPreferencesApplication extends EventPreferences {
         }
         int _isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
+
+        ExtenderDialogPreference extenderPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_EXTENDER);
+        if (extenderPreference != null) {
+            extenderPreference.setSummaryEDP();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
+                    !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
+        }
+
         preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -314,7 +322,11 @@ class EventPreferencesApplication extends EventPreferences {
                 }
 
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_APPLICATION_ENABLED, false);
-                Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
+                Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_EXTENDER);
+                if (preference != null)
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
+
+                preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
                 if (preference != null)
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 

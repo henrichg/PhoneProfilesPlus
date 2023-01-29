@@ -53,7 +53,6 @@
                 android:textColor="?attr/colorAccent"
                 android:textStyle="bold" />
 
-<!--
             <TextView
                 android:id="@+id/extenderPrefDialog_accessibility_settings"
                 android:layout_width="wrap_content"
@@ -69,11 +68,11 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/pp_button_background_selector"
-                android:text="@string/extender_pref_dialog_accessibility_settings_button"
+                android:text="@string/pppextender_pref_dialog_accessibility_settings_button"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorAccent"
                 android:textStyle="bold" />
--->
+
             <TextView
                 android:id="@+id/extenderPrefDialog_extender_launch"
                 android:layout_width="wrap_content"

@@ -465,9 +465,14 @@ class EventPreferencesOrientation extends EventPreferences {
             boolean bold = checkLightPreference.isChecked();
             GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, false, true, !isRunnable, false);
         }
-
         int _isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
+
+        ExtenderDialogPreference extenderPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_EXTENDER);
+        if (extenderPreference != null) {
+            extenderPreference.setSummaryEDP();
+        }
+
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
