@@ -6404,8 +6404,8 @@ class ActivateProfileHelper {
             isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         else
             ok = false;
-        Log.e("ActivateProfileHelper.setGPS", "GPS="+isEnabled);
-        Log.e("ActivateProfileHelper.setGPS", "enable="+enable);
+        //Log.e("ActivateProfileHelper.setGPS", "GPS="+isEnabled);
+        //Log.e("ActivateProfileHelper.setGPS", "enable="+enable);
         if (!ok)
             return;
 

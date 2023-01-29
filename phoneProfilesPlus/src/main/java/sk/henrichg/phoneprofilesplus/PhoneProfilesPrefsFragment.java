@@ -1439,10 +1439,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 */
-        //todo - co je kua toto?
+
         preference = findPreference("applicationWidgetLauncher");
         if (preference != null) {
-            preference.setTitle(preference.getTitle() + " (" + getString(R.string.widget_label_icon) +
+            preference.setTitle(getString(R.string.phone_profiles_pref_applicationWidgetLauncher) +
+                                    " (" + getString(R.string.widget_label_icon) +
                                     ", " + getString(R.string.widget_label_one_row) + ")");
         }
 
@@ -4263,7 +4264,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
-            // todo add preferences, arrows/mark lightning, number of profiles per page, ...
         }
         if (key.equals("categoryShortcutRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);

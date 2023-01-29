@@ -23,7 +23,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -4993,9 +4992,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         */
-        //TODO
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
-            Log.e("ProfilesPrefsFragment.setSummary", "PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE");
             int index;
             String sValue;
 
@@ -5033,13 +5030,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 index = listPreference.findIndexOfValue(sValue);
                 if (!ok) {
                     listPreference.setSummary(changeSummary);
-                    Log.e("ProfilesPrefsFragment.setSummary", "PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE (2)");
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, true, false);
                 }
                 else {
                     changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(changeSummary);
-                    Log.e("ProfilesPrefsFragment.setSummary", "PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE (3)");
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false, false);
                 }
             }
@@ -5068,7 +5063,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         */
-        //TODO
         if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
             int index;
             String sValue;

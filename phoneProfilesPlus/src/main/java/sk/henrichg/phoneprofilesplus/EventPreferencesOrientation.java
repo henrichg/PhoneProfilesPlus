@@ -488,7 +488,6 @@ class EventPreferencesOrientation extends EventPreferences {
 
             //GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
         }
-        //TODO
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (preference != null) {
             String _value = prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, "");
@@ -801,8 +800,8 @@ class EventPreferencesOrientation extends EventPreferences {
                     }
                 }
 
-                enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
-                        /*, "EventPreferencesOrientation.checkPreferences"*/);
+                //enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+                //        /*, "EventPreferencesOrientation.checkPreferences"*/);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
                 if (applicationsPreference != null) {
                     //applicationsPreference.setEnabled(enabled);

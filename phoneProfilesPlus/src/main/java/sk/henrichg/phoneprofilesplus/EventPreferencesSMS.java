@@ -9,7 +9,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -479,8 +478,8 @@ class EventPreferencesSMS extends EventPreferences {
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
                 Preference preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
                 if (preference != null) {
-                    Log.e("EventPreferencesSMS.checkPreferences", "errorColor="+(!accessibilityEnabled));
-                    Log.e("EventPreferencesSMS.checkPreferences", "enabled="+enabled);
+                    //Log.e("EventPreferencesSMS.checkPreferences", "errorColor="+(!accessibilityEnabled));
+                    //Log.e("EventPreferencesSMS.checkPreferences", "enabled="+enabled);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
                 }
 
