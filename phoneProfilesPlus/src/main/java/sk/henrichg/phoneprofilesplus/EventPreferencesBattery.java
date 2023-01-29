@@ -177,7 +177,7 @@ class EventPreferencesBattery extends EventPreferences {
         if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -193,7 +193,7 @@ class EventPreferencesBattery extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_PLUGGED)) {
@@ -211,13 +211,13 @@ class EventPreferencesBattery extends EventPreferences {
                     }
                 }
                 boolean bold = plugged.length() > 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
     }
@@ -293,7 +293,7 @@ class EventPreferencesBattery extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BATTERY).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else

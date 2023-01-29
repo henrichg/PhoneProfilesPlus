@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -402,7 +403,7 @@ class GlobalGUIRoutines {
 
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
                                          boolean bold, boolean addArrows,
-                                         boolean underline, boolean errorColor)
+                                         boolean underline, boolean errorColor, boolean forceErrorColor)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
@@ -438,7 +439,7 @@ class GlobalGUIRoutines {
                     if (span instanceof CharacterStyle)
                         sbt.removeSpan(span);
                 }*/
-                if (bold || underline) {
+                if (bold || underline || forceErrorColor) {
                     if (bold) {
                         sbt.setSpan(new StyleSpan(Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         //sbt.setSpan(new RelativeSizeSpan(1.05f), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -452,6 +453,10 @@ class GlobalGUIRoutines {
                         else
                             sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
+//                    if (forceErrorColor) {
+//                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "errorColor="+errorColor);
+//                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "enabled="+enabled);
+//                    }
                     if (errorColor && enabled)
                         sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }

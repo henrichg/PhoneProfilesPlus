@@ -316,22 +316,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
             preferenceCategoryScreen = findPreference("categorySystemRoot");
             if (preferenceCategoryScreen != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("categoryPermissionsRoot");
             if (preferenceCategoryScreen != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("profileActivationCategoryRoot");
             if (preferenceCategoryScreen != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("eventRunCategoryRoot");
             if (preferenceCategoryScreen != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("categoryNotificationsRoot");

@@ -152,7 +152,7 @@ class EventPreferencesRoaming extends EventPreferences {
         if (key.equals(PREF_EVENT_ROAMING_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -211,16 +211,16 @@ class EventPreferencesRoaming extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_ROAMING_CHECK_NETWORK);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_ROAMING_CHECK_NETWORK, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_ROAMING_CHECK_DATA);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_ROAMING_CHECK_DATA, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_ROAMING_FOR_SIM_CARD);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, false, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, false, !isRunnable, false);
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
@@ -263,7 +263,7 @@ class EventPreferencesRoaming extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ROAMING).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else

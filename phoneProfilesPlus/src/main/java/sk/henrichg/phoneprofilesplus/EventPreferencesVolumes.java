@@ -255,7 +255,7 @@ class EventPreferencesVolumes extends EventPreferences {
         if (key.equals(PREF_EVENT_VOLUMES_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -278,43 +278,43 @@ class EventPreferencesVolumes extends EventPreferences {
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
 
     }
@@ -371,7 +371,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_VOLUMES).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else

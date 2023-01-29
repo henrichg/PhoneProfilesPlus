@@ -129,7 +129,7 @@ class EventPreferencesAccessories extends EventPreferences {
         if (key.equals(PREF_EVENT_ACCESSORIES_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -149,7 +149,7 @@ class EventPreferencesAccessories extends EventPreferences {
                     }
                 }
                 boolean bold = accessoryType.length() > 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, true, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, true, false, false);
             }
         }
     }
@@ -214,7 +214,7 @@ class EventPreferencesAccessories extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ACCESSORIES).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else

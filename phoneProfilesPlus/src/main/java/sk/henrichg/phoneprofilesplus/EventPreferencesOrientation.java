@@ -279,7 +279,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -368,13 +368,13 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(hasLight);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, true, false, false, false, false);
                 }
             }
             else {
@@ -387,13 +387,13 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false, false);
                 }
                 minMaxPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (minMaxPreference != null) {
                     minMaxPreference.setEnabled(false);
                     minMaxPreference.setSummary(minMaxPreference.value);
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(minMaxPreference, true, false, false, false, false, false);
                 }
             }
         }
@@ -422,7 +422,7 @@ class EventPreferencesOrientation extends EventPreferences {
         */
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false, false);
         }
 
         Event event = new Event();
@@ -442,7 +442,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
@@ -456,18 +456,18 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         PPListPreference distancePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (distancePreference != null) {
             int index = distancePreference.findIndexOfValue(distancePreference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, false, true, !isRunnable, false);
         }
 
         SwitchPreferenceCompat checkLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CHECK_LIGHT);
         if (checkLightPreference != null) {
             boolean bold = checkLightPreference.isChecked();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkLightPreference, enabled, bold, false, true, !isRunnable, false);
         }
 
         int _isAccessibilityEnabled = event._eventPreferencesOrientation.isAccessibilityServiceEnabled(context, false);
@@ -609,7 +609,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else

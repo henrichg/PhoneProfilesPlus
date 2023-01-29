@@ -234,7 +234,7 @@ class EventPreferencesNotification extends EventPreferences {
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -302,7 +302,7 @@ class EventPreferencesNotification extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false, false);
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE)) {
             PPListPreference listPreference = prefMng.findPreference(key);
@@ -340,49 +340,49 @@ class EventPreferencesNotification extends EventPreferences {
         boolean enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
         SwitchPreferenceCompat switchPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
         if (switchPreference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false), false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false), false, true, !isRunnable, false);
         }
         switchPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
         if (switchPreference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false), false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false), false, true, !isRunnable, false);
         }
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
         if (applicationsPreference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, false, true, !isRunnable, false);
         }
 
         Preference checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
         if (checkContactsPreference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(checkContactsPreference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkContactsPreference, enabled, bold, false, true, !isRunnable, false);
 
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable, false);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable, false);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable, false);
             }
         }
 
         Preference checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
         if (checkTextPreference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(checkTextPreference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkTextPreference, enabled, bold, false, true, !isRunnable, false);
 
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_TEXT, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable, false);
             }
         }
     }
@@ -450,7 +450,7 @@ class EventPreferencesNotification extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NOTIFICATION).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else

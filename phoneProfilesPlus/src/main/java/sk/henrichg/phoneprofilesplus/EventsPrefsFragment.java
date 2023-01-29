@@ -1140,7 +1140,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
-        Log.e("EventPrefsFragment.onResume", "xxxxxx");
+        //Log.e("EventPrefsFragment.onResume", "xxxxxx");
 
         // this is important for update preferences after PPPPS and Extender installation
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
