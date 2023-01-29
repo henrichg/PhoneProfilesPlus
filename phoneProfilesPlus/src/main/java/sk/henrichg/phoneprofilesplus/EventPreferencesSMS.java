@@ -39,7 +39,7 @@ class EventPreferencesSMS extends EventPreferences {
     private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
     static final String PREF_EVENT_SMS_EXTENDER = "eventSMSExtender";
     //static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
-    static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
+    //static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
     //static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
     private static final String PREF_EVENT_SMS_FOR_SIM_CARD = "eventSMSForSimCard";
 
@@ -346,7 +346,7 @@ class EventPreferencesSMS extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
                     !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
-
+        /*
         preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -368,6 +368,7 @@ class EventPreferencesSMS extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
                     !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
+        */
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
@@ -488,9 +489,9 @@ class EventPreferencesSMS extends EventPreferences {
                 if (preference != null)
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-                preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
-                if (preference != null)
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
+//                preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
+//                if (preference != null)
+//                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
                 if (Build.VERSION.SDK_INT >= 26) {
                     boolean showPreferences = false;

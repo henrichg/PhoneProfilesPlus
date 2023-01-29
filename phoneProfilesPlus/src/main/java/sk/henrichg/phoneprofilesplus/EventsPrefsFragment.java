@@ -413,6 +413,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
         */
+        /*
         Preference accessibilityPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -421,6 +422,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         Preference preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -704,6 +706,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
         */
+        /*
         Preference orientationPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (orientationPreference != null) {
             //orientationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -712,6 +715,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         preference = prefMng.findPreference(PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -855,6 +859,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
         */
+        /*
         Preference smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -863,6 +868,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         /*
         smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_LAUNCH_EXTENDER);
         if (smsPreference != null) {
@@ -918,6 +924,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
         */
+        /*
         Preference callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (callPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -926,6 +933,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         /*
         callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_LAUNCH_EXTENDER);
         if (callPreference != null) {

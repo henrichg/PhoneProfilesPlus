@@ -25,7 +25,7 @@ class EventPreferencesApplication extends EventPreferences {
     static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
     static final String PREF_EVENT_APPLICATION_EXTENDER = "eventApplicationExtender";
     //static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
-    static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
+    //static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     //static final String PREF_EVENT_APPLICATION_LAUNCH_EXTENDER = "eventApplicationLaunchExtender";
 
     private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategoryRoot";
@@ -194,7 +194,7 @@ class EventPreferencesApplication extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
                     !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
-
+        /*
         preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -216,6 +216,7 @@ class EventPreferencesApplication extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
                     !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
+        */
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
@@ -326,9 +327,9 @@ class EventPreferencesApplication extends EventPreferences {
                 if (preference != null)
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-                preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
-                if (preference != null)
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
+//                preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
+//                if (preference != null)
+//                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
                 setSummary(prefMng, PREF_EVENT_APPLICATION_ENABLED, preferences, context);
             }

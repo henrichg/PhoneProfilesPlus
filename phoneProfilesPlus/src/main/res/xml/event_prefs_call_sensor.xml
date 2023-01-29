@@ -74,13 +74,13 @@
 <!--        app:dependency="eventCallEnabled"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <Preference
-        app:key="eventCallAccessibilitySettings"
-        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"
-        app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
-        app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="eventCallAccessibilitySettings"-->
+<!--        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"-->
+<!--        app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"-->
+<!--        app:dependency="eventCallEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
 <!--    <Preference-->
 <!--        app:key="eventCallLaunchExtender"-->
 <!--        app:title="@string/pppextender_pref_dialog_launch_button"-->

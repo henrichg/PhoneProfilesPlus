@@ -40,12 +40,12 @@
 <!--        app:summary="@string/profile_preferences_deviceForceStopApplications_PPPExtender_install_summary"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <Preference
-        app:key="prf_pref_deviceForceStopApplicationAccessibilitySettings"
-        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"
-        app:summary="@string/profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="prf_pref_deviceForceStopApplicationAccessibilitySettings"-->
+<!--        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"-->
+<!--        app:summary="@string/profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
 <!--    <Preference-->
 <!--        app:key="prf_pref_deviceForceStopApplicationLaunchExtender"-->
 <!--        app:title="@string/pppextender_pref_dialog_launch_button"-->

@@ -70,12 +70,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategoryRoot";
     private static final String PREF_FORCE_STOP_APPLICATIONS_EXTENDER = "prf_pref_deviceForceStopApplicationExtender";
     //private static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
-    private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
+    //private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
     //private static final String PREF_INSTALL_SILENT_TONE = "prf_pref_soundInstallSilentTone";
     private static final String PREF_LOCK_DEVICE_CATEGORY = "prf_pref_lockDeviceCategoryRoot";
     private static final String PREF_LOCK_DEVICE_EXTENDER = "prf_pref_lockDeviceExtender";
     //private static final String PREF_LOCK_DEVICE_INSTALL_EXTENDER = "prf_pref_lockDeviceInstallExtender";
-    private static final String PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS = "prf_pref_lockDeviceAccessibilitySettings";
+    //private static final String PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS = "prf_pref_lockDeviceAccessibilitySettings";
     //private static final String PREF_FORCE_STOP_APPLICATIONS_LAUNCH_EXTENDER = "prf_pref_deviceForceStopApplicationLaunchExtender";
     //private static final String PREF_LOCK_DEVICE_LAUNCH_EXTENDER = "prf_pref_lockDeviceLaunchExtender";
     private static final String PREF_NOTIFICATION_ACCESS_ENABLED = "prf_pref_notificationAccessEnable";
@@ -730,7 +730,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
         */
-
+        /*
         Preference accessibilityPreference = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -739,7 +739,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
-
+        */
         /*
         boolean toneInstalled = TonesHandler.isToneInstalled(TonesHandler.TONE_ID, getActivity().getApplicationContext());
         if (!toneInstalled) {
@@ -782,7 +782,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
         */
-
+        /*
         accessibilityPreference = prefMng.findPreference(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -791,6 +791,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+        */
         /*
         accessibilityPreference = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_LAUNCH_EXTENDER);
         if (accessibilityPreference != null) {
@@ -5119,7 +5120,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, (!_permissionGranted) || (!_accessibilityEnabled), false);
             }
         }
-
+        /*
         if (key.equals(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -5150,6 +5151,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        */
+        /*
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -5177,6 +5180,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, false, false, true, !_accessibilityEnabled);
             }
         }
+        */
         if (key.equals(Profile.PREF_PROFILE_GENERATE_NOTIFICATION))
         {
             Preference preference = prefMng.findPreference(key);
@@ -5977,8 +5981,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT);
         setSummary(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING);
-        setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
-        setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
+        //setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
+        //setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
         setSummary(Profile.PREF_PROFILE_GENERATE_NOTIFICATION);
         setSummary(Profile.PREF_PROFILE_CAMERA_FLASH);
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1);
@@ -6250,7 +6254,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
             setSummary(PREF_LOCK_DEVICE_EXTENDER);
             //setSummary(PREF_LOCK_DEVICE_INSTALL_EXTENDER);
-            setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
+            //setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
             if (preference != null) {
                 setSummary(Profile.PREF_PROFILE_LOCK_DEVICE);

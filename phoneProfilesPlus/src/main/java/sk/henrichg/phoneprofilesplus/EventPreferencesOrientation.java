@@ -46,7 +46,7 @@ class EventPreferencesOrientation extends EventPreferences {
     private static final String PREF_EVENT_ORIENTATION_LIGHT_MAX = "eventOrientationLightMax";
     static final String PREF_EVENT_ORIENTATION_EXTENDER = "eventOrientationExtender";
     //static final String PREF_EVENT_ORIENTATION_INSTALL_EXTENDER = "eventOrientationInstallExtender";
-    static final String PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
+    //static final String PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
     private static final String PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS = "eventOrientationIgnoredApplications";
     private static final String PREF_EVENT_ORIENTATION_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
     //static final String PREF_EVENT_ORIENTATION_LAUNCH_EXTENDER = "eventOrientationLaunchExtender";
@@ -472,7 +472,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (extenderPreference != null) {
             extenderPreference.setSummaryEDP();
         }
-
+        /*
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -493,6 +493,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
             //GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isAccessibilityEnabled, false);
         }
+        */
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (preference != null) {
             String _value = prefMng.getSharedPreferences().getString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, "");

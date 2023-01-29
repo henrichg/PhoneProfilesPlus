@@ -35,13 +35,13 @@
 <!--        app:dependency="eventApplicationEnabled"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
-    <Preference
-        app:key="eventApplicationAccessibilitySettings"
-        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"
-        app:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
-        app:dependency="eventApplicationEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="eventApplicationAccessibilitySettings"-->
+<!--        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"-->
+<!--        app:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"-->
+<!--        app:dependency="eventApplicationEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
 <!--    <Preference-->
 <!--        app:key="eventApplicationLaunchExtender"-->
 <!--        app:title="@string/pppextender_pref_dialog_launch_button"-->
