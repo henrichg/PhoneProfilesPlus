@@ -74,7 +74,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             String prefVolumeDataSummary;
             int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
             if (extenderVersion == 0) {
-                prefVolumeDataSummary = prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) + "\n\n";
+                prefVolumeDataSummary = prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary);
 
                 if ((preference.installSummary != null) && (!preference.installSummary.isEmpty()))
                     prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + preference.installSummary;
@@ -82,11 +82,11 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             else {
                 String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
-                        " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
+                        " " + extenderVersionName + " (" + extenderVersion + ")";
                 if (extenderVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
-                else
-                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
+                //else
+                //  prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
             }
             extenderVersionText.setText(prefVolumeDataSummary);
 

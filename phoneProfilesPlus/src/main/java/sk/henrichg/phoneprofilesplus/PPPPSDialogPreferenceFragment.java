@@ -66,17 +66,17 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             String prefVolumeDataSummary;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext);
             if (ppppsVersion == 0) {
-                prefVolumeDataSummary = prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary) + "\n\n";
-                prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
+                prefVolumeDataSummary = prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary +  "\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
             }
             else {
                 String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_installed_summary) +
-                        " " + ppppsVersionName + " (" + ppppsVersion + ")\n\n";
+                        " " + ppppsVersionName + " (" + ppppsVersion + ")";
                 if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
-                else
-                    prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
+                //else
+                //    prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
             }
             ppppsVersionText.setText(prefVolumeDataSummary);
 
