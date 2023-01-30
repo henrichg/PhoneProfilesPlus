@@ -56,12 +56,14 @@ public class PPPPSDialogPreference extends DialogPreference {
         }
         else {
             String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(_context);
-            prefVolumeDataSummary =  _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_installed_summary) +
-                    " <b>" + ppppsVersionName + " (" + ppppsVersion + ")</b><br><br>";
+            prefVolumeDataSummary =  _context.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) +
+                    " <b>" + ppppsVersionName + " (" + ppppsVersion + ")</b><br>";
+            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
+                    " <b>" + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b>";
             if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                prefVolumeDataSummary = prefVolumeDataSummary + "<b>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary) + "</b>";
+                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br><b>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary) + "</b>";
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
         }
 
         prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" +

@@ -69,12 +69,14 @@ public class ExtenderDialogPreference extends DialogPreference {
         }
         else {
             String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(_context);
-            prefVolumeDataSummary =  _context.getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
-                    " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br><br>";
+            prefVolumeDataSummary =  _context.getString(R.string.install_extender_installed_version) +
+                    " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br>";
+            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
+                    " <b>" + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b>";
             if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br><b>" + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary) + "</b>";
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
         }
 
         int accessibilityEnabled;// = -99;
