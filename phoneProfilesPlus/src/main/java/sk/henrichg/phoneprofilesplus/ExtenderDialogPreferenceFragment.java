@@ -90,7 +90,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 if (extenderVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
                     prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
                 else
-                  prefVolumeDataSummary = prefVolumeDataSummary + "\n"; // + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                  prefVolumeDataSummary = prefVolumeDataSummary + "\n"; // "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
             }
             extenderVersionText.setText(prefVolumeDataSummary);
 

@@ -77,8 +77,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                         " " + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")";
                 if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
                     prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
-                //else
-                //    prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                else
+                    prefVolumeDataSummary = prefVolumeDataSummary + "\n"; //"\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
             }
             ppppsVersionText.setText(prefVolumeDataSummary);
 
