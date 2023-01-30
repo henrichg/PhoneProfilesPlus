@@ -62,15 +62,15 @@ public class ExtenderDialogPreference extends DialogPreference {
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
         if (extenderVersion == 0) {
-            prefVolumeDataSummary = _context.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary);
+            prefVolumeDataSummary = "<b>" + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) + "</b>";
 
             if ((installSummary != null) && (!installSummary.isEmpty()))
-                prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + installSummary;
+                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + installSummary;
         }
         else {
             String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(_context);
             prefVolumeDataSummary =  _context.getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
-                    " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
+                    " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br><br>";
             if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
             else
@@ -108,33 +108,33 @@ public class ExtenderDialogPreference extends DialogPreference {
         String summary;
         if (preferenceValueOK) {
             if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
-                summary = _context.getString(R.string.accessibility_service_enabled);
+                summary = "<b>" + _context.getString(R.string.accessibility_service_enabled) + "</b>";
             else {
                 if (accessibilityEnabled == -1) {
-                    summary = _context.getString(R.string.accessibility_service_not_used);
-                    summary = summary + "\n" + _context.getString(R.string.preference_not_used_extender_reason) + " " +
+                    summary = "<b>" + _context.getString(R.string.accessibility_service_not_used) + "</b>";
+                    summary = summary + "<br>" + _context.getString(R.string.preference_not_used_extender_reason) + " " +
                             _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else {
-                    summary = _context.getString(R.string.accessibility_service_disabled);
+                    summary = "<b>" + _context.getString(R.string.accessibility_service_disabled) + "</b>";
                     if ((enableExtenderSummaryDisabled != null) && (!enableExtenderSummaryDisabled.isEmpty()))
-                        summary = summary + "\n\n" + enableExtenderSummaryDisabled;
+                        summary = summary + "<br>" + enableExtenderSummaryDisabled;
                     else
-                        summary = summary + "\n\n" + _context.getString(R.string.event_preferences_applications_AccessibilitySettingsForExtender_summary);
+                        summary = summary + "<br>" + _context.getString(R.string.event_preferences_applications_AccessibilitySettingsForExtender_summary);
                 }
             }
         }
         else {
-            summary = _context.getString(R.string.accessibility_service_not_used);
+            summary = "<b>" + _context.getString(R.string.accessibility_service_not_used) + "</b>";
         }
-        prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" +
+        prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" +
                 _context.getString(R.string.pppextender_pref_dialog_enablePPPExtender_title) + ": " +
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))
-            prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + lauchSummary;
+            prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + lauchSummary;
 
 //        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
-        setSummary(prefVolumeDataSummary);
+        setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
     }
 
     /*

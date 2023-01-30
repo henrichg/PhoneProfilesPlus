@@ -33,7 +33,7 @@ class ImportantInfoNotification {
 
             boolean showInfo = false;
             if (packageVersionCode > savedVersionCode)
-                showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode, context);
+                showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
 
             boolean showExtender = false;
             int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -72,9 +72,8 @@ class ImportantInfoNotification {
         }
     }
 
-    static private boolean canShowInfoNotification(int packageVersionCode, int savedVersionCode, Context context) {
+    static private boolean canShowInfoNotification(int packageVersionCode, int savedVersionCode) {
         boolean news = false;
-        boolean newExtender = false;
 
         boolean newsLatest = (packageVersionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
         //boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -84,8 +83,6 @@ class ImportantInfoNotification {
         //boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
         boolean afterInstall = savedVersionCode == 0;
-
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
         if (newsLatest) {
             // change to false for not show notification

@@ -3646,9 +3646,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             index++;
         }
         String[] entries = getResources().getStringArray(R.array.lockDeviceArray);
-        cattegorySummaryData.summary = (index >= 0) ? "<b>" +
-                ProfileStatic.getColorForChangedPreferenceValue(entries[index], prefMng, "prf_pref_lockDeviceCategoryRoot", context)
-                + "</b>" : null;
+        if (index == 0)
+            cattegorySummaryData.summary = ProfileStatic.getColorForChangedPreferenceValue(entries[index], prefMng, "prf_pref_lockDeviceCategoryRoot", context);
+        else
+            cattegorySummaryData.summary = "<b>" +
+                    ProfileStatic.getColorForChangedPreferenceValue(entries[index], prefMng, "prf_pref_lockDeviceCategoryRoot", context)
+                    + "</b>";
 
         if ((sValue != null) && sValue.equals("3")) {
             int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -3674,6 +3677,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
             }
+        }
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.summary = title + ": " + cattegorySummaryData.summary;
         }
 
         cattegorySummaryData.bold = (index > 0);
