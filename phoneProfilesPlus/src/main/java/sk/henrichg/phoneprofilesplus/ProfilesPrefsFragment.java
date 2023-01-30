@@ -6684,7 +6684,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference15 -> {
-                                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                                ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false);
                                 return false;
                             });
                         } else {
@@ -6737,7 +6737,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference15 -> {
-                                PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null);
+                                PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false);
                                 return false;
                             });
                         }

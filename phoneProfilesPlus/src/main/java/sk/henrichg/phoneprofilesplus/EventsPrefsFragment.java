@@ -1646,7 +1646,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference12 -> {
-                            ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null);
+                            ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false);
                             return false;
                         });
                     }

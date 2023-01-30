@@ -55,7 +55,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         ppppsLaunchText = layout.findViewById(R.id.ppppsPrefDialog_pppps_launch);
 
         Button ppppsInstallButton = layout.findViewById(R.id.ppppsPrefDialog_pppps_install_button);
-        ppppsInstallButton.setOnClickListener(v -> installPPPPutSettings(getActivity(), preference));
+        ppppsInstallButton.setOnClickListener(v -> installPPPPutSettings(getActivity(), preference, false));
 
         Button ppppsLaunchButton = layout.findViewById(R.id.ppppsPrefDialog_pppps_launch_button);
         ppppsLaunchButton.setOnClickListener(v -> launchPPPPutSettings());
@@ -114,7 +114,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
     }
     */
 
-    static void installPPPPutSettings(final Activity activity, final PPPPSDialogPreference preference) {
+    static void installPPPPutSettings(final Activity activity, final PPPPSDialogPreference preference,
+                                      @SuppressWarnings("SameParameterValue") boolean finishActivity) {
         if (activity == null) {
             return;
         }
@@ -153,10 +154,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 if (preference != null)
                     preference.fragment.dismiss();
+                if (finishActivity)
+                    activity.finish();
             } catch (Exception e) {
                 PPApplication.recordException(e);
                 if (preference != null)
                     preference.fragment.dismiss();
+                if (finishActivity)
+                    activity.finish();
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -191,10 +196,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     if (preference != null)
                         preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                     if (preference != null)
                         preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
                 }
             }
         };

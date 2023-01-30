@@ -55,7 +55,7 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
             //GlobalGUIRoutines.setLanguage(this);
 
 //            PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "do installExtender");
-            ImportantInfoHelpFragment.installExtender(this, true);
+            ExtenderDialogPreferenceFragment.installPPPExtender(this, null, true);
         }
         else {
             if (isFinishing())

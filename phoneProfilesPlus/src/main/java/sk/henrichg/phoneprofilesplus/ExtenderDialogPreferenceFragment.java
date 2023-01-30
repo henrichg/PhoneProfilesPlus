@@ -60,7 +60,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         extenderAccessibilitySettings = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings);
 
         Button extenderInstallButton = layout.findViewById(R.id.extenderPrefDialog_extender_install_button);
-        extenderInstallButton.setOnClickListener(v -> installPPPExtender(getActivity(), preference));
+        extenderInstallButton.setOnClickListener(v -> installPPPExtender(getActivity(), preference, false));
 
         Button extenderLaunchButton = layout.findViewById(R.id.extenderPrefDialog_extender_launch_button);
         extenderLaunchButton.setOnClickListener(v -> launchPPPExtender());
@@ -183,7 +183,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
     }
     */
 
-    private static void installExtenderFromGitHub(final Activity activity, final ExtenderDialogPreference preference) {
+    private static void installExtenderFromGitHub(final Activity activity, final ExtenderDialogPreference preference,
+                                                  boolean finishActivity) {
         if (activity == null) {
             return;
         }
@@ -233,10 +234,14 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     if (preference != null)
                         preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                     if (preference != null)
                         preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
                 }
             }
         };
@@ -261,7 +266,10 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     preference.fragment.dismiss();
             }
         });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            if (finishActivity)
+                activity.finish();
+        });
         AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -278,7 +286,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             dialog.show();
     }
 
-    static void installPPPExtender(final Activity activity, final ExtenderDialogPreference preference) {
+    static void installPPPExtender(final Activity activity, final ExtenderDialogPreference preference,
+                                   boolean finishActivity) {
         if (activity == null) {
             return;
         }
@@ -317,13 +326,20 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     activity.startActivity(intent);
                     if (preference != null)
                         preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                     if (preference != null)
                         preference.fragment.dismiss();
+                    if (finishActivity)
+                        activity.finish();
                 }
             });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                if (finishActivity)
+                    activity.finish();
+            });
 
             Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
 
@@ -332,7 +348,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
             button.setOnClickListener(v -> {
                 dialog.cancel();
-                installExtenderFromGitHub(activity, preference);
+                installExtenderFromGitHub(activity, preference, finishActivity);
             });
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -406,7 +422,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 dialog.show();
         }*/
         else
-            installExtenderFromGitHub(activity, preference);
+            installExtenderFromGitHub(activity, preference, finishActivity);
     }
 
     private void launchPPPExtender() {

@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,15 +15,12 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ClickableSpan;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -114,7 +110,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
             infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) +  "\u00A0»»");
             infoText1.setVisibility(View.VISIBLE);
-            infoText1.setOnClickListener(v -> installExtender(getActivity(), false));
+            infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
@@ -130,7 +126,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
             infoText1.setText(getString(R.string.important_info_pppps_new_version_2) +  "\u00A0»»");
             infoText1.setVisibility(View.VISIBLE);
-            infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null));
+            infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
@@ -820,7 +816,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    installPPPPutSettings(activity, false);
+                    PPPPSDialogPreferenceFragment.installPPPPutSettings(activity, null, false);
                 }
             };
             spannable.setSpan(clickableSpan, 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -836,7 +832,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
     }
-
+/*
     static private void installExtenderFromGitHub(Activity activity, boolean finishActivity) {
         if (activity == null) {
             return;
@@ -886,10 +882,6 @@ public class ImportantInfoHelpFragment extends Fragment {
                 activity.finish();
         });
         dialogBuilder.setCancelable(false);
-        /*dialogBuilder.setOnCancelListener(dialog -> {
-            if (finishActivity)
-                activity.finish();
-        });*/
 
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -937,7 +929,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 //            }
 //        });
 
-        if (/*(activity != null) &&*/ (!activity.isFinishing()))
+        if (!activity.isFinishing())
             dialog.show();
     }
 
@@ -989,10 +981,6 @@ public class ImportantInfoHelpFragment extends Fragment {
                     activity.finish();
             });
             dialogBuilder.setCancelable(false);
-            /*dialogBuilder.setOnCancelListener(dialog -> {
-                if (finishActivity)
-                    activity.finish();
-            });*/
 
             Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
 
@@ -1014,66 +1002,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 //            }
 //        });
 
-            if (/*(activity != null) &&*/ (!activity.isFinishing()))
+            if (!activity.isFinishing())
                 dialog.show();
         }
-/*        else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-            dialogBuilder.setTitle(R.string.install_extender_dialog_title);
-
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
-            dialogBuilder.setView(layout);
-
-            TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
-
-            String dialogText = "";
-
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
-            if (extenderVersion != 0) {
-                String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
-                dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
-            }
-            dialogText = dialogText + getString(R.string.install_extender_required_version) +
-                    " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
-            dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\".\n\n";
-
-            text.setText(dialogText);
-
-            dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplusextender"));
-                try {
-                    startActivity(intent);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-
-            Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
-
-            final AlertDialog dialog = dialogBuilder.create();
-
-            //button.setText(getActivity().getString(R.string.alert_button_install_extender_from_github));
-            button.setOnClickListener(v -> {
-                dialog.cancel();
-                installExtenderFromGitHub();
-            });
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-            if ((getActivity() != null) && (!getActivity().isFinishing()))
-                dialog.show();
-        }*/
         else
             installExtenderFromGitHub(activity, finishActivity);
     }
@@ -1119,10 +1050,6 @@ public class ImportantInfoHelpFragment extends Fragment {
                 activity.finish();
         });
         dialogBuilder.setCancelable(false);
-        /*dialogBuilder.setOnCancelListener(dialog -> {
-            if (finishActivity)
-                activity.finish();
-        });*/
 
         final AlertDialog dialog = dialogBuilder.create();
 
@@ -1170,9 +1097,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 //            }
 //        });
 
-        if (/*(activity != null) &&*/ (!activity.isFinishing()))
+        if (!activity.isFinishing())
             dialog.show();
 
     }
-
+*/
 }
