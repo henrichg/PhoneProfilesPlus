@@ -106,6 +106,25 @@
             android:textStyle="bold"
             android:textColor="@color/accent" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_pppps_new_version"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_notification_pppps_new_version"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_pppps_new_version_2"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_notification_pppps_new_version_2"
+            android:textStyle="bold"
+            android:textColor="@color/accent" />
+
 <!--
         <TextView
             android:layout_width="wrap_content"

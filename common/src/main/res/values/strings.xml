@@ -880,7 +880,7 @@
     <string name="notification_channel_notify_event_start">Start event notification</string>
     <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
-    <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
+    <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Do not force stop</string>
     <string name="array_pref_force_stop">Force stop</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
@@ -1066,7 +1066,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Notification access enabled</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
-
     <string name="intent_editor_title">Intent editor</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent name:</string>
@@ -2056,6 +2055,10 @@
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Please grant permission \"Modify system settings\" in PPPPutSettings. Is required for properly working PPPPutSettings.</string>
     <string name="pppps_pref_dialog_install_pppps_installed_version">Installed version:</string>
     <string name="pppps_pref_dialog_install_pppps_latest_version">Latest version:</string>
+
+    <string name="important_info_pppps_new_version_notification">Please install the new version of PPPPutSettings. More information about installation is in \"Important information\", section \"News\". Click here, to show it.</string>
+    <string name="important_info_pppps_new_version">Please install the new version of PPPPutSettings. More information about installation is in parameters for which is PPPPutSettings required.</string>
+    <string name="important_info_pppps_new_version_2">Click here to install latest version of PPPPutSettings.</string>
 
     <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
     <string name="pppextender_pref_dialog_install_button">Install\nPhoneProfilesPlusExtender</string>
