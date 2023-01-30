@@ -131,7 +131,7 @@ public class ExtenderDialogPreference extends DialogPreference {
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))
-            prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + lauchSummary;
+            prefVolumeDataSummary = prefVolumeDataSummary + "<br><br><b>" + lauchSummary + "</b>";
 
 //        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
         setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
