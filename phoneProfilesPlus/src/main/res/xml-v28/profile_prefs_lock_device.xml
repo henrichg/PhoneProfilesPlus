@@ -32,7 +32,7 @@
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
 <!--    <Preference-->
 <!--        app:key="prf_pref_lockDeviceAccessibilitySettings"-->
-<!--        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"-->
+<!--        app:title="@string/pppextender_pref_dialog_accessibility_settings_title"-->
 <!--        app:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
 <!--        app:layout="@layout/mp_preference_material_widget" />-->

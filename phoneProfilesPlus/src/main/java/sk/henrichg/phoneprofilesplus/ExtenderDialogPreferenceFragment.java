@@ -149,7 +149,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             else {
                 summary = prefContext.getString(R.string.accessibility_service_not_used);
             }
-            extenderAccessibilitySettings.setText(prefContext.getString(R.string.pppextender_pref_dialog_enablePPPExtender_title) + ": " + summary);
+            extenderAccessibilitySettings.setText(prefContext.getString(R.string.pppextender_pref_dialog_accessibility_settings_title) + ": " + summary);
 
             //----
 
@@ -497,7 +497,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         if (!ok) {
             if (getActivity() != null) {
                 PPAlertDialog dialog = new PPAlertDialog(
-                        getString(R.string.pppextender_pref_dialog_enablePPPExtender_title),
+                        getString(R.string.pppextender_pref_dialog_accessibility_settings_title),
                         getString(R.string.setting_screen_not_found_alert),
                         getString(android.R.string.ok),
                         null,

@@ -129,7 +129,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             summary = "<b>" + _context.getString(R.string.accessibility_service_not_used) + "</b>";
         }
         prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" +
-                _context.getString(R.string.pppextender_pref_dialog_enablePPPExtender_title) + ": " +
+                _context.getString(R.string.pppextender_pref_dialog_accessibility_settings_title) + ": " +
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))

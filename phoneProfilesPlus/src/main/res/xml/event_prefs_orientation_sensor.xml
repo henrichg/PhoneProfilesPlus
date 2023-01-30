@@ -102,7 +102,7 @@
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
 <!--    <Preference-->
 <!--        app:key="eventOrientationAccessibilitySettings"-->
-<!--        app:title="@string/pppextender_pref_dialog_enablePPPExtender_title"-->
+<!--        app:title="@string/pppextender_pref_dialog_accessibility_settings_title"-->
 <!--        app:summary="@string/event_preferences_orientation_AccessibilitySettingsForExtender_summary"-->
 <!--        app:dependency="eventOrientationEnabled"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->

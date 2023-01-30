@@ -2066,7 +2066,7 @@
     <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable\nAccessibility settings</string>
     <string name="pppextender_pref_dialog_close_button">Close</string>
     <string name="pppextender_pref_dialog_launchPPPExtender_title">Launch PhoneProfilesPlusExtender</string>
-    <string name="pppextender_pref_dialog_enablePPPExtender_title">Accessibility settings</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_title">Accessibility settings</string>
     <string name="pppextender_pref_dialog_PPPExtender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
     <string name="pppextender_pref_dialog_PPPExtender_not_installed_summary">Not installed</string>
     <string name="pppextender_pref_dialog_PPPExtender_installed_summary">Installed:</string>
@@ -2087,7 +2087,7 @@
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
-<!--    - pppextender_pref_dialog_enablePPPExtender_title-->
+<!--    - pppextender_pref_dialog_accessibility_settings_title-->
 
     <!-- **************************************************************************************** -->
 
