@@ -33,6 +33,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
     private AlertDialog mDialog;
     private TextView extenderVersionText = null;
     private TextView extenderLaunchText = null;
+    private View extenderLaunchDivider = null;
     private TextView extenderAccessibilitySettings = null;
 
     static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
@@ -57,6 +58,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
 
         extenderVersionText = layout.findViewById(R.id.extenderPrefDialog_extender_version);
         extenderLaunchText = layout.findViewById(R.id.extenderPrefDialog_extender_launch);
+        extenderLaunchDivider = layout.findViewById(R.id.extenderPrefDialog_extender_launch_divider);
         extenderAccessibilitySettings = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings);
 
         Button extenderInstallButton = layout.findViewById(R.id.extenderPrefDialog_extender_install_button);
@@ -87,17 +89,20 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                         " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")";
                 if (extenderVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
                     prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
-                //else
-                //  prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                else
+                  prefVolumeDataSummary = prefVolumeDataSummary + "\n"; // + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
             }
             extenderVersionText.setText(prefVolumeDataSummary);
 
             if ((preference.lauchSummary != null) && (!preference.lauchSummary.isEmpty())) {
                 prefVolumeDataSummary = preference.lauchSummary;
+                extenderLaunchDivider.setVisibility(View.GONE);
                 extenderLaunchText.setVisibility(View.VISIBLE);
                 extenderLaunchText.setText(prefVolumeDataSummary);
-            } else
+            } else {
                 extenderLaunchText.setVisibility(View.GONE);
+                extenderLaunchDivider.setVisibility(View.VISIBLE);
+            }
 
             //-----
             int accessibilityEnabled;// = -99;

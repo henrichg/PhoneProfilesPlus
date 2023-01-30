@@ -80,6 +80,11 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/empty_string"
                 android:textSize="16sp" />
+            <View
+                android:id="@+id/extenderPrefDialog_extender_launch_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" />
             <Button
                 android:id="@+id/extenderPrefDialog_extender_launch_button"
                 style="?android:attr/borderlessButtonStyle"
