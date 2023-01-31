@@ -62,7 +62,7 @@ public class ExtenderDialogPreference extends DialogPreference {
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
         if (extenderVersion == 0) {
-            prefVolumeDataSummary = "<b>" + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) + "</b>";
+            prefVolumeDataSummary = "<b>" + _context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + "</b>";
 
             if ((installSummary != null) && (!installSummary.isEmpty()))
                 prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + installSummary;
@@ -74,7 +74,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
                     " <b>" + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b>";
             if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br><b>" + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary) + "</b>";
+                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br><b>" + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + "</b>";
             else
                 prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
         }
@@ -129,7 +129,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             summary = "<b>" + _context.getString(R.string.accessibility_service_not_used) + "</b>";
         }
         prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" +
-                _context.getString(R.string.pppextender_pref_dialog_accessibility_settings_title) + ": " +
+                _context.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + ": " +
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))

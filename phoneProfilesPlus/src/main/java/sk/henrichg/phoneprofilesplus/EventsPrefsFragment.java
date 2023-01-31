@@ -891,7 +891,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference120.getTitle(),
-                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
+                                getString(R.string.event_preferences_extender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -956,7 +956,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference123.getTitle(),
-                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
+                                getString(R.string.event_preferences_extender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -1001,7 +1001,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference124.getTitle(),
-                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
+                                getString(R.string.event_preferences_extender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -1046,7 +1046,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 preference125.getTitle(),
-                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
+                                getString(R.string.event_preferences_extender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -1659,7 +1659,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference13 -> {
-                            enableExtender();
+                            ExtenderDialogPreferenceFragment.enableExtender(getActivity(), null);
                             return false;
                         });
                     }
@@ -1906,6 +1906,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 */
 
+/*
     private void enableExtender() {
         if (getActivity() == null)
             return;
@@ -1924,7 +1925,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (!ok) {
             if (getActivity() != null) {
                 PPAlertDialog dialog = new PPAlertDialog(
-                        getString(R.string.pppextender_pref_dialog_accessibility_settings_title),
+                        getString(R.string.event_preferences_applications_AccessibilitySettings_title),
                         getString(R.string.setting_screen_not_found_alert),
                         getString(android.R.string.ok),
                         null,
@@ -1945,7 +1946,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
         }
     }
-
+*/
     void changeCurentLightSensorValue() {
         if (getActivity() != null) {
             Preference currentValuePreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);

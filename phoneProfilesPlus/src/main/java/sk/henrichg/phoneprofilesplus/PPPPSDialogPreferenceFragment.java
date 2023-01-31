@@ -116,7 +116,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
     }
     */
 
-    static void installPPPPutSettings(final Activity activity, final PPPPSDialogPreference preference,
+    static void installPPPPutSettings(final Activity activity, final PPPPSDialogPreference _preference,
                                       @SuppressWarnings("SameParameterValue") boolean finishActivity) {
         if (activity == null) {
             return;
@@ -156,14 +156,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             i.setData(Uri.parse(url));
             try {
                 activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                if (preference != null)
-                    preference.fragment.dismiss();
+                if (_preference != null)
+                    _preference.fragment.dismiss();
                 if (finishActivity)
                     activity.finish();
             } catch (Exception e) {
                 PPApplication.recordException(e);
-                if (preference != null)
-                    preference.fragment.dismiss();
+                if (_preference != null)
+                    _preference.fragment.dismiss();
                 if (finishActivity)
                     activity.finish();
             }
@@ -198,14 +198,14 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     dialog.cancel();
                     //if (activity != null)
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if (preference != null)
-                        preference.fragment.dismiss();
+                    if (_preference != null)
+                        _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-                    if (preference != null)
-                        preference.fragment.dismiss();
+                    if (_preference != null)
+                        _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 }

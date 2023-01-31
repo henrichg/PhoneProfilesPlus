@@ -835,8 +835,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 else {
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
-                                getString(R.string.pppextender_pref_dialog_launchPPPExtender_title),
-                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
+                                getString(R.string.event_preferences_applications_LaunchExtender_title),
+                                getString(R.string.event_preferences_extender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -878,8 +878,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 else {
                     if (getActivity() != null) {
                         PPAlertDialog dialog = new PPAlertDialog(
-                                getString(R.string.pppextender_pref_dialog_launchPPPExtender_title),
-                                getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed),
+                                getString(R.string.event_preferences_applications_LaunchExtender_title),
+                                getString(R.string.event_preferences_extender_not_installed),
                                 getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -5005,16 +5005,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
-                    String summary = getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) +
+                    String summary = getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
                             "\n\n" + getString(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
                     preference.setSummary(summary);
                 }
                 else {
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
-                    String summary =  getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
+                    String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
                     if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                        summary = summary + getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
+                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
                     preference.setSummary(summary);
@@ -5076,16 +5076,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
-                    String summary = getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) +
+                    String summary = getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
                             "\n\n" + getString(R.string.profile_preferences_lockDevice_PPPExtender_install_summary);
                     preference.setSummary(summary);
                 }
                 else {
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
-                    String summary =  getString(R.string.pppextender_pref_dialog_PPPExtender_installed_summary) +
+                    String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
                     if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                        summary = summary + getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
+                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
                     preference.setSummary(summary);
@@ -6727,7 +6727,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference16 -> {
-                                enableExtender();
+                                ExtenderDialogPreferenceFragment.enableExtender(getActivity(), null);
                                 return false;
                             });
                         }
@@ -7047,7 +7047,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             installExtenderFromGitHub();
     }
     */
-
+    /*
     private void enableExtender() {
         if (getActivity() == null)
             return;
@@ -7066,7 +7066,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!ok) {
             if (getActivity() != null) {
                 PPAlertDialog dialog = new PPAlertDialog(
-                        getString(R.string.pppextender_pref_dialog_accessibility_settings_title),
+                        getString(R.string.event_preferences_applications_AccessibilitySettings_title),
                         getString(R.string.setting_screen_not_found_alert),
                         getString(android.R.string.ok),
                         null,
@@ -7087,6 +7087,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
     }
+    */
 
     private void configureAssistant() {
         if (getActivity() == null)

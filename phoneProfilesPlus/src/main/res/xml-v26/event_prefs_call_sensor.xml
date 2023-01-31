@@ -86,7 +86,7 @@
 <!--        app:layout="@layout/mp_preference_material_widget" />-->
 <!--    <Preference-->
 <!--        app:key="eventCallAccessibilitySettings"-->
-<!--        app:title="@string/pppextender_pref_dialog_accessibility_settings_title"-->
+<!--        app:title="@string/event_preferences_applications_AccessibilitySettings_title"-->
 <!--        app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"-->
 <!--        app:dependency="eventCallEnabled"-->
 <!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
