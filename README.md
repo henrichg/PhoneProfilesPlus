@@ -9,8 +9,11 @@ PhoneProfilesPlus (aka PPP)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
-__[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__  
-Latest version is 4.2.0.3 and will never by upgraded.  
+__[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
+
+__Is not possible to install PhoneProfilesPlus from Google Play, becuse is removed by autohr from this store.__
+
+Latest version is 4.2.0.3 and will never by upgraded. 
 Reason: Google restrictions:  
 1. Android - All Wi-Fi related functions not working since Android 10.  
 2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:  
