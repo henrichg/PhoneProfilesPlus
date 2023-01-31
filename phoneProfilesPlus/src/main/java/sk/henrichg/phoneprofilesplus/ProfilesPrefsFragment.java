@@ -565,13 +565,33 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        PPListPreference vibrateNotificationsPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
-        if (vibrateNotificationsPreference != null)
-        {
-            vibrateNotificationsPreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateNotifications));
-            vibrateNotificationsPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateNotifications));
-            String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
-            setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
+        if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
+            PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
+            PPListPreference vibrateNotificationsPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
+            if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    ((preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) ||
+                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) ||
+                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)||
+                     (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS))) {
+                if (vibrateNotificationsPreference != null) {
+                    vibrateNotificationsPreference.setTitle("(S)(R) " + getString(R.string.profile_preferences_vibrateNotifications));
+                    vibrateNotificationsPreference.setDialogTitle("(S)(R) " + getString(R.string.profile_preferences_vibrateNotifications));
+                    String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
+                    setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
+                }
+            } else {
+                if (vibrateNotificationsPreference != null) {
+                    PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
+                    if (preferenceCategory != null)
+                        preferenceCategory.removePreference(vibrateNotificationsPreference);
+                }
+                PPPPSDialogPreference ppppsPreference = prefMng.findPreference("prf_pref_soundProfilePPPPS");
+                if (ppppsPreference != null) {
+                    PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
+                    if (preferenceCategory != null)
+                        preferenceCategory.removePreference(ppppsPreference);
+                }
+            }
         }
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
@@ -6233,6 +6253,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (!enabled)
                         preference.setValue(Profile.NO_CHANGE_VALUE_STR);
                     preference.setEnabled(enabled);
+                }
+                PPPPSDialogPreference ppppsPreference = prefMng.findPreference("prf_pref_soundProfilePPPPS");
+                if (ppppsPreference != null) {
+                    ppppsPreference.setEnabled(enabled);
                 }
             }
         }
