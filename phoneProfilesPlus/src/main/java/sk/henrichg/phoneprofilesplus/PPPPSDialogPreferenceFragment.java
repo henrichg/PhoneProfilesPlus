@@ -136,16 +136,18 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(activity.getApplicationContext());
         if (ppppsVersion != 0) {
             String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(activity.getApplicationContext());
-            dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " " + ppppsVersionName + " (" + ppppsVersion + ")\n";
+            dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " <b>" + ppppsVersionName + " (" + ppppsVersion + ")</b><br>";
         }
         dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                " " + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")\n\n";
+                " <b>" + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b><br><br>";
 
-        dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"\n";
-        dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "\n";
-        dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "\n\n";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"<br>";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "<br>";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "<br><br>";
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
-        text.setText(dialogText);
+
+        dialogText = dialogText.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 
         dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
             String url = PPApplication.GITHUB_PPPPS_DOWNLOAD_URL;

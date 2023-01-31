@@ -223,15 +223,16 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
         if (extenderVersion != 0) {
             String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
-            dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
+            dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br>";
         }
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
-                " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
-        dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".\n\n";
-        dialogText = dialogText + activity.getString(R.string.install_extender_text2) + "\n\n";
+                " <b>" + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b><br><br>";
+        dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".<br><br>";
+        dialogText = dialogText + activity.getString(R.string.install_extender_text2) + "<br><br>";
         dialogText = dialogText + activity.getString(R.string.install_extender_text3);
 
-        text.setText(dialogText);
+        dialogText = dialogText.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 
         text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
@@ -331,13 +332,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
             if (extenderVersion != 0) {
                 String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
-                dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
+                dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br>";
             }
             dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
-                    " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
+                    " <b>" + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b><br><br>";
             dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
 
-            text.setText(dialogText);
+            text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
