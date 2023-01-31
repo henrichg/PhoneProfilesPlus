@@ -35,6 +35,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
     private TextView extenderLaunchText = null;
     private View extenderLaunchDivider = null;
     private TextView extenderAccessibilitySettings = null;
+    private TextView extenderAccessibilitySettingsValue = null;
+    private TextView extenderAccessibilitySettingsSummary = null;
 
     static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
 
@@ -60,6 +62,8 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         extenderLaunchText = layout.findViewById(R.id.extenderPrefDialog_extender_launch);
         extenderLaunchDivider = layout.findViewById(R.id.extenderPrefDialog_extender_launch_divider);
         extenderAccessibilitySettings = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings);
+        extenderAccessibilitySettingsValue = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings_value);
+        extenderAccessibilitySettingsSummary = layout.findViewById(R.id.extenderPrefDialog_accessibility_settings_summary);
 
         Button extenderInstallButton = layout.findViewById(R.id.extenderPrefDialog_extender_install_button);
         extenderInstallButton.setOnClickListener(v -> installPPPExtender(getActivity(), preference, false));
@@ -76,23 +80,23 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             String prefVolumeDataSummary;
             int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(prefContext);
             if (extenderVersion == 0) {
-                prefVolumeDataSummary = prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary);
+                prefVolumeDataSummary = "<b>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_not_installed_summary) + "</b>";
 
                 if ((preference.installSummary != null) && (!preference.installSummary.isEmpty()))
-                    prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + preference.installSummary;
+                    prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + preference.installSummary;
             }
             else {
                 String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.install_extender_installed_version) +
-                        " " + extenderVersionName + " (" + extenderVersion + ")\n";
+                        " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br>";
                 prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.install_extender_required_version) +
-                        " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")";
+                        " <b>" + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b>";
                 if (extenderVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                    prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_new_version_summary);
                 else
-                  prefVolumeDataSummary = prefVolumeDataSummary + "\n"; // "\n\n" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
+                  prefVolumeDataSummary = prefVolumeDataSummary + "<br> "; // "<br><br>" + prefContext.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
             }
-            extenderVersionText.setText(prefVolumeDataSummary);
+            extenderVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
 
             if ((preference.lauchSummary != null) && (!preference.lauchSummary.isEmpty())) {
                 prefVolumeDataSummary = preference.lauchSummary;
@@ -133,17 +137,18 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 String preferenceValue = preference.getSharedPreferences().getString(preference.enbaleExtenderPreferenceNameToTest, "");
                 preferenceValueOK = preferenceValue.equals(preference.enbaleExtenderPreferenceValueToTest);
             }
-            String summary;
+            String value;
+            String summary = null;
             if (preferenceValueOK) {
                 if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
-                    summary = prefContext.getString(R.string.accessibility_service_enabled);
+                    value = prefContext.getString(R.string.accessibility_service_enabled);
                 else {
                     if (accessibilityEnabled == -1) {
-                        summary = prefContext.getString(R.string.accessibility_service_not_used);
-                        summary = summary + "\n" + prefContext.getString(R.string.preference_not_used_extender_reason) + " " +
+                        value = prefContext.getString(R.string.accessibility_service_not_used);
+                        summary = prefContext.getString(R.string.preference_not_used_extender_reason) + " " +
                                 prefContext.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                     } else {
-                        summary = prefContext.getString(R.string.accessibility_service_disabled);
+                        value = prefContext.getString(R.string.accessibility_service_disabled);
                         //if ((preference.enableExtenderSummaryDisabled != null) && (!preference.enableExtenderSummaryDisabled.isEmpty()))
                         //    summary = summary + "\n\n" + preference.enableExtenderSummaryDisabled;
                         //else
@@ -152,9 +157,17 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 }
             }
             else {
-                summary = prefContext.getString(R.string.accessibility_service_not_used);
+                value = prefContext.getString(R.string.accessibility_service_not_used);
             }
-            extenderAccessibilitySettings.setText(prefContext.getString(R.string.pppextender_pref_dialog_accessibility_settings_title) + ": " + summary);
+            extenderAccessibilitySettings.setText(prefContext.getString(R.string.pppextender_pref_dialog_accessibility_settings_title) + ":"/* + summary*/);
+            extenderAccessibilitySettingsValue.setText("[ " + value + " ]");
+            if (summary != null) {
+                extenderAccessibilitySettingsSummary.setText(summary);
+                extenderAccessibilitySettingsSummary.setVisibility(View.VISIBLE);
+            }
+            else {
+                extenderAccessibilitySettingsSummary.setVisibility(View.GONE);
+            }
 
             //----
 

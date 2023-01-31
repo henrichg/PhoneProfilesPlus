@@ -66,21 +66,21 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             String prefVolumeDataSummary;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext);
             if (ppppsVersion == 0) {
-                prefVolumeDataSummary = prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary);
-                prefVolumeDataSummary = prefVolumeDataSummary +  "\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
+                prefVolumeDataSummary = "<b>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary) + "</b>";
+                prefVolumeDataSummary = prefVolumeDataSummary +  "<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
             }
             else {
                 String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) +
-                        " " + ppppsVersionName + " (" + ppppsVersion + ")\n";
+                        " <b>" + ppppsVersionName + " (" + ppppsVersion + ")</b><br>";
                 prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                        " " + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")";
+                        " <b>" + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b>";
                 if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                    prefVolumeDataSummary = prefVolumeDataSummary + "\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
                 else
-                    prefVolumeDataSummary = prefVolumeDataSummary + "\n"; //"\n\n" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + "<br> "; //"<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
             }
-            ppppsVersionText.setText(prefVolumeDataSummary);
+            ppppsVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
 
             ppppsLaunchText.setText(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings);
 
