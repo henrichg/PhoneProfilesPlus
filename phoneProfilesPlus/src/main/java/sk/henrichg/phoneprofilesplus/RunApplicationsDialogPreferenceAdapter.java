@@ -91,4 +91,10 @@ class RunApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<RunApp
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
+
+    @Override
+    public void clearView() {
+
+    }
+
 }

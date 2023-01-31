@@ -487,7 +487,7 @@ public class EditorProfileListFragment extends Fragment
         @Override
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
-            
+
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {

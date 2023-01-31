@@ -45,4 +45,9 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         mAdapter.onItemDismiss(viewHolder.getAbsoluteAdapterPosition());
     }
 
+    @Override
+    public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder
+    ) {
+        mAdapter.clearView();
+    }
 }

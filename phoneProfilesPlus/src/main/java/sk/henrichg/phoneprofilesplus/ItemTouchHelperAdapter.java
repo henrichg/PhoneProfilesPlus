@@ -6,4 +6,6 @@ interface ItemTouchHelperAdapter {
 
     void onItemDismiss(int position);
 
+    void clearView();
+
 }
