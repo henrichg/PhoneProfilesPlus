@@ -579,7 +579,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
                     setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
                 }
-            } else {
+            }
+            else
+            if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM) {
                 if (vibrateNotificationsPreference != null) {
                     PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
                     if (preferenceCategory != null)
