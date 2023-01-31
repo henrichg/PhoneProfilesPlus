@@ -11,7 +11,7 @@ PhoneProfilesPlus (aka PPP)
 
 __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
 
-__Is not possible to install PhoneProfilesPlus from Google Play, becuse is removed by autohr from this store.__
+__Is not possible to install PhoneProfilesPlus from Google Play, because is removed by author from this store.__
 
 Latest version is 4.2.0.3 and will never by upgraded. 
 Reason: Google restrictions:  
