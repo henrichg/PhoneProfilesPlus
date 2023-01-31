@@ -126,6 +126,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
         CheckCriticalPPPReleasesBroadcastReceiver.setAlarm(appContext);
         CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm(appContext);
+        CheckLatestPPPPSReleasesBroadcastReceiver.setAlarm(appContext);
 
         TwilightScanner.doWork();
 

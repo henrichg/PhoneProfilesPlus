@@ -547,6 +547,8 @@ public class PPApplication extends Application
     static final String CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG";
     static final int CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID = 125;
     static final String CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG";
+    static final int CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID = 126;
+    static final String CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_TAG = PACKAGE_NAME+"_CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_TAG";
     static final String CHECK_RELEASES_GROUP = PACKAGE_NAME+"_CHECK_RELEASES_GROUP";
 
     static final int PROFILE_ACTIVATION_ERROR_NOTIFICATION_ID = 130;
@@ -679,6 +681,7 @@ public class PPApplication extends Application
     static final String ACTION_CHECK_CRITICAL_GITHUB_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES";
     static final String ACTION_FINISH_ACTIVITY = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_FINISH_ACTIVITY";
     static final String ACTION_CHECK_REQUIRED_EXTENDER_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES";
+    static final String ACTION_CHECK_LATEST_PPPPS_RELEASES = PPApplication.PACKAGE_NAME + ".PPApplication.ACTION_CHECK_LATEST_PPPPS_RELEASES";
 
     static final String EXTRA_WHAT_FINISH = "what_finish";
 
@@ -800,6 +803,7 @@ public class PPApplication extends Application
     static volatile CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
     static volatile SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
     static volatile CheckRequiredExtenderReleasesBroadcastReceiver checkRequiredExtenderReleasesBroadcastReceiver = null;
+    static volatile CheckLatestPPPPSReleasesBroadcastReceiver checkLatestPPPPSReleasesBroadcastReceiver = null;
 
     static volatile BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static volatile BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;

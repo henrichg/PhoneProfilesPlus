@@ -705,6 +705,14 @@ public class PhoneProfilesService extends Service
                     PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = null;
                 }
             }
+            if (PPApplication.checkLatestPPPPSReleasesBroadcastReceiver != null) {
+                try {
+                    appContext.unregisterReceiver(PPApplication.checkLatestPPPPSReleasesBroadcastReceiver);
+                    PPApplication.checkLatestPPPPSReleasesBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.checkLatestPPPPSReleasesBroadcastReceiver = null;
+                }
+            }
             /*if (PPApplication.restartEventsWithDelayBroadcastReceiver != null) {
                 try {
                     appContext.unregisterReceiver(PPApplication.restartEventsWithDelayBroadcastReceiver);
@@ -812,6 +820,12 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES);
                 appContext.registerReceiver(PPApplication.checkRequiredExtenderReleasesBroadcastReceiver, intentFilter5);
+            }
+            if (PPApplication.checkLatestPPPPSReleasesBroadcastReceiver == null) {
+                PPApplication.checkLatestPPPPSReleasesBroadcastReceiver = new CheckLatestPPPPSReleasesBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PPApplication.ACTION_CHECK_LATEST_PPPPS_RELEASES);
+                appContext.registerReceiver(PPApplication.checkLatestPPPPSReleasesBroadcastReceiver, intentFilter5);
             }
             /*if (PPApplication.restartEventsWithDelayBroadcastReceiver == null) {
                 PPApplication.restartEventsWithDelayBroadcastReceiver = new RestartEventsWithDelayBroadcastReceiver();
@@ -3679,6 +3693,7 @@ public class PhoneProfilesService extends Service
                 CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
                 CheckCriticalPPPReleasesBroadcastReceiver.setAlarm(appContext);
                 CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm(appContext);
+                CheckLatestPPPPSReleasesBroadcastReceiver.setAlarm(appContext);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
