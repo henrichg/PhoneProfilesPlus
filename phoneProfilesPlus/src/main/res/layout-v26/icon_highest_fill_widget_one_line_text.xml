@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/icon_widget_height_higher"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:background="?android:attr/colorBackground"
-    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
+    android:orientation="vertical"
+    android:background="#40000000"
     tools:ignore="Overdraw" >
 
     <ImageView
@@ -16,9 +16,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
-        android:tint="?android:attr/colorBackground"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/icon_widget_relLa1"
@@ -60,7 +59,6 @@
             android:text="@string/profile_name_default"
             android:maxLines="1"
             tools:ignore="SpUsage"/>
-        <!--        android:textColor="?android:attr/textColorPrimary"-->
 
     </LinearLayout>
 
@@ -81,9 +79,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
-        android:tint="?android:attr/textColorSecondary"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
 </FrameLayout>
 

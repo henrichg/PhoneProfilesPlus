@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/icon_widget_height_higher"
+    android:layout_height="match_parent"
     android:gravity="center"
-    android:background="?android:attr/colorBackground"
-    android:theme="@style/Theme.Material3.DynamicColors.DayNight"
-    tools:ignore="Overdraw" >
+    android:background="#40000000"
+    tools:ignore="Overdraw">
 
     <ImageView
         android:id="@+id/widget_icon_background"
@@ -16,9 +15,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
-        android:tint="?android:attr/colorBackground"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:id="@+id/icon_widget_relLa1"
@@ -31,16 +29,18 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/widget_ripple_background"
-        android:weightSum = "3"
+        android:weightSum = "2"
         android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/icon_widget_icon"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
@@ -54,13 +54,12 @@
             android:layout_weight="1"
             android:paddingStart="2dp"
             android:paddingEnd="2dp"
-            android:layout_gravity="center_horizontal|top"
-            android:gravity="center_horizontal|top"
-            android:autoSizeTextType="uniform"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="@string/profile_name_default"
-            android:maxLines="1"
-            tools:ignore="SpUsage"/>
-        <!--        android:textColor="?android:attr/textColorPrimary"-->
+            android:textSize="14dp"
+            android:maxLines="2"
+            tools:ignore="SpUsage" />
 
     </LinearLayout>
 
@@ -81,9 +80,8 @@
         android:gravity="center"
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
-        android:tint="?android:attr/textColorSecondary"
         android:visibility="gone"
-        tools:ignore="ContentDescription,UseAppTint" />
+        tools:ignore="ContentDescription" />
 
 </FrameLayout>
 

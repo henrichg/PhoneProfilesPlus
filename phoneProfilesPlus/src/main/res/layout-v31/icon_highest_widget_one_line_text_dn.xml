@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/icon_widget_height_highest"
     android:gravity="center"
     android:background="?android:attr/colorBackground"
     android:theme="@style/Theme.Material3.DynamicColors.DayNight"
