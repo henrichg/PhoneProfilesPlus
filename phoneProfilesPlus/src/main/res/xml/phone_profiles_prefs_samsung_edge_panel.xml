@@ -4,6 +4,12 @@
     app:key="categorySamsungEdgePanel"
     app:title="@string/phone_profiles_pref_category_samsung_edge_panel">
 
+    <Preference
+        app:key="applicationSamsungEdgeInfo"
+        app:title="@string/phone_profiles_pref_application_samsung_edge_info"
+        app:summary="@string/empty_string"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/phone_profiles_pref_applicationSamsungEdgeVerticalPosition"
         app:summary="@string/array_pref_samsungEdgeVerticalPosition_top"
