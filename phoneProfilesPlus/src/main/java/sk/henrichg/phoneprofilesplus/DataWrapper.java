@@ -2416,7 +2416,7 @@ public class DataWrapper {
         }
         if (eventRunningEnabled) {
             PPAlertDialog dialog = new PPAlertDialog(
-                    activity.getString(R.string.stop_events_alert_title),
+                    activity.getString(R.string.menu_stop_events),
                     activity.getString(R.string.stop_events_alert_message),
                     activity.getString(R.string.alert_button_yes),
                     activity.getString(R.string.alert_button_no),
