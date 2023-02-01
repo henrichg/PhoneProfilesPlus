@@ -408,6 +408,7 @@ public class PPApplication extends Application
     static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
     static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
     static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
+    static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
 
     //static PowerManager.WakeLock keepScreenOnWakeLock;
 
