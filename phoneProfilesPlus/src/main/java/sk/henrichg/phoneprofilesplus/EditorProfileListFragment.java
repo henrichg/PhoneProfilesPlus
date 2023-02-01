@@ -236,7 +236,8 @@ public class EditorProfileListFragment extends Fragment
 
             }*/
 
-            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar) {
+            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar ||
+                    getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
                 final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
                         .getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);

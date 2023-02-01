@@ -297,7 +297,8 @@ public class EditorEventListFragment extends Fragment
                 }, 200);
             }*/
 
-            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar) {
+            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar ||
+                    getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
                 final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
                         .getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);

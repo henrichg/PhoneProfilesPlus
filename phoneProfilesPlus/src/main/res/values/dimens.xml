@@ -97,4 +97,6 @@
 
     <dimen name="scrollbar_size">4dp</dimen>
 
+    <bool name="forceHideHeaderOrBottomBar">false</bool>
+
 </resources>

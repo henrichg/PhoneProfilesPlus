@@ -30,4 +30,6 @@
     <dimen name="popup_widow_dialog_help_width">350dp</dimen>
     <dimen name="popup_window_run_stop_indicator_width">350dp</dimen>
 
+    <bool name="forceHideHeaderOrBottomBar">false</bool>
+
 </resources>
