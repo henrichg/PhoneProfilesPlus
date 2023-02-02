@@ -60,6 +60,7 @@
             android:autoSizeTextType="uniform"
             android:text="@string/profile_name_default"
             android:maxLines="1"
+            android:ellipsize="end"
             tools:ignore="SpUsage"/>
 
     </LinearLayout>

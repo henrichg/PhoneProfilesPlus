@@ -62,6 +62,7 @@
             android:autoSizeTextType="uniform"
             android:text="@string/profile_name_default"
             android:maxLines="2"
+            android:ellipsize="end"
             tools:ignore="SpUsage" />
 <!--        android:textColor="?android:attr/textColorPrimary"-->
 

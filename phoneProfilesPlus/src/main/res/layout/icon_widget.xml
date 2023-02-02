@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_icon_root"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/icon_widget_height"
     android:layout_height="@dimen/icon_widget_height"
     android:gravity="center"
     android:background="#40000000"
@@ -61,6 +61,7 @@
             android:text="@string/profile_name_default"
             android:textSize="14dp"
             android:maxLines="2"
+            android:ellipsize="end"
             tools:ignore="SpUsage" />
 
     </LinearLayout>
