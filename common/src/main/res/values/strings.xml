@@ -2076,6 +2076,8 @@
 
     <string name="phone_profiles_pref_application_samsung_edge_info">PPP edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
 
+    <string name="phone_profiles_pref_applicationWidgetFillBackground">Fill whole space with background</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

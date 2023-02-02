@@ -245,6 +245,7 @@ class ApplicationPreferences {
     static volatile String  applicationSamsungEdgeBackgroundColorNightModeOff;
     static volatile String  applicationSamsungEdgeBackgroundColorNightModeOn;
     static volatile String applicationWidgetIconLayoutHeight;
+    static volatile boolean applicationWidgetIconFillBackground;
 
     static volatile String applicationWidgetOneRowProfileListBackground;
     static volatile String applicationWidgetOneRowProfileListLightnessB;
@@ -531,6 +532,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_OFF = "applicationSamsungEdgeBackgroundColorNightModeOff";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationSamsungEdgeBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT = "applicationWidgetIconLayoutHeight";
+    static final String PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND = "applicationWidgetIconFillBackground";
 
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND = "applicationWidgetOneRowProfileListBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B = "applicationWidgetOneRowProfileListLightnessB";
@@ -1997,6 +1999,10 @@ class ApplicationPreferences {
         applicationWidgetIconLayoutHeight = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT, PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND_DEFAULT_VALUE = false;
+    static void applicationWidgetIconFillBackground(Context context) {
+        applicationWidgetIconFillBackground = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND, PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND_DEFAULT_VALUE);
+    }
 
 
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
