@@ -20,6 +20,12 @@
         app:ppEntryValues="@array/widgetOneRowLayoutHeightValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowFillBackground"
+        app:title="@string/phone_profiles_pref_applicationWidgetFillBackground"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"

@@ -246,6 +246,8 @@ class ApplicationPreferences {
     static volatile String  applicationSamsungEdgeBackgroundColorNightModeOn;
     static volatile String applicationWidgetIconLayoutHeight;
     static volatile boolean applicationWidgetIconFillBackground;
+    static volatile boolean applicationWidgetOneRowFillBackground;
+    static volatile boolean applicationWidgetOneRowProfileListFillBackground;
 
     static volatile String applicationWidgetOneRowProfileListBackground;
     static volatile String applicationWidgetOneRowProfileListLightnessB;
@@ -533,6 +535,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR_NIGHT_MODE_ON = "applicationSamsungEdgeBackgroundColorNightModeOn";
     static final String PREF_APPLICATION_WIDGET_ICON_LAYOUT_HEIGHT = "applicationWidgetIconLayoutHeight";
     static final String PREF_APPLICATION_WIDGET_ICON_FILL_BACKGROUND = "applicationWidgetIconFillBackground";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND = "applicationWidgetOneRowFillBackground";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND = "applicationWidgetOneRowProfileListFillBackground";
 
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND = "applicationWidgetOneRowProfileListBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B = "applicationWidgetOneRowProfileListLightnessB";
@@ -2075,6 +2079,11 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListLayoutHeight = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowFillBackground(Context context) {
+        applicationWidgetOneRowFillBackground = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND, PREF_APPLICATION_WIDGET_ONE_ROW_FILL_BACKGROUND_DEFAULT_VALUE);
+    }
+
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL = true;
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(Context context) {
@@ -2131,6 +2140,10 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListNumberOfProfilesPerPage = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE));
     }
 
+    static final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND_DEFAULT_VALUE = false;
+    static void applicationWidgetOneRowProfileListFillBackground(Context context) {
+        applicationWidgetOneRowProfileListFillBackground = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND_DEFAULT_VALUE);
+    }
 
     static void deleteBadPreferences(Context context) {
         SharedPreferences mySPrefs = getSharedPreferences(context);

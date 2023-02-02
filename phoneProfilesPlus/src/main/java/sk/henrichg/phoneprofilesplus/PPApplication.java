@@ -2385,6 +2385,8 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn(context);
             ApplicationPreferences.applicationWidgetIconLayoutHeight(context);
             ApplicationPreferences.applicationWidgetIconFillBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowFillBackground(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListFillBackground(context);
 
             ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessB(context);
