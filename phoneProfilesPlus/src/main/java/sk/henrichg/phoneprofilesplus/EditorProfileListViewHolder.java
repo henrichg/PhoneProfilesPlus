@@ -29,7 +29,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
     private final AppCompatImageButton showInActivatorButton;
 
     private Profile profile;
-    private final EditorProfileListFragment editorFragment;
+    final EditorProfileListFragment editorFragment;
 
     private final Context context;
 

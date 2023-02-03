@@ -38,7 +38,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
     private final AppCompatImageButton ignoreManualActivationButton;
 
     private Event event;
-    private final EditorEventListFragment editorFragment;
+    final EditorEventListFragment editorFragment;
 
     private final Context context;
     private final int filterType;

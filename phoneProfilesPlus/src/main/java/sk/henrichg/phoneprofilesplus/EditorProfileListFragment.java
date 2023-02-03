@@ -58,11 +58,11 @@ public class EditorProfileListFragment extends Fragment
     DataWrapper activityDataWrapper;
 
     private View rootView;
-    private RelativeLayout activatedProfileHeader;
+    RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
-    private Toolbar bottomToolbar;
+    Toolbar bottomToolbar;
     TextView textViewNoData;
     private LinearLayout progressBar;
     private ImageView profilePrefIndicatorImageView;
@@ -242,7 +242,7 @@ public class EditorProfileListFragment extends Fragment
                         .getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
-                listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
+                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(1) {
                     @Override
                     public void onHide() {
                 /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
