@@ -1258,10 +1258,28 @@ public class PPApplication extends Application
             sLook.initialize(this);
             // true = The Device supports Edge Single Mode, Edge Single Plus Mode, and Edge Feeds Mode.
             sLookCocktailPanelEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_PANEL);
+            Log.e("***** PPApplication.onCreate", "sLookCocktailPanelEnabled="+sLookCocktailPanelEnabled);
             // true = The Device supports Edge Immersive Mode feature.
             //sLookCocktailBarEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_BAR);
         } catch (SsdkUnsupportedException e) {
             sLook = null;
+            switch (e.getType()) {
+                case SsdkUnsupportedException.VENDOR_NOT_SUPPORTED:
+                    Log.e("***** PPApplication.onCreate", "Look not supported: VENDOR_NOT_SUPPORTED");
+                    break;
+                case SsdkUnsupportedException.DEVICE_NOT_SUPPORTED:
+                    Log.e("***** PPApplication.onCreate", "Look not supported: DEVICE_NOT_SUPPORTED");
+                    break;
+                case SsdkUnsupportedException.LIBRARY_NOT_INSTALLED:
+                    Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_NOT_INSTALLED");
+                    break;
+                case SsdkUnsupportedException.LIBRARY_UPDATE_IS_REQUIRED:
+                    Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_UPDATE_IS_REQUIRED");
+                    break;
+                case SsdkUnsupportedException.LIBRARY_UPDATE_IS_RECOMMENDED:
+                    Log.e("***** PPApplication.onCreate", "Look not supported: LIBRARY_UPDATE_IS_RECOMMENDED");
+                    break;
+            }
         }
 
         startPPServiceWhenNotStarted(this);

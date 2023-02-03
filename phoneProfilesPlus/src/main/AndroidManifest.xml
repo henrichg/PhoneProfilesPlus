@@ -212,6 +212,11 @@
 <!--                android:value="true" />-->
 <!--        </service>-->
 
+        <!-- this is for Galaxy Apps -->
+        <meta-data
+            android:name="com.samsung.android.cocktail.mode"
+            android:value="edge_single_plus" />
+
         <activity
             android:name=".LauncherActivity"
             android:label="@string/title_activity_phone_profiles"
