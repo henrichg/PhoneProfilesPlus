@@ -244,12 +244,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.menu_check_github_releases);
         }
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         message = message + "<br>";
@@ -401,12 +402,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         // org.fdroid.fdroid
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -580,12 +582,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void checkInGalaxyStore(final Activity activity, boolean galaxyStoreInstalled) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         if (!galaxyStoreInstalled) {
@@ -650,12 +653,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         // com.amazon.venezia
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -765,12 +769,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void checkInHuaweiAppGallery(final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -889,12 +894,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         // https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -1021,12 +1027,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void checkInDroidIfy(final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
