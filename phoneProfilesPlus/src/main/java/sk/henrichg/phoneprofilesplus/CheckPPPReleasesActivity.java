@@ -799,7 +799,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         View buttonsDivider = layout.findViewById(R.id.dialog_for_appgallery_buttonsDivider);
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             text.setVisibility(View.GONE);
-            buttonsDivider.setVisibility(View.GONE);
+            //buttonsDivider.setVisibility(View.GONE);
         } else {
             if (!appGalleryInstalled) {
                 text.setVisibility(View.VISIBLE);
@@ -972,7 +972,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             text.setVisibility(View.GONE);
-            buttonsDivider.setVisibility(View.GONE);
+            //buttonsDivider.setVisibility(View.GONE);
         }
 
         final boolean _apkPureInstalled = apkPureInstalled;
@@ -1105,7 +1105,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             text.setVisibility(View.GONE);
-            buttonsDivider.setVisibility(View.GONE);
+            //buttonsDivider.setVisibility(View.GONE);
         }
 
         final boolean _droidifyInstalled = droidifyInstalled;
