@@ -2154,5 +2154,8 @@
     <string name="pppputsettings_not_granted_write_settings_title">\"Modify system settings\" not granted</string>
     <string name="pppputsettings_not_granted_write_settings_text">\"Modify system settings\" is not granted for PPPPutSettings. Click this notification to grant it.</string>
 
+    <string name="pppputsettings_modify_system_settings_granted">Granted</string>
+    <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
+
 </resources>
 
