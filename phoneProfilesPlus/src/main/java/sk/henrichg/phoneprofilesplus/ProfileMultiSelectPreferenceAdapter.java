@@ -55,9 +55,9 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
         if (convertView == null)
         {
             if (applicationEditorPrefIndicator)
-                vi = LayoutInflater.from(context).inflate(R.layout.profile_multiselect_pref_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_profile_multiselect_pref, parent, false);
             else
-                vi = LayoutInflater.from(context).inflate(R.layout.profile_multiselect_pref_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_profile_multiselect_pref_no_indicator, parent, false);
 
             holder = new ProfilesViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_multiselect_pref_dlg_item_icon);

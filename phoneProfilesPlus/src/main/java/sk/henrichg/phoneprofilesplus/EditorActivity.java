@@ -466,9 +466,9 @@ public class EditorActivity extends AppCompatActivity
         };
         GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_filter_spinner,
+                R.layout.spinner_highlighted_filter,
                 filterItems);
-        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all_editor));
 /*        switch (appTheme) {
@@ -1338,9 +1338,9 @@ public class EditorActivity extends AppCompatActivity
                     };
                     GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                             activity,
-                            R.layout.highlighted_filter_spinner,
+                            R.layout.spinner_highlighted_filter,
                             filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
                     filterSpinner.setAdapter(filterSpinnerAdapter);
                     activity.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
                     Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1368,9 +1368,9 @@ public class EditorActivity extends AppCompatActivity
                     };
                     GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                             activity,
-                            R.layout.highlighted_filter_spinner,
+                            R.layout.spinner_highlighted_filter,
                             filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
                     filterSpinner.setAdapter(filterSpinnerAdapter);
                     activity.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
                     Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);

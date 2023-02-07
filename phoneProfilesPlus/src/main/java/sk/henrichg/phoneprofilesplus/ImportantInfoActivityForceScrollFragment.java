@@ -41,15 +41,15 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (showQuickGuide)
-            return inflater.inflate(R.layout.important_info_fragment_quick_guide, container, false);
+            return inflater.inflate(R.layout.fragment_important_info_quick_guide, container, false);
         else {
             switch (showFragment) {
                 case 1:
-                    return inflater.inflate(R.layout.important_info_fragment_profiles_force_scroll, container, false);
+                    return inflater.inflate(R.layout.fragment_important_info_profiles_force_scroll, container, false);
                 case 2:
-                    return inflater.inflate(R.layout.important_info_fragment_events_force_scroll, container, false);
+                    return inflater.inflate(R.layout.fragment_important_info_events_force_scroll, container, false);
                 default:
-                    return inflater.inflate(R.layout.important_info_fragment_system_force_scroll, container, false);
+                    return inflater.inflate(R.layout.fragment_important_info_system_force_scroll, container, false);
             }
         }
     }

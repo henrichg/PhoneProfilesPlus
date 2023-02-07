@@ -54,7 +54,7 @@ class ChooseLanguageAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
-            vi = LayoutInflater.from(context).inflate(R.layout.choose_language_list_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.listitem_choose_language, parent, false);
 
             holder = new ViewHolder();
             holder.radioButton = vi.findViewById(R.id.choose_language_dlg_item_radio_button);

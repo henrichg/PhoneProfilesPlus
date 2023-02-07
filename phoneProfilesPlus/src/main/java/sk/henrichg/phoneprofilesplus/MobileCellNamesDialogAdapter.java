@@ -49,7 +49,7 @@ class MobileCellNamesDialogAdapter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
         {
-            vi = LayoutInflater.from(context).inflate(R.layout.mobile_cell_names_dialog_list_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.listitem_mobile_cell_names_dialog, parent, false);
 
             holder = new ViewHolder();
             holder.cellName = vi.findViewById(R.id.mobile_cell_names_dialog_item_cell_name);

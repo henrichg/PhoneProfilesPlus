@@ -173,9 +173,9 @@ class ActivatorListAdapter extends BaseAdapter
                 //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
                 boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 if (applicationActivatorPrefIndicator)
-                    vi = inflater.inflate(R.layout.activator_list_item, parent, false);
+                    vi = inflater.inflate(R.layout.listitem_activator, parent, false);
                 else
-                    vi = inflater.inflate(R.layout.activator_list_item_no_indicator, parent, false);
+                    vi = inflater.inflate(R.layout.listitem_activator_no_indicator, parent, false);
                 //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);
@@ -184,7 +184,7 @@ class ActivatorListAdapter extends BaseAdapter
             }
             else
             {
-                vi = inflater.inflate(R.layout.activator_grid_item, parent, false);
+                vi = inflater.inflate(R.layout.listitem_activator_grid, parent, false);
                 //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);

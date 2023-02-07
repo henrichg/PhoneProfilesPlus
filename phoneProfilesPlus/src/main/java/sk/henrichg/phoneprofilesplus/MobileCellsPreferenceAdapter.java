@@ -66,7 +66,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.mobile_cells_preference_list_item, parent, false);
+            vi = inflater.inflate(R.layout.listitem_mobile_cells_preference, parent, false);
             holder = new ViewHolder();
             holder.cellId = vi.findViewById(R.id.mobile_cells_pref_dlg_item_label);
             holder.lastConnectedTime = vi.findViewById(R.id.mobile_cells_pref_dlg_item_lastConnectedTime);

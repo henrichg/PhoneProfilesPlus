@@ -124,9 +124,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentIntentTypeSpinner = findViewById(R.id.application_editor_intent_intent_type_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentIntentTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentIntentTypeSpinner.setAdapter(spinnerAdapter);
         intentIntentTypeSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentIntentTypeSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -155,9 +155,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentActionArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentActionSpinner.setAdapter(spinnerAdapter);
         intentActionSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentActionSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -278,9 +278,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner1.setAdapter(spinnerAdapter);
         intentExtraSpinner1.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner1.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -302,9 +302,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner2.setAdapter(spinnerAdapter);
         intentExtraSpinner2.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner2.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -326,9 +326,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner3.setAdapter(spinnerAdapter);
         intentExtraSpinner3.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner3.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -350,9 +350,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner4.setAdapter(spinnerAdapter);
         intentExtraSpinner4.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner4.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -374,9 +374,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner5.setAdapter(spinnerAdapter);
         intentExtraSpinner5.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner5.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));

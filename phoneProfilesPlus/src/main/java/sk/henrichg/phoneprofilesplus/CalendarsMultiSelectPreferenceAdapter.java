@@ -58,7 +58,7 @@ class CalendarsMultiSelectPreferenceAdapter extends BaseAdapter
         // Create a new row view
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.calendars_multiselect_preference_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.listitem_calendars_multiselect_preference, parent, false);
 
             // Find the child views.
             calendarColor = convertView.findViewById(R.id.calendars_multiselect_pref_dlg_item_color);

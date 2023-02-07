@@ -59,7 +59,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        rootView = inflater.inflate(R.layout.shortcut_creator_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_shortcut_creator_list, container, false);
 
         return rootView;
     }

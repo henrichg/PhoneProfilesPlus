@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
 
-    int fragmentType;
+    final int fragmentType;
 
     //private static final int THRESHOLD = 200;
     //private int scrolledDistance = 0;

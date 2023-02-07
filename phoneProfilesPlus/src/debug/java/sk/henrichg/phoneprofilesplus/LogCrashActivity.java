@@ -50,7 +50,7 @@ public class LogCrashActivity extends AppCompatActivity {
         progressLinearLayout = findViewById(R.id.log_crah_activity_linla_progress);
 
         listView = findViewById(R.id.log_crah_activity_list);
-        logCrashAdapter = new ArrayAdapter<>(this, R.layout.log_crash_list_item, R.id.log_crash_list_item_text);
+        logCrashAdapter = new ArrayAdapter<>(this, R.layout.listitem_log_crash, R.id.log_crash_list_item_text);
         listView.setAdapter(logCrashAdapter);
 
         Button goToBtn = findViewById(R.id.log_crash_list_go_to_bottom);

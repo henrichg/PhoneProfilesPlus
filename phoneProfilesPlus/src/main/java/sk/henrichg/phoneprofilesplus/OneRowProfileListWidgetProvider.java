@@ -448,36 +448,36 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                     if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
                         if (applicationWidgetOneRowProfileListFillBackground)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_fill_widget);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill);
                         else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_widget);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list);
                     } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
                         if (applicationWidgetOneRowProfileListFillBackground)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_higher_fill_widget);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill);
                         else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_higher_widget);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher);
                     } else {
                         if (applicationWidgetOneRowProfileListFillBackground)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_highest_fill_widget);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill);
                         else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_highest_widget);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest);
                     }
                 } else {
                     if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
                         if (applicationWidgetOneRowProfileListFillBackground)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_fill_widget_dn);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill_dn);
                         else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_widget_dn);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_dn);
                     } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
                         if (applicationWidgetOneRowProfileListFillBackground)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_higher_fill_widget_dn);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill_dn);
                         else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_higher_widget_dn);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_dn);
                     } else {
                         if (applicationWidgetOneRowProfileListFillBackground)
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_highest_fill_widget_dn);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill_dn);
                         else
-                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_profile_list_highest_widget_dn);
+                            remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_dn);
                     }
                 }
 

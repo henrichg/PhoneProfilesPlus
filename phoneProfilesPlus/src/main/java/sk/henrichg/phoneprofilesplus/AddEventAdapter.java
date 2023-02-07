@@ -102,9 +102,9 @@ class AddEventAdapter extends BaseAdapter {
         {
             //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (applicationEditorPrefIndicator)
-                vi = LayoutInflater.from(context).inflate(R.layout.add_event_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
             else
-                vi = LayoutInflater.from(context).inflate(R.layout.add_event_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
             holder = new ViewHolder();
             holder.radioButton = vi.findViewById(R.id.event_pref_dlg_item_radio_button);
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);

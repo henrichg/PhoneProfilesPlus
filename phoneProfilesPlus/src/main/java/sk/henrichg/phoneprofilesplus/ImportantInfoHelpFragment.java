@@ -42,7 +42,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.important_info_fragment_important_info, container, false);
-        return inflater.inflate(R.layout.important_info_fragment_important_info_expandable, container, false);
+        return inflater.inflate(R.layout.fragment_important_info_important_info_expandable, container, false);
     }
 
     @SuppressLint("SetTextI18n")

@@ -50,9 +50,9 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         View view;
 
         if (preferenceFragment.preference.onlyEdit == 0)
-            view = inflater.inflate(R.layout.location_preference_list_item, parent, false);
+            view = inflater.inflate(R.layout.listitem_location_preference, parent, false);
         else
-            view = inflater.inflate(R.layout.location_preference_list_item_no_chb, parent, false);
+            view = inflater.inflate(R.layout.listitem_location_preference_no_chb, parent, false);
 
         ViewHolder rowData  = new ViewHolder();
 

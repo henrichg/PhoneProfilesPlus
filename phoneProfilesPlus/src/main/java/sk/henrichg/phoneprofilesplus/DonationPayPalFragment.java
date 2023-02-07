@@ -43,7 +43,7 @@ public class DonationPayPalFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.donation_paypal_fragment, container, false);
+        View root = inflater.inflate(R.layout.fragment_donation_paypal, container, false);
 
         //mLoadingView = root.findViewById(R.id.donation_paypal_loading);
 

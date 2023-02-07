@@ -61,7 +61,7 @@ class NFCTagPreferenceAdapter extends BaseAdapter
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.nfc_tag_preference_list_item, parent, false);
+            vi = inflater.inflate(R.layout.listitem_nfc_tag_preference, parent, false);
             holder = new ViewHolder();
             holder.tagName = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagName);
             //holder.tagUid = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagUid);

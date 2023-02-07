@@ -69,9 +69,9 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
         {
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
             if (applicationActivatorPrefIndicator)
-                vi = inflater.inflate(R.layout.shortcut_list_item, parent, false);
+                vi = inflater.inflate(R.layout.listitem_shortcut, parent, false);
             else
-                vi = inflater.inflate(R.layout.shortcut_list_item_no_indicator, parent, false);
+                vi = inflater.inflate(R.layout.listitem_shortcut_no_indicator, parent, false);
             holder = new ViewHolder();
             holder.radioButton = vi.findViewById(R.id.shortcut_list_item_radiobtn);
             holder.profileName = vi.findViewById(R.id.shortcut_list_item_profile_name);

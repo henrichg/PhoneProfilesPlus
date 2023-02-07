@@ -401,60 +401,60 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (applicationWidgetListHeader) {
                 if (!applicationWidgetListGridLayout) {
                     if (applicationWidgetListPrefIndicator)
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list);
                     else
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_indicator);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list_no_indicator);
                 } else {
                     if (applicationWidgetListCompactGrid) {
                         if (applicationWidgetListPrefIndicator)
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_compact);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_compact);
                         else
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_compact);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_indicator_compact);
                     } else {
                         if (applicationWidgetListPrefIndicator)
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid);
                         else
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_indicator);
                     }
                 }
             } else {
                 if (!applicationWidgetListGridLayout)
-                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_header);
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list_no_header);
                 else {
                     if (applicationWidgetListCompactGrid)
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_compact);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_header_compact);
                     else
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_header);
                 }
             }
         } else {
             if (applicationWidgetListHeader) {
                 if (!applicationWidgetListGridLayout) {
                     if (applicationWidgetListPrefIndicator)
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_dn);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list_dn);
                     else
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_indicator_dn);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list_no_indicator_dn);
                 } else {
                     if (applicationWidgetListCompactGrid) {
                         if (applicationWidgetListPrefIndicator)
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_compact_dn);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_compact_dn);
                         else
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_compact_dn);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_indicator_compact_dn);
                     } else {
                         if (applicationWidgetListPrefIndicator)
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_dn);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_dn);
                         else
-                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_indicator_dn);
+                            widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_indicator_dn);
                     }
                 }
             } else {
                 if (!applicationWidgetListGridLayout)
-                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_no_header_dn);
+                    widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list_no_header_dn);
                 else {
                     if (applicationWidgetListCompactGrid)
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_compact_dn);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_header_compact_dn);
                     else
-                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_no_header_dn);
+                        widget = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_no_header_dn);
                 }
             }
         }

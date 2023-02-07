@@ -52,7 +52,7 @@ public class TileChooserListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        rootView = inflater.inflate(R.layout.tile_chooser_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_tile_chooser_list, container, false);
 
         return rootView;
     }

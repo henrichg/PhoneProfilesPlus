@@ -50,9 +50,9 @@ class SingleSelectListDialogAdapter extends BaseAdapter
         if (convertView == null)
         {
             if (dialog.itemValue == SingleSelectListDialog.NOT_USE_RADIO_BUTTONS)
-                vi = inflater.inflate(R.layout.pp_list_preference_list_item_no_rb, parent, false);
+                vi = inflater.inflate(R.layout.listitem_pp_list_preference_no_rb, parent, false);
             else
-                vi = inflater.inflate(R.layout.pp_list_preference_list_item, parent, false);
+                vi = inflater.inflate(R.layout.listitem_pp_list_preference, parent, false);
             holder = new ViewHolder();
             holder.label = vi.findViewById(R.id.pp_list_pref_dlg_item_label);
             if (dialog.itemValue != SingleSelectListDialog.NOT_USE_RADIO_BUTTONS)

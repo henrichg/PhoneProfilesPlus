@@ -199,7 +199,7 @@ public class EditorEventListFragment extends Fragment
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.editor_event_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_editor_event_list, container, false);
 
         return rootView;
     }
@@ -436,9 +436,9 @@ public class EditorEventListFragment extends Fragment
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 getActivity(),
-                R.layout.highlighted_order_spinner,
+                R.layout.spinner_highlighted_order,
                 orderItems);
-        orderSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(getActivity()/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
         orderSpinner.setAdapter(orderSpinnerAdapter);

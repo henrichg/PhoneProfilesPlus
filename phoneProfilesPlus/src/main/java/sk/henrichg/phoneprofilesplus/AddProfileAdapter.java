@@ -66,9 +66,9 @@ class AddProfileAdapter extends BaseAdapter {
         if (convertView == null)
         {
             if (applicationEditorPrefIndicator)
-                vi = LayoutInflater.from(context).inflate(R.layout.add_profile_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_profile, parent, false);
             else
-                vi = LayoutInflater.from(context).inflate(R.layout.add_profile_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_profile_no_indicator, parent, false);
 
             holder = new ViewHolder();
             holder.radioButton = vi.findViewById(R.id.profile_pref_dlg_item_radio_button);

@@ -53,18 +53,18 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_event_list_item_with_order, parent, false);
+                        .inflate(R.layout.listitem_editor_event_with_order, parent, false);
             else
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_event_list_item_no_indicator_with_order, parent, false);
+                        .inflate(R.layout.listitem_editor_event_no_indicator_with_order, parent, false);
         }
         else {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_event_list_item, parent, false);
+                        .inflate(R.layout.listitem_editor_event, parent, false);
             else
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_event_list_item_no_indicator, parent, false);
+                        .inflate(R.layout.listitem_editor_event_no_indicator, parent, false);
         }
 
         return new EditorEventListViewHolder(view, fragment, fragment.getActivity(), filterType);

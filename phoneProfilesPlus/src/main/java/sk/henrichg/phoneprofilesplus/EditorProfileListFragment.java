@@ -162,7 +162,7 @@ public class EditorProfileListFragment extends Fragment
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_editor_profile_list, container, false);
 
         return rootView;
     }

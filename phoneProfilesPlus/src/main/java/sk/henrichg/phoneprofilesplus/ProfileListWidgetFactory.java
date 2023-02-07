@@ -154,21 +154,21 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors)) {
                 if (!applicationWidgetListGridLayout)
-                    row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item);
+                    row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list_listitem);
                 else {
                     if (applicationWidgetListCompactGrid)
-                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_compact);
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_listitem_compact);
                     else
-                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item);
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_listitem);
                 }
             } else {
                 if (!applicationWidgetListGridLayout)
-                    row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_item_dn);
+                    row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_list_listitem_dn);
                 else {
                     if (applicationWidgetListCompactGrid)
-                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_compact_dn);
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_listitem_compact_dn);
                     else
-                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_grid_widget_item_dn);
+                        row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_profile_grid_listitem_dn);
                 }
             }
 

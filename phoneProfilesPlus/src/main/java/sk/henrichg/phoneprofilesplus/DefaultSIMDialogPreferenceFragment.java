@@ -74,9 +74,9 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeVoice != -1) {
             GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.highlighted_spinner,
+                    R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.defaultSIMVoiceArray));
-            voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
             voiceSpinner.setAdapter(voiceSpinnerAdapter);
             voiceSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
             voiceSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -104,9 +104,9 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeSMS != -1) {
             GlobalGUIRoutines.HighlightedSpinnerAdapter smsSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.highlighted_spinner,
+                    R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.defaultSIMSMSArray));
-            smsSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            smsSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
             smsSpinner.setAdapter(smsSpinnerAdapter);
             smsSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
             smsSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -134,9 +134,9 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
         //if (transactionCodeData != -1) {
             GlobalGUIRoutines.HighlightedSpinnerAdapter dataSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (ProfilesPrefsActivity) context,
-                    R.layout.highlighted_spinner,
+                    R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.defaultSIMDataArray));
-            dataSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            dataSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
             dataSpinner.setAdapter(dataSpinnerAdapter);
             dataSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
             dataSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));

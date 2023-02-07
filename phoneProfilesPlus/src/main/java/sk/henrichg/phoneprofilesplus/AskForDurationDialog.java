@@ -277,9 +277,9 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 mActivity,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
         /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {

@@ -69,7 +69,7 @@ class OpaquenessLightingPreferenceAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
-            vi = LayoutInflater.from(context).inflate(R.layout.opaqueness_lighting_preference_list_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.listitem_opaqueness_lighting_preference, parent, false);
 
             holder = new ViewHolder();
             holder.icon = vi.findViewById(R.id.opaqueness_lighting_pref_dlg_item_icon);

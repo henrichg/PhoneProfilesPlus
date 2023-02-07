@@ -50,7 +50,7 @@ class NotUsedMobileCellsDetectedAdapter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.not_used_mobile_cells_events_list_item, parent, false);
+            vi = inflater.inflate(R.layout.listitem_not_used_mobile_cells_events, parent, false);
             holder = new NotUsedMobileCellsDetectedAdapter.ViewHolder();
             holder.eventNameTextView = vi.findViewById(R.id.not_used_mobile_cells_events_list_item_event_name);
             holder.checkBox = vi.findViewById(R.id.not_used_mobile_cells_events_list_item_checkBox);

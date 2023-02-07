@@ -107,9 +107,9 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         if (preference.forVolumesSensor == 1) {
             GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                     (EventsPrefsActivity) context,
-                    R.layout.highlighted_spinner,
+                    R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
-            voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
             operatorSpinner.setAdapter(voiceSpinnerAdapter);
             operatorSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
             operatorSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner_all));

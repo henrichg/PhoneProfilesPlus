@@ -200,21 +200,21 @@ public class PhoneProfilesNotification {
             if (powerShadeInstalled) {
                 if (!useDecorator) {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_decorator_no_indicators);
                 }
                 else {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_indicators);
                 }
                 if (!useDecorator) {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_no_decorator);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact);
                     //profileIconExists = false;
                 }
             }
@@ -222,101 +222,101 @@ public class PhoneProfilesNotification {
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                 if (!useDecorator) {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_miui_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_miui_no_decorator_no_indicators);
                 }
                 else {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_miui);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_miui_no_indicators);
                 }
                 if (!useDecorator) {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_miui_no_decorator);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_miui_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_miui);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_miui);
                     //profileIconExists = false;
                 }
             } else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                 if (!useDecorator) {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_emui_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_decorator_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_emui_no_decorator_no_indicators);
                 }
                 else {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_emui);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_emui_no_indicators);
                 }
                 if (!useDecorator) {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_emui_no_decorator);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_emui_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact);
                     //profileIconExists = false;
                 }
             } else if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                 if (!useDecorator) {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_samsung_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_samsung_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_samsung_no_decorator_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_samsung_no_decorator_no_indicators);
                 }
                 else {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_indicators);
                 }
                 if (!useDecorator) {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_samsung_no_decorator);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_samsung_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_samsung);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_samsung);
                     //profileIconExists = false;
                 }
             } else if (PPApplication.deviceIsOnePlus) {
                 if (!useDecorator) {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_decorator_no_indicators);
                 }
                 else {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_indicators);
                 }
                 if (!useDecorator) {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_oneplus_no_decorator);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_oneplus_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact);
                     //profileIconExists = false;
                 }
             } else {
                 if (!useDecorator) {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_decorator);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_decorator_no_indicators);
                 }
                 else {
                     if (notificationPrefIndicator)
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification);
                     else
-                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
+                        contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_no_indicators);
                 }
                 if (!useDecorator) {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact_no_decorator);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact_no_decorator);
                 }
                 else {
-                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_compact);
+                    contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_compact);
                     //profileIconExists = false;
                 }
             }

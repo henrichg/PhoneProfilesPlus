@@ -69,9 +69,9 @@ class TileChooserListAdapter extends BaseAdapter {
         {
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
             if (applicationActivatorPrefIndicator)
-                vi = inflater.inflate(R.layout.tile_chooser_list_item, parent, false);
+                vi = inflater.inflate(R.layout.listitem_tile_chooser, parent, false);
             else
-                vi = inflater.inflate(R.layout.tile_chooser_list_item_no_indicator, parent, false);
+                vi = inflater.inflate(R.layout.listitem_tile_chooser_no_indicator, parent, false);
             holder = new ViewHolder();
             holder.radioButton = vi.findViewById(R.id.tile_chooser_list_item_radiobtn);
             holder.profileName = vi.findViewById(R.id.tile_chooser_list_item_profile_name);

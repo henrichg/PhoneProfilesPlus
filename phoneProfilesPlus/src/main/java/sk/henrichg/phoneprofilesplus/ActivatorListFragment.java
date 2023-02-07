@@ -84,20 +84,20 @@ public class ActivatorListFragment extends Fragment {
         if (!applicationActivatorGridLayout)
         {
             if (applicationActivatorPrefIndicator/* && applicationActivatorHeader*/)
-                rootView = inflater.inflate(R.layout.activator_list, container, false);
+                rootView = inflater.inflate(R.layout.fragment_activator_list, container, false);
             else
             //if (applicationActivatorHeader)
-                rootView = inflater.inflate(R.layout.activator_list_no_indicator, container, false);
+                rootView = inflater.inflate(R.layout.fragment_activator_list_no_indicator, container, false);
             //else
             //    rootView = inflater.inflate(R.layout.activate_profile_list_no_header, container, false);
         }
         else
         {
             if (applicationActivatorPrefIndicator/* && applicationActivatorHeader*/)
-                rootView = inflater.inflate(R.layout.activator_grid, container, false);
+                rootView = inflater.inflate(R.layout.fragment_activator_grid, container, false);
             else
             //if (applicationActivatorHeader)
-                rootView = inflater.inflate(R.layout.activator_grid_no_indicator, container, false);
+                rootView = inflater.inflate(R.layout.fragment_activator_grid_no_indicator, container, false);
             //else
             //    rootView = inflater.inflate(R.layout.activate_profile_grid_no_header, container, false);
         }

@@ -45,7 +45,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 
         this.defaultColor = 0xff1ea0df;
 
-        setWidgetLayoutResource(R.layout.preference_restart_events_icon_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_restart_events_icon_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
 
         setPositiveButtonText(null);
     }

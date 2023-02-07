@@ -52,10 +52,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_profile_list_item, parent, false);
+                        .inflate(R.layout.listitem_editor_profile, parent, false);
             else
                 view = LayoutInflater.from(parent.getContext()).
-                        inflate(R.layout.editor_profile_list_item_no_indicator, parent, false);
+                        inflate(R.layout.listitem_editor_profile_no_indicator, parent, false);
         }
         else
         /*if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
@@ -71,10 +71,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_profile_list_item_no_order_handler, parent, false);
+                        .inflate(R.layout.listitem_editor_profile_no_order_handler, parent, false);
             else
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_profile_list_item_no_indicator_no_order_handler, parent, false);
+                        .inflate(R.layout.listitem_editor_profile_no_indicator_no_order_handler, parent, false);
         }
 
         return new EditorProfileListViewHolder(view, fragment, fragment.getActivity(), filterType);
