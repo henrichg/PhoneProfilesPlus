@@ -158,7 +158,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             //if (!applicationSamsungEdgeGridLayout)
             //    row=new RemoteViews(context.PPApplication.PACKAGE_NAME, R.layout.samsung_edge_widget_item);
             //else
-            row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_item);
+            row = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.samsung_edge_listitem);
 
             Profile profile = getItem(position);
 
