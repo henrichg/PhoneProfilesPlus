@@ -5014,13 +5014,13 @@ public class PhoneProfilesService extends Service
             PPApplication.mobileCellsScanner = null;
         }*/
 
-        if (PPApplication.mobileCellsScanner == null) {
-            synchronized (PPApplication.mobileCellsScannerMutex) {
+        synchronized (PPApplication.mobileCellsScannerMutex) {
+            if (PPApplication.mobileCellsScanner == null) {
                 PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
+                PPApplication.mobileCellsScanner.connect();
+            } else {
+                PPApplication.mobileCellsScanner.rescanMobileCells();
             }
-            PPApplication.mobileCellsScanner.connect();
-        } else {
-            PPApplication.mobileCellsScanner.rescanMobileCells();
         }
     }
 
@@ -5028,9 +5028,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.mobileCellsScannerMutex) {
             if (PPApplication.mobileCellsScanner != null) {
                 PPApplication.mobileCellsScanner.disconnect();
-                synchronized (PPApplication.mobileCellsScannerMutex) {
-                    PPApplication.mobileCellsScanner = null;
-                }
+                PPApplication.mobileCellsScanner = null;
             }
         }
     }
