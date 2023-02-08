@@ -29,7 +29,6 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
-import android.text.style.ScaleXSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -821,9 +820,9 @@ public class EditorActivity extends AppCompatActivity
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
                 //Log.e("EditorActivity.onPrepareOptionsMenu", "(2)");
-                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
                 headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 //headerTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, headerTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 subMenu.setHeaderTitle(headerTitle);
             }
@@ -833,9 +832,9 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
                 headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 subMenu.setHeaderTitle(headerTitle);
             }
         }
@@ -844,9 +843,9 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
                 headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 subMenu.setHeaderTitle(headerTitle);
             }
         }
@@ -855,9 +854,9 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
                 headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 subMenu.setHeaderTitle(headerTitle);
             }
         }
@@ -866,9 +865,9 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
                 headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 subMenu.setHeaderTitle(headerTitle);
             }
         }
