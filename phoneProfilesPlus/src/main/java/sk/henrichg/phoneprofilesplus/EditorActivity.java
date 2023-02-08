@@ -16,6 +16,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -28,7 +29,7 @@ import android.os.storage.StorageManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -820,11 +821,21 @@ public class EditorActivity extends AppCompatActivity
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
                 //Log.e("EditorActivity.onPrepareOptionsMenu", "(2)");
+                /*
                 SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
-                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                headerTitle.setSpan(new AbsoluteSizeSpan(40, false), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 //headerTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, headerTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                subMenu.setHeaderTitle(headerTitle);
+                */
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0, 5, 30, 28);
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
             }
         }
         menuItem = menu.findItem(R.id.menu_import_export);
@@ -832,10 +843,14 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
-                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                subMenu.setHeaderTitle(headerTitle);
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0, 5, 30, 28);
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
             }
         }
         menuItem = menu.findItem(R.id.menu_support);
@@ -843,10 +858,14 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
-                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                subMenu.setHeaderTitle(headerTitle);
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0, 5, 30, 28);
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
             }
         }
         menuItem = menu.findItem(R.id.menu_check_github_releases);
@@ -854,10 +873,14 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
-                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                subMenu.setHeaderTitle(headerTitle);
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0, 5, 30, 28);
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
             }
         }
         menuItem = menu.findItem(R.id.menu_debug);
@@ -865,10 +888,14 @@ public class EditorActivity extends AppCompatActivity
         {
             SubMenu subMenu = menuItem.getSubMenu();
             if (subMenu != null) {
-                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
-                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                subMenu.setHeaderTitle(headerTitle);
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0, 5, 30, 28);
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
             }
         }
 
