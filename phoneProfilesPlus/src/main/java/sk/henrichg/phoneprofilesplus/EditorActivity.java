@@ -26,9 +26,14 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.ScaleXSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
@@ -808,6 +813,66 @@ public class EditorActivity extends AppCompatActivity
         boolean ret = super.onPrepareOptionsMenu(menu);
 
         MenuItem menuItem;
+
+        menuItem = menu.findItem(R.id.menu_settings_submenu);
+        if (menuItem != null)
+        {
+            //Log.e("EditorActivity.onPrepareOptionsMenu", "(1)");
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                //Log.e("EditorActivity.onPrepareOptionsMenu", "(2)");
+                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, headerTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                subMenu.setHeaderTitle(headerTitle);
+            }
+        }
+        menuItem = menu.findItem(R.id.menu_import_export);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                subMenu.setHeaderTitle(headerTitle);
+            }
+        }
+        menuItem = menu.findItem(R.id.menu_support);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                subMenu.setHeaderTitle(headerTitle);
+            }
+        }
+        menuItem = menu.findItem(R.id.menu_check_github_releases);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                subMenu.setHeaderTitle(headerTitle);
+            }
+        }
+        menuItem = menu.findItem(R.id.menu_debug);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                SpannableString headerTitle = new SpannableString("▶   " + menuItem.getTitle());
+                headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                subMenu.setHeaderTitle(headerTitle);
+            }
+        }
+
 
         //menuItem = menu.findItem(R.id.menu_import_export);
         //menuItem.setTitle(getResources().getString(R.string.menu_import_export) + "  >");
