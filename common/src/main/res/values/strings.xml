@@ -2035,8 +2035,8 @@
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
 
-    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In OnePlus devices, change of media volume not working, when device is in background.</string>
-    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In OnePlus devices, change of media volume not working, when device is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>
     <string name="profile_preferences_volumeAlarmInfo_summary">Note: Not all Clock applications use the system alarm volume because they use their own volume configured in their settings.</string>
 
     <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
@@ -2066,7 +2066,7 @@
     <string name="pppextender_pref_dialog_launch_button">Launch\nPhoneProfilesPlusExtender</string>
     <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable\nAccessibility settings</string>
     <string name="pppextender_pref_dialog_close_button">Close</string>
-    <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here for install/upgrade, enable/disable Accessibility settings, launch of PhoneProfilesPlusExtender.</string>
+    <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here for install/upgrade, enable/disable Accessibility settings, launch PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
     <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
@@ -2074,7 +2074,7 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
 
-    <string name="phone_profiles_pref_application_samsung_edge_info">PPP edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
+    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
 
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Fill whole space with background</string>
 
