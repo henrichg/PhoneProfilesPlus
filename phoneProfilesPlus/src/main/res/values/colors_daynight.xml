@@ -98,7 +98,7 @@
     <color name="altype_eventDelayStartEnd">#FF893ECC</color>
     <color name="altype_restartEvents">#FF687E3E</color>
     <color name="altype_error">#FFEB0000</color>
-    <color name="altype_other">#FFD7D7D7</color>
+    <color name="altype_other">#FF757575</color>
 
 <!--    <color name="bottom_navigation_indicator">#80DC8160</color>-->
 
