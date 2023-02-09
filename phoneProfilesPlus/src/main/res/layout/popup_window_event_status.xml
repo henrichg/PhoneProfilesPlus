@@ -111,6 +111,7 @@
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text6"
                     app:drawableStartCompat="@drawable/ic_event_status_stop"
+                    app:drawableTint="@color/event_status_stop"
                     android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"

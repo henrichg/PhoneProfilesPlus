@@ -95,7 +95,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-            int colorRes = 0;
+            int colorRes = R.color.event_status_stop;
             /*if (!Event.getGlobalEventsRunning()) {
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
@@ -131,6 +131,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         //if (isRunnable)
                         //noinspection ConstantConditions
                         statusRes = R.drawable.ic_event_status_stop;
+                        //noinspection ConstantConditions
+                        colorRes = R.color.event_status_stop;
                         //statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
                         //else
                         //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
@@ -138,8 +140,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             }
             eventStatus.setImageResource(statusRes);
-            if (colorRes != 0)
-                eventStatus.setColorFilter(ContextCompat.getColor(context, colorRes));
+            eventStatus.setColorFilter(ContextCompat.getColor(context, colorRes));
 
 
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});

@@ -100,6 +100,8 @@
     <color name="altype_error">#FFEB0000</color>
     <color name="altype_other">#FF757575</color>
 
+    <color name="event_status_stop">#FF6c6c6c</color>
+
 <!--    <color name="bottom_navigation_indicator">#80DC8160</color>-->
 
 </resources>
