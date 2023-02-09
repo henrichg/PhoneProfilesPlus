@@ -68,8 +68,8 @@
 <!--    <color name="sensor_pass_status_not_passed">#FFff9000</color>-->
 <!--    <color name="sensor_pass_status_waiting">#FF0050EE</color>-->
 
-    <color name="sensor_pass_status_passed">#FF3abf80</color>
-    <color name="sensor_pass_status_not_passed">#FF4289d8</color>
+    <color name="sensor_pass_status_passed">#FF2A845B</color>
+    <color name="sensor_pass_status_not_passed">#FF2A75CB</color>
     <color name="sensor_pass_status_waiting">#FF893ECC</color>
 
 <!--    <color name="map_edited_location_marker_stroke">#FFDC8160</color>-->
@@ -92,11 +92,11 @@
 <!--    <color name="profileIconBorderColor">#FFCCCCCC</color>-->
 <!--    <color name="cardViewBorderColor">#FFFFFFFF</color>-->
 
-    <color name="altype_profile">#FF3abf80</color>
+    <color name="altype_profile">#FF2A845B</color>
     <color name="altype_eventStart">#FFA35E19</color>
-    <color name="altype_eventEnd">#FF4289d8</color>
+    <color name="altype_eventEnd">#FF2A75CB</color>
     <color name="altype_eventDelayStartEnd">#FF893ECC</color>
-    <color name="altype_restartEvents">#FF9bb568</color>
+    <color name="altype_restartEvents">#FF687E3E</color>
     <color name="altype_error">#FFEB0000</color>
     <color name="altype_other">#FFD7D7D7</color>
 
