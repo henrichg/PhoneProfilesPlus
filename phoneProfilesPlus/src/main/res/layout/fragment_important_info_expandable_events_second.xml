@@ -27,6 +27,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_manual_profile_activation"
         app:drawableStartCompat="@drawable/ic_event_status_pause_manual_activation"
+        app:drawableTint="@color/altype_eventEnd"
         android:drawablePadding="@dimen/event_status_drawable_padding"/>
     <TextView
         android:layout_width="wrap_content"
@@ -36,6 +37,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_running"
         app:drawableStartCompat="@drawable/ic_event_status_running"
+        app:drawableTint="@color/altype_eventStart"
         android:drawablePadding="@dimen/event_status_drawable_padding" />
     <TextView
         android:layout_width="wrap_content"
@@ -45,6 +47,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_paused"
         app:drawableStartCompat="@drawable/ic_event_status_pause"
+        app:drawableTint="@color/altype_eventEnd"
         android:drawablePadding="@dimen/event_status_drawable_padding" />
     <TextView
         android:layout_width="wrap_content"
@@ -54,6 +57,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_paused_delay"
         app:drawableStartCompat="@drawable/ic_event_status_pause_delay"
+        app:drawableTint="@color/altype_eventDelayStartEnd"
         android:drawablePadding="@dimen/event_status_drawable_padding" />
     <TextView
         android:layout_width="wrap_content"
@@ -63,6 +67,7 @@
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_event_states_running_delay"
         app:drawableStartCompat="@drawable/ic_event_status_running_delay"
+        app:drawableTint="@color/altype_eventDelayStartEnd"
         android:drawablePadding="@dimen/event_status_drawable_padding" />
     <TextView
         android:layout_width="wrap_content"

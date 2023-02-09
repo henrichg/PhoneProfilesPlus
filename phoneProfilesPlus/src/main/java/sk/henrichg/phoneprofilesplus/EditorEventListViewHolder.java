@@ -95,6 +95,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
+            int colorRes = 0;
             /*if (!Event.getGlobalEventsRunning()) {
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
@@ -103,18 +104,28 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //else {
                 switch (_eventStatus) {
                     case Event.ESTATUS_RUNNING:
-                        if (event._isInDelayEnd)
+                        if (event._isInDelayEnd) {
                             statusRes = R.drawable.ic_event_status_running_delay;
-                        else
+                            colorRes = R.color.altype_eventDelayStartEnd;
+                        }
+                        else {
                             statusRes = R.drawable.ic_event_status_running;
+                            colorRes = R.color.altype_eventStart;
+                        }
                         break;
                     case Event.ESTATUS_PAUSE:
-                        if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._ignoreManualActivation))
+                        if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._ignoreManualActivation)) {
                             statusRes = R.drawable.ic_event_status_pause_manual_activation;
-                        else if (event._isInDelayStart)
+                            colorRes = R.color.altype_eventEnd;
+                        }
+                        else if (event._isInDelayStart) {
                             statusRes = R.drawable.ic_event_status_pause_delay;
-                        else
+                            colorRes = R.color.altype_eventDelayStartEnd;
+                        }
+                        else {
                             statusRes = R.drawable.ic_event_status_pause;
+                            colorRes = R.color.altype_eventEnd;
+                        }
                         break;
                     case Event.ESTATUS_STOP:
                         //if (isRunnable)
@@ -127,6 +138,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             }
             eventStatus.setImageResource(statusRes);
+            if (colorRes != 0)
+                eventStatus.setColorFilter(ContextCompat.getColor(context, colorRes));
 
 
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
