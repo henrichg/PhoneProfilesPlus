@@ -47,7 +47,8 @@
 
     <color name="tabTargetHelpOuterCircleColor">#FF7e4913</color>
     <color name="tabTargetHelpTargetCircleColor">#FFFFFFFF</color>
-    <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
+    <color name="tabTargetHelpTitleTextColor">#FFFFFFFF</color>
+    <color name="tabTargetHelpDescriptionTextColor">#FFFFFFFF</color>
 
     <color name="fastScrollTrackPP">#FFEFEFEF</color>
     <color name="fastScrollThumbInactivePP">#FFAFAFAF</color>

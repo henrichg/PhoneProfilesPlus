@@ -682,7 +682,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
+            int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+            int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             //boolean tintTarget = !applicationTheme.equals("white");
@@ -734,7 +735,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                             TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)

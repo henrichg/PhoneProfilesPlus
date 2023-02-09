@@ -504,7 +504,8 @@ public class ActivatorActivity extends AppCompatActivity
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
+                int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+                int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
                 //boolean tintTarget = !appTheme.equals("white");
@@ -520,7 +521,8 @@ public class ActivatorActivity extends AppCompatActivity
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -536,7 +538,8 @@ public class ActivatorActivity extends AppCompatActivity
                                 TapTarget.forView(restartEventsActionView, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -557,7 +560,8 @@ public class ActivatorActivity extends AppCompatActivity
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)

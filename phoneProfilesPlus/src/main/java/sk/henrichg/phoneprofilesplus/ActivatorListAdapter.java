@@ -344,7 +344,8 @@ class ActivatorListAdapter extends BaseAdapter
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
+            int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+            int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             //boolean tintTarget = !appTheme.equals("white");
@@ -354,7 +355,8 @@ class ActivatorListAdapter extends BaseAdapter
                             .transparentTarget(true)
                             .outerCircleColor(outerCircleColor)
                             .targetCircleColor(targetCircleColor)
-                            .textColor(textColor)
+                            .titleTextColor(titleTextColor)
+                            .descriptionTextColor(descriptionTextColor)
                             .textTypeface(Typeface.DEFAULT_BOLD)
                             .tintTarget(true)
                             .drawShadow(true)

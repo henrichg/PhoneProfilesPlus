@@ -1395,7 +1395,8 @@ public class EditorProfileListFragment extends Fragment
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
+                int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+                int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
                 //boolean tintTarget = !appTheme.equals("white");
@@ -1410,7 +1411,8 @@ public class EditorProfileListFragment extends Fragment
                                         .transparentTarget(true)
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1426,7 +1428,8 @@ public class EditorProfileListFragment extends Fragment
                                 TapTarget.forToolbarOverflow(bottomToolbar, getString(R.string.editor_activity_targetHelps_profilesBottomMenu_title), getString(R.string.editor_activity_targetHelps_profilesBottomMenu_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1442,7 +1445,8 @@ public class EditorProfileListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_profile, getString(R.string.editor_activity_targetHelps_newProfileButton_title), getString(R.string.editor_activity_targetHelps_newProfileButton_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1457,7 +1461,8 @@ public class EditorProfileListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_profiles, getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_title), getString(R.string.editor_activity_targetHelps_deleteAllProfilesButton_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1474,7 +1479,8 @@ public class EditorProfileListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_default_profile, getString(R.string.editor_activity_targetHelps_backgroundProfileButton_title), getString(R.string.editor_activity_targetHelps_backgroundProfileButton_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)

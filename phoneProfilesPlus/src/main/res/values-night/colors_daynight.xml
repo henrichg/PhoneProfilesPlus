@@ -42,11 +42,9 @@
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
     <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
-
     <color name="tabTargetHelpTargetCircleColor">#1B1B1B</color>
-    <!--    <color name="tabTargetHelpTargetCircleColor">#FF201a18</color>-->
-
-    <color name="tabTargetHelpTextColor">#FF000000</color>
+    <color name="tabTargetHelpTitleTextColor">#FF000000</color>
+    <color name="tabTargetHelpDescriptionTextColor">#FF000000</color>
 
     <color name="fastScrollTrackPP">#27ffffff</color>
     <color name="fastScrollThumbInactivePP">#60ffffff</color>

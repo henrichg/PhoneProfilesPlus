@@ -724,7 +724,8 @@ public class EventsPrefsActivity extends AppCompatActivity
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
+            int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+            int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             //boolean tintTarget = !appTheme.equals("white");
@@ -737,7 +738,8 @@ public class EventsPrefsActivity extends AppCompatActivity
                         TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
-                                .textColor(textColor)
+                                .titleTextColor(titleTextColor)
+                                .descriptionTextColor(descriptionTextColor)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)
