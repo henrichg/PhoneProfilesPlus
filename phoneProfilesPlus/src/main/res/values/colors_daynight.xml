@@ -27,7 +27,7 @@
     <color name="notificationDecorationColor">#A35E19</color>
 
     <color name="smoothBottomBarIconTint">#FF505050</color>
-    <color name="smoothBottomBarTextColor">#FF505050</color>
+    <color name="smoothBottomBarTextColor">#FF303030</color>
 
     <!--<color name="activityPopupBackground">#FFd0d0d0</color>-->
     <!--<color name="navigationDrawerTextColor">#ff000000</color>-->
