@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/info_preference_clickable_root"
     android:layout_width="40dp"
-    android:layout_height="40dp" >
+    android:layout_height="40dp">
 
     <ImageView
         android:id="@+id/info_preference_clickable_imageView1"
@@ -13,6 +14,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_info_preference_icon_clickable"
+        app:tint="@color/accent"
         android:contentDescription="@string/preference_widget_information_clickable_icon" />
 
 </RelativeLayout>

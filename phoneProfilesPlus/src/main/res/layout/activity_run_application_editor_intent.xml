@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/application_editor_intent_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -346,6 +346,7 @@
                     android:padding="5dp"
                     android:focusable="true"
                     android:src="@drawable/ic_button_edit"
+                    app:tint="@color/accent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/application_editor_intent_edit_category_button_tooltip"/>
                 <TextView
@@ -396,6 +397,7 @@
                     android:padding="5dp"
                     android:focusable="true"
                     android:src="@drawable/ic_button_edit"
+                    app:tint="@color/accent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/application_editor_intent_edit_flags_button_tooltip"/>
                 <TextView
