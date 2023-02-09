@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -1507,6 +1508,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         int predefinedEventIndex = activity.predefinedEventIndex;
         final Event event = activity.getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
 
+        int errorColor = ContextCompat.getColor(context, R.color.altype_error);
+
         if (event != null) {
             int order = 1;
 
@@ -1537,11 +1540,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     String _title = order + ". " + getString(R.string.event_preferences_no_sensor_is_enabled);
                     ++order;
                     Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                     preference.setTitle(title);
                     _title = getString(R.string.event_preferences_sensor_parameters_location_summary);
                     Spannable summary = new SpannableString(_title);
-                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                     preference.setSummary(summary);
                 }
             }
@@ -1576,13 +1579,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
                     ++order;
                     Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                     preference.setTitle(title);
                     _title = getString(R.string.preferences_grantPermissions_summary) + " " +
                                 getString(R.string.event_preferences_red_sensors_summary) + " " +
                                 getString(R.string.event_preferences_sensor_parameters_location_summary);
                     Spannable summary = new SpannableString(_title);
-                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                     preference.setSummary(summary);
 
                     if (event._id > 0) {
@@ -1635,14 +1638,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     String _title = order + ". " + getString(stringRes);
                     ++order;
                     Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                     preference.setTitle(title);
                     if ((accessibilityEnabled == -1) || (accessibilityEnabled == -2)) {
                         _title = getString(R.string.event_preferences_red_install_PPPExtender) + " " +
                                 getString(R.string.event_preferences_red_sensors_summary) + " " +
                                 getString(R.string.event_preferences_sensor_parameters_location_summary);
                         Spannable summary = new SpannableString(_title);
-                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference12 -> {
@@ -1655,7 +1658,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 getString(R.string.event_preferences_red_sensors_summary) + " " +
                                 getString(R.string.event_preferences_sensor_parameters_location_summary);
                         Spannable summary = new SpannableString(_title);
-                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference13 -> {
@@ -1693,13 +1696,13 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     String _title = order + ". " + getString(R.string.event_preferences_not_set_underlined_parameters);
                     ++order;
                     Spannable title = new SpannableString(_title);
-                    title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                    title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                     preference.setTitle(title);
                     _title = getString(R.string.event_preferences_not_set_underlined_parameters_summary) + " " +
                                 getString(R.string.event_preferences_red_sensors_summary) + " " +
                                 getString(R.string.event_preferences_sensor_parameters_location_summary);
                     Spannable summary = new SpannableString(_title);
-                    summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                    summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                     preference.setSummary(summary);
                 }
             }

@@ -826,7 +826,7 @@ public class EditorActivity extends AppCompatActivity
                 //headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 headerTitle.setSpan(new AbsoluteSizeSpan(40, false), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                //headerTitle.setSpan(new ForegroundColorSpan(Color.RED), 0, headerTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.altype_error)), 0, headerTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 */
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {

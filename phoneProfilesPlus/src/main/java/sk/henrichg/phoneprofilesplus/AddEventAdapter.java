@@ -260,7 +260,7 @@ class AddEventAdapter extends BaseAdapter {
                 String profileName = profileStartNamesArray[position];
                 if (position > 0) {
                     profileName = "(*) " + profileName;
-                    holder.profileStartName.setTextColor(Color.RED);
+                    holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
                 }
                 else
                     holder.profileStartName.setTextColor(defaultColor);
@@ -364,7 +364,7 @@ class AddEventAdapter extends BaseAdapter {
                                 profileName = "(*) [M] " + profileName;
                             else
                                 profileName = "(*) " + profileName;
-                            holder.profileEndName.setTextColor(Color.RED);
+                            holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
                         } else
                             holder.profileEndName.setTextColor(defaultColor);
                     //}

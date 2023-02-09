@@ -2877,7 +2877,7 @@ public class PPApplication extends Application
                 channel.enableLights(true);
                 // Sets the notification light color for notifications posted to this
                 // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
+                //channel.setLightColor(ContextCompat.getColor(context, R.color.altype_error));
                 channel.enableVibration(true);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 channel.setBypassDnd(true);
@@ -2940,7 +2940,7 @@ public class PPApplication extends Application
                 channel.enableLights(true);
                 // Sets the notification light color for notifications posted to this
                 // channel, if the device supports this feature.
-                //channel.setLightColor(Color.RED);
+                //channel.setLightColor(ContextCompat.getColor(context, R.color.altype_error));
                 channel.enableVibration(true);
                 //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
                 channel.setBypassDnd(true);

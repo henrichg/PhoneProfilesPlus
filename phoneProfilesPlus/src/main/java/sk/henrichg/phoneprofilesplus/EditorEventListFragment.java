@@ -1983,6 +1983,7 @@ public class EditorEventListFragment extends Fragment
 
         Menu menu = popup.getMenu();
         Drawable drawable;
+        /*
         String applicationTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
         if (applicationTheme.equals("dark")) {
             if (event._ignoreManualActivation && event._noPauseByManualActivation)
@@ -1995,7 +1996,7 @@ public class EditorEventListFragment extends Fragment
                 drawable.mutate();
                 drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
             }
-        } else {
+        } else*/ {
             drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation_no_pause).getIcon();
             if (drawable != null) {
                 drawable.mutate();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -107,7 +108,7 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
                     sbt.removeSpan(span);
             }
             if (errorColor) {
-                sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, R.color.altype_error)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             textView.setText(sbt);
         }

@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -6454,6 +6455,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String rootScreen = "rootScreen";
 
+        int errorColor = ContextCompat.getColor(context, R.color.altype_error);
+
         boolean hidePreferences = false;
         long profile_id = activity.profile_id;
         if (profile_id != 0) {
@@ -6510,10 +6513,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String _title = order + ". " + getString(R.string.preferences_grantG1Preferences_title);
                         ++order;
                         Spannable title = new SpannableString(_title);
-                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                         preference.setTitle(title);
                         Spannable summary = new SpannableString(getString(R.string.preferences_grantG1Preferences_summary));
-                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
                         final ProfilesPrefsFragment fragment = this;
@@ -6555,10 +6558,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             String _title = order + ". " + getString(R.string.preferences_grantRoot_title);
                             ++order;
                             Spannable title = new SpannableString(_title);
-                            title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                             preference.setTitle(title);
                             Spannable summary = new SpannableString(getString(R.string.preferences_grantRoot_summary));
-                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                             preference.setSummary(summary);
 
                             final ProfilesPrefsFragment fragment = this;
@@ -6600,10 +6603,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
                         ++order;
                         Spannable title = new SpannableString(_title);
-                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                         preference.setTitle(title);
                         Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
-                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
                         if (profile._id > 0) {
@@ -6655,10 +6658,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         //}
                         ++order;
                         Spannable title = new SpannableString(_title);
-                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                         preference.setTitle(title);
                         Spannable summary = new SpannableString(_summary);
-                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference14 -> {
@@ -6708,12 +6711,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String _title = order + ". " + getString(stringRes);
                         ++order;
                         Spannable title = new SpannableString(_title);
-                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                         preference.setTitle(title);
                         if ((accessibilityEnabled == -1) || (accessibilityEnabled == -2)) {
                             _title = getString(R.string.event_preferences_red_install_PPPExtender);
                             Spannable summary = new SpannableString(_title);
-                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference15 -> {
@@ -6723,7 +6726,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         } else {
                             _title = getString(R.string.event_preferences_red_enable_PPPExtender);
                             Spannable summary = new SpannableString(_title);
-                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference16 -> {
@@ -6762,11 +6765,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             String _title = order + ". " + getString(stringRes);
                             ++order;
                             Spannable title = new SpannableString(_title);
-                            title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                            title.setSpan(new ForegroundColorSpan(errorColor), 0, title.length(), 0);
                             preference.setTitle(title);
                             _title = getString(R.string.event_preferences_red_install_PPPExtender);
                             Spannable summary = new SpannableString(_title);
-                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                            summary.setSpan(new ForegroundColorSpan(errorColor), 0, summary.length(), 0);
                             preference.setSummary(summary);
 
                             preference.setOnPreferenceClickListener(preference15 -> {

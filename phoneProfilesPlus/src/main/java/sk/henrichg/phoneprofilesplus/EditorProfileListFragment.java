@@ -1258,7 +1258,7 @@ public class EditorProfileListFragment extends Fragment
 
             Menu menu = popup.getMenu();
             Drawable drawable;
-            String applicationTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
+            /*String applicationTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
             if (applicationTheme.equals("dark")) {
                 if (profile._showInActivator)
                     drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
@@ -1268,7 +1268,7 @@ public class EditorProfileListFragment extends Fragment
                     drawable.mutate();
                     drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
                 }
-            } else {
+            } else*/ {
                 drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
                 if (drawable != null) {
                     drawable.mutate();

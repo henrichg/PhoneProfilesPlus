@@ -10,7 +10,7 @@
 
     <color name="notification_background_color_default">#FFFFFFFF</color>
 
-    <color name="error_in_preferences">#FFFF0000</color>
+<!--    <color name="error_in_preferences">#FFFF0000</color>-->
 
     <color name="profileindicatorColor_light">#4289d8</color>
     <color name="profileindicatorColorDisabled_light">#b5b5b5</color>
