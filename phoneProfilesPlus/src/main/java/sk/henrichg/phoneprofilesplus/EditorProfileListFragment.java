@@ -1258,13 +1258,33 @@ public class EditorProfileListFragment extends Fragment
 
             Menu menu = popup.getMenu();
             Drawable drawable;
-            if (profile._showInActivator)
+            String applicationTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
+            if (applicationTheme.equals("dark")) {
+                if (profile._showInActivator)
+                    drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
+                else
+                    drawable = menu.findItem(R.id.profile_list_item_menu_not_show_in_activator).getIcon();
+                if(drawable != null) {
+                    drawable.mutate();
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                }
+            } else {
                 drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
-            else
+                if (drawable != null) {
+                    drawable.mutate();
+                    if (profile._showInActivator)
+                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                    else
+                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
+                }
                 drawable = menu.findItem(R.id.profile_list_item_menu_not_show_in_activator).getIcon();
-            if(drawable != null) {
-                drawable.mutate();
-                drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                if (drawable != null) {
+                    drawable.mutate();
+                    if (!profile._showInActivator)
+                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                    else
+                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
+                }
             }
 
             popup.setOnMenuItemClickListener(item -> {

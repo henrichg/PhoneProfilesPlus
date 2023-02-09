@@ -3,7 +3,8 @@
     <color name="primary">#FFFFFF</color>
     <color name="primaryDark">#FFFFFF</color>
 <!--    <color name="accent">#DC8160</color>-->
-    <color name="accent">#cc893e</color>
+<!--    <color name="accent">#cc893e</color>-->
+    <color name="accent">#A35E19</color>
 <!--    <color name="accent_disabled">#70DC8160</color>-->
     <color name="navigationBar">#000000</color>
 
@@ -12,7 +13,7 @@
     <color name="activitySecondaryTextColor">#BF000000</color>
     <color name="activityDisabledTextColor">#42000000</color>
     <color name="activityCommandBackgroundColor">#1F000000</color>
-    <color name="activityPopupMenuBackgroundColor">#FFFBFBFB</color>
+    <color name="activityPopupMenuBackgroundColor">#FFF7F7F7</color>
 
     <color name="rippleRectangeleItemBackgroundColor">#FFBFBFBF</color>
     <color name="rippleOvalItemBackgroundColor">#FFAFAFAF</color>
@@ -23,10 +24,10 @@
     <!--    <color name="changedPreferenceValueTextColor">#FF404040</color>-->
 
     <!--    <color name="notificationDecorationColor">#DC8160</color>-->
-    <color name="notificationDecorationColor">#cc893e</color>
+    <color name="notificationDecorationColor">#A35E19</color>
 
-    <color name="smoothBottomBarIconTint">#FF000000</color>
-    <color name="smoothBottomBarTextColor">#FF303030</color>
+    <color name="smoothBottomBarIconTint">#FF505050</color>
+    <color name="smoothBottomBarTextColor">#FF505050</color>
 
     <!--<color name="activityPopupBackground">#FFd0d0d0</color>-->
     <!--<color name="navigationDrawerTextColor">#ff000000</color>-->
@@ -42,23 +43,25 @@
     <color name="scrollbar_color">#37000000</color>
 
 <!--    <color name="editorFilterTitleColor">#FF000000</color>-->
-    <color name="editorFilterBackgroundColor">#FFFBFBFB</color>
+    <color name="editorFilterBackgroundColor">#FFF7F7F7</color>
 
-    <color name="tabTargetHelpOuterCircleColor">#FFa9634a</color>
+    <color name="tabTargetHelpOuterCircleColor">#FF7e4913</color>
     <color name="tabTargetHelpTargetCircleColor">#FFFFFFFF</color>
     <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
 
     <color name="fastScrollTrackPP">#FFEFEFEF</color>
     <color name="fastScrollThumbInactivePP">#FFAFAFAF</color>
 <!--    <color name="fastScrollThumbPP">#FFDC8160</color>-->
-    <color name="fastScrollThumbPP">#FFcc893e</color>
+    <color name="fastScrollThumbPP">#FFA35E19</color>
 <!--    <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>-->
-    <color name="fastScrollPopupBackgroundPP">#FFcc893e</color>
+    <color name="fastScrollPopupBackgroundPP">#FFA35E19</color>
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
 <!--    <color name="eventPauseTextColor">#FF00a7d8</color>-->
     <color name="eventStopTextColor">#FF6c6c6c</color>
 <!--    <color name="eventInDelayTextColor">#FFffb000</color>-->
+
+    <color name="notSelectedIconColor">#FFB0B0B0</color>
 
 <!--    <color name="sensor_pass_status_passed">#FF00A000</color>-->
 <!--    <color name="sensor_pass_status_not_passed">#FFff9000</color>-->
@@ -69,9 +72,9 @@
     <color name="sensor_pass_status_waiting">#FF893ECC</color>
 
 <!--    <color name="map_edited_location_marker_stroke">#FFDC8160</color>-->
-    <color name="map_edited_location_marker_stroke">#FFcc893e</color>
+    <color name="map_edited_location_marker_stroke">#FFA35E19</color>
 <!--    <color name="map_edited_location_marker_fill">#77DC8160</color>-->
-    <color name="map_edited_location_marker_fill">#77cc893e</color>
+    <color name="map_edited_location_marker_fill">#77A35E19</color>
     <color name="map_last_location_marker_stroke">#FF76b8d1</color>
     <color name="map_last_location_marker_fill">#7776b8d1</color>
 
@@ -82,14 +85,14 @@
     <color name="dialogBorderColor">#FFFFFFFF</color>
     <color name="buttonBorderColor">#FFAAAAAA</color>
 <!--    <color name="alertButtonBorderColor">#FFAAAAAA</color>-->
-    <color name="buttonBackgroundColor">#FFFBFBFB</color>
+    <color name="buttonBackgroundColor">#FFF7F7F7</color>
     <color name="buttonClickedBackgroundColor">#FFDADADA</color>
     <color name="popupMenuBorderColor">#FFCCCCCC</color>
 <!--    <color name="profileIconBorderColor">#FFCCCCCC</color>-->
 <!--    <color name="cardViewBorderColor">#FFFFFFFF</color>-->
 
     <color name="altype_profile">#FF3abf80</color>
-    <color name="altype_eventStart">#FFcc893e</color>
+    <color name="altype_eventStart">#FFA35E19</color>
     <color name="altype_eventEnd">#FF4289d8</color>
     <color name="altype_eventDelayStartEnd">#FF893ECC</color>
     <color name="altype_restartEvents">#FF9bb568</color>
