@@ -79,7 +79,7 @@
                         android:contentDescription="@string/profile_icon_preference_custumIconFromIconPack_help"
                         android:padding="5dp"
                         android:src="@drawable/ic_button_help"
-                        app:tint="@color/accent" />
+                        app:tint="@color/accent_color" />
 
                     <Button
                         android:id="@+id/profileicon_pref_dlg_custom_icon"

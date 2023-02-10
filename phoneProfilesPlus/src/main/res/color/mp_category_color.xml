@@ -6,6 +6,6 @@
         />
     <item
         android:state_enabled="true"
-        android:color="@color/accent"
+        android:color="@color/accent_color"
         />
 </selector>

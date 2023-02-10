@@ -46,7 +46,7 @@
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textColor="@color/accent" />
+                android:textColor="@color/accent_color" />
 
             <ImageView
                 android:id="@+id/act_prof_activated_profile_pref_indicator"

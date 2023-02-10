@@ -550,7 +550,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             profileLabel.setEnabled(true);
             profileView.setEnabled(true);
             //profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
-            profileName.setTextColor(ContextCompat.getColor(mActivity, R.color.accent));
+            profileName.setTextColor(ContextCompat.getColor(mActivity, R.color.accent_color));
             profileIcon.setColorFilter(null);
             if (profileIndicators != null)
                 profileIndicators.setColorFilter(null);

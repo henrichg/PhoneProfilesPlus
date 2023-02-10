@@ -1273,7 +1273,7 @@ public class EditorProfileListFragment extends Fragment
                 if (drawable != null) {
                     drawable.mutate();
                     if (profile._showInActivator)
-                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
                     else
                         drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
                 }
@@ -1281,7 +1281,7 @@ public class EditorProfileListFragment extends Fragment
                 if (drawable != null) {
                     drawable.mutate();
                     if (!profile._showInActivator)
-                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                        drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
                     else
                         drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
                 }

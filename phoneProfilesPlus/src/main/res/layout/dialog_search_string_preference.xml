@@ -32,7 +32,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_button_help"
-            app:tint="@color/accent"
+            app:tint="@color/accent_color"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/help_button_tooltip"/>
 

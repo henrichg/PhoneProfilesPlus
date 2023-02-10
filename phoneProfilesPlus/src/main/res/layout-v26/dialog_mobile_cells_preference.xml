@@ -62,7 +62,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -93,7 +93,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -125,7 +125,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:contentDescription="@string/mobile_cells_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -158,7 +158,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_settings"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:contentDescription="@string/location_settings_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -201,7 +201,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_help"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/help_button_tooltip"/>
 
@@ -214,7 +214,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_helpIcon"
                     android:src="@drawable/ic_button_select"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_select_button_tooltip"/>
 
@@ -228,7 +228,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_changeSelection"
                     android:src="@drawable/ic_button_edit"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_rename_cell_button_tooltip"/>
 
@@ -248,7 +248,7 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="5dp"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/accent_color"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
@@ -288,7 +288,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_sort"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_button_tooltip"/>
 
@@ -308,7 +308,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
                     android:textSize="16sp"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/accent_color"
                     android:textStyle="bold"
                     android:background="@drawable/pp_button_background_selector"
                     android:clickable="true"

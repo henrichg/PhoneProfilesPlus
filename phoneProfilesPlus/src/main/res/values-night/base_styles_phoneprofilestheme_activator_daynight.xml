@@ -11,7 +11,7 @@
         <!-- customize the color palette -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent_color</item>
         <!--        <item name="colorAccentDisabled">@color/accent_disabled</item>-->
 
         <item name="android:textColorPrimary">@color/text_view_color_primary</item>

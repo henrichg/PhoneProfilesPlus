@@ -104,7 +104,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_accessibility_service_new_version_2"
             android:textStyle="bold"
-            android:textColor="@color/accent" />
+            android:textColor="@color/accent_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_pppps_new_version_2"
             android:textStyle="bold"
-            android:textColor="@color/accent" />
+            android:textColor="@color/accent_color" />
 
 <!--
         <TextView
@@ -307,7 +307,7 @@
             app:expandable_spinner_margin="0dp"
             app:expandable_spinner_gravity="end"
             app:expandable_spinner_size="32dp"
-            app:expandable_spinner_color="@color/accent"
+            app:expandable_spinner_color="@color/accent_color"
             />
 
         <!-- PROFILES -->
@@ -328,7 +328,7 @@
             app:expandable_spinner_margin="0dp"
             app:expandable_spinner_gravity="end"
             app:expandable_spinner_size="32dp"
-            app:expandable_spinner_color="@color/accent"
+            app:expandable_spinner_color="@color/accent_color"
             />
 
         <!-- EVENTS -->
@@ -349,7 +349,7 @@
             app:expandable_spinner_margin="0dp"
             app:expandable_spinner_gravity="end"
             app:expandable_spinner_size="32dp"
-            app:expandable_spinner_color="@color/accent"
+            app:expandable_spinner_color="@color/accent_color"
             />
 
     </LinearLayout>

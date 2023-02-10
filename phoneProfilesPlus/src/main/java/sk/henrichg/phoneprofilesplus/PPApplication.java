@@ -875,7 +875,7 @@ public class PPApplication extends Application
     static volatile OrientationScanner orientationScanner = null;
     static volatile boolean mStartedOrientationSensors = false;
 
-    // this is OK, locationScanner will bet to null, when location scanner will be stopped
+    // this is OK, locationScanner will be set to null, when location scanner will be stopped
     @SuppressLint("StaticFieldLeak")
     static volatile LocationScanner locationScanner = null;
 

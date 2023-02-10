@@ -84,7 +84,7 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:background">@color/activityBackgroundColor</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent_color</item>
 
         <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
@@ -97,7 +97,7 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:background">@color/activityBackgroundColor</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent_color</item>
 
         <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>

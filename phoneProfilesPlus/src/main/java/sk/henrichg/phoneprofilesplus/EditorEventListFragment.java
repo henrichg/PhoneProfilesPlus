@@ -2008,7 +2008,7 @@ public class EditorEventListFragment extends Fragment
             if (drawable != null) {
                 drawable.mutate();
                 if (event._ignoreManualActivation && event._noPauseByManualActivation)
-                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
                 else
                     drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
             }
@@ -2016,7 +2016,7 @@ public class EditorEventListFragment extends Fragment
             if (drawable != null) {
                 drawable.mutate();
                 if (event._ignoreManualActivation && (!event._noPauseByManualActivation))
-                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
                 else
                     drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
             }
@@ -2024,7 +2024,7 @@ public class EditorEventListFragment extends Fragment
             if (drawable != null) {
                 drawable.mutate();
                 if ((!event._ignoreManualActivation)/* && (!event._noPauseByManualActivation)*/)
-                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
                 else
                     drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
             }

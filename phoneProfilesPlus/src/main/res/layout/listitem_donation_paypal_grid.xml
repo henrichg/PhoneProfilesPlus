@@ -25,7 +25,7 @@
         android:padding="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
-        android:textColor="@color/accent"
+        android:textColor="@color/accent_color"
         android:background="@drawable/pp_button_background_selector" />
 
 </LinearLayout>

@@ -113,7 +113,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="0dp"
                 android:layout_toEndOf="@id/location_pref_dlg_radius_label"
-                android:textColor="@color/accent"
+                android:textColor="@color/accent_color"
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"
                 android:textSize="16sp"
@@ -168,7 +168,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_my_location"
-                app:tint="@color/accent"
+                app:tint="@color/accent_color"
                 android:contentDescription="@string/location_editor_change_location_dialog_title"
                 android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -181,7 +181,7 @@
                 android:layout_toStartOf = "@id/location_editor_my_location"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_address"
-                app:tint="@color/accent"
+                app:tint="@color/accent_color"
                 android:contentDescription="@string/location_editor_rename_with_address_button_tooltip"
                 android:background="?attr/selectableItemBackgroundBorderless" />
 

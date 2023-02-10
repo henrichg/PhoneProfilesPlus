@@ -139,7 +139,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@id/run_applications_editor_dialog_startApplicationDelay_root"
                 android:src="@drawable/ic_button_add"
-                app:tint="@color/accent"
+                app:tint="@color/accent_color"
                 android:contentDescription="@string/applications_editor_dialog_add_button_tooltip"
                 android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -171,7 +171,7 @@
                     android:paddingEnd="10dp"
                     android:paddingTop="@dimen/time_duration_value_button_top_bottom_padding"
                     android:paddingBottom="@dimen/time_duration_value_button_top_bottom_padding"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/accent_color"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:background="@drawable/pp_button_background_selector" />

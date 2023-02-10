@@ -196,7 +196,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
-                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.accent));
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.accent_color));
             }
             else {
                 eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);

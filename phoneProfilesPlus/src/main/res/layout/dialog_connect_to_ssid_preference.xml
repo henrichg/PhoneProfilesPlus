@@ -69,7 +69,7 @@
             android:paddingTop="10dp"
             android:textSize="14sp"
             android:text="@string/connect_to_ssid_dialog_help"
-            android:textColor="@color/accent"
+            android:textColor="@color/accent_color"
             android:clickable="true"
             android:focusable="true"/>
 

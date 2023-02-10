@@ -14,7 +14,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_start_activity_preference_icon"
-        app:tint="@color/accent"
+        app:tint="@color/accent_color"
         android:contentDescription="@string/preference_widget_clickabe_prefernce_icon" />
 
 </RelativeLayout>

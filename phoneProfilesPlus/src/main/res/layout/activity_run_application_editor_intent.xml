@@ -346,7 +346,7 @@
                     android:padding="5dp"
                     android:focusable="true"
                     android:src="@drawable/ic_button_edit"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/application_editor_intent_edit_category_button_tooltip"/>
                 <TextView
@@ -397,7 +397,7 @@
                     android:padding="5dp"
                     android:focusable="true"
                     android:src="@drawable/ic_button_edit"
-                    app:tint="@color/accent"
+                    app:tint="@color/accent_color"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/application_editor_intent_edit_flags_button_tooltip"/>
                 <TextView

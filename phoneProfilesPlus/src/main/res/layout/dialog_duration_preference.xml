@@ -62,7 +62,7 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:textSize="16sp"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/accent_color"
                     android:textStyle="bold"
                     android:background="@drawable/pp_button_background_selector"
                     android:clickable="true"

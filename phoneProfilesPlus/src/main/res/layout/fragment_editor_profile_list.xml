@@ -57,7 +57,7 @@
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textColor="@color/accent" />
+                    android:textColor="@color/accent_color" />
 
                 <ImageView
                     android:id="@+id/editor_profiles_activated_profile_pref_indicator"

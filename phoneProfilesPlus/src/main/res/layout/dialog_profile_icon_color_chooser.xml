@@ -471,7 +471,7 @@
                             android:gravity="end"
                             android:textAlignment="gravity"
                             android:textSize="15sp"
-                            android:textColor="@color/accent"
+                            android:textColor="@color/accent_color"
                             android:textStyle="bold"
                             android:background="@drawable/pp_button_background_selector"
                             android:clickable="true"

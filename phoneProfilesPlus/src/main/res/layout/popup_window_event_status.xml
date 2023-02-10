@@ -120,7 +120,7 @@
                     android:text="@string/popup_window_events_status_show_info"
                     android:textSize="@dimen/gui_info_popup_text_size"
                     android:id="@+id/event_status_popup_window_text7"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/accent_color"
                     android:background="?attr/selectableItemBackground"/>
 
                 <androidx.appcompat.widget.SwitchCompat
