@@ -98,6 +98,7 @@
             android:paddingStart="11dp"
             android:paddingEnd="11dp"
             android:textSize="14sp"
+            android:textColor="@color/activityNormalTextColor"
             android:scrollHorizontally="true"/>
 
         <RelativeLayout
