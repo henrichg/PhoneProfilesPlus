@@ -98,7 +98,7 @@
                 android:layout_toStartOf="@id/clear"
                 android:minWidth="@dimen/touchable"
                 android:minHeight="@dimen/touchable"
-                android:src="@drawable/ic_backspace_light"
+                android:src="@drawable/ic_backspace"
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="@string/backspace_button_tooltip"/>
 
@@ -110,7 +110,7 @@
                 android:layout_alignParentEnd="true"
                 android:minWidth="@dimen/touchable"
                 android:minHeight="@dimen/touchable"
-                android:src="@drawable/ic_clear_light"
+                android:src="@drawable/ic_clear"
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="@string/clear_button_tooltip"/>
 

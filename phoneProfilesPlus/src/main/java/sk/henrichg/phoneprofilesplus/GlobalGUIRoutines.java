@@ -12,7 +12,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -798,14 +797,13 @@ class GlobalGUIRoutines {
         if (ApplicationPreferences.applicationTheme(context, true).equals("white")/*!nightModeOn*/) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace_light));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear_light));
         } else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
         }
+        timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
+        timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
+
         //timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
         timeDurationPicker.setDurationDisplayBackgroundColor(ContextCompat.getColor(context, R.color.activityBackgroundColor));
         //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
