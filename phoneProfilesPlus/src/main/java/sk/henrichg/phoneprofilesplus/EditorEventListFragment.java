@@ -2001,7 +2001,7 @@ public class EditorEventListFragment extends Fragment
                 drawable = menu.findItem(R.id.event_list_item_not_ignore_manual_activation).getIcon();
             if (drawable != null) {
                 drawable.mutate();
-                drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
             }
         } else*/ {
             drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation_no_pause).getIcon();

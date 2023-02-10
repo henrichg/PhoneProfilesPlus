@@ -1266,7 +1266,7 @@ public class EditorProfileListFragment extends Fragment
                     drawable = menu.findItem(R.id.profile_list_item_menu_not_show_in_activator).getIcon();
                 if(drawable != null) {
                     drawable.mutate();
-                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
                 }
             } else*/ {
                 drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();

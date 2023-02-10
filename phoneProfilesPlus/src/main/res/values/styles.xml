@@ -63,12 +63,12 @@
     <!--<style name="AlertDialogStyleColor" parent="Theme.AppCompat.Light.Dialog.Alert">-->
         <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="AlertDialogStyleDLight" parent="Theme.AppCompat.Light.Dialog.Alert">-->
         <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="AlertDialogStyleDark" parent="Theme.AppCompat.Dialog.Alert">-->
         <!--<item name="android:windowDisablePreview">true</item>-->
@@ -121,11 +121,11 @@
 
     <!--<style name="DialogStyleColor" parent="Theme.AppCompat.Light.Dialog">-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="DialogStyleDLight" parent="Theme.AppCompat.Light.Dialog">-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="DialogStyleDark" parent="Theme.AppCompat.Dialog">-->
         <!--<item name="android:background">@color/activityBackgroundColor_dark</item>-->

@@ -259,7 +259,7 @@
         android:text="@string/info_notification_unlink_ringer_notification_volumes"
         android:textSize="@dimen/important_info_text_size"
         android:id="@+id/activity_info_notification_unlink_ringer_notification_volumes"
-        android:textColor="@color/accent" />
+        android:textColor="@color/accent_color" />
     -->
     <TextView
         android:layout_width="wrap_content"
@@ -291,7 +291,7 @@
     <!--            android:text="@string/important_info_profile_zenModeM"-->
     <!--            android:textSize="@dimen/important_info_text_size"-->
     <!--            android:id="@+id/activity_info_notification_profile_zenMode"-->
-    <!--            android:textColor="@color/accent"/>-->
+    <!--            android:textColor="@color/accent_color"/>-->
 
     <TextView
         android:layout_width="wrap_content"
