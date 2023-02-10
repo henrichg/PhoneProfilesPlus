@@ -11,6 +11,11 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <!--        <item name="colorAccentDisabled">@color/accent_disabled</item>-->
+
+        <item name="android:textColorPrimary">@color/activityNormalTextColor</item>
+        <item name="android:textColorSecondary">@color/activitySecondaryTextColor</item>
+        <!--        <item name="android:textColorTertiary">@color/text_color_tertiary</item>-->
+
         <item name="actionBarStyle">@style/PPPActionbar</item>
         <item name="android:actionBarStyle">@style/PPPActionbar</item>
 
