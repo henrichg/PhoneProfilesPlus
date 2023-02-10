@@ -421,7 +421,6 @@
     <string name="event_type_applications">Programma\'s</string>
     <string name="event_preferences_category_eventApplicationsParameters">Programma sensor</string>
     <string name="event_preferences_applications_applications">Programma\'s</string>
-    <string name="event_preferences_applications_AccessibilitySettings_title">Instellingen voor toegankelijkheid</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">Voor wijzigen van Adaptieve helderheid is ROOT nodig.</string>
     <string name="important_info_profile_activation_text1">Een profiel kun je op twee manieren activeren:</string>
     <string name="important_info_profile_activation_text2">Handmatige activering - geactiveerd in Activator, Editor, melding, widget, snelkoppeling. Een handmatig geactiveerd profiel heeft de aanduiding \"[M]\" voor de profielnaam.</string>
@@ -435,7 +434,7 @@
     <string name="important_info_profile_activation_text11">Rode kleur: events zijn gestopt - events kun je ingeschakelen in het Editor menu-item \"Activeer Events uitvoeren\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Herstart events icoon:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Verkeerslicht\" icoon:</string>
-    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ implementeert \"Doze mode\" en \"App stand-by\". Dit kan problemen geven bij het activeren van een event profiel als je het apparaat niet aangesloten en stil laat liggen gedurende enige tijd met het scherm uit. Klik hier om PhoneProfilesPlus toe te voegen aan \"Niet geoptimaliseerd\" om dit op te lossen.</string>
     <string name="info_notification_event_states">Het event kan 6 statussen hebben:</string>
     <string name="info_notification_event_states_running">Uitvoeren: event is gestart en loopt. Event parameters zijn goed.</string>
     <string name="info_notification_event_states_paused">Gepauzeerd: event is gepauzeerd. Aan event parameters wordt niet voldaan. Het event wacht tot wordt voldaan aan de parameters.</string>
@@ -807,7 +806,6 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Om \"Negeren voor programma\'s\" toe te staan geef je PhoneProfilesPlusExtender toegang bij \"Instellingen voor toegankelijkheid\".</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">Om Programma-parameters aan te zetten klik je hier om PhoneProfilesPlusExtender installeren.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">Om negeren Programma-parameters aan te zetten klik je hier om PhoneProfilesPlusExtender te installeren.</string>
-    <string name="event_preferences_applications_PPPExtender_upgrade_summary">Klik hier om te controleren op wijzigingen en bijwerken van PhoneProfilesPlusExtender.</string>
     <string name="about_application_extender_source_code">Broncode - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Je kunt meer teksten configureren. Scheidt deze met het karakter \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Standaardprofiel</string>
@@ -876,14 +874,12 @@
     <string name="notification_channel_notify_event_start">Start event melding</string>
     <string name="notification_channel_notify_event_start_description">Toont melding over start van event.</string>
     <string name="important_info_accessibility_service_new_version">Installeer de nieuwe versie van PhoneProfilesPlusExtender. Meer informatie over de installatie vind je bij de opties die PhoneProfilesPlusExtender gebruiken.</string>
-    <string name="important_info_accessibility_service_new_version_2">Klik hier voor het weergeven van PhoneProfilesPlusExtender releases op GitHub.</string>
+    <string name="important_info_accessibility_service_new_version_2">Klik hier om de nieuwste versie van PhoneProfilesPlusExtender te installeren.</string>
     <string name="array_pref_no_force_stop">Stoppen niet forceren</string>
     <string name="array_pref_force_stop">Stoppen forceren</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Forceer stoppen programma\'s</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Programma\'s forceren het te stoppen</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Om \"Forceer stoppen programma\" mogelijk te maken hier kliķken om PhoneProfilesPlusExtender te installeren.</string>
-    <string name="event_preferences_applications_PPPExtender_new_version_summary">De nieuwevversie van PhioneProfilesPlusExtender is nodig. Klik hier om te upgrade.</string>
-    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Instellingen voor toegankelijkheid</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Om \"Forceer stoppen programma\" mogelijk te maken, PhoneProfilesPlusExtender aan zetten bij toegankelijkheidsinstellingen.</string>
     <string name="shortcut_activate_profile">Activeer profiel:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Het werkt alleen wanneer het scherm aanstaat en ontgrendeld is.</string>
@@ -948,7 +944,6 @@
     <string name="event_preferences_not_set_underlined_parameters">Sommige onderstreepte parameters worden niet geconfigureerd!</string>
     <string name="permission_group_name_draw_overlays_miui">Toon pop-up venster</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">Je hebt \"Toon pop-up venster\" niet geconfigureerd. Niet opnieuw vragen?</string>
-    <string name="stop_events_alert_title">Stop events</string>
     <string name="stop_events_alert_message">Weet je het zeker?</string>
     <string name="array_event_pref_incall_ended">Inkomende oproep gestopt</string>
     <string name="array_event_pref_outcall_ended">Uitgaande oproep gestopt</string>
@@ -1034,10 +1029,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Uitbreidbaar</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Groot</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Klein</string>
-    <string name="event_preferences_applications_LaunchExtender_title">Start PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_LaunchExtender_summary">Geef de machtiging Telefoon in PhoneProfilesPlusExtender. Is vereist voor het ontvangen van oproepen door Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Geef machtiging voor SMS in PhoneProfilesPlusExtender. Is vereist voor het ontvangen van SMS/MMS door Extender.</string>
-    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is niet geïnstalleerd.</string>
     <string name="array_event_pref_peripheralType_headphones">Hoofdtelefoons zonder microfoon</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is niet geïnstalleerd!</string>
     <string name="default_profile_name_battery_ok">batterij OK</string>
@@ -1091,7 +1084,6 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Programma\'s, snelkoppelingen, intents uitvoeren</string>
     <string name="applications_editor_dialog_title">Programma, snelkoppeling, intentie instellen</string>
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">Voor lock type \"Gebruik PhoneProfilesPlusExtender\", klik hier om PhoneProfilesPlusExtender te installeren.</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Instellingen voor toegankelijkheid</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Sta PhoneProfilesPlusExtender toe bij lock type \"Gebruik PhoneProfilesPlusExtender\". Klik hier om te installeren.</string>
     <string name="array_pref_lockDevice_extender">Gebruik PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, moet u locatie inschakelen in systeeminstellingen om zendmast cellen te scannen.</string>
@@ -1463,8 +1455,6 @@
     <string name="normal_github_release">Nieuwe app versie</string>
     <string name="normal_github_release_notification">Klik op deze melding om de belangrijke PhoneProfilesPlus versie te downloaden vanuit GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Weet je zeker dat je deze melding in de toekomst niet meer wilt weergeven?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Geïnstalleerd:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Niet geïnstalleerd</string>
     <string name="accessibility_service_enabled">Ingeschakeld</string>
     <string name="accessibility_service_disabled">Uitgeschakeld</string>
     <string name="event_preferences_calendar_day_contains_event">Huidige dag bevat agenda event</string>
@@ -1885,7 +1875,7 @@
     <string name="application_editor_intent_hint_custom_not_set">Aangepaste niet ingesteld</string>
     <string name="application_editor_intent_hint_not_selected">Niet geselecteerd</string>
     <string name="application_editor_intent_action_none">[ None ]</string>
-    <string name="application_editor_intent_action_custom">[ Custom ]</string>
+    <string name="application_editor_intent_action_custom">[ Aangepast ]</string>
     <string name="run_applications_preference_application_type" tools:ignore="TypographyOther">(A) applicatie, (S) snelkoppeling, (I) intent.</string>
     <string name="generated_notification_intent_hint_not_set">Niet ingesteld</string>
     <string name="profile_preferences_deviceLiveWallpaper_noneInstalled">Geen geïnstalleerd</string>
@@ -2027,4 +2017,39 @@
     <string name="one_row_profile_list_widget_description">Toont een lijst van profielen zonder de namen in één regel.</string>
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Één rij profiellijst</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Aantal profielen per pagina</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">Wijzigen van mediavolume werkt in OnePlus apparaten niet als PhoneProfilesPlus op de achtergrond draait.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">Wijzigen van mediavolume werkt in OnePlus apparaten niet als PhoneProfilesPlus op de achtergrond draait.\nVoor handmatige profiel activering moet u ook \"Toegankelijkheid vraagt volume\" configureren.</string>
+    <string name="profile_preferences_volumeAlarmInfo_summary">Opmerking: niet alle Klok programma\'s gebruiken het systeem alarmvolume omdat ze hun eigen volume gebruiken in hun instellingen.</string>
+    <string name="connect_to_ssid_dialog_help">In dit venster vind je een lijst van geconfigureerde SSID\'s.\nKlik hier om het Wi-Fi instellingen scherm te bekijken. Het bevat een instellingen voor het configureren van wifi-netwerken.</string>
+    <string name="pppps_pref_dialog_title">PPPPutInstellingen</string>
+    <string name="pppps_pref_dialog_install_button">\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_launch_button">Start\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_close_button">Sluit</string>
+    <string name="pppps_pref_dialog_launchPPPPS_title">Start PPPPutSettings</string>
+    <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings is niet geïnstalleerd.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_not_installed_summary">Niet geïnstalleerd</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_install_summary">Om de parameters die met \"(S)\" zijn gemarkeerd goed te laten werken, klik je hier om PPPPutSettings te installeren.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_new_version_summary">Nieuwe versie van PPPPutSettings is vereist. Klik hier om te upgraden.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">Klik hier voor de installatie/upgrade, start van PPPPutSettings.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Geef toestemming \"Systeeminstellingen wijzigen\" in PPPPutSettings. Dit is nodig om PPPPutSettings goed te laten werken.</string>
+    <string name="pppps_pref_dialog_install_pppps_installed_version">Geïnstalleerde versie:</string>
+    <string name="pppps_pref_dialog_install_pppps_latest_version">Nieuwste versie:</string>
+    <string name="important_info_pppps_new_version_notification">Installeer de nieuwe versie van PPPPutSettings. Meer informatie over de installatie staat in \"Belangrijke informatie\", sectie \"Nieuws\". Klik hier om het te zien.</string>
+    <string name="important_info_pppps_new_version">Installeer de nieuwe versie van PPPPutSettings. Meer informatie over de installatie vind je in de parameters waarvoor PPPPutSettings vereist zijn.</string>
+    <string name="important_info_pppps_new_version_2">Klik hier om de nieuwste versie van PPPPutSettings te installeren.</string>
+    <string name="latest_pppps_release">Nieuwe versie PPPPutSettings</string>
+    <string name="latest_pppps_release_notification">Klik op deze melding om de nieuwe PPPPutSettings versie te installeren.</string>
+    <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_install_button">Installeer\nPhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_launch_button">Start\nPhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Inschakelen/uitschakelen\nToegankelijkheidsinstellingen</string>
+    <string name="pppextender_pref_dialog_close_button">Sluiten</string>
+    <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Klik hier voor installatie/upgrade, in- uit schakelen Toegankelijkheidsinstellingen, starten PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_applications_PPPExtender_new_version_summary">De nieuwevversie van PhioneProfilesPlusExtender is nodig. Klik hier om te upgrade.</string>
+    <string name="event_preferences_applications_LaunchExtender_title">Start PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is niet geïnstalleerd.</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Niet geïnstalleerd</string>
+    <string name="event_preferences_applications_AccessibilitySettings_title">Instellingen voor toegankelijkheid</string>
+    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus randvenster werkt mogelijk niet op sommige Samsung-apparaten, zoals tablets, Z-fold apparaten. Of als er geen knop is om panelen te installeren vanuit de Galaxy Store in Instellingen/Display/Edge panels/panelen.</string>
+    <string name="phone_profiles_pref_applicationWidgetFillBackground">Vul hele ruimte met achtergrond</string>
 </resources>

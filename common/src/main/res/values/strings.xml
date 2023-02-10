@@ -951,7 +951,6 @@
     <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
     <string name="permission_group_name_draw_overlays_miui">Display pop-up window</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">You have not enabled \"Display pop-up window\". Never ask again?</string>
-    <string name="stop_events_alert_title">Stop events</string>
     <string name="stop_events_alert_message">Are you sure?</string>
     <string name="array_event_pref_incall_ended">Incoming call ended</string>
     <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
@@ -2049,7 +2048,6 @@
     <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings is not installed.</string>
     <string name="pppps_pref_dialog_PPPPutSettings_not_installed_summary">Not installed</string>
     <string name="pppps_pref_dialog_PPPPutSettings_install_summary">For parameters marked with \"(S)\" to work properly, click here to install PPPPutSettings.</string>
-    <string name="pppps_pref_dialog_PPPPutSettings_installed_summary">Installed:</string>
     <string name="pppps_pref_dialog_PPPPutSettings_new_version_summary">New version of PPPPutSettings is required. Click here to upgrade it.</string>
     <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">Click here for install/upgrade, launch of PPPPutSettings.</string>
     <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Please grant permission \"Modify system settings\" in PPPPutSettings. Is required for properly working PPPPutSettings.</string>
@@ -2070,7 +2068,6 @@
     <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
     <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
     <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
     <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
 
