@@ -33,12 +33,14 @@
         <!--        android:id="@+id/notification_0_pref_dialog_PhoneProfilesSilent_rb"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
+<!--        android:buttonTint="@color/checkbox_radiobutton_color"-->
 <!--        android:textSize="16sp"-->
         <!--        android:layout_marginTop="3dp"/>-->
         <RadioButton
             android:id="@+id/notification_0_pref_dialog_None_rb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/checkbox_radiobutton_color"
             android:textSize="16sp"
             android:layout_marginTop="5dp" />
 

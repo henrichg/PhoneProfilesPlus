@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_centerVertical="true"
+        android:buttonTint="@color/checkbox_radiobutton_color"
         android:checked="false"
         android:focusable="false" />
 
