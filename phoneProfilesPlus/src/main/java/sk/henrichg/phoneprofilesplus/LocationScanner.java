@@ -500,7 +500,7 @@ class LocationScanner
 
         PPApplication.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                .setColor(ContextCompat.getColor(context, R.color.accent_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(context.getString(R.string.location_scanner_location_not_working_notification_title)) // title for notification
                 .setContentText(nText) // message for notification

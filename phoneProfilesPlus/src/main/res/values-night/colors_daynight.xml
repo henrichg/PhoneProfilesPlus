@@ -26,7 +26,7 @@
 
     <!--    <color name="changedPreferenceValueTextColor">#FFd4d4d4</color>-->
 
-    <color name="notificationDecorationColor">#cc893e</color>
+<!--    <color name="notificationDecorationColor">#cc893e</color>-->
 
     <color name="smoothBottomBarIconTint">#FFFFFFFF</color>
     <color name="smoothBottomBarTextColor">#FFE0E0E0</color>

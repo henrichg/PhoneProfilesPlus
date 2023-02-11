@@ -775,7 +775,7 @@ public class DataWrapperStatic {
 
         PPApplication.createGrantPermissionNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                .setColor(ContextCompat.getColor(context, R.color.accent_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification

@@ -539,7 +539,7 @@ public class PhoneProfilesNotification {
 
         // ----- set icons
 
-        int decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+        int decoratorColor = ContextCompat.getColor(appContext, R.color.accent_color);
 
         // decorator colot change by iocn is removed, becouse this cause problems with
         // custom icons.
@@ -1261,7 +1261,7 @@ public class PhoneProfilesNotification {
                         else*/ {
                             try {
                                 Palette palette = Palette.from(iconBitmap).generate();
-                                decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+                                decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.accent_color));
                             } catch (Exception ignored) {}
                         }
                     }
