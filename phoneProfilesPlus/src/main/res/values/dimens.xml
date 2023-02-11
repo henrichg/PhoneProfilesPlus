@@ -103,4 +103,6 @@
 
     <bool name="forceHideHeaderOrBottomBar">false</bool>
 
+    <dimen name="line_spacing_extra">2dp</dimen>
+
 </resources>

@@ -90,6 +90,9 @@
         <item name="android:scrollbarThumbVertical">@color/scrollbar_color</item>
         <item name="android:scrollbarThumbHorizontal">@color/scrollbar_color</item>
         <item name="android:scrollbarSize">@dimen/scrollbar_size</item>
+
+        <item name="android:lineSpacingExtra">@dimen/line_spacing_extra</item>
+
     </style>
 
 </resources>
