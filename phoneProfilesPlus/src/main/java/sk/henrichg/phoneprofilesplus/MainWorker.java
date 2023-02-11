@@ -156,7 +156,7 @@ public class MainWorker extends Worker {
                                     String nText = context.getString(R.string.extender_accessibility_setting_not_enabled_text);
 
                                     PPApplication.createExclamationNotificationChannel(getApplicationContext());
-                                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                                             .setColor(ContextCompat.getColor(appContext, R.color.accent_color))
                                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                                             .setContentTitle(nTitle) // title for notification

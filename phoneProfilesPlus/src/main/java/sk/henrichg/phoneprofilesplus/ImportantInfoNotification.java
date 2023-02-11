@@ -143,8 +143,8 @@ class ImportantInfoNotification {
                                          @SuppressWarnings("SameParameterValue") boolean firstInstallation,
                                          String title, String text, String notificationTag) {
         PPApplication.createExclamationNotificationChannel(context);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.accent_color))
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.accent_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification

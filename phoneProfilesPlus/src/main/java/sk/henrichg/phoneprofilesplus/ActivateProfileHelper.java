@@ -5570,8 +5570,8 @@ class ActivateProfileHelper {
                             "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
 
                     PPApplication.createKeepScreenOnNotificationChannel(appContext);
-                    NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
-                            .setColor(ContextCompat.getColor(context, R.color.accent_color))
+                    NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
+                            .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.accent_color))
                             .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                             .setContentTitle(nTitle) // title for notification
                             .setContentText(nText) // message for notification

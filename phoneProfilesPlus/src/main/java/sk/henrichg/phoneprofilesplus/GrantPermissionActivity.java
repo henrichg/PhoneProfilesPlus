@@ -874,8 +874,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                    nText = context.getString(R.string.permissions_notification_text) + ": " +
 //                            context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
 //                }
-                mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context, R.color.accent_color))
+                mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.accent_color))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
@@ -917,8 +917,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     nText = nText + "\"" + event._name + "\" ";
                 nText = nText + context.getString(R.string.permissions_for_event_big_text_notification);
                 //}
-                mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context, R.color.accent_color))
+                mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.accent_color))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification
@@ -952,8 +952,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         nText = nText + "\"" + profile._name + "\" ";
                     nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
                 }
-                mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context, R.color.accent_color))
+                mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.accent_color))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification

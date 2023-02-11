@@ -40,7 +40,7 @@ public class PhoneProfilesNotification {
 
 //        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesNotification._showProfileNotification", "start");
 
-        final Context appContext = dataWrapper.context;
+        final Context appContext = dataWrapper.context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
 
         ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(appContext, PhoneProfilesService.class);
@@ -90,9 +90,9 @@ public class PhoneProfilesNotification {
         if (forFirstStart) {
             synchronized (PPApplication.applicationPreferencesMutex) {
                 // load style directly from shared preferences
-                ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
+                ApplicationPreferences.notificationNotificationStyle(appContext);
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
-                ApplicationPreferences.notificationUseDecoration(dataWrapper.context);
+                ApplicationPreferences.notificationUseDecoration(appContext);
                 notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
                 notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
@@ -123,9 +123,9 @@ public class PhoneProfilesNotification {
             synchronized (PPApplication.applicationPreferencesMutex) {
 
                 // load style directly from shared preferences
-                ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
+                ApplicationPreferences.notificationNotificationStyle(appContext);
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
-                ApplicationPreferences.notificationUseDecoration(dataWrapper.context);
+                ApplicationPreferences.notificationUseDecoration(appContext);
                 notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
                 notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
@@ -191,7 +191,7 @@ public class PhoneProfilesNotification {
             useDecorator = useDecorator && notificationBackgroundColor.equals("0");
 
             boolean powerShadeInstalled = false;
-            PackageManager pm = dataWrapper.context.getPackageManager();
+            PackageManager pm = appContext.getPackageManager();
             try {
                 pm.getPackageInfo("com.treydev.pns", PackageManager.GET_ACTIVITIES);
                 powerShadeInstalled = true;
@@ -544,7 +544,7 @@ public class PhoneProfilesNotification {
         // decorator colot change by iocn is removed, becouse this cause problems with
         // custom icons.
         NotificationIconData notificationIconData =
-                _addProfileIconToProfileNotification(dataWrapper.context, forFirstStart,
+                _addProfileIconToProfileNotification(appContext, forFirstStart,
                         contentView, contentViewLarge,
                         notificationBuilder,
                         notificationNotificationStyle, notificationStatusBarStyle,
@@ -618,14 +618,14 @@ public class PhoneProfilesNotification {
             switch (notificationBackgroundColor) {
                 case "3":
                     //if (!notificationNightMode || (useNightColor == 1)) {
-                    int color = ContextCompat.getColor(dataWrapper.context, R.color.notificationBlackBackgroundColor);
+                    int color = ContextCompat.getColor(appContext, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "1":
                     //if (!notificationNightMode || (useNightColor == 1)) {
-                    color = ContextCompat.getColor(dataWrapper.context, R.color.notificationDarkBackgroundColor);
+                    color = ContextCompat.getColor(appContext, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
