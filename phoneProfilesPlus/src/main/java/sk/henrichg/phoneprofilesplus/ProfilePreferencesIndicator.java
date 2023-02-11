@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -24,8 +25,8 @@ class ProfilePreferencesIndicator {
     final int[] countItems = new int[60];
     int countPreferences = 0;
 
-    static final int DISABLED_ALPHA_DYNAMIC_LIGHT = 255;
-    static final int DISABLED_ALPHA_DYNAMIC_DARK = 150;
+    //static final int DISABLED_ALPHA_DYNAMIC_LIGHT = 255;
+    //static final int DISABLED_ALPHA_DYNAMIC_DARK = 150;
     static final int DISABLED_ALPHA_MONOCHROME = 128;
 
     private Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
@@ -51,6 +52,7 @@ class ProfilePreferencesIndicator {
         return Bitmap.createBitmap(width, iconSize, Bitmap.Config.ARGB_8888);
     }
 
+    @SuppressWarnings("DuplicateBranchesInSwitch")
     private void addIndicator(int preferenceBitmapResourceID, int index,
                               boolean monochrome, boolean disabled,
                               int indicatorsType, float indicatorsLightnessValue,
@@ -95,12 +97,13 @@ class ProfilePreferencesIndicator {
             //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
             //                    == Configuration.UI_MODE_NIGHT_YES;
 
-            boolean setAlpha = true;
+            //boolean setAlpha = true;
 
             if ((Build.VERSION.SDK_INT >= 31) &&
                     (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND)) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
+                    dynamicColor = saturateColor(dynamicColor);
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 } else {
                     if (!monochrome) {
@@ -131,7 +134,7 @@ class ProfilePreferencesIndicator {
                             else
                                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         }
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_NOTIFICATION_DARK_BACKGROUND:
                         if (disabled)
@@ -139,7 +142,7 @@ class ProfilePreferencesIndicator {
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = true;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND:
                         if (disabled)
@@ -147,7 +150,7 @@ class ProfilePreferencesIndicator {
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = false;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     default:
                         //nightModeOn = false;
@@ -159,7 +162,7 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (setAlpha) {
                         if (nightModeOn)
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
@@ -167,6 +170,8 @@ class ProfilePreferencesIndicator {
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                     }
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -194,6 +199,7 @@ class ProfilePreferencesIndicator {
 
             int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
             if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
+                dynamicColor = saturateColor(dynamicColor);
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
             } else {
                 if (!monochrome) {
@@ -212,12 +218,14 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (nightModeOn)
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
                     else
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -244,7 +252,7 @@ class ProfilePreferencesIndicator {
             //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
             //                == Configuration.UI_MODE_NIGHT_YES;
 
-            boolean setAlpha = true;
+            //boolean setAlpha = true;
 
             if (!monochrome) {
                 switch (indicatorsType) {
@@ -260,7 +268,7 @@ class ProfilePreferencesIndicator {
                             else
                                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         }
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND:
                         if (disabled)
@@ -268,7 +276,7 @@ class ProfilePreferencesIndicator {
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = true;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND:
                         if (disabled)
@@ -276,7 +284,7 @@ class ProfilePreferencesIndicator {
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = false;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     default:
                         if (disabled)
@@ -288,7 +296,7 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (setAlpha) {
                         if (nightModeOn)
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
@@ -296,6 +304,8 @@ class ProfilePreferencesIndicator {
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                     }
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -324,6 +334,7 @@ class ProfilePreferencesIndicator {
             if (!monochrome) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
+                    dynamicColor = saturateColor(dynamicColor);
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 } else {
                     if (nightModeOn) {
@@ -341,12 +352,14 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (nightModeOn)
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
                     else
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -2268,6 +2281,16 @@ class ProfilePreferencesIndicator {
         }
 
         return indicator1;
+    }
+
+    private int saturateColor(int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        //Log.e("ProfilePreferencesIndicator.saturateColor", "hsv[1]="+hsv[1]);
+        if (hsv[1] < 0.5f)
+            hsv[1] = 0.5f;  // saturation component
+        //hsv[2] = 0.75f; // value component
+        return Color.HSVToColor(hsv);
     }
 
 }
