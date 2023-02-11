@@ -156,7 +156,6 @@
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/important_info_text_size</item>
-        <item name="android:textColor">@color/tablayout_color</item>
     </style>
 
     <!--
