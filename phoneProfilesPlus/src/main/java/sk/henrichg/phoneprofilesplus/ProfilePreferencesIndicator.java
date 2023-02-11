@@ -2287,8 +2287,8 @@ class ProfilePreferencesIndicator {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         //Log.e("ProfilePreferencesIndicator.saturateColor", "hsv[1]="+hsv[1]);
-        if (hsv[1] < 0.5f)
-            hsv[1] = 0.5f;  // saturation component
+        if (hsv[1] < 0.6f)
+            hsv[1] = 0.6f;  // saturation component
         //hsv[2] = 0.75f; // value component
         return Color.HSVToColor(hsv);
     }
