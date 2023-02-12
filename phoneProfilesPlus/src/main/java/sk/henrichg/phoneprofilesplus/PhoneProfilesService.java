@@ -186,7 +186,7 @@ public class PhoneProfilesService extends Service
     private boolean notificationIsPlayed = false;
     //private int oldNotificationVolume = 0;
     private Timer notificationPlayTimer = null;
-    //private int oldVolumeForPlayNotificationSound = 0;
+    private int oldVolumeForPlayNotificationSound = -1;
 
     String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     boolean connectToSSIDStarted = false;
@@ -438,6 +438,7 @@ public class PhoneProfilesService extends Service
 
         stopSimulatingRingingCall(/*true*/true, getApplicationContext());
         //stopSimulatingNotificationTone(true);
+        stopPlayNotificationSound(false);
 
         GlobalUtils.reenableKeyguard(getApplicationContext());
 
@@ -6041,9 +6042,7 @@ public class PhoneProfilesService extends Service
 
     //---------------------------
 
-    private void stopPlayNotificationSound() {
-        EventPreferencesVolumes.mediaVolumeChangeed = false;
-
+    private void stopPlayNotificationSound(boolean setBackMediaVolume) {
         if (notificationPlayTimer != null) {
             notificationPlayTimer.cancel();
             notificationPlayTimer = null;
@@ -6061,19 +6060,28 @@ public class PhoneProfilesService extends Service
                 //PPApplication.recordException(e);
             }
 
-            //if (oldVolumeForPlayNotificationSound != -1) {
-            //    try {
-            //        EventPreferencesVolumes.internalChange = true;
-            //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            //        DisableVolumesInternalChangeWorker.enqueueWork();
-            //    } catch (Exception e) {
-            //        //PPApplication.recordException(e);
-            //    }
-            //}
+            if (setBackMediaVolume) {
+                try {
+                    if (notificationIsPlayed) {
+                        if ((oldVolumeForPlayNotificationSound != -1) &&
+                                (!EventPreferencesVolumes.mediaVolumeChangeed)) {
+                            try {
+                                EventPreferencesVolumes.internalChange = true;
+                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                            } catch (Exception e) {
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
 
             notificationIsPlayed = false;
             notificationMediaPlayer = null;
         }
+        EventPreferencesVolumes.mediaVolumeChangeed = false;
     }
 
     void playNotificationSound(final String notificationSound,
@@ -6114,7 +6122,7 @@ public class PhoneProfilesService extends Service
 
             if ((!ringingCallIsSimulating)/* && (!notificationToneIsSimulating)*/) {
 
-                stopPlayNotificationSound();
+                stopPlayNotificationSound(false);
 
                 if (!notificationSound.isEmpty())
                 {
@@ -6152,15 +6160,13 @@ public class PhoneProfilesService extends Service
 
                             EventPreferencesVolumes.mediaVolumeChangeed = false;
 
-                            int oldVolumeForPlayNotificationSound;
                             if (!isAudible) {
                                 oldVolumeForPlayNotificationSound = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                                 int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
                                 int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
                                 EventPreferencesVolumes.internalChange = true;
                                 audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                            }
-                            else
+                            } else
                                 oldVolumeForPlayNotificationSound = -1;
 
                             notificationMediaPlayer.start();
@@ -6208,7 +6214,7 @@ public class PhoneProfilesService extends Service
                         }
                         catch (Exception e) {
                             //Log.e("PhoneProfilesService.playNotificationSound", "exception");
-                            stopPlayNotificationSound();
+                            stopPlayNotificationSound(true);
 
                             Permissions.grantPlayRingtoneNotificationPermissions(getApplicationContext(), false);
                         }
