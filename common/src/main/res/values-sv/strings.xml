@@ -2052,5 +2052,4 @@
     <string name="event_preferences_applications_AccessibilitySettings_title">Tillgänglighetsinställningar</string>
     <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Fill whole space with background</string>
-    <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
 </resources>
