@@ -1093,16 +1093,26 @@ class ActivateProfileHelper {
                         int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
                         int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                         int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+//                        Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "oldRingVolume="+oldRingVolume);
+//                        Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "oldNotificationVolume="+oldNotificationVolume);
                         if (oldRingVolume == oldNotificationVolume) {
                             int newNotificationVolume;
                             if (oldNotificationVolume == maximumNotificationValue)
                                 newNotificationVolume = oldNotificationVolume - 1;
                             else
                                 newNotificationVolume = oldNotificationVolume + 1;
+
                             EventPreferencesVolumes.internalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
                             GlobalUtils.sleep(2000);
-                            merged = audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume;
+
+                            int newRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                            newNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+//                            Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "newRingVolume="+newRingVolume);
+//                            Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "newNotificationVolume="+newNotificationVolume);
+
+                            merged = newRingVolume == newNotificationVolume;
                         } else
                             merged = false;
                         EventPreferencesVolumes.internalChange = true;
