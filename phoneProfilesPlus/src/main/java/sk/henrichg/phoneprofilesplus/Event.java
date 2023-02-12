@@ -3220,12 +3220,13 @@ class Event {
 
     //----------------------------------
 
-    void notifyEventStart(Context context/*, boolean playSound, boolean canPlayAlsoInSilentMode*/) {
+    void notifyEventStart(Context context, /*boolean playSound,*/
+                          @SuppressWarnings("SameParameterValue") boolean canPlayAlsoInSilentMode) {
         String notificationSoundStart = _notificationSoundStart;
         boolean notificationVibrateStart = _notificationVibrateStart;
-        //boolean playAlsoInSilentMode = false;
-        //if (canPlayAlsoInSilentMode)
-        //    playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
+        boolean playAlsoInSilentMode = false;
+        if (canPlayAlsoInSilentMode)
+            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundStart.isEmpty() || notificationVibrateStart) {
 
@@ -3293,8 +3294,8 @@ class Event {
                 if (PhoneProfilesService.getInstance() != null) {
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundStart,
-                            notificationVibrateStart/*,
-                            false*//*playAlsoInSilentMode*/);
+                            notificationVibrateStart,
+                            playAlsoInSilentMode);
                 }
 
             //return true;
@@ -3302,13 +3303,13 @@ class Event {
         //return false;
     }
 
-    void notifyEventEnd(/*Context context*/ /*boolean playSound,
-                           boolean canPlayAlsoInSilentMode*/) {
+    void notifyEventEnd(/*Context context*/ /*boolean playSound,*/
+                           @SuppressWarnings("SameParameterValue") boolean canPlayAlsoInSilentMode) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
-        //boolean playAlsoInSilentMode = false;
-        //if (canPlayAlsoInSilentMode)
-        //    playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
+        boolean playAlsoInSilentMode = false;
+        if (canPlayAlsoInSilentMode)
+            playAlsoInSilentMode = _notificationSoundStartPlayAlsoInSilentMode;
 
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
@@ -3316,8 +3317,8 @@ class Event {
                 if (PhoneProfilesService.getInstance() != null) {
                     PhoneProfilesService.getInstance().playNotificationSound(
                             notificationSoundEnd,
-                            notificationVibrateEnd/*,
-                            false*//*playAlsoInSilentMode*/);
+                            notificationVibrateEnd,
+                            playAlsoInSilentMode);
                 }
 
             //return true;

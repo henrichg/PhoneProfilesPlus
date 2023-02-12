@@ -6042,6 +6042,8 @@ public class PhoneProfilesService extends Service
     //---------------------------
 
     private void stopPlayNotificationSound() {
+        EventPreferencesVolumes.mediaVolumeChangeed = false;
+
         if (notificationPlayTimer != null) {
             notificationPlayTimer.cancel();
             notificationPlayTimer = null;
@@ -6075,8 +6077,8 @@ public class PhoneProfilesService extends Service
     }
 
     void playNotificationSound(final String notificationSound,
-                                       final boolean notificationVibrate/*,
-                                       final boolean playAlsoInSilentMode*/) {
+                                       final boolean notificationVibrate,
+                                       final boolean playAlsoInSilentMode) {
 
         //final Context appContext = getApplicationContext();
         //PPApplication.startHandlerThreadBroadcast();
@@ -6116,7 +6118,7 @@ public class PhoneProfilesService extends Service
 
                 if (!notificationSound.isEmpty())
                 {
-                    if (isAudible/* || playAlsoInSilentMode*/) {
+                    if (isAudible || playAlsoInSilentMode) {
 
                         Uri notificationUri = Uri.parse(notificationSound);
                         try {
@@ -6135,8 +6137,8 @@ public class PhoneProfilesService extends Service
                             notificationMediaPlayer = new MediaPlayer();
 
                             int usage = AudioAttributes.USAGE_NOTIFICATION;
-                            //if (!isAudible)
-                            //    usage = AudioAttributes.USAGE_ALARM;
+                            if (!isAudible)
+                                usage = AudioAttributes.USAGE_ALARM;
 
                             AudioAttributes attrs = new AudioAttributes.Builder()
                                     .setUsage(usage)
@@ -6148,15 +6150,18 @@ public class PhoneProfilesService extends Service
                             notificationMediaPlayer.prepare();
                             notificationMediaPlayer.setLooping(false);
 
-                            //if (!isAudible) {
-                            //    oldVolumeForPlayNotificationSound = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                            //    int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                            //    int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
-                            //    EventPreferencesVolumes.internalChange = true;
-                            //    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                            //}
-                            //else
-                            //    oldVolumeForPlayNotificationSound = -1;
+                            EventPreferencesVolumes.mediaVolumeChangeed = false;
+
+                            int oldVolumeForPlayNotificationSound;
+                            if (!isAudible) {
+                                oldVolumeForPlayNotificationSound = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                                int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                                int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * 75.0f);
+                                EventPreferencesVolumes.internalChange = true;
+                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, mediaRingingVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                            }
+                            else
+                                oldVolumeForPlayNotificationSound = -1;
 
                             notificationMediaPlayer.start();
 
@@ -6180,19 +6185,21 @@ public class PhoneProfilesService extends Service
                                             //PPApplication.recordException(e);
                                         }
 
-                                        //if ((notificationIsPlayed) && (oldVolumeForPlayNotificationSound != -1)) {
-                                        //    try {
-                                        //        EventPreferencesVolumes.internalChange = true;
-                                        //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                        //    } catch (Exception e) {
-                                        //        //PPApplication.recordException(e);
-                                        //    }
-                                        //}
+                                        if ((notificationIsPlayed) && (oldVolumeForPlayNotificationSound != -1) &&
+                                                (!EventPreferencesVolumes.mediaVolumeChangeed)) {
+                                            try {
+                                                EventPreferencesVolumes.internalChange = true;
+                                                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldVolumeForPlayNotificationSound, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                            } catch (Exception e) {
+                                                //PPApplication.recordException(e);
+                                            }
+                                        }
 
                                     }
 
                                     notificationIsPlayed = false;
                                     notificationMediaPlayer = null;
+                                    EventPreferencesVolumes.mediaVolumeChangeed = false;
 
                                     notificationPlayTimer = null;
                                 }

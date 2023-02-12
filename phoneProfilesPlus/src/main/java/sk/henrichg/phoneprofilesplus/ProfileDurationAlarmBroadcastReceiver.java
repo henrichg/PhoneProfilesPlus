@@ -363,8 +363,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             if (PhoneProfilesService.getInstance() != null) {
                                 PhoneProfilesService.getInstance().playNotificationSound(
                                         profile._durationNotificationSound,
-                                        profile._durationNotificationVibrate/*,
-                                        false*/);
+                                        profile._durationNotificationVibrate,
+                                        false);
                                 //PPApplication.sleep(500);
                             }
                         }

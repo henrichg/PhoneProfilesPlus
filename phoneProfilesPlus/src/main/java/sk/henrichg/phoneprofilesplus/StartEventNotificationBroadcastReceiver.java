@@ -187,7 +187,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             Event event = databaseHandler.getEvent(event_id);
                             if (event != null)
-                                event.notifyEventStart(appContext/*, true, true*/);
+                                event.notifyEventStart(appContext, /*true,*/ true);
 
                         } catch (Exception e) {
 //                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -210,7 +210,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
             Event event = databaseHandler.getEvent(event_id);
             if (event != null)
-                event.notifyEventStart(appContext/*, true, true*/);
+                event.notifyEventStart(appContext, /*true,*/ true);
         }
     }
 

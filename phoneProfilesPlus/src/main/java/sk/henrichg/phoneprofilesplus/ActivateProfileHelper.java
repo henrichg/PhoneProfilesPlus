@@ -1450,15 +1450,17 @@ class ActivateProfileHelper {
                 boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
                 if (!musicMuted) {
                     if (profile.getVolumeMediaChange()) {
-                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue(), false);
+                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue(), false, true);
                     }
                 }
             }
         }
     }
 
-    static void setMediaVolume(Context context, AudioManager audioManager, int value, boolean allowDuringMusicPlay) {
+    static void setMediaVolume(Context context, AudioManager audioManager, int value,
+                               boolean allowDuringMusicPlay, boolean setMediaVolumeChanged) {
 //        Log.e("ActivateProfileHelper.setMediaVolume", "isMusicActive="+audioManager.isMusicActive());
+
         if (!allowDuringMusicPlay && audioManager.isMusicActive())
             return;
 
@@ -1471,6 +1473,9 @@ class ActivateProfileHelper {
             //else
                 audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 //            Log.e("ActivateProfileHelper.setMediaVolume", "audioManager.setStreamVolume");
+
+            if (setMediaVolumeChanged)
+                EventPreferencesVolumes.mediaVolumeChangeed = true;
         } catch (SecurityException e) {
             //PPApplication.recordException(e);
 
@@ -1483,6 +1488,9 @@ class ActivateProfileHelper {
                     Settings.Global.putInt(appContext.getContentResolver(), "audio_safe_volume_state", 2);
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                     G1OK = true;
+
+                    if (setMediaVolumeChanged)
+                        EventPreferencesVolumes.mediaVolumeChangeed = true;
                 }
                 catch (Exception e2) {
                     Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e2));
@@ -1500,6 +1508,9 @@ class ActivateProfileHelper {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             RootUtils.commandWait(command, "ActivateProfileHelper.setMediaVolume");
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
+                            if (setMediaVolumeChanged)
+                                EventPreferencesVolumes.mediaVolumeChangeed = true;
                         } catch (Exception ee) {
                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //PPApplication.recordException(e);;

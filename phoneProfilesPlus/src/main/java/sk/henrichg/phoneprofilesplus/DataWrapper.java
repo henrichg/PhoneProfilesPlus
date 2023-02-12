@@ -1663,8 +1663,8 @@ public class DataWrapper {
                                         if (PhoneProfilesService.getInstance() != null) {
                                             PhoneProfilesService.getInstance().playNotificationSound(
                                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
-                                                false*/);
+                                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                                false);
                                             //PPApplication.sleep(500);
                                         }
                                     }
@@ -2205,8 +2205,8 @@ public class DataWrapper {
                                 if (PhoneProfilesService.getInstance() != null) {
                                     PhoneProfilesService.getInstance().playNotificationSound(
                                             ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
-                                    false*/);
+                                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                    false);
                                     //PPApplication.sleep(500);
                                 }
                             }
@@ -2264,8 +2264,8 @@ public class DataWrapper {
                 if (PhoneProfilesService.getInstance() != null) {
                     PhoneProfilesService.getInstance().playNotificationSound(
                             ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
-                            false*/);
+                            ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                            false);
                     //PPApplication.sleep(500);
                 }
             }

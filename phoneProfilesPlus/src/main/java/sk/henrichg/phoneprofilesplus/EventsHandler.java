@@ -430,7 +430,7 @@ class EventsHandler {
 
 
                 // 1. pause events
-                Event pausedEvent = null;
+                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -442,7 +442,10 @@ class EventsHandler {
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
-                            pausedEvent = _event;
+                            if ((_event._notificationSoundEnd != null) &&
+                                (!_event._notificationSoundEnd.isEmpty()) ||
+                                _event._notificationVibrateEnd)
+                                notifiedPausedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -450,15 +453,13 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //_event.notifyEventEnd(false, false);
                         }
 
                     }
                 }
-                if (pausedEvent != null) {
+                if (notifiedPausedEvent != null) {
                     // notify this event
-                    pausedEvent.notifyEventEnd(/*true, true*/);
+                    notifiedPausedEvent.notifyEventEnd(/*true,*/ true);
                     //notified = true;
                 }
 
@@ -470,7 +471,7 @@ class EventsHandler {
 
                 // 2. start events
                 //sortEventsByStartOrderAsc(dataWrapper.eventList);
-                Event startedEvent = null;
+                Event notifiedStartedEvent = null;
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 
@@ -483,7 +484,10 @@ class EventsHandler {
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
-                            startedEvent = _event;
+                            if ((_event._notificationSoundStart != null) &&
+                                    (!_event._notificationSoundStart.isEmpty()) ||
+                                    _event._notificationVibrateStart)
+                                notifiedStartedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -491,22 +495,20 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //_event.notifyEventStart(context, false, false);
                         }
 
                     }
                 }
-                if (startedEvent != null) {
+                if (notifiedStartedEvent != null) {
                     // notify this event;
-                    startedEvent.notifyEventStart(context/*, true, true*/);
+                    notifiedStartedEvent.notifyEventStart(context, /*true,*/ true);
                     //notified = true;
                 }
 
             } else {
 
                 //1. pause events
-                Event pausedEvent = null;
+                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -518,7 +520,10 @@ class EventsHandler {
 
                         if (running && paused) {
                             // pause only running events
-                            pausedEvent = _event;
+                            if ((_event._notificationSoundEnd != null) &&
+                                    (!_event._notificationSoundEnd.isEmpty()) ||
+                                    _event._notificationVibrateEnd)
+                                notifiedPausedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -526,22 +531,18 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //if (_event.notifyEventEnd(!notified, true))
-                            //    notified = true;
-
                         }
 
                     }
                 }
-                if (pausedEvent != null) {
+                if (notifiedPausedEvent != null) {
                     // notify this event;
-                    pausedEvent.notifyEventStart(context/*, true, true*/);
+                    notifiedPausedEvent.notifyEventEnd(/*true,*/ true);
                     //notified = true;
                 }
 
                 //2. start events
-                Event startedEvent = null;
+                Event notifiedStartedEvent = null;
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 
@@ -554,7 +555,10 @@ class EventsHandler {
 
                         if (running && paused) {
                             // start only paused events
-                            startedEvent = _event;
+                            if ((_event._notificationSoundStart != null) &&
+                                    (!_event._notificationSoundStart.isEmpty()) ||
+                                    _event._notificationVibrateStart)
+                                notifiedStartedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -562,16 +566,13 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //if (_event.notifyEventStart(context, !notified, true))
-                            //    notified = true;
                         }
 
                     }
                 }
-                if (startedEvent != null) {
+                if (notifiedStartedEvent != null) {
                     // notify this event;
-                    startedEvent.notifyEventStart(context/*, true, true*/);
+                    notifiedStartedEvent.notifyEventStart(context, /*true,*/ true);
                     //notified = true;
                 }
             }
@@ -740,8 +741,8 @@ class EventsHandler {
                     if (ppService != null) {
                         ppService.playNotificationSound(
                                 defaultProfileNotificationSound,
-                                defaultProfileNotificationVibrate/*,
-                                false*/);
+                                defaultProfileNotificationVibrate,
+                                false);
                         //notified = true;
                     }
                 }

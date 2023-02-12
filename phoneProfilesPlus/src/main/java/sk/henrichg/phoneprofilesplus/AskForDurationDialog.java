@@ -119,8 +119,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                             if (PhoneProfilesService.getInstance() != null) {
                                 PhoneProfilesService.getInstance().playNotificationSound(
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
-                                        false*/);
+                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                        false);
                                 //PPApplication.sleep(500);
                             }
                         }
@@ -155,7 +155,8 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         if (PhoneProfilesService.getInstance() != null) {
                             PhoneProfilesService.getInstance().playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                    false);
                             //PPApplication.sleep(500);
                         }
                     }
