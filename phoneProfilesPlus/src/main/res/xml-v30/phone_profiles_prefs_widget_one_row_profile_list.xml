@@ -104,7 +104,7 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
-        app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+        app:title="@string/phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness"
         app:summary="100%%"
         app:key="applicationWidgetOneRowProfileListArrowsMarkLightness"
         app:defaultValue="100"

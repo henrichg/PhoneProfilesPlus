@@ -746,3 +746,28 @@ zvonenia a feedback
 
 ------------
 
+Nova notifikacia: "Notification: Profile list"
+
+Zoznam parametrov:
+- "Systemove nastavenia" - pre tuto notifikaciu
+- "Systemove nastavenia" - pre vsetky kanaly - toto neviem ci tam dam
+- "Stavovy riadok" - cela kategoria
+- "Panel notifikacii"
+  - "Typ rozlozenia"
+    - "Roztiahnutelne" - toto daj ako boolean, lebo bude len jedna velkost
+  "Pouzit dekoraciu"
+  "Typ farby ikon" - kedze ich nude viac, indikatory sa v tejto notifikacii nezobrazuju
+  "Panel notifikacii - farba pozadia" - cela kategoria
+  "Panel notifikacii - indikator parametrov" - nahradit "Arrows lightness", vid widget
+  "Panel notifikacii - ikona profilu" - cela kategoria
+Pridat:
+ - "Pocet profilov na stranku"
+
+Treba potom vriesit aj povolenie, zakazanie parametrov podla zavislosti
+
+-------
+
+Widgety: a ich parametre.
+Dal by som ich tiez do kategorii, teraz je v tom bordel pr euzivatela.
+
+

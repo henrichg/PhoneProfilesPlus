@@ -874,7 +874,7 @@
     <string name="notification_channel_notify_event_start">Сповіщення про початок події</string>
     <string name="notification_channel_notify_event_start_description">Показує сповіщення про початок події.</string>
     <string name="important_info_accessibility_service_new_version">Будь ласка, встановіть нову версію PhoneProfilesPlusExtender. Додаткові відомості про встановлення - в параметрах, для яких потрібен PhoneProfilesPlusExtender.</string>
-    <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
+    <string name="important_info_accessibility_service_new_version_2">Натисніть тут, щоб встановити останню версію PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Не зупиняти примусово</string>
     <string name="array_pref_force_stop">Примусово припиняти</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Примусова зупинка застосунків</string>
