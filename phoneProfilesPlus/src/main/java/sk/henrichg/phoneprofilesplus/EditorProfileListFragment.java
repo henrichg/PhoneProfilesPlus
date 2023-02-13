@@ -10,16 +10,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -27,14 +24,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,13 +39,9 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-//import me.drakeet.support.toast.ToastCompat;
 
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -712,6 +703,35 @@ public class EditorProfileListFragment extends Fragment
 
     void showEditMenu(View view)
     {
+        // because of refresh list is popup menu moved up
+        // for this reason is used SingleSelectListDialog
+
+        final Profile profile = (Profile)view.getTag();
+
+        SingleSelectListDialog dialog = new SingleSelectListDialog(
+                getString(R.string.tooltip_options_menu) + "\n" +
+                getString(R.string.profile_string_0) + ": " + profile._name,
+                R.array.profileListItemEditArray,
+                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                (dialog1, which) -> {
+                    switch (which) {
+                        case 0:
+                            activateProfile(profile/*, true*/);
+                            break;
+                        case 1:
+                            duplicateProfile(profile);
+                            break;
+                        case 2:
+                            deleteProfileWithAlert(profile);
+                            break;
+                        default:
+                    }
+                },
+                false,
+                getActivity());
+        dialog.show();
+
+/*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
         PopupMenu popup;
@@ -734,7 +754,7 @@ public class EditorProfileListFragment extends Fragment
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.profile_list_item_menu_activate) {
-                activateProfile(profile/*, true*/);
+                activateProfile(profile);
                 return true;
             }
             else
@@ -755,6 +775,7 @@ public class EditorProfileListFragment extends Fragment
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
+*/
     }
 
     private void deleteProfileWithAlert(Profile profile)
@@ -1223,13 +1244,59 @@ public class EditorProfileListFragment extends Fragment
             listView.setAdapter(null);
     }
 
-    @SuppressWarnings("RedundantArrayCreation")
-    void showShowInActivatorMenu(View view)
+   void showShowInActivatorMenu(View view)
     {
+        // because of refresh list is popup menu moved up
+        // for this reason is used SingleSelectListDialog
+
+        if (getActivity() == null)
+            return;
+
         final Profile profile = (Profile) view.getTag();
 
         if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
 
+            int value;
+            if (profile._showInActivator)
+                value = 1;
+            else
+                value = 0;
+
+            SingleSelectListDialog dialog = new SingleSelectListDialog(
+                    getString(R.string.profile_preferences_showInActivator) + "\n" +
+                            getString(R.string.profile_string_0) + ": " + profile._name,
+                    R.array.profileListItemShowInActivatorArray,
+                    value,
+                    (dialog1, which) -> {
+                        switch (which) {
+                            case 0:
+                                profile._showInActivator = false;
+                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                                //profileListAdapter.notifyDataSetChanged();
+                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+
+                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                        getString(R.string.show_profile_in_activator_not_show_toast),
+                                        Toast.LENGTH_LONG);
+                                break;
+                            case 1:
+                                profile._showInActivator = true;
+                                DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
+                                //profileListAdapter.notifyDataSetChanged();
+                                ((EditorActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+
+                                PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                        getString(R.string.show_profile_in_activator_show_toast),
+                                        Toast.LENGTH_LONG);
+                                break;
+                            default:
+                        }
+                    },
+                    false,
+                    getActivity());
+            dialog.show();
+
+/*
             //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
             Context _context = view.getContext();
             //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
@@ -1258,17 +1325,7 @@ public class EditorProfileListFragment extends Fragment
 
             Menu menu = popup.getMenu();
             Drawable drawable;
-            /*String applicationTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
-            if (applicationTheme.equals("dark")) {
-                if (profile._showInActivator)
-                    drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
-                else
-                    drawable = menu.findItem(R.id.profile_list_item_menu_not_show_in_activator).getIcon();
-                if(drawable != null) {
-                    drawable.mutate();
-                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
-                }
-            } else*/ {
+            {
                 drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
                 if (drawable != null) {
                     drawable.mutate();
@@ -1343,6 +1400,7 @@ public class EditorProfileListFragment extends Fragment
 
             if ((getActivity() != null) && (!getActivity().isFinishing()))
                 popup.show();
+*/
         }
         else
             GlobalGUIRoutines.showDialogAboutRedText(profile, null, true, false, true, false, getActivity());

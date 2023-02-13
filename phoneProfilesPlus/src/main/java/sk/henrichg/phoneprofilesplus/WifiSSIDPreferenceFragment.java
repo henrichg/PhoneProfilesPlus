@@ -156,7 +156,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
                     mSelectorDialog = new SingleSelectListDialog(
-                            R.string.pref_dlg_change_selection_title,
+                            getString(R.string.pref_dlg_change_selection_title),
                             R.array.wifiSSIDChangeSelectionArray,
                             SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                             (dialog, which) -> {

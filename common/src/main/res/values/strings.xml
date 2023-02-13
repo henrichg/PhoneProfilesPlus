@@ -1289,7 +1289,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
     <string name="application_is_starting_toast">is starting…</string>
     <string name="application_is_started_toast">is started</string>
-    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <string name="duration_end_acronym">de</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Status bar</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notification panel</string>

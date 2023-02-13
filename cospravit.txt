@@ -746,6 +746,24 @@ zvonenia a feedback
 
 ------------
 
+Skús zistiť, kedy a prečo mi preskakuje menu item v Editore. Akoby prestala sedieť y súradnica. X
+sa nezmení,ta je ok.
+Udeje sa to napríklad pri mazani profilu, asi ak kliknem skôr na nejaké dalsie, než sa prekresli
+zoznam kvôli tomu zmazaniu.
+
+No zostava mi len jedno:
+- Na showEditMenu() pouzi dialog so zoznbamom itemov bez radio buttonov.
+  Tem zobrazuje zoznam a klik vyvolava listener na to.
+  Je to SingleSelectListDialog s _itemValu = SingleSelectListDialog.NOT_USE_RADIO_BUTTONS
+- Na showShowInActivatorMenu() a showIgnoreManualActivationMenu() pouzi dialog so zoznamom itemov a
+  radio buttonmi. Je to na vyber jednej z moznosti. Co je vybrane sa v dialogu oselectuje.
+  Je to SingleSelectListDialog s _itemValue ako poradie pola _itemsRes vybratej hodnoty
+Oba pripady sa pouzivaju v MobileCellsPreferenceFragment.
+Potrebuje si spravit potomkov SingleSelectListDialog, lebo potrebujem profil, udalost, pre ktory/ktoru to je.
+Do titulku daj o co ide a nazov profilu/udalosti.
+
+------------
+
 Nova notifikacia: "Notification: Profile list"
 
 Zoznam parametrov:

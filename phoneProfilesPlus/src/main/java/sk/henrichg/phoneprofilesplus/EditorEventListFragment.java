@@ -9,9 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,17 +17,14 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,15 +46,11 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-//import me.drakeet.support.toast.ToastCompat;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -975,6 +966,42 @@ public class EditorEventListFragment extends Fragment
 
     void showEditMenu(View view)
     {
+        // because of refresh list is popup menu moved up
+        // for this reason is used SingleSelectListDialog
+
+        final Event event = (Event)view.getTag();
+
+        int itemsRes;
+        if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP)
+            itemsRes = R.array.eventListItemEditEnableRunArray;
+        else
+            itemsRes = R.array.eventListItemEditStopArray;
+
+        SingleSelectListDialog dialog = new SingleSelectListDialog(
+                getString(R.string.tooltip_options_menu) + "\n" +
+                        getString(R.string.event_string_0) + ": " + event._name,
+                itemsRes,
+                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                (dialog1, which) -> {
+                    switch (which) {
+                        case 0:
+                            runStopEvent(event);
+                            break;
+                        case 1:
+                            duplicateEvent(event);
+                            break;
+                        case 2:
+                            deleteEventWithAlert(event);
+                            break;
+                        default:
+                    }
+                },
+                false,
+                getActivity());
+        dialog.show();
+
+
+/*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         PopupMenu popup;
@@ -1028,6 +1055,7 @@ public class EditorEventListFragment extends Fragment
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
+ */
     }
 
     private void deleteEventWithAlert(Event event)
@@ -1954,9 +1982,71 @@ public class EditorEventListFragment extends Fragment
         return _eventsOrderType;
     }
 
-    @SuppressWarnings("RedundantArrayCreation")
     void showIgnoreManualActivationMenu(View view)
     {
+        // because of refresh list is popup menu moved up
+        // for this reason is used SingleSelectListDialog
+
+        if (getActivity() == null)
+            return;
+
+        final Event event = (Event)view.getTag();
+
+        int value;
+        if (event._ignoreManualActivation && event._noPauseByManualActivation)
+            value = 2;
+        else if (event._ignoreManualActivation)
+            value = 1;
+        else
+            value = 0;
+
+        SingleSelectListDialog dialog = new SingleSelectListDialog(
+                getString(R.string.event_preferences_ForceRun) + "\n" +
+                        getString(R.string.event_string_0) + ": " + event._name,
+                R.array.eventListItemIgnoreManualActivationArray,
+                value,
+                (dialog1, which) -> {
+                    switch (which) {
+                        case 0:
+                            event._ignoreManualActivation = false;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                    getString(R.string.ignore_manual_activation_not_ignore_toast),
+                                    Toast.LENGTH_LONG);
+                            break;
+                        case 1:
+                            event._ignoreManualActivation = true;
+                            event._noPauseByManualActivation = false;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                    getString(R.string.ignore_manual_activation_ignore_toast),
+                                    Toast.LENGTH_LONG);
+                            break;
+                        case 2:
+                            event._ignoreManualActivation = true;
+                            event._noPauseByManualActivation = true;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                    getString(R.string.ignore_manual_activation_ignore_no_pause_toast),
+                                    Toast.LENGTH_LONG);
+                            break;
+                        default:
+                    }
+                },
+                false,
+                getActivity());
+        dialog.show();
+
+/*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
@@ -1967,9 +2057,6 @@ public class EditorEventListFragment extends Fragment
         //    popup = new PopupMenu(context, view);
         //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_ignore_manual_activation, popup.getMenu());
-        /*Menu menu = popup.getMenu();
-        MenuItem menuItem = menu.findItem(R.id.event_list_item_ignore_manual_activation_title);
-        menuItem.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));*/
 
         // show icons
         try {
@@ -1990,20 +2077,7 @@ public class EditorEventListFragment extends Fragment
 
         Menu menu = popup.getMenu();
         Drawable drawable;
-        /*
-        String applicationTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
-        if (applicationTheme.equals("dark")) {
-            if (event._ignoreManualActivation && event._noPauseByManualActivation)
-                drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation_no_pause).getIcon();
-            else if (event._ignoreManualActivation)
-                drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation).getIcon();
-            else
-                drawable = menu.findItem(R.id.event_list_item_not_ignore_manual_activation).getIcon();
-            if (drawable != null) {
-                drawable.mutate();
-                drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
-            }
-        } else*/ {
+        {
             drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation_no_pause).getIcon();
             if (drawable != null) {
                 drawable.mutate();
@@ -2023,7 +2097,7 @@ public class EditorEventListFragment extends Fragment
             drawable = menu.findItem(R.id.event_list_item_not_ignore_manual_activation).getIcon();
             if (drawable != null) {
                 drawable.mutate();
-                if ((!event._ignoreManualActivation)/* && (!event._noPauseByManualActivation)*/)
+                if ((!event._ignoreManualActivation))
                     drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
                 else
                     drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
@@ -2089,6 +2163,7 @@ public class EditorEventListFragment extends Fragment
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
+*/
     }
 
     void showHeaderAndBottomToolbar() {

@@ -22,7 +22,7 @@ class SingleSelectListDialog
 
     static final int NOT_USE_RADIO_BUTTONS = -10;
 
-    SingleSelectListDialog(int _titleRes, int _itemsRes, int _itemValue,
+    SingleSelectListDialog(String _title, int _itemsRes, int _itemValue,
                            DialogInterface.OnClickListener _itemClick,
                            boolean hideButtonsDivider,
                            Activity _activity) {
@@ -32,7 +32,7 @@ class SingleSelectListDialog
         this.itemClick = _itemClick;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(activity.getString(_titleRes));
+        dialogBuilder.setTitle(_title);
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

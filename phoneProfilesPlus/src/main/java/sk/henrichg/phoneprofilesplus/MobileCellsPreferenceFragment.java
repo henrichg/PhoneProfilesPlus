@@ -161,7 +161,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 if (!getActivity().isFinishing()) {
                     if (!cellName.getText().toString().isEmpty()) {
                         mRenameDialog = new SingleSelectListDialog(
-                                R.string.mobile_cells_pref_dlg_cell_rename_title,
+                                getString(R.string.mobile_cells_pref_dlg_cell_rename_title),
                                 R.array.mobileCellsRenameArray,
                                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                                 (dialog, which) -> {
@@ -191,7 +191,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
                     mSelectorDialog = new SingleSelectListDialog(
-                            R.string.pref_dlg_change_selection_title,
+                            getString(R.string.pref_dlg_change_selection_title),
                             R.array.mobileCellsChangeSelectionArray,
                             SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                             (dialog, which) -> {
@@ -228,7 +228,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
                     mSortDialog = new SingleSelectListDialog(
-                            R.string.mobile_cells_pref_dlg_cell_sort_title,
+                            getString(R.string.mobile_cells_pref_dlg_cell_sort_title),
                             R.array.mobileCellsSortArray,
                             preference.sortCellsBy,
                             (dialog, which) -> {
