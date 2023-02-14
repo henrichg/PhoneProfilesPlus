@@ -155,13 +155,6 @@
     <string name="array_pref_show">Show</string>
     <string name="array_pref_no_run">Do not run</string>
     <string name="array_pref_run">Run</string>
-    <string name="profile_list_item_menu_activate">Activate</string>
-    <string name="profile_list_item_menu_duplicate">Duplicate</string>
-    <string name="profile_list_item_menu_delete">Delete</string>
-    <string name="event_list_item_menu_run">Enable run</string>
-    <string name="event_list_item_menu_stop">Stop event</string>
-    <string name="event_list_item_menu_duplicate">Duplicate</string>
-    <string name="event_list_item_menu_delete">Delete</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Show preferences indicator</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Launch from home screen</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Launch from widget</string>
@@ -2074,6 +2067,14 @@
     <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
 
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Fill whole space with background</string>
+
+    <string name="profile_list_item_menu_activate">Activate profile</string>
+    <string name="profile_list_item_menu_duplicate">Duplicate profile</string>
+    <string name="profile_list_item_menu_delete">Delete profile</string>
+    <string name="event_list_item_menu_run">Enable event run</string>
+    <string name="event_list_item_menu_stop">Stop event</string>
+    <string name="event_list_item_menu_duplicate">Duplicate event</string>
+    <string name="event_list_item_menu_delete">Delete event</string>
 
     <!-- **************************************************************************************** -->
 

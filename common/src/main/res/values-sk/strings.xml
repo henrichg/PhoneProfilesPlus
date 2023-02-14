@@ -149,13 +149,6 @@
     <string name="array_pref_show">Zobrazovať</string>
     <string name="array_pref_no_run">Nespúšťať</string>
     <string name="array_pref_run">Spúšťať</string>
-    <string name="profile_list_item_menu_activate">Aktivuj</string>
-    <string name="profile_list_item_menu_duplicate">Duplikuj</string>
-    <string name="profile_list_item_menu_delete">Zmaž</string>
-    <string name="event_list_item_menu_run">Povoľ beh</string>
-    <string name="event_list_item_menu_stop">Zastav</string>
-    <string name="event_list_item_menu_duplicate">Duplikuj</string>
-    <string name="event_list_item_menu_delete">Zmaž</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Zobraziť Indikátor parametrov</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Spustiť z domácej obrazovky</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Spustiť z miniaplikácie</string>
@@ -2052,4 +2045,13 @@
     <string name="event_preferences_applications_AccessibilitySettings_title">Nastavenia dostupnosti</string>
     <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus edge panel nemusí fungovať na niektorých zariadeniach Samsung, ako sú tablety a Z fold zariadenia. Alebo lepšie, keď v Nastavenia/Displej/Bočné panely/Panely nie je tlačidlo na inštaláciu panelov z Galaxy Store.</string>
     <string name="phone_profiles_pref_applicationWidgetFillBackground">Vyplniť celý priestor pozadím</string>
+
+    <string name="profile_list_item_menu_activate">Aktivuj profil</string>
+    <string name="profile_list_item_menu_duplicate">Duplikuj profil</string>
+    <string name="profile_list_item_menu_delete">Zmaž profil</string>
+    <string name="event_list_item_menu_run">Povoľ beh udalosti</string>
+    <string name="event_list_item_menu_stop">Zastav udalosť</string>
+    <string name="event_list_item_menu_duplicate">Duplikuj udalosť</string>
+    <string name="event_list_item_menu_delete">Zmaž udalosť</string>
+
 </resources>
