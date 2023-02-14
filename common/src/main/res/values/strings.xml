@@ -2025,7 +2025,7 @@
     <string name="one_row_profile_list_widget_description">Displays a list of profiles without their names in one line.</string>
     <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
     <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
-    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Arrows lightness</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Arrows and marker of the activated profile lightness</string>
 
     <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.</string>
     <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>

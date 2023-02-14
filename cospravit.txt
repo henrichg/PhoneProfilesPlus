@@ -755,10 +755,9 @@ Zoznam parametrov:
 - "Panel notifikacii"
   - "Typ rozlozenia"
     - "Roztiahnutelne" - toto daj ako boolean, lebo bude len jedna velkost
-  "Pouzit dekoraciu"
   "Typ farby ikon" - kedze ich nude viac, indikatory sa v tejto notifikacii nezobrazuju
   "Panel notifikacii - farba pozadia" - cela kategoria
-  "Panel notifikacii - indikator parametrov" - nahradit "Arrows lightness", vid widget
+  "Panel notifikacii - indikator parametrov" - nahradit "Arrows and marker of the activated profile lightness", vid widget
   "Panel notifikacii - ikona profilu" - cela kategoria
 Pridat:
  - "Pocet profilov na stranku"
