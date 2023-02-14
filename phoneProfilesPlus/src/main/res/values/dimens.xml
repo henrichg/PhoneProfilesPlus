@@ -105,4 +105,6 @@
 
     <dimen name="line_spacing_extra">2dp</dimen>
 
+    <dimen name="one_row_profile_list_marker_height">3dp</dimen>
+
 </resources>

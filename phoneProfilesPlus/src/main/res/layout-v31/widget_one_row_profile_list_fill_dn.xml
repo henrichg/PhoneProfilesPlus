@@ -93,7 +93,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_1"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -130,7 +130,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_2"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -168,7 +168,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_3"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -206,7 +206,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_4"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -245,7 +245,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_5"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -283,7 +283,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_6"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -321,7 +321,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_7"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -359,7 +359,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_8"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -397,7 +397,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_9"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -435,7 +435,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_10"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -473,7 +473,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_11"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -511,7 +511,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_12"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -549,7 +549,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_13"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -587,7 +587,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_14"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
@@ -625,7 +625,7 @@
                 <ImageView
                     android:id="@+id/widget_one_row_profile_list_profile_mark_15"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/one_row_profile_list_marker_height"
                     android:layout_marginStart="3dp"
                     android:layout_marginEnd="3dp"
                     android:layout_marginTop="1dp"
