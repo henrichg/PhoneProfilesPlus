@@ -4467,7 +4467,7 @@ class ActivateProfileHelper {
 
         PPApplication.createInformationNotificationChannel(appContext);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.accent_color))
+                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
@@ -5044,7 +5044,7 @@ class ActivateProfileHelper {
 //            }
             nTitle = nTitle + " (" + profile._name + ")";
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
-                    .setColor(ContextCompat.getColor(appContext, R.color.accent_color))
+                    .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
@@ -5592,7 +5592,7 @@ class ActivateProfileHelper {
 
                     PPApplication.createKeepScreenOnNotificationChannel(appContext);
                     NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
-                            .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.accent_color))
+                            .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                             .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                             .setContentTitle(nTitle) // title for notification
                             .setContentText(nText) // message for notification
@@ -7734,7 +7734,7 @@ class ActivateProfileHelper {
 
         PPApplication.createExclamationNotificationChannel(appContext);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.accent_color))
+                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification

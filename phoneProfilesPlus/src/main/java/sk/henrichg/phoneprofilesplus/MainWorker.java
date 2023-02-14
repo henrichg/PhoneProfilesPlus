@@ -157,7 +157,7 @@ public class MainWorker extends Worker {
 
                                     PPApplication.createExclamationNotificationChannel(getApplicationContext());
                                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                            .setColor(ContextCompat.getColor(appContext, R.color.accent_color))
+                                            .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
                                             .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                                             .setContentTitle(nTitle) // title for notification
                                             .setContentText(nText) // message for notification

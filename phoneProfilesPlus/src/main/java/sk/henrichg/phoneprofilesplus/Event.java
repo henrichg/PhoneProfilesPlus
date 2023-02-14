@@ -3243,7 +3243,7 @@ class Event {
 //                }
                 PPApplication.createNotifyEventStartNotificationChannel(context);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.accent_color))
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                         .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
