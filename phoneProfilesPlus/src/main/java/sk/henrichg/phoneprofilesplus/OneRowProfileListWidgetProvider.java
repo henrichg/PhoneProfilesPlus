@@ -837,6 +837,14 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                     applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors))
                 remoteViews.setInt(markViewId, "setBackgroundColor", Color.argb(0xFF, markRedColor, markGreenColor, markBlueColor));
+            else {
+                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, context);
+                if (color != 0) {
+                    bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_black, true, context);
+                    bitmap = BitmapManipulator.recolorBitmap(bitmap, color);
+                    remoteViews.setImageViewBitmap(markViewId, bitmap);
+                }
+            }
             remoteViews.setViewVisibility(markViewId, View.VISIBLE);
         } else {
             remoteViews.setViewVisibility(markViewId, View.INVISIBLE);

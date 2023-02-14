@@ -766,7 +766,4 @@ Treba potom vriesit aj povolenie, zakazanie parametrov podla zavislosti
 
 -------
 
-Widgety: a ich parametre.
-Dal by som ich tiez do kategorii, teraz je v tom bordel pr euzivatela.
-
 

@@ -99,9 +99,9 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
+                <!-- android:tint="?android:attr/colorSecondary" -->
 
             </LinearLayout>
 
@@ -137,7 +137,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -176,7 +175,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -215,7 +213,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -255,7 +252,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -294,7 +290,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -333,7 +328,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -372,7 +366,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -411,7 +404,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -450,7 +442,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -489,7 +480,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -528,7 +518,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -567,7 +556,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -606,7 +594,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
@@ -645,7 +632,6 @@
                     android:layout_marginTop="1dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_black"
-                    android:tint="?android:attr/textColorSecondary"
                     tools:ignore="ContentDescription,UseAppTint" />
                 <!--    android:visibility="gone"-->
 
