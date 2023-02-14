@@ -2076,6 +2076,12 @@
     <string name="event_list_item_menu_duplicate">Duplicate event</string>
     <string name="event_list_item_menu_delete">Delete event</string>
 
+    <string name="phone_profiles_pref_applicationWidgetBackgroundCategory">Background</string>
+    <string name="phone_profiles_pref_applicationWidgetProfileNameCategory">Profile name</string>
+    <string name="phone_profiles_pref_applicationWidgetProfileIconCategory">Profile icon</string>
+    <string name="phone_profiles_pref_applicationWidgetTextCategory">Text</string>
+    <string name="phone_profiles_pref_applicationWidgetIconsCategory">Icons</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
