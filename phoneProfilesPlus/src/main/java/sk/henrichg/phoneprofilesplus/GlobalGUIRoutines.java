@@ -495,16 +495,16 @@ class GlobalGUIRoutines {
     }
     */
 
-    static int dpToPx(int dp)
+    static int dpToPx(float dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    static int dip(int dp) {
+    static int dip(float dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
     }
 
-    static int sip(int sp) {
+    static int sip(float sp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics()));
     }
 
