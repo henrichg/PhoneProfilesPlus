@@ -831,7 +831,11 @@ public class EditorActivity extends AppCompatActivity
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
-                    triangle.setBounds(0, 5, 30, 28);
+                    //triangle.setBounds(0, 5, 30, 28);
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(11),
+                            GlobalGUIRoutines.sip(10));
                     headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     subMenu.setHeaderTitle(headerTitle);
@@ -846,7 +850,10 @@ public class EditorActivity extends AppCompatActivity
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
-                    triangle.setBounds(0, 5, 30, 28);
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(11),
+                            GlobalGUIRoutines.sip(10));
                     headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     subMenu.setHeaderTitle(headerTitle);
@@ -861,7 +868,10 @@ public class EditorActivity extends AppCompatActivity
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
-                    triangle.setBounds(0, 5, 30, 28);
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(11),
+                            GlobalGUIRoutines.sip(10));
                     headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     subMenu.setHeaderTitle(headerTitle);
@@ -876,7 +886,10 @@ public class EditorActivity extends AppCompatActivity
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
-                    triangle.setBounds(0, 5, 30, 28);
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(11),
+                            GlobalGUIRoutines.sip(10));
                     headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     subMenu.setHeaderTitle(headerTitle);
@@ -891,7 +904,10 @@ public class EditorActivity extends AppCompatActivity
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
-                    triangle.setBounds(0, 5, 30, 28);
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(11),
+                            GlobalGUIRoutines.sip(10));
                     headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     subMenu.setHeaderTitle(headerTitle);

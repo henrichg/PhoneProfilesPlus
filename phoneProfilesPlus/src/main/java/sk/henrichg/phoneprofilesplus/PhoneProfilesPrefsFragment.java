@@ -300,7 +300,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (triangle != null) {
                     SpannableString headerTitle = new SpannableString("    " +
                             fragment.getPreferenceScreen().getTitle());
-                    triangle.setBounds(0, 8, 50, 48);
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(11),
+                            GlobalGUIRoutines.sip(10));
                     headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     preferenceSubTitle.setText(headerTitle);
                 } else
