@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -22,8 +23,11 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -359,6 +363,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         // must be used handler for rewrite toolbar title/subtitle
         final ProfilesPrefsFragment fragment = this;
+        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
+
         Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
@@ -369,9 +375,25 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             if (nestedFragment) {
-                toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
+                toolbar.setTitle(getString(R.string.title_activity_profile_preferences));
+                preferenceSubTitle.setVisibility(View.VISIBLE);
+
+                Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    SpannableString headerTitle = new SpannableString("    " +
+                            fragment.getPreferenceScreen().getTitle());
+                    triangle.setBounds(0, 8, 50, 48);
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    preferenceSubTitle.setText(headerTitle);
+                } else
+                    preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
+
+                //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
+
                 toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
             } else {
+                preferenceSubTitle.setVisibility(View.GONE);
+
                 toolbar.setTitle(getString(R.string.title_activity_profile_preferences));
                 toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
             }

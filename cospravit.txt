@@ -749,6 +749,8 @@ zvonenia a feedback
 Nova notifikacia: "Notification: Profile list"
 
 Zoznam parametrov:
+- "Enable notification" - toto je novy parameter, zapina/vypina zobrazenie tejto notifikacie
+
 - "Systemove nastavenia" - pre tuto notifikaciu
 - "Systemove nastavenia" - pre vsetky kanaly - toto neviem ci tam dam
 - "Stavovy riadok" - cela kategoria

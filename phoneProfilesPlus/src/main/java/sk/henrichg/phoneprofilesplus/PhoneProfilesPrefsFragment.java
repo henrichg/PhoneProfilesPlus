@@ -6,15 +6,21 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -275,6 +281,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
 
         final PhoneProfilesPrefsFragment fragment = this;
+        final TextView preferenceSubTitle = getActivity().findViewById(R.id.activity_preferences_subtitle);
+
 
         // must be used handler for rewrite toolbar title/subtitle
         Handler handler = new Handler(getActivity().getMainLooper());
@@ -285,12 +293,26 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             if (nestedFragment) {
-                toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
-                toolbar.setSubtitle(getString(R.string.title_activity_phone_profiles_preferences));
+                toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
+                preferenceSubTitle.setVisibility(View.VISIBLE);
+
+                Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    SpannableString headerTitle = new SpannableString("    " +
+                            fragment.getPreferenceScreen().getTitle());
+                    triangle.setBounds(0, 8, 50, 48);
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    preferenceSubTitle.setText(headerTitle);
+                } else
+                    preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
+
+                //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
+                //toolbar.setSubtitle(getString(R.string.title_activity_phone_profiles_preferences));
             }
             else {
                 toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
-                toolbar.setSubtitle(null);
+                preferenceSubTitle.setVisibility(View.GONE);
+                //toolbar.setSubtitle(null);
             }
 
         }, 200);
