@@ -53,6 +53,7 @@
             android:layout_marginStart="3dp"
             android:scaleType="center"
             android:src="@drawable/ic_drag_handle"
+            android:tint="@color/activitySecondaryTextColor"
             android:clickable="true"
             android:focusable="true"/>
 

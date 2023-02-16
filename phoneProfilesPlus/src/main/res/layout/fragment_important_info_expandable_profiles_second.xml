@@ -80,7 +80,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:text="@string/important_info_profile_activation_traffic_light_icon"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_profile_activation8a"
@@ -89,7 +89,7 @@
             android:id="@+id/fragment_important_info_imageView1"
             android:layout_width="45dp"
             android:layout_height="21dp"
-            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:layout_marginTop="3dp"
             android:padding="5dp"
             android:adjustViewBounds="true"
