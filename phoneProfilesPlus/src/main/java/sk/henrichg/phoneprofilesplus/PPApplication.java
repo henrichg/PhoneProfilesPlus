@@ -2409,14 +2409,14 @@ public class PPApplication extends Application
 
             ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessB(context);
-            //ApplicationPreferences.applicationWidgetOneRowProfileListIconColor(context);
-            //ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListIconColor(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundType(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColor(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListShowBorder(context);
-            //ApplicationPreferences.applicationWidgetOneRowProfileListCustomIconLightness(context);
+            ApplicationPreferences.applicationWidgetOneRowProfileListCustomIconLightness(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLayoutHeight(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode(context);

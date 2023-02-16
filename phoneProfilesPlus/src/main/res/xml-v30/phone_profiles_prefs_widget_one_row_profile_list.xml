@@ -124,6 +124,27 @@
             app:showLighting="true"
             app:layout="@layout/mp_preference_material_widget" />
 
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+            app:summary="0"
+            app:key="applicationWidgetOneRowProfileListIconColor"
+            app:defaultValue="0"
+            app:ppEntries="@array/widgetColorArray"
+            app:ppEntryValues="@array/widgetColorValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
+            app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+            app:summary="100%%"
+            app:key="applicationWidgetOneRowProfileListIconLightness"
+            app:defaultValue="100"
+            app:showLighting="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="applicationWidgetOneRowProfileListCustomIconLightness"
+            app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
