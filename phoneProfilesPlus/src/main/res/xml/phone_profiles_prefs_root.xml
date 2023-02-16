@@ -34,10 +34,10 @@
 
     <Preference
         app:title="@string/phone_profiles_pref_category_status_bar"
-        app:key="categoryNotificationsRoot"
+        app:key="categoryAppNotificationRoot"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsNotifications" />
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsAppNotification" />
 
     <Preference
         app:title="@string/phone_profiles_pref_category_special_profile_parameters"
@@ -164,5 +164,12 @@
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsSamsungEdgePanel" />
+
+    <Preference
+        app:title="@string/phone_profiles_pref_category_profile_list_notification"
+        app:key="categoryProfileListNotificationRoot"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsProfileListNotification" />
 
 </androidx.preference.PreferenceScreen>

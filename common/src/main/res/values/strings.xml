@@ -2082,6 +2082,8 @@
     <string name="phone_profiles_pref_applicationWidgetTextCategory">Text</string>
     <string name="phone_profiles_pref_applicationWidgetIconsCategory">Icons</string>
 
+    <string name="phone_profiles_pref_category_profile_list_notification">Profile list notification</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

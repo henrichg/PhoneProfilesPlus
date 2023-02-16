@@ -11,6 +11,7 @@ import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -2408,14 +2409,14 @@ public class PPApplication extends Application
 
             ApplicationPreferences.applicationWidgetOneRowProfileListBackground(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessB(context);
-            ApplicationPreferences.applicationWidgetOneRowProfileListIconColor(context);
-            ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness(context);
+            //ApplicationPreferences.applicationWidgetOneRowProfileListIconColor(context);
+            //ApplicationPreferences.applicationWidgetOneRowProfileListIconLightness(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundType(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColor(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLightnessBorder(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListShowBorder(context);
-            ApplicationPreferences.applicationWidgetOneRowProfileListCustomIconLightness(context);
+            //ApplicationPreferences.applicationWidgetOneRowProfileListCustomIconLightness(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListLayoutHeight(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode(context);
@@ -2425,6 +2426,12 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage(context);
 
+            ApplicationPreferences.notificationProfileListShowInStatusBar(context);
+            ApplicationPreferences.notificationProfileListHideInLockScreen(context);
+            ApplicationPreferences.notificationProfileListStatusBarStyle(context);
+            ApplicationPreferences.notificationProfileListBackgroundColor(context);
+            ApplicationPreferences.notificationProfileListBackgroundCustomColor(context);
+            ApplicationPreferences.notificationProfileListPrefArrowsMarkLightness(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

@@ -359,7 +359,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("categoryNotificationsRoot");
+            preferenceCategoryScreen = findPreference("categoryAppNotificationRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("specialProfileParametersCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
@@ -389,6 +389,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("categoryWidgetOneRowProfileListRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            preferenceCategoryScreen = findPreference("categoryProfileListNotificationRoot");
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+
             preferenceCategoryScreen = findPreference("categoryShortcutRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
@@ -2480,12 +2483,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_B);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_SHOW_BORDER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LIGHTNESS_BORDER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_TYPE);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ROUNDED_CORNERS_RADIUS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_LAYOUT_HEIGHT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE);
@@ -2643,8 +2646,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferences.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, "0").equals("1");
         boolean monochromeIconShortcut =
                 preferences.getString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, "0").equals("1");
-        boolean monochromeIconOneRowProfileList =
-                preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR, "0").equals("1");
+        //boolean monochromeIconOneRowProfileList =
+        //        preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR, "0").equals("1");
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T) || keyIsWidgetListChangeColorByNightMode) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T);
@@ -2939,6 +2942,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(monochromeIconShortcut);
             }
         }
+        /*
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR) || keyIsWidgetOneRowProfileListChangeColorByNightMode) {
             Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ICON_COLOR);
             //if (_preference != null)
@@ -2963,6 +2967,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        */
 
         //if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS)) {
         //    Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
@@ -3800,7 +3805,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationPermissions);
             //}
         }
-        if (key.equals("categoryNotificationsRoot")) {
+        if (key.equals("categoryAppNotificationRoot")) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
             if (Build.VERSION.SDK_INT >= 26) {
                 //if (!summary.isEmpty()) summary = summary + " • ";
@@ -4318,6 +4323,39 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
             }
+        }
+        if (key.equals("categoryProfileListNotificationRoot")) {
+            //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
+            if (Build.VERSION.SDK_INT >= 26) {
+                //if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_notificationSystemSettings);
+            }
+            /*else {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBar);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarPermanent);
+            }*/
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationNotificationStyle);
+            //if (Build.VERSION.SDK_INT >= 24) {
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationShowProfileIcon);
+            //}
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationPrefIndicator);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationBackgroundColor);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
+            //if (Build.VERSION.SDK_INT >= 24) {
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationUseDecoration);
+            //}
         }
 
         /*if (addEnd) {
