@@ -2426,12 +2426,14 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetOneRowProfileListArrowsMarkLightness(context);
             ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage(context);
 
+            ApplicationPreferences.notificationProfileListDisplayNotification(context);
             ApplicationPreferences.notificationProfileListShowInStatusBar(context);
             ApplicationPreferences.notificationProfileListHideInLockScreen(context);
             ApplicationPreferences.notificationProfileListStatusBarStyle(context);
             ApplicationPreferences.notificationProfileListBackgroundColor(context);
             ApplicationPreferences.notificationProfileListBackgroundCustomColor(context);
             ApplicationPreferences.notificationProfileListPrefArrowsMarkLightness(context);
+            ApplicationPreferences.notificationProfileListNumberOfProfilesPerPage(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

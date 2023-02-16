@@ -2083,6 +2083,8 @@
     <string name="phone_profiles_pref_applicationWidgetIconsCategory">Icons</string>
 
     <string name="phone_profiles_pref_category_profile_list_notification">Profile list notification</string>
+    <string name="phone_profiles_pref_notificationProfileListIconsCategory">Notification panel - icons</string>
+    <string name="phone_profiles_pref_notificationProfileListDisplayNotification">Display notification</string>
 
     <!-- **************************************************************************************** -->
 

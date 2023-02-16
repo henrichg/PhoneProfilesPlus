@@ -268,12 +268,14 @@ class ApplicationPreferences {
     static volatile String applicationWidgetOneRowProfileListArrowsMarkLightness;
     static volatile int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
 
+    static volatile boolean notificationProfileListDisplayNotification;
     static volatile boolean notificationProfileListShowInStatusBar;
     static volatile boolean notificationProfileListHideInLockscreen;
     static volatile String notificationProfileListStatusBarStyle;
     static volatile String notificationProfileListBackgroundColor;
     static volatile int notificationProfileListBackgroundCustomColor;
     static volatile String notificationProfileListArrowsMarkLightness;
+    static volatile int notificationProfileListNumberOfProfilesPerPage;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -564,12 +566,14 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_ARROWS_MARK_LIGHTNESS = "applicationWidgetOneRowProfileListArrowsMarkLightness";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE = "applicationWidgetOneRowProfileListNumberOfProfilesPerPage";
 
+    static final String PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION = "notificationProfileListDisplayNotification";
     static final String PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR = "notificationProfileListShowInStatusBar";
     static final String PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN = "notificationProfileListHideInLockscreen";
     static final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE = "notificationProfileListStatusBarStyle";
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR = "notificationProfileListBackgroundColor";
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR = "notificationProfileListBackgroundCustomColor";
     static final String PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS = "notificationProfileListArrowsMarkLightness";
+    static final String PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE = "notificationProfileListNumberOfProfilesPerPage";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -2163,6 +2167,11 @@ class ApplicationPreferences {
         applicationWidgetOneRowProfileListFillBackground = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND, PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_FILL_BACKGROUND_DEFAULT_VALUE);
     }
 
+    static final boolean PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION_DEFAULT_VALUE = false;
+    static void notificationProfileListDisplayNotification(Context context) {
+        notificationProfileListDisplayNotification = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION, PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION_DEFAULT_VALUE);
+    }
+
     static final boolean PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR_DEFAULT_VALUE = true;
     static void notificationProfileListShowInStatusBar(Context context) {
         notificationProfileListShowInStatusBar = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR, PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR_DEFAULT_VALUE);
@@ -2209,6 +2218,11 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_50;
     static void notificationProfileListPrefArrowsMarkLightness(Context context) {
         notificationProfileListArrowsMarkLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS, PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final String PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE = "6";
+    static void notificationProfileListNumberOfProfilesPerPage(Context context) {
+        notificationProfileListNumberOfProfilesPerPage = Integer.parseInt(getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE));
     }
 
     static void deleteBadPreferences(Context context) {

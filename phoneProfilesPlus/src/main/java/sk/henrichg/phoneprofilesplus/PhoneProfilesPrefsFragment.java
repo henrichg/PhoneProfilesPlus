@@ -4326,35 +4326,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("categoryProfileListNotificationRoot")) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
-            if (Build.VERSION.SDK_INT >= 26) {
-                //if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_notificationSystemSettings);
-            }
-            /*else {
-                if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBar);
-                if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarPermanent);
-            }*/
+            summary = summary + getString(R.string.phone_profiles_pref_notificationProfileListDisplayNotification);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
             if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_notificationNotificationStyle);
-            //if (Build.VERSION.SDK_INT >= 24) {
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_notificationShowProfileIcon);
-            //}
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_notificationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationBackgroundColor);
             if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
-            //if (Build.VERSION.SDK_INT >= 24) {
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_notificationUseDecoration);
+            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness);
             //}
         }
 
