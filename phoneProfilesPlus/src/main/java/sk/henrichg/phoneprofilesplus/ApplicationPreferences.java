@@ -276,6 +276,9 @@ class ApplicationPreferences {
     static volatile int notificationProfileListBackgroundCustomColor;
     static volatile String notificationProfileListArrowsMarkLightness;
     static volatile int notificationProfileListNumberOfProfilesPerPage;
+    static volatile String notificationProfileListIconColor;
+    static volatile String notificationProfileListIconLightness;
+    static volatile boolean notificationProfileListCustomIconLightness;
 
     static volatile String applicationEventPeriodicScanningScanInTimeMultiply;
     static volatile int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -574,6 +577,9 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR = "notificationProfileListBackgroundCustomColor";
     static final String PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS = "notificationProfileListArrowsMarkLightness";
     static final String PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE = "notificationProfileListNumberOfProfilesPerPage";
+    static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR = "notificationProfileListIconColor";
+    static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS = "notificationProfileListIconLightness";
+    static final String PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS = "notificationProfileListCustomIconLightness";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -2219,6 +2225,21 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE = "6";
     static void notificationProfileListNumberOfProfilesPerPage(Context context) {
         notificationProfileListNumberOfProfilesPerPage = Integer.parseInt(getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE, PREF_NOTIFICATION_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE_DEFAULT_VALUE));
+    }
+
+    static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR_DEFAULT_VALUE = "0";
+    static void notificationProfileListIconColor(Context context) {
+        notificationProfileListIconColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR, PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR_DEFAULT_VALUE);
+    }
+
+    static final String PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS_DEFAULT_VALUE = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_100;
+    static void notificationProfileListIconLightness(Context context) {
+        notificationProfileListIconLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS, PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS_DEFAULT_VALUE);
+    }
+
+    static final boolean PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE = false;
+    static void notificationProfileListCustomIconLightness(Context context) {
+        notificationProfileListCustomIconLightness = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS, PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS_DEFAULT_VALUE);
     }
 
     static void deleteBadPreferences(Context context) {
