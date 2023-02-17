@@ -21,6 +21,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.IconCompat;
 
 import java.util.Comparator;
 import java.util.List;
@@ -90,31 +91,26 @@ public class ProfileListNotification {
 
         boolean notificationProfileListShowInStatusBar;
         boolean notificationProfileListHideInLockscreen;
-
         String notificationProfileListIconLightness;
         String notificationProfileListIconColor;
         boolean notificationProfileListCustomIconLightness;
-
         String notificationProfileListArrowsMarkLightness;
-
         String notificationProfileListBackgroundColor;
         int notificationProfileListBackgroundCustomColor;
-
         int notificationProfileListNumberOfProfilesPerPage;
+        String notificationProfileListStatusBarStyle;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             notificationProfileListShowInStatusBar = ApplicationPreferences.notificationProfileListShowInStatusBar;
             notificationProfileListHideInLockscreen = ApplicationPreferences.notificationProfileListHideInLockscreen;
-
             notificationProfileListIconLightness = ApplicationPreferences.notificationProfileListIconLightness;
             notificationProfileListIconColor = ApplicationPreferences.notificationProfileListIconColor;
             notificationProfileListCustomIconLightness = ApplicationPreferences.notificationProfileListCustomIconLightness;
-
             notificationProfileListArrowsMarkLightness = ApplicationPreferences.notificationProfileListArrowsMarkLightness;
             notificationProfileListNumberOfProfilesPerPage = ApplicationPreferences.notificationProfileListNumberOfProfilesPerPage;
-
             notificationProfileListBackgroundColor = ApplicationPreferences.notificationProfileListBackgroundColor;
             notificationProfileListBackgroundCustomColor = ApplicationPreferences.notificationProfileListBackgroundCustomColor;
+            notificationProfileListStatusBarStyle = ApplicationPreferences.notificationProfileListStatusBarStyle;
         }
 
         NotificationCompat.Builder notificationBuilder;
@@ -311,6 +307,8 @@ public class ProfileListNotification {
                             notificationProfileListBackgroundColor,
                             notificationProfileListBackgroundCustomColor,
                             markRedColor, markGreenColor, markBlueColor,
+                            notificationProfileListStatusBarStyle,
+                            notificationBuilder,
                             contentView, appContext);
                     //remoteViews.setViewVisibility(profileIconId[displayedProfileIdx], View.VISIBLE);
                     ++displayedProfileIdx;
@@ -590,7 +588,9 @@ public class ProfileListNotification {
                                        String notificationProfileListBackgroundColor,
                                        int notificationProfileListBackgroundCustomColor,
                                        int markRedColor, int markGreenColor, int markBlueColor,
+                                       String notificationProfileListStatusBarStyle,
 
+                                       NotificationCompat.Builder notificationBuilder,
                                        RemoteViews contentView,
                                        Context appContext) {
 
@@ -603,28 +603,29 @@ public class ProfileListNotification {
         if (isIconResourceID) {
             int iconSmallResource;
             if (iconBitmap != null) {
-                /*
-                if (notificationStatusBarStyle.equals("0")) {
-                    // colorful icon
 
-                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
-                } else {
-                    // native icon
+                if (profile._checked) {
+                    if (notificationProfileListStatusBarStyle.equals("0")) {
+                        // colorful icon
 
-                    iconSmallResource = R.drawable.ic_profile_default_notify;
-                    try {
-                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                            Object obj = Profile.profileIconNotifyId.get(iconIdentifier);
-                            if (obj != null)
-                                iconSmallResource = (int) obj;
-                        }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                    } else {
+                        // native icon
+
+                        iconSmallResource = R.drawable.ic_profile_default_notify;
+                        try {
+                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                Object obj = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (obj != null)
+                                    iconSmallResource = (int) obj;
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
 //                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                        }
+                        notificationBuilder.setSmallIcon(iconSmallResource);
                     }
-                    notificationBuilder.setSmallIcon(iconSmallResource);
                 }
-                */
 
                 if (notificationProfileListIconColor.equals("0")) {
                     if ((!notificationProfileListBackgroundColor.equals("5")) ||
@@ -644,20 +645,20 @@ public class ProfileListNotification {
 //                            PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", Log.getStackTraceString(e));
                 }
             } else {
-                /*
-                iconSmallResource = R.drawable.ic_profile_default_notify_color;
-                try {
-                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                        Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
-                        if (idx != null)
-                            iconSmallResource = (int) idx;
-                    }
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
+                if (profile._checked) {
+                    iconSmallResource = R.drawable.ic_profile_default_notify_color;
+                    try {
+                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                            Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                            if (idx != null)
+                                iconSmallResource = (int) idx;
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
 //                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                    }
+                    notificationBuilder.setSmallIcon(iconSmallResource);
                 }
-                notificationBuilder.setSmallIcon(iconSmallResource);
-                */
 
                 int iconLargeResource = ProfileStatic.getIconResource(iconIdentifier);
                 iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
@@ -708,24 +709,23 @@ public class ProfileListNotification {
 
         } else {
 
-            /*
-            if (iconBitmap != null) {
-                if (notificationStatusBarStyle.equals("2")) {
-                    Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
-                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
-                    //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+            if (profile._checked) {
+                if (iconBitmap != null) {
+                    if (notificationProfileListStatusBarStyle.equals("2")) {
+                        Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
+                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
+                        //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+                    } else
+                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                } else {
+                    int iconSmallResource;
+                    if (notificationProfileListStatusBarStyle.equals("0"))
+                        iconSmallResource = R.drawable.ic_profile_default;
+                    else
+                        iconSmallResource = R.drawable.ic_profile_default_notify;
+                    notificationBuilder.setSmallIcon(iconSmallResource);
                 }
-                else
-                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
-            } else {
-                int iconSmallResource;
-                if (notificationStatusBarStyle.equals("0"))
-                    iconSmallResource = R.drawable.ic_profile_default;
-                else
-                    iconSmallResource = R.drawable.ic_profile_default_notify;
-                notificationBuilder.setSmallIcon(iconSmallResource);
             }
-            */
 
             //if (profile != null) {
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
