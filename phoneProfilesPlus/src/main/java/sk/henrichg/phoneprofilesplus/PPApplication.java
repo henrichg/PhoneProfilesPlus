@@ -203,7 +203,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.startPPServiceWhenNotStarted"
                                                 +"|PPApplication.exitApp"
                                                 +"|PPApplication._exitApp"
-                                                //+"|PPApplication.createProfileNotificationChannel"
+                                                //+"|PPApplication.createPPPAppNotificationChannel"
                                                 //+"|AvoidRescheduleReceiverWorker"
                                                 +"|PhoneProfilesService.onCreate"
                                                 +"|PhoneProfilesService.onStartCommand"
@@ -214,11 +214,9 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
-                                                //+"|PhoneProfilesService.showProfileNotification"
-                                                //+"|PhoneProfilesService._showProfileNotification"
-                                                //+"|ShowProfileNotificationBroadcastReceiver"
-                                                //+"|ShowProfileNotificationWorker.doWork"
-                                                //+"|[CUST] PhoneProfilesService._showProfileNotification"
+                                                //+"|PPPAppNotification.showNotification"
+                                                //+"|PPPAppNotification._showNotification"
+                                                //+"|[CUST] PPPAppNotification._showNotification"
                                                 //+"|PhoneProfilesService.onConfigurationChanged"
                                                 //+"|PhoneProfilesService.stopReceiver"
                                                 //+"|PhoneProfilesService.onTaskRemoved"
@@ -351,7 +349,7 @@ public class PPApplication extends Application
     static final int ALTYPE_PROFILE_ADDED = 108;
     static final int ALTYPE_EVENT_ADDED = 109;
 
-    //static volatile boolean doNotShowProfileNotification = false;
+    //static volatile boolean doNotShowPPPAppNotification = false;
     private volatile static boolean applicationStarted = false;
     static volatile boolean globalEventsRunStop = true;
     //static volatile boolean applicationPackageReplaced = false;
@@ -363,7 +361,7 @@ public class PPApplication extends Application
 
     static volatile boolean lockRefresh = false;
     //static volatile long lastRefreshOfGUI = 0;
-    //static volatile long lastRefreshOfProfileNotification = 0;
+    //static volatile long lastRefreshOfPPPAppNotification = 0;
 
     //static final int DURATION_FOR_GUI_REFRESH = 500;
     //static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
@@ -485,6 +483,7 @@ public class PPApplication extends Application
     //static final String CRASH_REPORT_NOTIFICATION_CHANNEL = "phoneProfilesPlus_crash_report";
     static final String GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_generatedByProfile";
     static final String KEEP_SCREEN_ON_NOTIFICATION_CHANNEL = "phoneProfilesPlus_keepScreenOn";
+    static final String PROFILE_LIST_NOTIFICATION_CHANNEL = "phoneProfilesPlus_profileList";
 
     static final int PROFILE_NOTIFICATION_ID = 100;
     static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
@@ -565,6 +564,9 @@ public class PPApplication extends Application
     static final int KEEP_SCREEN_ON_NOTIFICATION_ID = 142;
     static final String KEEP_SCREEN_ON_NOTIFICATION_TAG = PACKAGE_NAME+"_KEEP_SCREEN_ON_NOTIFICATION";
     static final String KEEP_SCREEN_ON_NOTIFICATION_GROUP = PACKAGE_NAME+"_KEEP_SCREEN_ON_NOTIFICATION_GROUP";
+
+    static final int PROFILE_LIST_NOTIFICATION_ID = 550;
+    static final String PROFILE_LIST_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_LIST_NOTIFICATION";
 
     //last notification id = 151
 
@@ -771,7 +773,7 @@ public class PPApplication extends Application
 
     static final StartLauncherFromNotificationReceiver startLauncherFromNotificationReceiver = new StartLauncherFromNotificationReceiver();
     //static final UpdateGUIBroadcastReceiver updateGUIBroadcastReceiver = new UpdateGUIBroadcastReceiver();
-    //static final ShowProfileNotificationBroadcastReceiver showProfileNotificationBroadcastReceiver = new ShowProfileNotificationBroadcastReceiver();
+    //static final ShowPPPAppNotificationBroadcastReceiver showPPPAppNotificationBroadcastReceiver = new ShowPPPAppNotificationBroadcastReceiver();
     static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
     static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
     static final IconWidgetProvider iconWidgetBroadcastReceiver = new IconWidgetProvider();
@@ -2011,7 +2013,7 @@ public class PPApplication extends Application
         TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         if (alsoNotification) {
-//            PPApplication.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of drawProfileNotification");
+//            PPApplication.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of PPPAppNotification.drawNotification");
             PPPAppNotification.drawNotification(true, context);
         }
     }
@@ -2050,7 +2052,7 @@ public class PPApplication extends Application
 //                    PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of forceUpdateGUI");
                     PPApplication.forceUpdateGUI(appContext, true, false);
                     if (longDelay) {
-//                        PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceDrawProfileNotification");
+//                        PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of PPPAppNotification.forceDrawNotification");
                         PPPAppNotification.forceDrawNotification(appContext);
                     }
 
@@ -2111,7 +2113,7 @@ public class PPApplication extends Application
             */
 
             if (!longDelay) {
-//                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of drawProfileNotification");
+//                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPPAppNotification.drawNotification");
                 PPPAppNotification.drawNotification(false, context);
             }
         } catch (Exception e) {
@@ -2122,7 +2124,7 @@ public class PPApplication extends Application
     /*
     static void updateNotificationAndWidgets(boolean refresh, boolean forService, Context context)
     {
-        PPApplication.showProfileNotification(refresh, forService);
+        PPPAppNotification.showNotification(refresh, forService);
         updateGUI(context, true, refresh);
     }
     */
@@ -2741,7 +2743,7 @@ public class PPApplication extends Application
 
     // notification channels -------------------------
 
-    static void createProfileNotificationChannel(/*Profile profile, */Context context) {
+    static void createPPPAppNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
@@ -2769,7 +2771,7 @@ public class PPApplication extends Application
                 NotificationChannel newChannel = notificationManager.getNotificationChannel(PROFILE_NOTIFICATION_CHANNEL);
 
                 if (newChannel == null)
-                    throw new RuntimeException("PPApplication.createProfileNotificationChannel - NOT CREATED - newChannel=null");
+                    throw new RuntimeException("PPApplication.createPPPAppNotificationChannel - NOT CREATED - newChannel=null");
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
@@ -3120,6 +3122,38 @@ public class PPApplication extends Application
         }
     }
 
+    static void createProfileListNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            try {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                if (notificationManager.getNotificationChannel(PROFILE_LIST_NOTIFICATION_CHANNEL) != null)
+                    return;
+
+                // The user-visible name of the channel.
+                String name = context.getString(R.string.notification_channel_profile_list);
+
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_profile_list_description);
+
+                // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
+                // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
+                NotificationChannel channel = new NotificationChannel(PROFILE_LIST_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                channel.setDescription(description);
+                channel.enableLights(false);
+                channel.enableVibration(false);
+                channel.setSound(null, null);
+                channel.setShowBadge(false);
+                channel.setBypassDnd(true);
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
+    }
+
     static void createNotificationChannels(Context appContext) {
         PPApplication.createDonationNotificationChannel(appContext);
         PPApplication.createExclamationNotificationChannel(appContext);
@@ -3131,7 +3165,7 @@ public class PPApplication extends Application
         PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
         PPApplication.createNewReleaseNotificationChannel(appContext);
         PPApplication.createNotifyEventStartNotificationChannel(appContext);
-        PPApplication.createProfileNotificationChannel(appContext);
+        PPApplication.createPPPAppNotificationChannel(appContext);
         //PPApplication.createCrashReportNotificationChannel(appContext);
     }
 

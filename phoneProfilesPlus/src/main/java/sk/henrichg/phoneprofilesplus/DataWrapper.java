@@ -2423,7 +2423,7 @@ public class DataWrapper {
                     null, null,
                     (dialog1, which) -> {
                         if (globalRunStopEvents(true)) {
-                            //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
+                            //PPPAppNotification.showNotification(/*activity.getApplicationContext()*/true, false);
 
 //                    PPApplication.logE("[PPP_NOTIFICATION] DataWrapper.runStopEventsWithAlert (1)", "call of updateGUI");
                             PPApplication.updateGUI(true, false, activity);

@@ -266,7 +266,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {}
         }*/
         // show notification to avoid ANR in api level 26+
-//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of showProfileNotification");
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of PPPAppNotification.showNotification");
         PPPAppNotification.showNotification(getApplicationContext(),
                 !isServiceRunning, isServiceRunning, true);
 
@@ -4346,7 +4346,7 @@ public class PhoneProfilesService extends Service
         //startForegroundNotification = true;
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
-//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of showProfileNotification");
+//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of PPPAppNotification.showNotification");
         PPPAppNotification.showNotification(appContext, !isServiceRunning, true, true);
 
         PPApplication.normalServiceStart = (intent != null);

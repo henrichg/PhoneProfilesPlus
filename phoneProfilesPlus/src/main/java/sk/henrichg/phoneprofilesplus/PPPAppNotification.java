@@ -34,11 +34,11 @@ public class PPPAppNotification {
     static private void _showNotification(final DataWrapper dataWrapper, boolean forFirstStart)
     {
         //synchronized (PPApplication.applicationPreferencesMutex) {
-        //    if (PPApplication.doNotShowProfileNotification)
+        //    if (PPApplication.doNotShowPPPAppNotification)
         //        return;
         //}
 
-//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", "start");
+//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", "start");
 
         final Context appContext = dataWrapper.context.getApplicationContext();
         LocaleHelper.setApplicationLocale(appContext);
@@ -49,8 +49,8 @@ public class PPPAppNotification {
             return;
         }
 
-//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", "call of createProfileNotificationChannel()");
-        PPApplication.createProfileNotificationChannel(appContext);
+//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", "call of createPPPAppNotificationChannel()");
+        PPApplication.createPPPAppNotificationChannel(appContext);
 
         // intent to LauncherActivity, for click on notification
         Intent launcherIntent;
@@ -84,7 +84,7 @@ public class PPPAppNotification {
         String notificationLayoutType;
         boolean notificationShowRestartEventsAsButton;
 
-//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", "forFirstStart="+forFirstStart);
+//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", "forFirstStart="+forFirstStart);
 
         // !!! Use configured notification style, It is required for restart of PPP by system !!!
         if (forFirstStart) {
@@ -363,7 +363,7 @@ public class PPPAppNotification {
                 break;
         }
 
-//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", "profile="+profile);
+//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", "profile="+profile);
 
         // ----- get profile icon, preference indicators, profile name
         if (profile != null)
@@ -535,7 +535,7 @@ public class PPPAppNotification {
                 notificationProfileIconColor,
                 useDecorator, useNightColor,
                 appContext);
-//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", "after _addRestartEventsToProfileNotification");
+//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", "after _addRestartEventsToNotification");
 
         // ----- set icons
 
@@ -564,7 +564,7 @@ public class PPPAppNotification {
                         appContext);
         decoratorColor = notificationIconData.decoratorColor;
 
-//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", "after _addProfileIconToProfileNotification");
+//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", "after _addProfileIconToNotification");
 
         if (notificationProfileIconColor.equals("0"))
             notificationBuilder.setColor(decoratorColor);
@@ -609,7 +609,7 @@ public class PPPAppNotification {
                 }
             }
         } catch (Exception e) {
-//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", Log.getStackTraceString(e));
+//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
         }
 
@@ -786,7 +786,7 @@ public class PPPAppNotification {
         try {
             phoneProfilesNotification = notificationBuilder.build();
         } catch (Exception e) {
-//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", Log.getStackTraceString(e));
+//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", Log.getStackTraceString(e));
             phoneProfilesNotification = null;
         }
 
@@ -808,7 +808,7 @@ public class PPPAppNotification {
 
             if (PhoneProfilesService.getInstance() != null) {
                 PhoneProfilesService.getInstance().startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
-//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showProfileNotification", "after startForeground");
+//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._showNotification", "after startForeground");
             }
         }
 
@@ -903,7 +903,7 @@ public class PPPAppNotification {
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-//                        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addRestartEventsToProfileNotification", Log.getStackTraceString(e));
+//                        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addRestartEventsToNotification", Log.getStackTraceString(e));
                     }
                 }
                 else {
@@ -914,7 +914,7 @@ public class PPPAppNotification {
                             contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-//                        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addRestartEventsToProfileNotification", Log.getStackTraceString(e));
+//                        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addRestartEventsToNotification", Log.getStackTraceString(e));
                     }
 
                     /*
@@ -993,7 +993,7 @@ public class PPPAppNotification {
                         contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-//                    PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addRestartEventsToProfileNotification", Log.getStackTraceString(e));
+//                    PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addRestartEventsToNotification", Log.getStackTraceString(e));
                 }
             }
         }
@@ -1045,7 +1045,7 @@ public class PPPAppNotification {
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToProfileNotification", Log.getStackTraceString(e));
+//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
                         notificationBuilder.setSmallIcon(iconSmallResource);
                     }
@@ -1075,7 +1075,7 @@ public class PPPAppNotification {
                             //}
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToProfileNotification", Log.getStackTraceString(e));
+//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
                         notificationBuilder.setLargeIcon(null);
                     }
@@ -1096,7 +1096,7 @@ public class PPPAppNotification {
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToProfileNotification", Log.getStackTraceString(e));
+//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
                     } else {
                         iconSmallResource = R.drawable.ic_profile_default_notify;
@@ -1108,7 +1108,7 @@ public class PPPAppNotification {
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToProfileNotification", Log.getStackTraceString(e));
+//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
                     }
                     notificationBuilder.setSmallIcon(iconSmallResource);
@@ -1144,7 +1144,7 @@ public class PPPAppNotification {
                             //}
                         } catch (Exception e) {
                             PPApplication.recordException(e);
-//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToProfileNotification", Log.getStackTraceString(e));
+//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                         }
                         notificationBuilder.setLargeIcon(null);
                     } else {
@@ -1235,7 +1235,7 @@ public class PPPAppNotification {
                         //}
                     } catch (Exception e) {
                         PPApplication.recordException(e);
-//                        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToProfileNotification", Log.getStackTraceString(e));
+//                        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                     }
                     notificationBuilder.setLargeIcon(null);
                 }
@@ -1290,7 +1290,7 @@ public class PPPAppNotification {
                     //}
                 } catch (Exception e) {
                     PPApplication.recordException(e);
-//                    PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToProfileNotification", Log.getStackTraceString(e));
+//                    PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                 }
                 notificationBuilder.setLargeIcon(null);
             }
@@ -1327,12 +1327,12 @@ public class PPPAppNotification {
     }
 
     static void forceDrawNotification(final Context appContext) {
-        //boolean doNotShowProfileNotification;
+        //boolean doNotShowNotification;
         //synchronized (PPApplication.applicationPreferencesMutex) {
-        //    doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
+        //    doNotShowNotification = PPApplication.doNotShowPPPAppNotification;
         //}
 
-        //if (!doNotShowProfileNotification) {
+        //if (!doNotShowNotification) {
             //if (PhoneProfilesService.getInstance() != null) {
 
             clearOldNotification(appContext);
@@ -1340,7 +1340,7 @@ public class PPPAppNotification {
             //if (PhoneProfilesService.getInstance() != null) {
             synchronized (PPApplication.showPPPNotificationMutex) {
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.forceDrawProfileNotification", "call of _showProfileNotification");
+//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.forceDrawNotification", "call of _showNotification");
                 _showNotification(dataWrapper, false);
                 dataWrapper.invalidateDataWrapper();
             }
@@ -1350,13 +1350,13 @@ public class PPPAppNotification {
     }
 
     static void drawNotification(boolean drawImmediatelly, Context context) {
-//        PPApplication.logE("[EXECUTOR_CALL]  ***** PhoneProfilesService.drawProfileNotification", "schedule");
+//        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPAppNotification.drawNotification", "schedule");
 
         final Context appContext = context.getApplicationContext();
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
         Runnable runnable = () -> {
 //            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- START");
+//            PPApplication.logE("[IN_EXECUTOR]  ***** PPPAppNotification.drawNotification", "--------------- START");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -1364,20 +1364,20 @@ public class PPPAppNotification {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_drawProfileNotification");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPAppNotification_drawProfileNotification");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.drawProfileNotification", "call of forceDrawProfileNotification");
+//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.drawNotification", "call of forceDrawNotification");
                 forceDrawNotification(appContext);
 
 //                long finish = System.currentTimeMillis();
 //                long timeElapsed = finish - start;
-//                PPApplication.logE("[IN_EXECUTOR]  ***** PhoneProfilesService.drawProfileNotification", "--------------- END - timeElapsed="+timeElapsed);
+//                PPApplication.logE("[IN_EXECUTOR]  ***** PPPAppNotification.drawNotification", "--------------- END - timeElapsed="+timeElapsed);
             } catch (Exception e) {
-//                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
+//                    PPApplication.logE("[IN_EXECUTOR] PPPAppNotification.drawNotification", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
-//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.drawProfileNotification", Log.getStackTraceString(e));
+//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.drawNotification", Log.getStackTraceString(e));
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {
                     try {
@@ -1408,7 +1408,7 @@ public class PPPAppNotification {
             //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
             __handler.postDelayed(() -> {
-//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.drawProfileNotification");
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.drawNotification");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -1416,31 +1416,31 @@ public class PPPAppNotification {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_drawProfileNotification");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_drawNotification");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    boolean doNotShowProfileNotification;
+                    boolean doNotShowNotification;
                     synchronized (PPApplication.applicationPreferencesMutex) {
-                        doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
+                        doNotShowNotification = PPApplication.doNotShowPPPAppNotification;
                     }
 
-                    if (!doNotShowProfileNotification) {
+                    if (!doNotShowNotification) {
                         if (PhoneProfilesService.getInstance() != null) {
 
-                            clearOldProfileNotification();
+                            clearOldNotification();
 
                             if (PhoneProfilesService.getInstance() != null) {
                                 synchronized (PPApplication.showPPPNotificationMutex) {
                                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-                                    PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
+                                    PhoneProfilesService.getInstance()._showNotification(dataWrapper, false);
                                 }
                             }
                         }
                     }
 
                 } catch (Exception e) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
+//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.drawNotification", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -1495,7 +1495,7 @@ public class PPPAppNotification {
         if (drawEmpty) {
             //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
-//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.showProfileNotification", "call of _showProfileNotification");
+//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.showNotification", "call of _showNotification");
             _showNotification(/*null,*/ dataWrapper, true/*, true*/);
             dataWrapper.invalidateDataWrapper();
             //return; // do not return, dusplay activated profile immediatelly
@@ -1506,7 +1506,7 @@ public class PPPAppNotification {
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         //synchronized (PPApplication.applicationPreferencesMutex) {
-        //    if (PPApplication.doNotShowProfileNotification)
+        //    if (PPApplication.doNotShowPPPAppNotification)
         //        return;
         //}
 
@@ -1518,10 +1518,10 @@ public class PPPAppNotification {
             delay = 200;
         else
             delay = 1000;*/
-//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.showProfileNotification", "call of drawProfileNotification");
+//        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.showNotification", "call of drawNotification");
         drawNotification(drawImmediatelly, context);
 
-        //PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
+        //PPApplication.lastRefreshOfPPPAppNotification = SystemClock.elapsedRealtime();
     }
 
     static void clearNotification(Context context/*, boolean onlyEmpty*/)
@@ -1529,7 +1529,7 @@ public class PPPAppNotification {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-            _showProfileNotification(null, false, dataWrapper, true);
+            _showNotification(null, false, dataWrapper, true);
             dataWrapper.invalidateDataWrapper();
         }
         else {*/
@@ -1553,9 +1553,9 @@ public class PPPAppNotification {
                 } catch (Exception ignored) {}
             }
         } catch (Exception e) {
-            //Log.e("PPPAppNotification.clearProfileNotification", Log.getStackTraceString(e));
+            //Log.e("PPPAppNotification.clearNotification", Log.getStackTraceString(e));
             PPApplication.recordException(e);
-//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.clearProfileNotification", Log.getStackTraceString(e));
+//            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.clearNotification", Log.getStackTraceString(e));
         }
         //runningInForeground = false;
         //}

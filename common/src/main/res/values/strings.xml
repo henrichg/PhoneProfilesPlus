@@ -2085,6 +2085,8 @@
     <string name="phone_profiles_pref_category_profile_list_notification">Profile list notification</string>
     <string name="phone_profiles_pref_notificationProfileListIconsCategory">Notification panel - icons</string>
     <string name="phone_profiles_pref_notificationProfileListDisplayNotification">Display notification</string>
+    <string name="notification_channel_profile_list">Profile list</string>
+    <string name="notification_channel_profile_list_description">Shows list of profile icons with marked activated profile.</string>
 
     <!-- **************************************************************************************** -->
 

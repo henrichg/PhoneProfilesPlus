@@ -793,8 +793,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                    }
 //                }, 1000);
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-//                PPApplication.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of forceDrawProfileNotification");
-                PPPAppNotification.forceDrawProfileNotification(context.getApplicationContext());
+//                PPApplication.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of PPPAppNotification.forceDrawNotification");
+                PPPAppNotification.forceDraweNotification(context.getApplicationContext());
 
                 PPApplication.showToast(context,
                         context.getString(R.string.important_info_notification_settings_toast),

@@ -2267,7 +2267,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-//            PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of drawProfileNotification");
+//            PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
             PPPAppNotification.drawNotification(true, getApplicationContext());
             DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
             IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);

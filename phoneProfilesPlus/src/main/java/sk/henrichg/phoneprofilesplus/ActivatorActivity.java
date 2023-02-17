@@ -230,7 +230,7 @@ public class ActivatorActivity extends AppCompatActivity
 
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-//            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of drawProfileNotification");
+//            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
             PPPAppNotification.drawNotification(true, getApplicationContext());
             DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
             IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);

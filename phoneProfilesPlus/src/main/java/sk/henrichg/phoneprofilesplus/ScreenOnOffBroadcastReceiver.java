@@ -263,7 +263,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartAllScanners(appContext, false);
                 }
 
-//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of drawProfileNotification");
+//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
                 PPPAppNotification.drawNotification(false, appContext);
 
                 if (Event.getGlobalEventsRunning()) {
@@ -310,7 +310,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                 }
 
-//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of drawProfileNotification");
+//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
                 PPPAppNotification.drawNotification(false, appContext);
 
                 break;
