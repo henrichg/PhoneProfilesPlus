@@ -11,7 +11,6 @@ import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -2013,7 +2012,7 @@ public class PPApplication extends Application
 
         if (alsoNotification) {
 //            PPApplication.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of drawProfileNotification");
-            PhoneProfilesNotification.drawProfileNotification(true, context);
+            PPPAppNotification.drawNotification(true, context);
         }
     }
 
@@ -2052,7 +2051,7 @@ public class PPApplication extends Application
                     PPApplication.forceUpdateGUI(appContext, true, false);
                     if (longDelay) {
 //                        PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceDrawProfileNotification");
-                        PhoneProfilesNotification.forceDrawProfileNotification(appContext);
+                        PPPAppNotification.forceDrawNotification(appContext);
                     }
 
 
@@ -2113,7 +2112,7 @@ public class PPApplication extends Application
 
             if (!longDelay) {
 //                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of drawProfileNotification");
-                PhoneProfilesNotification.drawProfileNotification(false, context);
+                PPPAppNotification.drawNotification(false, context);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
