@@ -17,13 +17,14 @@
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
 
-<!--    Not required because called is DrawOverAppsPermissionNotification.showNotification-->
-<!--    <Preference-->
-<!--        app:key="permissionsDrawOverlaysPermissions"-->
-<!--        app:title="@string/phone_profiles_pref_drawOverlaysPermissions"-->
-<!--        app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"-->
-<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
-<!--        app:layout="@layout/mp_preference_material_widget" />-->
+<!--    !!! Required because is not possible to use DrawOverAppsPermissionNotification.showNotification()
+        when PPP notificaitonsa are disabled (API 31 restrictions abount app notifications) -->
+    <Preference
+        app:key="permissionsDrawOverlaysPermissions"
+        app:title="@string/phone_profiles_pref_drawOverlaysPermissions"
+        app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
         app:key="permissionsGrantG1Permission"

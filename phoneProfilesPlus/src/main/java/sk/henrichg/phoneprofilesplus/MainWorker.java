@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -314,9 +316,21 @@ public class MainWorker extends Worker {
 
         //}
 
-        Intent intent = new Intent(getApplicationContext(), GrantNotificationPermissionAtFirstStartActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        appContext.startActivity(intent);
+        Intent intent;
+
+        if ((Build.VERSION.SDK_INT >= 33) && Settings.canDrawOverlays(appContext)) {
+            // Permission SYSTEM_ALERT_WINDOW is required for start activity from Worker
+            try {
+                NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (!notificationManager.areNotificationsEnabled()) {
+                        intent = new Intent(getApplicationContext(), GrantNotificationPermissionAtFirstStartActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        appContext.startActivity(intent);
+                    }
+                }
+            } catch (Exception ignored) {}
+        }
 
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
@@ -512,15 +526,19 @@ public class MainWorker extends Worker {
         EventsHandler eventsHandler = new EventsHandler(appContext);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 
-        if (startForExternalApplication) {
-            intent = new Intent(startForExternalAppAction);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-            if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE)
-                intent.putExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME, startForExternalAppDataValue);
-            if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_EVENT)
-                intent.putExtra(ActionForExternalApplicationActivity.EXTRA_EVENT_NAME, startForExternalAppDataValue);
-            appContext.startActivity(intent);
+        if (startForExternalApplication  &&
+                ((Build.VERSION.SDK_INT < 29) || Settings.canDrawOverlays(appContext))) {
+            // Permission SYSTEM_ALERT_WINDOW is required for start activity from Worker
+            try {
+                intent = new Intent(startForExternalAppAction);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE)
+                    intent.putExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME, startForExternalAppDataValue);
+                if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_EVENT)
+                    intent.putExtra(ActionForExternalApplicationActivity.EXTRA_EVENT_NAME, startForExternalAppDataValue);
+                appContext.startActivity(intent);
+            } catch (Exception ignored) {}
         }
 
         PPApplication.logE("------- MainWorker.doAfterFirstStart", "END");

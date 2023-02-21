@@ -829,6 +829,18 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_WIREGUARD:
                         s = getString(R.string.permission_why_profile_wireguard);
                         break;
+                    case Permissions.PERMISSION_PROFILE_RUN_APPLICATIONS:
+                        s = getString(R.string.permission_why_profile_run_applications);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES:
+                        s = getString(R.string.permission_why_profile_interactive_preferences);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS:
+                        s = getString(R.string.permission_why_profile_close_all_applications);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_PPP_PUT_SETTINGS:
+                        s = getString(R.string.permission_why_profile_ppp_put_settings);
+                        break;
                 }
             }
         }

@@ -76,6 +76,10 @@ class Permissions {
     static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
     static final int PERMISSION_PROFILE_WIREGUARD = 51;
     //static final int PERMISSION_PROFILE_VIBRATION_INTENSITY = 52;
+    static final int PERMISSION_PROFILE_RUN_APPLICATIONS = 53;
+    static final int PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES = 54;
+    static final int PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
+    static final int PERMISSION_PROFILE_PPP_PUT_SETTINGS = 56;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -279,6 +283,11 @@ class Permissions {
         //checkProfileBackgroundLocation(context, profile, permissions);
         checkProfileMicrophone(context, profile, permissions);
 
+        checkProfileRunApplications(context, profile, permissions);
+        checkProfileInteractivePreferences(context, profile, permissions);
+        checkProfileCloseAllApplications(context, profile, permissions);
+        checkProfilePPPPutSettings(context, profile, permissions);
+
         return permissions;
     }
 
@@ -303,6 +312,9 @@ class Permissions {
     static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts, ArrayList<PermissionType>  permissions) {
         try {
             boolean grantedReadExternalStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            boolean grantedDrawOverApps = true;
+            if (Build.VERSION.SDK_INT >= 29)
+                grantedDrawOverApps = Settings.canDrawOverlays(context);
             boolean grantedContacts = true;
             if (alsoContacts)
                 grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
@@ -311,6 +323,8 @@ class Permissions {
                     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
                 if (!grantedContacts)
                     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
+                if (!grantedDrawOverApps)
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, permission.SYSTEM_ALERT_WINDOW));
             }
             return grantedReadExternalStorage && grantedContacts;
         } catch (Exception e) {
@@ -577,14 +591,28 @@ class Permissions {
         if (profile == null) return true;
 
         try {
+            boolean externalStorageGranted = true;
             if ((profile._deviceWallpaperChange == 1) ||
-                (profile._deviceWallpaperChange == 4)) {
-                boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                if ((permissions != null) && (!granted))
+                    (profile._deviceWallpaperChange == 4)) {
+                externalStorageGranted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            }
+            boolean drawOverAppsGranted = true;
+            if (Build.VERSION.SDK_INT >= 29) {
+                if ((profile._deviceWallpaperChange == 4) ||
+                        (profile._deviceWallpaperChange == 2)) {
+                    drawOverAppsGranted = Settings.canDrawOverlays(context);
+                    if (drawOverAppsGranted)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                }
+            }
+            if ((permissions != null) && ((!drawOverAppsGranted) || (!externalStorageGranted))) {
+                if (!drawOverAppsGranted)
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.SYSTEM_ALERT_WINDOW));
+                if (!externalStorageGranted)
                     permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
-                return granted;
-            } else
-                return true;
+            }
+            return drawOverAppsGranted && externalStorageGranted;
+
         } catch (Exception e) {
             return false;
         }
@@ -1036,6 +1064,102 @@ class Permissions {
             }
         } //else
             //return /*true*/;
+    }
+
+    static void checkProfileRunApplications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                if (profile._deviceRunApplicationChange == 1) {
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_RUN_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
+                } //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
+    }
+
+    static void checkProfileInteractivePreferences(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                if ((profile._deviceMobileDataPrefs == 1) ||
+                        (profile._deviceNetworkTypePrefs == 1) ||
+                        (profile._deviceLocationServicePrefs == 1) ||
+                        (profile._deviceWiFiAPPrefs == 1) ||
+                        (profile._deviceVPNSettingsPrefs == 1)){
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
+                } //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
+    }
+
+    static void checkProfileCloseAllApplications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                if ((profile._deviceCloseAllApplications == 1)){
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
+                } //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
+    }
+
+    static void checkProfilePPPPutSettings(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                //if ((profile._deviceCloseAllApplications == 1)){
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_PPP_PUT_SETTINGS, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
+                //} //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
     }
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,

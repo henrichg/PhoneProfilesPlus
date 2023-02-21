@@ -766,4 +766,42 @@ Treba potom vriesit aj povolenie, zakazanie parametrov podla zavislosti
 
 -------
 
+OK, start aktivity zo servicu, worera. Treba na to mat grantnute:
 
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+cize v PPP "Draw over apps".
+
+1. Grantnutie notifikacii: tu mam obrovsky problem. Tu neviem ako prinutim uzivatela aby grantol notifikacie.
+   Ono by mali byt grantnute pre target SDK 28. Alebo nie? Testni to.
+   Ak nie, mam obrovsky problem, lebo potom mozem pytat "Draw over apps" aj nptifikacie len z aktivit.
+   Neda sa zobrazit notiifikacia o prave "Draw over apps", ked nie su povlene notifikacie.
+   Len z aktivity.
+2. Spustenie action z Taskera. Tu tiez treba "Draw over apps". Tu by som to mohol pytat, ak to pravo nemam
+   grantnute. Ale tu je zasa ten isty problem. Ak nema notifikacie povolene, tak len z aktivity.
+
+Starasna dilema toto. Kua aj s Googlom !!!!.
+
+"Draw over apps" nezobrazujem v Settings/Permissions. Preco? Lebo uz je pravo udelene? Pozri.
+
+"Draw over apps" nie je v Settings, lebo sa pouizva notifikacia DrawOverAppsPermissionNotification.
+No ale prave kvoli tomuto problemu musim toto pravo zviditelnit v Settings/Permissions.
+Aby uizvatel ho vedel nahodit hocikedy.
+
+Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
+- doExecuteForRunApplications()
+- PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS
+- PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS
+- profile._deviceLocationServicePrefs
+- profile._deviceWiFiAPPrefs
+- profile._deviceVPNSettingsPrefs
+- profile._deviceWallpaperChange
+- profile._deviceVPN
+- profile._deviceCloseAllApplications
+- Permissions.grantPlayRingtoneNotificationPermissions()
+- ActivateProfileHelper.putSettingsParameter() - cize zavolanie PPPPS
+
+Toot neviem, mozno treba, mozno nie
+- CustomACRAEmailSender.send()
+
+----------

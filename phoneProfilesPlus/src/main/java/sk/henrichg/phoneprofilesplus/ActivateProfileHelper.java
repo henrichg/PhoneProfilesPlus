@@ -3712,14 +3712,16 @@ class ActivateProfileHelper {
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, null) {
         //__handler.post(() -> {
-        Runnable runnable = () -> {
+
+        if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+            Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
-            //Context appContext= appContextWeakRef.get();
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-            //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -3740,10 +3742,11 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-            //}
-        }; //);
-        PPApplication.createProfileActiationExecutorPool();
-        PPApplication.profileActiationExecutorPool.submit(runnable);
+                //}
+            }; //);
+            PPApplication.createProfileActiationExecutorPool();
+            PPApplication.profileActiationExecutorPool.submit(runnable);
+        }
     }
 
     private static void changeWallpaperFromFolder(Profile profile, Context context) {
@@ -3850,25 +3853,26 @@ class ActivateProfileHelper {
     private static void executeForRunApplications(Profile profile, Context context) {
         if (profile._deviceRunApplicationChange == 1)
         {
-            final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadRunApplication();
-            //final Handler __handler = new Handler(PPApplication.handlerThreadRunApplication.getLooper());
-            //__handler.post(new PPHandlerThreadRunnable(
-            //        context.getApplicationContext(), profile, null) {
-            //__handler.post(() -> {
-            //noinspection SuspiciousIndentAfterControlStatement
-            Runnable runnable = () -> {
+            if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+                final Context appContext = context.getApplicationContext();
+                //PPApplication.startHandlerThreadRunApplication();
+                //final Handler __handler = new Handler(PPApplication.handlerThreadRunApplication.getLooper());
+                //__handler.post(new PPHandlerThreadRunnable(
+                //        context.getApplicationContext(), profile, null) {
+                //__handler.post(() -> {
+                //noinspection SuspiciousIndentAfterControlStatement
+                Runnable runnable = () -> {
 //                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
-                if (PPApplication.blockProfileEventActions)
-                    // not start applications after boot
-                    return;
+                    if (PPApplication.blockProfileEventActions)
+                        // not start applications after boot
+                        return;
 
-                //Context appContext= appContextWeakRef.get();
-                //Profile profile = profileWeakRef.get();
-                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //Profile profile = profileWeakRef.get();
+                    //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                    //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -3905,10 +3909,11 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                //}
-            }; //);
-            PPApplication.createProfileActiationExecutorPool();
-            PPApplication.profileActiationExecutorPool.submit(runnable);
+                    //}
+                }; //);
+                PPApplication.createProfileActiationExecutorPool();
+                PPApplication.profileActiationExecutorPool.submit(runnable);
+            }
         }
     }
 
@@ -4165,273 +4170,265 @@ class ActivateProfileHelper {
             executeForRunApplications(profile, appContext);
         }
 
-        setVPN(context, profile, executedProfileSharedPreferences);
+        if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
 
-        //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
-        KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-        {
-            if (profile._deviceMobileDataPrefs == 1)
-            {
-                if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
-                    boolean ok = true;
-                    Intent intent;
-                    if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
-                        PPApplication.deviceIsOnePlus)) {
-                        try {
+            setVPN(context, profile, executedProfileSharedPreferences);
+
+            //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
+            KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (profile._deviceMobileDataPrefs == 1) {
+                    if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                        boolean ok = true;
+                        Intent intent;
+                        if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
+                                PPApplication.deviceIsOnePlus)) {
+                            try {
+                                intent = new Intent(Intent.ACTION_MAIN, null);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
+                                appContext.startActivity(intent);
+                                //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(1)");
+                            } catch (Exception e) {
+                                ok = false;
+                                // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
+                                //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        } else
+                            ok = false;
+                        if (!ok) {
+                            ok = true;
+                            try {
+                                intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
+                                intent.setComponent(componentName);
+                                appContext.startActivity(intent);
+                                //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(2)");
+                            } catch (Exception e) {
+                                ok = false;
+                                // Xiaomi: java.lang.SecurityException: Permission Denial: starting Intent { act=android.settings.DATA_ROAMING_SETTINGS flg=0x10000000 cmp=com.android.phone/.Settings } from ProcessRecord{215f88f 16252:sk.henrichg.phoneprofilesplus/u0a231} (pid=16252, uid=10231) not exported from uid 1001
+                                //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "2. ERROR" + Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                        if (!ok) {
+                            try {
+                                intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                appContext.startActivity(intent);
+                                //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(3)");
+                            } catch (Exception e) {
+                                //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    } else {
+                        boolean ok = false;
+                        Intent intent = null;
+                        if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
+                                PPApplication.deviceIsOnePlus)) {
                             intent = new Intent(Intent.ACTION_MAIN, null);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                            appContext.startActivity(intent);
-                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(1)");
-                        } catch (Exception e) {
-                            ok = false;
-                            // Xiaomi: android.content.ActivityNotFoundException: Unable to find explicit activity class {com.android.settings/com.android.settings.Settings$DataUsageSummaryActivity}; have you declared this activity in your AndroidManifest.xml?
-                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "1. ERROR" + Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
+                            if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
+                                ok = true;
+                            else
+                                intent = null;
                         }
-                    } else
-                        ok = false;
-                    if (!ok) {
-                        ok = true;
-                        try {
+                        if (!ok) {
                             intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            final ComponentName componentName = new ComponentName("com.android.phone", "com.android.phone.Settings");
-                            intent.setComponent(componentName);
-                            appContext.startActivity(intent);
-                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(2)");
-                        } catch (Exception e) {
-                            ok = false;
-                            // Xiaomi: java.lang.SecurityException: Permission Denial: starting Intent { act=android.settings.DATA_ROAMING_SETTINGS flg=0x10000000 cmp=com.android.phone/.Settings } from ProcessRecord{215f88f 16252:sk.henrichg.phoneprofilesplus/u0a231} (pid=16252, uid=10231) not exported from uid 1001
-                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "2. ERROR" + Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
+                            intent.setComponent(new ComponentName("com.android.phone", "com.android.phone.Settings"));
+                            if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
+                                ok = true;
+                            else
+                                intent = null;
                         }
-                    }
-                    if (!ok) {
-                        try {
+                        if (!ok) {
                             intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            appContext.startActivity(intent);
-                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "(3)");
-                        } catch (Exception e) {
-                            //Log.e("ActivateProfileHelper.executeForInteractivePreferences", "3. ERROR" + Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
+                            if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
+                                ok = true;
+                            else
+                                intent = null;
                         }
-                    }
-                }
-                else {
-                    boolean ok = false;
-                    Intent intent = null;
-                    if (!(((PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) ||
-                            PPApplication.deviceIsOnePlus)) {
-                        intent = new Intent(Intent.ACTION_MAIN, null);
-                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
-                        if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
-                            ok = true;
-                        else
-                            intent = null;
-                    }
-                    if (!ok) {
-                        intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                        intent.setComponent(new ComponentName("com.android.phone", "com.android.phone.Settings"));
-                        if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
-                            ok = true;
-                        else
-                            intent = null;
-                    }
-                    if (!ok) {
-                        intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                        if (GlobalGUIRoutines.activityIntentExists(intent, appContext))
-                            ok = true;
-                        else
-                            intent = null;
-                    }
-                    if (ok) {
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                        String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                                appContext.getString(R.string.profile_preferences_deviceMobileDataPrefs);
-                        showNotificationForInteractiveParameters(appContext, title, text, intent,
-                                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID,
-                                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_TAG);
+                        if (ok) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                            String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                    appContext.getString(R.string.profile_preferences_deviceMobileDataPrefs);
+                            showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                    PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID,
+                                    PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_TAG);
+                        }
                     }
                 }
             }
-        }
 
-        if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-        {
-            if (profile._deviceNetworkTypePrefs == 1)
-            {
+            if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (profile._deviceNetworkTypePrefs == 1) {
+                    if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                        try {
+                            final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            appContext.startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    } else {
+                        Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
+                        showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID,
+                                PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_TAG);
+                    }
+                }
+            }
+
+            //if (PPApplication.hardwareCheck(PPApplication.PREF_PROFILE_DEVICE_GPS, context))
+            //{  No check only GPS
+            if (profile._deviceLocationServicePrefs == 1) {
                 if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
                     try {
-                        final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         appContext.startActivity(intent);
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
-                }
-                else {
-                    Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                            appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent,
-                            PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID,
-                            PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_TAG);
-                }
-            }
-        }
-
-        //if (PPApplication.hardwareCheck(PPApplication.PREF_PROFILE_DEVICE_GPS, context))
-        //{  No check only GPS
-        if (profile._deviceLocationServicePrefs == 1)
-        {
-            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
-                try {
+                } else {
                     final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    appContext.startActivity(intent);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                appContext.getString(R.string.profile_preferences_deviceLocationServicePrefs);
+                        showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID,
+                                PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_TAG);
+                    }
                 }
             }
-            else {
-                final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                            appContext.getString(R.string.profile_preferences_deviceLocationServicePrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent,
-                            PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID,
-                            PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_TAG);
-                }
-            }
-        }
-        //}
-        if (profile._deviceWiFiAPPrefs == 1) {
-            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
-                try {
+            //}
+            if (profile._deviceWiFiAPPrefs == 1) {
+                if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
+                        appContext.startActivity(intent);
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                } else {
                     Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
-                    appContext.startActivity(intent);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                appContext.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
+                        showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID,
+                                PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_TAG);
+                    }
                 }
             }
-            else {
-                Intent intent = new Intent(Intent.ACTION_MAIN, null);
-                intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.TetherSettings"));
-                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                            appContext.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent,
-                            PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID,
-                            PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_TAG);
-                }
-            }
-        }
 
-        if ((profile._deviceWallpaperChange == 2) && (!profile._deviceLiveWallpaper.isEmpty()))
-        {
-            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
-                try {
-                    ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+            if ((profile._deviceWallpaperChange == 2) && (!profile._deviceLiveWallpaper.isEmpty())) {
+                if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                    try {
+                        ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                        Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                        context.startActivity(intent);
+                        PPApplication.setWallpaperChangeTime(appContext);
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                } else {
                     Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
-                    context.startActivity(intent);
-                    PPApplication.setWallpaperChangeTime(appContext);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            } else {
-                Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
-                    ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
-                    intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                            appContext.getString(R.string.profile_preferences_deviceLiveWallpaper);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent,
-                            PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID,
-                            PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG);
+                    if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                        ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                appContext.getString(R.string.profile_preferences_deviceLiveWallpaper);
+                        showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID,
+                                PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG);
+                    }
                 }
             }
-        }
-        if ((profile._deviceWallpaperChange == 4) && (!profile._deviceWallpaper.isEmpty()))
-        {
-            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
-                try {
+            if ((profile._deviceWallpaperChange == 4) && (!profile._deviceWallpaper.isEmpty())) {
+                if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                    try {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_ATTACH_DATA);
+                        intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        intent.setDataAndType(Uri.parse(profile._deviceWallpaper), "image/*");
+                        intent.putExtra("mimeType", "image/*");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                        PPApplication.setWallpaperChangeTime(appContext);
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                } else {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_ATTACH_DATA);
                     intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setDataAndType(Uri.parse(profile._deviceWallpaper), "image/*");
-                    intent.putExtra("mimeType", "image/*");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    PPApplication.setWallpaperChangeTime(appContext);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            } else {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_ATTACH_DATA);
-                intent.addCategory(Intent.CATEGORY_DEFAULT);
-                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
-                    intent.setDataAndType(Uri.parse(profile._deviceWallpaper), "image/*");
-                    intent.putExtra("mimeType", "image/*");
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                            appContext.getString(R.string.array_pref_change_image_wallpaper_with);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent,
-                            PPApplication.PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_ID,
-                            PPApplication.PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_TAG);
+                    if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                        intent.setDataAndType(Uri.parse(profile._deviceWallpaper), "image/*");
+                        intent.putExtra("mimeType", "image/*");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                appContext.getString(R.string.array_pref_change_image_wallpaper_with);
+                        showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                PPApplication.PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_ID,
+                                PPApplication.PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_TAG);
+                    }
                 }
             }
-        }
 
-        if (profile._deviceVPNSettingsPrefs == 1)
-        {
-            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
-                try {
+            if (profile._deviceVPNSettingsPrefs == 1) {
+                if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                    try {
                     /*String PACKAGE_PREFIX =
                             VpnManager.class.getPackage().getName() + ".";
                     String ACTION_VPN_SETTINGS =
                             PACKAGE_PREFIX + "SETTINGS";*/
-                    String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
-                    Intent intent = new Intent(ACTION_VPN_SETTINGS);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            } else {
+                        String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
+                        Intent intent = new Intent(ACTION_VPN_SETTINGS);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                } else {
                 /*String PACKAGE_PREFIX =
                         VpnManager.class.getPackage().getName() + ".";
                 String ACTION_VPN_SETTINGS =
                         PACKAGE_PREFIX + "SETTINGS";*/
-                String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
-                Intent intent = new Intent(ACTION_VPN_SETTINGS);
-                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
-                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
-                            appContext.getString(R.string.profile_preferences_deviceVPNSettingsPrefs);
-                    showNotificationForInteractiveParameters(appContext, title, text, intent,
-                            PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID,
-                            PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG);
+                    String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
+                    Intent intent = new Intent(ACTION_VPN_SETTINGS);
+                    if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                        String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                                appContext.getString(R.string.profile_preferences_deviceVPNSettingsPrefs);
+                        showNotificationForInteractiveParameters(appContext, title, text, intent,
+                                PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID,
+                                PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG);
+                    }
                 }
             }
+
         }
     }
 
@@ -4936,95 +4933,98 @@ class ActivateProfileHelper {
         }
 
         // close all applications
-        if (profile._deviceCloseAllApplications == 1) {
-            if (!PPApplication.blockProfileEventActions) {
-                // work for first start events or activate profile on boot
 
-//                PPApplication.logE("[EXECUTOR_CALL]  ***** ActivateProfileHelper.execute", "schedule - profile._deviceCloseAllApplications");
+        if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+            if (profile._deviceCloseAllApplications == 1) {
+                if (!PPApplication.blockProfileEventActions) {
+                    // work for first start events or activate profile on boot
 
-                final String profileName = profile._name;
-                //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
-                Runnable runnable = () -> {
-//                    long start = System.currentTimeMillis();
-//                    PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- START - profile._deviceCloseAllApplications");
+    //                PPApplication.logE("[EXECUTOR_CALL]  ***** ActivateProfileHelper.execute", "schedule - profile._deviceCloseAllApplications");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
+                    final String profileName = profile._name;
+                    //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+                    Runnable runnable = () -> {
+    //                    long start = System.currentTimeMillis();
+    //                    PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- START - profile._deviceCloseAllApplications");
+
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_execute_closeAllApplicaitons");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            if (!PPApplication.blockProfileEventActions) {
+                                try {
+                                    Intent startMain = new Intent(Intent.ACTION_MAIN);
+                                    startMain.addCategory(Intent.CATEGORY_HOME);
+                                    startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                                    appContext.startActivity(startMain);
+                                /*} catch (SecurityException e) {
+                                    //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+                                    String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
+                                    ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
+                                } catch (Exception e) {
+                                    //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+                                    //PPApplication.recordException(e);
+                                    ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+                                }
+                            }
+
+    //                        long finish = System.currentTimeMillis();
+    //                        long timeElapsed = finish - start;
+    //                        PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- END - profile._deviceCloseAllApplications -timeElapsed="+timeElapsed);
+                        } catch (Exception e) {
+    //                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            //worker.shutdown();
+                        }
+                    };
+                    PPApplication.createDelayedProfileActivationExecutor();
+                    PPApplication.delayedProfileActivationExecutor.schedule(runnable, 1500, TimeUnit.MILLISECONDS);
+                    /*
+                    Data workData = new Data.Builder()
+                            .putString(EXTRA_PROFILE_NAME, profile._name)
+                            .build();
+
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG)
+                                    .setInputData(workData)
+                                    .setInitialDelay(1500, TimeUnit.MILLISECONDS)
+                                    .build();
                     try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_execute_closeAllApplicaitons");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        if (PPApplication.getApplicationStarted(true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            if (workManager != null) {
 
-                        if (!PPApplication.blockProfileEventActions) {
-                            try {
-                                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                                startMain.addCategory(Intent.CATEGORY_HOME);
-                                startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                //startMain.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                                appContext.startActivity(startMain);
-                            /*} catch (SecurityException e) {
-                                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
-                                String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
-                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
-                            } catch (Exception e) {
-                                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
-                                ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+    //                            //if (PPApplication.logEnabled()) {
+    //                            ListenableFuture<List<WorkInfo>> statuses;
+    //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG);
+    //                            try {
+    //                                List<WorkInfo> workInfoList = statuses.get();
+    //                            } catch (Exception ignored) {
+    //                            }
+    //                            //}
+
+    //                            PPApplication.logE("[WORKER_CALL] ActivateProfileHelper.execute", "xxx");
+                                workManager.enqueueUniqueWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }
-
-//                        long finish = System.currentTimeMillis();
-//                        long timeElapsed = finish - start;
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** ActivateProfileHelper.execute", "--------------- END - profile._deviceCloseAllApplications -timeElapsed="+timeElapsed);
                     } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                        //worker.shutdown();
                     }
-                };
-                PPApplication.createDelayedProfileActivationExecutor();
-                PPApplication.delayedProfileActivationExecutor.schedule(runnable, 1500, TimeUnit.MILLISECONDS);
-                /*
-                Data workData = new Data.Builder()
-                        .putString(EXTRA_PROFILE_NAME, profile._name)
-                        .build();
-
-                OneTimeWorkRequest worker =
-                        new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG)
-                                .setInputData(workData)
-                                .setInitialDelay(1500, TimeUnit.MILLISECONDS)
-                                .build();
-                try {
-                    if (PPApplication.getApplicationStarted(true)) {
-                        WorkManager workManager = PPApplication.getWorkManagerInstance();
-                        if (workManager != null) {
-
-//                            //if (PPApplication.logEnabled()) {
-//                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG);
-//                            try {
-//                                List<WorkInfo> workInfoList = statuses.get();
-//                            } catch (Exception ignored) {
-//                            }
-//                            //}
-
-//                            PPApplication.logE("[WORKER_CALL] ActivateProfileHelper.execute", "xxx");
-                            workManager.enqueueUniqueWork(MainWorker.CLOSE_ALL_APPLICATIONS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                        }
-                    }
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    */
                 }
-                */
             }
         }
 
@@ -7683,20 +7683,22 @@ class ActivateProfileHelper {
                                      @SuppressWarnings("SameParameterValue") String settingsType,
                                      String parameterName,
                                      String parameterValue) {
-        try {
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
-            intent.putExtra("extra_put_setting_parameter_type", settingsType);
-            intent.putExtra("extra_put_setting_parameter_name", parameterName);
-            intent.putExtra("extra_put_setting_parameter_value", parameterValue);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(intent);
-        } catch (Exception e) {
-            Log.e("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
+        if ((Build.VERSION.SDK_INT < 29) || (Settings.canDrawOverlays(context))) {
+            try {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("sk.henrichg.pppputsettings", "sk.henrichg.pppputsettings.PutSettingsParameterActivity"));
+                intent.putExtra("extra_put_setting_parameter_type", settingsType);
+                intent.putExtra("extra_put_setting_parameter_name", parameterName);
+                intent.putExtra("extra_put_setting_parameter_value", parameterValue);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+            } catch (Exception e) {
+                Log.e("ActivateProfileHelper.putSettingsParameter", Log.getStackTraceString(e));
+            }
+            // WARNING: do not remove this sleep !!!
+            // Is required to set time space between two calls of this method.
+            GlobalUtils.sleep(500);
         }
-        // WARNING: do not remove this sleep !!!
-        // Is required to set time space between two calls of this method.
-        GlobalUtils.sleep(500);
     }
 
     static void showError(Context context, String profileName, int parameterType) {

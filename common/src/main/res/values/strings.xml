@@ -2088,6 +2088,11 @@
     <string name="notification_channel_profile_list">Profile list</string>
     <string name="notification_channel_profile_list_description">Shows list of profile icons with marked activated profile.</string>
 
+    <string name="permission_why_profile_run_applications">for run applications from background</string>
+    <string name="permission_why_profile_interactive_preferences">for display preference screen from background</string>
+    <string name="permission_why_profile_close_all_applications">for close all applications from background</string>
+    <string name="permission_why_profile_ppp_put_settings">for send request into PPPPutSettings from background</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
