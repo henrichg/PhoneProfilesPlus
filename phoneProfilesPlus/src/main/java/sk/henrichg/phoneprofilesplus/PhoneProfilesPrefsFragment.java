@@ -92,6 +92,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1 = "notificationProfileIconColorInfo1";
     private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2 = "notificationProfileIconColorInfo2";
 
+    private static final String PREF_ALL_NOTIFICATIONS_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsAll";
+    private static final String PREF_NOTIFICATION_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsProfileList";
+
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
     @Override
@@ -1238,9 +1241,106 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     return false;
                 });
             }
+            preference = findPreference(PREF_NOTIFICATION_PROFILE_LIST_SYSTEM_SETTINGS);
+            if (preference != null) {
+                preference.setSummary(getString(R.string.phone_profiles_pref_notificationSystemSettings_summary) +
+                        " " + getString(R.string.notification_channel_profile_list));
+                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                preference.setOnPreferenceClickListener(preference112 -> {
+                    boolean ok = false;
+//                    PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of PPApplication.createPPPAppNotificationChannel()");
+                    PPApplication.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+                    Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                    intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
+                    if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                        try {
+                            startActivity(intent);
+                            ok = true;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    }
+                    if (!ok) {
+                        PPAlertDialog dialog = new PPAlertDialog(
+                                preference112.getTitle(),
+                                getString(R.string.setting_screen_not_found_alert),
+                                getString(android.R.string.ok),
+                                null,
+                                null, null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                null,
+                                true, true,
+                                false, false,
+                                true,
+                                getActivity()
+                        );
+
+                        if (!getActivity().isFinishing())
+                            dialog.show();
+                    }
+                    return false;
+                });
+            }
         }
 
         preference = findPreference(PREF_ALL_NOTIFICATIONS_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(preference113 -> {
+                boolean ok = false;
+//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of PPApplication.createPPPAppNotificationChannel()");
+                PPApplication.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+
+                Intent intent = new Intent();
+                if (Build.VERSION.SDK_INT > 26) {
+                    intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
+                } else if (Build.VERSION.SDK_INT == 26) {
+                    intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                    intent.putExtra("android.provider.extra.APP_PACKAGE", PPApplication.PACKAGE_NAME);
+                } else {
+                    intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+                    intent.putExtra("app_package", PPApplication.PACKAGE_NAME);
+                    intent.putExtra("app_uid", getActivity().getApplicationInfo().uid);
+                }
+
+                if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+                    try {
+                        startActivity(intent);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+                if (!ok) {
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            preference113.getTitle(),
+                            getString(R.string.setting_screen_not_found_alert),
+                            getString(android.R.string.ok),
+                            null,
+                            null, null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
+
+                    if (!getActivity().isFinishing())
+                        dialog.show();
+                }
+                return false;
+            });
+        }
+        preference = findPreference(PREF_ALL_NOTIFICATIONS_PROFILE_LIST_SYSTEM_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference113 -> {

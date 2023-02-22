@@ -23,6 +23,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 //                PPApplication.logE("[PPP_NOTIFICATION] LocaleChangedReceiver.onReceive", "call of PPPAppNotification.showNotification");
                 PPPAppNotification.showNotification(context.getApplicationContext(),
                             false, true, false);
+                ProfileListNotification.showNotification(context.getApplicationContext(), false);
                 //}
 
 /*

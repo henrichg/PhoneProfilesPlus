@@ -7,6 +7,7 @@ import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -67,13 +68,13 @@ public class ProfileListNotification {
 
     private static final int MAX_PROFILE_COUNT = 15;
 
-    static final String ACTION_REFRESH_PROFILELISTNOTIFICATION = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_PROFILELISTNOTIFICATION";
+    //static final String ACTION_REFRESH_PROFILELISTNOTIFICATION = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_PROFILELISTNOTIFICATION";
     private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_LEFT_ARROW_CLICK";
     private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_RIGHT_ARROW_CLICK";
     private static final int PROFILE_ID_ACTIVATE_PROFILE_ID = 1000;
 
 
-    static private void _showNotification(final Context context, boolean forFirstStart)
+    static private void _showNotification(final Context context/*, boolean forFirstStart*/)
     {
 //        PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "start");
 
@@ -86,9 +87,7 @@ public class ProfileListNotification {
             return;
         }
 
-//        PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "call of createProfileListNotificationChannel()");
-        PPApplication.createProfileListNotificationChannel(appContext);
-
+        boolean notificationProfileListDisplayNotification;
         boolean notificationProfileListShowInStatusBar;
         boolean notificationProfileListHideInLockscreen;
         String notificationProfileListIconLightness;
@@ -101,6 +100,7 @@ public class ProfileListNotification {
         String notificationProfileListStatusBarStyle;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
+            notificationProfileListDisplayNotification = ApplicationPreferences.notificationProfileListDisplayNotification;
             notificationProfileListShowInStatusBar = ApplicationPreferences.notificationProfileListShowInStatusBar;
             notificationProfileListHideInLockscreen = ApplicationPreferences.notificationProfileListHideInLockscreen;
             notificationProfileListIconLightness = ApplicationPreferences.notificationProfileListIconLightness;
@@ -113,11 +113,17 @@ public class ProfileListNotification {
             notificationProfileListStatusBarStyle = ApplicationPreferences.notificationProfileListStatusBarStyle;
         }
 
+        if (!notificationProfileListDisplayNotification)
+            return;
+
+//        PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "call of createProfileListNotificationChannel()");
+        PPApplication.createProfileListNotificationChannel(appContext);
+
         NotificationCompat.Builder notificationBuilder;
 
         RemoteViews contentView = null;
 
-        boolean useNightColor = GlobalGUIRoutines.isNightModeEnabled(appContext);
+        //boolean useNightColor = GlobalGUIRoutines.isNightModeEnabled(appContext);
 
         contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_profile_list);
 
@@ -358,7 +364,7 @@ public class ProfileListNotification {
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, VISIBLE);
         else
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, View.GONE);
-        Intent intentLeftArrow = new Intent(appContext, ProfileListNotification.class);
+        Intent intentLeftArrow = new Intent(appContext, ProfileListNotification.ArrowsBroadcastReceiver.class);
         intentLeftArrow.setAction(ACTION_LEFT_ARROW_CLICK);
         PendingIntent pIntentLeftArrow = PendingIntent.getBroadcast(appContext, 2, intentLeftArrow, PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.notification_profile_list_scroll_left_arrow, pIntentLeftArrow);
@@ -368,7 +374,7 @@ public class ProfileListNotification {
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_right_arrow, VISIBLE);
         else
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_right_arrow, View.GONE);
-        Intent intentRightArrow = new Intent(appContext, ProfileListNotification.class);
+        Intent intentRightArrow = new Intent(appContext, ProfileListNotification.ArrowsBroadcastReceiver.class);
         intentRightArrow.setAction(ACTION_RIGHT_ARROW_CLICK);
         PendingIntent pIntentRightArrow = PendingIntent.getBroadcast(appContext, 3, intentRightArrow, PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.notification_profile_list_scroll_right_arrow, pIntentRightArrow);
@@ -461,7 +467,7 @@ public class ProfileListNotification {
             synchronized (PPApplication.showPPPNotificationMutex) {
                 //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.forceDrawNotification", "call of _showNotification");
-                _showNotification(appContext, false);
+                _showNotification(appContext/*, false*/);
                 //dataWrapper.invalidateDataWrapper();
             }
             //}
@@ -522,11 +528,13 @@ public class ProfileListNotification {
             PPApplication.delayedShowNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
     }
 
-    static void showNotification(Context context, boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
+    static void showNotification(Context context,
+                                 @SuppressWarnings("SameParameterValue") boolean drawImmediatelly) {
         //if (Build.VERSION.SDK_INT >= 26) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
+        /*
         //if (!runningInForeground) {
         if (drawEmpty) {
             //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
@@ -537,6 +545,7 @@ public class ProfileListNotification {
             //return; // do not return, dusplay activated profile immediatelly
         }
         //}
+        */
 
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
@@ -546,8 +555,8 @@ public class ProfileListNotification {
         //        return;
         //}
 
-        if (!drawActivatedProfle)
-            return;
+        //if (!drawActivatedProfle)
+        //    return;
 
 /*        int delay;
         if (drawImmediatelly)
@@ -821,6 +830,30 @@ public class ProfileListNotification {
             if ((lhs != null) && (rhs != null))
                 res = lhs._porder - rhs._porder;
             return res;
+        }
+    }
+
+    public static class ArrowsBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null) {
+                if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
+                    if ((displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
+                            (profileCount > ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage)) {
+                        ++displayedPage;
+                        _showNotification(context/*, false*/);
+                    }
+                }
+                else
+                if (action.equalsIgnoreCase(ACTION_LEFT_ARROW_CLICK)) {
+                    if (displayedPage > 0) {
+                        --displayedPage;
+                        _showNotification(context/*, false*/);
+                    }
+                }
+            }
         }
     }
 

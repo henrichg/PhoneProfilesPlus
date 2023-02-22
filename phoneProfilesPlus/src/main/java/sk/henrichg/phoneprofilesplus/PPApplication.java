@@ -2020,9 +2020,12 @@ public class PPApplication extends Application
         TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
         TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
+        ProfileListNotification.drawNotification(true, context);
+
         if (alsoNotification) {
 //            PPApplication.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of PPPAppNotification.drawNotification");
             PPPAppNotification.drawNotification(true, context);
+            ProfileListNotification.drawNotification(true, context);
         }
     }
 
@@ -2062,6 +2065,7 @@ public class PPApplication extends Application
                     if (longDelay) {
 //                        PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of PPPAppNotification.forceDrawNotification");
                         PPPAppNotification.forceDrawNotification(appContext);
+                        ProfileListNotification.forceDrawNotification(appContext);
                     }
 
 
@@ -2123,6 +2127,7 @@ public class PPApplication extends Application
             if (!longDelay) {
 //                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPPAppNotification.drawNotification");
                 PPPAppNotification.drawNotification(false, context);
+                ProfileListNotification.drawNotification(false, context);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -3174,6 +3179,8 @@ public class PPApplication extends Application
         PPApplication.createNewReleaseNotificationChannel(appContext);
         PPApplication.createNotifyEventStartNotificationChannel(appContext);
         PPApplication.createPPPAppNotificationChannel(appContext);
+        PPApplication.createProfileListNotificationChannel(appContext);
+
         //PPApplication.createCrashReportNotificationChannel(appContext);
     }
 
