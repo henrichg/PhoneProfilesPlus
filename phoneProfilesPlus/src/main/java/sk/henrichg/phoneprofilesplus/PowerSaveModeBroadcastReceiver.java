@@ -47,7 +47,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             PPApplication.restartAllScanners(appContext, true);
         }
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(appContext)) {
             PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE, "SENSOR_TYPE_POWER_SAVE_MODE", 0);
             /*
             PPApplication.startHandlerThreadBroadcast();

@@ -25,7 +25,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         final String alarmPackageName = intent.getStringExtra(EXTRA_ALARM_PACKAGE_NAME);
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast(/*"AlarmClockBroadcastReceiver.onReceive"*/);
             //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());

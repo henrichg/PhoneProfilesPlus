@@ -266,7 +266,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
                 PPPAppNotification.drawNotification(false, appContext);
 
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
@@ -305,7 +305,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartAllScanners(appContext, false);
                 }
 
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                 }
@@ -320,7 +320,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 // WARNING: must be called after PPApplication.isScreenOn = true;
                 setProfileScreenTimeoutSavedWhenScreenOff(appContext);
 
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                 }

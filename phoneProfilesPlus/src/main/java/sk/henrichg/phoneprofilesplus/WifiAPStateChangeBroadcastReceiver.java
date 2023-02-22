@@ -16,7 +16,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning())
+        if (Event.getGlobalEventsRunning(context))
         {
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast(/*"WifiAPStateChangeBroadcastReceiver.onReceive"*/);

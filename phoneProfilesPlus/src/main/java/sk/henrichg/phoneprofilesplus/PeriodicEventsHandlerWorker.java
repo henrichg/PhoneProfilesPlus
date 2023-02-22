@@ -69,7 +69,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     }
                 }
 
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(getApplicationContext())) {
 
                     boolean callEventsHandler = false;
                     Set<String> tags = getTags();

@@ -151,7 +151,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 }
             }*/
 
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 final Context appContext = context.getApplicationContext();
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL, "SENSOR_TYPE_BATTERY_WITH_LEVEL", 0);
                 /*

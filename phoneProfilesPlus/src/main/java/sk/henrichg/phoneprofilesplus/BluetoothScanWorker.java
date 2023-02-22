@@ -93,7 +93,7 @@ public class BluetoothScanWorker extends Worker {
             if (bluetooth == null)
                 bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
 
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 startScanner(context, false);
             }
 

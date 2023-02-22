@@ -170,7 +170,7 @@ public class ProfileListNotification {
         newProfileList.sort(new ProfileComparator());
 
         Profile restartEvents = null;
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             restartEvents = DataWrapperStatic.getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
                     "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
@@ -805,7 +805,7 @@ public class ProfileListNotification {
         }
 
         Intent clickIntent = new Intent(appContext, BackgroundActivateProfileActivity.class);
-        if (Event.getGlobalEventsRunning() && (profile._id == Profile.RESTART_EVENTS_PROFILE_ID))
+        if (Event.getGlobalEventsRunning(appContext) && (profile._id == Profile.RESTART_EVENTS_PROFILE_ID))
             clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
         else
             clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);

@@ -99,7 +99,7 @@ public class WifiScanWorker extends Worker {
             if (wifi == null)
                 wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 startScanner(context, false);
             }
 

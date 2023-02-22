@@ -390,7 +390,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     void increaseCounter(DataWrapper dataWrapper) {
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(dataWrapper.context)) {
             int multipleInterval = _multipleInterval;
             if (multipleInterval == 0)
                 multipleInterval = 1;

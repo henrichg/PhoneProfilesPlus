@@ -169,7 +169,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     }
 
     static void _doConnection(Context appContext) {
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(appContext)) {
 //            PPApplication.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback._doConnection", "xxx");
 
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||

@@ -78,7 +78,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                     PPApplication.restartMobileCellsScanner(appContext);
 
-                    if (Event.getGlobalEventsRunning()) {
+                    if (Event.getGlobalEventsRunning(appContext)) {
                         //if (PhoneProfilesService.getInstance() != null) {
 
                             // start events handler

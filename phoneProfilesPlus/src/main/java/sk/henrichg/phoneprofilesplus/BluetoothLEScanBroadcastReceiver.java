@@ -20,7 +20,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         final int forceOneScan = ApplicationPreferences.prefForceOneBluetoothLEScan;
 
-        if (Event.getGlobalEventsRunning() || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+        if (Event.getGlobalEventsRunning(context) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
             //if (scanStarted) {
 

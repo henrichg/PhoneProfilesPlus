@@ -26,7 +26,7 @@ public class ActivatedProfileEventBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             //if (useHandler) {
             final long profileId = _profileId;
 

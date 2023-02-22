@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -2127,7 +2128,7 @@ public class DataWrapper {
 
     void restartEventsWithAlert(final Activity activity)
     {
-        if (!Event.getGlobalEventsRunning()) {
+        if (!Event.getGlobalEventsRunning(activity)) {
             // events are globally stopped
 
             PPApplication.showToastForProfileActivation = true;
@@ -2405,7 +2406,13 @@ public class DataWrapper {
     }
 
     void runStopEventsWithAlert(final Activity activity, final SwitchCompat checkBox, boolean isChecked) {
-        boolean eventRunningEnabled = Event.getGlobalEventsRunning();
+        ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(context.getApplicationContext(), PhoneProfilesService.class);
+        if (serviceInfo == null) {
+            // service is not running
+            return;
+        }
+
+        boolean eventRunningEnabled = Event.getGlobalEventsRunning(activity);
         if (checkBox != null) {
             if (isChecked && eventRunningEnabled)
                 // already enabled
@@ -2454,8 +2461,14 @@ public class DataWrapper {
     }
 
     boolean globalRunStopEvents(boolean stop) {
+        ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(context.getApplicationContext(), PhoneProfilesService.class);
+        if (serviceInfo == null) {
+            // service is not running
+            return false;
+        }
+
         if (stop) {
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, "");
 
                 // no setup for next start
@@ -2479,7 +2492,7 @@ public class DataWrapper {
             }
         }
         else {
-            if (!Event.getGlobalEventsRunning()) {
+            if (!Event.getGlobalEventsRunning(context)) {
                 PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, "");
 
                 Event.setGlobalEventsRunning(context, true);

@@ -69,7 +69,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         if (BluetoothScanWorker.bluetooth != null) {
                             int forceOneScan = ApplicationPreferences.prefForceOneBluetoothScan;
 
-                            if (Event.getGlobalEventsRunning() || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                            if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                                 boolean scanStarted = ApplicationPreferences.prefEventBluetoothWaitForResult;
 

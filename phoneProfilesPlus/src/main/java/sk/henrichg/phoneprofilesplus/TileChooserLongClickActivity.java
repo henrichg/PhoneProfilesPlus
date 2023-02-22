@@ -147,6 +147,7 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
@@ -166,10 +167,11 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplication.logE("[START_PP_SERVICE] TileChooserLongClickActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
-            return true;
+            //return true;
         } else {
+            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
         }
 

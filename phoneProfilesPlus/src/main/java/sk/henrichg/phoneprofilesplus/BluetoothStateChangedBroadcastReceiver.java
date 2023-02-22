@@ -50,7 +50,7 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                         }
 
-                        if (Event.getGlobalEventsRunning()) {
+                        if (Event.getGlobalEventsRunning(appContext)) {
 
                             if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 

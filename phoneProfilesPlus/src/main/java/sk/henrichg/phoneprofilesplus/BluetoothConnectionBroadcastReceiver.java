@@ -114,7 +114,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         saveConnectedDevices(appContext);
 
 
-                        if (Event.getGlobalEventsRunning()) {
+                        if (Event.getGlobalEventsRunning(appContext)) {
 
                             //if (lastState != currState)
                             //{

@@ -107,7 +107,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
             }
             */
 
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 final Context appContext = context.getApplicationContext();
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY, "SENSOR_TYPE_BATTERY", 0);
                 /*

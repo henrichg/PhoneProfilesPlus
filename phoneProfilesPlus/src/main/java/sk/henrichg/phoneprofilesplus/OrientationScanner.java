@@ -215,13 +215,12 @@ class OrientationScanner implements SensorEventListener {
             (orientationHandler.previousResultSideUp != orientationHandler.resultSideUp) ||
             (orientationHandler.previousResultDeviceDistance != orientationHandler.resultDeviceDistance) ||
             (orientationHandler.previousResultLight != orientationHandler.resultLight)
-           )
-        {
-            if (Event.getGlobalEventsRunning())
-            {
-                PhoneProfilesService service = PhoneProfilesService.getInstance();
-                if (service != null) {
-                    Context context = service.getApplicationContext();
+           ) {
+            PhoneProfilesService service = PhoneProfilesService.getInstance();
+            if (service != null) {
+                Context context = service.getApplicationContext();
+
+                if (Event.getGlobalEventsRunning(context)) {
 
                     Data workData = new Data.Builder()
                             .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION)
@@ -234,8 +233,7 @@ class OrientationScanner implements SensorEventListener {
                         if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
                             // start scanning in power save mode is not allowed
                             return;
-                    }
-                    else {
+                    } else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
                             if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
@@ -250,8 +248,7 @@ class OrientationScanner implements SensorEventListener {
                     if (isPowerSaveMode) {
                         if (applicationEventOrientationScanInPowerSaveMode.equals("1"))
                             interval = 2 * interval;
-                    }
-                    else {
+                    } else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
                             if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
@@ -275,14 +272,14 @@ class OrientationScanner implements SensorEventListener {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
-        //                        //if (PPApplication.logEnabled()) {
-        //                        ListenableFuture<List<WorkInfo>> statuses;
-        //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
-        //                        try {
-        //                            List<WorkInfo> workInfoList = statuses.get();
-        //                        } catch (Exception ignored) {
-        //                        }
-        //                        //}
+                                //                        //if (PPApplication.logEnabled()) {
+                                //                        ListenableFuture<List<WorkInfo>> statuses;
+                                //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
+                                //                        try {
+                                //                            List<WorkInfo> workInfoList = statuses.get();
+                                //                        } catch (Exception ignored) {
+                                //                        }
+                                //                        //}
 
 //                                PPApplication.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
                                 //workManager.enqueue(worker);

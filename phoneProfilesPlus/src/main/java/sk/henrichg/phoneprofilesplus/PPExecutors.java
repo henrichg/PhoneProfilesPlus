@@ -141,7 +141,7 @@ class PPExecutors {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
+                if (Event.getGlobalEventsRunning(appContext) && (sensorType != 0)) {
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(sensorType);

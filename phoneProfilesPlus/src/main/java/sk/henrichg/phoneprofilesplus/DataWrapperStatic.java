@@ -199,7 +199,7 @@ public class DataWrapperStatic {
         String manualIndicators = "";
         if (addEventName)
         {
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 if (Event.getEventsBlocked(context)) {
                     if (Event.getForceRunEventRunning(context))
                         manualIndicators = "[»]";
@@ -278,7 +278,7 @@ public class DataWrapperStatic {
 
     static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile, Context context)
     {
-        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false, false))
+        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(false, false))
         {
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {

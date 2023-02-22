@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -95,7 +94,7 @@ public class MainWorker extends Worker {
                             return Result.success();
 
                         int sensorType = getInputData().getInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, 0);
-                        if (Event.getGlobalEventsRunning() && (sensorType != 0)) {
+                        if (Event.getGlobalEventsRunning(appContext) && (sensorType != 0)) {
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
@@ -318,24 +317,9 @@ public class MainWorker extends Worker {
 
         Intent intent;
 
-        if ((Build.VERSION.SDK_INT >= 33) && Settings.canDrawOverlays(appContext)) {
-            // Permission SYSTEM_ALERT_WINDOW is required for start activity from Worker
-            try {
-                NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
-                    if (!notificationManager.areNotificationsEnabled()) {
-                        intent = new Intent(getApplicationContext(), GrantNotificationPermissionAtFirstStartActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        appContext.startActivity(intent);
-                    }
-                }
-            } catch (Exception ignored) {}
-        } else
-            DrawOverAppsPermissionNotification.showNotification(appContext, true);
-
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(appContext)) {
             PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");
 
             dataWrapper.fillEventList();
@@ -542,8 +526,6 @@ public class MainWorker extends Worker {
                 } catch (Exception ignored) {
                 }
             }
-            else
-                DrawOverAppsPermissionNotification.showNotification(appContext, true);
         }
 
         PPApplication.logE("------- MainWorker.doAfterFirstStart", "END");

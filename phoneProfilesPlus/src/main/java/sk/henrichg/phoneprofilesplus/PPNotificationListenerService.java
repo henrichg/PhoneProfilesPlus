@@ -117,7 +117,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(appContext)) {
             /*
             PPApplication.startHandlerThreadBroadcast();
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());

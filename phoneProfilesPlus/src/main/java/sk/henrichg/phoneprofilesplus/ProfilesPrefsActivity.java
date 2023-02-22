@@ -631,7 +631,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
                 // restart Events
                 PPApplication.setBlockProfileEventActions(true);
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(this)) {
                     if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);

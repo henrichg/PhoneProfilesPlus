@@ -4,6 +4,7 @@ import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -1686,7 +1687,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning())/* && (!ignoreGlobalPref)*/)
+        if ((!getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
             // events are globally stopped
             return;
 
@@ -2109,7 +2110,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning()) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -2248,7 +2249,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning()) && (!ignoreGlobalPref))
+        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -2415,7 +2416,7 @@ class Event {
     {
         removeDelayStartAlarm(dataWrapper);
 
-        if (!getGlobalEventsRunning())
+        if (!getGlobalEventsRunning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -2637,7 +2638,7 @@ class Event {
     {
         removeDelayEndAlarm(dataWrapper);
 
-        if (!getGlobalEventsRunning())
+        if (!getGlobalEventsRunning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -3163,9 +3164,18 @@ class Event {
         return preferenceAllowed;
     }
 
-    static boolean getGlobalEventsRunning()
+    static boolean getGlobalEventsRunning(Context context)
     {
         synchronized (PPApplication.globalEventsRunStopMutex) {
+            if (Build.VERSION.SDK_INT >= 33) {
+                try {
+                    ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(context.getApplicationContext(), PhoneProfilesService.class);
+                    if (serviceInfo == null) {
+                        // service is not running
+                        return false;
+                    }
+                } catch (Exception ignored) {}
+            }
             return PPApplication.globalEventsRunStop;
         }
     }

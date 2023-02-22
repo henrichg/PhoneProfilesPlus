@@ -188,6 +188,7 @@ public class ActivatorActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
+
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (doServiceStart) {
             if (!isFinishing())
@@ -230,10 +231,15 @@ public class ActivatorActivity extends AppCompatActivity
 
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            if (serviceInfo == null)
+                startPPServiceWhenNotStarted();
+            else {
 //            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
-            PPPAppNotification.drawNotification(true, getApplicationContext());
-            DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
-            IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+                PPPAppNotification.drawNotification(true, getApplicationContext());
+                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+            }
         }
     }
 
@@ -266,6 +272,7 @@ public class ActivatorActivity extends AppCompatActivity
         return false;*/
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
@@ -284,10 +291,11 @@ public class ActivatorActivity extends AppCompatActivity
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplication.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
-            return true;
+            //return true;
         } else {
+            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
         }
 
@@ -345,7 +353,7 @@ public class ActivatorActivity extends AppCompatActivity
         MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRunning());
+            menuItem.setVisible(Event.getGlobalEventsRunning(this));
             menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
         }
 
@@ -447,7 +455,7 @@ public class ActivatorActivity extends AppCompatActivity
     void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
-        if (Event.getGlobalEventsRunning())
+        if (Event.getGlobalEventsRunning(this))
         {
             //if (ApplicationPreferences.prefEventsBlocked) {
             if (Event.getEventsBlocked(this.getApplicationContext())) {
@@ -513,7 +521,7 @@ public class ActivatorActivity extends AppCompatActivity
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
                 //noinspection IfStatementWithIdenticalBranches
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(this)) {
                     int id = 1;
                     try {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);

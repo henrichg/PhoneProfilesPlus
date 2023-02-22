@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -142,6 +143,26 @@ public class TileChooserActivity extends AppCompatActivity {
         if (!(activityStarted && (tileId != 0))) {
             if (!isFinishing())
                 finish();
+        } else {
+            Permissions.grantNotificationsPermission(this);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
+        {
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            if (serviceInfo == null)
+                startPPServiceWhenNotStarted();
+            else {
+//            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
+                PPPAppNotification.drawNotification(true, getApplicationContext());
+                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+            }
         }
     }
 
@@ -172,6 +193,7 @@ public class TileChooserActivity extends AppCompatActivity {
         return false;*/
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
@@ -191,10 +213,11 @@ public class TileChooserActivity extends AppCompatActivity {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplication.logE("[START_PP_SERVICE] TileChooserActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
-            return true;
+            //return true;
         } else {
+            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
         }
 

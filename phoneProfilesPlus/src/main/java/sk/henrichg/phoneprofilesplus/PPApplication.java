@@ -1927,8 +1927,16 @@ public class PPApplication extends Application
         //    PhoneProfilesService.startForegroundNotification = true;
         if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);
-        else
-            context.getApplicationContext().startForegroundService(serviceIntent);
+        else {
+            boolean notificationsEnbaled = true;
+            if (Build.VERSION.SDK_INT >= 33) {
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null)
+                    notificationsEnbaled = notificationManager.areNotificationsEnabled();
+            }
+            if (notificationsEnbaled)
+                context.getApplicationContext().startForegroundService(serviceIntent);
+        }
     }
 
     static void runCommand(Context context, Intent intent) {

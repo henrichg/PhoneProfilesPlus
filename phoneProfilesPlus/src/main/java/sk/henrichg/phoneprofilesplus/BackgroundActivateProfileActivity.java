@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -141,7 +142,15 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE) {
-            activateProfile();
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            if (serviceInfo == null)
+                startPPServiceWhenNotStarted();
+            else {
+                PPPAppNotification.drawNotification(true, getApplicationContext());
+                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+                activateProfile();
+            }
             //if (!isFinishing())
             //    finish();
         }

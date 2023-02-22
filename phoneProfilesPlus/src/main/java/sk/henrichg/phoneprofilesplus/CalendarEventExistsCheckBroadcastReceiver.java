@@ -23,7 +23,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
             //PPApplication.startHandlerThreadBroadcast();

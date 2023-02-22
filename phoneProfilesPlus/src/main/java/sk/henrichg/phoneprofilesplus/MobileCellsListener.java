@@ -437,7 +437,7 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     void handleEvents(final Context appContext) {
-        if (Event.getGlobalEventsRunning())
+        if (Event.getGlobalEventsRunning(appContext))
         {
 //            PPApplication.logE("[TEST BATTERY] MobileCellsListener.handleEvents", "******** ### *******");
 

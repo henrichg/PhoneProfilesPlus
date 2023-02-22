@@ -215,7 +215,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._startBeforeEvent), disabled, context) + "</b>";
 
                 if (addBullet) {
-                    if (Event.getGlobalEventsRunning()) {
+                    if (Event.getGlobalEventsRunning(context)) {
                         if (_eventFound) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");

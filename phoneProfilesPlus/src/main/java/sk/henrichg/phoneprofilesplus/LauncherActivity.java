@@ -162,6 +162,7 @@ public class LauncherActivity extends AppCompatActivity {
 //        return false;
 //    }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
 
@@ -181,10 +182,11 @@ public class LauncherActivity extends AppCompatActivity {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplication.logE("[START_PP_SERVICE] LauncherActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
-            return true;
+            //return true;
         } else {
+            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
         }
 

@@ -99,7 +99,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
             }*/
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
             //else {
                 switch (_eventStatus) {
                     case Event.ESTATUS_RUNNING:
@@ -154,7 +154,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
             }
             else
-            if (!Event.getGlobalEventsRunning()/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
+            if (!Event.getGlobalEventsRunning(context)/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions

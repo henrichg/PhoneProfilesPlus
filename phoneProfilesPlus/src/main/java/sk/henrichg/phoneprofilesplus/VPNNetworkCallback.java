@@ -156,7 +156,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     private void _doConnection(Context appContext) {
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(appContext)) {
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
 

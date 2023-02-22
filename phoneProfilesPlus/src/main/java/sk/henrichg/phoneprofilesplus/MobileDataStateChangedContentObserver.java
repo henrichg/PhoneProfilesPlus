@@ -35,7 +35,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
     */
 
     private void doOnChange(/*boolean selfChange, Uri uri*/) {
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);

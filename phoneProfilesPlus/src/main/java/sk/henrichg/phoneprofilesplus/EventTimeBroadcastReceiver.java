@@ -18,7 +18,7 @@ public class EventTimeBroadcastReceiver extends BroadcastReceiver {
                 // application is not started
                 return;
 
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 //if (useHandler) {
                 final Context appContext = context.getApplicationContext();
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 0);

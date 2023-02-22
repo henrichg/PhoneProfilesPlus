@@ -22,7 +22,7 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_EVENT_DELAY_END, "SENSOR_TYPE_EVENT_DELAY_END", 0);

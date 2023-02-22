@@ -675,7 +675,7 @@ public class EditorProfileListFragment extends Fragment
 
         profileListAdapter.notifyDataSetChanged();
 
-        if (!Event.getGlobalEventsRunning()) {
+        if (!Event.getGlobalEventsRunning(activityDataWrapper.context)) {
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);

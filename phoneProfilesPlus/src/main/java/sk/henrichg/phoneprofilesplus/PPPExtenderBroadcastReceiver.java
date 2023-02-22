@@ -152,7 +152,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         if ((applicationsAllowed) || (orientationAllowed)) {
                             setApplicationInForeground(appContext, "");
 
-                            if (Event.getGlobalEventsRunning()) {
+                            if (Event.getGlobalEventsRunning(appContext)) {
                                 //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -196,7 +196,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     if (isActivity) {
                         setApplicationInForeground(appContext, packageName);
 
-                        if (Event.getGlobalEventsRunning()) {
+                        if (Event.getGlobalEventsRunning(appContext)) {
                             //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED"*/);
                             //final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                             //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
@@ -341,7 +341,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                 final int simSlot = _simSlot;
 
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(appContext)) {
                     //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED"*/);
                     //final Handler handler3 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     //handler3.post(() -> {
@@ -386,7 +386,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final long eventTime = intent.getLongExtra(EXTRA_EVENT_TIME, 0);
                 final int slotIndex = intent.getIntExtra(EXTRA_SIM_SLOT, 0);
 
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(appContext)) {
                     //PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED"*/);
                     //final Handler handler4 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     //handler4.post(() -> {

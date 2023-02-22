@@ -77,7 +77,7 @@ class TwilightScanner {
                     // application is not started
                     return;
 
-                if (Event.getGlobalEventsRunning()) {
+                if (Event.getGlobalEventsRunning(context)) {
 
                     PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 10);
                     /*

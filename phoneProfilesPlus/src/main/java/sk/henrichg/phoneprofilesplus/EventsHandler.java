@@ -246,7 +246,7 @@ class EventsHandler {
                 oldRingtoneSIM2 = "";
             }
 
-            if (!Event.getGlobalEventsRunning()) {
+            if (!Event.getGlobalEventsRunning(context)) {
                 // events are globally stopped
 
                 doEndHandler(null, null);

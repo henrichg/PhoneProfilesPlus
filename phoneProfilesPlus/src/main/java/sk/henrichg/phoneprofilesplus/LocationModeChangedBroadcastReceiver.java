@@ -16,7 +16,7 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning())
+        if (Event.getGlobalEventsRunning(context))
         {
             final String action = intent.getAction();
             final Context appContext = context.getApplicationContext();

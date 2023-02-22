@@ -669,6 +669,7 @@ public class EditorActivity extends AppCompatActivity
         return false;*/
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
@@ -687,10 +688,11 @@ public class EditorActivity extends AppCompatActivity
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplication.logE("[START_PP_SERVICE] EditorActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
-            return true;
+            //return true;
         } else {
+            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
         }
 
@@ -923,7 +925,7 @@ public class EditorActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_run_stop_events);
         if (menuItem != null)
         {
-            if (Event.getGlobalEventsRunning())
+            if (Event.getGlobalEventsRunning(this))
             {
                 menuItem.setTitle(R.string.menu_stop_events);
                 menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -938,7 +940,7 @@ public class EditorActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRunning());
+            menuItem.setVisible(Event.getGlobalEventsRunning(this));
             menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
         }
 
@@ -2267,10 +2269,15 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            if (serviceInfo == null)
+                startPPServiceWhenNotStarted();
+            else {
 //            PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
-            PPPAppNotification.drawNotification(true, getApplicationContext());
-            DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
-            IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+                PPPAppNotification.drawNotification(true, getApplicationContext());
+                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+            }
         }
 
     }
@@ -3253,7 +3260,7 @@ public class EditorActivity extends AppCompatActivity
     private void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
-        if (Event.getGlobalEventsRunning())
+        if (Event.getGlobalEventsRunning(this))
         {
             //if (ApplicationPreferences.prefEventsBlocked) {
             if (Event.getEventsBlocked(getApplicationContext())) {
@@ -3411,7 +3418,7 @@ public class EditorActivity extends AppCompatActivity
                     startTargetHelpsRunStopIndicator = false;
                     startTargetHelpsBottomNavigation = false;
 
-                    if (Event.getGlobalEventsRunning()) {
+                    if (Event.getGlobalEventsRunning(this)) {
                         /*targets.add(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .outerCircleColor(outerCircleColor)
@@ -5423,7 +5430,7 @@ public class EditorActivity extends AppCompatActivity
                 if (!activity.isFinishing())
                     activity.exportProgressDialog.show();
 
-                runStopEvents = Event.getGlobalEventsRunning();
+                runStopEvents = Event.getGlobalEventsRunning(dataWrapper.context);
             }
         }
 

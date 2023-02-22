@@ -16,7 +16,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning())
+        if (Event.getGlobalEventsRunning(context))
         {
             /*boolean calendarEventsExists = false;
 

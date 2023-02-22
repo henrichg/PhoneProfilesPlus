@@ -250,7 +250,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                     if (addBullet) {
-                        if (Event.getGlobalEventsRunning()) {
+                        if (Event.getGlobalEventsRunning(context)) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                             String alarmTimeS;
@@ -299,7 +299,7 @@ class EventPreferencesTime extends EventPreferences {
                                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                                     if (addBullet) {
-                                        if (Event.getGlobalEventsRunning()) {
+                                        if (Event.getGlobalEventsRunning(context)) {
                                             long alarmTime;
                                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                                             String alarmTimeS;

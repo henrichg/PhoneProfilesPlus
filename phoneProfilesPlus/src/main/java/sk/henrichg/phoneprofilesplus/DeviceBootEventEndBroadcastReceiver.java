@@ -22,7 +22,7 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
             PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_DEVICE_BOOT_EVENT_END, "SENSOR_TYPE_DEVICE_BOOT_EVENT_END", 0);

@@ -208,7 +208,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_SCREEN, "SENSOR_TYPE_SCREEN", 0);

@@ -47,7 +47,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                 final int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
 
-                if (Event.getGlobalEventsRunning() || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                     if (ApplicationPreferences.prefEventWifiWaitForResult) {
 

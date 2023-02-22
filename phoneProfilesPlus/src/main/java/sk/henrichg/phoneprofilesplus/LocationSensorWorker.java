@@ -34,7 +34,7 @@ public class LocationSensorWorker extends Worker {
 //            long start = System.currentTimeMillis();
 //            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- START");
 
-            if (Event.getGlobalEventsRunning()) {
+            if (Event.getGlobalEventsRunning(context)) {
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER);
             }

@@ -67,7 +67,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                     connectedBluetoothHeadphones, connectedBluetoothMicrophone);
         }
 
-        if (Event.getGlobalEventsRunning())
+        if (Event.getGlobalEventsRunning(context))
         {
             if (broadcast)
             {

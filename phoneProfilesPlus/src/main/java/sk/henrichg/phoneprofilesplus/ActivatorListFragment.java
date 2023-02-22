@@ -244,6 +244,8 @@ public class ActivatorListFragment extends Fragment {
 
         //private boolean someErrorProfiles = false;
 
+        private boolean globalEventsRunning;
+
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
@@ -273,6 +275,8 @@ public class ActivatorListFragment extends Fragment {
         {
             super.onPreExecute();
 
+            globalEventsRunning = Event.getGlobalEventsRunning(dataWrapper.context);
+
             final ActivatorListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
@@ -301,7 +305,7 @@ public class ActivatorListFragment extends Fragment {
 
 //            if (!someErrorProfiles) {
             if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
-                if (Event.getGlobalEventsRunning()) {
+                if (globalEventsRunning) {
                     //Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
                     Profile restartEvents = DataWrapperStatic.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
                             "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);

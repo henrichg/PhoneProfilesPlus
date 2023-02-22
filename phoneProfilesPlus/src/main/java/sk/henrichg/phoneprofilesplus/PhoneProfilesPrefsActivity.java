@@ -267,6 +267,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (!activityStarted) {
             if (!isFinishing())
                 finish();
+        } else {
+            Permissions.grantNotificationsPermission(this);
         }
     }
 
@@ -299,6 +301,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         return false;*/
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
@@ -317,10 +320,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplication.logE("[START_PP_SERVICE] PhoneProfilesPrefsActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent);
-            return true;
+            //return true;
         } else {
+            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
         }
 
@@ -348,9 +352,23 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
-        if (fragment != null)
-            ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
+        if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
+        {
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            if (serviceInfo == null)
+                startPPServiceWhenNotStarted();
+            else {
+//            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
+                PPPAppNotification.drawNotification(true, getApplicationContext());
+                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+            }
+        }
+        else {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+            if (fragment != null)
+                ((PhoneProfilesPrefsFragment) fragment).doOnActivityResult(requestCode, resultCode);
+        }
     }
 
     @Override

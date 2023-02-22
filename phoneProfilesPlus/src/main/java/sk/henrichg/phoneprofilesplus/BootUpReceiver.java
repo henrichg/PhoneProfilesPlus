@@ -41,7 +41,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             if (PPApplication.logEnabled()) {
                 PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot);
                 PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents);
-                PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning=" + Event.getGlobalEventsRunning());
+                PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning=" + Event.getGlobalEventsRunning(context));
             }
 
             //PPApplication.setApplicationStarted(context, false);
@@ -110,7 +110,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 PPApplication.restartMobileCellsScanner(appContext);
                                 */
 
-                                if (Event.getGlobalEventsRunning()) {
+                                if (Event.getGlobalEventsRunning(appContext)) {
 
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "sensorType=SENSOR_TYPE_BOOT_COMPLETED");
                                     EventsHandler eventsHandler = new EventsHandler(appContext);

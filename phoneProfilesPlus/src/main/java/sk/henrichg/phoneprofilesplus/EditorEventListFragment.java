@@ -685,7 +685,7 @@ public class EditorEventListFragment extends Fragment
     }
 
     boolean runStopEvent(final Event event) {
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
             // events are not globally stopped
 
             activityDataWrapper.getEventTimelineList(true);

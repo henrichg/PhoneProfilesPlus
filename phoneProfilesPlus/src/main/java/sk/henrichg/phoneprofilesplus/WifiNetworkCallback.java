@@ -223,7 +223,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             }
         }
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(appContext)) {
 //            PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "xxx");
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {

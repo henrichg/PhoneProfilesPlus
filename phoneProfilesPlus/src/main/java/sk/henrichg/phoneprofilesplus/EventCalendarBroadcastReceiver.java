@@ -22,7 +22,7 @@ public class EventCalendarBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning()) {
+        if (Event.getGlobalEventsRunning(context)) {
             //if (useHandler) {
             final Context appContext = context.getApplicationContext();
             PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_CALENDAR, "SENSOR_TYPE_CALENDAR", 0);

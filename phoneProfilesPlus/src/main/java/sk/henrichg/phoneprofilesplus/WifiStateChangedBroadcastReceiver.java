@@ -94,7 +94,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                             int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
 
-                            if (Event.getGlobalEventsRunning() || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                            if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                                 if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
                                     if (wifiState == WifiManager.WIFI_STATE_ENABLED) {

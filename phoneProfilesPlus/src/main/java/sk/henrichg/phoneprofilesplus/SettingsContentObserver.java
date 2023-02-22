@@ -218,7 +218,7 @@ class SettingsContentObserver  extends ContentObserver {
                 if (PPApplication.getApplicationStarted(true, true)) {
                     // application is started
 
-                    if (Event.getGlobalEventsRunning()) {
+                    if (Event.getGlobalEventsRunning(context)) {
 
                         // !!! must be used MainWorker with delay and REPLACE, because is often called this onChange
                         // for change volumes
