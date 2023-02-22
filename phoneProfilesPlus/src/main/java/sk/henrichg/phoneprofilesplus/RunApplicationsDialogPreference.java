@@ -469,7 +469,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
     }
 
     private void setIcons() {
-        PackageManager packageManager = context.getPackageManager();
+        PackageManager packageManager = context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
         String[] splits = value.split("\\|");

@@ -42,7 +42,9 @@ class ApplicationsCache {
 
             applicationsList.clear();
 
-            PackageManager packageManager = context.getPackageManager();
+            Context appContext = context.getApplicationContext();
+
+            PackageManager packageManager = appContext.getPackageManager();
 
             Intent appsIntent = new Intent(Intent.ACTION_MAIN);
             appsIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -72,7 +74,7 @@ class ApplicationsCache {
                             applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                         } else {
                             //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                            icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+                            icon = AppCompatResources.getDrawable(appContext, R.drawable.ic_empty);
                             bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                             if (bitmap != null) {
                                 appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
@@ -89,7 +91,7 @@ class ApplicationsCache {
                             applicationNoShortcutIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                         } else {
                             //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                            icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+                            icon = AppCompatResources.getDrawable(appContext, R.drawable.ic_empty);
                             bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                             if (bitmap != null) {
                                 appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);
@@ -130,7 +132,7 @@ class ApplicationsCache {
                             applicationIconsLru.put(newInfo.packageName + "/" + newInfo.activityName, appIcon);
                         } else {
                             //icon = ContextCompat.getDrawable(context, R.drawable.ic_empty);
-                            icon = AppCompatResources.getDrawable(context, R.drawable.ic_empty);
+                            icon = AppCompatResources.getDrawable(appContext, R.drawable.ic_empty);
                             bitmap = BitmapManipulator.getBitmapFromDrawable(icon, true);
                             if (bitmap != null) {
                                 appIcon = Bitmap.createScaledBitmap(bitmap, 40, 40, true);

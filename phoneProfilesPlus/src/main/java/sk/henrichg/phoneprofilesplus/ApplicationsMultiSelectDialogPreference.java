@@ -303,7 +303,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     }
 
     private void setIcons() {
-        PackageManager packageManager = _context.getPackageManager();
+        PackageManager packageManager = _context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
         String[] splits = value.split("\\|");
