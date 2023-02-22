@@ -523,9 +523,9 @@ public class ProfileListNotification {
 //        } catch (Exception ignored) {};
 
         if (drawImmediatelly)
-            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            PPApplication.delayedGuiExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
-            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+            PPApplication.delayedGuiExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
     }
 
     static void showNotification(Context context,

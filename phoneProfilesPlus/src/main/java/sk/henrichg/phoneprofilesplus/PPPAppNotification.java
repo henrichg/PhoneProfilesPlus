@@ -1397,9 +1397,9 @@ public class PPPAppNotification {
 //        } catch (Exception ignored) {};
 
         if (drawImmediatelly)
-            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
+            PPApplication.delayedAppNotificationExecutor.schedule(runnable, 200, TimeUnit.MILLISECONDS);
         else
-            PPApplication.delayedShowNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
+            PPApplication.delayedAppNotificationExecutor.schedule(runnable, 1, TimeUnit.SECONDS);
 
         /*if (drawImmediatelly) {
             final Context appContext = context.getApplicationContext();
