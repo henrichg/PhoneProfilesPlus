@@ -441,6 +441,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         PPApplication.loadApplicationPreferences(getApplicationContext());
 
+        PPPAppNotification.forceDrawNotificationFromSettings(appContext);
+
         // !! must be after PPApplication.loadApplicationPreferences()
         if (ApplicationPreferences.notificationProfileListDisplayNotification)
             ProfileListNotification.enable(getApplicationContext());

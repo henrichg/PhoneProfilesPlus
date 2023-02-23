@@ -286,6 +286,7 @@ public class ProfileListNotification {
         // this disable timestamp in decorator
         notificationBuilder.setShowWhen(false);
 
+        Log.e("ProfileListNotification._showNotification", "notificationProfileListBackgroundColor="+notificationProfileListBackgroundColor);
         switch (notificationProfileListBackgroundColor) {
             case "3":
                 //if (!notificationNightMode || (useNightColor == 1)) {
@@ -744,7 +745,6 @@ public class ProfileListNotification {
         String iconIdentifier = profile.getIconIdentifier();
 
         if (isIconResourceID) {
-            int iconSmallResource;
             if (iconBitmap != null) {
                 if (notificationProfileListIconColor.equals("0")) {
                     if ((!notificationProfileListBackgroundColor.equals("5")) ||
@@ -879,7 +879,9 @@ public class ProfileListNotification {
             ApplicationPreferences.notificationProfileListDisplayNotification = true;
         }
 
-        forceDrawNotification(appContext);
+        clearNotification(appContext);
+        GlobalUtils.sleep(100);
+        _showNotification(appContext/*, false*/);
     }
 
     static void disable(Context appContext) {

@@ -1349,6 +1349,19 @@ public class PPPAppNotification {
         //}
     }
 
+    static void forceDrawNotificationFromSettings(final Context appContext) {
+        clearNotification(appContext);
+        GlobalUtils.sleep(100);
+
+        //if (PhoneProfilesService.getInstance() != null) {
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+//                PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification.forceDrawNotification", "call of _showNotification");
+            _showNotification(dataWrapper, false);
+            dataWrapper.invalidateDataWrapper();
+        }
+    }
+
     static void drawNotification(boolean drawImmediatelly, Context context) {
 //        PPApplication.logE("[EXECUTOR_CALL]  ***** PPPAppNotification.drawNotification", "schedule");
 
