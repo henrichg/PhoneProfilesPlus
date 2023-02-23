@@ -3733,7 +3733,7 @@ public class PhoneProfilesService extends Service
 
                 // !! must be after PPApplication.loadApplicationPreferences()
                 if (ApplicationPreferences.notificationProfileListDisplayNotification)
-                    ProfileListNotification.enable(getApplicationContext());
+                    ProfileListNotification.enable(false, getApplicationContext());
                 else
                     ProfileListNotification.disable(getApplicationContext());
 

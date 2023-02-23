@@ -445,7 +445,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         // !! must be after PPApplication.loadApplicationPreferences()
         if (ApplicationPreferences.notificationProfileListDisplayNotification)
-            ProfileListNotification.enable(getApplicationContext());
+            ProfileListNotification.enable(true, getApplicationContext());
         else
             ProfileListNotification.disable(getApplicationContext());
 

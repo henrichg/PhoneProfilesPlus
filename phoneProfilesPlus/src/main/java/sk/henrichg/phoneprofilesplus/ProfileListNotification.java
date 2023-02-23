@@ -866,7 +866,7 @@ public class ProfileListNotification {
         }
     }
 
-    static void enable(Context appContext) {
+    static void enable(boolean clear, Context appContext) {
         if (arrowsBroadcastReceiver == null) {
             arrowsBroadcastReceiver = new ArrowsBroadcastReceiver();
             IntentFilter intentFilter5 = new IntentFilter();
@@ -879,8 +879,10 @@ public class ProfileListNotification {
             ApplicationPreferences.notificationProfileListDisplayNotification = true;
         }
 
-        clearNotification(appContext);
-        GlobalUtils.sleep(100);
+        if (clear) {
+            clearNotification(appContext);
+            GlobalUtils.sleep(100);
+        }
         _showNotification(appContext/*, false*/);
     }
 
