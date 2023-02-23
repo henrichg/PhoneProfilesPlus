@@ -4172,10 +4172,6 @@ public class PhoneProfilesService extends Service
                 }
                 */
 
-                if (actualVersionCode <= 5910) {
-                    ApplicationPreferences.startStopTargetHelps(appContext, false);
-                }
-
                 if (actualVersionCode <= 6200) {
                     if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_NOTIFICATION) > 0) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
@@ -4301,6 +4297,10 @@ public class PhoneProfilesService extends Service
                 }
 
             }
+
+            // Keep this !!! stop tap target for package replaced
+            ApplicationPreferences.startStopTargetHelps(appContext, false);
+
         } catch (Exception ee) {
             PPApplication.recordException(ee);
         }
@@ -4360,6 +4360,7 @@ public class PhoneProfilesService extends Service
 
         if (!serviceHasFirstStart) {
             if (intent != null) {
+                // TODO remove for release
                 //ApplicationPreferences.startStopTargetHelps(appContext, false);
 
                 String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
