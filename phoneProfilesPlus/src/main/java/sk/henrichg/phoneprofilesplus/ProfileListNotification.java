@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -29,6 +30,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileListNotification {
+
+    static volatile ArrowsBroadcastReceiver arrowsBroadcastReceiver = null;
 
     private static final int[] profileIconId = {
             R.id.widget_one_row_profile_list_profile_icon_1, R.id.widget_one_row_profile_list_profile_icon_2,
@@ -832,6 +835,40 @@ public class ProfileListNotification {
             return res;
         }
     }
+
+    static void enable(Context appContext) {
+        if (arrowsBroadcastReceiver == null) {
+            arrowsBroadcastReceiver = new ArrowsBroadcastReceiver();
+            IntentFilter intentFilter5 = new IntentFilter();
+            intentFilter5.addAction(ACTION_RIGHT_ARROW_CLICK);
+            intentFilter5.addAction(ACTION_LEFT_ARROW_CLICK);
+            appContext.registerReceiver(arrowsBroadcastReceiver, intentFilter5);
+        }
+
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            ApplicationPreferences.notificationProfileListDisplayNotification = true;
+        }
+
+        forceDrawNotification(appContext);
+    }
+
+    static void disable(Context appContext) {
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            ApplicationPreferences.notificationProfileListDisplayNotification = false;
+        }
+
+        clearNotification(appContext);
+
+        if (arrowsBroadcastReceiver != null) {
+            try {
+                appContext.unregisterReceiver(arrowsBroadcastReceiver);
+                arrowsBroadcastReceiver = null;
+            } catch (Exception e) {
+                arrowsBroadcastReceiver = null;
+            }
+        }
+    }
+
 
     public static class ArrowsBroadcastReceiver extends BroadcastReceiver {
 

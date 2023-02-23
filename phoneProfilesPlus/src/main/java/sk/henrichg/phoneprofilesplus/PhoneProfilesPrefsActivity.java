@@ -441,6 +441,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         PPApplication.loadApplicationPreferences(getApplicationContext());
 
+        // !! must be after PPApplication.loadApplicationPreferences()
+        if (ApplicationPreferences.notificationProfileListDisplayNotification)
+            ProfileListNotification.enable(getApplicationContext());
+        else
+            ProfileListNotification.disable(getApplicationContext());
+
        //try {
             if ((Build.VERSION.SDK_INT < 26)) {
                 PPApplication.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);

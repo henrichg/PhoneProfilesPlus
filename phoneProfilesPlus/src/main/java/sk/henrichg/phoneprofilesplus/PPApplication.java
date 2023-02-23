@@ -3872,6 +3872,7 @@ public class PPApplication extends Application
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
                 AutostartPermissionNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
+                ProfileListNotification.clearNotification(context);
 
                 if (removeNotifications) {
                     if (dataWrapper != null) {
