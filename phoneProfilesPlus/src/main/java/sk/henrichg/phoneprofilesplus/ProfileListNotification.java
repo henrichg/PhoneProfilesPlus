@@ -34,36 +34,36 @@ public class ProfileListNotification {
     static volatile ArrowsBroadcastReceiver arrowsBroadcastReceiver = null;
 
     private static final int[] profileIconId = {
-            R.id.widget_one_row_profile_list_profile_icon_1, R.id.widget_one_row_profile_list_profile_icon_2,
-            R.id.widget_one_row_profile_list_profile_icon_3, R.id.widget_one_row_profile_list_profile_icon_4,
-            R.id.widget_one_row_profile_list_profile_icon_5, R.id.widget_one_row_profile_list_profile_icon_6,
-            R.id.widget_one_row_profile_list_profile_icon_7, R.id.widget_one_row_profile_list_profile_icon_8,
-            R.id.widget_one_row_profile_list_profile_icon_9, R.id.widget_one_row_profile_list_profile_icon_10,
-            R.id.widget_one_row_profile_list_profile_icon_11, R.id.widget_one_row_profile_list_profile_icon_12,
-            R.id.widget_one_row_profile_list_profile_icon_13, R.id.widget_one_row_profile_list_profile_icon_14,
-            R.id.widget_one_row_profile_list_profile_icon_15
+            R.id.notification_profile_list_profile_icon_1, R.id.notification_profile_list_profile_icon_2,
+            R.id.notification_profile_list_profile_icon_3, R.id.notification_profile_list_profile_icon_4,
+            R.id.notification_profile_list_profile_icon_5, R.id.notification_profile_list_profile_icon_6,
+            R.id.notification_profile_list_profile_icon_7, R.id.notification_profile_list_profile_icon_8,
+            R.id.notification_profile_list_profile_icon_9, R.id.notification_profile_list_profile_icon_10,
+            R.id.notification_profile_list_profile_icon_11, R.id.notification_profile_list_profile_icon_12,
+            R.id.notification_profile_list_profile_icon_13, R.id.notification_profile_list_profile_icon_14,
+            R.id.notification_profile_list_profile_icon_15
     };
 
     private static final int[] profileMarkId = {
-            R.id.widget_one_row_profile_list_profile_mark_1, R.id.widget_one_row_profile_list_profile_mark_2,
-            R.id.widget_one_row_profile_list_profile_mark_3, R.id.widget_one_row_profile_list_profile_mark_4,
-            R.id.widget_one_row_profile_list_profile_mark_5, R.id.widget_one_row_profile_list_profile_mark_6,
-            R.id.widget_one_row_profile_list_profile_mark_7, R.id.widget_one_row_profile_list_profile_mark_8,
-            R.id.widget_one_row_profile_list_profile_mark_9, R.id.widget_one_row_profile_list_profile_mark_10,
-            R.id.widget_one_row_profile_list_profile_mark_11, R.id.widget_one_row_profile_list_profile_mark_12,
-            R.id.widget_one_row_profile_list_profile_mark_13, R.id.widget_one_row_profile_list_profile_mark_14,
-            R.id.widget_one_row_profile_list_profile_mark_15
+            R.id.notification_profile_list_profile_mark_1, R.id.notification_profile_list_profile_mark_2,
+            R.id.notification_profile_list_profile_mark_3, R.id.notification_profile_list_profile_mark_4,
+            R.id.notification_profile_list_profile_mark_5, R.id.notification_profile_list_profile_mark_6,
+            R.id.notification_profile_list_profile_mark_7, R.id.notification_profile_list_profile_mark_8,
+            R.id.notification_profile_list_profile_mark_9, R.id.notification_profile_list_profile_mark_10,
+            R.id.notification_profile_list_profile_mark_11, R.id.notification_profile_list_profile_mark_12,
+            R.id.notification_profile_list_profile_mark_13, R.id.notification_profile_list_profile_mark_14,
+            R.id.notification_profile_list_profile_mark_15
     };
 
     private static final int[] profileRootId = {
-            R.id.widget_one_row_profile_list_profile_icon_1_root, R.id.widget_one_row_profile_list_profile_icon_2_root,
-            R.id.widget_one_row_profile_list_profile_icon_3_root, R.id.widget_one_row_profile_list_profile_icon_4_root,
-            R.id.widget_one_row_profile_list_profile_icon_5_root, R.id.widget_one_row_profile_list_profile_icon_6_root,
-            R.id.widget_one_row_profile_list_profile_icon_7_root, R.id.widget_one_row_profile_list_profile_icon_8_root,
-            R.id.widget_one_row_profile_list_profile_icon_9_root, R.id.widget_one_row_profile_list_profile_icon_10_root,
-            R.id.widget_one_row_profile_list_profile_icon_11_root, R.id.widget_one_row_profile_list_profile_icon_12_root,
-            R.id.widget_one_row_profile_list_profile_icon_13_root, R.id.widget_one_row_profile_list_profile_icon_14_root,
-            R.id.widget_one_row_profile_list_profile_icon_15_root
+            R.id.notification_profile_list_profile_icon_1_root, R.id.notification_profile_list_profile_icon_2_root,
+            R.id.notification_profile_list_profile_icon_3_root, R.id.notification_profile_list_profile_icon_4_root,
+            R.id.notification_profile_list_profile_icon_5_root, R.id.notification_profile_list_profile_icon_6_root,
+            R.id.notification_profile_list_profile_icon_7_root, R.id.notification_profile_list_profile_icon_8_root,
+            R.id.notification_profile_list_profile_icon_9_root, R.id.notification_profile_list_profile_icon_10_root,
+            R.id.notification_profile_list_profile_icon_11_root, R.id.notification_profile_list_profile_icon_12_root,
+            R.id.notification_profile_list_profile_icon_13_root, R.id.notification_profile_list_profile_icon_14_root,
+            R.id.notification_profile_list_profile_icon_15_root
     };
 
     private static int displayedPage = 0;
@@ -72,8 +72,8 @@ public class ProfileListNotification {
     private static final int MAX_PROFILE_COUNT = 15;
 
     //static final String ACTION_REFRESH_PROFILELISTNOTIFICATION = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_PROFILELISTNOTIFICATION";
-    private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_LEFT_ARROW_CLICK";
-    private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_RIGHT_ARROW_CLICK";
+    private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_LEFT_ARROW_CLICK";
+    private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_RIGHT_ARROW_CLICK";
     private static final int PROFILE_ID_ACTIVATE_PROFILE_ID = 1000;
 
 
@@ -168,6 +168,7 @@ public class ProfileListNotification {
                 DataWrapper.IT_FOR_NOTIFICATION, 0, 0);
 
         List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
+//        PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "(1) newProfileList.size="+newProfileList.size());
 
         // add activated profile, when has not enabled _showInActivator
         Profile activatedProfile = dataWrapper.getActivatedProfile(newProfileList);
@@ -177,6 +178,7 @@ public class ProfileListNotification {
             activatedProfile._porder = -1;
         }
         newProfileList.sort(new ProfileComparator());
+//        PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "(2) newProfileList.size="+newProfileList.size());
 
         Profile restartEvents = null;
         if (Event.getGlobalEventsRunning(context)) {
@@ -189,6 +191,7 @@ public class ProfileListNotification {
         }
         if (restartEvents != null)
             dataWrapper.generateProfileIcon(restartEvents, true, false);
+//        PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "(3) newProfileList.size="+newProfileList.size());
 
         dataWrapper.setProfileList(newProfileList);
 
@@ -199,6 +202,8 @@ public class ProfileListNotification {
         }
         if (profileCount > MAX_PROFILE_COUNT)
             profileCount = MAX_PROFILE_COUNT;
+
+//        PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "profileCount="+profileCount);
 
         int markRedColor = 0xFF;
         switch (notificationProfileListArrowsMarkLightness) {
@@ -301,14 +306,19 @@ public class ProfileListNotification {
                 break;
         }
 
+        setSmallIcon(activatedProfile,
+                notificationProfileListStatusBarStyle,
+                notificationBuilder);
+
         int profileIdx = 0;
         int displayedProfileIdx = 0;
         int firstProfileIdxInPage = notificationProfileListNumberOfProfilesPerPage * displayedPage;
-        //Log.e("ProfileListNotification._showNotification", "displayedPage="+displayedPage);
-        //Log.e("ProfileListNotification._showNotification", "firstProfileInPage="+firstProfileInPage);
+//        Log.e("ProfileListNotification._showNotification", "displayedPage="+displayedPage);
+//        Log.e("ProfileListNotification._showNotification", "firstProfileIdxInPage="+firstProfileIdxInPage);
         for (Profile profile : dataWrapper.profileList) {
             if (profile._showInActivator) {
                 if (profileIdx >= firstProfileIdxInPage) {
+//                    PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "call of setProfileIcon");
                     setProfileIcon(profile,
                             profileIconId[displayedProfileIdx], profileMarkId[displayedProfileIdx], profileRootId[displayedProfileIdx],
                             notificationProfileListIconColor,
@@ -316,8 +326,7 @@ public class ProfileListNotification {
                             notificationProfileListBackgroundColor,
                             notificationProfileListBackgroundCustomColor,
                             markRedColor, markGreenColor, markBlueColor,
-                            notificationProfileListStatusBarStyle,
-                            notificationBuilder,
+
                             contentView, appContext);
                     //remoteViews.setViewVisibility(profileIconId[displayedProfileIdx], View.VISIBLE);
                     ++displayedProfileIdx;
@@ -329,6 +338,7 @@ public class ProfileListNotification {
         }
         // invisible all not used profile icons
         for (int i = displayedProfileIdx; i < MAX_PROFILE_COUNT; i++) {
+//            Log.e("ProfileListNotification._showNotification", "hide not needed icons");
             contentView.setViewVisibility(profileRootId[i], View.GONE);
             //remoteViews.setViewVisibility(profileIconId[i], View.INVISIBLE);
             //remoteViews.setViewVisibility(profileMarkId[i], View.INVISIBLE);
@@ -367,7 +377,8 @@ public class ProfileListNotification {
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, VISIBLE);
         else
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, View.GONE);
-        Intent intentLeftArrow = new Intent(appContext, ProfileListNotification.ArrowsBroadcastReceiver.class);
+
+        Intent intentLeftArrow = new Intent();
         intentLeftArrow.setAction(ACTION_LEFT_ARROW_CLICK);
         PendingIntent pIntentLeftArrow = PendingIntent.getBroadcast(appContext, 2, intentLeftArrow, PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.notification_profile_list_scroll_left_arrow, pIntentLeftArrow);
@@ -377,25 +388,23 @@ public class ProfileListNotification {
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_right_arrow, VISIBLE);
         else
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_right_arrow, View.GONE);
-        Intent intentRightArrow = new Intent(appContext, ProfileListNotification.ArrowsBroadcastReceiver.class);
+        Intent intentRightArrow = new Intent();
         intentRightArrow.setAction(ACTION_RIGHT_ARROW_CLICK);
         PendingIntent pIntentRightArrow = PendingIntent.getBroadcast(appContext, 3, intentRightArrow, PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.notification_profile_list_scroll_right_arrow, pIntentRightArrow);
 
         notificationBuilder.setStyle(null);
 
-        notificationBuilder.setCustomBigContentView(contentView);
+        notificationBuilder.setCustomContentView(contentView);
 
         notificationBuilder.setOnlyAlertOnce(true);
 
         notificationBuilder.setGroup(PPApplication.PROFILE_NOTIFICATION_GROUP);
 
-        /*
         if (Build.VERSION.SDK_INT >= 33) {
             // required, because in API 33+ foreground serbice notification is dismissable
             notificationBuilder.setOngoing(true);
         }
-        */
 
         Notification profileListNotification;
         try {
@@ -579,7 +588,9 @@ public class ProfileListNotification {
             if (notificationManager != null) {
                 try {
                     synchronized (PPApplication.showPPPNotificationMutex) {
-                        notificationManager.cancel(PPApplication.PROFILE_LIST_NOTIFICATION_ID);
+                        notificationManager.cancel(
+                                PPApplication.PROFILE_LIST_NOTIFICATION_TAG,
+                                PPApplication.PROFILE_LIST_NOTIFICATION_ID);
                     }
                 } catch (Exception ignored) {}
             }
@@ -592,6 +603,87 @@ public class ProfileListNotification {
         //}
     }
 
+    private static void setSmallIcon(Profile activatedProfile,
+                                     String notificationProfileListStatusBarStyle,
+
+                                     NotificationCompat.Builder notificationBuilder) {
+        if (activatedProfile == null) {
+            int iconSmallResource;
+            if (notificationProfileListStatusBarStyle.equals("0"))
+                iconSmallResource = R.drawable.ic_profile_default;
+            else
+                iconSmallResource = R.drawable.ic_profile_default_notify;
+//            PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(0)");
+            notificationBuilder.setSmallIcon(iconSmallResource);
+            return;
+        }
+
+        boolean isIconResourceID = activatedProfile.getIsIconResourceID();
+        Bitmap  iconBitmap = activatedProfile._iconBitmap;
+        String iconIdentifier = activatedProfile.getIconIdentifier();
+
+        if (isIconResourceID) {
+            int iconSmallResource;
+            if (iconBitmap != null) {
+
+                if (notificationProfileListStatusBarStyle.equals("0")) {
+                    // colorful icon
+
+//                    PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(1)");
+                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                } else {
+                    // native icon
+
+                    iconSmallResource = R.drawable.ic_profile_default_notify;
+                    try {
+                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                            Object obj = Profile.profileIconNotifyId.get(iconIdentifier);
+                            if (obj != null)
+                                iconSmallResource = (int) obj;
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                    }
+//                    PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(2)");
+                    notificationBuilder.setSmallIcon(iconSmallResource);
+                }
+            } else {
+                iconSmallResource = R.drawable.ic_profile_default_notify_color;
+                try {
+                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                        Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                        if (idx != null)
+                            iconSmallResource = (int) idx;
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                }
+//                PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(3)");
+                notificationBuilder.setSmallIcon(iconSmallResource);
+            }
+        } else {
+            if (iconBitmap != null) {
+                if (notificationProfileListStatusBarStyle.equals("2")) {
+                    Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
+//                    PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(4)");
+                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
+                    //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+                } else
+//                    PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(5)");
+                notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+            } else {
+                int iconSmallResource;
+                if (notificationProfileListStatusBarStyle.equals("0"))
+                    iconSmallResource = R.drawable.ic_profile_default;
+                else
+                    iconSmallResource = R.drawable.ic_profile_default_notify;
+//                PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(6)");
+                notificationBuilder.setSmallIcon(iconSmallResource);
+            }
+        }
+    }
 
     private static void setProfileIcon(Profile profile,
                                        int imageViewId, int markViewId, int rootId,
@@ -600,9 +692,7 @@ public class ProfileListNotification {
                                        String notificationProfileListBackgroundColor,
                                        int notificationProfileListBackgroundCustomColor,
                                        int markRedColor, int markGreenColor, int markBlueColor,
-                                       String notificationProfileListStatusBarStyle,
 
-                                       NotificationCompat.Builder notificationBuilder,
                                        RemoteViews contentView,
                                        Context appContext) {
 
@@ -615,30 +705,6 @@ public class ProfileListNotification {
         if (isIconResourceID) {
             int iconSmallResource;
             if (iconBitmap != null) {
-
-                if (profile._checked) {
-                    if (notificationProfileListStatusBarStyle.equals("0")) {
-                        // colorful icon
-
-                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
-                    } else {
-                        // native icon
-
-                        iconSmallResource = R.drawable.ic_profile_default_notify;
-                        try {
-                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                                Object obj = Profile.profileIconNotifyId.get(iconIdentifier);
-                                if (obj != null)
-                                    iconSmallResource = (int) obj;
-                            }
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
-                        }
-                        notificationBuilder.setSmallIcon(iconSmallResource);
-                    }
-                }
-
                 if (notificationProfileListIconColor.equals("0")) {
                     if ((!notificationProfileListBackgroundColor.equals("5")) ||
                             (ColorUtils.calculateLuminance(notificationProfileListBackgroundCustomColor) < 0.23)) {
@@ -657,21 +723,6 @@ public class ProfileListNotification {
 //                            PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", Log.getStackTraceString(e));
                 }
             } else {
-                if (profile._checked) {
-                    iconSmallResource = R.drawable.ic_profile_default_notify_color;
-                    try {
-                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                            Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
-                            if (idx != null)
-                                iconSmallResource = (int) idx;
-                        }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-//                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
-                    }
-                    notificationBuilder.setSmallIcon(iconSmallResource);
-                }
-
                 int iconLargeResource = ProfileStatic.getIconResource(iconIdentifier);
                 iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
                 if (iconBitmap != null) {
@@ -696,49 +747,7 @@ public class ProfileListNotification {
 //                            PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                 }
             }
-
-
-            // do not use increaseNotificationDecorationBrightness(),
-            // because icon will not be visible in AOD
-            //    int color = 0;
-            //    if (profile != null)
-            //        color = profile.increaseNotificationDecorationBrightness(appContext);
-            //    if (color != 0)
-            //        decoratorColor = color;
-            //    else
-            /*
-            {
-                //if ((profile != null) && (profile.getUseCustomColorForIcon()))
-                if (profile.getUseCustomColorForIcon())
-                    decoratorColor = profile.getIconCustomColor();
-                else {
-                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                        decoratorColor = ProfileStatic.getIconDefaultColor(iconIdentifier);
-                    }
-                }
-            }
-            */
-
         } else {
-
-            if (profile._checked) {
-                if (iconBitmap != null) {
-                    if (notificationProfileListStatusBarStyle.equals("2")) {
-                        Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
-                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
-                        //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
-                    } else
-                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
-                } else {
-                    int iconSmallResource;
-                    if (notificationProfileListStatusBarStyle.equals("0"))
-                        iconSmallResource = R.drawable.ic_profile_default;
-                    else
-                        iconSmallResource = R.drawable.ic_profile_default_notify;
-                    notificationBuilder.setSmallIcon(iconSmallResource);
-                }
-            }
-
             //if (profile != null) {
                 Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
                 if (bitmap != null)
@@ -777,26 +786,6 @@ public class ProfileListNotification {
                 PPApplication.recordException(e);
 //                        PPApplication.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
             }
-
-            /*
-            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                if (iconBitmap != null) {
-                    // do not use increaseNotificationDecorationBrightness(),
-                    // because icon will not be visible in AOD
-                    //    int color = profile.increaseNotificationDecorationBrightness(appContext);
-                    //    if (color != 0)
-                    //        decoratorColor = color;
-                    //    else
-                    {
-                        try {
-                            Palette palette = Palette.from(iconBitmap).generate();
-                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notification_color));
-                        } catch (Exception ignored) {}
-                    }
-                }
-            }
-            */
-
         }
 
         if (profile._checked) {
@@ -874,8 +863,11 @@ public class ProfileListNotification {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+//            PPApplication.logE("[PPP_NOTIFICATION] ArrowsBroadcastReceiver.onReceive", "xxx");
             String action = intent.getAction();
             if (action != null) {
+//                PPApplication.logE("[PPP_NOTIFICATION] ArrowsBroadcastReceiver.onReceive", "action="+action);
+
                 if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
                     if ((displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
                             (profileCount > ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage)) {

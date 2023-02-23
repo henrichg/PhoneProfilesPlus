@@ -3731,6 +3731,12 @@ public class PhoneProfilesService extends Service
                     ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(appContext);
                 }
 
+                // !! must be after PPApplication.loadApplicationPreferences()
+                if (ApplicationPreferences.notificationProfileListDisplayNotification)
+                    ProfileListNotification.enable(getApplicationContext());
+                else
+                    ProfileListNotification.disable(getApplicationContext());
+
                 //boolean packageReplaced = PPApplication.applicationPackageReplaced; //ApplicationPreferences.applicationPackageReplaced(appContext);
                 //if (!packageReplaced) {
                 //setApplicationFullyStarted(true);
