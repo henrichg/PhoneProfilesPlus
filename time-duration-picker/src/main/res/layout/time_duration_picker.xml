@@ -230,5 +230,15 @@
                 android:text="00"
                 tools:ignore="HardcodedText"/>
         </LinearLayout>
+
+        <View
+            android:id="@+id/duration_dlg_buttonsDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2dp"
+            android:background="@color/display_divider" />
+
     </LinearLayout>
+
 </merge>
