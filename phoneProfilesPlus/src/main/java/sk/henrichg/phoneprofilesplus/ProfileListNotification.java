@@ -24,6 +24,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.palette.graphics.Palette;
 
 import java.util.Comparator;
 import java.util.List;
@@ -308,7 +309,8 @@ public class ProfileListNotification {
 
         setSmallIcon(activatedProfile,
                 notificationProfileListStatusBarStyle,
-                notificationBuilder);
+                notificationProfileListIconColor,
+                notificationBuilder, appContext);
 
         notificationBuilder.setContentTitle(context.getString(R.string.notification_channel_profile_list));
 
@@ -328,7 +330,6 @@ public class ProfileListNotification {
                             notificationProfileListBackgroundColor,
                             notificationProfileListBackgroundCustomColor,
                             markRedColor, markGreenColor, markBlueColor,
-
                             contentView, appContext);
                     //remoteViews.setViewVisibility(profileIconId[displayedProfileIdx], View.VISIBLE);
                     ++displayedProfileIdx;
@@ -607,8 +608,13 @@ public class ProfileListNotification {
 
     private static void setSmallIcon(Profile activatedProfile,
                                      String notificationProfileListStatusBarStyle,
+                                     String notificationProfileListIconColor,
 
-                                     NotificationCompat.Builder notificationBuilder) {
+                                     NotificationCompat.Builder notificationBuilder,
+                                     Context appContext) {
+
+        int decoratorColor = ContextCompat.getColor(appContext, R.color.notification_color);
+
         if (activatedProfile == null) {
             int iconSmallResource;
             if (notificationProfileListStatusBarStyle.equals("0"))
@@ -617,6 +623,10 @@ public class ProfileListNotification {
                 iconSmallResource = R.drawable.ic_profile_default_notify;
 //            PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(0)");
             notificationBuilder.setSmallIcon(iconSmallResource);
+
+            if (notificationProfileListIconColor.equals("0"))
+                notificationBuilder.setColor(decoratorColor);
+
             return;
         }
 
@@ -665,6 +675,14 @@ public class ProfileListNotification {
 //                PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(3)");
                 notificationBuilder.setSmallIcon(iconSmallResource);
             }
+
+            if (activatedProfile.getUseCustomColorForIcon())
+                decoratorColor = activatedProfile.getIconCustomColor();
+            else {
+                if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                    decoratorColor = ProfileStatic.getIconDefaultColor(iconIdentifier);
+                }
+            }
         } else {
             if (iconBitmap != null) {
                 if (notificationProfileListStatusBarStyle.equals("2")) {
@@ -672,9 +690,10 @@ public class ProfileListNotification {
 //                    PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(4)");
                     notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
                     //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
-                } else
+                } else {
 //                    PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(5)");
-                notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                }
             } else {
                 int iconSmallResource;
                 if (notificationProfileListStatusBarStyle.equals("0"))
@@ -684,7 +703,27 @@ public class ProfileListNotification {
 //                PPApplication.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(6)");
                 notificationBuilder.setSmallIcon(iconSmallResource);
             }
+
+            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                if (iconBitmap != null) {
+                    // do not use increaseNotificationDecorationBrightness(),
+                    // because icon will not be visible in AOD
+                        /*int color = profile.increaseNotificationDecorationBrightness(appContext);
+                        if (color != 0)
+                            decoratorColor = color;
+                        else*/ {
+                        try {
+                            Palette palette = Palette.from(iconBitmap).generate();
+                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notification_color));
+                        } catch (Exception ignored) {}
+                    }
+                }
+            }
+
         }
+
+        if (notificationProfileListIconColor.equals("0"))
+            notificationBuilder.setColor(decoratorColor);
     }
 
     private static void setProfileIcon(Profile profile,
