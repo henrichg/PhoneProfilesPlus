@@ -2093,6 +2093,8 @@
     <string name="permission_why_profile_close_all_applications">for close all applications from background</string>
     <string name="permission_why_profile_ppp_put_settings">for send request into PPPPutSettings from background</string>
 
+    <string name="notifications_preferences_notification_type">Notification type</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

@@ -421,6 +421,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                             default:
                         }
                     },
+                    null,
                     false,
                     this);
 
@@ -439,6 +440,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                             getGeofenceAddress(/*true*/);
                         }
                     },
+                    null,
                     true,
                     this);
 

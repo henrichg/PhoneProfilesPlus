@@ -24,6 +24,7 @@ class SingleSelectListDialog
 
     SingleSelectListDialog(String _title, int _itemsRes, int _itemValue,
                            DialogInterface.OnClickListener _itemClick,
+                           DialogInterface.OnCancelListener _cancelListener,
                            boolean hideButtonsDivider,
                            Activity _activity) {
         this.activity = _activity;
@@ -39,6 +40,9 @@ class SingleSelectListDialog
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.dialog_pp_list_preference, null);
         dialogBuilder.setView(layout);
+
+        if (_cancelListener != null)
+            dialogBuilder.setOnCancelListener(_cancelListener);
 
         View buttonsDivider = layout.findViewById(R.id.pp_list_pref_dlg_buttonBarDivider);
         if (hideButtonsDivider)

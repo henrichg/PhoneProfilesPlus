@@ -996,6 +996,7 @@ public class EditorEventListFragment extends Fragment
                         default:
                     }
                 },
+                null,
                 false,
                 getActivity());
         dialog.show();
@@ -2042,6 +2043,7 @@ public class EditorEventListFragment extends Fragment
                         default:
                     }
                 },
+                null,
                 false,
                 getActivity());
         dialog.show();

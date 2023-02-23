@@ -174,6 +174,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 }
                                 refreshListView(false, "");
                             },
+                            null,
                             false,
                             getActivity());
 

@@ -259,7 +259,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
-                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
             </intent-filter>
         </activity>
         <activity
@@ -527,6 +526,17 @@
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
+        </activity>
+        <activity
+            android:name=".NotificationsPreferncesActivity"
+            android:exported="true"
+            android:label="@string/notifications_preferences_notification_type"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
+            </intent-filter>
         </activity>
 
 

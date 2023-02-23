@@ -286,7 +286,7 @@ public class ProfileListNotification {
         // this disable timestamp in decorator
         notificationBuilder.setShowWhen(false);
 
-        Log.e("ProfileListNotification._showNotification", "notificationProfileListBackgroundColor="+notificationProfileListBackgroundColor);
+//        Log.e("ProfileListNotification._showNotification", "notificationProfileListBackgroundColor="+notificationProfileListBackgroundColor);
         switch (notificationProfileListBackgroundColor) {
             case "3":
                 //if (!notificationNightMode || (useNightColor == 1)) {

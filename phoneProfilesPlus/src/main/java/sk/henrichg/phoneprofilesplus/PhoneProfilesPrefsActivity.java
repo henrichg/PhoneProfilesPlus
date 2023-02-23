@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -113,11 +112,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         String extraScrollTo; //= null;
         Intent intent = getIntent();
         //String action = intent.getAction();
-        if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
+        /*if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
             // activity is started from notification, scroll to notifications category
             extraScrollTo = "categoryAppNotificationRoot";
             //extraScrollToType = "category";
-        }
+        }*/
         /*else if ((action != null) && action.equals(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE)) {
             appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
@@ -149,10 +148,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             if (widgetType == PPApplication.WIDGET_TYPE_LIST)
                 extraScrollTo = "categoryWidgetListRoot";
         }*/
-        else {
+        //else {
             extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
             //extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
-        }
+        //}
 
         PhoneProfilesPrefsFragment preferenceFragment = new PhoneProfilesPrefsRoot();
         if (extraScrollTo != null) {

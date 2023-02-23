@@ -178,6 +178,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                     refreshListView(false, Integer.MAX_VALUE);
                                     //dialog.dismiss();
                                 },
+                                null,
                                 false,
                                 (Activity) prefContext);
 
@@ -216,6 +217,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 refreshListView(false, Integer.MAX_VALUE);
                                 //dialog.dismiss();
                             },
+                            null,
                             false,
                             (Activity) prefContext);
 
@@ -235,6 +237,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 preference.sortCellsBy = which;
                                 refreshListView(false, Integer.MAX_VALUE);
                             },
+                            null,
                             false,
                             getActivity());
                     mSortDialog.show();

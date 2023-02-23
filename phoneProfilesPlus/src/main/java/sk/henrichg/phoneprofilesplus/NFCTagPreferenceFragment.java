@@ -186,6 +186,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 refreshListView("");
                                 //dialog.dismiss();
                             },
+                            null,
                             false,
                             (Activity) prefContext);
 

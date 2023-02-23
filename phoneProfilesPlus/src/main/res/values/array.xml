@@ -1578,5 +1578,9 @@
         <item>@string/array_ignore_manual_activation_ignore</item>
         <item>@string/array_ignore_manual_activation_ignore_no_pause</item>
     </string-array>
+    <string-array name="notificationPreferencesNotificationTypeArray">
+        <item>@string/notification_channel_activated_profile</item>
+        <item>@string/notification_channel_profile_list</item>
+    </string-array>
 
 </resources>

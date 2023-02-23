@@ -182,6 +182,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                 refreshListView(false, "");
                                 //dialog.dismiss();
                             },
+                            null,
                             false,
                             getActivity());
 
