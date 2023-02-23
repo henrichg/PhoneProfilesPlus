@@ -1,10 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -62,12 +60,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
                             default:
                         }
                     },
-                    new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            finish();
-                        }
-                    },
+                    dialog12 -> finish(),
                     false,
                     this);
 

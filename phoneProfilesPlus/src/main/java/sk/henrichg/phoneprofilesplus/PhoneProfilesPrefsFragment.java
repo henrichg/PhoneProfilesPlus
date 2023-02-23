@@ -3433,7 +3433,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS);
                 if (_preference != null)
-                    _preference.setEnabled((!backgroundColor.equals("0")) || iconColor.equals("1"));
+                    _preference.setEnabled((Build.VERSION.SDK_INT < 31) ||
+                            (!backgroundColor.equals("0")) || iconColor.equals("1"));
 
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR);
                 if (_preference != null)

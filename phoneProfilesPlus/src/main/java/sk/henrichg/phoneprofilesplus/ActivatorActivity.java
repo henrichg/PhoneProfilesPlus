@@ -236,10 +236,10 @@ public class ActivatorActivity extends AppCompatActivity
                 startPPServiceWhenNotStarted();
             else {
 //            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
-                PPPAppNotification.drawNotification(true, getApplicationContext());
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+                PPPAppNotification.drawNotification(true, getApplicationContext());
             }
         }
     }

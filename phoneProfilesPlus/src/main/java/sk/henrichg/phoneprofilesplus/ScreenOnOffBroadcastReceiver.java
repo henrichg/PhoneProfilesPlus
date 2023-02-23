@@ -264,8 +264,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 }
 
 //                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
-                PPPAppNotification.drawNotification(false, appContext);
                 ProfileListNotification.drawNotification(false, appContext);
+                PPPAppNotification.drawNotification(false, appContext);
 
                 if (Event.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -312,8 +312,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 }
 
 //                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
-                PPPAppNotification.drawNotification(false, appContext);
                 ProfileListNotification.drawNotification(false, appContext);
+                PPPAppNotification.drawNotification(false, appContext);
 
                 break;
             }

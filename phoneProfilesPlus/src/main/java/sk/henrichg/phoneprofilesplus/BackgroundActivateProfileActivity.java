@@ -146,10 +146,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
-                PPPAppNotification.drawNotification(true, getApplicationContext());
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+                PPPAppNotification.drawNotification(true, getApplicationContext());
                 activateProfile();
             }
             //if (!isFinishing())

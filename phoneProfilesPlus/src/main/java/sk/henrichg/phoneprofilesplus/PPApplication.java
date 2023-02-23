@@ -567,6 +567,7 @@ public class PPApplication extends Application
 
     static final int PROFILE_LIST_NOTIFICATION_ID = 550;
     static final String PROFILE_LIST_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_LIST_NOTIFICATION";
+    static final String PROFILE_LIST_NOTIFICATION_GROUP = PACKAGE_NAME+"_PROFILE_LIST_NOTIFICATION_GROUP";
 
     //last notification id = 151
 
@@ -2025,7 +2026,6 @@ public class PPApplication extends Application
         if (alsoNotification) {
 //            PPApplication.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of PPPAppNotification.drawNotification");
             PPPAppNotification.drawNotification(true, context);
-            ProfileListNotification.drawNotification(true, context);
         }
     }
 
@@ -2126,8 +2126,8 @@ public class PPApplication extends Application
 
             if (!longDelay) {
 //                PPApplication.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPPAppNotification.drawNotification");
-                PPPAppNotification.drawNotification(false, context);
                 ProfileListNotification.drawNotification(false, context);
+                PPPAppNotification.drawNotification(false, context);
             }
         } catch (Exception e) {
             PPApplication.recordException(e);

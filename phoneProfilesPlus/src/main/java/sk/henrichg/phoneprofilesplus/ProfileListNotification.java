@@ -129,7 +129,10 @@ public class ProfileListNotification {
 
         //boolean useNightColor = GlobalGUIRoutines.isNightModeEnabled(appContext);
 
-        contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_profile_list);
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_profile_list_miui);
+        else
+            contentView = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.ppp_notification_profile_list);
 
         int monochromeValue = 0xFF;
         switch (notificationProfileListIconLightness) {
@@ -400,15 +403,16 @@ public class ProfileListNotification {
         notificationBuilder.setStyle(null);
 
         notificationBuilder.setCustomContentView(contentView);
+        notificationBuilder.setCustomBigContentView(contentView);
 
         notificationBuilder.setOnlyAlertOnce(true);
 
-        notificationBuilder.setGroup(PPApplication.PROFILE_NOTIFICATION_GROUP);
+        notificationBuilder.setGroup(PPApplication.PROFILE_LIST_NOTIFICATION_GROUP);
 
-        if (Build.VERSION.SDK_INT >= 33) {
+        //if (Build.VERSION.SDK_INT >= 33) {
             // required, because in API 33+ foreground serbice notification is dismissable
             notificationBuilder.setOngoing(true);
-        }
+        //}
 
         Notification profileListNotification;
         try {
