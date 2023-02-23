@@ -125,7 +125,7 @@ public class ProfileListNotification {
 
         NotificationCompat.Builder notificationBuilder;
 
-        RemoteViews contentView = null;
+        RemoteViews contentView;
 
         //boolean useNightColor = GlobalGUIRoutines.isNightModeEnabled(appContext);
 
@@ -282,6 +282,7 @@ public class ProfileListNotification {
         // The service provides a use case related to phone calls, navigation, or media playback,
         // as defined in the notification's category attribute.
         // Use CATEGORY_NAVIGATION to show notification in DND
+        // TODO toto nefunguje pri tejto notifikacii. Neviem preco kua. :-(
         notificationBuilder.setCategory(NotificationCompat.CATEGORY_NAVIGATION);
 
         notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
