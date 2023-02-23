@@ -15,6 +15,7 @@
         app:title="@string/phone_profiles_pref_notificationSystemSettings"
         app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:dependency="notificationProfileListDisplayNotification"
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
@@ -22,6 +23,7 @@
         app:title="@string/phone_profiles_pref_notificationSystemSettings"
         app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_summary"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:dependency="notificationProfileListDisplayNotification"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
@@ -31,6 +33,7 @@
         app:defaultValue="6"
         app:min="1"
         app:max="15"
+        app:dependency="notificationProfileListDisplayNotification"
         app:layout="@layout/mp_preference_material_widget" />
 
     <PreferenceCategory
@@ -43,6 +46,7 @@
             app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
             app:widgetLayout="@layout/preference_widget_info_preference"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.PPListPreference
@@ -52,6 +56,7 @@
             app:defaultValue="1"
             app:ppEntries="@array/notificationIconStyleArray"
             app:ppEntryValues="@array/notificationIconStyleValues"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
 
     </PreferenceCategory>
@@ -68,6 +73,7 @@
             app:defaultValue="0"
             app:ppEntries="@array/notificationBackgroundColorArray"
             app:ppEntryValues="@array/notificationBackgroundColorValues"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.CustomColorDialogPreference
@@ -76,6 +82,7 @@
             app:defaultValue="#FFFFFFFF"
             app:chromaColorMode="RGB"
             app:chromaIndicatorMode="HEX"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
 
     </PreferenceCategory>
@@ -91,6 +98,7 @@
             app:key="notificationProfileListArrowsMarkLightness"
             app:defaultValue="50"
             app:showLighting="true"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
 
         <sk.henrichg.phoneprofilesplus.PPListPreference
@@ -100,6 +108,7 @@
             app:defaultValue="0"
             app:ppEntries="@array/widgetColorArray"
             app:ppEntryValues="@array/widgetColorValues"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
             app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
@@ -107,11 +116,13 @@
             app:key="notificationProfileListIconLightness"
             app:defaultValue="100"
             app:showLighting="true"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationProfileListCustomIconLightness"
             app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
             app:defaultValue="false"
+            app:dependency="notificationProfileListDisplayNotification"
             app:layout="@layout/mp_preference_material_widget" />
 
     </PreferenceCategory>

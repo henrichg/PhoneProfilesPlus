@@ -3248,6 +3248,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(show);
             }
+            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR)) {
+                boolean show = preferences.getBoolean(key, true);
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN);
+                if (_preference != null)
+                    _preference.setEnabled(show);
+            }
         }
 
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR) ||
@@ -3411,7 +3417,48 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
         }*/
 
-        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR)) {
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS)) {
+
+            boolean displayNotification = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION, false);
+
+            if (displayNotification) {
+                String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR, "0");
+                String iconColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR, "0");
+
+                Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ARROWS_MARK_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled((!backgroundColor.equals("0")) || iconColor.equals("1"));
+
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(backgroundColor.equals("5"));
+
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+
+                String profileIconColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_COLOR, "0");
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_ICON_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(profileIconColor.equals("1"));
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(profileIconColor.equals("1"));
+            }
+        }
+
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR)) {
             return;
         }
 
