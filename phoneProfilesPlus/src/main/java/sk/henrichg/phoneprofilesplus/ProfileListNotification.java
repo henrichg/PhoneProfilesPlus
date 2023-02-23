@@ -349,7 +349,7 @@ public class ProfileListNotification {
             contentView.setOnClickPendingIntent(profileRootId[i], null);
         }
 
-        if (!((Build.VERSION.SDK_INT >= 31) && notificationProfileListBackgroundColor.equals("0"))) {
+        if (!((Build.VERSION.SDK_INT >= 31) && notificationProfileListIconColor.equals("0"))) {
             //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
             // left arrow
             Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, appContext);
@@ -830,7 +830,7 @@ public class ProfileListNotification {
         }
 
         if (profile._checked) {
-            if (!((Build.VERSION.SDK_INT >= 31) && notificationProfileListBackgroundColor.equals("0")))
+            if (!((Build.VERSION.SDK_INT >= 31) && notificationProfileListIconColor.equals("0")))
                 contentView.setInt(markViewId, "setBackgroundColor", Color.argb(0xFF, markRedColor, markGreenColor, markBlueColor));
             else {
                 int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorSecondary, appContext);
