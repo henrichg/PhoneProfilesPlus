@@ -310,6 +310,8 @@ public class ProfileListNotification {
                 notificationProfileListStatusBarStyle,
                 notificationBuilder);
 
+        notificationBuilder.setContentTitle(context.getString(R.string.notification_channel_profile_list));
+
         int profileIdx = 0;
         int displayedProfileIdx = 0;
         int firstProfileIdxInPage = notificationProfileListNumberOfProfilesPerPage * displayedPage;

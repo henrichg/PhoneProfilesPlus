@@ -3150,7 +3150,7 @@ public class PPApplication extends Application
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
-                NotificationChannel channel = new NotificationChannel(PROFILE_LIST_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(PROFILE_LIST_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_MIN);
 
                 // Configure the notification channel.
                 channel.setDescription(description);
