@@ -566,7 +566,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             int itemId = item.getItemId();
             if (itemId == R.id.mobile_cells_pref_item_menu_delete) {
                 if (getActivity() != null) {
-                    //TODO sem daj upozornenie, ze to zmaze pouzivanu aj v inych udalostiach
+                    //TODO sem daj upozornenie, ze to zmaze bunku pouzivanu aj v inych udalostiach
                     // lebo jedna bunka sa moze pouzivat v roznych udalostiach naraz
                     PPAlertDialog dialog = new PPAlertDialog(
                             getString(R.string.profile_context_item_delete),

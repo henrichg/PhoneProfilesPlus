@@ -301,9 +301,6 @@ class ActivatorListAdapter extends BaseAdapter
         boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished &&
                                             ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished) {
-            //TODO nie je skonceny tp target pre aktivitu alebo fragment, tak len tu skonci
-            // Neviem preco som tu zatvaral ActivatorTargetHelpsActivity
-            // ved aktivita a fragment Aktivatora ju este potrebuju!
             /*
             final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(() -> {
