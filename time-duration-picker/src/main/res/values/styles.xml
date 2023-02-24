@@ -12,6 +12,7 @@
     </style>
     <style name="TextAppearance.TimeDurationPicker.Button">
         <item name="android:textSize">@dimen/dialpladTextSize</item>
+        <item name="android:textColor">@color/pp_dialpad_textColor</item>
     </style>
 
     <style name="TextAppearance.TimeDurationPicker.Display.Large">
