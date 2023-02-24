@@ -2,4 +2,6 @@
 <resources>
     <color name="display_divider">#1F000000</color>
     <color name="pp_rippleRectangeleItemBackgroundColor">#FFBFBFBF</color>
+    <color name="pp_dialpad_textColor">#CF000000</color>
+    <color name="pp_display_textColor">#FF000000</color>
 </resources>

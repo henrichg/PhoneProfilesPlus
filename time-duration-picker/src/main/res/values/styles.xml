@@ -77,5 +77,6 @@
         <item name="android:textAppearance">@style/TextAppearance.TimeDurationPicker.Display</item>
         <!-- rounded selector -->
         <item name="android:background">@drawable/numpad_ripple_background</item>
+        <item name="android:textColor">@color/pp_dialpad_textColor</item>
     </style>
 </resources>
