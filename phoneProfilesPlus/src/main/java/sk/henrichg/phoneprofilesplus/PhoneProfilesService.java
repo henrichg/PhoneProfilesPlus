@@ -2905,11 +2905,15 @@ public class PhoneProfilesService extends Service
             __handler.post(() -> {
                 if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
                     return;
+
                 if (stop) {
                     if (PPApplication.mobileCellsScanner != null) {
-                        stopMobileCellsScanner();
+                        //stopMobileCellsScanner();
+                        PPApplication.mobileCellsScanner.disconnect();
+                        PPApplication.mobileCellsScanner = null;
                     }
                 }
+
                 if (start) {
                     //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
@@ -2936,7 +2940,9 @@ public class PhoneProfilesService extends Service
 //                            Log.e("PhoneProfilesService.startMobileCellsScanner", "***************");
                             if (PPApplication.mobileCellsScanner == null) {
 //                                PPApplication.logE("[TEST BATTERY] PhoneProfilesService.startMobileCellsScanner", "******** ### ******* called startMobileCellsScanner()");
-                                startMobileCellsScanner();
+                                //startMobileCellsScanner();
+                                PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
+                                PPApplication.mobileCellsScanner.connect();
                             } else {
                                 if (rescan) {
                                     PPApplication.mobileCellsScanner.rescanMobileCells();
@@ -5016,30 +5022,29 @@ public class PhoneProfilesService extends Service
 
     // Phone state ----------------------------------------------------------------
 
+    /*
     private void startMobileCellsScanner() {
-        /*if (PPApplication.mobileCellsScanner != null) {
-            PPApplication.mobileCellsScanner.disconnect();
-            PPApplication.mobileCellsScanner = null;
-        }*/
-
-        synchronized (PPApplication.mobileCellsScannerMutex) {
+        //synchronized (PPApplication.mobileCellsScannerMutex) {
             if (PPApplication.mobileCellsScanner == null) {
                 PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
                 PPApplication.mobileCellsScanner.connect();
             } else {
                 PPApplication.mobileCellsScanner.rescanMobileCells();
             }
-        }
+        //}
     }
+    */
 
+    /*
     private void stopMobileCellsScanner() {
-        synchronized (PPApplication.mobileCellsScannerMutex) {
+        //synchronized (PPApplication.mobileCellsScannerMutex) {
             if (PPApplication.mobileCellsScanner != null) {
                 PPApplication.mobileCellsScanner.disconnect();
                 PPApplication.mobileCellsScanner = null;
             }
-        }
+        //}
     }
+    */
 
     /*
     boolean isMobileCellsScannerStarted() {
