@@ -78,7 +78,7 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/profile_list_drag_handle"
-            android:layout_marginStart="3dp"
+            android:layout_marginStart="10dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
             android:scaleType="fitCenter"
