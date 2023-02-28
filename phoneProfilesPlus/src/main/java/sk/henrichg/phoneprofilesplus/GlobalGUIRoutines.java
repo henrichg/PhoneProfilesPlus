@@ -929,41 +929,6 @@ class GlobalGUIRoutines {
         }
     }
 
-    static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
-
-        private int mSelectedIndex = -1;
-        private final Activity activity;
-
-        HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
-            super(activity, textViewResourceId, objects);
-            this.activity = activity;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
-            View itemView =  super.getDropDownView(position, convertView, parent);
-
-            TextView itemText = itemView.findViewById(android.R.id.text1);
-            if (itemText != null) {
-                if (position == mSelectedIndex) {
-                    //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
-                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent_color));
-                } else {
-                    //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
-                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
-                }
-            }
-
-            return itemView;
-        }
-
-        void setSelection(int position) {
-            mSelectedIndex =  position;
-            notifyDataSetChanged();
-        }
-
-    }
-
     static boolean areSystemAnimationsEnabled(Context context) {
         float duration, transition;
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -1146,6 +1111,42 @@ class GlobalGUIRoutines {
             if (!activity.isFinishing())
                 dialog.show();
         }
+    }
+
+
+    static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
+
+        private int mSelectedIndex = -1;
+        private final Activity activity;
+
+        HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
+            super(activity, textViewResourceId, objects);
+            this.activity = activity;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
+            View itemView =  super.getDropDownView(position, convertView, parent);
+
+            TextView itemText = itemView.findViewById(android.R.id.text1);
+            if (itemText != null) {
+                if (position == mSelectedIndex) {
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent_color));
+                } else {
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.activitySecondaryTextColor));
+                }
+            }
+
+            return itemView;
+        }
+
+        void setSelection(int position) {
+            mSelectedIndex =  position;
+            notifyDataSetChanged();
+        }
+
     }
 
 }
