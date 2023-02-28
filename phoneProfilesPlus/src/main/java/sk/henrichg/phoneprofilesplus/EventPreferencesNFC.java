@@ -85,20 +85,26 @@ class EventPreferencesNFC extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
-                String selectedNfcTags = "";
+//TODO spajanie stringov v loope
+                String selectedNfcTags;// = "";
+                StringBuilder value = new StringBuilder();
                 String[] splits = this._nfcTags.split("\\|");
                 for (String _tag : splits) {
                     if (_tag.isEmpty()) {
-                        //noinspection StringConcatenationInLoop
-                        selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        //selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_not_selected));
                     } else if (splits.length == 1) {
-                        selectedNfcTags = selectedNfcTags + _tag;
+                        //selectedNfcTags = selectedNfcTags + _tag;
+                        value.append(_tag);
                     } else {
-                        selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedNfcTags = selectedNfcTags + " " + splits.length;
+                        //selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        //selectedNfcTags = selectedNfcTags + " " + splits.length;
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_selected));
+                        value.append(" ").append(splits.length);
                         break;
                     }
                 }
+                selectedNfcTags = value.toString();
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedNfcTags, disabled, context) + "</b> • ";
                 if (this._permanentRun)
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";

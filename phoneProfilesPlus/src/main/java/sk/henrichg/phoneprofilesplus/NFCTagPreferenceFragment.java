@@ -264,26 +264,33 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 if (!nfcTagName.getText().toString().isEmpty()) {
                     String[] splits = preference.value.split("\\|");
                     preference.value = "";
+//TODO spajanie stringov v loope
+                    StringBuilder value = new StringBuilder();
                     boolean found = false;
                     // add all tags without item tag
                     for (String tag : splits) {
                         if (!tag.isEmpty()) {
                             if (!tag.equals(tagInItem._name)) {
-                                if (!preference.value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    preference.value = preference.value + "|";
-                                //noinspection StringConcatenationInLoop
-                                preference.value = preference.value + tag;
+                                //if (!preference.value.isEmpty())
+                                //    preference.value = preference.value + "|";
+                                //preference.value = preference.value + tag;
+                                if (value.length() > 0)
+                                    value.append("|");
+                                value.append(tag);
                             } else
                                 found = true;
                         }
                     }
                     if (found) {
                         // add item tag with new name
-                        if (!preference.value.isEmpty())
-                            preference.value = preference.value + "|";
-                        preference.value = preference.value + nfcTagName.getText().toString();
+                        //if (!preference.value.isEmpty())
+                        //    preference.value = preference.value + "|";
+                        //preference.value = preference.value + nfcTagName.getText().toString();
+                        if (value.length() > 0)
+                            value.append("|");
+                        value.append(nfcTagName.getText().toString());
                     }
+                    preference.value = value.toString();
                     tagInItem._name = nfcTagName.getText().toString();
                     DatabaseHandler.getInstance(prefContext.getApplicationContext()).updateNFCTag(tagInItem);
                     refreshListView("");

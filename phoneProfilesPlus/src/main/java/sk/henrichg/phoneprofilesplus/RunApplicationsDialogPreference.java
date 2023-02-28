@@ -117,7 +117,9 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         if (PPApplication.getApplicationsCache() != null) {
             List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
 
-            String notPassedIntents = "";
+//TODO spajanie stringov v loope
+            //String notPassedIntents = "";
+            StringBuilder _notPassedIntents = new StringBuilder();
 
             String[] splits = _value.split("\\|");
             for (String split : splits) {
@@ -294,14 +296,17 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                 if (intentPassed)
                     continue;
 
-                if (!notPassedIntents.isEmpty())
-                    //noinspection StringConcatenationInLoop
-                    notPassedIntents = notPassedIntents + "|";
-                //noinspection StringConcatenationInLoop
-                notPassedIntents = notPassedIntents + split;
+                //if (!notPassedIntents.isEmpty())
+                //    notPassedIntents = notPassedIntents + "|";
+                //notPassedIntents = notPassedIntents + split;
+                if (_notPassedIntents.length() > 0)
+                    _notPassedIntents.append("|");
+                _notPassedIntents.append(split);
             }
 
-            if (!notPassedIntents.isEmpty()) {
+            //if (!notPassedIntents.isEmpty()) {
+            if (_notPassedIntents.length() > 0) {
+                String notPassedIntents = _notPassedIntents.toString();
                 // add not passed intents
                 splits = notPassedIntents.split("\\|");
                 for (String split : splits) {

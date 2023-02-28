@@ -4136,19 +4136,23 @@ public class DatabaseHandlerEvents {
                             String geofences = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_LOCATION_GEOFENCES));
                             String[] splits = geofences.split("\\|");
                             boolean found = false;
-                            geofences = "";
+//TODO spajanie stringov v loope
+                            //geofences = "";
+                            StringBuilder value = new StringBuilder();
                             for (String geofence : splits) {
                                 if (!geofence.isEmpty()) {
                                     if (!geofence.equals(Long.toString(geofenceId))) {
-                                        if (!geofences.isEmpty())
-                                            //noinspection StringConcatenationInLoop
-                                            geofences = geofences + "|";
-                                        //noinspection StringConcatenationInLoop
-                                        geofences = geofences + geofence;
+                                        //if (!geofences.isEmpty())
+                                        //    geofences = geofences + "|";
+                                        //geofences = geofences + geofence;
+                                        if (value.length() > 0)
+                                            value.append("|");
+                                        value.append(geofence);
                                     } else
                                         found = true;
                                 }
                             }
+                            geofences = value.toString();
                             if (found) {
                                 // unlink geofence from events
                                 ContentValues values = new ContentValues();
@@ -4307,7 +4311,9 @@ public class DatabaseHandlerEvents {
     static String getCheckedGeofences(DatabaseHandler instance) {
         instance.importExportLock.lock();
         try {
-            String value = "";
+//TODO spajanie stringov v loope
+            //String value = "";
+            StringBuilder value = new StringBuilder();
             try {
                 instance.startRunningCommand();
 
@@ -4324,11 +4330,12 @@ public class DatabaseHandlerEvents {
                     if (cursor.moveToFirst()) {
                         do {
                             if (cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_CHECKED)) == 1) {
-                                if (!value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    value = value + "|";
-                                //noinspection StringConcatenationInLoop
-                                value = value + cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID));
+                                //if (!value.isEmpty())
+                                //    value = value + "|";
+                                //value = value + cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID));
+                                if (value.length() > 0)
+                                    value.append("|");
+                                value.append(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID)));
                             }
                         } while (cursor.moveToNext());
                     }
@@ -4340,7 +4347,8 @@ public class DatabaseHandlerEvents {
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
-            return value;
+            //return value;
+            return value.toString();
         } finally {
             instance.stopRunningCommand();
         }

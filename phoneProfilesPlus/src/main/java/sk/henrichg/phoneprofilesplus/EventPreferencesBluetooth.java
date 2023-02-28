@@ -130,19 +130,23 @@ class EventPreferencesBluetooth extends EventPreferences {
                 */
 
                 descr = descr + context.getString(R.string.event_preferences_bluetooth_adapter_name) + ": ";
-                String selectedBluetoothNames = "";
+//TODO spajanie stringov v loope
+                String selectedBluetoothNames;// = "";
+                StringBuilder value = new StringBuilder();
                 String[] splits = this._adapterName.split("\\|");
                 for (String _bluetoothName : splits) {
                     if (_bluetoothName.isEmpty()) {
-                        //noinspection StringConcatenationInLoop
-                        selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        //selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_not_selected));
                     } else if (splits.length == 1) {
                         switch (_bluetoothName) {
                             case ALL_BLUETOOTH_NAMES_VALUE:
-                                selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]";
+                                //selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]";
+                                value.append("[\u00A0").append(context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb)).append("\u00A0]");
                                 break;
                             case CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                                selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]";
+                                //selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]";
+                                value.append("[\u00A0").append(context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb)).append("\u00A0]");
                                 break;
                             default:
                                 /*if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
@@ -153,15 +157,19 @@ class EventPreferencesBluetooth extends EventPreferences {
                                             selectedBluetoothNames = selectedBluetoothNames + "[LE] ";
                                     }
                                 }*/
-                                selectedBluetoothNames = selectedBluetoothNames + _bluetoothName;
+                                //selectedBluetoothNames = selectedBluetoothNames + _bluetoothName;
+                                value.append(_bluetoothName);
                                 break;
                         }
                     } else {
-                        selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;
+                        //selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        //selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_selected));
+                        value.append(" ").append(splits.length);
                         break;
                     }
                 }
+                selectedBluetoothNames = value.toString();
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context) + "</b>";
             }
         }

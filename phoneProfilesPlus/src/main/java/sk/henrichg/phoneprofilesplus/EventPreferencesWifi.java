@@ -113,30 +113,38 @@ class EventPreferencesWifi extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_ssid) + ": ";
-                String selectedSSIDs = "";
+//TODO spajanie stringov v loope
+                String selectedSSIDs;// = "";
+                StringBuilder value = new StringBuilder();
                 String[] splits = this._SSID.split("\\|");
                 for (String _ssid : splits) {
                     if (_ssid.isEmpty()) {
-                        //noinspection StringConcatenationInLoop
-                        selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        //selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_not_selected));
                     } else if (splits.length == 1) {
                         switch (_ssid) {
                             case ALL_SSIDS_VALUE:
-                                selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]";
+                                //selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]";
+                                value.append("[\u00A0").append(context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb)).append("\u00A0]");
                                 break;
                             case CONFIGURED_SSIDS_VALUE:
-                                selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]";
+                                //selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]";
+                                value.append("[\u00A0").append(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb)).append("\u00A0]");
                                 break;
                             default:
-                                selectedSSIDs = selectedSSIDs + _ssid;
+                                //selectedSSIDs = selectedSSIDs + _ssid;
+                                value.append(_ssid);
                                 break;
                         }
                     } else {
-                        selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedSSIDs = selectedSSIDs + " " + splits.length;
+                        //selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        //selectedSSIDs = selectedSSIDs + " " + splits.length;
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_selected));
+                        value.append(" ").append(splits.length);
                         break;
                     }
                 }
+                selectedSSIDs = value.toString();
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedSSIDs, disabled, context) + "</b>";
             }
         }

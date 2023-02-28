@@ -2417,25 +2417,30 @@ class DatabaseHandlerCreateUpdateDB {
                 if (cursor.moveToFirst()) {
                     do {
                         String calendarSearchString = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING));
-
-                        String searchStringNew = "";
+//TODO spajanie stringov v loope
+                        //String searchStringNew = "";
+                        StringBuilder str = new StringBuilder();
                         String[] searchStringSplits = calendarSearchString.split("\\|");
                         for (String split : searchStringSplits) {
                             if (!split.isEmpty()) {
-                                String searchPattern = split;
-                                if (searchPattern.startsWith("!")) {
-                                    searchPattern = "\\" + searchPattern;
-                                }
-                                if (!searchStringNew.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    searchStringNew = searchStringNew + "|";
-                                //noinspection StringConcatenationInLoop
-                                searchStringNew = searchStringNew + searchPattern;
+                                //String searchPattern = split;
+                                //if (searchPattern.startsWith("!")) {
+                                //    searchPattern = "\\" + searchPattern;
+                                //}
+                                //if (!searchStringNew.isEmpty())
+                                //    searchStringNew = searchStringNew + "|";
+                                //searchStringNew = searchStringNew + searchPattern;
+                                if (str.length() > 0)
+                                    str.append("|");
+                                if (split.startsWith("!"))
+                                    str.append("\\");
+                                str.append(split);
                             }
                         }
 
                         ContentValues values = new ContentValues();
-                        values.put(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING, searchStringNew);
+                        //values.put(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING, searchStringNew);
+                        values.put(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING, str.toString());
 
                         db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID))});
                     } while (cursor.moveToNext());

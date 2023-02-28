@@ -116,10 +116,10 @@ public class BluetoothNamePreference extends DialogPreference {
             } else if (splits.length == 1) {
                 switch (value) {
                     case EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE:
-                        setSummary("[\u00A0" + R.string.bluetooth_name_pref_dlg_all_bt_names_chb + "\u00A0]");
+                        setSummary("[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]");
                         break;
                     case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                        setSummary("[\u00A0" + R.string.bluetooth_name_pref_dlg_configured_bt_names_chb + "\u00A0]");
+                        setSummary("[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]");
                         break;
                     default:
                         setSummary(_bluetoothName);

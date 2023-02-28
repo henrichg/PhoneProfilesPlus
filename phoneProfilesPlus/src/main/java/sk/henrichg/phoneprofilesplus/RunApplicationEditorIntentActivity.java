@@ -207,20 +207,24 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intentData.clearFocus();
                         intentMimeType.clearFocus();
 
-                        String categoryValue = "";
+//TODO spajanie stringov v loope
+                        //String categoryValue = "";
+                        StringBuilder value = new StringBuilder();
                         int i = 0;
                         for (boolean selected : categoryIndices) {
                             //Log.e("RunApplicationEditorIntentActivity.cattegoryButton.onClick", "selected="+selected);
                             if (selected) {
-                                if (!categoryValue.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    categoryValue = categoryValue + "\n";
-                                //noinspection StringConcatenationInLoop
-                                categoryValue = categoryValue + categoryArray[i];
+                                //if (!categoryValue.isEmpty())
+                                //    categoryValue = categoryValue + "\n";
+                                //categoryValue = categoryValue + categoryArray[i];
+                                if (value.length() > 0)
+                                    value.append("\n");
+                                value.append(categoryArray[i]);
                             }
                             ++i;
                         }
-                        categoryTextView.setText(categoryValue);
+                        //categoryTextView.setText(categoryValue);
+                        categoryTextView.setText(value.toString());
                         //intentScrollView.post(new Runnable() {
                         //    public void run() {
                         //        intentScrollView.scrollTo(0, categoryTextView.getBottom());
@@ -248,19 +252,23 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intentData.clearFocus();
                         intentMimeType.clearFocus();
 
-                        String flagsValue = "";
+//TODO spajanie stringov v loope
+                        //String flagsValue = "";
+                        StringBuilder value = new StringBuilder();
                         int i = 0;
                         for (boolean selected : flagIndices) {
                             if (selected) {
-                                if (!flagsValue.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    flagsValue = flagsValue + "\n";
-                                //noinspection StringConcatenationInLoop
-                                flagsValue = flagsValue + flagArray[i];
+                                //if (!flagsValue.isEmpty())
+                                //    flagsValue = flagsValue + "\n";
+                                //flagsValue = flagsValue + flagArray[i];
+                                if (value.length() > 0)
+                                    value.append("\n");
+                                value.append(flagArray[i]);
                             }
                             ++i;
                         }
-                        flagsTextView.setText(flagsValue);
+                        //flagsTextView.setText(flagsValue);
+                        flagsTextView.setText(value.toString());
                         //intentScrollView.post(new Runnable() {
                         //    public void run() {
                         //        intentScrollView.scrollTo(0, flagsTextView.getBottom());
@@ -783,30 +791,37 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         }
 
         ppIntent._categories = "";
+//TODO spajanie stringov v loope
+        StringBuilder value = new StringBuilder();
         int i = 0;
         for (boolean selected : categoryIndices) {
             if (selected) {
-                if (!ppIntent._categories.isEmpty())
-                    //noinspection StringConcatenationInLoop
-                    ppIntent._categories = ppIntent._categories + "|";
-                //noinspection StringConcatenationInLoop
-                ppIntent._categories = ppIntent._categories + categoryArray[i];
+                //if (!ppIntent._categories.isEmpty())
+                //    ppIntent._categories = ppIntent._categories + "|";
+                //ppIntent._categories = ppIntent._categories + categoryArray[i];
+                if (value.length() > 0)
+                    value.append("|");
+                value.append(categoryArray[i]);
             }
             ++i;
         }
+        ppIntent._categories = value.toString();
 
         ppIntent._flags = "";
+        value.setLength(0);
         i = 0;
         for (boolean selected : flagIndices) {
             if (selected) {
-                if (!ppIntent._flags.isEmpty())
-                    //noinspection StringConcatenationInLoop
-                    ppIntent._flags = ppIntent._flags + "|";
-                //noinspection StringConcatenationInLoop
-                ppIntent._flags = ppIntent._flags + flagArray[i];
+                //if (!ppIntent._flags.isEmpty())
+                //    ppIntent._flags = ppIntent._flags + "|";
+                //ppIntent._flags = ppIntent._flags + flagArray[i];
+                if (value.length() > 0)
+                    value.append("|");
+                value.append(flagArray[i]);
             }
             ++i;
         }
+        ppIntent._flags = value.toString();
 
         if (intentExtraKeyName1.getText() != null)
             ppIntent._extraKey1 = intentExtraKeyName1.getText().toString();

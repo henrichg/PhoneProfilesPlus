@@ -90,25 +90,34 @@ class EventPreferencesLocation extends EventPreferences {
                     descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                 }
 
-                String selectedLocations = "";
+//TODO spajanie stringov v loope
+                String selectedLocations;// = "";
+                StringBuilder value = new StringBuilder();
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                    selectedLocations = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                    //selectedLocations = context.getString(R.string.profile_preferences_device_not_allowed) +
+                    //        ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                    value.append(context.getString(R.string.profile_preferences_device_not_allowed)).
+                            append(": ").
+                            append(context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                 } else {
                     String[] splits = this._geofences.split("\\|");
                     for (String _geofence : splits) {
                         if (_geofence.isEmpty()) {
-                            //noinspection StringConcatenationInLoop
-                            selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                            //selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                            value.append(context.getString(R.string.applications_multiselect_summary_text_not_selected));
                         } else if (splits.length == 1) {
-                            selectedLocations = selectedLocations + getGeofenceName(Long.parseLong(_geofence), context);
+                            //selectedLocations = selectedLocations + getGeofenceName(Long.parseLong(_geofence), context);
+                            value.append(getGeofenceName(Long.parseLong(_geofence), context));
                         } else {
-                            selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
-                            selectedLocations = selectedLocations + " " + splits.length;
+                            //selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
+                            //selectedLocations = selectedLocations + " " + splits.length;
+                            value.append(context.getString(R.string.applications_multiselect_summary_text_selected));
+                            value.append(" ").append(splits.length);
                             break;
                         }
                     }
                 }
+                selectedLocations = value.toString();
                 descr = descr + context.getString(R.string.event_preferences_locations_location) + ": <b>" + getColorForChangedPreferenceValue(selectedLocations, disabled, context) + "</b>";
                 if (this._whenOutside)
                     descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context) + "</b>";

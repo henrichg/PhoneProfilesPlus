@@ -202,15 +202,18 @@ class EventPreferencesTime extends EventPreferences {
                 {
                     String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
-                    String _descr = "";
+//TODO spajanie stringov v loope
+                    String _descr;// = "";
+                    StringBuilder value = new StringBuilder();
                     int dayOfWeek;
                     for (int i = 0; i < 7; i++) {
                         dayOfWeek = getDayOfWeekByLocale(i);
 
                         if (daySet[dayOfWeek])
-                            //noinspection StringConcatenationInLoop
-                            _descr = _descr + namesOfDay[dayOfWeek + 1] + " ";
+                            //_descr = _descr + namesOfDay[dayOfWeek + 1] + " ";
+                            value.append(namesOfDay[dayOfWeek + 1]).append(" ");
                     }
+                    _descr = value.toString();
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
                 }
 

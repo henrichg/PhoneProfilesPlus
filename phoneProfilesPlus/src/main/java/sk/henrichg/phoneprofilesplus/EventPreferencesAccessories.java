@@ -101,17 +101,21 @@ class EventPreferencesAccessories extends EventPreferences {
                     String[] splits = this._accessoryType.split("\\|");
                     List<String> accessoryTypeValues = Arrays.asList(context.getResources().getStringArray(R.array.eventAccessoryTypeValues));
                     String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
-                    selectedAccessory = "";
+//TODO spajanie stringov v loope
+                    //selectedAccessory = "";
+                    StringBuilder value = new StringBuilder();
                     for (String s : splits) {
                         int idx = accessoryTypeValues.indexOf(s);
                         if (idx != -1) {
-                            if (!selectedAccessory.isEmpty())
-                                //noinspection StringConcatenationInLoop
-                                selectedAccessory = selectedAccessory + ", ";
-                            //noinspection StringConcatenationInLoop
-                            selectedAccessory = selectedAccessory + accessoryTypeNames[idx];
+                            //if (!selectedAccessory.isEmpty())
+                            //    selectedAccessory = selectedAccessory + ", ";
+                            //selectedAccessory = selectedAccessory + accessoryTypeNames[idx];
+                            if (value.length() > 0)
+                                value.append(", ");
+                            value.append(accessoryTypeNames[idx]);
                         }
                     }
+                    selectedAccessory = value.toString();
                 }
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedAccessory, disabled, context) + "</b>";
             }
@@ -170,24 +174,29 @@ class EventPreferencesAccessories extends EventPreferences {
         if (key.equals(PREF_EVENT_ACCESSORIES_TYPE))
         {
             Set<String> set = preferences.getStringSet(key, null);
-            String accessoryType = "";
+//TODO spajanie stringov v loope
+            String accessoryType; // = "";
             if (set != null) {
                 String[] accessoryTypeValues = context.getResources().getStringArray(R.array.eventAccessoryTypeValues);
                 String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
+                StringBuilder value = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(accessoryTypeValues).indexOf(s);
                         if (pos != -1) {
-                            if (!accessoryType.isEmpty())
-                                //noinspection StringConcatenationInLoop
-                                accessoryType = accessoryType + ", ";
-                            //noinspection StringConcatenationInLoop
-                            accessoryType = accessoryType + accessoryTypeNames[pos];
+                            //if (!accessoryType.isEmpty())
+                            //    accessoryType = accessoryType + ", ";
+                            //accessoryType = accessoryType + accessoryTypeNames[pos];
+                            if (value.length() > 0)
+                                value.append(", ");
+                            value.append(accessoryTypeNames[pos]);
                         }
                     }
                 }
-                if (accessoryType.isEmpty())
+                if (value.length() == 0)
                     accessoryType = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                else
+                    accessoryType = value.toString();
             }
             else
                 accessoryType = context.getString(R.string.applications_multiselect_summary_text_not_selected);

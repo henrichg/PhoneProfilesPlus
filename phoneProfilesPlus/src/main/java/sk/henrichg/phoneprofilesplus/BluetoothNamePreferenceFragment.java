@@ -351,24 +351,31 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 if (!bluetoothName.getText().toString().isEmpty()) {
                     String[] splits = preference.value.split("\\|");
                     preference.value = "";
+//TODO spajanie stringov v loope
+                    StringBuilder value = new StringBuilder();
                     boolean found = false;
                     for (String _bluetoothName : splits) {
                         if (!_bluetoothName.isEmpty()) {
                             if (!_bluetoothName.equals(btName)) {
-                                if (!preference.value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    preference.value = preference.value + "|";
-                                //noinspection StringConcatenationInLoop
-                                preference.value = preference.value + _bluetoothName;
+                                //if (!preference.value.isEmpty())
+                                //    preference.value = preference.value + "|";
+                                //preference.value = preference.value + _bluetoothName;
+                                if (value.length() > 0)
+                                    value.append("|");
+                                value.append(_bluetoothName);
                             } else
                                 found = true;
                         }
                     }
                     if (found) {
-                        if (!preference.value.isEmpty())
-                            preference.value = preference.value + "|";
-                        preference.value = preference.value + bluetoothName.getText().toString();
+                        //if (!preference.value.isEmpty())
+                        //    preference.value = preference.value + "|";
+                        //preference.value = preference.value + bluetoothName.getText().toString();
+                        if (value.length() > 0)
+                            value.append("|");
+                        value.append(bluetoothName.getText().toString());
                     }
+                    preference.value = value.toString();
                     for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
                         if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
                             customBluetoothName.name = bluetoothName.getText().toString();

@@ -4062,22 +4062,28 @@ public class PhoneProfilesService extends Service
                     for (Event event : eventList) {
                         if (!event._eventPreferencesCalendar._searchString.isEmpty()) {
                             String searchStringOrig = event._eventPreferencesCalendar._searchString;
-                            String searchStringNew = "";
+//TODO spajanie stringov v loope
+                            //String searchStringNew = "";
+                            StringBuilder str = new StringBuilder();
                             String[] searchStringSplits = searchStringOrig.split("\\|");
                             for (String split : searchStringSplits) {
                                 if (!split.isEmpty()) {
-                                    String searchPattern = split;
-                                    if (searchPattern.startsWith("!")) {
-                                        searchPattern = "\\" + searchPattern;
-                                    }
-                                    if (!searchStringNew.isEmpty())
-                                        //noinspection StringConcatenationInLoop
-                                        searchStringNew = searchStringNew + "|";
-                                    //noinspection StringConcatenationInLoop
-                                    searchStringNew = searchStringNew + searchPattern;
+                                    //String searchPattern = split;
+                                    //if (searchPattern.startsWith("!")) {
+                                    //    searchPattern = "\\" + searchPattern;
+                                    //}
+                                    //if (!searchStringNew.isEmpty())
+                                    //    searchStringNew = searchStringNew + "|";
+                                    //searchStringNew = searchStringNew + searchPattern;
+                                    if (str.length() > 0)
+                                        str.append("|");
+                                    if (split.startsWith("!"))
+                                        str.append("\\");
+                                    str.append(split);
                                 }
                             }
-                            event._eventPreferencesCalendar._searchString = searchStringNew;
+                            //event._eventPreferencesCalendar._searchString = searchStringNew;
+                            event._eventPreferencesCalendar._searchString = str.toString();
                             DatabaseHandler.getInstance(appContext).updateEvent(event);
                         }
                     }

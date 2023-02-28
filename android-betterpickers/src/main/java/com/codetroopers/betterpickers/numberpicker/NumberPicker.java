@@ -455,20 +455,23 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
     private String getEnteredNumberString() {
-        String value = "";
+//TODO spajanie stringov v loope
+        //String value = "";
+        StringBuilder value = new StringBuilder();
         for (int i = mInputPointer; i >= 0; i--) {
             //noinspection StatementWithEmptyBody
             if (mInput[i] == -1) {
                 // Don't add
             } else if (mInput[i] == CLICKED_DECIMAL) {
-                //noinspection StringConcatenationInLoop
-                value += ".";
+                //value += ".";
+                value.append(".");
             } else {
-                //noinspection StringConcatenationInLoop
-                value += mInput[i];
+                //value += mInput[i];
+                value.append(mInput[i]);
             }
         }
-        return value;
+        //return value;
+        return value.toString();
     }
 
     /**
@@ -477,23 +480,27 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
      * @return a double representing the entered number
      */
     public BigDecimal getEnteredNumber() {
-        String value = "0";
+//TODO spajanie stringov v loope
+        //String value = "0";
+        StringBuilder value = new StringBuilder("0");
         for (int i = mInputPointer; i >= 0; i--) {
             if (mInput[i] == -1) {
                 break;
             } else if (mInput[i] == CLICKED_DECIMAL) {
-                //noinspection StringConcatenationInLoop
-                value += ".";
+                //value += ".";
+                value.append(".");
             } else {
-                //noinspection StringConcatenationInLoop
-                value += mInput[i];
+                //value += mInput[i];
+                value.append(mInput[i]);
             }
         }
         if (mSign == SIGN_NEGATIVE) {
-            value = "-" + value;
+            //value = "-" + value;
+            value.insert(0, "-");
         }
 
-        return new BigDecimal(value);
+        //return new BigDecimal(value);
+        return new BigDecimal(value.toString());
     }
 
     private void updateLeftRightButtons() {
