@@ -8,15 +8,15 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CalendarProviderChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CalendarProviderChangedBroadcastReceiver.onReceive", "xxx");
 
         //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(context))
+        if (EventStatic.getGlobalEventsRunning(context))
         {
             /*boolean calendarEventsExists = false;
 
@@ -34,7 +34,7 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 __handler.post(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CalendarProviderChangedBroadcastReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -46,13 +46,13 @@ public class CalendarProviderChangedBroadcastReceiver extends BroadcastReceiver 
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarProviderChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] CalendarProviderChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED);
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

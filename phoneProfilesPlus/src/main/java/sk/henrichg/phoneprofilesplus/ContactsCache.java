@@ -167,7 +167,7 @@ class ContactsCache {
             }
         } catch (SecurityException e) {
             //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -179,7 +179,7 @@ class ContactsCache {
             cached = false;
         } catch (Exception e) {
             //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -311,7 +311,7 @@ class ContactsCache {
             }
         } catch (SecurityException e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -319,7 +319,7 @@ class ContactsCache {
             cached = false;
         } catch (Exception e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -441,7 +441,7 @@ class ContactsCache {
             }
         } catch (SecurityException e) {
             //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -449,7 +449,7 @@ class ContactsCache {
             cached = false;
         } catch (Exception e) {
             //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();

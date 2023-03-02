@@ -304,14 +304,14 @@ class ActivatorListAdapter extends BaseAdapter
             /*
             final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
                     //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -380,14 +380,14 @@ class ActivatorListAdapter extends BaseAdapter
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (1)");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (1)");
 
                         if (ActivatorTargetHelpsActivity.activity != null) {
                             //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                             try {
                                 ActivatorTargetHelpsActivity.activity.finish();
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                             ActivatorTargetHelpsActivity.activity = null;
                             //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -425,14 +425,14 @@ class ActivatorListAdapter extends BaseAdapter
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (2)");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (2)");
 
                         if (ActivatorTargetHelpsActivity.activity != null) {
                             //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                             try {
                                 ActivatorTargetHelpsActivity.activity.finish();
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                             ActivatorTargetHelpsActivity.activity = null;
                             //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -454,14 +454,14 @@ class ActivatorListAdapter extends BaseAdapter
         else {
             final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
                     //ActivatorTargetHelpsActivity.activatorActivity = null;

@@ -32,9 +32,9 @@ public class LocationSensorWorker extends Worker {
     public Result doWork() {
         try {
 //            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- START");
+//            PPApplicationStatic.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- START");
 
-            if (Event.getGlobalEventsRunning(context)) {
+            if (EventStatic.getGlobalEventsRunning(context)) {
                 EventsHandler eventsHandler = new EventsHandler(context);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER);
             }
@@ -43,11 +43,11 @@ public class LocationSensorWorker extends Worker {
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            PPApplicationStatic.logE("[IN_WORKER] LocationSensorWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("LocationSensorWorker.doWork", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
@@ -121,7 +121,7 @@ public class LocationSensorWorker extends Worker {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
 
-//                //if (PPApplication.logEnabled()) {
+//                //if (PPApplicationStatic.logEnabled()) {
 //                ListenableFuture<List<WorkInfo>> statuses;
 //                statuses = workManager.getWorkInfosForUniqueWork(LOCATION_SENSOR_WORK_TAG);
 //                try {
@@ -131,12 +131,12 @@ public class LocationSensorWorker extends Worker {
 //                //}
 
                 if (worker != null) {
-//                    PPApplication.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "enqueue with REPLACE");
+//                    PPApplicationStatic.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "enqueue with REPLACE");
                     workManager.enqueueUniqueWork(LOCATION_SENSOR_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

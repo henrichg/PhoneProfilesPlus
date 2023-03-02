@@ -86,7 +86,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_alarm_clock_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context);
@@ -231,7 +231,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesAlarmClock tmp = new EventPreferencesAlarmClock(this._event, this._enabled, this._permanentRun, this._duration, this._applications);
             if (preferences != null)
@@ -343,7 +343,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_ALARM_CLOCK_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -430,7 +430,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 // compute start time
 
                 if (_startTime > 0) {

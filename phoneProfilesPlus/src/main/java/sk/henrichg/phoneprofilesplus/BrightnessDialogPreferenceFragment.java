@@ -309,7 +309,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                     //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.setAdaptiveBrightness");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragment.setAdaptiveBrightness");
 
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                 (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
@@ -324,7 +324,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("BrightnessDialogPreferenceFragment.setAdaptiveBrightness", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                         }

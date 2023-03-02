@@ -25,9 +25,9 @@ public class RestartEventsWithDelayWorker extends Worker {
     public Result doWork() {
         try {
 //            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- START");
+//            PPApplicationStatic.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- START");
 
-            if (!PPApplication.getApplicationStarted(true, true))
+            if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
                 return Result.success();
 
@@ -46,18 +46,18 @@ public class RestartEventsWithDelayWorker extends Worker {
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
             if (logType != PPApplication.ALTYPE_UNDEFINED)
-                PPApplication.addActivityLog(context, logType, null, null, "");
+                PPApplicationStatic.addActivityLog(context, logType, null, null, "");
             //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
             dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);
             //dataWrapper.invalidateDataWrapper();
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            PPApplicationStatic.logE("[IN_WORKER]  RestartEventsWithDelayWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("RestartEventsWithDelayWorker.doWork", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             //Handler _handler = new Handler(getApplicationContext().getMainLooper());
             //Runnable r = new Runnable() {
             //    public void run() {

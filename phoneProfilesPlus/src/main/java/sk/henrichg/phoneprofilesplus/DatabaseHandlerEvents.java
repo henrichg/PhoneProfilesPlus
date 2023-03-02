@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class DatabaseHandlerEvents {
+class DatabaseHandlerEvents {
 
     // Adding new event
     static void addEvent(DatabaseHandler instance, Event event) {
@@ -63,14 +63,14 @@ public class DatabaseHandlerEvents {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -168,7 +168,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return event;
         } finally {
@@ -267,7 +267,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return eventList;
         } finally {
@@ -330,14 +330,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEvent", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -357,7 +357,7 @@ public class DatabaseHandlerEvents {
                         new String[]{String.valueOf(event._id)});
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -376,7 +376,7 @@ public class DatabaseHandlerEvents {
                 db.delete(DatabaseHandler.TABLE_EVENTS, null, null);
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -412,7 +412,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return eventExists;
         } finally {
@@ -476,14 +476,14 @@ public class DatabaseHandlerEvents {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -510,7 +510,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -540,7 +540,7 @@ public class DatabaseHandlerEvents {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -575,14 +575,14 @@ public class DatabaseHandlerEvents {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -612,7 +612,7 @@ public class DatabaseHandlerEvents {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -1952,7 +1952,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return eventStatus;
         } finally {
@@ -1986,14 +1986,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEventStatus", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2025,14 +2025,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEventBlocked", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2063,14 +2063,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.unblockAllEvents", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2102,14 +2102,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateAllEventsStatus", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2146,7 +2146,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return id;
         } finally {
@@ -2262,7 +2262,7 @@ public class DatabaseHandlerEvents {
                     //db.close();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 return sensorPassed;
             } finally {
@@ -2399,14 +2399,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEventSensorPassed", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2458,14 +2458,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateAllEventSensorsPassedForEvent", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2516,14 +2516,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateAllEventsSensorsPassed", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2654,7 +2654,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -2687,7 +2687,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -2722,14 +2722,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEventCalendarTimes", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2768,7 +2768,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2800,14 +2800,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEventCalendarTodayExists", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2844,7 +2844,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return (eventInDelay == 1);
         } finally {
@@ -2878,14 +2878,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEventInDelayStart", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2916,14 +2916,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.resetAllEventsInDelayStart", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2960,7 +2960,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return (eventInDelay == 1);
         } finally {
@@ -2994,14 +2994,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateEventInDelayEnd", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3034,14 +3034,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateSMSStartTimes", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3079,7 +3079,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3111,14 +3111,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateNFCStartTimes", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3153,7 +3153,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3186,14 +3186,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateCallStartTimes", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3230,7 +3230,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3263,14 +3263,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateAlarmClockStartTime", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3307,7 +3307,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3339,14 +3339,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateDeviceBootStartTime", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3381,7 +3381,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3413,14 +3413,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updatePeriodicCounter", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3452,14 +3452,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updatePeriodicStartTime", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3504,7 +3504,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3533,14 +3533,14 @@ public class DatabaseHandlerEvents {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3578,7 +3578,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -3605,14 +3605,14 @@ public class DatabaseHandlerEvents {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3645,14 +3645,14 @@ public class DatabaseHandlerEvents {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3683,7 +3683,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -3731,7 +3731,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return eventTimelineList;
         } finally {
@@ -3752,7 +3752,7 @@ public class DatabaseHandlerEvents {
                         new String[]{String.valueOf(eventTimeline._id)});
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3788,14 +3788,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.deleteAllEventTimelines", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3835,7 +3835,7 @@ public class DatabaseHandlerEvents {
                                 boolean _forceRun = cursor2.getInt(1) == 1;
                                 //if ((!ApplicationPreferences.prefEventsBlocked) || _forceRun)
                                 //    eventName = _eventName;
-                                if ((!Event.getEventsBlocked(instance.context)) || _forceRun)
+                                if ((!EventStatic.getEventsBlocked(instance.context)) || _forceRun)
                                     eventName = _eventName;
                             }
                         }
@@ -3845,7 +3845,7 @@ public class DatabaseHandlerEvents {
                 cursor1.close();
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return eventName;
         } finally {
@@ -3882,14 +3882,14 @@ public class DatabaseHandlerEvents {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -3935,7 +3935,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return geofence;
         } finally {
@@ -3984,7 +3984,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return geofenceList;
         } finally {
@@ -4021,14 +4021,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateGeofence", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4056,14 +4056,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateGeofenceTransition", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     //} finally {
                     //db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4091,14 +4091,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.clearAllGeofenceTransitions", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     //} finally {
                     //db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4136,7 +4136,6 @@ public class DatabaseHandlerEvents {
                             String geofences = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_LOCATION_GEOFENCES));
                             String[] splits = geofences.split("\\|");
                             boolean found = false;
-//TODO spajanie stringov v loope
                             //geofences = "";
                             StringBuilder value = new StringBuilder();
                             for (String geofence : splits) {
@@ -4167,7 +4166,7 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.deleteGeofence", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                     cursor.close();
@@ -4175,7 +4174,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4232,14 +4231,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.checkGeofence", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4267,7 +4266,7 @@ public class DatabaseHandlerEvents {
 
                 cursor = db.rawQuery(selectQuery, null);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return cursor;
         } finally {
@@ -4300,7 +4299,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -4311,7 +4310,6 @@ public class DatabaseHandlerEvents {
     static String getCheckedGeofences(DatabaseHandler instance) {
         instance.importExportLock.lock();
         try {
-//TODO spajanie stringov v loope
             //String value = "";
             StringBuilder value = new StringBuilder();
             try {
@@ -4345,7 +4343,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             //return value;
             return value.toString();
@@ -4377,7 +4375,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -4430,7 +4428,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return found;
         } finally {
@@ -4463,7 +4461,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -4501,14 +4499,14 @@ public class DatabaseHandlerEvents {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4546,14 +4544,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateMobileCell", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4619,7 +4617,7 @@ public class DatabaseHandlerEvents {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             if (!calledFromImportDB)
@@ -4708,7 +4706,7 @@ public class DatabaseHandlerEvents {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4801,7 +4799,7 @@ public class DatabaseHandlerEvents {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4830,14 +4828,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.deleteMobileCell", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             if (!calledFromImportDB)
@@ -4869,14 +4867,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateMobileCellLastConnectedTime", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4913,7 +4911,7 @@ public class DatabaseHandlerEvents {
                 cursor.close();
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -4945,7 +4943,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -4981,14 +4979,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateMobileCellsCells", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -5020,7 +5018,7 @@ public class DatabaseHandlerEvents {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r > 0;
         } finally {
@@ -5068,7 +5066,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -5102,7 +5100,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return cells;
@@ -5158,7 +5156,7 @@ public class DatabaseHandlerEvents {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -5188,14 +5186,14 @@ public class DatabaseHandlerEvents {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -5237,7 +5235,7 @@ public class DatabaseHandlerEvents {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return nfcTagList;
         } finally {
@@ -5271,14 +5269,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.updateNFCTag", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -5307,14 +5305,14 @@ public class DatabaseHandlerEvents {
                 } catch (Exception e) {
                     //Error in between database transaction
                     //Log.e("DatabaseHandlerEvents.deleteNFCTag", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();

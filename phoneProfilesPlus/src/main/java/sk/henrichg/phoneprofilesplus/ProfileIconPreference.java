@@ -254,7 +254,7 @@ public class ProfileIconPreference extends DialogPreference {
             //ProfilesPrefsFragment.setChangedProfileIconPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         /*} catch (ActivityNotFoundException e) {
             try {

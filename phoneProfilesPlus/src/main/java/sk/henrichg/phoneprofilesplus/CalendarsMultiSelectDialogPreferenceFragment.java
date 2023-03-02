@@ -125,7 +125,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
                         if (calendar.calendarId == calendarId)
                             calendar.checked = true;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
             }

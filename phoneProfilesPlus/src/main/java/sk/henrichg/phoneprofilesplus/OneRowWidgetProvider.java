@@ -27,7 +27,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
-//        PPApplication.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
@@ -37,7 +37,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
                 //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -46,7 +46,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
             }; //);
-            PPApplication.createDelayedGuiExecutor();
+            PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
@@ -108,9 +108,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
 
             if (Build.VERSION.SDK_INT >= 30) {
-                if (PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context) ||
-                        PPApplication.isMIUILauncherDefault(context)) {
+                if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                        PPApplicationStatic.isOneUILauncherDefault(context) ||
+                        PPApplicationStatic.isMIUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
                     ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
                     //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
@@ -550,13 +550,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 int roundedBackground = 0;
                 int roundedBorder = 0;
-                if (PPApplication.isPixelLauncherDefault(context)) {
+                if (PPApplicationStatic.isPixelLauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
-                } else if (PPApplication.isOneUILauncherDefault(context)) {
+                } else if (PPApplicationStatic.isOneUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
-                } else if (PPApplication.isMIUILauncherDefault(context)) {
+                } else if (PPApplicationStatic.isMIUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_miui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_miui_launcher;
                 } else {
@@ -711,7 +711,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
                         applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
-                    //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                    //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
                     bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_restart_events, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, restartEventsLightness);
                     remoteViews.setImageViewBitmap(R.id.widget_one_row_header_restart_events, bitmap);
@@ -727,7 +727,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     }
                 }
 
-                //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
                 //remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -750,11 +750,11 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                     //appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, remoteViews);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         //} catch (Exception ee) {
-        //    PPApplication.recordException(ee);
+        //    PPApplicationStatic.recordException(ee);
         //}
 
         /*if (profile != null) {
@@ -772,7 +772,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget
 
         String action = intent.getAction();
-//        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
+//        PPApplicationStatic.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
@@ -786,7 +786,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //__handler.post(new PPHandlerThreadRunnable(context, manager) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -795,7 +795,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             _onUpdate(appContext, appWidgetManager, ids);
                         //}
                     }; //);
-                    PPApplication.createDelayedGuiExecutor();
+                    PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }
@@ -898,7 +898,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
         PPApplication.setWidgetProfileName(context, 2, pName);*/
 
-//        PPApplication.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 

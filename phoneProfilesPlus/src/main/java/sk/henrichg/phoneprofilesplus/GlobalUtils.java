@@ -18,10 +18,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class GlobalUtils {
+class GlobalUtils {
 
     static void switchKeyguard(Context context) {
-//        PPApplication.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "EXTRA_SWITCH_KEYGUARD");
+//        PPApplicationStatic.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "EXTRA_SWITCH_KEYGUARD");
 
         //boolean isScreenOn;
         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -54,7 +54,7 @@ public class GlobalUtils {
                 PPApplication.keyguardLock.disableKeyguard();
             } catch (Exception e) {
                 //Log.e("GlobalUtils.disableKeyguard", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -66,7 +66,7 @@ public class GlobalUtils {
                 PPApplication.keyguardLock.reenableKeyguard();
             } catch (Exception e) {
                 //Log.e("GlobalUtils.reenableKeyguard", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -242,7 +242,7 @@ public class GlobalUtils {
             try {
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
             } catch (Settings.SettingNotFoundException e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             enabled = locationMode != Settings.Secure.LOCATION_MODE_OFF;
         }
@@ -254,7 +254,7 @@ public class GlobalUtils {
         try {
             wifiSleepPolicy = Settings.Global.getInt(context.getContentResolver(), Settings.Global.WIFI_SLEEP_POLICY);
         } catch (Settings.SettingNotFoundException e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
         return wifiSleepPolicy == Settings.Global.WIFI_SLEEP_POLICY_NEVER;
     }
@@ -397,7 +397,7 @@ public class GlobalUtils {
                         // Loop through the subscription list i.e. SIM list.
                         subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                     } catch (SecurityException e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                     if (subscriptionList != null) {
                         int callStateSIM1 = TelephonyManager.CALL_STATE_IDLE;
@@ -440,7 +440,7 @@ public class GlobalUtils {
 
     @SuppressLint("NewApi")
     static private boolean _hasSIMCard(Context appContext, TelephonyManager telephonyManager, int simCard) {
-        //PPApplication.logE("GlobalUtils._hasSIMCard", "simCard="+simCard);
+        //PPApplicationStatic.logE("GlobalUtils._hasSIMCard", "simCard="+simCard);
         boolean hasSIM = false;
         if (Permissions.checkPhone(appContext)) {
             SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
@@ -451,7 +451,7 @@ public class GlobalUtils {
                     // Loop through the subscription list i.e. SIM list.
                     subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                 } catch (SecurityException e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 if (subscriptionList != null) {
                     for (int i = 0; i < subscriptionList.size(); i++) {
@@ -481,34 +481,34 @@ public class GlobalUtils {
             }
         }
 //        else
-//            PPApplication.logE("GlobalUtils._hasSIMCard", "Phone not granted");
+//            PPApplicationStatic.logE("GlobalUtils._hasSIMCard", "Phone not granted");
 
-        //PPApplication.logE("GlobalUtils._hasSIMCard", "hasSIM="+hasSIM);
+        //PPApplicationStatic.logE("GlobalUtils._hasSIMCard", "hasSIM="+hasSIM);
         return hasSIM;
     }
 
     static boolean hasSIMCard(Context appContext, int simCard) {
-//        PPApplication.logE("GlobalUtils.hasSIMCard", "simCard="+simCard);
+//        PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "simCard="+simCard);
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
             if (Build.VERSION.SDK_INT < 26) {
-//                PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY));
+//                PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "hasSIM="+(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY));
                 return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
             } else {
                 if (simCard == 0) {
                     boolean hasSIM1 = _hasSIMCard(appContext, telephonyManager, 1);
                     boolean hasSIM2 = _hasSIMCard(appContext, telephonyManager, 2);
-//                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+(hasSIM1 || hasSIM2));
+//                    PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "hasSIM="+(hasSIM1 || hasSIM2));
                     return hasSIM1 || hasSIM2;
                 } else {
                     //noinspection UnnecessaryLocalVariable
                     boolean hasSIM = _hasSIMCard(appContext, telephonyManager, simCard);
-//                    PPApplication.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
+//                    PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
                     return hasSIM;
                 }
             }
         }
-//        PPApplication.logE("GlobalUtils.hasSIMCard", "--- false ---");
+//        PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "--- false ---");
         return false;
     }
 
@@ -527,7 +527,7 @@ public class GlobalUtils {
                             // Loop through the subscription list i.e. SIM list.
                             subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                         } catch (SecurityException e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                         if (subscriptionList != null) {
                             int simCard = 0;

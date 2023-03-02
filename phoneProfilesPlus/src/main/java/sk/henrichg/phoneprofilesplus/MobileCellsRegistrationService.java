@@ -75,7 +75,7 @@ public class MobileCellsRegistrationService extends Service
             serviceStarted = true;
 
             forceStart = true;
-            PPApplication.forceStartMobileCellsScanner(this);
+            PPApplicationStatic.forceStartMobileCellsScanner(this);
 
             //MobileCellsScanner.autoRegistrationService = this;
 
@@ -148,7 +148,7 @@ public class MobileCellsRegistrationService extends Service
         try {
             notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
         if (serviceStarted) {
@@ -156,7 +156,7 @@ public class MobileCellsRegistrationService extends Service
             //MobileCellsScanner.autoRegistrationService = null;
 
             forceStart = false;
-            PPApplication.restartMobileCellsScanner(this);
+            PPApplicationStatic.restartMobileCellsScanner(this);
 
             showResultNotification();
 
@@ -164,7 +164,7 @@ public class MobileCellsRegistrationService extends Service
                 try {
                     context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
                 } catch (IllegalArgumentException e) {
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
                 mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }
@@ -179,7 +179,7 @@ public class MobileCellsRegistrationService extends Service
         try {
             context.sendBroadcast(new Intent(ACTION_STOP));
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
     */
@@ -200,7 +200,7 @@ public class MobileCellsRegistrationService extends Service
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
         }
 
-        PPApplication.createMobileCellsRegistrationNotificationChannel(this);
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_information_notify) // notification icon
@@ -269,7 +269,7 @@ public class MobileCellsRegistrationService extends Service
 //            text = text+" ("+getString(R.string.ppp_app_name)+")";
 //        }
 
-        PPApplication.createMobileCellsRegistrationNotificationChannel(this);
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_information_notify) // notification icon
@@ -297,7 +297,7 @@ public class MobileCellsRegistrationService extends Service
             Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -308,7 +308,7 @@ public class MobileCellsRegistrationService extends Service
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -370,7 +370,7 @@ public class MobileCellsRegistrationService extends Service
 
     @Override
     public void stopRegistrationFromListener() {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
         stopRegistration();
     }
 
@@ -379,7 +379,7 @@ public class MobileCellsRegistrationService extends Service
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsPreferenceUseBroadcastReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsPreferenceUseBroadcastReceiver", "xxx");
             //Log.d("MobileCellsRegistrationCellsDialogStateBroadcastReceiver", "xxx");
         }
     }

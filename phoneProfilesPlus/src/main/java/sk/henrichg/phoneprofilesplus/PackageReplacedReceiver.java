@@ -11,7 +11,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
+        PPApplicationStatic.logE("##### PackageReplacedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 
@@ -22,7 +22,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler2.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -42,17 +42,17 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
 
                         boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                        PPApplication.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);
+                        PPApplicationStatic.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);
 
-                        if ((!serviceStarted) && PPApplication.getApplicationStarted(false, false)) {
+                        if ((!serviceStarted) && PPApplicationStatic.getApplicationStarted(false, false)) {
                             // service is not started
 
                             //AutostartPermissionNotification.showNotification(appContext, false);
 
                             try {
-                                PPApplication.logE("##### PackageReplacedReceiver.onReceive", "start service");
+                                PPApplicationStatic.logE("##### PackageReplacedReceiver.onReceive", "start service");
                                 // service is not started, start it
-                                PPApplication.setApplicationStarted(appContext, true);
+                                PPApplicationStatic.setApplicationStarted(appContext, true);
                                 Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
                                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -60,16 +60,16 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
-//                                PPApplication.logE("[START_PP_SERVICE] PackageReplacedReceiver.onReceive", "xxx");
-                                PPApplication.startPPService(appContext, serviceIntent);
+//                                PPApplicationStatic.logE("[START_PP_SERVICE] PackageReplacedReceiver.onReceive", "xxx");
+                                PPApplicationStatic.startPPService(appContext, serviceIntent);
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -80,7 +80,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
     }

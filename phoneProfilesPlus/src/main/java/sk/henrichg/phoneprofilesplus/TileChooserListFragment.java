@@ -134,7 +134,7 @@ public class TileChooserListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
                 progressBarRunnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TileChooserListFragment.LoadProfileListAsyncTask");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TileChooserListFragment.LoadProfileListAsyncTask");
                     //fragment.textViewNoData.setVisibility(GONE);
                     fragment.progressBar.setVisibility(View.VISIBLE);
                 };

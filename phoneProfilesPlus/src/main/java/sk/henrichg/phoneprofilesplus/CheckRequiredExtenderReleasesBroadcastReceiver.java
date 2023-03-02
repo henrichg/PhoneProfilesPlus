@@ -23,8 +23,8 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
     private static final String PREF_REQUIRED_EXTENDER_RELEASE_ALARM = "required_extender_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
 
@@ -131,7 +131,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
@@ -165,7 +165,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
             removeNotification(appContext);
 
             // show notification for check new release
-            PPApplication.createNewReleaseNotificationChannel(appContext);
+            PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
 
             NotificationCompat.Builder mBuilder;
             Intent _intent;
@@ -210,7 +210,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                 Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -223,7 +223,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                     PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

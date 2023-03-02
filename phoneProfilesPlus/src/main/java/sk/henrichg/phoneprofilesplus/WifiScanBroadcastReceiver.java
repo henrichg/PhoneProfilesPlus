@@ -9,14 +9,14 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","xxx");
 
         if (intent == null)
             return;
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -32,13 +32,13 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                 boolean resultsUpdated; // = false;
                 if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED)) {
-//                    PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
+//                    PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
                     resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
                     WifiScanWorker.fillScanResults(appContext);
-//                    PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","fillScanResults - end");
+//                    PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive","fillScanResults - end");
                 }
                 else {
-//                    PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
+//                    PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
                     resultsUpdated = true;
                 }
 
@@ -47,11 +47,11 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                 final int forceOneScan = ApplicationPreferences.prefForceOneWifiScan;
 
-                if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                if (EventStatic.getGlobalEventsRunning(appContext) || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                     if (ApplicationPreferences.prefEventWifiWaitForResult) {
 
-//                        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "start Worker");
+//                        PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "start Worker");
 
                         WifiScanWorker.setWaitForResults(appContext, false);
                         WifiScanner.setForceOneWifiScan(appContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
@@ -73,11 +73,11 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                             //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                             .build();
                             try {
-                                if (PPApplication.getApplicationStarted(true)) {
+                                if (PPApplicationStatic.getApplicationStarted(true)) {
                                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                                     if (workManager != null) {
 
-//                                        //if (PPApplication.logEnabled()) {
+//                                        //if (PPApplicationStatic.logEnabled()) {
 //                                        ListenableFuture<List<WorkInfo>> statuses;
 //                                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
 //                                        try {
@@ -86,19 +86,19 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 //                                        }
 //                                        //}
 
-//                                        PPApplication.logE("[WORKER_CALL] WifiScanBroadcastReceiver.onReceive", "xxx");
+//                                        PPApplicationStatic.logE("[WORKER_CALL] WifiScanBroadcastReceiver.onReceive", "xxx");
                                         //workManager.enqueue(worker);
                                         workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                     }
                                 }
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                             */
 
                         }
 
-//                        PPApplication.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "end start Worker");
+//                        PPApplicationStatic.logE("[IN_BROADCAST] WifiScanBroadcastReceiver.onReceive", "end start Worker");
 
 /*
                         PPApplication.startHandlerThreadBroadcast();
@@ -114,7 +114,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
-                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
+                                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
 
                                     if (WifiScanWorker.wifi == null)
                                         WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
@@ -137,11 +137,11 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                                         .build();
                                         try {
-                                            if (PPApplication.getApplicationStarted(true)) {
+                                            if (PPApplicationStatic.getApplicationStarted(true)) {
                                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                                 if (workManager != null) {
 
-//                                                //if (PPApplication.logEnabled()) {
+//                                                //if (PPApplicationStatic.logEnabled()) {
 //                                                ListenableFuture<List<WorkInfo>> statuses;
 //                                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_SCANNER_FROM_RECEIVER_WORK_TAG);
 //                                                try {
@@ -155,7 +155,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                 }
                                             }
                                         } catch (Exception e) {
-                                            PPApplication.recordException(e);
+                                            PPApplicationStatic.recordException(e);
                                         }
 
                                     }

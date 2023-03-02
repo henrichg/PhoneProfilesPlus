@@ -347,7 +347,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 Bundle extras = new Bundle();
 
                 if ((!applicationWidgetListHeader) &&
-                        Event.getGlobalEventsRunning(appContext) && (position == 0))
+                        EventStatic.getGlobalEventsRunning(appContext) && (position == 0))
                     extras.putLong(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
                 else
                     extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
@@ -512,7 +512,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         the old data will be displayed within the widget.
     */
     public void onDataSetChanged() {
-//        PPApplication.logE("[IN_LISTENER] ProfileListWidgetFactory.onDataSetChanged", "START");
+//        PPApplicationStatic.logE("[IN_LISTENER] ProfileListWidgetFactory.onDataSetChanged", "START");
 
         String applicationWidgetListIconColor;
         String applicationWidgetListIconLightness;
@@ -605,7 +605,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         Profile restartEvents = null;
         if ((!applicationWidgetListHeader) &&
-                Event.getGlobalEventsRunning(context)) {
+                EventStatic.getGlobalEventsRunning(context)) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
                     "ic_profile_restart_events|1|1|" + ApplicationPreferences.applicationRestartEventsIconColor, 0);

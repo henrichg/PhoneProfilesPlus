@@ -105,8 +105,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                             //noinspection UnnecessaryLocalVariable
                             String contents = response;
 
-                            PPApplication.PPPReleaseData pppReleaseData =
-                                    PPApplication.getReleaseData(contents, true, appContext);
+                            PPApplicationStatic.PPPReleaseData pppReleaseData =
+                                    PPApplicationStatic.getReleaseData(contents, true, appContext);
 
                             updateReleasedVersion = pppReleaseData != null;
                             if (updateReleasedVersion) {
@@ -234,7 +234,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         int pppVersionCode = 0;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            pppVersionCode = PPApplication.getVersionCode(pInfo);
+            pppVersionCode = PPApplicationStatic.getVersionCode(pInfo);
         } catch (Exception ignored) {
         }
         newVersionDataExists = (!newVersionName.isEmpty()) && (newVersionCode > 0);
@@ -248,7 +248,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
             message = "<br>";
         }
@@ -314,7 +314,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -361,7 +361,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 activity.finish();
             });
@@ -406,7 +406,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
             message = "<br>";
         }
@@ -454,7 +454,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         try {
                             activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 };
@@ -487,7 +487,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -517,7 +517,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -543,7 +543,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     activity.startActivity(intent);
                 } catch (Exception e) {
                     //Log.e("CheckPPPReleasesActivity.checkInFDroid", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             else {
@@ -553,7 +553,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -586,7 +586,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
             message = "<br>";
         }
@@ -624,7 +624,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             try {
                 activity.startActivity(intent);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             activity.finish();
         });
@@ -700,7 +700,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -730,7 +730,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             } else {
                 String url = PPApplication.AMAZON_APPSTORE_PPP_RELEASES_URL;
@@ -739,7 +739,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -773,7 +773,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
             message = "<br>";
         }
@@ -823,7 +823,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         try {
                             activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 };
@@ -855,7 +855,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             } else {
                 String url = PPApplication.HUAWEI_APPGALLERY_PPP_RELEASES_URL;
@@ -864,7 +864,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -898,7 +898,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
             message = "<br>";
         }
@@ -962,7 +962,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -988,7 +988,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     activity.startActivity(intent);
                 } catch (Exception e) {
                     //Log.e("CheckPPPReleasesActivity.checkInAPKPure", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             else {
@@ -998,7 +998,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -1031,7 +1031,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")</b>";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
             message = "<br>";
         }
@@ -1095,7 +1095,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -1121,7 +1121,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     activity.startActivity(intent);
                 } catch (Exception e) {
                     //Log.e("CheckPPPReleasesActivity.checkInDroidify", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             else {
@@ -1131,7 +1131,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();

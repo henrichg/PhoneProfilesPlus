@@ -14,7 +14,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] ExitApplicationActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] ExitApplicationActivity.onCreate", "xxx");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
                     ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                    PPApplication.exitApp(true, appContext, dataWrapper, this, false, true);
+                    PPApplicationStatic.exitApp(true, appContext, dataWrapper, this, false, true);
 
                     // close activities
                     Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);

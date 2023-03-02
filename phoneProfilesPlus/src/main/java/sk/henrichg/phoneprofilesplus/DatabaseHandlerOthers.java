@@ -44,14 +44,14 @@ class DatabaseHandlerOthers {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -77,12 +77,12 @@ class DatabaseHandlerOthers {
                     //Error in between database transaction
                     //} finally {
                     //db.endTransaction();
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -112,7 +112,7 @@ class DatabaseHandlerOthers {
 
                 cursor = db.rawQuery(selectQuery, null);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return cursor;
         } finally {
@@ -886,21 +886,21 @@ class DatabaseHandlerOthers {
                     if (eventsCursor.moveToFirst()) {
                         do {
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_WIFI_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_WIFI_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                             }
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_BLUETOOTH_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_BLUETOOTH_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                             }
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NOTIFICATION_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_NOTIFICATION_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -944,7 +944,7 @@ class DatabaseHandlerOthers {
                             }
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED)) != 0) &&
                                     //(Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_MOBILE_CELLS_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -952,7 +952,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_NFC_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_NFC_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -960,7 +960,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -968,7 +968,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SOUND_PROFILE_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_SOUND_PROFILE_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -976,7 +976,7 @@ class DatabaseHandlerOthers {
                             }
 
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(DatabaseHandler.KEY_E_VOLUMES_ENABLED, 0);
                                 db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
@@ -1133,7 +1133,7 @@ class DatabaseHandlerOthers {
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
                     //Error in between database transaction
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                     profilesCursor.close();
@@ -1143,7 +1143,7 @@ class DatabaseHandlerOthers {
                 //db.close();
             } catch (Exception e) {
 //                Log.e("DatabaseHandlerOthers.disableNotAllowedPreferences", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();

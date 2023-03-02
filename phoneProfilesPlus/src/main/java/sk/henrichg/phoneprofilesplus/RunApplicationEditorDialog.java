@@ -225,10 +225,10 @@ class RunApplicationEditorDialog
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        if (PPApplication.getApplicationsCache() == null)
-            PPApplication.createApplicationsCache(false);
+        if (PPApplicationStatic.getApplicationsCache() == null)
+            PPApplicationStatic.createApplicationsCache(false);
 
-        cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
+        cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
 
         fillApplicationList();
         updateSelectedAppViews();
@@ -341,7 +341,7 @@ class RunApplicationEditorDialog
         if (selectedPosition != -1) {
             selectedApplication = getSelectedApplication();
             if (selectedApplication != null) {
-                applicationIcon = PPApplication.getApplicationsCache().getApplicationIcon(selectedApplication, false);
+                applicationIcon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(selectedApplication, false);
             }
         }
         if (selectedApplication != null) {

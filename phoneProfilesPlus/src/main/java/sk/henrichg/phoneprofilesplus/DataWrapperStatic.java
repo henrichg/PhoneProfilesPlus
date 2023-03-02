@@ -23,7 +23,7 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataWrapperStatic {
+class DataWrapperStatic {
 
     static Profile getNonInitializedProfile(String name, String icon, int order)
     {
@@ -178,13 +178,13 @@ public class DataWrapperStatic {
     {
         if (afterDuration)
             //return ApplicationPreferences.prefEventsBlocked;
-            return Event.getEventsBlocked(context);
+            return EventStatic.getEventsBlocked(context);
         else {
             //if (!ApplicationPreferences.prefEventsBlocked)
-            if (!Event.getEventsBlocked(context))
+            if (!EventStatic.getEventsBlocked(context))
                 return false;
             else
-                return !Event.getForceRunEventRunning(context);
+                return !EventStatic.getForceRunEventRunning(context);
         }
     }
 
@@ -199,9 +199,9 @@ public class DataWrapperStatic {
         String manualIndicators = "";
         if (addEventName)
         {
-            if (Event.getGlobalEventsRunning(context)) {
-                if (Event.getEventsBlocked(context)) {
-                    if (Event.getForceRunEventRunning(context))
+            if (EventStatic.getGlobalEventsRunning(context)) {
+                if (EventStatic.getEventsBlocked(context)) {
+                    if (EventStatic.getForceRunEventRunning(context))
                         manualIndicators = "[»]";
                     else
                         manualIndicators = "[M]";
@@ -218,7 +218,7 @@ public class DataWrapperStatic {
                 eventName = manualIndicators + " " + eventName;
         }
 
-        if (!PPApplication.getApplicationStarted(true, false))
+        if (!PPApplicationStatic.getApplicationStarted(true, false))
             eventName = eventName + " ";
 
         Spannable sName;
@@ -278,7 +278,7 @@ public class DataWrapperStatic {
 
     static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile, Context context)
     {
-        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(false, false))
+        if (EventStatic.getGlobalEventsRunning(context) && PPApplicationStatic.getApplicationStarted(false, false))
         {
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
@@ -289,7 +289,7 @@ public class DataWrapperStatic {
                         Event event = dataWrapper.getEventById(event_id);
                         if (event != null) {
                             //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
-                            if ((!Event.getEventsBlocked(context)) || (event._ignoreManualActivation)) {
+                            if ((!EventStatic.getEventsBlocked(context)) || (event._ignoreManualActivation)) {
                                 //Profile profile;
                                 //profile = dataWrapper.getActivatedProfile(false, false);
                                 //if ((profile != null) && (event._fkProfileStart == profile._id))
@@ -304,7 +304,7 @@ public class DataWrapperStatic {
                     } else {
                         long profileId = ApplicationPreferences.applicationDefaultProfile;
                         //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                        if ((!Event.getEventsBlocked(context)) &&
+                        if ((!EventStatic.getEventsBlocked(context)) &&
                                 (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                                 (profileId == forProfile._id)) {
                             //Profile profile;
@@ -349,7 +349,7 @@ public class DataWrapperStatic {
                     else {
                         long profileId = ApplicationPreferences.applicationDefaultProfile;
                         //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                        if ((!Event.getEventsBlocked(context)) &&
+                        if ((!EventStatic.getEventsBlocked(context)) &&
                                 (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                                 (profileId == forProfile._id)) {
                             //Profile profile;
@@ -371,7 +371,7 @@ public class DataWrapperStatic {
     static String _getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
     {
 
-        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
+        if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(false))
         {
             if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
@@ -649,7 +649,7 @@ public class DataWrapperStatic {
                         }
                     }
 
-//                    PPApplication.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
+//                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
                     shortcutManager.removeAllDynamicShortcuts();
                     if (shortcuts.size() > 0)
@@ -666,7 +666,7 @@ public class DataWrapperStatic {
 //                - Generated, when device is rooted?
 
                 //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -677,7 +677,7 @@ public class DataWrapperStatic {
         if ((profile == null) && (event == null))
             return false;
 
-        if (!PPApplication.getApplicationStarted(true, false))
+        if (!PPApplicationStatic.getApplicationStarted(true, false))
             return false;
 
         if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {
@@ -688,7 +688,7 @@ public class DataWrapperStatic {
                         PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
                         PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return false;
@@ -701,7 +701,7 @@ public class DataWrapperStatic {
                         PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
                         PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return false;
@@ -773,7 +773,7 @@ public class DataWrapperStatic {
 
         intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
 
-        PPApplication.createGrantPermissionNotificationChannel(context);
+        PPApplicationStatic.createGrantPermissionNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -801,7 +801,7 @@ public class DataWrapperStatic {
             Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
         return true;

@@ -9,15 +9,15 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] DeviceIdleModeBroadcastReceiver.onReceive","xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] DeviceIdleModeBroadcastReceiver.onReceive","xxx");
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
         final Context appContext = context.getApplicationContext();
 
-        if (Event.getGlobalEventsRunning(appContext)) {
+        if (EventStatic.getGlobalEventsRunning(appContext)) {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(
             if ((powerManager != null) && !powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {
@@ -27,7 +27,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                 //        context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -40,7 +40,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             // start events handler
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] DeviceIdleModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_IDLE_MODE");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] DeviceIdleModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_IDLE_MODE");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
 
@@ -54,17 +54,17 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                                     rescan = true;
                                 else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//                                    PPApplication.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
+//                                    PPApplicationStatic.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
                                     rescan = true;
                                 }
                                 else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-//                                    PPApplication.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
+//                                    PPApplicationStatic.logE("[TEST BATTERY] DeviceIdleModeBroadcastReceiver.onReceive", "******** ### *******");
                                     rescan = true;
                                 }
                                 else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                     rescan = true;
                                 if (rescan) {
-                                    PPApplication.rescanAllScanners(appContext);
+                                    PPApplicationStatic.rescanAllScanners(appContext);
                                 }
                             }
                             /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
@@ -77,8 +77,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             }*/
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -89,7 +89,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         }
                     //}
                 }; //);
-                PPApplication.createEventsHandlerExecutor();
+                PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
             }
         }

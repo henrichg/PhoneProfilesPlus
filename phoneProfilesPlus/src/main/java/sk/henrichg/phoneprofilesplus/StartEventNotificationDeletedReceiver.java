@@ -11,7 +11,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
 
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
         final Context appContext = context;
@@ -20,7 +20,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -40,8 +40,8 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                             StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -53,7 +53,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                 }
             //}
         }; //);
-        PPApplication.createEventsHandlerExecutor();
+        PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 

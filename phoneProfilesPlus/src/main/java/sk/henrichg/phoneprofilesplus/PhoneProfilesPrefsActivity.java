@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -273,10 +274,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-        PPApplication.setApplicationFullyStarted(getApplicationContext());
-//        PPApplication.logE("[APPLICATION_FULLY_STARTED] PhoneProfilesPrefsActivity.showNotStartedToast", "xxx");
+        PPApplicationStatic.setApplicationFullyStarted(getApplicationContext());
+//        PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] PhoneProfilesPrefsActivity.showNotStartedToast", "xxx");
         return false;
-/*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+/*        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted;
         if (!applicationStarted) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
@@ -309,7 +310,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -317,8 +318,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//            PPApplication.logE("[START_PP_SERVICE] PhoneProfilesPrefsActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplication.startPPService(this, serviceIntent);
+//            PPApplicationStatic.logE("[START_PP_SERVICE] PhoneProfilesPrefsActivity.startPPServiceWhenNotStarted", "(1)");
+            PPApplicationStatic.startPPService(this, serviceIntent);
             //return true;
         } else {
             //noinspection StatementWithEmptyBody
@@ -357,7 +358,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
-//            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
@@ -409,6 +410,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         super.finish();
     }
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
+    @SuppressLint("SuspiciousIndentation")
     private void doPreferenceChanges() {
         final Context appContext = getApplicationContext();
 
@@ -425,11 +428,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
         if (mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
+//            PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
         }
         if (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) {
-//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
+//            PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (1)");
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
         }
         if (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)
@@ -438,7 +441,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         editor.apply();
 
-        PPApplication.loadApplicationPreferences(getApplicationContext());
+        PPApplicationStatic.loadApplicationPreferences(getApplicationContext());
 
         PPPAppNotification.forceDrawNotificationFromSettings(appContext);
 
@@ -450,23 +453,23 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
        //try {
             if ((Build.VERSION.SDK_INT < 26)) {
-                PPApplication.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
+                PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
             }
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventPeriodicScanningScanInterval);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.applicationEventBluetoothScanInterval);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.applicationEventLocationUpdateInterval);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventNotificationEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventPeriodicScanningScanInterval);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.applicationEventBluetoothScanInterval);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.applicationEventLocationUpdateInterval);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval);
+            PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventNotificationEnableScanning);
         //} catch (Exception e) {
             // https://github.com/firebase/firebase-android-sdk/issues/1226
-            // PPApplication.recordException(e);
+            // PPApplicationStatic.recordException(e);
         //}
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
@@ -482,7 +485,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
             if (PhoneProfilesService.getInstance() != null) {
                 synchronized (PPApplication.applicationPreferencesMutex) {
                     PPApplication.doNotShowProfileNotification = false;
@@ -493,7 +496,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }, 1000);*/
         //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
 
-//        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsActivity.doPreferenceChanges", "call of updateGUI");
+//        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsActivity.doPreferenceChanges", "call of updateGUI");
         PPApplication.updateGUI(true, false, getApplicationContext());
 
         if (Permissions.grantRootChanged) {
@@ -538,47 +541,47 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) ||
                 periodicScanInterval != ApplicationPreferences.applicationEventPeriodicScanningScanInterval) {
-            PPApplication.restartPeriodicScanningScanner(appContext);
+            PPApplicationStatic.restartPeriodicScanningScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning) ||
                 (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval)) {
-            PPApplication.restartWifiScanner(appContext);
+            PPApplicationStatic.restartWifiScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning) ||
                 (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval)) {
-            PPApplication.restartBluetoothScanner(appContext);
+            PPApplicationStatic.restartBluetoothScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning) ||
                 (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval)) {
-            PPApplication.restartLocationScanner(appContext);
+            PPApplicationStatic.restartLocationScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning) ||
                 orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval) {
-//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
-            PPApplication.restartOrientationScanner(appContext);
+//            PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
+            PPApplicationStatic.restartOrientationScanner(appContext);
         }
 
         if (permissionsChanged ||
                 (notificationScannerEnabled != ApplicationPreferences.applicationEventNotificationEnableScanning)) {
-            PPApplication.restartNotificationScanner(appContext);
+            PPApplicationStatic.restartNotificationScanner(appContext);
         }
 
         if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//            PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
-            PPApplication.restartMobileCellsScanner(appContext);
+//            PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsActivity.doPreferenceChanges", "******** ### ******* (2)");
+            PPApplicationStatic.restartMobileCellsScanner(appContext);
         }
 
         if (permissionsChanged) {
-            PPApplication.restartTwilightScanner(appContext);
+            PPApplicationStatic.restartTwilightScanner(appContext);
         }
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
@@ -588,7 +591,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //        appContext) {
             //__handler2.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -607,12 +610,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         //PPApplication.restartEvents(appContext, true, true);
 
                         // change of this parameter is as change of local time
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges (2)");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges (2)");
                         TimeChangedReceiver.doWork(appContext, true);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -623,7 +626,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                     }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
 
@@ -653,7 +656,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-        PPApplication.runCommand(this, commandIntent);
+        PPApplicationStatic.runCommand(this, commandIntent);
 
         //if (PhoneProfilesService.getInstance() != null) {
                     /*

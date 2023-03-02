@@ -30,7 +30,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     protected void onInitialize(boolean isReconnect) {
         super.onInitialize(isReconnect);
 
-//        PPApplication.logE("[IN_LISTENER] DashClockExtension.onInitialize", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] DashClockExtension.onInitialize", "xxx");
 
         instance = this;
 
@@ -47,7 +47,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
     {
         super.onDestroy();
 
-//        PPApplication.logE("[IN_LISTENER] DashClockExtension.onDestroy", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] DashClockExtension.onDestroy", "xxx");
 
         instance = null;
         /*if (dataWrapper != null)
@@ -57,7 +57,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     @Override
     protected void onUpdateData(int reason) {
-//        PPApplication.logE("[IN_LISTENER] DashClockExtension.onUpdateData", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] DashClockExtension.onUpdateData", "xxx");
 
         if (instance == null)
             return;
@@ -76,7 +76,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         //__handler.post(new PPHandlerThreadRunnable(appContext, dataWrapper) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
@@ -84,7 +84,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             if (/*(appContext != null) && (dataWrapper != null) &&*/ (instance != null)) {
 
                 try {
-//                    PPApplication.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
 
                     //profile = Profile.getMappedProfile(
                     //                            _dataWrapper.getActivatedProfile(true, false), this);
@@ -121,8 +121,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
                         String status = "";
                         //if (ApplicationPreferences.prefEventsBlocked) {
-                        if (Event.getEventsBlocked(appContext)) {
-                            if (Event.getForceRunEventRunning(appContext)) {
+                        if (EventStatic.getEventsBlocked(appContext)) {
+                            if (EventStatic.getForceRunEventRunning(appContext)) {
                     /*if (android.os.Build.VERSION.SDK_INT >= 16)
                         status = "\u23E9";
                     else*/
@@ -149,11 +149,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                                     .clickIntent(intent));
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         }; //);
-        PPApplication.createDelayedGuiExecutor();
+        PPApplicationStatic.createDelayedGuiExecutor();
         PPApplication.delayedGuiExecutor.submit(runnable);
     }
 

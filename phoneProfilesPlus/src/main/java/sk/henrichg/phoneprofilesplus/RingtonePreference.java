@@ -133,7 +133,7 @@ public class RingtonePreference extends DialogPreference {
             //__handler.post(new StopPlayRingtoneRunnable(prefContext.getApplicationContext(), audioManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragment.stopPlayRingtone");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragment.stopPlayRingtone");
 
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
@@ -148,12 +148,12 @@ public class RingtonePreference extends DialogPreference {
                             if (mediaPlayer.isPlaying())
                                 mediaPlayer.stop();
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         try {
                             mediaPlayer.release();
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         ringtoneIsPlayed = false;
                         mediaPlayer = null;
@@ -169,7 +169,7 @@ public class RingtonePreference extends DialogPreference {
                     }
                 }
             }; //);
-            PPApplication.createPlayToneExecutor();
+            PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
         }
     }
@@ -201,7 +201,7 @@ public class RingtonePreference extends DialogPreference {
                 if (/*(appContext != null) && (audioManager != null) &&*/ (_ringtoneUri != null)) {
 
                     try {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreference.playRingtone");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreference.playRingtone");
 
                         /*if (TonesHandler.isPhoneProfilesSilent(ringtoneUri, appContext)) {
                             //String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
@@ -291,12 +291,12 @@ public class RingtonePreference extends DialogPreference {
                                             if (mediaPlayer.isPlaying())
                                                 mediaPlayer.stop();
                                         } catch (Exception e) {
-                                            //PPApplication.recordException(e);
+                                            //PPApplicationStatic.recordException(e);
                                         }
                                         try {
                                             mediaPlayer.release();
                                         } catch (Exception e) {
-                                            //PPApplication.recordException(e);
+                                            //PPApplicationStatic.recordException(e);
                                         }
 
                                         if (oldMediaVolume > -1)
@@ -331,7 +331,7 @@ public class RingtonePreference extends DialogPreference {
 
                     } catch (Exception e) {
                         //Log.e("RingtonePreference.playRingtone", Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                         try {
                             preference.stopPlayRingtone();
                         } catch (Exception ignored) {}
@@ -352,7 +352,7 @@ public class RingtonePreference extends DialogPreference {
                     }
                 }
             }; //);
-            PPApplication.createPlayToneExecutor();
+            PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
 
         }
@@ -600,7 +600,7 @@ public class RingtonePreference extends DialogPreference {
                                 _toneList.put(_uri + "/" + _id, _title);
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }

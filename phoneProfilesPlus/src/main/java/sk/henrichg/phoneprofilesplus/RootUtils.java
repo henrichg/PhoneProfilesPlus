@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RootUtils {
+class RootUtils {
 
     static synchronized void initRoot() {
         synchronized (PPApplication.rootMutex) {
@@ -43,24 +43,24 @@ public class RootUtils {
 
         if (PPApplication.rootMutex.rootChecked) {
             try {
-                PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
+                PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
                 if (PPApplication.rootMutex.rooted) {
                     PackageManager packageManager = PPApplication.getInstance().getPackageManager();
                     // SuperSU
                     Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
                     if (intent != null)
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
+                        PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
                     else {
                         intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
                         if (intent != null)
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
+                            PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
                         else
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
+                            PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
                     }
                 }
             } catch (Exception e) {
                 // https://github.com/firebase/firebase-android-sdk/issues/1226
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
             return PPApplication.rootMutex.rooted;
         }
@@ -83,28 +83,28 @@ public class RootUtils {
             }
             PPApplication.rootMutex.rootChecked = true;
             try {
-                PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
+                PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED, String.valueOf(PPApplication.rootMutex.rooted));
                 if (PPApplication.rootMutex.rooted) {
                     PackageManager packageManager = PPApplication.getInstance().getPackageManager();
                     // SuperSU
                     Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
                     if (intent != null)
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
+                        PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "SuperSU");
                     else {
                         intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
                         if (intent != null)
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
+                            PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "Magisk");
                         else
-                            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
+                            PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_DEVICE_ROOTED_WITH, "another manager");
                     }
                 }
             } catch (Exception e) {
                 // https://github.com/firebase/firebase-android-sdk/issues/1226
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
         } catch (Exception e) {
             //Log.e("RootUtils._isRooted", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //if (rooted)
         //	getSUVersion();
@@ -145,7 +145,7 @@ public class RootUtils {
                     }*/
                 } catch (Exception e) {
                     //Log.e("RootUtils.isRootGranted", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     //rootMutex.rootGranted = false;
                 }
                 //return rootMutex.rootGranted;
@@ -448,7 +448,7 @@ public class RootUtils {
                     String name = field.getName();
                     if (method.isEmpty()) {
                         //if (name.contains("TRANSACTION_"))
-                        //    PPApplication.logE("[LIST] PPApplication.getTransactionCode", "field.getName()="+name);
+                        //    PPApplicationStatic.logE("[LIST] PPApplication.getTransactionCode", "field.getName()="+name);
                         iField++;
                     }
                     else {
@@ -458,11 +458,11 @@ public class RootUtils {
                             try {
                                 field.setAccessible(true);
                                 code = field.getInt(field);
-                                //PPApplication.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
+                                //PPApplicationStatic.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
                                 break;
                             } catch (Exception e) {
                                 //Log.e("RootUtils.getTransactionCode", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                         }
                     }
@@ -470,7 +470,7 @@ public class RootUtils {
             }
         } catch (ClassNotFoundException e) {
             //Log.e("RootUtils.getTransactionCode", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
         return code;
     }
@@ -520,13 +520,13 @@ public class RootUtils {
                     //}
                 } catch (InterruptedException e) {
                     //Log.e("RootUtils.commandWait", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         }
         if (!cmd.isFinished()){
             //Log.e("RootUtils.commandWait", "Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
-            PPApplication.logToACRA("E/GlobalUtils.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
+            PPApplicationStatic.logToACRA("E/GlobalUtils.commandWait: Called from: " + calledFrom + "; Could not finish root command in " + (waitTill/waitTillMultiplier));
         }
     }
 

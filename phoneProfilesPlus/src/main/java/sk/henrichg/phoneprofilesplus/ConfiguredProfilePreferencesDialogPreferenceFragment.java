@@ -149,7 +149,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragment extends Prefer
                         _preferencesList.add(configuredPreferences);
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
 

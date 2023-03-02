@@ -17,11 +17,11 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
 //        if (intent != null)
-//            PPApplication.logE("[IN_BROADCAST] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//            PPApplicationStatic.logE("[IN_BROADCAST] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
 //        else
-//            PPApplication.logE("[IN_BROADCAST] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
 
-//        if (PPApplication.logEnabled()) {
+//        if (PPApplicationStatic.logEnabled()) {
 //            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 //            if (keyguardManager != null) {
 //                boolean keyguardShowing = keyguardManager.isKeyguardLocked();
@@ -40,7 +40,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     {
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+        if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -62,12 +62,12 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
             } else {
-//                PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
+//                PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
 
                 //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
 //                    long start = System.currentTimeMillis();
-//                    PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -81,10 +81,10 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
 //                        long finish = System.currentTimeMillis();
 //                        long timeElapsed = finish - start;
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
                     } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -95,7 +95,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                         //worker.shutdown();
                     }
                 };
-                PPApplication.createDelayedProfileActivationExecutor();
+                PPApplicationStatic.createDelayedProfileActivationExecutor();
                 PPApplication.delayedProfileActivationExecutor.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
 
                 /*
@@ -105,11 +105,11 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                                 .setInitialDelay(lockDelay, TimeUnit.MILLISECONDS)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true)) {
+                    if (PPApplicationStatic.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
 
-//                        //if (PPApplication.logEnabled()) {
+//                        //if (PPApplicationStatic.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
 //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK);
 //                        try {
@@ -118,12 +118,12 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 //                        }
 //                        //}
 
-//                            PPApplication.logE("[WORKER_CALL] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "xxx");
+//                            PPApplicationStatic.logE("[WORKER_CALL] LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                         }
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 */
             }
@@ -152,12 +152,12 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
 
-//                    PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "schedule");
 
                     //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
 //                        long start = System.currentTimeMillis();
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- START");
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -171,10 +171,10 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
 //                            long finish = System.currentTimeMillis();
 //                            long timeElapsed = finish - start;
-//                            PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceAfterScreenOffBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
                         } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -185,7 +185,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                             //worker.shutdown();
                         }
                     };
-                    PPApplication.createDelayedProfileActivationExecutor();
+                    PPApplicationStatic.createDelayedProfileActivationExecutor();
                     PPApplication.delayedProfileActivationExecutor.schedule(runnable, lockDelay, TimeUnit.MILLISECONDS);
 
                     /*
@@ -204,11 +204,11 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork(boolean useHandler, Context context) {
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(context)) {
+        if (EventStatic.getGlobalEventsRunning(context)) {
             final Context appContext = context.getApplicationContext();
             if (useHandler) {
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_SCREEN, "SENSOR_TYPE_SCREEN", 0);
@@ -218,7 +218,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 __handler.post(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (1)");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -230,13 +230,13 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (1)");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (1)");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -249,7 +249,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
                 });
                 */
             } else {
-                //                PPApplication.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (2)");
+                //                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
             }

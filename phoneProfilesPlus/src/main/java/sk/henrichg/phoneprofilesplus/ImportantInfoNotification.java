@@ -21,7 +21,7 @@ class ImportantInfoNotification {
     static void showInfoNotification(Context context) {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            int packageVersionCode = PPApplication.getVersionCode(pInfo);
+            int packageVersionCode = PPApplicationStatic.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
 
             // do not show notification, version code is not saved
@@ -68,7 +68,7 @@ class ImportantInfoNotification {
                 //setShowInfoNotificationOnStart(context, false, packageVersionCode);
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -142,7 +142,7 @@ class ImportantInfoNotification {
     static private void showNotification(Context context,
                                          @SuppressWarnings("SameParameterValue") boolean firstInstallation,
                                          String title, String text, String notificationTag) {
-        PPApplication.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -170,7 +170,7 @@ class ImportantInfoNotification {
             Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -188,7 +188,7 @@ class ImportantInfoNotification {
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_PPPPS_TAG,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

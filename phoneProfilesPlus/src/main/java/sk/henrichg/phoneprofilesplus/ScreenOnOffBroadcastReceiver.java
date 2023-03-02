@@ -13,9 +13,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        if (intent != null)
-//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//            PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
 //        else
-//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
         /*if (intent != null)
         else
@@ -23,7 +23,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -37,7 +37,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -62,7 +62,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                         GlobalUtils.switchKeyguard(appContext);
                                     //}
                                 } catch (Exception e) {
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                             }
 
@@ -74,19 +74,19 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                         if (profile.getDeviceBrightnessChange()) {
                                             if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
                                                 try {
-//                                                    if (PPApplication.logEnabled()) {
+//                                                    if (PPApplicationStatic.logEnabled()) {
 //                                                        int brightnessMode = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
 //                                                        int brightness = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
 //                                                        float adaptiveBrightness = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "brightness mode=" + brightnessMode);
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "manual brightness value=" + brightness);
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "adaptive brightness value=" + adaptiveBrightness);
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "brightness mode=" + brightnessMode);
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "manual brightness value=" + brightness);
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "adaptive brightness value=" + adaptiveBrightness);
 //                                                    }
 //
-//                                                    if (PPApplication.logEnabled()) {
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "brightness mode=" + profile.getDeviceBrightnessAutomatic());
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "manual brightness value=" + profile.getDeviceBrightnessManualValue(appContext));
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "adaptive brightness value=" + profile.getDeviceBrightnessAdaptiveValue(appContext));
+//                                                    if (PPApplicationStatic.logEnabled()) {
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "brightness mode=" + profile.getDeviceBrightnessAutomatic());
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "manual brightness value=" + profile.getDeviceBrightnessManualValue(appContext));
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "adaptive brightness value=" + profile.getDeviceBrightnessAdaptiveValue(appContext));
 //                                                    }
                                                     try {
                                                         if (profile.getDeviceBrightnessAutomatic()) {
@@ -118,16 +118,16 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                                         }
                                                     } catch (Exception ignored) {
                                                     }
-//                                                    if (PPApplication.logEnabled()) {
+//                                                    if (PPApplicationStatic.logEnabled()) {
 //                                                        int brightnessMode = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
 //                                                        int brightness = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
 //                                                        float adaptiveBrightness = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "brightness mode=" + brightnessMode);
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "manual brightness value=" + brightness);
-//                                                        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "adaptive brightness value=" + adaptiveBrightness);
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "brightness mode=" + brightnessMode);
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "manual brightness value=" + brightness);
+//                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "adaptive brightness value=" + adaptiveBrightness);
 //                                                    }
                                                 } catch (Exception e) {
-                                                    PPApplication.recordException(e);
+                                                    PPApplicationStatic.recordException(e);
                                                 }
                                             }
                                         }
@@ -139,15 +139,15 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         }
                         case Intent.ACTION_SCREEN_OFF: {
                             PPApplication.isScreenOn = false;
-//                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
+//                            PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
 
-//                            if (PPApplication.logEnabled()) {
+//                            if (PPApplicationStatic.logEnabled()) {
 //                                PPApplication.brightnessModeBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
 //                                PPApplication.brightnessBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
 //                                PPApplication.adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-//                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
-//                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
-//                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
+//                                PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
+//                                PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
+//                                PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
 //                            }
 
                             // call this, because device may not be locked immediately after screen off
@@ -169,15 +169,15 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             final Handler handler1 = new Handler(appContext.getMainLooper());
                             handler1.post(() -> {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - start");
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - start");
                                 if (PPApplication.lockDeviceActivity != null) {
                                     try {
                                         PPApplication.lockDeviceActivity.finish();
                                     } catch (Exception e) {
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - end");
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - end");
                             });
 
                             break;
@@ -193,7 +193,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                     GlobalUtils.switchKeyguard(appContext);
                                     //}
                                 } catch (Exception e) {
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                             }
 
@@ -204,8 +204,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     doScreenOnOff(action, appContext);
 
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -217,10 +217,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
 
-//            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
 
         }; //);
-        PPApplication.createBasicExecutorPool();
+        PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
     }
 
@@ -249,25 +249,25 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 else if (ApplicationPreferences.applicationEventBluetoothEnableScanning)
                     restart = true;
                 else if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
+//                                PPApplicationStatic.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
                     restart = true;
                 }
                 else if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
+//                                PPApplicationStatic.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (1)");
                     restart = true;
                 }
                 else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                     restart = true;
                 if (restart) {
                     // for screenOn=true -> used only for Location scanner - start scan with GPS On
-                    PPApplication.restartAllScanners(appContext, false);
+                    PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 
-//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, appContext);
                 PPPAppNotification.drawNotification(false, appContext);
 
-                if (Event.getGlobalEventsRunning(appContext)) {
+                if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
@@ -292,26 +292,26 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     restart = true;
                 else if (ApplicationPreferences.applicationEventMobileCellEnableScanning &&
                         ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
-//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
+//                                PPApplicationStatic.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
                     restart = true;
                 }
                 else if (ApplicationPreferences.applicationEventOrientationEnableScanning &&
                         ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
-//                                PPApplication.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
+//                                PPApplicationStatic.logE("[TEST BATTERY] ScreenOnOffBroadcastReceiver.onReceive", "******** ### ******* (2)");
                     restart = true;
                 }
                 if (restart) {
                     // for screenOn=false -> used only for Location scanner - use last usage of GPS for scan
                     //PPApplication.setBlockProfileEventActions(true);
-                    PPApplication.restartAllScanners(appContext, false);
+                    PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 
-                if (Event.getGlobalEventsRunning(appContext)) {
+                if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                 }
 
-//                PPApplication.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, appContext);
                 PPPAppNotification.drawNotification(false, appContext);
 
@@ -322,7 +322,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 // WARNING: must be called after PPApplication.isScreenOn = true;
                 setProfileScreenTimeoutSavedWhenScreenOff(appContext);
 
-                if (Event.getGlobalEventsRunning(appContext)) {
+                if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                 }

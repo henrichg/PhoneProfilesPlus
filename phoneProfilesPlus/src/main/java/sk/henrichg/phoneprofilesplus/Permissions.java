@@ -1823,7 +1823,7 @@ class Permissions {
                 //    context.startActivity(intent);
             } catch (Exception e) {
                 //Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 //return false;
             }
         }
@@ -2074,7 +2074,7 @@ class Permissions {
                 //    context.startActivity(intent);
             } catch (Exception e) {
                 //Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 //return false;
             }
         }
@@ -2500,7 +2500,7 @@ class Permissions {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2521,7 +2521,7 @@ class Permissions {
                     PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_TAG,
                     PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2544,7 +2544,7 @@ class Permissions {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2566,12 +2566,12 @@ class Permissions {
         //try {
             //notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
         //} catch (Exception e) {
-        //    PPApplication.recordException(e);
+        //    PPApplicationStatic.recordException(e);
         //}
         //try {
             //notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
         //} catch (Exception e) {
-        //    PPApplication.recordException(e);
+        //    PPApplicationStatic.recordException(e);
         //}
     }
 
@@ -3239,7 +3239,7 @@ class Permissions {
                                 activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -3289,7 +3289,7 @@ class Permissions {
                                         activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
                                         ok = true;
                                     } catch (Exception e) {
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                                 if (!ok) {

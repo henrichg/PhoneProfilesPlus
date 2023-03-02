@@ -140,7 +140,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_notification_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
@@ -435,7 +435,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
                                                         this._applications, this._inCall, this._missedCall, this._duration,
@@ -618,7 +618,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_NOTIFICATION_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -883,7 +883,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
         } catch (Exception e) {
             //Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         // package name not found
         return null;
@@ -1001,7 +1001,7 @@ class EventPreferencesNotification extends EventPreferences {
 
                     // Hm: java.lang.RuntimeException: Could not read bitmap blob.
                     //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
             }
         }
@@ -1164,7 +1164,7 @@ class EventPreferencesNotification extends EventPreferences {
             }*/
 
             if (!split.isEmpty()) {
-                ContactsCache contactsCache = PPApplication.getContactsCache();
+                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null)
                     return false;
 
@@ -1227,7 +1227,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }*/
 
                 if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                    ContactsCache contactsCache = PPApplication.getContactsCache();
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache == null)
                         return false;
 
@@ -1260,7 +1260,7 @@ class EventPreferencesNotification extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
 
                 if (!eventsHandler.notAllowedNotification) {

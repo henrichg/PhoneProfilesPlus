@@ -367,7 +367,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onActivityCreated");
             if (getActivity() == null)
                 return;
 
@@ -852,7 +852,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         try {
                             startActivity(intent);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -895,7 +895,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         try {
                             startActivity(intent);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -1351,7 +1351,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -1406,7 +1406,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                         startActivity(intent);
                                         ok = true;
                                     } catch (Exception e) {
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                                 if (!ok) {
@@ -1593,7 +1593,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             //disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] ProfilesPrefsFragment.onResume", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfilesPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, getActivity());
         }
     }
@@ -1613,7 +1613,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             */
 
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -1627,7 +1627,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 final String _value = value;
                 Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onSharedPreferenceChanged");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilesPrefsFragment.onSharedPreferenceChanged");
                     if (getActivity() == null)
                         return;
 
@@ -1825,7 +1825,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
 
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
 
             // show save menu
@@ -2957,7 +2957,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, context);
-            //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+            //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
                 if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
@@ -3198,7 +3198,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 vpnApplication = Integer.parseInt(splits[0]);
             } catch (Exception e) {
                 //Log.e("ProfilesPrefsFragment.setCategorySummaryRadios", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 vpnApplication = 0;
             }
 
@@ -3219,7 +3219,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 enableVPN = Integer.parseInt(splits[1]) == 0;
             } catch (Exception e) {
                 //Log.e("ProfilesPrefsFragment.setCategorySummaryRadios", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             if (enableVPN)
                 value = value + "; " + getString(R.string.vpn_profile_pref_dlg_enable_vpn);
@@ -3983,7 +3983,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
 
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, context);
-                    //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
+                    //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
@@ -4013,7 +4013,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 + "</b>";
                     }
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, context);
-                    //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+                    //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
@@ -6886,7 +6886,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }*/
         if (!ok) {
@@ -6965,7 +6965,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null)
                         getActivity().startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -6983,7 +6983,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             try {
                 startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -7041,7 +7041,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -7086,7 +7086,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         if (!ok) {
@@ -7129,7 +7129,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_ASSISTANT_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         if (!ok) {
@@ -7188,7 +7188,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             try {
                 startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -7222,7 +7222,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     //if (activity != null)
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -7266,7 +7266,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                         }
                     } catch (SecurityException e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     if (subscriptionList != null) {
                         for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {

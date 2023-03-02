@@ -61,7 +61,7 @@ class LocationScanner
                     //        context.getApplicationContext()) {
                     //__handler6.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScanner.connect");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScanner.connect");
 
                         //Context appContext= appContextWeakRef.get();
                         //if (appContext != null) {
@@ -84,8 +84,8 @@ class LocationScanner
                             } catch (SecurityException e) {
                                 //
                             } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -96,16 +96,16 @@ class LocationScanner
                             }
                         //}
                     }; //);
-                    PPApplication.createScannersExecutor();
+                    PPApplicationStatic.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                 } catch (Exception ee) {
                     //Log.e("##### LocationScanner.connect", Log.getStackTraceString(e));
-                    PPApplication.recordException(ee);
+                    PPApplicationStatic.recordException(ee);
                 }
 
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -115,7 +115,7 @@ class LocationScanner
             LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             //useGPS = true; disconnect is called from screen on/off broadcast therefore not change this
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -305,7 +305,7 @@ class LocationScanner
                                             interval = 2 * interval;
                                         final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000L) / 2;
 
-                                        PPApplication.startHandlerThreadLocation();
+                                        PPApplicationStatic.startHandlerThreadLocation();
                                         mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 10, mLocationListener, PPApplication.handlerThreadLocation.getLooper());
 
                                         mListenerEnabled = true;
@@ -313,7 +313,7 @@ class LocationScanner
                                         mUpdatesStarted = true;
                                     }
                                     else
-                                        PPApplication.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
+                                        PPApplicationStatic.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
 
                                 } catch (SecurityException securityException) {
                                     // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
@@ -358,14 +358,14 @@ class LocationScanner
             synchronized (PPApplication.locationScannerMutex) {
                 if (mListenerEnabled) {
                     try {
-                        PPApplication.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
+                        PPApplicationStatic.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
 
                         if (mLocationManager != null)
                             mLocationManager.removeUpdates(mLocationListener);
                         mListenerEnabled = false;
                         mUpdatesStarted = false;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }
@@ -385,13 +385,13 @@ class LocationScanner
                     location = mLocationManager.getLastKnownLocation(provider);
                 }
 
-//            PPApplication.logE("LocationScanner.updateTransitionsByLastKnownLocation", "LocationSensorWorker.enqueueWork + doLocationChanged");
+//            PPApplicationStatic.logE("LocationScanner.updateTransitionsByLastKnownLocation", "LocationSensorWorker.enqueueWork + doLocationChanged");
                 LocationSensorWorker.enqueueWork(true, context);
                 doLocationChanged(location, true);
             } catch (SecurityException e) {
                 //
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -412,16 +412,16 @@ class LocationScanner
                 PPApplication.lastLocation = new Location("GL");
             }
             PPApplication.lastLocation.set(location);
-            //PPApplication.logE("[IN_LISTENER] LocationScanner.doLocationChanged", "lastLocation=" + lastLocation);
+            //PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.doLocationChanged", "lastLocation=" + lastLocation);
         }
 
         synchronized (PPApplication.locationScannerMutex) {
-            if (Event.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
+            if (EventStatic.getGlobalEventsRunning(PPApplication.locationScanner.context)) {
                 if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
                     PPApplication.locationScanner.updateGeofencesInDB();
 
                     if (callEventsHandler) {
-//                        PPApplication.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] LocationScanner.doLocationChanged", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
                         PPExecutors.handleEvents(PPApplication.locationScanner.context,
                                 EventsHandler.SENSOR_TYPE_LOCATION_SCANNER,
                                 "SENSOR_TYPE_LOCATION_SCANNER",
@@ -437,20 +437,20 @@ class LocationScanner
     static class LocationScannerListener implements LocationListener {
 
         public void onLocationChanged(Location location) {
-//            PPApplication.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onLocationChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onLocationChanged", "xxx");
             doLocationChanged(location, false);
         }
 
         public void onProviderDisabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderDisabled", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderDisabled", "xxx");
         }
 
         public void onProviderEnabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderEnabled", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderEnabled", "xxx");
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
-//            PPApplication.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onStatusChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onStatusChanged", "xxx");
         }
     }
 
@@ -498,7 +498,7 @@ class LocationScanner
     private void showNotification() {
         String nText = context.getString(R.string.location_scanner_location_not_working_notification_text);
 
-        PPApplication.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -530,7 +530,7 @@ class LocationScanner
             Log.e("LocationScanner.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("LocationScanner.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

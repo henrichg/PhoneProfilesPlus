@@ -26,7 +26,7 @@ class IgnoreBatteryOptimizationNotification {
             //        context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=IgnoreBatteryOptimizationNotification.showNotification");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -57,8 +57,8 @@ class IgnoreBatteryOptimizationNotification {
                         //}
 
                     } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -69,7 +69,7 @@ class IgnoreBatteryOptimizationNotification {
                     }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
         }
@@ -95,7 +95,7 @@ class IgnoreBatteryOptimizationNotification {
 
     @SuppressLint("BatteryLife")
     static private void showNotification(Context context, String title, String text) {
-        PPApplication.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -152,7 +152,7 @@ class IgnoreBatteryOptimizationNotification {
             Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("IgnoreBatteryOptimizationNotification.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -164,7 +164,7 @@ class IgnoreBatteryOptimizationNotification {
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_TAG,
                     PPApplication.IGNORE_BATTERY_OPTIMIZATION_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

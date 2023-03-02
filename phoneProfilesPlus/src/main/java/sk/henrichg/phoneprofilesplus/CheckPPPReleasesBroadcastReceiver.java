@@ -32,8 +32,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
     private static final String PREF_PPP_RELEASE_ALARM = "github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             doWork(/*true,*/ context);
@@ -121,14 +121,14 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
 
     @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doWork(/*boolean useHandler,*/ Context context) {
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -140,7 +140,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -187,8 +187,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         setAlarm(appContext);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -199,7 +199,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+        PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         /*}
         else {
@@ -228,7 +228,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         }
 
         // show notification for check new release
-        PPApplication.createNewReleaseNotificationChannel(appContext);
+        PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
 
         NotificationCompat.Builder mBuilder;
         Intent _intent;
@@ -273,7 +273,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -302,8 +302,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         //noinspection UnnecessaryLocalVariable
                         String contents = response;
 
-                        PPApplication.PPPReleaseData pppReleaseData =
-                                PPApplication.getReleaseData(contents, true, appContext);
+                        PPApplicationStatic.PPPReleaseData pppReleaseData =
+                                PPApplicationStatic.getReleaseData(contents, true, appContext);
 
                         showNotification = pppReleaseData != null;
                         if (showNotification) {

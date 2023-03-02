@@ -135,7 +135,7 @@ class EventPreferencesSMS extends EventPreferences {
                 descr = descr + "</b> ";
             }
 
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
@@ -413,7 +413,7 @@ class EventPreferencesSMS extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
                                                                 this._permanentRun, this._duration, this._forSIMCard);
@@ -601,7 +601,7 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_SMS_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -683,7 +683,7 @@ class EventPreferencesSMS extends EventPreferences {
                     }*/
 
                         if (!split.isEmpty()) {
-                            ContactsCache contactsCache = PPApplication.getContactsCache();
+                            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                             if (contactsCache == null)
                                 return;
 
@@ -747,7 +747,7 @@ class EventPreferencesSMS extends EventPreferences {
                         }*/
 
                             if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                                ContactsCache contactsCache = PPApplication.getContactsCache();
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 if (contactsCache == null)
                                     return;
 
@@ -806,7 +806,7 @@ class EventPreferencesSMS extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventSMSContacts(context, event, null)*/
                 /* moved to Extender && Permissions.checkEventSMSBroadcast(context, event, null)*/) {

@@ -977,7 +977,7 @@ class DatabaseHandlerCreateUpdateDB {
                             }
                         } catch (Exception e) {
                             //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                             values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
                         }
                         if (wallpaperChange == 1) {
@@ -997,7 +997,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             } catch (Exception e) {
                 //Error in between database transaction
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
             } finally {
                 if (database == null)
@@ -1007,7 +1007,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             //db.close();
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2417,7 +2417,6 @@ class DatabaseHandlerCreateUpdateDB {
                 if (cursor.moveToFirst()) {
                     do {
                         String calendarSearchString = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING));
-//TODO spajanie stringov v loope
                         //String searchStringNew = "";
                         StringBuilder str = new StringBuilder();
                         String[] searchStringSplits = calendarSearchString.split("\\|");
@@ -2947,7 +2946,7 @@ class DatabaseHandlerCreateUpdateDB {
                         int lightMin = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ORIENTATION_LIGHT_MIN));
                         int lightMax = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ORIENTATION_LIGHT_MAX));
 
-                        PPApplication.startHandlerThreadOrientationScanner();
+                        PPApplicationStatic.startHandlerThreadOrientationScanner();
                         if (PPApplication.handlerThreadOrientationScanner.maxLightDistance > 1.0f) {
                             lightMin = (int) Math.round(lightMin / 10000.0 * PPApplication.handlerThreadOrientationScanner.maxLightDistance);
                             lightMax = (int) Math.round(lightMax / 10000.0 * PPApplication.handlerThreadOrientationScanner.maxLightDistance);

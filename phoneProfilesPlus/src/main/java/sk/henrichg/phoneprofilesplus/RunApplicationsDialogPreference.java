@@ -72,8 +72,8 @@ public class RunApplicationsDialogPreference extends DialogPreference {
 
         setWidgetLayoutResource(R.layout.preference_widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        if (PPApplication.getApplicationsCache() == null)
-            PPApplication.createApplicationsCache(false);
+        if (PPApplicationStatic.getApplicationsCache() == null)
+            PPApplicationStatic.createApplicationsCache(false);
 
     }
 
@@ -114,10 +114,9 @@ public class RunApplicationsDialogPreference extends DialogPreference {
 
         final List<Application> _applicationsList = new ArrayList<>();
 
-        if (PPApplication.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
 
-//TODO spajanie stringov v loope
             //String notPassedIntents = "";
             StringBuilder _notPassedIntents = new StringBuilder();
 
@@ -397,10 +396,10 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                             if (app != null)
                                 prefSummary = packageManager.getApplicationLabel(app).toString();
                         } catch (PackageManager.NameNotFoundException e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     else {
@@ -734,8 +733,8 @@ public class RunApplicationsDialogPreference extends DialogPreference {
             return;
         }
 
-        if (PPApplication.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
             if (cachedApplicationList != null) {
                 int _position = applicationsList.indexOf(application);
                 Application editedApplication = application;

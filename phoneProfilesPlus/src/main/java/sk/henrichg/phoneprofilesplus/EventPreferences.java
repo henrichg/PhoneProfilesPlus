@@ -72,7 +72,7 @@ abstract class EventPreferences {
     }
 
     String getPassStatusString(String sensorTitle, boolean addPassStatus, int eventType, Context context) {
-        if (Event.getGlobalEventsRunning(context) && addPassStatus && (this._event != null) && (this._event.getStatusFromDB(context) != Event.ESTATUS_STOP)) {
+        if (EventStatic.getGlobalEventsRunning(context) && addPassStatus && (this._event != null) && (this._event.getStatusFromDB(context) != Event.ESTATUS_STOP)) {
             int sensorPassed = getSensorPassedFromDB(eventType, context);
             if (/*(!Event.getGlobalEventsRunning()) ||*/ (sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);

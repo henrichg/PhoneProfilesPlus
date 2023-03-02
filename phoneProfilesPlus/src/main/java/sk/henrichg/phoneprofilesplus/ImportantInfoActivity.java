@@ -35,10 +35,10 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            int packageVersionCode = PPApplication.getVersionCode(pInfo);
+            int packageVersionCode = PPApplicationStatic.getVersionCode(pInfo);
             ImportantInfoNotification.setShowInfoNotificationOnStart(getApplicationContext(), false, packageVersionCode);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
         Toolbar toolbar = findViewById(R.id.activity_important_info_toolbar);

@@ -9,13 +9,13 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] NFCStateChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] NFCStateChangedBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
-        if (Event.getGlobalEventsRunning(context)) {
+        if (EventStatic.getGlobalEventsRunning(context)) {
             final String action = intent.getAction();
 
             if ((action != null) && action.equals(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED)) {
@@ -30,7 +30,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                     //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                     //        context.getApplicationContext()) {
                     __handler.post(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NFCStateChangedBroadcastReceiver.onReceive");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NFCStateChangedBroadcastReceiver.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         //if (appContext != null) {
@@ -42,13 +42,13 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-//                                PPApplication.logE("[EVENTS_HANDLER_CALL] NFCStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] NFCStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
                             } catch (Exception e) {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

@@ -49,7 +49,7 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
         //GlobalGUIRoutines.setTheme(this, true, true/*, false*/);
         //GlobalGUIRoutines.setLanguage(this);
 
-//        PPApplication.logE("[LOCAL_BROADCAST_CALL] ActivatorTargetHelpsActivity.onStart", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorTargetHelpsActivity.onStart", "xxx");
         Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
         intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, true);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);

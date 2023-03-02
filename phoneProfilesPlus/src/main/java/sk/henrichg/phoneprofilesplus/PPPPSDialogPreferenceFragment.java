@@ -161,7 +161,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 if (finishActivity)
                     activity.finish();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 if (_preference != null)
                     _preference.fragment.dismiss();
                 if (finishActivity)
@@ -203,7 +203,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     if (_preference != null)
                         _preference.fragment.dismiss();
                     if (finishActivity)
@@ -247,7 +247,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     startActivity(intent);
                     preference.fragment.dismiss();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     preference.fragment.dismiss();
                 }
             }

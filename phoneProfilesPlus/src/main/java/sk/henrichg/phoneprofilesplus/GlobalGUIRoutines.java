@@ -358,11 +358,11 @@ class GlobalGUIRoutines {
     static void switchNightMode(final Context appContext, boolean useMainLooperHandler) {
         if (useMainLooperHandler) {
             new Handler(getMainLooper()).post(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
                 try {
                     switchNightMode(appContext);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
         }
@@ -379,7 +379,7 @@ class GlobalGUIRoutines {
         {
             new Handler(activity.getMainLooper()).post(() -> {
                 try {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
                     Context context = activity.getApplicationContext();
 
                     Intent intent = activity.getIntent();
@@ -391,7 +391,7 @@ class GlobalGUIRoutines {
                     context.startActivity(intent);
                     //activity.overridePendingTransition(0, 0);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
         }
@@ -916,7 +916,7 @@ class GlobalGUIRoutines {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -925,7 +925,7 @@ class GlobalGUIRoutines {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -1034,7 +1034,7 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 };
                 if (forActivator) {
@@ -1049,7 +1049,7 @@ class GlobalGUIRoutines {
                             // close Activator
                             activity.finish();
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     };
                 }
@@ -1078,7 +1078,7 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 };
             }

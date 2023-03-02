@@ -8,11 +8,11 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -20,7 +20,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         final int forceOneScan = ApplicationPreferences.prefForceOneBluetoothLEScan;
 
-        if (Event.getGlobalEventsRunning(context) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
+        if (EventStatic.getGlobalEventsRunning(context) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
             //if (scanStarted) {
 
@@ -45,11 +45,11 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true)) {
+                    if (PPApplicationStatic.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG);
 //                            try {
@@ -59,12 +59,12 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 //                            //}
 
                             //workManager.enqueue(worker);
-//                            PPApplication.logE("[WORKER_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
+//                            PPApplicationStatic.logE("[WORKER_CALL] BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_LE_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                         }
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 */
             }

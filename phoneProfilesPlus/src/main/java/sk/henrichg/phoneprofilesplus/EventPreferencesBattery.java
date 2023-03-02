@@ -127,7 +127,7 @@ class EventPreferencesBattery extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_battery_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context);
@@ -289,7 +289,7 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode, this._plugged);
             if (preferences != null)
@@ -443,7 +443,7 @@ class EventPreferencesBattery extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, String sensorType, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(eventsHandler.context);
 
                 boolean isCharging = false;
@@ -475,7 +475,7 @@ class EventPreferencesBattery extends EventPreferences {
                         eventsHandler.notAllowedBattery = true;
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     eventsHandler.notAllowedBattery = true;
                 }
 
@@ -508,7 +508,7 @@ class EventPreferencesBattery extends EventPreferences {
                                         break;
                                     }
                                 } catch (Exception e) {
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                             eventsHandler.batteryPassed = eventsHandler.batteryPassed && passed;
@@ -526,9 +526,9 @@ class EventPreferencesBattery extends EventPreferences {
             } else
                 eventsHandler.notAllowedBattery = true;
 
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "event="+_event._name);
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.batteryPassed="+eventsHandler.batteryPassed);
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.notAllowedBattery="+eventsHandler.notAllowedBattery);
+//            PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "event="+_event._name);
+//            PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.batteryPassed="+eventsHandler.batteryPassed);
+//            PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.notAllowedBattery="+eventsHandler.notAllowedBattery);
 
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {

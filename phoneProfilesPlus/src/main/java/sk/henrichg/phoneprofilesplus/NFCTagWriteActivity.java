@@ -62,7 +62,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             writableTextView.setText(R.string.empty_string);
 
             nfcManager.setOnTagReadListener(tagData -> {
-//                    PPApplication.logE("[IN_LISTENER] NFCTagWriteActivity.onTagRead", "xxx");
+//                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagRead", "xxx");
 
                 //ToastCompat.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
 
@@ -86,7 +86,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             });
 
             nfcManager.setOnTagWriteListener(() -> {
-//                    PPApplication.logE("[IN_LISTENER] NFCTagWriteActivity.onTagWritten", "xxx");
+//                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagWritten", "xxx");
 
                 PPApplication.showToast(getApplicationContext(), getString(R.string.write_nfc_tag_written), Toast.LENGTH_LONG);
                 Intent returnIntent = new Intent();
@@ -96,11 +96,11 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 try {
                     nfcManager.activity.finish();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
             nfcManager.setOnTagWriteErrorListener(exception -> {
-//                    PPApplication.logE("[IN_LISTENER] NFCTagWriteActivity.onTagWriteError", "xxx");
+//                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagWriteError", "xxx");
 
                 String text = getString(R.string.write_nfc_tag_error);
                 text = text + ": " + exception.getType().toString();
@@ -169,7 +169,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
 
-//        PPApplication.logE("[IN_LISTENER] NFCTagWriteActivity.onNewIntent", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onNewIntent", "xxx");
         if (nfcManager != null)
             nfcManager.onActivityNewIntent(intent);
         //Log.d("NFCTagWriteActivity.onNewIntent", "xxx");

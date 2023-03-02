@@ -89,10 +89,10 @@ class EventPreferencesMobileCells extends EventPreferences {
                 descr = descr + "</b> ";
             }
 
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
+//                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
@@ -167,7 +167,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 String summary;
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.setSummary", "******** ### *******");
+//                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.setSummary", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
@@ -323,7 +323,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesMobileCells tmp = new EventPreferencesMobileCells(this._event,
                     this._enabled, this._cells, this._whenOutside, this._forSIMCard);
@@ -435,7 +435,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
@@ -446,7 +446,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     //    notAllowedMobileCell = true;
                     eventsHandler.mobileCellPassed = false;
                 } else {
-//                    PPApplication.logE("[TEST BATTERY] EventPreferencesMobileCells.doHandleEvent", "******** ### *******");
+//                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.doHandleEvent", "******** ### *******");
                     //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn) {
                         if (forRestartEvents)
@@ -574,7 +574,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     eventsHandler.notAllowedMobileCell = true;
 
                                     if (PPApplication.mobileCellsScanner != null)
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                 }
                             } else
                                 eventsHandler.notAllowedMobileCell = true;

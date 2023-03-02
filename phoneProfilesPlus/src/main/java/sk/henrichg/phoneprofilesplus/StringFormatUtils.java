@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class StringFormatUtils {
+class StringFormatUtils {
 
     static String formatDateTime(Context context, String timeToFormat) {
 

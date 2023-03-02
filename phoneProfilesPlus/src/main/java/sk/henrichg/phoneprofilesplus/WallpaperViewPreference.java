@@ -172,7 +172,7 @@ public class WallpaperViewPreference extends Preference {
             //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

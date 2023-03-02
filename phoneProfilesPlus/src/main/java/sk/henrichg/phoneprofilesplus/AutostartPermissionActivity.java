@@ -18,7 +18,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] AutostartPermissionActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] AutostartPermissionActivity.onCreate", "xxx");
 
 //        if (showNotStartedToast()) {
 //            finish();
@@ -41,7 +41,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] AutostartPermissionActivity.onStart", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] AutostartPermissionActivity.onStart", "xxx");
 
 //        if (showNotStartedToast()) {
 //            if (!isFinishing())
@@ -54,7 +54,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
             GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
-//            PPApplication.logE("[BACKGROUND_ACTIVITY] AutostartPermissionActivity.onStart", "do AutoStartPermissionHelper.getAutoStartPermission()");
+//            PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] AutostartPermissionActivity.onStart", "do AutoStartPermissionHelper.getAutoStartPermission()");
 
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
             if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getApplicationContext())) {
@@ -124,7 +124,7 @@ public class AutostartPermissionActivity extends AppCompatActivity
     }
 
 //    private boolean showNotStartedToast() {
-//        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+//        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
 //        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
 //        if (!applicationStarted) {
 //            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);

@@ -552,7 +552,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             ok = true;
                         } catch (Exception e) {
                             //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     } else {
                         try {

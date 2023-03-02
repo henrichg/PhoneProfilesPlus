@@ -23,8 +23,8 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
     private static final String PREF_LATEST_PPPPS_RELEASE_ALARM = "latest_pppps_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckLatestPPPPSReleasesBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] CheckLatestPPPPSReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CheckLatestPPPPSReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CheckLatestPPPPSReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
 
@@ -131,7 +131,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
@@ -165,7 +165,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
             removeNotification(appContext);
 
             // show notification for check new release
-            PPApplication.createNewReleaseNotificationChannel(appContext);
+            PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
 
             NotificationCompat.Builder mBuilder;
             Intent _intent;
@@ -210,7 +210,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                 Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("CheckLatestPPPPSReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -223,7 +223,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
                     PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_LATEST_PPPPS_RELEASES_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

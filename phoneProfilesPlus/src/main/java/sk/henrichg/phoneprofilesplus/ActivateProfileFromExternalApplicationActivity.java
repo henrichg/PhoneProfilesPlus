@@ -59,7 +59,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         if (!serviceStarted) {
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
@@ -75,13 +75,13 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
                         PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, profileName);
             }
-//            PPApplication.logE("[START_PP_SERVICE] ActivateProfileFromExternalApplicationActivity.onStart", "xxx");
-            PPApplication.startPPService(this, serviceIntent);
+//            PPApplicationStatic.logE("[START_PP_SERVICE] ActivateProfileFromExternalApplicationActivity.onStart", "xxx");
+            PPApplicationStatic.startPPService(this, serviceIntent);
             finish();
             return;
         }
 
-        PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION,
+        PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION,
                 null, profileName, "");
 
         if (profile_id != 0) {
@@ -127,7 +127,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
     */
 
     private void showNotification(String title, String text) {
-        PPApplication.createExclamationNotificationChannel(getApplicationContext());
+        PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext());
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -157,7 +157,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             Log.e("ActivateProfileFromExternalApplicationActivity.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ActivateProfileFromExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

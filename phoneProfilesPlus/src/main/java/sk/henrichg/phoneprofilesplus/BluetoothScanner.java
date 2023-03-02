@@ -45,7 +45,7 @@ class BluetoothScanner {
 
     void doScan(@SuppressWarnings("unused") boolean fromDialog) {
         synchronized (PPApplication.bluetoothScannerMutex) {
-            if (!PPApplication.getApplicationStarted(true, true))
+            if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
                 return;
 
@@ -81,7 +81,7 @@ class BluetoothScanner {
 
             //synchronized (PPApplication.radioChangeStateMutex) {
 
-                if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
@@ -115,7 +115,7 @@ class BluetoothScanner {
                                 // dislabe Bluetooth
                                 //bluetoothChangeHandler.post(() -> {
                                 Runnable runnable = () -> {
-//                                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
+//                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
                                     if (Permissions.checkBluetoothForEMUI(context)) {
                                         try {
                                             if (BluetoothScanWorker.bluetooth == null)
@@ -128,11 +128,11 @@ class BluetoothScanner {
                                                 BluetoothScanWorker.bluetooth.disable();
                                             }
                                         } catch (Exception e) {
-                                            PPApplication.recordException(e);
+                                            PPApplicationStatic.recordException(e);
                                         }
                                     }
                                 }; //);
-                                PPApplication.createScannersExecutor();
+                                PPApplicationStatic.createScannersExecutor();
                                 PPApplication.scannersExecutor.submit(runnable);
                                 //PPApplication.sleep(1000);
                                 if (BluetoothScanWorker.bluetooth == null)
@@ -212,7 +212,7 @@ class BluetoothScanner {
                                         // wait for scan end
                                         waitForLEBluetoothScanEnd(context);
 
-//                                        PPApplication.logE("[LOCAL_BROADCAST_CALL] BluetoothScanner.doScan", "xxx");
+//                                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] BluetoothScanner.doScan", "xxx");
                                         // send broadcast for start EventsHandler
                                         /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                                         sendBroadcast(btLEIntent);*/
@@ -233,7 +233,7 @@ class BluetoothScanner {
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
                                 //bluetoothChangeHandler.post(() -> {
                                 Runnable runnable = () -> {
-    //                                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
+    //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
                                         if (Permissions.checkBluetoothForEMUI(context)) {
                                             try {
@@ -247,12 +247,12 @@ class BluetoothScanner {
                                                     BluetoothScanWorker.bluetooth.disable();
                                                 }
                                             } catch (Exception e) {
-                                                PPApplication.recordException(e);
+                                                PPApplicationStatic.recordException(e);
                                             }
                                         }
 
                                 }; //);
-                                PPApplication.createScannersExecutor();
+                                PPApplicationStatic.createScannersExecutor();
                                 PPApplication.scannersExecutor.submit(runnable);
                             } //else
                             //PPApplication.sleep(1000);
@@ -357,7 +357,7 @@ class BluetoothScanner {
                         }
 
                     }; //);
-                    PPApplication.createScannersExecutor();
+                    PPApplicationStatic.createScannersExecutor();
                     PPApplication.scannersExecutor.submit(runnable);
                     return BluetoothAdapter.STATE_TURNING_ON;
                 }

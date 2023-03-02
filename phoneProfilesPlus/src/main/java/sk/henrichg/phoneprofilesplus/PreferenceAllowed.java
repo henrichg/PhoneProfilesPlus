@@ -260,7 +260,7 @@ class PreferenceAllowed {
             } catch (Exception e) {
                 // java.lang.NullPointerException: missing IConnectivityManager
                 // Dual SIM?? Bug in Android ???
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             if (connManager != null) {
@@ -274,7 +274,7 @@ class PreferenceAllowed {
                                     if (ntkInfo != null) {
                                         if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
                                             mobileDataSupported = true;
-                                            PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
+                                            PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
                                             break;
                                         }
                                     }
@@ -287,7 +287,7 @@ class PreferenceAllowed {
                             }
                             //}
                         } catch (Exception ee) {
-                            PPApplication.recordException(ee);
+                            PPApplicationStatic.recordException(ee);
                         }
                     }
                 }
@@ -410,7 +410,7 @@ class PreferenceAllowed {
                 } catch (Exception e) {
                     // java.lang.NullPointerException: missing IConnectivityManager
                     // Dual SIM?? Bug in Android ???
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
                 if (connManager != null) {
@@ -424,7 +424,7 @@ class PreferenceAllowed {
                                     if (ntkInfo != null) {
                                         if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
                                             mobileDataSupported = true;
-                                            PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
+                                            PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
                                             break;
                                         }
                                     }
@@ -437,7 +437,7 @@ class PreferenceAllowed {
                                 }
                                 //}
                             } catch (Exception ee) {
-                                PPApplication.recordException(ee);
+                                PPApplicationStatic.recordException(ee);
                             }
                         }
                     }
@@ -1461,7 +1461,7 @@ class PreferenceAllowed {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
-//                    PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
+//                    PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
@@ -1995,7 +1995,7 @@ class PreferenceAllowed {
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
-//                        PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
+//                        PPApplicationStatic.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
                 if (RootUtils.isRooted(fromUIThread)) {
                     // device is rooted

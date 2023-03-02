@@ -8,11 +8,11 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] PowerSaveModeBroadcastReceiver.onReceive", "xxx");
 
         final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -34,20 +34,20 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             restart = true;
         else
         if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
+//            PPApplicationStatic.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
         }
         else
         if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-//            PPApplication.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
+//            PPApplicationStatic.logE("[TEST BATTERY] PowerSaveModeBroadcastReceiver.onReceive", "******** ### *******");
             restart = true;
         }
         if (restart) {
             // for screenOn=true -> used only for Location scanner - start scan with GPS On
-            PPApplication.restartAllScanners(appContext, true);
+            PPApplicationStatic.restartAllScanners(appContext, true);
         }
 
-        if (Event.getGlobalEventsRunning(appContext)) {
+        if (EventStatic.getGlobalEventsRunning(appContext)) {
             PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE, "SENSOR_TYPE_POWER_SAVE_MODE", 0);
             /*
             PPApplication.startHandlerThreadBroadcast();
@@ -55,7 +55,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
             __handler.post(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -68,13 +68,13 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         // start events handler
-//                        PPApplication.logE("[EVENTS_HANDLER_CALL] PowerSaveModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_POWER_SAVE_MODE");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PowerSaveModeBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_POWER_SAVE_MODE");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_POWER_SAVE_MODE);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

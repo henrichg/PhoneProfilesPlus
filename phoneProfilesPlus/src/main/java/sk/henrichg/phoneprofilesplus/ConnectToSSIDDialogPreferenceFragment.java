@@ -76,7 +76,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                     startActivity(intent);
                     ok = true;
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             if (!ok){
@@ -191,7 +191,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                             WifiScanWorker.fillWifiConfigurationList(prefContext.getApplicationContext());
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
 
@@ -253,7 +253,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                             wifi.setWifiEnabled(false);
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 fragment.wifiEnabled = false;

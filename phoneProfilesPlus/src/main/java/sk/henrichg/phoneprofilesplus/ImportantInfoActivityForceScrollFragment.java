@@ -91,7 +91,7 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }

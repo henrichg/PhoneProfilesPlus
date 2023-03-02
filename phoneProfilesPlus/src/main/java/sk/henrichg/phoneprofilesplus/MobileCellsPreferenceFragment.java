@@ -93,7 +93,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
 
         MobileCellsPreference.forceStart = true;
-        PPApplication.forceStartMobileCellsScanner(prefContext);
+        PPApplicationStatic.forceStartMobileCellsScanner(prefContext);
 
         cellFilter = view.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
         if ((preference.cellFilter == null) || preference.cellFilter.isEmpty()) {
@@ -267,7 +267,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 // Loop through the subscription list i.e. SIM list.
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
                             } catch (SecurityException e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                                 //Log.e("MobileCellsPreferenceFragment.onBindDialogView", Log.getStackTraceString(e));
                             }
                             if (subscriptionList != null) {
@@ -398,7 +398,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         }
 
         MobileCellsPreference.forceStart = false;
-        PPApplication.restartMobileCellsScanner(prefContext);
+        PPApplicationStatic.restartMobileCellsScanner(prefContext);
 
         preference.fragment = null;
     }
@@ -427,7 +427,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                 getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -661,7 +661,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     @Override
     public void refreshListViewFromListener() {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsPreferenceFragment.RefreshListViewBroadcastReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsPreferenceFragment.RefreshListViewBroadcastReceiver", "xxx");
         //if (preference != null)
         //    preference.refreshListView(false, Integer.MAX_VALUE);
         refreshListView(false, Integer.MAX_VALUE);
@@ -941,7 +941,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                                         "", "", false*/
                                     ));
                                 } catch (Exception e) {
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                         }

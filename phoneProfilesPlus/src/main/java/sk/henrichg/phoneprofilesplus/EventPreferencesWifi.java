@@ -86,7 +86,7 @@ class EventPreferencesWifi extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_wifi_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context);
@@ -292,7 +292,7 @@ class EventPreferencesWifi extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_ENABLED);
@@ -306,7 +306,7 @@ class EventPreferencesWifi extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesWifi tmp = new EventPreferencesWifi(this._event, this._enabled, this._SSID, this._connectionType);
             if (preferences != null)
@@ -376,7 +376,7 @@ class EventPreferencesWifi extends EventPreferences {
         if (_enabled) {
 
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 
@@ -405,7 +405,7 @@ class EventPreferencesWifi extends EventPreferences {
                         } catch (Exception e) {
                             // java.lang.NullPointerException: missing IConnectivityManager
                             // Dual SIM?? Bug in Android ???
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                         if (connManager != null) {
                             //if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -435,7 +435,7 @@ class EventPreferencesWifi extends EventPreferences {
                                         }*/
                                     } catch (Exception e) {
 //                                        Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                             }

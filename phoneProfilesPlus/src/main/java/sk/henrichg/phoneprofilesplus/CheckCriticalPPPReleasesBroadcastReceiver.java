@@ -30,8 +30,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
     private static final String PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
 
@@ -138,7 +138,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
@@ -194,8 +194,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         //    forceDoData = true;
 
                         //noinspection ConstantConditions
-                        PPApplication.PPPReleaseData pppReleaseData =
-                                PPApplication.getReleaseData(contents, forceDoData, appContext);
+                        PPApplicationStatic.PPPReleaseData pppReleaseData =
+                                PPApplicationStatic.getReleaseData(contents, forceDoData, appContext);
 
                         showNotification = pppReleaseData != null;
                         if (showNotification) {
@@ -215,14 +215,14 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                                 PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
                                                 PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID);
                                     } catch (Exception e) {
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
 
                                 removeNotification(appContext);
 
                                 // show notification for check new release
-                                PPApplication.createNewReleaseNotificationChannel(appContext);
+                                PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
 
                                 NotificationCompat.Builder mBuilder;
                                 Intent _intent;
@@ -287,7 +287,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                     Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en));
                                 } catch (Exception e) {
                                     //Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                             }
 
@@ -315,7 +315,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                     PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

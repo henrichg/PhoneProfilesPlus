@@ -68,7 +68,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
-//        PPApplication.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
@@ -78,7 +78,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
                 //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -87,7 +87,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
             }; //);
-            PPApplication.createDelayedGuiExecutor();
+            PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
@@ -150,9 +150,9 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowProfileListFillBackground = ApplicationPreferences.applicationWidgetOneRowProfileListFillBackground;
 
             if (Build.VERSION.SDK_INT >= 30) {
-                if (PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context) ||
-                        PPApplication.isMIUILauncherDefault(context)) {
+                if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                        PPApplicationStatic.isOneUILauncherDefault(context) ||
+                        PPApplicationStatic.isMIUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCorners = true;
                     ApplicationPreferences.applicationWidgetOneRowProfileListRoundedCornersRadius = 15;
                     //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
@@ -258,7 +258,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         newProfileList.sort(new OneRowProfileListWidgetProvider.ProfileComparator());
 
         Profile restartEvents = null;
-        if (Event.getGlobalEventsRunning(context)) {
+        if (EventStatic.getGlobalEventsRunning(context)) {
             //restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
             restartEvents = DataWrapperStatic.getNonInitializedProfile(context.getString(R.string.menu_restart_events),
                     "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
@@ -484,13 +484,13 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
                 int roundedBackground = 0;
                 int roundedBorder = 0;
-                if (PPApplication.isPixelLauncherDefault(context)) {
+                if (PPApplicationStatic.isPixelLauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
-                } else if (PPApplication.isOneUILauncherDefault(context)) {
+                } else if (PPApplicationStatic.isOneUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
-                } else if (PPApplication.isMIUILauncherDefault(context)) {
+                } else if (PPApplicationStatic.isMIUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_miui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_miui_launcher;
                 } else {
@@ -628,7 +628,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                         applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
-                    //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                    //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
                     // left arrow
                     Bitmap bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_profile_list_scroll_left, true, context);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, arrowsLightness);
@@ -653,7 +653,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         remoteViews.setImageViewBitmap(R.id.widget_one_row_profile_list_scroll_right_arrow, bitmap);
                     }
                 }
-                //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+                //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
                 // left arrow
                 if (displayedPage > 0)
                     remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_scroll_left_arrow, VISIBLE);
@@ -681,11 +681,11 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                     //appWidgetManager.partiallyUpdateAppWidget(appWidgetIds, remoteViews);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         //} catch (Exception ee) {
-        //    PPApplication.recordException(ee);
+        //    PPApplicationStatic.recordException(ee);
         //}
 
         /*if (profile != null) {
@@ -703,7 +703,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget
 
         String action = intent.getAction();
-//        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
+//        PPApplicationStatic.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
 
         if (action != null) {
             if (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWPROFILELISTWIDGET)) {
@@ -717,7 +717,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                         //__handler.post(new PPHandlerThreadRunnable(context, manager) {
                         //__handler.post(() -> {
                         Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
                             //Context appContext= appContextWeakRef.get();
                             //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -726,7 +726,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                             _onUpdate(appContext, appWidgetManager, ids);
                             //}
                         }; //);
-                        PPApplication.createDelayedGuiExecutor();
+                        PPApplicationStatic.createDelayedGuiExecutor();
                         PPApplication.delayedGuiExecutor.submit(runnable);
                     }
                 }
@@ -751,7 +751,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
     static void updateWidgets(Context context/*, boolean refresh*/) {
 
-//        PPApplication.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
@@ -853,7 +853,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         Intent clickIntent = new Intent(context, BackgroundActivateProfileActivity.class);
-        if (Event.getGlobalEventsRunning(context) && (profile._id == Profile.RESTART_EVENTS_PROFILE_ID))
+        if (EventStatic.getGlobalEventsRunning(context) && (profile._id == Profile.RESTART_EVENTS_PROFILE_ID))
             clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
         else
             clickIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);

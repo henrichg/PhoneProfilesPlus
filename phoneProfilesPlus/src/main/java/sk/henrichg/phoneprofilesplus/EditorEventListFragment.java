@@ -497,7 +497,7 @@ public class EditorEventListFragment extends Fragment
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
                 progressBarRunnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
                     //fragment.textViewNoData.setVisibility(GONE);
                     fragment.progressBar.setVisibility(VISIBLE);
                 };
@@ -685,7 +685,7 @@ public class EditorEventListFragment extends Fragment
     }
 
     boolean runStopEvent(final Event event) {
-        if (Event.getGlobalEventsRunning(activityDataWrapper.context)) {
+        if (EventStatic.getGlobalEventsRunning(activityDataWrapper.context)) {
             // events are not globally stopped
 
             activityDataWrapper.getEventTimelineList(true);
@@ -700,7 +700,7 @@ public class EditorEventListFragment extends Fragment
                     //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
                         //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                         //Event event = eventWeakRef.get();
@@ -720,8 +720,8 @@ public class EditorEventListFragment extends Fragment
                                 }
 
                             } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -732,7 +732,7 @@ public class EditorEventListFragment extends Fragment
                             }
                         //}
                     }; //);
-                    PPApplication.createBasicExecutorPool();
+                    PPApplicationStatic.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
 
                 }
@@ -749,7 +749,7 @@ public class EditorEventListFragment extends Fragment
                 //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
                     //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                     //Event event = eventWeakRef.get();
@@ -769,8 +769,8 @@ public class EditorEventListFragment extends Fragment
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -781,7 +781,7 @@ public class EditorEventListFragment extends Fragment
                         }
                     //}
                 }; //);
-                PPApplication.createBasicExecutorPool();
+                PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
 
             }
@@ -802,7 +802,7 @@ public class EditorEventListFragment extends Fragment
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+            PPApplicationStatic.runCommand(activityDataWrapper.context, commandIntent);
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -813,7 +813,7 @@ public class EditorEventListFragment extends Fragment
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //                            try {
@@ -822,11 +822,11 @@ public class EditorEventListFragment extends Fragment
 //                            }
 //                            //}
 
-//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
         } else {
@@ -857,7 +857,7 @@ public class EditorEventListFragment extends Fragment
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+            PPApplicationStatic.runCommand(activityDataWrapper.context, commandIntent);
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -868,7 +868,7 @@ public class EditorEventListFragment extends Fragment
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //                            try {
@@ -877,11 +877,11 @@ public class EditorEventListFragment extends Fragment
 //                            }
 //                            //}
 
-//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         return true;
@@ -926,7 +926,7 @@ public class EditorEventListFragment extends Fragment
             // event not exists
             return;
 
-        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
+        PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
 
         listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
@@ -938,7 +938,7 @@ public class EditorEventListFragment extends Fragment
                         PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
                         PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
 
@@ -959,7 +959,7 @@ public class EditorEventListFragment extends Fragment
         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
-        PPApplication.runCommand(getActivity(), commandIntent);
+        PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
     }
@@ -1094,7 +1094,7 @@ public class EditorEventListFragment extends Fragment
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
-                        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
+                        PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
                         listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
@@ -1111,7 +1111,7 @@ public class EditorEventListFragment extends Fragment
                                             PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG + "_" + event._id,
                                             PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
                                 } catch (Exception e) {
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                             }
                         }
@@ -1129,7 +1129,7 @@ public class EditorEventListFragment extends Fragment
                             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                             commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
                             commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
-                            PPApplication.runCommand(getActivity(), commandIntent);
+                            PPApplicationStatic.runCommand(getActivity(), commandIntent);
                         }
 
                         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
@@ -1570,7 +1570,7 @@ public class EditorEventListFragment extends Fragment
                     }
                 } catch (Exception e) {
                     if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
                 return null;
             }
@@ -1733,7 +1733,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     try {
@@ -1750,7 +1750,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     try {
@@ -1767,7 +1767,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                     try {
                         targets.add(
@@ -1783,7 +1783,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
                 if (startTargetHelpsDefaultProfile) {
@@ -1801,7 +1801,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
                 if (startTargetHelpsOrderSpinner) {
@@ -1822,7 +1822,7 @@ public class EditorEventListFragment extends Fragment
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -1886,7 +1886,7 @@ public class EditorEventListFragment extends Fragment
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
                     //noinspection Convert2MethodRef
                     showAdapterTargetHelps();
                 }, 500);
@@ -2072,7 +2072,7 @@ public class EditorEventListFragment extends Fragment
             method.setAccessible(true);
             method.invoke(menuPopupHelper, new Object[]{true});
         } catch (Exception e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
 
         final Event event = (Event)view.getTag();
@@ -2269,7 +2269,7 @@ public class EditorEventListFragment extends Fragment
                     }
                 } catch (Exception e) {
                     if ((dataWrapper != null) && (dataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
             }
             return null;
@@ -2344,7 +2344,7 @@ public class EditorEventListFragment extends Fragment
                             redText.setVisibility(GONE);
                         //}
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }

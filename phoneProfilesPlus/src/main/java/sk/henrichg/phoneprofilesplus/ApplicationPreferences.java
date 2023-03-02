@@ -861,8 +861,8 @@ class ApplicationPreferences {
     static private final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetListBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -1102,8 +1102,8 @@ class ApplicationPreferences {
     static private final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetIconBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ICON_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -1363,8 +1363,8 @@ class ApplicationPreferences {
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetOneRowBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -1810,8 +1810,8 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetIconChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -1841,8 +1841,8 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetOneRowChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -1872,8 +1872,8 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetListChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;
@@ -2037,8 +2037,8 @@ class ApplicationPreferences {
     static private final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS = GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_25;
     static String applicationWidgetOneRowProfileListBackgroundDefaultValue(Context context) {
         String defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_BACKGROUND_DEFAULT_VALUE_OTHERS;
@@ -2112,8 +2112,8 @@ class ApplicationPreferences {
     static private final boolean PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS = false;
     static boolean applicationWidgetOneRowProfileListChangeColorsByNightModeDefaultValue(Context context) {
         boolean defaultValue;
-        if (PPApplication.isPixelLauncherDefault(context) ||
-                PPApplication.isOneUILauncherDefault(context))
+        if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                PPApplicationStatic.isOneUILauncherDefault(context))
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_PIXEL;
         else
             defaultValue = PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_CHANGE_COLOR_BY_NIGHT_MODE_DEFAULT_VALUE_OTHERS;

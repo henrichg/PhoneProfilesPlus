@@ -259,7 +259,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     if (_preference != null)
                         _preference.fragment.dismiss();
                     if (finishActivity)
@@ -283,7 +283,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 if (_preference != null)
                     _preference.fragment.dismiss();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 if (_preference != null)
                     _preference.fragment.dismiss();
             }
@@ -351,7 +351,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     if (_preference != null)
                         _preference.fragment.dismiss();
                     if (finishActivity)
@@ -415,7 +415,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -463,7 +463,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     if (preference != null)
                         preference.fragment.dismiss();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     if (preference != null)
                         preference.fragment.dismiss();
                 }
@@ -509,7 +509,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 if (_preference != null)
                     _preference.fragment.dismiss();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 if (_preference != null)
                     _preference.fragment.dismiss();
             }

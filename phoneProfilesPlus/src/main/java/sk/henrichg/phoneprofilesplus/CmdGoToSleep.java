@@ -24,7 +24,7 @@ public class CmdGoToSleep {
             return true;
         } catch (Throwable e) {
             //Log.e("CmdGoToSleep.doSleep", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return false;
         }
     }

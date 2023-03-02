@@ -10,9 +10,9 @@ public class TimeChangedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        if (intent != null)
-//            PPApplication.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//            PPApplicationStatic.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "intent.getAction()="+intent.getAction());
 //        else
-//            PPApplication.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null)) {
             final String action = intent.getAction();
@@ -23,7 +23,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                 //final Context appContext = context.getApplicationContext();
 
-                if (!PPApplication.getApplicationStarted(true, true))
+                if (!PPApplicationStatic.getApplicationStarted(true, true))
                     return;
 
                 /*boolean timeChanged = true;
@@ -59,7 +59,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     //        context.getApplicationContext()) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         //if (appContext != null) {
@@ -74,8 +74,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                                 doWork(appContext, false);
 
                             } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -86,7 +86,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                             }
                         //}
                     }; //);
-                    PPApplication.createEventsHandlerExecutor();
+                PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
                 //}
             }
@@ -116,7 +116,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
         //Profile.setActivatedProfileForDuration(appContext, 0);
 
-//        PPApplication.logE("[WORKER_CALL] TimeChangedReceiver.doWork", "xxx");
+//        PPApplicationStatic.logE("[WORKER_CALL] TimeChangedReceiver.doWork", "xxx");
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
         LockDeviceActivityFinishBroadcastReceiver.doWork();
         LocationScanner.useGPS = true;

@@ -455,7 +455,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
     private String getEnteredNumberString() {
-//TODO spajanie stringov v loope
         //String value = "";
         StringBuilder value = new StringBuilder();
         for (int i = mInputPointer; i >= 0; i--) {
@@ -480,7 +479,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
      * @return a double representing the entered number
      */
     public BigDecimal getEnteredNumber() {
-//TODO spajanie stringov v loope
         //String value = "0";
         StringBuilder value = new StringBuilder("0");
         for (int i = mInputPointer; i >= 0; i--) {

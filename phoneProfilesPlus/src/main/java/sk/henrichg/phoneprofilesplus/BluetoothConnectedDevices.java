@@ -35,7 +35,7 @@ class BluetoothConnectedDevices {
             if (profileListener == null) {
                 profileListener = new BluetoothProfile.ServiceListener() {
                     public void onServiceConnected(int profile, BluetoothProfile proxy) {
-//                        PPApplication.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
+//                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
 
                         if (profile == BluetoothProfile.HEADSET) {
                             bluetoothHeadset = (BluetoothHeadset) proxy;
@@ -52,7 +52,7 @@ class BluetoothConnectedDevices {
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, bluetoothHeadset);
                             }
@@ -72,7 +72,7 @@ class BluetoothConnectedDevices {
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
                             }
@@ -92,7 +92,7 @@ class BluetoothConnectedDevices {
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, bluetoothA2dp);
                             }
@@ -149,7 +149,7 @@ class BluetoothConnectedDevices {
 
             } catch (Exception e) {
                 //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }

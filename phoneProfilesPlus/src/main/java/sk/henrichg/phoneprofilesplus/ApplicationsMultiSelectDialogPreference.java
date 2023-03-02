@@ -63,8 +63,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         setWidgetLayoutResource(R.layout.preference_widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        if (PPApplication.getApplicationsCache() == null)
-            PPApplication.createApplicationsCache(false);
+        if (PPApplicationStatic.getApplicationsCache() == null)
+            PPApplicationStatic.createApplicationsCache(false);
 
         //applicationsCache = EditorActivity.getApplicationsCache();
     }
@@ -98,8 +98,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         applicationList.clear();
 
         // change checked state by value
-        if (PPApplication.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(true);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
                 String[] splits = value.split("\\|");
                 for (Application application : cachedApplicationList) {
@@ -231,10 +231,10 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                 if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (PackageManager.NameNotFoundException e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                             catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         } else {
                             Intent intent = new Intent();

@@ -435,7 +435,7 @@ public class EditorProfileListFragment extends Fragment
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
                 progressBarRunnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.LoadProfileListAsyncTask");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.LoadProfileListAsyncTask");
                     //fragment.textViewNoData.setVisibility(GONE);
                     fragment.progressBar.setVisibility(View.VISIBLE);
                 };
@@ -518,7 +518,7 @@ public class EditorProfileListFragment extends Fragment
                     //    fragment.setProfileSelection(profile);
 
                     if (defaultProfilesGenerated) {
-//                        PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.LoadProfileListAsyncTask", "call of updateGUI");
+//                        PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListFragment.LoadProfileListAsyncTask", "call of updateGUI");
                         PPApplication.updateGUI(true, false, _dataWrapper.context);
                         if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
                             PPApplication.showToast(fragment.activityDataWrapper.context.getApplicationContext(),
@@ -642,7 +642,7 @@ public class EditorProfileListFragment extends Fragment
             // profile not exists
             return;
 
-        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, "");
+        PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, "");
 
         Profile activatedProfile = activityDataWrapper.getActivatedProfile(false, false);
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
@@ -675,11 +675,11 @@ public class EditorProfileListFragment extends Fragment
 
         profileListAdapter.notifyDataSetChanged();
 
-        if (!Event.getGlobalEventsRunning(activityDataWrapper.context)) {
+        if (!EventStatic.getGlobalEventsRunning(activityDataWrapper.context)) {
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
-//            PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteProfile", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteProfile", "call of updateGUI");
             PPApplication.updateGUI(true, false, activityDataWrapper.context);
         }
         else {
@@ -696,7 +696,7 @@ public class EditorProfileListFragment extends Fragment
         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-        PPApplication.runCommand(getActivity(), commandIntent);
+        PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
     }
@@ -815,7 +815,7 @@ public class EditorProfileListFragment extends Fragment
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
-                        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, "");
+                        PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, "");
 
                         // remove alarm for profile duration
                         synchronized (activityDataWrapper.profileList) {
@@ -842,7 +842,7 @@ public class EditorProfileListFragment extends Fragment
                         //Profile profile = databaseHandler.getActivatedProfile();
                         //Profile profile = profileListAdapter.getActivatedProfile();
                         updateHeader(null);
-//                PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteAllProfiles", "call of updateGUI");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListFragment.deleteAllProfiles", "call of updateGUI");
                         PPApplication.updateGUI(true, false, activityDataWrapper.context);
 
                         activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
@@ -854,7 +854,7 @@ public class EditorProfileListFragment extends Fragment
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                        PPApplication.runCommand(getActivity(), commandIntent);
+                        PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
                         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
                     },
@@ -1173,7 +1173,7 @@ public class EditorProfileListFragment extends Fragment
                     }
                 } catch (Exception e) {
                     if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
                 return null;
             }
@@ -1322,7 +1322,7 @@ public class EditorProfileListFragment extends Fragment
                 method.setAccessible(true);
                 method.invoke(menuPopupHelper, new Object[]{true});
             } catch (Exception e) {
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
 
             Menu menu = popup.getMenu();
@@ -1480,7 +1480,7 @@ public class EditorProfileListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     try {
@@ -1497,7 +1497,7 @@ public class EditorProfileListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     try {
@@ -1514,7 +1514,7 @@ public class EditorProfileListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                     try {
                         targets.add(
@@ -1530,7 +1530,7 @@ public class EditorProfileListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
                 if (startTargetHelpsDefaultProfile) {
@@ -1548,7 +1548,7 @@ public class EditorProfileListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
 
@@ -1616,7 +1616,7 @@ public class EditorProfileListFragment extends Fragment
                 //Log.d("EditorProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.showTargetHelps");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfileListFragment.showTargetHelps");
                     //noinspection Convert2MethodRef
                     showAdapterTargetHelps();
                 }, 500);
@@ -1733,7 +1733,7 @@ public class EditorProfileListFragment extends Fragment
                     }
                 } catch (Exception e) {
                     if ((dataWrapper != null) && (dataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
             }
             return null;
@@ -1815,7 +1815,7 @@ public class EditorProfileListFragment extends Fragment
                             redText.setVisibility(GONE);
                         //}
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }

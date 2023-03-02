@@ -857,7 +857,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             String notificationTag;
             NotificationCompat.Builder mBuilder;
 
-            PPApplication.createGrantPermissionNotificationChannel(context);
+            PPApplicationStatic.createGrantPermissionNotificationChannel(context);
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1021,7 +1021,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         finish();
@@ -1455,7 +1455,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.saveAllPermissions(context, permissionsChanged);
 
             if (permissionsChanged) {
-//                PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.onActivityResult", "call of updateGUI");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] GrantPermissionActivity.onActivityResult", "call of updateGUI");
                 PPApplication.updateGUI(true, false, context);
 
                 if (finishActivity) {
@@ -1715,9 +1715,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
         }
 
-        PPApplication.registerContentObservers(context);
-        PPApplication.registerCallbacks(context);
-        PPApplication.registerPhoneCallsListener(true, context);
+        PPApplicationStatic.registerContentObservers(context);
+        PPApplicationStatic.registerCallbacks(context);
+        PPApplicationStatic.registerPhoneCallsListener(true, context);
 
 
         /*
@@ -1802,8 +1802,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");*/
 
-            PPApplication.restartWifiScanner(context);
-            PPApplication.restartBluetoothScanner(context);
+            PPApplicationStatic.restartWifiScanner(context);
+            PPApplicationStatic.restartBluetoothScanner(context);
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
             dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
@@ -1842,7 +1842,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         ((Build.VERSION.SDK_INT >= 29) && permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION))
                     ) {
                         // for screenOn=true -> used only for geofence scanner - start scan with GPS On
-                        PPApplication.restartAllScanners(context, false);
+                        PPApplicationStatic.restartAllScanners(context, false);
                         break;
                     }
                 }
@@ -1852,7 +1852,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            PPApplication.restartLocationScanner(context);
+            PPApplicationStatic.restartLocationScanner(context);
 
             setResult(Activity.RESULT_OK);
             finish();
@@ -1953,7 +1953,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.clearMergedPermissions(context);*/
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
-//        PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.finishGrant", "call of updateGUI");
+//        PPApplicationStatic.logE("[PPP_NOTIFICATION] GrantPermissionActivity.finishGrant", "call of updateGUI");
             PPApplication.updateGUI(true, false, getApplicationContext());
         //}
     }

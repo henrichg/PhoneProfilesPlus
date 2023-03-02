@@ -44,7 +44,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     public void onCallStateChanged (int state, String phoneNumber) {
 
-        if (PPApplication.getApplicationStarted(true, true)) {
+        if (PPApplicationStatic.getApplicationStarted(true, true)) {
             if(lastState == state){
                 //No change, de-bounce extras
                 return;
@@ -185,7 +185,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
 
         if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
-            if (Event.getGlobalEventsRunning(savedContext)) {
+            if (EventStatic.getGlobalEventsRunning(savedContext)) {
                 //if (useHandler) {
                 final Context appContext = savedContext.getApplicationContext();
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_ROAMING, "SENSOR_TYPE_ROAMING", 0);
@@ -195,7 +195,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 __handler.post(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallListener.onServiceStateChanged");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallListener.onServiceStateChanged");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -207,13 +207,13 @@ public class PhoneCallsListener extends PhoneStateListener {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[EVENTS_HANDLER_CALL] PhoneCallListener.onServiceStateChanged", "sensorType=SENSOR_TYPE_ROAMING");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PhoneCallListener.onServiceStateChanged", "sensorType=SENSOR_TYPE_ROAMING");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ROAMING);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -232,7 +232,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallStarted", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallStarted", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false/*, number, eventTime*/);
     }
 
@@ -243,31 +243,31 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     protected void onIncomingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallAnswered", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallAnswered", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false/*, number, eventTime*/);
     }
 
     protected void onIncomingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallEnded", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallEnded", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false/*, number, eventTime*/);
     }
 
     protected void onMissedCall(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onMissedCall", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onMissedCall", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
     }
 
@@ -280,7 +280,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -303,7 +303,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 
             //}
         }; //);
-        PPApplication.createEventsHandlerExecutor();
+        PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
@@ -457,7 +457,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                     // public static final int FOR_SYSTEM = 4;
 //                        setForceUse.invoke(null, 0, 1);
 //                    } catch (Exception e) {
-//                        PPApplication.recordException(e);
+//                        PPApplicationStatic.recordException(e);
 //                    }
 
                     speakerphoneSelected = true;
@@ -498,7 +498,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 // public static final int FOR_SYSTEM = 4;
 //                    setForceUse.invoke(null, 0, 0);
 //                } catch (Exception e) {
-//                    PPApplication.recordException(e);
+//                    PPApplicationStatic.recordException(e);
 //                }
             }
         }

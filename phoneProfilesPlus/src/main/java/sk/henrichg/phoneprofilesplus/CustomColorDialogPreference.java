@@ -142,7 +142,7 @@ public class CustomColorDialogPreference extends DialogPreference {
             //setSummary(summaryPreference);
         } catch (Exception e) {
             //Log.e("CustomColorDialogPreference.setColorInWidget", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

@@ -13,7 +13,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "xxx");
 
         if (intent != null) {
             final int mobileCellId = intent.getIntExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, 0);
@@ -24,7 +24,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
 
@@ -47,8 +47,8 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -59,7 +59,7 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                         }
                     //}
                 }; //);
-                PPApplication.createEventsHandlerExecutor();
+                PPApplicationStatic.createEventsHandlerExecutor();
                 PPApplication.eventsHandlerExecutor.submit(runnable);
             }
         }

@@ -63,9 +63,9 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
                 transactionCodeVoice = PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId;
                 transactionCodeSMS = PPApplication.rootMutex.transactionCode_setDefaultSmsSubId;
                 transactionCodeData = PPApplication.rootMutex.transactionCode_setDefaultDataSubId;
-//            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.onBindDialogView", "transactionCodeVoice="+transactionCodeVoice);
-//            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.onBindDialogView", "transactionCodeSMS="+transactionCodeSMS);
-//            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.onBindDialogView", "transactionCodeData="+transactionCodeData);
+//            PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.onBindDialogView", "transactionCodeVoice="+transactionCodeVoice);
+//            PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.onBindDialogView", "transactionCodeSMS="+transactionCodeSMS);
+//            PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.onBindDialogView", "transactionCodeData="+transactionCodeData);
             }
         }*/
 
@@ -84,7 +84,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     ((GlobalGUIRoutines.HighlightedSpinnerAdapter) voiceSpinner.getAdapter()).setSelection(position);
-//                    PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.voiceSpinner.onItemSelected", "position="+position);
+//                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.voiceSpinner.onItemSelected", "position="+position);
                     preference.voiceValue = position;
                 }
 
@@ -114,7 +114,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     ((GlobalGUIRoutines.HighlightedSpinnerAdapter) smsSpinner.getAdapter()).setSelection(position);
-//                    PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.smsSpinner.onItemSelected", "position="+position);
+//                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.smsSpinner.onItemSelected", "position="+position);
                     preference.smsValue = position;
                 }
 
@@ -144,7 +144,7 @@ public class DefaultSIMDialogPreferenceFragment extends PreferenceDialogFragment
 
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     ((GlobalGUIRoutines.HighlightedSpinnerAdapter) dataSpinner.getAdapter()).setSelection(position);
-//                    PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.dataSpinner.onItemSelected", "position="+position);
+//                    PPApplicationStatic.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragment.dataSpinner.onItemSelected", "position="+position);
                     preference.dataValue = position;
                 }
 

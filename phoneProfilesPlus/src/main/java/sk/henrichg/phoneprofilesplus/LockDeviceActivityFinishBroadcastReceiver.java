@@ -13,7 +13,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] LockDeviceActivityFinishBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] LockDeviceActivityFinishBroadcastReceiver.onReceive", "xxx");
         doWork();
     }
 
@@ -34,9 +34,9 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
-        PPApplication._cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
+        PPApplicationStatic._cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
     }
 
     static void setAlarm(Context context)
@@ -47,7 +47,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
         int delay = 20; // 20 seconds
 
-        if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+        if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, LockDeviceActivityFinishBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -69,12 +69,12 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
             } else {
-//                PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
+//                PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
 
                 //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                 Runnable runnable = () -> {
 //                    long start = System.currentTimeMillis();
-//                    PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
 
 //                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
 //                        PowerManager.WakeLock wakeLock = null;
@@ -89,11 +89,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
 //                        long finish = System.currentTimeMillis();
 //                        long timeElapsed = finish - start;
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
                         //worker.shutdown();
 //                        } catch (Exception e) {
-////                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-//                            PPApplication.recordException(e);
+////                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                            PPApplicationStatic.recordException(e);
 //                        } finally {
 //                            if ((wakeLock != null) && wakeLock.isHeld()) {
 //                                try {
@@ -103,7 +103,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                            }
 //                        }
                 };
-                PPApplication.createDelayedProfileActivationExecutor();
+                PPApplicationStatic.createDelayedProfileActivationExecutor();
                 PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                 /*
@@ -113,11 +113,11 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                                 .setInitialDelay(delay, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true)) {
+                    if (PPApplicationStatic.getApplicationStarted(true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
 
-//                        //if (PPApplication.logEnabled()) {
+//                        //if (PPApplicationStatic.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
 //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK);
 //                        try {
@@ -126,12 +126,12 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                        }
 //                        //}
 
-//                            PPApplication.logE("[WORKER_CALL] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "xxx");
+//                            PPApplicationStatic.logE("[WORKER_CALL] LockDeviceActivityFinishBroadcastReceiver.setAlarm", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, ExistingWorkPolicy.REPLACE, worker);
                         }
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 */
             }
@@ -157,22 +157,22 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
-//                    PPApplication.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "schedule");
 
                     //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
 //                        long start = System.currentTimeMillis();
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
 
                         //noinspection Convert2MethodRef
                         LockDeviceActivityFinishBroadcastReceiver.doWork();
 
 //                        long finish = System.currentTimeMillis();
 //                        long timeElapsed = finish - start;
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- END - timeElapsed="+timeElapsed);
                         //worker.shutdown();
                     };
-                    PPApplication.createDelayedProfileActivationExecutor();
+                    PPApplicationStatic.createDelayedProfileActivationExecutor();
                     PPApplication.delayedProfileActivationExecutor.schedule(runnable, delay, TimeUnit.SECONDS);
 
                     /*

@@ -341,7 +341,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onActivityCreated");
             if (getActivity() == null)
                 return;
 
@@ -399,7 +399,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -474,7 +474,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -529,7 +529,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -571,7 +571,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -623,7 +623,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -679,7 +679,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -767,7 +767,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -908,7 +908,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         try {
                             startActivity(intent);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -973,7 +973,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         try {
                             startActivity(intent);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -1018,7 +1018,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         try {
                             startActivity(intent);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -1063,7 +1063,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         try {
                             startActivity(intent);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -1121,7 +1121,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                                 try {
                                     startActivity(intent);
                                 } catch (Exception ee) {
-                                    PPApplication.recordException(ee);
+                                    PPApplicationStatic.recordException(ee);
                                 }
                             }
                         //}
@@ -1187,7 +1187,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //            event._eventPreferencesCall.checkPreferences(prefMng, !nestedFragment, context);
 //            event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.onResume", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.onResume", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
     }
@@ -1212,7 +1212,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //            }
 
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -1225,7 +1225,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 final String _value = value;
                 Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsFragment.onSharedPreferenceChanged");
                     if (getActivity() == null)
                         return;
 
@@ -1260,7 +1260,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
-            PPApplication.restartNotificationScanner(context);
+            PPApplicationStatic.restartNotificationScanner(context);
 
             event._eventPreferencesNotification.checkPreferences(prefMng, !nestedFragment, context);
         }
@@ -1283,7 +1283,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 //                    EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
 
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (1)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
@@ -1340,7 +1340,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesWifi.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (2)", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (2)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
@@ -1351,7 +1351,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (3)", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (3)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
@@ -1362,7 +1362,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesLocation.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (4)", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (4)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
@@ -1373,15 +1373,15 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (5)", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (5)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
-            PPApplication.restartTwilightScanner(context);
+            PPApplicationStatic.restartTwilightScanner(context);
 
             event._eventPreferencesTime.checkPreferences(prefMng, !nestedFragment, context);
             setRedTextToPreferences();
-//            PPApplication.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (6)", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsPrefsFragment.doOnActivityResult (6)", "call of updateGUI");
             PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
@@ -1823,7 +1823,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     if (getActivity() != null)
                         getActivity().startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -1842,7 +1842,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             try {
                 startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1900,7 +1900,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 try {
                     startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -1946,7 +1946,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         if (!ok) {
@@ -1980,7 +1980,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             if (currentValuePreference != null) {
                 SensorManager sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
                 if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null)) {
-                    PPApplication.startHandlerThreadOrientationScanner();
+                    PPApplicationStatic.startHandlerThreadOrientationScanner();
                     OrientationScannerHandlerThread orientationHandler = PPApplication.handlerThreadOrientationScanner;
                     if (orientationHandler == null) {
                         currentValuePreference.setSummary("0");

@@ -61,7 +61,7 @@ class TwilightScanner {
         try {
             context.unregisterReceiver(mUpdateLocationReceiver);
         } catch (Exception e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
     }
 
@@ -73,11 +73,11 @@ class TwilightScanner {
 
                 //final Context appContext = context.getApplicationContext();
 
-                if (!PPApplication.getApplicationStarted(true, true))
+                if (!PPApplicationStatic.getApplicationStarted(true, true))
                     // application is not started
                     return;
 
-                if (Event.getGlobalEventsRunning(context)) {
+                if (EventStatic.getGlobalEventsRunning(context)) {
 
                     PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_TIME, "SENSOR_TYPE_TIME", 10);
                     /*
@@ -93,11 +93,11 @@ class TwilightScanner {
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplicationStatic.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
-//                                //if (PPApplication.logEnabled()) {
+//                                //if (PPApplicationStatic.logEnabled()) {
 //                                ListenableFuture<List<WorkInfo>> statuses;
 //                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG);
 //                                try {
@@ -106,13 +106,13 @@ class TwilightScanner {
 //                                }
 //                                //}
 
-//                                PPApplication.logE("[WORKER_CALL] TwilightScanner.setTwilightState", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] TwilightScanner.setTwilightState", "xxx");
                                 //workManager.enqueue(worker);
                                 workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_TWILIGHT_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     */
 
@@ -228,7 +228,7 @@ class TwilightScanner {
         @SuppressLint("MissingPermission")
         @Override
         public void handleMessage(Message msg) {
-//            PPApplication.logE("[IN_THREAD_HANDLER] TwilightScanner.LocationHandler", "xxx");
+//            PPApplicationStatic.logE("[IN_THREAD_HANDLER] TwilightScanner.LocationHandler", "xxx");
 
             switch (msg.what) {
                 case MSG_PROCESS_NEW_LOCATION: {
@@ -473,7 +473,7 @@ class TwilightScanner {
                         pendingIntent.cancel();
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_TWILIGHT_SCANNER_TAG_WORK);
 
@@ -509,8 +509,8 @@ class TwilightScanner {
     private final BroadcastReceiver mUpdateLocationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] TwilightScanner.mUpdateLocationReceiver", "xxx");
-//            PPApplication.logE("[IN_BROADCAST_ALARM] TwilightScanner.mUpdateLocationReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] TwilightScanner.mUpdateLocationReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST_ALARM] TwilightScanner.mUpdateLocationReceiver", "xxx");
 
             if (Intent.ACTION_AIRPLANE_MODE_CHANGED.equals(intent.getAction())
                     && !intent.getBooleanExtra("state", false)) {
@@ -537,38 +537,38 @@ class TwilightScanner {
     // are handled through the passive location provider.
     private final LocationListener mEmptyLocationListener =  new LocationListener() {
         public void onLocationChanged(Location location) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onLocationChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onLocationChanged", "xxx");
         }
 
         public void onProviderDisabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onProviderDisabled", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onProviderDisabled", "xxx");
         }
 
         public void onProviderEnabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onProviderEnabled", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onProviderEnabled", "xxx");
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onStatusChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mEmptyLocationListener.onStatusChanged", "xxx");
         }
     };
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onLocationChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onLocationChanged", "xxx");
             mLocationHandler.processNewLocation(location);
         }
 
         public void onProviderDisabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onProviderDisabled", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onProviderDisabled", "xxx");
         }
 
         public void onProviderEnabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onProviderEnabled", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onProviderEnabled", "xxx");
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
-//            PPApplication.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onStatusChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] TwilightScanner.mLocationListener.onStatusChanged", "xxx");
         }
     };
 

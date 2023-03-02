@@ -264,7 +264,6 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
                 if (!nfcTagName.getText().toString().isEmpty()) {
                     String[] splits = preference.value.split("\\|");
                     preference.value = "";
-//TODO spajanie stringov v loope
                     StringBuilder value = new StringBuilder();
                     boolean found = false;
                     // add all tags without item tag

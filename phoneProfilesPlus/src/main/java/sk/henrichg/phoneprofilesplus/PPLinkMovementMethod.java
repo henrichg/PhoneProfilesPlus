@@ -134,7 +134,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
                 try {
                     mContext.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             } else if (linkType == LinkType.EMAIL_ADDRESS) {
                 String emailLink = link.replace("mailto:", "");
@@ -146,7 +146,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
                 try {
                     mContext.startActivity(Intent.createChooser(intent, emailText));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         }

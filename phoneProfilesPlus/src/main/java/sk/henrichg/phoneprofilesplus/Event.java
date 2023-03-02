@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import static android.app.Notification.DEFAULT_SOUND;
 import static android.app.Notification.DEFAULT_VIBRATE;
 
-import android.Manifest;
-import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -15,7 +13,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.os.SystemClock;
 import android.os.Vibrator;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -141,8 +138,8 @@ class Event {
     private  static final String PREF_EVENT_NOTIFICATION_SOUND_END_PLAY_ALSO_IN_SILENT_MODE = "eventEndNotificationSoundPlayAlsoInSilentMode";
 
     static final String PREF_GLOBAL_EVENTS_RUN_STOP = "globalEventsRunStop";
-    private static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
-    private static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
+    static final String PREF_EVENTS_BLOCKED = "eventsBlocked";
+    static final String PREF_FORCE_RUN_EVENT_RUNNING = "forceRunEventRunning";
 
     // alarm time offset (milliseconds) for events with generated alarms
     static final int EVENT_ALARM_TIME_OFFSET = 15000;
@@ -562,53 +559,53 @@ class Event {
     boolean isEnabledSomeSensor(Context context) {
         Context appContext = context.getApplicationContext();
         return  (this._eventPreferencesTime._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBattery._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCall._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesAccessories._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCalendar._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesWifi._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesScreen._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesBluetooth._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSMS._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesNotification._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesApplication._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesLocation._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesOrientation._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesMobileCells._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesNFC._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRadioSwitch._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesAlarmClock._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesDeviceBoot._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSoundProfile._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesPeriodic._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVolumes._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesActivatedProfile._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesActivatedProfile.PREF_EVENT_ACTIVATED_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesRoaming._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesVPN._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -1687,7 +1684,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
+        if ((!EventStatic.getGlobalEventsRunning(dataWrapper.context))/* && (!ignoreGlobalPref)*/)
             // events are globally stopped
             return;
 
@@ -1697,7 +1694,7 @@ class Event {
         }
 
         //if (ApplicationPreferences.prefEventsBlocked)
-        if (getEventsBlocked(dataWrapper.context))
+        if (EventStatic.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
             // if application is restarted by system, ignore manual profile activation
@@ -1743,7 +1740,7 @@ class Event {
 
         // if application is restarted by system, ignore manual profile activation
         if (_ignoreManualActivation && PPApplication.normalServiceStart)
-            setForceRunEventRunning(dataWrapper.context, true);
+            EventStatic.setForceRunEventRunning(dataWrapper.context, true);
 
         EventTimeline eventTimeline;
 
@@ -1800,7 +1797,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (/*log && */(status != this._status)) {
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START, _name, null, "");
+            PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START, _name, null, "");
         }
 
         if (this._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
@@ -1815,12 +1812,12 @@ class Event {
                     if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
                         dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                     } else {
-//                        PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (1)", "call of updateGUI");
+//                        PPApplicationStatic.logE("[PPP_NOTIFICATION] Event.startEvent (1)", "call of updateGUI");
                         PPApplication.updateGUI(false, false, dataWrapper.context);
                     }
                 }
                 else {
-//                    PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (2)", "call of updateGUI");
+//                    PPApplicationStatic.logE("[PPP_NOTIFICATION] Event.startEvent (2)", "call of updateGUI");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             } else {
@@ -1838,7 +1835,7 @@ class Event {
                         dataWrapper.fifoAddProfile(profileId, _id);
                     }
                 } else {
-//                    PPApplication.logE("[PPP_NOTIFICATION] Event.startEvent (3)", "call of updateGUI");
+//                    PPApplicationStatic.logE("[PPP_NOTIFICATION] Event.startEvent (3)", "call of updateGUI");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             }
@@ -2087,7 +2084,7 @@ class Event {
 
         if ((!profileActivated) && updateGUI)
         {
-//            PPApplication.logE("[PPP_NOTIFICATION] Event.doActivateEndProfile", "call of updateGUI");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] Event.doActivateEndProfile", "call of updateGUI");
             PPApplication.updateGUI(false, false, dataWrapper.context);
         }
 
@@ -2110,7 +2107,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!EventStatic.getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -2200,7 +2197,7 @@ class Event {
             }
 
             if (!forceRunRunning)
-                setForceRunEventRunning(dataWrapper.context, false);
+                EventStatic.setForceRunEventRunning(dataWrapper.context, false);
         //}
 
         if (exists)
@@ -2234,7 +2231,7 @@ class Event {
         else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
             alType = PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE;
 
-        PPApplication.addActivityLog(context.getApplicationContext(), alType, _name, null, "");
+        PPApplicationStatic.addActivityLog(context.getApplicationContext(), alType, _name, null, "");
     }
 
     void stopEvent(DataWrapper dataWrapper,
@@ -2249,7 +2246,7 @@ class Event {
         removeDelayEndAlarm(dataWrapper); // for end delay
         removeStartEventNotificationAlarm(dataWrapper); // for start repeating notification
 
-        if ((!getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
+        if ((!EventStatic.getGlobalEventsRunning(dataWrapper.context)) && (!ignoreGlobalPref))
             // events are globally stopped
             return;
 
@@ -2271,7 +2268,7 @@ class Event {
             DatabaseHandler.getInstance(dataWrapper.context).updateAllEventSensorsPassed(this);
 
         if (log && (status != this._status)) {
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_STOP, _name, null, "");
+            PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_STOP, _name, null, "");
         }
 
         //return;
@@ -2416,7 +2413,7 @@ class Event {
     {
         removeDelayStartAlarm(dataWrapper);
 
-        if (!getGlobalEventsRunning(dataWrapper.context))
+        if (!EventStatic.getGlobalEventsRunning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -2425,7 +2422,7 @@ class Event {
             return;
 
         //if (ApplicationPreferences.prefEventsBlocked)
-        if (getEventsBlocked(dataWrapper.context))
+        if (EventStatic.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
 
@@ -2450,7 +2447,7 @@ class Event {
             // delay for start is > 0
             // set alarm
 
-            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(_context)) {
+            if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(_context)) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
                     //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
                     Intent intent = new Intent();
@@ -2491,10 +2488,10 @@ class Event {
                                     .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true, true)) {
+                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+(int) this._id);
 //                            try {
@@ -2503,7 +2500,7 @@ class Event {
 //                            }
 //                            //}
 
-//                                PPApplication.logE("[WORKER_CALL] Event.setDelayStartAlarm", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] Event.setDelayStartAlarm", "xxx");
                                 workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
                                 PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id);
@@ -2580,7 +2577,7 @@ class Event {
         if (_isInDelayStart) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
                     ": " + StringFormatUtils.getDurationString(_delayStart) +")";
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
+            PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
 
         //return;
@@ -2623,9 +2620,9 @@ class Event {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id), false);
+        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id), false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsEventDelayStartWork.remove(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
 
@@ -2638,7 +2635,7 @@ class Event {
     {
         removeDelayEndAlarm(dataWrapper);
 
-        if (!getGlobalEventsRunning(dataWrapper.context))
+        if (!EventStatic.getGlobalEventsRunning(dataWrapper.context))
             // events are globally stopped
             return;
 
@@ -2647,7 +2644,7 @@ class Event {
             return;
 
         //if (ApplicationPreferences.prefEventsBlocked)
-        if (getEventsBlocked(dataWrapper.context))
+        if (EventStatic.getEventsBlocked(dataWrapper.context))
         {
             // blocked by manual profile activation
 
@@ -2675,7 +2672,7 @@ class Event {
             // delay for end is > 0
             // set alarm
 
-            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(_context)) {
+            if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(_context)) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
                     //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
                     Intent intent = new Intent();
@@ -2716,10 +2713,10 @@ class Event {
                                     .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true, true)) {
+                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+(int) this._id);
 //                            try {
@@ -2728,7 +2725,7 @@ class Event {
 //                            }
 //                            //}
 
-//                                PPApplication.logE("[WORKER_CALL] Event.setDelayEndAlarm", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] Event.setDelayEndAlarm", "xxx");
                                 workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
                                 PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id);
@@ -2808,7 +2805,7 @@ class Event {
         if (_isInDelayEnd) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
                     ": " + StringFormatUtils.getDurationString(_delayEnd) +")";
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
+            PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
 
         //return;
@@ -2861,9 +2858,9 @@ class Event {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id), false);
+        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id), false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsEventDelayEndWork.remove(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
 
@@ -2891,340 +2888,10 @@ class Event {
                             PPApplication.NOTIFY_EVENT_START_NOTIFICATION_TAG+"_"+_id,
                             PPApplication.NOTIFY_EVENT_START_NOTIFICATION_ID + (int) _id);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 StartEventNotificationBroadcastReceiver.removeAlarm(this, dataWrapper.context);
             //}
-        }
-    }
-
-    static PreferenceAllowed isEventPreferenceAllowed(String preferenceKey, Context context)
-    {
-        Context appContext = context.getApplicationContext();
-
-        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-
-        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-
-        //boolean checked = false;
-
-        if (preferenceKey.equals(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED)) {
-            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
-        {
-            if (PPApplication.HAS_FEATURE_WIFI)
-                // device has Wifi
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
-        {
-            if (PPApplication.HAS_FEATURE_BLUETOOTH) {
-                // device has bluetooth
-                if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH) &&
-                    (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH_ADMIN)))
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_bluetooth_permission);
-                }
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED))
-        {
-            //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            /*else {
-                PPApplication.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            }*/
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
-        {
-            //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            //else
-            //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
-        {
-            boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
-            //boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
-            boolean hasProximity = PPApplication.proximitySensor != null;
-            boolean hasLight = PPApplication.lightSensor != null;
-
-            boolean enabled = hasAccelerometer;
-            enabled = enabled || hasProximity || hasLight;
-
-            if (enabled) {
-                //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                //else
-                //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED) ||
-                preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY) {
-                // device has telephony
-                TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
-                        if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
-                            }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                        }
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
-        {
-            if (PPApplication.HAS_FEATURE_NFC)
-                // device has nfc
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED) ||
-                preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY) {
-                // device has telephony
-                TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
-                        if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
-                            }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                        }
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED) ||
-                preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY) {
-                // device has telephony
-                TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
-                        if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
-                            }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                        }
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        if (preferenceKey.equals(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED))
-        {
-            if (PPApplication.HAS_FEATURE_LOCATION)
-                // device has location
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        /*
-        if (preferenceKey.equals(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED))
-        {
-            //if (android.os.Build.VERSION.SDK_INT >= 21)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            //else
-            //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-        */
-
-        if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED) ||
-                preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY) {
-                // device has telephony
-                TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
-                        if (simExists)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        else {
-                            if (!Permissions.checkPhone(appContext)) {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
-                            }
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                        }
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            return preferenceAllowed;
-        }
-        //if (checked)
-        //    return preferenceAllowed;
-
-        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-        return preferenceAllowed;
-    }
-
-    static boolean getGlobalEventsRunning(Context context)
-    {
-        synchronized (PPApplication.globalEventsRunStopMutex) {
-            if (Build.VERSION.SDK_INT >= 33) {
-                try {
-                    ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(context.getApplicationContext(), PhoneProfilesService.class);
-                    if (serviceInfo == null) {
-                        // service is not running
-                        return false;
-                    }
-                } catch (Exception ignored) {}
-            }
-            return PPApplication.globalEventsRunStop;
-        }
-    }
-
-    static void setGlobalEventsRunning(Context context, boolean globalEventsRunning)
-    {
-        synchronized (PPApplication.globalEventsRunStopMutex) {
-            Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putBoolean(PREF_GLOBAL_EVENTS_RUN_STOP, globalEventsRunning);
-            editor.apply();
-            PPApplication.globalEventsRunStop = globalEventsRunning;
-        }
-    }
-
-    static boolean getEventsBlocked(Context context)
-    {
-        synchronized (PPApplication.eventsRunMutex) {
-            //ApplicationPreferences.prefEventsBlocked = ApplicationPreferences.
-            //        getSharedPreferences(context).getBoolean(PREF_EVENTS_BLOCKED, false);
-            //return prefEventsBlocked;
-            return ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_EVENTS_BLOCKED, false);
-        }
-    }
-    static void setEventsBlocked(Context context, boolean eventsBlocked)
-    {
-        synchronized (PPApplication.eventsRunMutex) {
-            Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putBoolean(PREF_EVENTS_BLOCKED, eventsBlocked);
-            editor.apply();
-            //ApplicationPreferences.prefEventsBlocked = eventsBlocked;
-        }
-    }
-
-    static boolean getForceRunEventRunning(Context context)
-    {
-        synchronized (PPApplication.eventsRunMutex) {
-            //ApplicationPreferences.prefForceRunEventRunning = ApplicationPreferences.
-            //        getSharedPreferences(context).getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
-            //return prefForceRunEventRunning;
-            return ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_FORCE_RUN_EVENT_RUNNING, false);
-        }
-    }
-    static void setForceRunEventRunning(Context context, boolean forceRunEventRunning)
-    {
-        synchronized (PPApplication.eventsRunMutex) {
-            Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putBoolean(PREF_FORCE_RUN_EVENT_RUNNING, forceRunEventRunning);
-            editor.apply();
-            //ApplicationPreferences.prefForceRunEventRunning = forceRunEventRunning;
         }
     }
 
@@ -3251,7 +2918,7 @@ class Event {
 //                    nTitle = context.getString(R.string.ppp_app_name);
 //                    nText = context.getString(R.string.start_event_notification_title) + ": " + nText;
 //                }
-                PPApplication.createNotifyEventStartNotificationChannel(context);
+                PPApplicationStatic.createNotifyEventStartNotificationChannel(context);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                         .setSmallIcon(R.drawable.ic_information_notify) // notification icon
@@ -3294,7 +2961,7 @@ class Event {
                     Log.e("Event.notifyEventStart", Log.getStackTraceString(en));
                 } catch (Exception e) {
                     //Log.e("Event.notifyEventStart", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);

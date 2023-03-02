@@ -192,7 +192,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         //        context.getApplicationContext(), preference.audioManager) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onDialogClosed");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onDialogClosed");
 
             //Context appContext = appContextWeakRef.get();
             //AudioManager audioManager = audioManagerWeakRef.get();
@@ -211,17 +211,17 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         if (VolumeDialogPreference.mediaPlayer.isPlaying())
                             VolumeDialogPreference.mediaPlayer.stop();
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                     try {
                         VolumeDialogPreference.mediaPlayer.release();
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
             //}
         }; //);
-        PPApplication.createPlayToneExecutor();
+        PPApplicationStatic.createPlayToneExecutor();
         PPApplication.playToneExecutor.submit(runnable);
 
         preference.fragment = null;
@@ -307,7 +307,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
             //        context.getApplicationContext(), preference.audioManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onStopTrackingTouch");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragment.onStopTrackingTouch");
 
                 //Context appContext = appContextWeakRef.get();
                 //AudioManager audioManager = audioManagerWeakRef.get();
@@ -319,12 +319,12 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                             if (VolumeDialogPreference.mediaPlayer.isPlaying())
                                 VolumeDialogPreference.mediaPlayer.stop();
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         try {
                             VolumeDialogPreference.mediaPlayer.release();
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
 
@@ -386,11 +386,11 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                         }
                     } catch (Exception e) {
                         //Log.e("VolumeDialogPreferenceFragment.onStopTrackingTouch", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 //}
             }; //);
-            PPApplication.createPlayToneExecutor();
+        PPApplicationStatic.createPlayToneExecutor();
             PPApplication.playToneExecutor.submit(runnable);
             /*
             try {

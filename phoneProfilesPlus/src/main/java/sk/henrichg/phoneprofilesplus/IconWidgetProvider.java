@@ -25,7 +25,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
-//        PPApplication.logE("[IN_LISTENER] IconWidgetProvider.onUpdate", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] IconWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
             final Context appContext = context;
             LocaleHelper.setApplicationLocale(appContext);
@@ -34,7 +34,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
                 //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -43,7 +43,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     _onUpdate(appContext, appWidgetManager, appWidgetIds);
                 //}
             }; //);
-            PPApplication.createDelayedGuiExecutor();
+            PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
@@ -102,9 +102,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
             }
 
             if (Build.VERSION.SDK_INT >= 30) {
-                if (PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context) ||
-                        PPApplication.isMIUILauncherDefault(context)) {
+                if (PPApplicationStatic.isPixelLauncherDefault(context) ||
+                        PPApplicationStatic.isOneUILauncherDefault(context) ||
+                        PPApplicationStatic.isMIUILauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetIconRoundedCorners = true;
                     ApplicationPreferences.applicationWidgetIconRoundedCornersRadius = 15;
                     //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
@@ -564,15 +564,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 int roundedBackground = 0;
                 int roundedBorder = 0;
-                if (PPApplication.isPixelLauncherDefault(context)) {
+                if (PPApplicationStatic.isPixelLauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
                 }
                 else
-                if (PPApplication.isOneUILauncherDefault(context)) {
+                if (PPApplicationStatic.isOneUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
-                } else if (PPApplication.isMIUILauncherDefault(context)) {
+                } else if (PPApplicationStatic.isMIUILauncherDefault(context)) {
                     roundedBackground = R.drawable.rounded_widget_background_miui_launcher;
                     roundedBorder = R.drawable.rounded_widget_border_miui_launcher;
                 } else {
@@ -739,7 +739,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
                     //appWidgetManager.updateAppWidget(thisWidget, remoteViews);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         //} catch (Exception e) {
@@ -755,7 +755,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget
-//        PPApplication.logE("[IN_BROADCAST] IconWidgetProvider.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] IconWidgetProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
@@ -771,7 +771,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //__handler.post(new PPHandlerThreadRunnable(context, manager) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
@@ -780,7 +780,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             _onUpdate(appContext, appWidgetManager, ids);
                         //}
                     }; //);
-                    PPApplication.createDelayedGuiExecutor();
+                    PPApplicationStatic.createDelayedGuiExecutor();
                     PPApplication.delayedGuiExecutor.submit(runnable);
                 }
             }
@@ -856,7 +856,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         PPApplication.setWidgetProfileName(context.getApplicationContext(), 1, pName);*/
 
-//        PPApplication.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.updateWidgets", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] IconWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 

@@ -64,7 +64,7 @@ public class RingtonePreferenceFragment extends PreferenceDialogFragmentCompat {
 
             Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RingtonePreferenceFragment.onBindDialogView");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RingtonePreferenceFragment.onBindDialogView");
                 //preference.oldRingtoneUri = preference.ringtoneUri;
                 preference.refreshListView();
             }, 200);

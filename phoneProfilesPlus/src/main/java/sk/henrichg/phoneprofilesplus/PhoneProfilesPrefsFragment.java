@@ -290,7 +290,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         // must be used handler for rewrite toolbar title/subtitle
         Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsFragment.onActivityCreated");
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsFragment.onActivityCreated");
             if (getActivity() == null)
                 return;
 
@@ -456,7 +456,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok){
@@ -501,7 +501,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -603,7 +603,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -688,7 +688,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -730,7 +730,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -772,7 +772,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -814,7 +814,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -859,7 +859,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -902,7 +902,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                                    startActivity(intent);
 //                                    ok = true;
 //                                } catch (Exception e) {
-//                                    PPApplication.recordException(e);
+//                                    PPApplicationStatic.recordException(e);
 //                                }
 //                            }
 //                        }
@@ -1042,7 +1042,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -1204,8 +1204,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(preference112 -> {
                     boolean ok = false;
-//                    PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                    PPApplication.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+//                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of PPApplication.createPPPAppNotificationChannel()");
+                    PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                     intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
@@ -1214,7 +1214,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivity(intent);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -1248,8 +1248,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(preference112 -> {
                     boolean ok = false;
-//                    PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                    PPApplication.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+//                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of PPApplication.createPPPAppNotificationChannel()");
+                    PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                     intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
@@ -1258,7 +1258,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             startActivity(intent);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -1292,8 +1292,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference113 -> {
                 boolean ok = false;
-//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                PPApplication.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of PPApplication.createPPPAppNotificationChannel()");
+                PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
 
                 Intent intent = new Intent();
                 if (Build.VERSION.SDK_INT > 26) {
@@ -1313,7 +1313,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         startActivity(intent);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -1345,8 +1345,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(preference113 -> {
                 boolean ok = false;
-//                PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                PPApplication.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of PPApplication.createPPPAppNotificationChannel()");
+                PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
 
                 Intent intent = new Intent();
                 if (Build.VERSION.SDK_INT > 26) {
@@ -1366,7 +1366,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         startActivity(intent);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -1408,7 +1408,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         startActivityForResult(intent, RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -1518,7 +1518,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
                     getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_summary2));
             preference.setOnPreferenceClickListener(preference116 -> {
-                PPApplication.showDoNotKillMyAppDialog(getActivity());
+                PPApplicationStatic.showDoNotKillMyAppDialog(getActivity());
                 return false;
             });
         }
@@ -1662,7 +1662,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -1717,7 +1717,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                         startActivity(intent);
                                         ok = true;
                                     } catch (Exception e) {
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                                 if (!ok) {
@@ -1818,7 +1818,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -1870,7 +1870,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                         startActivity(intent);
                                         ok = true;
                                     } catch (Exception e) {
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                                 if (!ok) {
@@ -1923,9 +1923,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         /////////////////
 
         if (Build.VERSION.SDK_INT >= 31) {
-            if (PPApplication.isPixelLauncherDefault(getActivity()) ||
-                    PPApplication.isOneUILauncherDefault(getActivity()) ||
-                    PPApplication.isMIUILauncherDefault(getActivity())) {
+            if (PPApplicationStatic.isPixelLauncherDefault(getActivity()) ||
+                    PPApplicationStatic.isOneUILauncherDefault(getActivity()) ||
+                    PPApplicationStatic.isMIUILauncherDefault(getActivity())) {
                 //preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
                 //if (preference != null)
                 //    preference.setVisible(false);
@@ -2048,7 +2048,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     //noinspection deprecation
                                     startActivityForResult(intent, RESULT_POWER_SAVE_MODE_SETTINGS);
                                 } catch (Exception ee) {
-                                    PPApplication.recordException(ee);
+                                    PPApplicationStatic.recordException(ee);
                                 }
                             }
                         //}
@@ -2093,7 +2093,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //updateSharedPreferences(editor, preferences);
             //editor.apply();
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2105,7 +2105,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             updateSharedPreferences(editor, preferences);
             editor.apply();
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
@@ -2250,7 +2250,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (permissionsChanged) {
                         //DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
-//                        PPApplication.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.doOnActivityResult", "call of updateGUI");
+//                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.doOnActivityResult", "call of updateGUI");
                         PPApplication.updateGUI(true, false, context);
 
                         if (finishActivity) {
@@ -2633,7 +2633,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
         setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
 
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
@@ -2648,7 +2648,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(false);
         }
 
-        preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext());
+        preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
@@ -2665,7 +2665,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(false);
         }
 
-        preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext());
+        preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("orientationScanningCategory");
@@ -2673,7 +2673,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(false);
         }
 
-        preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext());
+        preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
 
@@ -4092,7 +4092,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals("wifiScanningCategoryRoot")) {
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" +
@@ -4160,7 +4160,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals("bluetoothScanningCategoryRoot")) {
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" +
@@ -4214,7 +4214,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals("mobileCellsScanningCategoryRoot")) {
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" +
@@ -4227,7 +4227,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-//                    PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
+//                    PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
                     summary = summary + "<b>" +
                             getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
                             + "</b>";
@@ -4259,7 +4259,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals("orientationScanningCategoryRoot")) {
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" +
@@ -4272,7 +4272,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 ApplicationPreferences.applicationEventOrientationScanInterval(context);
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
-//                    PPApplication.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
+//                    PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
                     summary = summary + "<b>" +
                             getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
                             + "</b>";
@@ -4297,7 +4297,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals("notificationScanningCategoryRoot")) {
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" +

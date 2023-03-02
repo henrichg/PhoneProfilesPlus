@@ -154,7 +154,7 @@ class EventPreferencesOrientation extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_orientation_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
@@ -162,7 +162,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
 
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
-//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.getPreferencesDescription", "******** ### *******");
+//                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     else
@@ -299,7 +299,7 @@ class EventPreferencesOrientation extends EventPreferences {
             int titleColor;
             if (preference != null) {
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
-//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.setSummary", "******** ### *******");
+//                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.setSummary", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
@@ -362,7 +362,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MIN) ||
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX))
         {
-//            PPApplication.logE("[LOCAL_BROADCAST_CALL] EventPreferencesOrientation.setSummary", "xxx");
+//            PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EventPreferencesOrientation.setSummary", "xxx");
             Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -623,7 +623,7 @@ class EventPreferencesOrientation extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesOrientation tmp = new EventPreferencesOrientation(this._event, this._enabled, this._display, this._sides, this._distance, this._checkLight, this._lightMin, this._lightMax, this._ignoredApplications);
             if (preferences != null)
@@ -913,7 +913,7 @@ class EventPreferencesOrientation extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean inCall = false;
                 TelephonyManager telephony = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -948,32 +948,32 @@ class EventPreferencesOrientation extends EventPreferences {
                     //    notAllowedOrientation = true;
                     eventsHandler.orientationPassed = false;
                 } else if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn) {
-//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (1)");
+//                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (1)");
                     if (forRestartEvents)
                         eventsHandler.orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for screen Off
                         eventsHandler.notAllowedOrientation = true;
                 } else {
-//                    PPApplication.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (2)");
+//                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (2)");
                     synchronized (PPApplication.orientationScannerMutex) {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isOrientationScannerStarted()) {
-                            PPApplication.startHandlerThreadOrientationScanner();
+                            PPApplicationStatic.startHandlerThreadOrientationScanner();
                             boolean lApplicationPassed = false;
                             if (!_ignoredApplications.isEmpty()) {
                                 if (PPPExtenderBroadcastReceiver.isEnabled(eventsHandler.context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
                                         /*, "EventPreferencesOrientation.doHandleEvent"*/)) {
                                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
-//                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "foregroundApplication="+foregroundApplication);
+//                                    PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "foregroundApplication="+foregroundApplication);
                                     if (!foregroundApplication.isEmpty()) {
                                         String[] splits = _ignoredApplications.split("\\|");
                                         for (String split : splits) {
                                             if (!split.isEmpty()) {
                                                 String packageName = Application.getPackageName(split);
-//                                                PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "packageName="+packageName);
+//                                                PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "packageName="+packageName);
 
                                                 if (foregroundApplication.equals(packageName)) {
-//                                                    PPApplication.logE("EventPreferencesOrientation.doHandleEvent", "lApplicationPassed=true");
+//                                                    PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "lApplicationPassed=true");
                                                     lApplicationPassed = true;
                                                     break;
                                                 }
@@ -1016,7 +1016,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                                             }
                                                         }
                                                     } catch (Exception e) {
-                                                        PPApplication.recordException(e);
+                                                        PPApplicationStatic.recordException(e);
                                                     }
                                                 }
                                             }
@@ -1053,7 +1053,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                                             }
                                                         }
                                                     } catch (Exception e) {
-                                                        PPApplication.recordException(e);
+                                                        PPApplicationStatic.recordException(e);
                                                     }
                                                 }
                                             }

@@ -87,7 +87,7 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -107,7 +107,7 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoQuickGuideHelpFragment.onViewCreated");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoQuickGuideHelpFragment.onViewCreated");
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }

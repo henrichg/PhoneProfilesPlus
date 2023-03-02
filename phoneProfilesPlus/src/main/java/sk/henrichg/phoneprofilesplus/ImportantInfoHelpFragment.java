@@ -85,9 +85,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            versionCode = PPApplication.getVersionCode(pInfo);
+            versionCode = PPApplicationStatic.getVersionCode(pInfo);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
         boolean news = false;
@@ -221,7 +221,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             fragment.startActivity(intent);
                             ok = true;
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     if (!ok) {
@@ -264,7 +264,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.startActivity(intent);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -302,7 +302,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.startActivity(intent);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -346,7 +346,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         fragment.startActivity(intent);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -378,7 +378,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText670.setText(fragment.getString(R.string.important_info_do_not_kill_my_app1) + " " +
                     fragment.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
                     fragment.getString(R.string.important_info_do_not_kill_my_app2) + "\u00A0»»");
-            infoText670.setOnClickListener(v -> PPApplication.showDoNotKillMyAppDialog(activity));
+            infoText670.setOnClickListener(v -> PPApplicationStatic.showDoNotKillMyAppDialog(activity));
         }
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
@@ -690,7 +690,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     try {
                         fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -736,7 +736,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     try {
                         fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -783,7 +783,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 //
 //                Handler handler = new Handler(activity.getMainLooper());
 //                handler.postDelayed(() -> {
-////                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+////                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
 //                    if (PhoneProfilesService.getInstance() != null) {
 //                        synchronized (PPApplication.applicationPreferencesMutex) {
 //                            PPApplication.doNotShowProfileNotification = false;
@@ -793,7 +793,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                    }
 //                }, 1000);
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-//                PPApplication.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of PPPAppNotification.forceDrawNotification");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of PPPAppNotification.forceDrawNotification");
                 PPPAppNotification.forceDraweNotification(context.getApplicationContext());
 
                 PPApplication.showToast(context,
@@ -874,7 +874,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 if (finishActivity)
                     activity.finish();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
@@ -909,7 +909,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         activity.finish();
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -973,7 +973,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
@@ -1042,7 +1042,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 if (finishActivity)
                     activity.finish();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
@@ -1077,7 +1077,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                         activity.finish();
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };

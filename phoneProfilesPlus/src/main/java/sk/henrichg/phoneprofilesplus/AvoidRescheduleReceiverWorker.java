@@ -26,7 +26,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     public Result doWork() {
         try {
 //            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "--------------- START");
+//            PPApplicationStatic.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "--------------- START");
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -37,7 +37,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //                            try {
@@ -46,20 +46,20 @@ public class AvoidRescheduleReceiverWorker extends Worker {
 //                            }
 //                            //}
 
-//                    PPApplication.logE("[WORKER_CALL] AvoidRescheduleReceiverWorker.doWork", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] AvoidRescheduleReceiverWorker.doWork", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            PPApplicationStatic.logE("[IN_WORKER] AvoidRescheduleReceiverWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
             //Log.e("AvoidRescheduleReceiverWorker.doWork", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             /*Handler _handler = new Handler(getApplicationContext().getMainLooper());
             Runnable r = new Runnable() {
                 public void run() {
@@ -74,7 +74,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
     static void enqueueWork() {
 //        WorkManager workManager = PPApplication.getWorkManagerInstance();
 //        if (workManager != null) {
-//            //if (PPApplication.logEnabled()) {
+//            //if (PPApplicationStatic.logEnabled()) {
 //            ListenableFuture<List<WorkInfo>> statuses;
 //            statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //            try {
@@ -94,7 +94,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
 
-//                //if (PPApplication.logEnabled()) {
+//                //if (PPApplicationStatic.logEnabled()) {
 //                ListenableFuture<List<WorkInfo>> statuses;
 //                statuses = workManager.getWorkInfosForUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //                try {
@@ -103,11 +103,11 @@ public class AvoidRescheduleReceiverWorker extends Worker {
 //                }
 //                //}
 
-//                PPApplication.logE("[WORKER_CALL] AvoidRescheduleReceiverWorker.enqueueWork", "xxx");
+//                PPApplicationStatic.logE("[WORKER_CALL] AvoidRescheduleReceiverWorker.enqueueWork", "xxx");
                 workManager.enqueueUniqueWork(PPApplication.AVOID_RESCHEDULE_RECEIVER_WORK_TAG, ExistingWorkPolicy.REPLACE, avoidRescheduleReceiverWorker);
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

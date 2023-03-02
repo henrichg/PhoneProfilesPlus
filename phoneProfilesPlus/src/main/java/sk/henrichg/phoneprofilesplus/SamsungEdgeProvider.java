@@ -367,7 +367,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 applicationSamsungEdgeIconColor.equals("0")
                 // && applicationWidgetOneRowUseDynamicColors
             )) {*/
-        //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
+        //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
         bitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_widget_settings, true, context);
         bitmap = BitmapManipulator.monochromeBitmap(bitmap, settingsLightness);
         widget.setImageViewBitmap(R.id.widget_samsung_edge_settings, bitmap);
@@ -448,7 +448,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         try {
             cocktailBarManager.updateCocktail(cocktailId, widget);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         if (!fromOnUpdate) {
             Runnable runnable = () -> {
@@ -457,7 +457,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 else*/
                 cocktailBarManager.notifyCocktailViewDataChanged(cocktailId, R.id.widget_samsung_edge_grid);
             };
-            PPApplication.createDelayedGuiExecutor();
+            PPApplicationStatic.createDelayedGuiExecutor();
             //PPApplication.delayedGuiExecutor.submit(runnable);
             PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);
         }
@@ -469,7 +469,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onUpdate(appContext, cocktailManager, cocktailIds);
-//        PPApplication.logE("[IN_LISTENER] SamsungEdgeProvider.onUpdate", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] SamsungEdgeProvider.onUpdate", "xxx");
         if (cocktailIds.length > 0) {
             //final int[] _cocktailIds = cocktailIds;
 
@@ -478,7 +478,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
 
                 //Context appContext= appContextWeakRef.get();
                 //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
@@ -495,7 +495,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //dataWrapper = null;
                 //}
             }; //);
-            PPApplication.createDelayedGuiExecutor();
+            PPApplicationStatic.createDelayedGuiExecutor();
             PPApplication.delayedGuiExecutor.submit(runnable);
         }
     }
@@ -506,7 +506,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         LocaleHelper.setApplicationLocale(appContext);
 
         super.onReceive(appContext, intent); // calls onUpdate, is required for widget
-//        PPApplication.logE("[IN_BROADCAST] SamsungEdgeProvider.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] SamsungEdgeProvider.onReceive", "xxx");
 
         final String action = intent.getAction();
 
@@ -521,7 +521,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
@@ -541,7 +541,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         //dataWrapper = null;
                     //}
                 }; //);
-                PPApplication.createDelayedGuiExecutor();
+                PPApplicationStatic.createDelayedGuiExecutor();
                 PPApplication.delayedGuiExecutor.submit(runnable);
             }
         }
@@ -555,7 +555,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             doOnUpdate(context, cocktailManager, cocktailId, false);
 
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
     */
@@ -572,7 +572,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
     */
@@ -603,7 +603,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         PPApplication.setWidgetProfileName(context, 4, pName);*/
 
-//        PPApplication.logE("[LOCAL_BROADCAST_CALL] SamsungEdgeProvider.updateWidgets", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] SamsungEdgeProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_EDGEPANEL);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 

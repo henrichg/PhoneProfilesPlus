@@ -189,7 +189,7 @@ public class WallpaperFolderPreference extends Preference {
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
             _ok = true;
         } catch (Exception e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
         if (!_ok) {
             try {
@@ -213,7 +213,7 @@ public class WallpaperFolderPreference extends Preference {
                 //if (!activity.isFinishing())
                 _dialog.show();
             } catch (Exception e) {
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
         }
     }

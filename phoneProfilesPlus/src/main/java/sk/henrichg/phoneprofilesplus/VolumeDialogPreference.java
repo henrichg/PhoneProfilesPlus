@@ -173,7 +173,7 @@ public class VolumeDialogPreference extends DialogPreference {
             }
         } catch (Exception e) {
             //Log.e("VolumeDialogPreference.getValueVDP", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             value = 0;
         }
         //value = value - minimumValue;

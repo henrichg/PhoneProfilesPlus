@@ -69,7 +69,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         super.onBindDialogView(view);
 
         WifiSSIDPreference.forceRegister = true;
-        PPApplication.forceRegisterReceiversForWifiScanner(prefContext);
+        PPApplicationStatic.forceRegisterReceiversForWifiScanner(prefContext);
 
         progressLinearLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
         dataRelativeLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
@@ -218,7 +218,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             rescanAsyncTask.cancel(true);
 
         WifiSSIDPreference.forceRegister = false;
-        PPApplication.reregisterReceiversForWifiScanner(prefContext);
+        PPApplicationStatic.reregisterReceiversForWifiScanner(prefContext);
 
         preference.fragment = null;
     }
@@ -242,7 +242,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {

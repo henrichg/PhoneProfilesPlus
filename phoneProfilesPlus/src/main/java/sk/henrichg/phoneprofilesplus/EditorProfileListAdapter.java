@@ -369,7 +369,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
     @Override
     public void clearView() {
-//        PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListAdapter.onItemMove", "call of updateGUI");
+//        PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListAdapter.onItemMove", "call of updateGUI");
         PPApplication.updateGUI(true, false, activityDataWrapper.context);
     }
 

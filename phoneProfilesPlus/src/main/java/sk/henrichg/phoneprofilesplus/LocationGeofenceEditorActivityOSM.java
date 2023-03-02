@@ -498,7 +498,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             if (!mListenerEnabled)
                 startLocationUpdates(false);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         mMap.onResume();
     }
@@ -510,7 +510,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         try {
             stopLocationUpdates();
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -521,7 +521,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         try {
             stopLocationUpdates();
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -669,7 +669,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 if (!ok) {
@@ -729,7 +729,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                                 startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -778,7 +778,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             final LocationGeofenceEditorActivityOSM activity = this;
             errorLocationHandler = new Handler(getMainLooper());
             errorLocationRunnable = () -> {
-//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
+//            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationGeofenceEditorActivityOSM.startLocationUpdates");
                 if (!activity.isFinishing() && !activity.isDestroyed()) {
                     if (activity.mLastLocation == null) {
                         showErrorLocationDialog();
@@ -834,7 +834,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //                                new Consumer<Location>() {
 //                                    @Override
 //                                    public void accept(Location location) {
-//                                        PPApplication.logE("******* LocationGeofenceEditorActivityOSM.startLocationUpdates", "location="+location);
+//                                        PPApplicationStatic.logE("******* LocationGeofenceEditorActivityOSM.startLocationUpdates", "location="+location);
 //                                    }
 //                                }
 //                        );
@@ -842,7 +842,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     mListenerEnabled = true;
                 } catch (Exception e) {
                     mListenerEnabled = false;
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         }
@@ -876,7 +876,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             }
             //mAddressRequested = true;
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -901,11 +901,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                         .build();
 
         try {
-            if (PPApplication.getApplicationStarted(true, true)) {
+            if (PPApplicationStatic.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-//                    //if (PPApplication.logEnabled()) {
+//                    //if (PPApplicationStatic.logEnabled()) {
 //                    ListenableFuture<List<WorkInfo>> statuses;
 //                    statuses = workManager.getWorkInfosForUniqueWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG);
 //                    try {
@@ -914,7 +914,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //                    }
 //                    //}
 
-//                    PPApplication.logE("[WORKER_CALL] LocationGeofenceEditorActivityOSM.startIntentService", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] LocationGeofenceEditorActivityOSM.startIntentService", "xxx");
                     //workManager.enqueue(fetchAddressWorkerOSM);
                     workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG_OSM, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, fetchAddressWorkerOSM);
 
@@ -951,7 +951,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
             }
         } catch (Exception e) {
             //Log.e("LocationGeofenceEditorActivityOSM.startWorkerForFetchAddress", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
     }
@@ -971,9 +971,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                 pkg = intent.getPackage();
             //noinspection StatementWithEmptyBody
             if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             } else {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 throw e;
             }
         }
@@ -1304,7 +1304,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
             if (location == null)
                 return;
@@ -1339,15 +1339,15 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         }
 
         public void onProviderDisabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderDisabled", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderDisabled", "xxx");
         }
 
         public void onProviderEnabled(String provider) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "888888888888888");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "888888888888888");
         }
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onStatusChanged", "xxx");
+//            PPApplicationStatic.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onStatusChanged", "xxx");
         }
     };
 

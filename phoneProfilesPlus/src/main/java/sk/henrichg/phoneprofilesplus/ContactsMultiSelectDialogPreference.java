@@ -63,7 +63,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        ContactsCache contactsCache = PPApplication.getContactsCache();
+        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
         if (contactsCache == null)
             return;
 
@@ -90,7 +90,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                         contact.checked = true;
                                 }
                             } catch (Exception e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                         }
                     }

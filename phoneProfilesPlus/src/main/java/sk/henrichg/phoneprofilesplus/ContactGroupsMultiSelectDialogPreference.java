@@ -49,7 +49,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null) {
             synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();
@@ -63,7 +63,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                                 if (contactGroup.groupId == groupId)
                                     contactGroup.checked = true;
                             } catch (Exception e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                         }
                     }
@@ -125,7 +125,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         // fill with strings of contact groups separated with |
         value = "";
         StringBuilder _value = new StringBuilder();
-        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null) {
             synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();

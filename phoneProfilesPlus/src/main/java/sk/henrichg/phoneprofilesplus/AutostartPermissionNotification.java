@@ -23,7 +23,7 @@ class AutostartPermissionNotification {
                 //        context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -49,8 +49,8 @@ class AutostartPermissionNotification {
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -61,7 +61,7 @@ class AutostartPermissionNotification {
                         }
                     }
                 }; //);
-                PPApplication.createBasicExecutorPool();
+                PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             } else {
                 boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
@@ -82,7 +82,7 @@ class AutostartPermissionNotification {
     }
 
     static private void showNotification(Context context, String title, String text) {
-        PPApplication.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -115,7 +115,7 @@ class AutostartPermissionNotification {
             Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -127,7 +127,7 @@ class AutostartPermissionNotification {
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_TAG,
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

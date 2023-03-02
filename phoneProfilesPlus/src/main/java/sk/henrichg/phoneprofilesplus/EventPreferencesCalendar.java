@@ -172,7 +172,7 @@ class EventPreferencesCalendar extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_calendar_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_calendar), addPassStatus, DatabaseHandler.ETYPE_CALENDAR, context);
@@ -215,7 +215,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._startBeforeEvent), disabled, context) + "</b>";
 
                 if (addBullet) {
-                    if (Event.getGlobalEventsRunning(context)) {
+                    if (EventStatic.getGlobalEventsRunning(context)) {
                         if (_eventFound) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
@@ -451,7 +451,7 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._allEvents,
                     this._searchField, this._searchString, this._availability, this._status, /*this._ignoreAllDayEvents,*/ this._startBeforeEvent,
@@ -629,7 +629,7 @@ class EventPreferencesCalendar extends EventPreferences {
             }
 
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_CALENDAR_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -969,13 +969,13 @@ class EventPreferencesCalendar extends EventPreferences {
             }
         } catch (SecurityException e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
             //if ((cur != null) && (!cur.isClosed()))
             //    cur.close();
             ok  = false;
         } catch (Exception e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             //if ((cur != null) && (!cur.isClosed()))
             //    cur.close();
             ok = false;
@@ -1103,11 +1103,11 @@ class EventPreferencesCalendar extends EventPreferences {
             cur = cr.query(builder.build(), INSTANCE_PROJECTION, null, null, null);
         } catch (SecurityException e) {
             //Log.e("EventPreferencesCalendar.saveCalendarEventExists", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
             cur = null;
         } catch (Exception e) {
             //Log.e("EventPreferencesCalendar.saveCalendarEventExists", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             cur = null;
         }
 
@@ -1162,7 +1162,7 @@ class EventPreferencesCalendar extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& (Permissions.checkEventCalendar(context, event, null))*/) {
 

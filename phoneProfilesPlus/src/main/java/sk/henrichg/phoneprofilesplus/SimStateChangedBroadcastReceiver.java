@@ -32,14 +32,14 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] SimStateChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] SimStateChangedBroadcastReceiver.onReceive", "xxx");
 
         if (intent == null)
             return;
 
 //        final Intent _intent = intent;
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -50,7 +50,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
         //        context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//          PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=SimStateChangedBroadcastReceiver.onReceive");
+//          PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=SimStateChangedBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -66,36 +66,36 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                     GlobalUtils.hasSIMCard(appContext, 1);
                     GlobalUtils.hasSIMCard(appContext, 2);
 
-                    PPApplication.registerPhoneCallsListener(false, appContext);
-                    PPApplication.registerPPPExtenderReceiverForSMSCall(false, appContext);
-                    PPApplication.registerReceiversForCallSensor(false, appContext);
-                    PPApplication.registerReceiversForSMSSensor(false, appContext);
+                    PPApplicationStatic.registerPhoneCallsListener(false, appContext);
+                    PPApplicationStatic.registerPPPExtenderReceiverForSMSCall(false, appContext);
+                    PPApplicationStatic.registerReceiversForCallSensor(false, appContext);
+                    PPApplicationStatic.registerReceiversForSMSSensor(false, appContext);
                     GlobalUtils.sleep(1000);
-                    PPApplication.registerPhoneCallsListener(true, appContext);
-                    PPApplication.registerPPPExtenderReceiverForSMSCall(true, appContext);
-                    PPApplication.registerReceiversForCallSensor(true, appContext);
-                    PPApplication.registerReceiversForSMSSensor(true, appContext);
+                    PPApplicationStatic.registerPhoneCallsListener(true, appContext);
+                    PPApplicationStatic.registerPPPExtenderReceiverForSMSCall(true, appContext);
+                    PPApplicationStatic.registerReceiversForCallSensor(true, appContext);
+                    PPApplicationStatic.registerReceiversForSMSSensor(true, appContext);
 
-                    PPApplication.restartMobileCellsScanner(appContext);
+                    PPApplicationStatic.restartMobileCellsScanner(appContext);
 
-                    if (Event.getGlobalEventsRunning(appContext)) {
+                    if (EventStatic.getGlobalEventsRunning(appContext)) {
                         //if (PhoneProfilesService.getInstance() != null) {
 
                             // start events handler
 
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SIM_STATE_CHANGED");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SIM_STATE_CHANGED");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SIM_STATE_CHANGED);
 
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
                         //}
                     }
 
                 } catch (Exception e) {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -106,7 +106,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
         }; //);
-        PPApplication.createEventsHandlerExecutor();
+        PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 

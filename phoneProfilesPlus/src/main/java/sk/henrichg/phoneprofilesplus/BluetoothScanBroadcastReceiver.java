@@ -15,12 +15,12 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","xxx");
 
         if (intent == null)
             return;
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
         if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_DISABLED) {
@@ -49,7 +49,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
                 //BluetoothDevice device = deviceWeakRef.get();
@@ -69,7 +69,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         if (BluetoothScanWorker.bluetooth != null) {
                             int forceOneScan = ApplicationPreferences.prefForceOneBluetoothScan;
 
-                            if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                            if (EventStatic.getGlobalEventsRunning(appContext) || (forceOneScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                                 boolean scanStarted = ApplicationPreferences.prefEventBluetoothWaitForResult;
 
@@ -139,8 +139,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         }
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -151,7 +151,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
-            PPApplication.createEventsHandlerExecutor();
+            PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
 
         }

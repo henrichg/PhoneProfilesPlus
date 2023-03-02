@@ -70,7 +70,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         super.onBindDialogView(view);
 
         BluetoothNamePreference.forceRegister = true;
-        PPApplication.forceRegisterReceiversForBluetoothScanner(prefContext);
+        PPApplicationStatic.forceRegisterReceiversForBluetoothScanner(prefContext);
 
         progressLinearLayout = view.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
         dataRelativeLayout = view.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
@@ -231,7 +231,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         }
 
         BluetoothNamePreference.forceRegister = false;
-        PPApplication.reregisterReceiversForBluetoothScanner(prefContext);
+        PPApplicationStatic.reregisterReceiversForBluetoothScanner(prefContext);
 
         preference.fragment = null;
     }
@@ -256,7 +256,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                 getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                             if (!ok) {
                                 PPAlertDialog dialog = new PPAlertDialog(
@@ -351,7 +351,6 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 if (!bluetoothName.getText().toString().isEmpty()) {
                     String[] splits = preference.value.split("\\|");
                     preference.value = "";
-//TODO spajanie stringov v loope
                     StringBuilder value = new StringBuilder();
                     boolean found = false;
                     for (String _bluetoothName : splits) {

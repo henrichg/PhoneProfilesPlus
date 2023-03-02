@@ -235,7 +235,7 @@ public class ActivatorActivity extends AppCompatActivity
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
-//            PPApplication.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
@@ -246,10 +246,10 @@ public class ActivatorActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-        PPApplication.setApplicationFullyStarted(getApplicationContext());
-//        PPApplication.logE("[APPLICATION_FULLY_STARTED] ActivatorActivity.showNotStartedToast", "xxx");
+        PPApplicationStatic.setApplicationFullyStarted(getApplicationContext());
+//        PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] ActivatorActivity.showNotStartedToast", "xxx");
         return false;
-/*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+/*        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted;
         if (!applicationStarted) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
@@ -282,7 +282,7 @@ public class ActivatorActivity extends AppCompatActivity
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -290,8 +290,8 @@ public class ActivatorActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//            PPApplication.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplication.startPPService(this, serviceIntent);
+//            PPApplicationStatic.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
+            PPApplicationStatic.startPPService(this, serviceIntent);
             //return true;
         } else {
             //noinspection StatementWithEmptyBody
@@ -336,7 +336,7 @@ public class ActivatorActivity extends AppCompatActivity
         try {
             getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
         } catch (Exception e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
     }
     @Override
@@ -354,8 +354,8 @@ public class ActivatorActivity extends AppCompatActivity
         MenuItem menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRunning(this));
-            menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
+            menuItem.setVisible(EventStatic.getGlobalEventsRunning(this));
+            menuItem.setEnabled(PPApplicationStatic.getApplicationStarted(true, false));
         }
 
         return ret;
@@ -456,10 +456,10 @@ public class ActivatorActivity extends AppCompatActivity
     void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
-        if (Event.getGlobalEventsRunning(this))
+        if (EventStatic.getGlobalEventsRunning(this))
         {
             //if (ApplicationPreferences.prefEventsBlocked) {
-            if (Event.getEventsBlocked(this.getApplicationContext())) {
+            if (EventStatic.getEventsBlocked(this.getApplicationContext())) {
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_manual_activation);
             }
             else {
@@ -522,7 +522,7 @@ public class ActivatorActivity extends AppCompatActivity
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
                 //noinspection IfStatementWithIdenticalBranches
-                if (Event.getGlobalEventsRunning(this)) {
+                if (EventStatic.getGlobalEventsRunning(this)) {
                     int id = 1;
                     try {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
@@ -539,7 +539,7 @@ public class ActivatorActivity extends AppCompatActivity
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                     try {
                         View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
@@ -556,7 +556,7 @@ public class ActivatorActivity extends AppCompatActivity
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     sequence.targets(targets);
@@ -578,7 +578,7 @@ public class ActivatorActivity extends AppCompatActivity
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     sequence.targets(targets);
@@ -633,14 +633,14 @@ public class ActivatorActivity extends AppCompatActivity
 
                         final Handler handler = new Handler(getMainLooper());
                         handler.postDelayed(() -> {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (1)");
+//                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (1)");
 
                             if (ActivatorTargetHelpsActivity.activity != null) {
                                 //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                                 try {
                                     ActivatorTargetHelpsActivity.activity.finish();
                                 } catch (Exception e) {
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                                 ActivatorTargetHelpsActivity.activity = null;
                                 //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -664,9 +664,9 @@ public class ActivatorActivity extends AppCompatActivity
                 //final Context context = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (2)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (2)");
 
-//                        PPApplication.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
+//                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
@@ -682,14 +682,14 @@ public class ActivatorActivity extends AppCompatActivity
         else {
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (3)");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
                     //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -700,7 +700,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     public void refreshGUIFromListener(Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.refreshGUIBroadcastReceiver", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] ActivatorActivity.refreshGUIBroadcastReceiver", "xxx");
         //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
         refreshGUI(refreshIcons);
@@ -708,7 +708,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     public void showTargetHelpsFromListener(Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.showTargetHelpsBroadcastReceiver", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] ActivatorActivity.showTargetHelpsBroadcastReceiver", "xxx");
         if (isFinishing()) {
             if (ActivatorTargetHelpsActivity.activity != null)
                 ActivatorTargetHelpsActivity.activity.finish();
@@ -746,7 +746,7 @@ public class ActivatorActivity extends AppCompatActivity
 
     @Override
     public void finishActivityFromListener(Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] ActivatorActivity.finishBroadcastReceiver", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] ActivatorActivity.finishBroadcastReceiver", "xxx");
         String action = intent.getAction();
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
@@ -756,7 +756,7 @@ public class ActivatorActivity extends AppCompatActivity
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }

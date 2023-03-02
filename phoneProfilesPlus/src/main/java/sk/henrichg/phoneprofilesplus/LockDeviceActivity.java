@@ -21,7 +21,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
 
         boolean canWriteSettings;// = true;
         //if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -90,7 +90,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("LockDeviceActivity.onCreate", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                         });
@@ -127,7 +127,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                     if (windowManager != null)
                         windowManager.removeViewImmediate(view);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
@@ -149,7 +149,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("LockDeviceActivity.onDestroy", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                         });

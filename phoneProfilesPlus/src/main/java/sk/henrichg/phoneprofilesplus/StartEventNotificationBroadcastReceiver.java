@@ -20,8 +20,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] StartEventNotificationBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
@@ -46,9 +46,9 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
-        PPApplication.cancelWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id, false);
+        PPApplicationStatic.cancelWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id, false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsStartEventNotificationWork.remove(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG +"_"+(int)event._id);
     }
@@ -57,7 +57,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     {
         //if (!_permanentRun) {
 
-        if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+        if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -96,11 +96,11 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true, true)) {
+                    if (PPApplicationStatic.getApplicationStarted(true, true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.START_EVENT_NOTIFICATION_TAG_WORK +"_"+(int)event._id);
 //                            try {
@@ -109,14 +109,14 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 //                            }
 //                            //}
 
-//                            PPApplication.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "(1)");
+//                            PPApplicationStatic.logE("[WORKER_CALL] StartEventNotificationBroadcastReceiver.setAlarm", "(1)");
                             //workManager.enqueue(worker);
                             workManager.enqueueUniqueWork(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, worker);
                             PPApplication.elapsedAlarmsStartEventNotificationWork.add(MainWorker.START_EVENT_NOTIFICATION_WORK_TAG + "_" + (int) event._id);
                         }
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         }
@@ -159,7 +159,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context, final long event_id) {
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -171,7 +171,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             //__handler.post(() -> {
             Runnable runnable = () -> {
                 if (event_id != 0) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
                     //Context appContext= appContextWeakRef.get();
 
@@ -190,8 +190,8 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                                 event.notifyEventStart(appContext, /*true,*/ true);
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -203,7 +203,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     //}
                 }
             }; //);
-            PPApplication.createEventsHandlerExecutor();
+            PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
         }
         else {

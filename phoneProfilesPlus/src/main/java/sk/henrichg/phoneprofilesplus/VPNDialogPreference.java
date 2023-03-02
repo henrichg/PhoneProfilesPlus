@@ -58,7 +58,7 @@ public class VPNDialogPreference extends DialogPreference {
                 doNotSetWhenIsinState = splits[4].equals("1");
         } catch (Exception e) {
             //Log.e("VPNDialogPreference.getValueVDP", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             vpnApplication = 0;
             enableVPN = true;
             profileName = "";

@@ -26,13 +26,13 @@ public class ShowProfileNotificationWorker extends Worker {
     public Result doWork() {
         /*try {
             long start = System.currentTimeMillis();
-            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- START");
+            PPApplicationStatic.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- START");
 
             synchronized (PPApplication.applicationPreferencesMutex) {
                 if (PPApplication.doNotShowProfileNotification) {
 //                    long finish = System.currentTimeMillis();
 //                    long timeElapsed = finish - start;
-                    PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - doNotShowProfileNotification");
+                    PPApplicationStatic.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - doNotShowProfileNotification");
                     return Result.success();
                 }
             }
@@ -41,8 +41,8 @@ public class ShowProfileNotificationWorker extends Worker {
 
             if (PhoneProfilesService.getInstance() != null) {
                 try {
-//                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
-//                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "Build.MODEL="+Build.MODEL);
+//                        PPApplicationStatic.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
+//                        PPApplicationStatic.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "Build.MODEL="+Build.MODEL);
 
                     PhoneProfilesService.clearOldProfileNotification();
 
@@ -53,16 +53,16 @@ public class ShowProfileNotificationWorker extends Worker {
                         }
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
 
             long finish = System.currentTimeMillis();
             long timeElapsed = finish - start;
-            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);*/
+            PPApplicationStatic.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);*/
             return Result.success();
         /*} catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return Result.failure();
         }*/
     }

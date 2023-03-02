@@ -56,7 +56,7 @@ class EventPreferencesVPN extends EventPreferences {
                 descr = descr + "</b> ";
             }
 
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + ": ";
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
@@ -132,7 +132,7 @@ class EventPreferencesVPN extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesVPN tmp = new EventPreferencesVPN(this._event, this._enabled, this._connectionStatus);
             if (preferences != null)
@@ -202,7 +202,7 @@ class EventPreferencesVPN extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesVPN.PREF_EVENT_VPN_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                 if (!eventsHandler.notAllowedVPN) {
                     if (_connectionStatus == 0)

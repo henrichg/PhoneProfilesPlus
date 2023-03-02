@@ -275,14 +275,14 @@ public class ActivatorListFragment extends Fragment {
         {
             super.onPreExecute();
 
-            globalEventsRunning = Event.getGlobalEventsRunning(dataWrapper.context);
+            globalEventsRunning = EventStatic.getGlobalEventsRunning(dataWrapper.context);
 
             final ActivatorListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
                 progressBarRunnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (1)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (1)");
 
                     //fragment.textViewNoData.setVisibility(View.GONE);
                     fragment.progressBar.setVisibility(View.VISIBLE);
@@ -386,7 +386,7 @@ public class ActivatorListFragment extends Fragment {
                             try {
                                 fragment.getActivity().finish();
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
 
                             return;
@@ -403,7 +403,7 @@ public class ActivatorListFragment extends Fragment {
 //                            try {
 //                                fragment.getActivity().finish();
 //                            } catch (Exception e) {
-//                                PPApplication.recordException(e);
+//                                PPApplicationStatic.recordException(e);
 //                            }
 //
 //                            return;
@@ -425,7 +425,7 @@ public class ActivatorListFragment extends Fragment {
                     //noinspection ConstantConditions
                     final Handler handler = new Handler(fragment.getActivity().getMainLooper());
                     handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (2)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (2)");
 
                         if (fragment.getActivity() != null) {
                             if (!fragment.getActivity().isFinishing())
@@ -629,7 +629,7 @@ public class ActivatorListFragment extends Fragment {
 
                 } catch (Exception e) {
                     if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
                 return null;
             }
@@ -706,7 +706,7 @@ public class ActivatorListFragment extends Fragment {
             else {
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (1)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (1)");
                     //Log.e("ActivatorListFragment.showTargetHelps", "start showAdapterTargetHelps (2)");
                     //noinspection Convert2MethodRef
                     showAdapterTargetHelps();
@@ -716,7 +716,7 @@ public class ActivatorListFragment extends Fragment {
         else {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showTargetHelps (2)");
 
                 //Log.e("ActivatorListFragment.showTargetHelps", "(3)");
 
@@ -724,7 +724,7 @@ public class ActivatorListFragment extends Fragment {
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
                 }
@@ -761,14 +761,14 @@ public class ActivatorListFragment extends Fragment {
         else {
             final Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showAdapterTargetHelps");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.showAdapterTargetHelps");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivatorListFragment.showAdapterTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
                     //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -828,7 +828,7 @@ public class ActivatorListFragment extends Fragment {
                     */
                 } catch (Exception e) {
                     if ((dataWrapper != null) && (dataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
             }
             return null;

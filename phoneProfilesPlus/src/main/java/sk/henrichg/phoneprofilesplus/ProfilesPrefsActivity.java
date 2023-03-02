@@ -416,7 +416,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             final String profileName = profile._name;
             Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
                 //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                 toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
             }, 200);
@@ -618,20 +618,20 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
-                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, "");
+                PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, "");
 
                 // add profile into DB
                 DatabaseHandler.getInstance(getApplicationContext()).addProfile(profile, false);
                 profile_id = profile._id;
 
             } else if (profile_id > 0) {
-                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, "");
+                PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, "");
 
                 DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
 
                 // restart Events
-                PPApplication.setBlockProfileEventActions(true);
-                if (Event.getGlobalEventsRunning(this)) {
+                PPApplicationStatic.setBlockProfileEventActions(true);
+                if (EventStatic.getGlobalEventsRunning(this)) {
                     if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
@@ -722,7 +722,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     );
                     ++id;
                 } catch (Exception e) {
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
 
                 sequence.targets(targets);
@@ -744,7 +744,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     );
                     ++id;
                 } catch (Exception e) {
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
 
                 sequence.targets(targets);

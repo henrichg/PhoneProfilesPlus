@@ -37,8 +37,8 @@ class ApplicationsMultiSelectDialogPreferenceViewHolder extends RecyclerView.Vie
         this.application = application;
 
         // Display Application data
-        if (PPApplication.getApplicationsCache() != null)
-            imageViewIcon.setImageBitmap(PPApplication.getApplicationsCache().getApplicationIcon(application, true));
+        if (PPApplicationStatic.getApplicationsCache() != null)
+            imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, true));
         textViewAppName.setText(application.appLabel);
 
         // Tag the CheckBox with the Application it is displaying, so that we

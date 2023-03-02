@@ -63,7 +63,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
             if (DebugVersion.enabled)
                 message = message + " - debug";
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -142,7 +142,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -171,7 +171,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -200,7 +200,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -229,7 +229,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -258,7 +258,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -287,7 +287,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -361,7 +361,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                                     Uri.parse("http://play.google.com/store/apps/details?id=" + PPApplication.PACKAGE_NAME));
                             startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
                         } catch (Exception ee) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -481,9 +481,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 String packageVersion = "";
                 try {
                     PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 if (subjectText.isEmpty())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
@@ -494,7 +494,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };

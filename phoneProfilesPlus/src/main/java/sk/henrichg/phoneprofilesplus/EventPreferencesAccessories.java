@@ -88,7 +88,7 @@ class EventPreferencesAccessories extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_accessories_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context);
@@ -101,7 +101,6 @@ class EventPreferencesAccessories extends EventPreferences {
                     String[] splits = this._accessoryType.split("\\|");
                     List<String> accessoryTypeValues = Arrays.asList(context.getResources().getStringArray(R.array.eventAccessoryTypeValues));
                     String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
-//TODO spajanie stringov v loope
                     //selectedAccessory = "";
                     StringBuilder value = new StringBuilder();
                     for (String s : splits) {
@@ -174,7 +173,6 @@ class EventPreferencesAccessories extends EventPreferences {
         if (key.equals(PREF_EVENT_ACCESSORIES_TYPE))
         {
             Set<String> set = preferences.getStringSet(key, null);
-//TODO spajanie stringov v loope
             String accessoryType; // = "";
             if (set != null) {
                 String[] accessoryTypeValues = context.getResources().getStringArray(R.array.eventAccessoryTypeValues);
@@ -211,7 +209,7 @@ class EventPreferencesAccessories extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesAccessories tmp = new EventPreferencesAccessories(this._event, this._enabled, this._accessoryType);
             if (preferences != null)
@@ -282,7 +280,7 @@ class EventPreferencesAccessories extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!this._accessoryType.isEmpty()) {
                     String[] splits = this._accessoryType.split("\\|");
                     for (String split : splits) {

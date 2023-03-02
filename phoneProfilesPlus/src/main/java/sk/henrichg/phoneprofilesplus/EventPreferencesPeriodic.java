@@ -86,7 +86,7 @@ class EventPreferencesPeriodic extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_periodic_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_periodic), addPassStatus, DatabaseHandler.ETYPE_PERIODIC, context);
@@ -242,7 +242,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_PERIODIC_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesPeriodic tmp = new EventPreferencesPeriodic(this._event, this._enabled, this._multipleInterval, this._duration);
             if (preferences != null)
@@ -353,7 +353,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_PERIODIC_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -390,7 +390,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     void increaseCounter(DataWrapper dataWrapper) {
-        if (Event.getGlobalEventsRunning(dataWrapper.context)) {
+        if (EventStatic.getGlobalEventsRunning(dataWrapper.context)) {
             int multipleInterval = _multipleInterval;
             if (multipleInterval == 0)
                 multipleInterval = 1;
@@ -420,11 +420,11 @@ class EventPreferencesPeriodic extends EventPreferences {
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true)) {
+                        if (PPApplicationStatic.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
 //                            try {
@@ -433,13 +433,13 @@ class EventPreferencesPeriodic extends EventPreferences {
 //                            }
 //                            //}
 //
-//                                PPApplication.logE("[WORKER_CALL] EventPreferencesPeriodic.increaseCounter", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] EventPreferencesPeriodic.increaseCounter", "xxx");
                                 //workManager.enqueue(worker);
                                 workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     */
                 }
@@ -471,7 +471,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                 // compute start time
 

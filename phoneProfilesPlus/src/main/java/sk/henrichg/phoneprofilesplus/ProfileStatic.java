@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
-public class ProfileStatic {
+class ProfileStatic {
 
     static String getIconIdentifier(String icon)
     {
@@ -1163,7 +1163,7 @@ public class ProfileStatic {
                     iconResource = (int) idx;
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         return iconResource;
     }

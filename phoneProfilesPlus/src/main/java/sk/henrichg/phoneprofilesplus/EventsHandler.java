@@ -158,7 +158,7 @@ class EventsHandler {
             boolean manualRestart = sensorType == SENSOR_TYPE_MANUAL_RESTART_EVENTS;
             boolean isRestart = (sensorType == SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
-            if (!PPApplication.getApplicationStarted(true, true))
+            if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
                 return;
 
@@ -173,7 +173,7 @@ class EventsHandler {
             this.sensorType = sensorType;
 
 //            if ((sensorType == SENSOR_TYPE_LOCATION_SCANNER))
-//                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+//                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())
@@ -246,7 +246,7 @@ class EventsHandler {
                 oldRingtoneSIM2 = "";
             }
 
-            if (!Event.getGlobalEventsRunning(context)) {
+            if (!EventStatic.getGlobalEventsRunning(context)) {
                 // events are globally stopped
 
                 doEndHandler(null, null);
@@ -258,8 +258,8 @@ class EventsHandler {
             if ((DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) &&
                     (!manualRestart)){
                 // not any event is paused or running
-                PPApplication.setApplicationFullyStarted(context);
-//                PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(1)");
+                PPApplicationStatic.setApplicationFullyStarted(context);
+//                PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(1)");
 
                 doEndHandler(null, null);
 
@@ -272,10 +272,10 @@ class EventsHandler {
                     // events not exists
 
 //                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
-//                        PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
+//                        PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
-                    PPApplication.setApplicationFullyStarted(context);
-//                    PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
+                    PPApplicationStatic.setApplicationFullyStarted(context);
+//                    PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
 
                     doEndHandler(null, null);
 
@@ -298,7 +298,7 @@ class EventsHandler {
 // ---- Special for sensors which requires calendar data - START -----------
             boolean saveCalendarStartEndTime = false;
             if (isRestart) {
-                if (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
+                if (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED) {
                     for (Event _event : dataWrapper.eventList) {
                         if ((_event.getStatus() != Event.ESTATUS_STOP) &&
@@ -636,7 +636,7 @@ class EventsHandler {
                             //
                             // this is set, because is not good to again execute interactive parameters
                             // for already activated default profile
-                            PPApplication.setBlockProfileEventActions(true);
+                            PPApplicationStatic.setBlockProfileEventActions(true);
                         }
 
                     } else {
@@ -694,7 +694,7 @@ class EventsHandler {
                             //
                             // this is set, because is not good to again execute interactive parameters
                             // for already activated default profile
-                            PPApplication.setBlockProfileEventActions(true);
+                            PPApplicationStatic.setBlockProfileEventActions(true);
                         }
                     }
                 }
@@ -724,7 +724,7 @@ class EventsHandler {
                 if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 
                     // log only when merged profile is not the same as last activated or for restart events
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
+                    PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
                             null,
                             DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfilesCount + "\u00A0[\u00A0" + usedEventsCount + "\u00A0]");
@@ -754,12 +754,12 @@ class EventsHandler {
 
             doEndHandler(dataWrapper, mergedProfile);
 
-            PPApplication.setApplicationFullyStarted(context);
-//            PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(3)");
+            PPApplicationStatic.setApplicationFullyStarted(context);
+//            PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(3)");
 
             // refresh all GUI - must be for restart scanners
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
-//                PPApplication.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
 
 //                synchronized (PPApplication.profileActivationMutex) {
@@ -777,7 +777,7 @@ class EventsHandler {
 
             dataWrapper.invalidateDataWrapper();
 
-//                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
+//                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
 
         }
     }
@@ -918,10 +918,10 @@ class EventsHandler {
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM2, mergedProfile._soundRingtoneSIM2);
 
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_CALL_FROM_SIM_SLOT, simSlot);
-                        PPApplication.runCommand(context, commandIntent);
+                        PPApplicationStatic.runCommand(context, commandIntent);
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
 

@@ -60,7 +60,7 @@ final class WifiApManager {
             wifiControlMethod.invoke(mWifiManager, config, enabled);
         } catch (Exception e) {
             //Log.e("WifiApManager.setWifiApState", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -80,7 +80,7 @@ final class WifiApManager {
         catch (Exception e)
         {
             //Log.e("WifiApManager.getWifiApConfiguration", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return null;
         }
     }
@@ -104,7 +104,7 @@ final class WifiApManager {
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
             //Log.e("WifiApManager.isWifiAPEnabled", e);
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return false;
         }
 
@@ -134,7 +134,7 @@ final class WifiApManager {
             return wifiManager.isWifiApEnabled();
         } catch (Throwable e) {
             //Log.e("WifiApManager.isWifiAPEnabledA30", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return false;
         }
     }
@@ -170,7 +170,7 @@ final class WifiApManager {
                 callStartTethering(internalConnectivityManagerField.get(mConnectivityManager));
             } catch (Exception e) {
                 //Log.e("WifiApManager.startTethering", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -182,7 +182,7 @@ final class WifiApManager {
                 stopTetheringMethod.invoke(mConnectivityManager, 0);
             } catch (Exception e) {
                 //Log.e("WifiApManager.stopTethering", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -325,7 +325,7 @@ final class WifiApManager {
         }
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
-        PPApplication.startHandlerThreadBroadcast();
+        PPApplicationStatic.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
             MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
@@ -356,7 +356,7 @@ final class WifiApManager {
                 myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
             } catch (Exception e2) {
                 //Log.e("WifiApManager._startTethering30 (2)", Log.getStackTraceString(e2));
-                PPApplication.recordException(e2);
+                PPApplicationStatic.recordException(e2);
                 return;
             }
             try {
@@ -370,7 +370,7 @@ final class WifiApManager {
                 declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
             } catch (Exception e) {
                 //Log.e("WifiApManager._startTethering30 (3)", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         //}
     }
@@ -388,7 +388,7 @@ final class WifiApManager {
             }
             declaredMethod.invoke(connectivityManager, new Object[]{0});
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

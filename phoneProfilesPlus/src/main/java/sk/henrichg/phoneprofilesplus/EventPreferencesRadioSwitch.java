@@ -119,7 +119,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_radioSwitch_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context);
@@ -479,7 +479,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
                     this._wifi, this._bluetooth, this._simOnOff, this._defaultSIMForCalls, this._defaultSIMForSMS,
@@ -562,7 +562,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED) != null) {
-                boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+                boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 
                 Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
                 if (preference != null)
@@ -710,7 +710,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.radioSwitchPassed = true;
                 boolean tested = false;
 
@@ -734,13 +734,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 } catch (Exception e) {
                                     // java.lang.NullPointerException: missing IConnectivityManager
                                     // Dual SIM?? Bug in Android ???
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                                 if (connManager != null) {
                                     //noinspection deprecation
                                     NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                                     connected = activeNetwork != null && activeNetwork.isConnected();
-//                                    PPApplication.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
+//                                    PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
 
                                     tested = true;
 
@@ -758,7 +758,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                 }
                                             } catch (Exception e) {
                                                 // Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
-                                                PPApplication.recordException(e);
+                                                PPApplicationStatic.recordException(e);
                                             }
                                         }
                                     }
@@ -832,13 +832,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         } catch (Exception e) {
                             // java.lang.NullPointerException: missing IConnectivityManager
                             // Dual SIM?? Bug in Android ???
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                         if (connManager != null) {
                             //noinspection deprecation
                             NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
                             connected = activeNetwork != null && activeNetwork.isConnected();
-//                            PPApplication.logE("EventPreferencesRadioSwitch.doHandleEvent", "mobile data connected="+connected);
+//                            PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "mobile data connected="+connected);
 
                             if ((_mobileData == 3) || (_mobileData == 4))
                                 tested = true;
@@ -858,7 +858,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                         }
                                     } catch (Exception e) {
 //                                    Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                             }

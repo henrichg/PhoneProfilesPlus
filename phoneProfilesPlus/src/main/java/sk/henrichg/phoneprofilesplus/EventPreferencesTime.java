@@ -168,7 +168,7 @@ class EventPreferencesTime extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_time_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
@@ -253,7 +253,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                     if (addBullet) {
-                        if (Event.getGlobalEventsRunning(context)) {
+                        if (EventStatic.getGlobalEventsRunning(context)) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                             String alarmTimeS;
@@ -302,7 +302,7 @@ class EventPreferencesTime extends EventPreferences {
                                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                                     if (addBullet) {
-                                        if (Event.getGlobalEventsRunning(context)) {
+                                        if (EventStatic.getGlobalEventsRunning(context)) {
                                             long alarmTime;
                                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                                             String alarmTimeS;
@@ -488,7 +488,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wednesday,
                     this._thursday, this._friday, this._saturday, this._startTime, this._endTime, this._timeType);
@@ -1037,7 +1037,7 @@ class EventPreferencesTime extends EventPreferences {
                         pendingIntent.cancel();
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
                 try {
@@ -1047,11 +1047,11 @@ class EventPreferencesTime extends EventPreferences {
                         pendingIntent.cancel();
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         } catch (Exception ee) {
-            PPApplication.recordException(ee);
+            PPApplicationStatic.recordException(ee);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -1112,7 +1112,7 @@ class EventPreferencesTime extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 
