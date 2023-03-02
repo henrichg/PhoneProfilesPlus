@@ -161,22 +161,26 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         setSummary(getSummary(value, withoutNumbers, _context));
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void getValue() {
         // fill with strings of contacts separated with |
         value = "";
+        StringBuilder _value = new StringBuilder();
         if (contactList != null)
         {
             for (Contact contact : contactList)
             {
                 if (contact.checked)
                 {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + contact.contactId + "#" + contact.phoneId;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + contact.contactId + "#" + contact.phoneId;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(contact.contactId).append("#").append(contact.phoneId);
                 }
             }
         }
+        value = _value.toString();
     }
 
     void persistValue() {

@@ -120,7 +120,6 @@ class EventPreferencesBattery extends EventPreferences {
         this._powerSaveMode = preferences.getBoolean(PREF_EVENT_BATTERY_POWER_SAVE_MODE, false);
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
@@ -150,15 +149,20 @@ class EventPreferencesBattery extends EventPreferences {
                         String[] splits = this._plugged.split("\\|");
                         List<String> pluggedValues = Arrays.asList(context.getResources().getStringArray(R.array.eventBatteryPluggedValues));
                         String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
-                        selectedPlugged = "";
+                        //selectedPlugged = "";
+                        StringBuilder value = new StringBuilder();
                         for (String s : splits) {
                             int idx = pluggedValues.indexOf(s);
                             if (idx != -1) {
-                                if (!selectedPlugged.isEmpty())
-                                    selectedPlugged = selectedPlugged + ", ";
-                                selectedPlugged = selectedPlugged + pluggedNames[idx];
+                                //if (!selectedPlugged.isEmpty())
+                                //    selectedPlugged = selectedPlugged + ", ";
+                                //selectedPlugged = selectedPlugged + pluggedNames[idx];
+                                if (value.length() > 0)
+                                    value.append(", ");
+                                value.append(pluggedNames[idx]);
                             }
                         }
+                        selectedPlugged = value.toString();
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + "</b>";
                 }
@@ -222,7 +226,6 @@ class EventPreferencesBattery extends EventPreferences {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (preferences == null)
@@ -250,15 +253,20 @@ class EventPreferencesBattery extends EventPreferences {
             if (set != null) {
                 String[] pluggedValues = context.getResources().getStringArray(R.array.eventBatteryPluggedValues);
                 String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
+                StringBuilder _plugged = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(pluggedValues).indexOf(s);
                         if (pos != -1) {
-                            if (!plugged.isEmpty())
-                                plugged = plugged + ", ";
-                            plugged = plugged + pluggedNames[pos];
+                            //if (!plugged.isEmpty())
+                            //    plugged = plugged + ", ";
+                            //plugged = plugged + pluggedNames[pos];
+                            if (_plugged.length() > 0)
+                                _plugged.append(", ");
+                            _plugged.append(pluggedNames[pos]);
                         }
                     }
+                    plugged = _plugged.toString();
                 }
                 if (plugged.isEmpty())
                     plugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);

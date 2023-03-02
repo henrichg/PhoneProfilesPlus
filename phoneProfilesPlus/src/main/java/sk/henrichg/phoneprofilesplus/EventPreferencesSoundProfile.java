@@ -88,7 +88,6 @@ class EventPreferencesSoundProfile extends EventPreferences {
         this._zenModes = values.toString();
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
@@ -109,17 +108,24 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     String[] splits = this._ringerModes.split("\\|");
                     String[] values = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
                     String[] names = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
-                    selectedValues = "";
+                    //selectedValues = "";
+                    StringBuilder _value = new StringBuilder();
                     for (String s : splits) {
                         int idx = Arrays.asList(values).indexOf(s);
                         if (idx != -1) {
-                            if (!selectedValues.isEmpty())
-                                selectedValues = selectedValues + ", ";
+                            //if (!selectedValues.isEmpty())
+                            //    selectedValues = selectedValues + ", ";
+                            //if (values[idx].equals(RINGER_MODE_DO_NOT_DISTURB_VALUE))
+                            //    dndChecked = true;
+                            //selectedValues = selectedValues + names[idx];
+                            if (_value.length() > 0)
+                                _value.append(", ");
                             if (values[idx].equals(RINGER_MODE_DO_NOT_DISTURB_VALUE))
                                 dndChecked = true;
-                            selectedValues = selectedValues + names[idx];
+                            _value.append(names[idx]);
                         }
                     }
+                    selectedValues = _value.toString();
                 }
                 descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
 
@@ -129,15 +135,20 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         String[] splits = this._zenModes.split("\\|");
                         String[] values = context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);
                         String[] names = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
-                        selectedValues = "";
+                        //selectedValues = "";
+                        StringBuilder _value = new StringBuilder();
                         for (String s : splits) {
                             int idx = Arrays.asList(values).indexOf(s);
                             if (idx != -1) {
-                                if (!selectedValues.isEmpty())
-                                    selectedValues = selectedValues + ", ";
-                                selectedValues = selectedValues + names[idx];
+                                //if (!selectedValues.isEmpty())
+                                //    selectedValues = selectedValues + ", ";
+                                //selectedValues = selectedValues + names[idx];
+                                if (_value.length() > 0)
+                                    _value.append(", ");
+                                _value.append(names[idx]);
                             }
                         }
+                        selectedValues = _value.toString();
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_soundProfile_zenModes) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
                 }
@@ -205,7 +216,6 @@ class EventPreferencesSoundProfile extends EventPreferences {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (preferences == null)
@@ -222,20 +232,25 @@ class EventPreferencesSoundProfile extends EventPreferences {
 
         if (key.equals(PREF_EVENT_SOUND_PROFILE_RINGER_MODES)) {
             Set<String> set = preferences.getStringSet(key, null);
-            String values = "";
+            String values;// = "";
             if (set != null) {
                 String[] sValues = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
                 String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
+                StringBuilder _value = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(sValues).indexOf(s);
                         if (pos != -1) {
-                            if (!values.isEmpty())
-                                values = values + ", ";
-                            values = values + sNames[pos];
+                            //if (!values.isEmpty())
+                            //    values = values + ", ";
+                            //values = values + sNames[pos];
+                            if (_value.length() > 0)
+                                _value.append(", ");
+                            _value.append(sNames[pos]);
                         }
                     }
                 }
+                values = _value.toString();
                 if (values.isEmpty())
                     values = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             }
@@ -245,20 +260,25 @@ class EventPreferencesSoundProfile extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_SOUND_PROFILE_ZEN_MODES)) {
             Set<String> set = preferences.getStringSet(key, null);
-            String values = "";
+            String values;// = "";
             if (set != null) {
                 String[] sValues = context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);
                 String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
+                StringBuilder _value = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(sValues).indexOf(s);
                         if (pos != -1) {
-                            if (!values.isEmpty())
-                                values = values + ", ";
-                            values = values + sNames[pos];
+                            //if (!values.isEmpty())
+                            //    values = values + ", ";
+                            //values = values + sNames[pos];
+                            if (_value.length() > 0)
+                                _value.append(", ");
+                            _value.append(sNames[pos]);
                         }
                     }
                 }
+                values = _value.toString();
                 if (values.isEmpty())
                     values = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             }

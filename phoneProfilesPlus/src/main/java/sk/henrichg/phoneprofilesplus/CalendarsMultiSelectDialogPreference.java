@@ -82,22 +82,26 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference {
             fragment.refreshListView(notForUnselect);
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void getValue() {
         // fill with strings of calendars separated with |
         value = "";
+        StringBuilder _value = new StringBuilder();
         if (calendarList != null)
         {
             for (CalendarEvent calendar : calendarList)
             {
                 if (calendar.checked)
                 {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + calendar.calendarId;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + calendar.calendarId;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(calendar.calendarId);
                 }
             }
         }
+        value = _value.toString();
     }
 
     void persistValue() {

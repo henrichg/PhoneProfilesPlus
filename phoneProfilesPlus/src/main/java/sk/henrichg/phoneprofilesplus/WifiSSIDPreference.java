@@ -67,19 +67,23 @@ public class WifiSSIDPreference extends DialogPreference {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void removeSSID(String ssid) {
         String[] splits = value.split("\\|");
         value = "";
+        StringBuilder _value = new StringBuilder();
         for (String _ssid : splits) {
             if (!_ssid.isEmpty()) {
                 if (!_ssid.equals(ssid)) {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + _ssid;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + _ssid;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(_ssid);
                 }
             }
         }
+        value = _value.toString();
     }
 
     boolean isSSIDSelected(String ssid) {

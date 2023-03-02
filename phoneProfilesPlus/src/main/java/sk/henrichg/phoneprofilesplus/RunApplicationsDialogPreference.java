@@ -416,13 +416,14 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         setSummary(prefSummary);
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private String getValue() {
-        String _value = "";
+        //String _value = "";
+        StringBuilder _val = new StringBuilder();
         if (applicationsList != null)
         {
             for (Application application : applicationsList)
             {
+                /*
                 if (!_value.isEmpty())
                     _value = _value + "|";
 
@@ -436,13 +437,33 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                 else
                     _value = _value + application.intentId;
 
-                if ((application.type == Application.TYPE_SHORTCUT)/* && (application.shortcutId > 0)*/)
+                if ((application.type == Application.TYPE_SHORTCUT))
                     _value = _value + "#" + application.shortcutId;
 
                 _value = _value + "#" + application.startApplicationDelay;
+                */
+
+                if (_val.length() > 0)
+                    _val.append("|");
+
+                if (application.type == Application.TYPE_SHORTCUT)
+                    _val.append("(s)");
+                if (application.type == Application.TYPE_INTENT)
+                    _val.append("(i)");
+
+                if (application.type != Application.TYPE_INTENT)
+                    _val.append(application.packageName).append("/").append(application.activityName);
+                else
+                    _val.append(application.intentId);
+
+                if ((application.type == Application.TYPE_SHORTCUT)/* && (application.shortcutId > 0)*/)
+                    _val.append("#").append(application.shortcutId);
+
+                _val.append("#").append(application.startApplicationDelay);
             }
         }
-        return _value;
+        //return _value;
+        return _val.toString();
     }
 
     void persistValue() {

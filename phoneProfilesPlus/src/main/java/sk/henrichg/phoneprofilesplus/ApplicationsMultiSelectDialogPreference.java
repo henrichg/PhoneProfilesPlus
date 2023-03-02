@@ -262,22 +262,26 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         setSummary(getSummaryAMSDP());
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private String getValue() {
-        String _value = "";
+        //String _value = "";
+        StringBuilder _value = new StringBuilder();
         if (applicationList != null)
         {
             for (Application application : applicationList)
             {
                 if (application.checked)
                 {
-                    if (!_value.isEmpty())
-                        _value = _value + "|";
-                    _value = _value + application.packageName + "/" + application.activityName;
+                    //if (!_value.isEmpty())
+                    //    _value = _value + "|";
+                    //_value = _value + application.packageName + "/" + application.activityName;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(application.packageName).append("/").append(application.activityName);
                 }
             }
         }
-        return _value;
+        //return _value;
+        return _value.toString();
     }
 
     void persistValue() {

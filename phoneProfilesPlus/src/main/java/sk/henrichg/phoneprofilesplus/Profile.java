@@ -2264,17 +2264,21 @@ public class Profile {
         return value == 1;
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
-    void setVolumeRingtoneValue(int value) {
+    void setVolumeRingtoneValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
             String[] splits = _volumeRingtone.split("\\|");
             splits[0] = String.valueOf(value);
             _volumeRingtone = "";
+            StringBuilder _volume = new StringBuilder();
             for (String split : splits) {
-                if (!_volumeRingtone.isEmpty())
-                    _volumeRingtone = _volumeRingtone + "|";
-                _volumeRingtone = _volumeRingtone + split;
+                //if (!_volumeRingtone.isEmpty())
+                //    _volumeRingtone = _volumeRingtone + "|";
+                //_volumeRingtone = _volumeRingtone + split;
+                if (_volume.length() > 0)
+                    _volume.append("|");
+                _volume.append(split);
             }
+            _volumeRingtone = _volume.toString();
         } catch (Exception ignore) {
         }
     }
@@ -2315,18 +2319,21 @@ public class Profile {
         return value == 1;
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
-    void setVolumeNotificationValue(int value) {
-
+    void setVolumeNotificationValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
             String[] splits = _volumeNotification.split("\\|");
             splits[0] = String.valueOf(value);
             _volumeNotification = "";
+            StringBuilder _volume = new StringBuilder();
             for (String split : splits) {
-                if (!_volumeNotification.isEmpty())
-                    _volumeNotification = _volumeNotification + "|";
-                _volumeNotification = _volumeNotification + split;
+                //if (!_volumeNotification.isEmpty())
+                //    _volumeNotification = _volumeNotification + "|";
+                //_volumeNotification = _volumeNotification + split;
+                if (_volume.length() > 0)
+                    _volume.append("|");
+                _volume.append(split);
             }
+            _volumeNotification = _volume.toString();
         } catch (Exception ignore) {
         }
     }
@@ -3248,17 +3255,22 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityRinging);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
+    @SuppressWarnings("unused")
     void setVibrationIntensityRingingValue(int value) {
         try {
             String[] splits = _vibrationIntensityRinging.split("\\|");
             splits[0] = String.valueOf(value);
             _vibrationIntensityRinging = "";
+            StringBuilder _value = new StringBuilder();
             for (String split : splits) {
-                if (!_vibrationIntensityRinging.isEmpty())
-                    _vibrationIntensityRinging = _vibrationIntensityRinging + "|";
-                _vibrationIntensityRinging = _vibrationIntensityRinging + split;
+                //if (!_vibrationIntensityRinging.isEmpty())
+                //    _vibrationIntensityRinging = _vibrationIntensityRinging + "|";
+                //_vibrationIntensityRinging = _vibrationIntensityRinging + split;
+                if (_value.length() > 0)
+                    _value.append("|");
+                _value.append(split);
             }
+            _vibrationIntensityRinging = _value.toString();
         } catch (Exception ignore) {
         }
     }
@@ -3272,17 +3284,22 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityNotifications);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
+    @SuppressWarnings("unused")
     void setVibrationIntensityNotificationsValue(int value) {
         try {
             String[] splits = _vibrationIntensityNotifications.split("\\|");
             splits[0] = String.valueOf(value);
             _vibrationIntensityNotifications = "";
+            StringBuilder _value = new StringBuilder();
             for (String split : splits) {
-                if (!_vibrationIntensityNotifications.isEmpty())
-                    _vibrationIntensityNotifications = _vibrationIntensityNotifications + "|";
-                _vibrationIntensityNotifications = _vibrationIntensityNotifications + split;
+                //if (!_vibrationIntensityNotifications.isEmpty())
+                //    _vibrationIntensityNotifications = _vibrationIntensityNotifications + "|";
+                //_vibrationIntensityNotifications = _vibrationIntensityNotifications + split;
+                if (_value.length() > 0)
+                    _value.append("|");
+                _value.append(split);
             }
+            _vibrationIntensityNotifications = _value.toString();
         } catch (Exception ignore) {
         }
     }
@@ -3296,17 +3313,22 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityTouchInteraction);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
+    @SuppressWarnings("unused")
     void setVibrationIntensityTouchInteractionValue(int value) {
         try {
             String[] splits = _vibrationIntensityTouchInteraction.split("\\|");
             splits[0] = String.valueOf(value);
             _vibrationIntensityTouchInteraction = "";
+            StringBuilder _value = new StringBuilder();
             for (String split : splits) {
-                if (!_vibrationIntensityTouchInteraction.isEmpty())
-                    _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + "|";
-                _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + split;
+                //if (!_vibrationIntensityTouchInteraction.isEmpty())
+                //    _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + "|";
+                //_vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + split;
+                if (_value.length() > 0)
+                    _value.append("|");
+                _value.append(split);
             }
+            _vibrationIntensityTouchInteraction = _value.toString();
         } catch (Exception ignore) {
         }
     }

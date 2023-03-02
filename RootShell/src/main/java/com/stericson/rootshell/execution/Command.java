@@ -187,18 +187,23 @@ public class Command {
                 //export CLASSPATH=/data/user/0/ch.masshardt.emailnotification/files/anbuild.dex ; app_process /system/bin
                 //if (Build.VERSION.SDK_INT > 22) {
                     //dalvikvm command is not working in Android Marshmallow
-                    //noinspection StringConcatenationInsideStringBufferAppend
-                    sb.append(
-                            "export CLASSPATH=" + filePath + "/anbuild.dex;"
-                                    + " app_process /system/bin "
-                                    + aCommand);
+                    //sb.append(
+                    //        "export CLASSPATH=" + filePath + "/anbuild.dex;"
+                    //                + " app_process /system/bin "
+                    //                + aCommand);
+                    sb.append("export CLASSPATH=").append(filePath).append("/anbuild.dex;")
+                            .append(" app_process /system/bin ").append(aCommand);
                 /*} else {
-                    //noinspection StringConcatenationInsideStringBufferAppend
-                    sb.append(
-                            "dalvikvm -cp " + filePath + "/anbuild.dex"
-                                    + " com.android.internal.util.WithFramework"
-                                    + " com.stericson.roottools.containers.RootClass "
-                                    + aCommand);
+                    //sb.append(
+                    //        "dalvikvm -cp " + filePath + "/anbuild.dex"
+                    //                + " com.android.internal.util.WithFramework"
+                    //                + " com.stericson.roottools.containers.RootClass "
+                    //                + aCommand);
+                    sb.append("dalvikvm -cp ").append(filePath).append("/anbuild.dex")
+                                    .append(" com.android.internal.util.WithFramework")
+                                    .append(" com.stericson.roottools.containers.RootClass ")
+                                    .append(aCommand);
+
                 }*/
 
                 sb.append('\n');

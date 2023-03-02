@@ -102,20 +102,24 @@ public class MobileCellsPreference extends DialogPreference {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void removeCellId(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
         value = "";
+        StringBuilder _value = new StringBuilder();
         for (String cell : splits) {
             if (!cell.isEmpty()) {
                 if (!cell.equals(sCellId)) {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + cell;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + cell;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(cell);
                 }
             }
         }
+        value = _value.toString();
     }
 
     boolean isCellSelected(int cellId) {

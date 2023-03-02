@@ -66,15 +66,17 @@ public class PPMultiSelectListPreference extends DialogPreference {
         setSummaryMSLDP();
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void setSummaryMSLDP()
     {
         String prefSummary = "";
         if (!value.isEmpty()) {
             try {
+                StringBuilder _summary = new StringBuilder();
                 for (String _value : value) {
-                    if (!prefSummary.isEmpty())
-                        prefSummary = prefSummary + ", ";
+                    //if (!prefSummary.isEmpty())
+                    //    prefSummary = prefSummary + ", ";
+                    if (_summary.length() > 0)
+                        _summary.append(", ");
                     int index = 0;
                     boolean found = false;
                     for (CharSequence entryValue : entryValues) {
@@ -85,8 +87,10 @@ public class PPMultiSelectListPreference extends DialogPreference {
                         ++index;
                     }
                     if (found)
-                        prefSummary = prefSummary + entries[index];
+                        //prefSummary = prefSummary + entries[index];
+                        _summary.append(entries[index]);
                 }
+                prefSummary = _summary.toString();
             } catch (Exception e) {
                 prefSummary = "";
             }

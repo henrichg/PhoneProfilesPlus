@@ -4676,7 +4676,6 @@ public class EditorActivity extends AppCompatActivity
             }
         }
 
-        @SuppressWarnings("StringConcatenationInLoop")
         @Override
         protected Integer doInBackground(Void... params) {
             EditorActivity activity = activityWeakRef.get();
@@ -5079,7 +5078,8 @@ public class EditorActivity extends AppCompatActivity
                                         // replace ids in profile._deviceRunApplicationPackageName
                                         // with new shortcut and intent ids
                                         String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                                        String newValue = "";
+                                        //String newValue = "";
+                                        StringBuilder _newValue = new StringBuilder();
                                         for (String split : splits) {
                                             String newSplit = "";
                                             if (Application.isShortcut(split)) {
@@ -5123,11 +5123,15 @@ public class EditorActivity extends AppCompatActivity
                                             } else
                                                 newSplit = split;
 
-                                            if (!newValue.isEmpty())
-                                                newValue = newValue + "|";
-                                            newValue = newValue + newSplit;
+                                            //if (!newValue.isEmpty())
+                                            //    newValue = newValue + "|";
+                                            //newValue = newValue + newSplit;
+                                            if (_newValue.length() > 0)
+                                                _newValue.append("|");
+                                            _newValue.append(newSplit);
                                         }
-                                        profile._deviceRunApplicationPackageName = newValue;
+                                        //profile._deviceRunApplicationPackageName = newValue;
+                                        profile._deviceRunApplicationPackageName = _newValue.toString();
 
                                         ContentResolver contentResolver = _dataWrapper.context.getContentResolver();
 

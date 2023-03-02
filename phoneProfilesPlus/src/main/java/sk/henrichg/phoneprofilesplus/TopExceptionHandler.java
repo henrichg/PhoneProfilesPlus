@@ -30,7 +30,6 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         this.actualVersionCode = actualVersionCode;
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
     {
 //        Log.e("TopExceptionHandler.uncaughtException", "xxx");
@@ -72,35 +71,37 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         try {
             if (PPApplication.crashIntoFile) {
                 StackTraceElement[] arr = e.getStackTrace();
-                String report = e.toString() + "\n\n";
+                StringBuilder report = new StringBuilder(e.toString());
 
-                report += "----- App version code: " + actualVersionCode + "\n\n";
+                report.append("\n\n");
+
+                report.append("----- App version code: ").append(actualVersionCode).append("\n\n");
 
                 for (StackTraceElement anArr : arr) {
-                    report += "    " + anArr.toString() + "\n";
+                    report.append("    ").append(anArr.toString()).append("\n");
                 }
-                report += "-------------------------------\n\n";
+                report.append("-------------------------------\n\n");
 
-                report += "--------- Stack trace ---------\n\n";
+                report.append("--------- Stack trace ---------\n\n");
                 for (StackTraceElement anArr : arr) {
-                    report += "    " + anArr.toString() + "\n";
+                    report.append("    ").append(anArr.toString()).append("\n");
                 }
-                report += "-------------------------------\n\n";
+                report.append("-------------------------------\n\n");
 
                 // If the exception was thrown in a background thread inside
                 // AsyncTask, then the actual exception can be found with getCause
-                report += "--------- Cause ---------------\n\n";
+                report.append("--------- Cause ---------------\n\n");
                 Throwable cause = e.getCause();
                 if (cause != null) {
-                    report += cause.toString() + "\n\n";
+                    report.append(cause.toString()).append("\n\n");
                     arr = cause.getStackTrace();
                     for (StackTraceElement anArr : arr) {
-                        report += "    " + anArr.toString() + "\n";
+                        report.append("    ").append(anArr.toString()).append("\n");
                     }
                 }
-                report += "-------------------------------\n\n";
+                report.append("-------------------------------\n\n");
 
-                logIntoFile("E", "TopExceptionHandler", report);
+                logIntoFile("E", "TopExceptionHandler", report.toString());
             }
         } catch (Exception ee) {
             //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));

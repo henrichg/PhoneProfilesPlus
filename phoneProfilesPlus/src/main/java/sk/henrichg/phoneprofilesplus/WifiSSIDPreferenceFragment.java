@@ -339,24 +339,30 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 if (!SSIDName.getText().toString().isEmpty()) {
                     String[] splits = preference.value.split("\\|");
                     preference.value = "";
+                    StringBuilder value = new StringBuilder();
                     boolean found = false;
                     for (String _ssid : splits) {
                         if (!_ssid.isEmpty()) {
                             if (!_ssid.equals(ssid)) {
-                                if (!preference.value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    preference.value = preference.value + "|";
-                                //noinspection StringConcatenationInLoop
-                                preference.value = preference.value + _ssid;
+                                //if (!preference.value.isEmpty())
+                                //    preference.value = preference.value + "|";
+                                //preference.value = preference.value + _ssid;
+                                if (value.length() > 0)
+                                    value.append("|");
+                                value.append(_ssid);
                             } else
                                 found = true;
                         }
                     }
                     if (found) {
-                        if (!preference.value.isEmpty())
-                            preference.value = preference.value + "|";
-                        preference.value = preference.value + SSIDName.getText().toString();
+                        //if (!preference.value.isEmpty())
+                        //    preference.value = preference.value + "|";
+                        //preference.value = preference.value + SSIDName.getText().toString();
+                        if (value.length() > 0)
+                            value.append("|");
+                        value.append(SSIDName.getText().toString());
                     }
+                    preference.value = value.toString();
                     for (WifiSSIDData customSSID : preference.customSSIDList) {
                         if (customSSID.ssid.equals(ssid)) {
                             customSSID.ssid = SSIDName.getText().toString();

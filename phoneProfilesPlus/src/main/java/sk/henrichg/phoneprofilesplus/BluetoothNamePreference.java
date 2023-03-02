@@ -67,19 +67,23 @@ public class BluetoothNamePreference extends DialogPreference {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void removeBluetoothName(String bluetoothName) {
         String[] splits = value.split("\\|");
         value = "";
+        StringBuilder _value = new StringBuilder();
         for (String _bluetoothName : splits) {
             if (!_bluetoothName.isEmpty()) {
                 if (!_bluetoothName.equals(bluetoothName)) {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + _bluetoothName;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + _bluetoothName;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(_bluetoothName);
                 }
             }
         }
+        value = _value.toString();
     }
 
     boolean isBluetoothNameSelected(String bluetoothName) {

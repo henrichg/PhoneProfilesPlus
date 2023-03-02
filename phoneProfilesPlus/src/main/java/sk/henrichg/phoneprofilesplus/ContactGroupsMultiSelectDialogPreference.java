@@ -121,10 +121,10 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         setSummary(getSummary(value, _context));
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void getValue() {
         // fill with strings of contact groups separated with |
         value = "";
+        StringBuilder _value = new StringBuilder();
         ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
         if (contactGroupsCache != null) {
             synchronized (PPApplication.contactsCacheMutex) {
@@ -132,14 +132,18 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                 if (contactGroupList != null) {
                     for (ContactGroup contactGroup : contactGroupList) {
                         if (contactGroup.checked) {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + contactGroup.groupId;
+                            //if (!value.isEmpty())
+                            //    value = value + "|";
+                            //value = value + contactGroup.groupId;
+                            if (_value.length() > 0)
+                                _value.append("|");
+                            _value.append(contactGroup.groupId);
                         }
                     }
                 }
             }
         }
+        value = _value.toString();
     }
 
     void persistValue() {

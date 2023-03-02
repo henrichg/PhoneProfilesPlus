@@ -191,20 +191,24 @@ public class ProfileMultiSelectPreference extends DialogPreference {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void setValue() {
         // fill with profile id strings separated with |
         value = "";
         if (dataWrapper.profileListFilled)
         {
             synchronized (dataWrapper.profileList) {
+                StringBuilder _value = new StringBuilder();
                 for (Profile profile : dataWrapper.profileList) {
                     if (profile._checked) {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + profile._id;
+                        //if (!value.isEmpty())
+                        //    value = value + "|";
+                        //value = value + profile._id;
+                        if (_value.length() > 0)
+                            _value.append("|");
+                        _value.append(profile._id);
                     }
                 }
+                value = _value.toString();
             }
         }
     }

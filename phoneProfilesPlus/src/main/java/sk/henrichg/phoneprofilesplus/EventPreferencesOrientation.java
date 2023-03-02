@@ -147,7 +147,6 @@ class EventPreferencesOrientation extends EventPreferences {
         this._ignoredApplications = preferences.getString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, "");
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
@@ -175,15 +174,20 @@ class EventPreferencesOrientation extends EventPreferences {
                     String[] splits = this._display.split("\\|");
                     String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
                     String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
-                    selectedValues = "";
+                    //selectedValues = "";
+                    StringBuilder _value = new StringBuilder();
                     for (String s : splits) {
                         int sideIdx = Arrays.asList(sideValues).indexOf(s);
                         if (sideIdx != -1) {
-                            if (!selectedValues.isEmpty())
-                                selectedValues = selectedValues + ", ";
-                            selectedValues = selectedValues + sideNames[sideIdx];
+                            //if (!selectedValues.isEmpty())
+                            //    selectedValues = selectedValues + ", ";
+                            //selectedValues = selectedValues + sideNames[sideIdx];
+                            if (_value.length() > 0)
+                                _value.append(", ");
+                            _value.append(sideNames[sideIdx]);
                         }
                     }
+                    selectedValues = _value.toString();
                 }
                 descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
 
@@ -195,15 +199,20 @@ class EventPreferencesOrientation extends EventPreferences {
                         String[] splits = this._sides.split("\\|");
                         String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
                         String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
-                        selectedValues = "";
+                        //selectedValues = "";
+                        StringBuilder _value = new StringBuilder();
                         for (String s : splits) {
                             int pos = Arrays.asList(sideValues).indexOf(s);
                             if (pos != -1) {
-                                if (!selectedValues.isEmpty())
-                                    selectedValues = selectedValues + ", ";
-                                selectedValues = selectedValues + sideNames[pos];
+                                //if (!selectedValues.isEmpty())
+                                //    selectedValues = selectedValues + ", ";
+                                //selectedValues = selectedValues + sideNames[pos];
+                                if (_value.length() > 0)
+                                    _value.append(", ");
+                                _value.append(sideNames[pos]);
                             }
                         }
+                        selectedValues = _value.toString();
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
                 }
@@ -503,7 +512,6 @@ class EventPreferencesOrientation extends EventPreferences {
 
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (preferences == null)
@@ -521,20 +529,25 @@ class EventPreferencesOrientation extends EventPreferences {
 
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Set<String> set = preferences.getStringSet(key, null);
-            String sides = "";
+            String sides;// = "";
             if (set != null) {
                 String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
                 String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
+                StringBuilder _sides = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(sideValues).indexOf(s);
                         if (pos != -1) {
-                            if (!sides.isEmpty())
-                                sides = sides + ", ";
-                            sides = sides + sideNames[pos];
+                            //if (!sides.isEmpty())
+                            //    sides = sides + ", ";
+                            //sides = sides + sideNames[pos];
+                            if (_sides.length() > 0)
+                                _sides.append(", ");
+                            _sides.append(sideNames[pos]);
                         }
                     }
                 }
+                sides = _sides.toString();
                 if (sides.isEmpty())
                     sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             }
@@ -545,20 +558,25 @@ class EventPreferencesOrientation extends EventPreferences {
 
         if (key.equals(PREF_EVENT_ORIENTATION_SIDES)) {
             Set<String> set = preferences.getStringSet(key, null);
-            String sides = "";
+            String sides;// = "";
             if (set != null) {
                 String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
                 String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
+                StringBuilder _sides = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(sideValues).indexOf(s);
                         if (pos != -1) {
-                            if (!sides.isEmpty())
-                                sides = sides + ", ";
-                            sides = sides + sideNames[pos];
+                            //if (!sides.isEmpty())
+                            //    sides = sides + ", ";
+                            //sides = sides + sideNames[pos];
+                            if (_sides.length() > 0)
+                                _sides.append(", ");
+                            _sides.append(sideNames[pos]);
                         }
                     }
                 }
+                sides = _sides.toString();
                 if (sides.isEmpty())
                     sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             }

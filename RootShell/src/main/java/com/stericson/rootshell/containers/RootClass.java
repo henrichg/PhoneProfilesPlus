@@ -119,8 +119,8 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                             " " + rc1 + " " + rc2 + " " + rc3 + " " + rc4 + " " + rc5
                     );
                     for (File file : classFiles) {
-                        //noinspection StringConcatenationInsideStringBufferAppend
-                        sb.append(" " + file.getPath());
+                        //sb.append(" " + file.getPath());
+                        sb.append(" ").append(file.getPath());
                     }
                     cmd = new String[]{
                             "cmd", "/C",
