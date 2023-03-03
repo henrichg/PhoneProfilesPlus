@@ -162,6 +162,7 @@ class EventsHandler {
                 // application is not started
                 return;
 
+            /*
             PhoneProfilesService ppService;
 
             if (PhoneProfilesService.getInstance() != null) {
@@ -169,6 +170,7 @@ class EventsHandler {
             }
             else
                 return;
+            */
 
             this.sensorType = sensorType;
 
@@ -459,7 +461,7 @@ class EventsHandler {
                 }
                 if (notifiedPausedEvent != null) {
                     // notify this event
-                    notifiedPausedEvent.notifyEventEnd(/*true,*/ true);
+                    notifiedPausedEvent.notifyEventEnd(context, /*true,*/ true);
                     //notified = true;
                 }
 
@@ -537,7 +539,7 @@ class EventsHandler {
                 }
                 if (notifiedPausedEvent != null) {
                     // notify this event;
-                    notifiedPausedEvent.notifyEventEnd(/*true,*/ true);
+                    notifiedPausedEvent.notifyEventEnd(context, /*true,*/ true);
                     //notified = true;
                 }
 
@@ -738,13 +740,11 @@ class EventsHandler {
             //if (!notified) {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
-                    if (ppService != null) {
-                        ppService.playNotificationSound(
-                                defaultProfileNotificationSound,
-                                defaultProfileNotificationVibrate,
-                                false);
-                        //notified = true;
-                    }
+                    PhoneProfilesServiceStatic.playNotificationSound(
+                            defaultProfileNotificationSound,
+                            defaultProfileNotificationVibrate,
+                            false, context);
+                    //notified = true;
                 }
             //}
 

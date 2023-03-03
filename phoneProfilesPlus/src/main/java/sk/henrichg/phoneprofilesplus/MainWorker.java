@@ -220,7 +220,7 @@ public class MainWorker extends Worker {
 
 //                        PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                        PhoneProfilesService.disableNotUsedScanners(dataWrapper);
+                        PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                         break;
                     default:
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {
@@ -371,12 +371,12 @@ public class MainWorker extends Worker {
 //                        }
 
                         PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-                        PhoneProfilesService.disableNotUsedScanners(dataWrapper);
-                        PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
-                        PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
-                        PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                        PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
-                        PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
+                        PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
+                        PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
+                        PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
+                        PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(true, appContext);
+                        PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
+                        PhoneProfilesServiceStatic.registerEventsReceiversAndWorkers(false, appContext);
 
                         if (PPApplication.deviceBoot) {
                             PPApplication.deviceBoot = false;
@@ -469,10 +469,10 @@ public class MainWorker extends Worker {
                         // This is fix for 2, 3 restarts of events after first start.
                         // Bradcasts, observers, callbacks registration starts events and this is not good
                         PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-                        PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
-                        PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
-                        PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                        PhoneProfilesService.getInstance().registerPPPExtenderReceiver(true, dataWrapper);
+                        PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
+                        PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
+                        PhoneProfilesServiceStatic.registerAllTheTimeCallbacks(true, appContext);
+                        PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper, appContext);
 
 //                    } catch (Exception eee) {
 //                        Log.e("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));

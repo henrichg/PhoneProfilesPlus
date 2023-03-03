@@ -937,6 +937,9 @@ public class PPApplication extends Application
     static long prefLastActivatedProfile;
     static long wallpaperChangeTime;
 
+    static volatile String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
+    static volatile boolean connectToSSIDStarted = false;
+
     @Override
     public void onCreate()
     {

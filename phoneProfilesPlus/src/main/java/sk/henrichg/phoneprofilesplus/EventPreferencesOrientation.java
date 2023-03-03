@@ -957,7 +957,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 } else {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesOrientation.doHandleEvent", "******** ### ******* (2)");
                     synchronized (PPApplication.orientationScannerMutex) {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isOrientationScannerStarted()) {
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesServiceStatic.isOrientationScannerStarted()) {
                             PPApplicationStatic.startHandlerThreadOrientationScanner();
                             boolean lApplicationPassed = false;
                             if (!_ignoredApplications.isEmpty()) {

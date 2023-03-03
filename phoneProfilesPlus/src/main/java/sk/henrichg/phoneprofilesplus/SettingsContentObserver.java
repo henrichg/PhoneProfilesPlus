@@ -84,8 +84,7 @@ class SettingsContentObserver  extends ContentObserver {
                             RingerModeChangeReceiver.notUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().ringingVolume = currentVolume;
+                        PhoneProfilesService.ringingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
@@ -102,8 +101,7 @@ class SettingsContentObserver  extends ContentObserver {
                             RingerModeChangeReceiver.notUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().ringingVolume = currentVolume;
+                        PhoneProfilesService.ringingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {

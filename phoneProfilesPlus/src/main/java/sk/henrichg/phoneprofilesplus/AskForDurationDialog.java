@@ -116,13 +116,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                         if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                            if (PhoneProfilesService.getInstance() != null) {
-                                PhoneProfilesService.getInstance().playNotificationSound(
-                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                                        false);
-                                //PPApplication.sleep(500);
-                            }
+                            PhoneProfilesServiceStatic.playNotificationSound(
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                    false, mDataWrapper.context);
+                            //PPApplication.sleep(500);
                         }
                     }
 
@@ -152,13 +150,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            PhoneProfilesService.getInstance().playNotificationSound(
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
-                                    false);
-                            //PPApplication.sleep(500);
-                        }
+                        PhoneProfilesServiceStatic.playNotificationSound(
+                                ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                false, mDataWrapper.context);
+                        //PPApplication.sleep(500);
                     }
                 }
 

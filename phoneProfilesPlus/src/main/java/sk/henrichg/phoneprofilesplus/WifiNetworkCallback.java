@@ -208,18 +208,16 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     static void _doConnection(Context appContext) {
-        if (PhoneProfilesService.getInstance() != null) {
-            if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
-                // connect to SSID is started
+        if (PPApplication.connectToSSIDStarted) {
+            // connect to SSID is started
 //                PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "connectToSSIDStarted");
 
-                if (connected) {
-                    //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                    //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                    //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
-                    //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
-                    PhoneProfilesService.getInstance().connectToSSIDStarted = false;
-                }
+            if (connected) {
+                //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
+                //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
+                PPApplication.connectToSSIDStarted = false;
             }
         }
 
@@ -232,7 +230,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     ApplicationPreferences.prefEventWifiEnabledForScan)) {
                 // wifi is not scanned
 
-                if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
+                if ((PhoneProfilesService.getInstance() != null) && (!PPApplication.connectToSSIDStarted)) {
                     // connect to SSID is not started
 
                     // start events handler

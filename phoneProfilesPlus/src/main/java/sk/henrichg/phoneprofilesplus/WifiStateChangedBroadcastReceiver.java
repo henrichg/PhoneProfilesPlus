@@ -65,7 +65,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // ignore for wifi scanning
 
                                     if (PhoneProfilesService.getInstance() != null) {
-                                        if (!PhoneProfilesService.getInstance().connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                                        if (!PPApplication.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                                             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                             if (wifiManager != null) {
                                                 List<WifiConfiguration> list = null;
@@ -73,7 +73,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     list = wifiManager.getConfiguredNetworks();
                                                 if (list != null) {
                                                     for (WifiConfiguration i : list) {
-                                                        if (i.SSID != null && i.SSID.equals(PhoneProfilesService.getInstance().connectToSSID)) {
+                                                        if (i.SSID != null && i.SSID.equals(PPApplication.connectToSSID)) {
                                                             //wifiManager.disconnect();
                                                             wifiManager.enableNetwork(i.networkId, true);
                                                             //wifiManager.reconnect();

@@ -409,7 +409,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PhoneProfilesService.stopSimulatingRingingCall(true, context.getApplicationContext());
+        PhoneProfilesServiceStatic.stopSimulatingRingingCall(true, context.getApplicationContext());
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -475,7 +475,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null)
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PhoneProfilesService.stopSimulatingRingingCall(false, context.getApplicationContext());
+        PhoneProfilesServiceStatic.stopSimulatingRingingCall(false, context.getApplicationContext());
 
         // audio mode is set to MODE_IN_CALL by system
 

@@ -2968,19 +2968,17 @@ class Event {
             }
 
             //if (playSound)
-                if (PhoneProfilesService.getInstance() != null) {
-                    PhoneProfilesService.getInstance().playNotificationSound(
-                            notificationSoundStart,
-                            notificationVibrateStart,
-                            playAlsoInSilentMode);
-                }
+            PhoneProfilesServiceStatic.playNotificationSound(
+                    notificationSoundStart,
+                    notificationVibrateStart,
+                    playAlsoInSilentMode, context);
 
             //return true;
         }
         //return false;
     }
 
-    void notifyEventEnd(/*Context context*/ /*boolean playSound,*/
+    void notifyEventEnd(Context context, /*boolean playSound,*/
                            @SuppressWarnings("SameParameterValue") boolean canPlayAlsoInSilentMode) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
@@ -2991,12 +2989,10 @@ class Event {
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
             //if (playSound)
-                if (PhoneProfilesService.getInstance() != null) {
-                    PhoneProfilesService.getInstance().playNotificationSound(
-                            notificationSoundEnd,
-                            notificationVibrateEnd,
-                            playAlsoInSilentMode);
-                }
+            PhoneProfilesServiceStatic.playNotificationSound(
+                    notificationSoundEnd,
+                    notificationVibrateEnd,
+                    playAlsoInSilentMode, context);
 
             //return true;
         }

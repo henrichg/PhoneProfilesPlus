@@ -656,8 +656,7 @@ class ActivateProfileHelper {
                                                 if (wifiConnected) {
                                                     if (!wifiInfo.getSSID().equals(i.SSID)) {
 
-                                                        if (PhoneProfilesService.getInstance() != null)
-                                                            PhoneProfilesService.getInstance().connectToSSIDStarted = true;
+                                                        PPApplication.connectToSSIDStarted = true;
 
                                                         // connected to another SSID
                                                         wifiManager.disconnect();
@@ -683,8 +682,7 @@ class ActivateProfileHelper {
                 //        wifiManager.reconnect();
                 //    }
                 //}
-                if (PhoneProfilesService.getInstance() != null)
-                    PhoneProfilesService.getInstance().connectToSSID = profile._deviceConnectToSSID;
+                PPApplication.connectToSSID = profile._deviceConnectToSSID;
             }
         }
 
@@ -1301,8 +1299,7 @@ class ActivateProfileHelper {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().ringingVolume = volume;
+                                        PhoneProfilesService.ringingVolume = volume;
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                         //EventPreferencesVolumes.internalChange = true;
@@ -1324,8 +1321,7 @@ class ActivateProfileHelper {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().ringingVolume = volume;
+                                        PhoneProfilesService.ringingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                         if (!profile.getVolumeNotificationChange())
                                             setNotificationVolume(appContext, volume);
@@ -1353,8 +1349,7 @@ class ActivateProfileHelper {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().ringingVolume = volume;
+                                        PhoneProfilesService.ringingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                         //correctVolume0(audioManager);
                                         if (!profile.getVolumeNotificationChange())
@@ -1404,8 +1399,7 @@ class ActivateProfileHelper {
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
                                     audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().ringingVolume = volume;
+                                    PhoneProfilesService.ringingVolume = volume;
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                     //correctVolume0(audioManager);
                                 } catch (Exception e) {
