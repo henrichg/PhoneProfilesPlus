@@ -561,6 +561,7 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
+    /*
     @Override
     public void onStart() {
         super.onStart();
@@ -578,6 +579,7 @@ public class EditorProfileListFragment extends Fragment
         super.onResume();
         Log.e("EditorProfileListFragment.onResume", "xxxx");
     }
+    */
 
     @Override
     public void onDestroy()
