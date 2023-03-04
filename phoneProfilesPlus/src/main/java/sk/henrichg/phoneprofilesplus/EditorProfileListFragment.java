@@ -134,6 +134,7 @@ public class EditorProfileListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Log.e("EditorProfileListFragment.onCreate", "xxxx");
 
         // this is really important in order to save the state across screen
         // configuration changes for example
@@ -558,6 +559,24 @@ public class EditorProfileListFragment extends Fragment
                 activityDataWrapper.invalidateDataWrapper();
             }
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("EditorProfileListFragment.onStart", "xxxx");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e("EditorProfileListFragment.onStop", "xxxx");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("EditorProfileListFragment.onResume", "xxxx");
     }
 
     @Override

@@ -254,6 +254,7 @@ public class EditorActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("EditorActivity.onCreate", "xxxx");
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
@@ -608,6 +609,7 @@ public class EditorActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
+        Log.e("EditorActivity.onStart", "xxxx");
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (doServiceStart) {
@@ -707,13 +709,12 @@ public class EditorActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
+        Log.e("EditorActivity.onResume", "xxxx");
+
         savedInstanceStateChanged = false;
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
+    private void unregisterReceiversInStop() {
         if (refreshGUIBroadcastReceiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
             refreshGUIBroadcastReceiver = null;
@@ -722,6 +723,14 @@ public class EditorActivity extends AppCompatActivity
             LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
             showTargetHelpsBroadcastReceiver = null;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("EditorActivity.onStop", "xxxx");
+
+        unregisterReceiversInStop();
 
         if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
             addProfileDialog.mDialog.dismiss();
@@ -733,8 +742,9 @@ public class EditorActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
-
         Log.e("EditorActivity.onDestroy", "xxxx");
+
+        unregisterReceiversInStop();
 
         if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
             importProgressDialog.dismiss();
