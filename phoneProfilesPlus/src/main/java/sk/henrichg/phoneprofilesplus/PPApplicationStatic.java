@@ -1970,6 +1970,26 @@ class PPApplicationStatic {
                 dataWrapper.stopAllEvents(false, false, false, false);
 
             if (!shutdown) {
+                // clear cahches
+                synchronized (PPApplication.applicationCacheMutex) {
+                    if (PPApplication.applicationsCache != null) {
+                        PPApplication.applicationsCache.cancelCaching();
+                        PPApplication.applicationsCache.clearCache(true);
+                    }
+                    PPApplication.applicationsCache = null;
+                }
+                synchronized (PPApplication.contactsCacheMutex) {
+                    if (PPApplication.contactGroupsCache != null) {
+                        PPApplication.contactGroupsCache.clearCache();
+                    }
+                    PPApplication.contactGroupsCache = null;
+                }
+                synchronized (PPApplication.contactsCacheMutex) {
+                    if (PPApplication.contactsCache != null) {
+                        PPApplication.contactsCache.clearCache();
+                    }
+                    PPApplication.contactsCache = null;
+                }
 
                 // remove notifications
                 ImportantInfoNotification.removeNotification(context);

@@ -30,6 +30,7 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -219,7 +220,7 @@ public class EditorActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;// = new RefreshGUIBroadcastReceiver(this);
 
     static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
         private final ShowTargetHelpsActivatorEditorListener listener;
@@ -233,7 +234,7 @@ public class EditorActivity extends AppCompatActivity
             listener.showTargetHelpsFromListener(intent);
         }
     }
-    private final ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver;// = new ShowTargetHelpsBroadcastReceiver(this);
 
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
         private final FinishActivityActivatorEditorListener listener;
@@ -247,7 +248,7 @@ public class EditorActivity extends AppCompatActivity
             listener.finishActivityFromListener(intent);
         }
     }
-    private final FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
+    private FinishActivityBroadcastReceiver finishBroadcastReceiver;// = new FinishActivityBroadcastReceiver(this);
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -594,6 +595,7 @@ public class EditorActivity extends AppCompatActivity
         });
         */
 
+        finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
         getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY));
     }
 
@@ -625,8 +627,10 @@ public class EditorActivity extends AppCompatActivity
             intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
             getApplicationContext().sendBroadcast(intent);
 
+            refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
+            showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
@@ -707,12 +711,17 @@ public class EditorActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStop()
-    {
+    protected void onStop() {
         super.onStop();
 
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        if (refreshGUIBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+            refreshGUIBroadcastReceiver = null;
+        }
+        if (showTargetHelpsBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+            showTargetHelpsBroadcastReceiver = null;
+        }
 
         if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
             addProfileDialog.mDialog.dismiss();
@@ -724,6 +733,8 @@ public class EditorActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
+
+        Log.e("EditorActivity.onDestroy", "xxxx");
 
         if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
             importProgressDialog.dismiss();
@@ -761,21 +772,31 @@ public class EditorActivity extends AppCompatActivity
 
         if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
+            Log.e("EditorActivity.onDestroy", "clear Application cache = "+PPApplicationStatic.getApplicationsCache());
+
             Runnable runnable = () -> {
                 if (PPApplicationStatic.getApplicationsCache() != null) {
+                    Log.e("EditorActivity.onDestroy", "clear Application cache");
+
                     PPApplicationStatic.getApplicationsCache().cancelCaching();
-                    if (!PPApplicationStatic.getApplicationsCache().cached)
-                        PPApplicationStatic.getApplicationsCache().clearCache(false);
+                    //if (PPApplicationStatic.getApplicationsCache().cached)
+                    PPApplicationStatic.getApplicationsCache().clearCache(true);
+                    synchronized (PPApplication.applicationCacheMutex) {
+                        PPApplication.applicationsCache = null;
+                    }
                 }
             };
             PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
 
-        try {
-            getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplicationStatic.recordException(e);
+        if (finishBroadcastReceiver != null) {
+            try {
+                getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+            } catch (Exception e) {
+                //PPApplicationStatic.recordException(e);
+            }
+            finishBroadcastReceiver = null;
         }
     }
 

@@ -17,6 +17,7 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -628,6 +629,7 @@ public class EditorEventListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
+        Log.e("EditorEventListFragment.onDestroy", "xxxx");
 
         if (isAsyncTaskRunning()) {
             //Log.e("EditorEventListFragment.onDestroy", "AsyncTask not finished");

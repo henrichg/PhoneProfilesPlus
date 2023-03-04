@@ -555,54 +555,6 @@ Vid: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-a
 
 -------------------
 
-Broadcasty pre alarmy:
-
-setExactAndAllowWhileIdle():
-PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES
-x                PPApplication.checkCriticalPPPReleasesBroadcastReceiver = new CheckCriticalPPPReleasesBroadcastReceiver();
-PPApplication.ACTION_CHECK_GITHUB_RELEASES
-x                PPApplication.checkPPPReleasesBroadcastReceiver = new CheckPPPReleasesBroadcastReceiver();
-PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES
-x                PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = new CheckRequiredExtenderReleasesBroadcastReceiver();
-PPApplication.ACTION_DONATION
-x                PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER
-x                PPApplication.eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER
-x                PPApplication.eventDelayEndBroadcastReceiver = new EventDelayEndBroadcastReceiver();
-PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER
-x                    PPApplication.calendarEventExistsCheckBroadcastReceiver = new CalendarEventExistsCheckBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER
-x                    PPApplication.eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
-PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.missedCallEventEndBroadcastReceiver = new MissedCallEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.deviceBootEventEndBroadcastReceiver = new DeviceBootEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.notificationEventEndBroadcastReceiver = new NotificationEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.periodicEventEndBroadcastReceiver = new PeriodicEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.smsEventEndBroadcastReceiver = new SMSEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER
-x                    PPApplication.eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
-PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER
-x                        PPApplication.locationScannerSwitchGPSBroadcastReceiver = new LocationScannerSwitchGPSBroadcastReceiver();
-PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER
-x                PPApplication.profileDurationAlarmBroadcastReceiver = new ProfileDurationAlarmBroadcastReceiver();
-PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER
-x                PPApplication.runApplicationWithDelayBroadcastReceiver = new RunApplicationWithDelayBroadcastReceiver();
-PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER
-x                PPApplication.startEventNotificationBroadcastReceiver = new StartEventNotificationBroadcastReceiver();
-TwilightScanner.ACTION_UPDATE_TWILIGHT_STATE
-x
-
--------------------
-
 Pamat:
 
 - Toto je volane z EditorActivity.onCreate() ->
@@ -696,97 +648,7 @@ zvonenia a feedback
    Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
    Ale len pre nie-Samsung zariadenia.
 
-------------------------
-
-- Added: "Vibration feedback" and "Vibration intensity" profile parameter.
-- Added: Settings.System parameters support without root.
-- Added: Compact version of grid version of List widget.
-- Change: Updates for detection of not used mobile cells.
-- Change: Remove all not used non-named mobile cells.
-- Change: Changed background color to gray.
-- Change: Permanent display of scrollbars in lists.
-- Change: Added title divider for all screens and dialogs.
-- Change: Added dialog for export settings for configuration by user, which location data do not export.
-- Change: Added edit button to Samsung edge panel for change its settings.
-- Change: Bold profile name in all lists.
-- Change: Bold style of profile name in widget header.
-- Change: Bold profile name in event list.
-- Change: Changed selector for selected profile icon in profile icon preference dialog.
-- Change: removed divider for preference category.
-- Change: Choose language - added info about link to crowdin.
-- Change: Display in Wi-Fi SSID, Bluetooth name item list, its edit menu also for configured scanned items, but allow in it only "Copy name".
-- Change: Click to item in Wi-Fi, Bluetooth, NFC tag preference list change its check state.
-- Change: Removed long click to item for Wi-Fi SSID, Bluetooth name, NFC tag preferences.
-- Change: Disable scanners when are not used in events.
-- Change: New Extender version set as required.
-- Change: Added Droid-ify support.
-- Change: Added support for web version of Galaxy Store into "Check app. releases".
-- Change: Replaced old weird solution of Important info launch support from ImportantInfoPreference to more better solution.
-- Change: removed Important info News notification.
-- Change: error log to Activity log, for camera flash.
-- Change: Better call of orientation sensor listener and events handler from it.
-- Change: Call of EventsHandle form mobile data and Wi-Fi callback less frequently.
-- Change: Pixel devices: set notifications vibrate, when is off, do not set "vibrate_on".
-- Change: Do not allow set notifications vibrate also for Xiaomi, OnePlus devices.
-- Change: Change "Accessibility settings" summary, when "Lock device" parameter is changed.
-- Change: Better check for night mode.
-- Fix: Fixed not working send crash report mail via GMal in Android 13. Required is: ACRA 5.9.7 and compiledSDK=33.
-- Fix: Fixed change of language for all GUI.
-- Fix: Rescan for Wi-Fi, Bluetooth, Mobile cells sensors from dialogs.
-- Fix: Radio sensor and mobile data connection status during Wi-Fi hotspot enabled.
-- Fix: Brightness with 0% not working, because is set sys. value to 0 (Pixel 6). Force change to 1 working.
-- Fix: "Mobile data preference" for Huawei and OnePlus devices.
-- Fix: Block execution of interactive profile parameters at PPP start or restart by system.
-- Fix: Fixed bad working Orientation sensor for "Ignore for applications" parameter.
-- Fix: Fixed detection of light/dark theme in internal GUI.
-- Fix: Fixed "Ask for duration" dialog layout in One UI 5.
-- Fix: Fixed not displayed subtitle for profile and event preferences screen on orientation change.
-- Other fixes.
-- Updated translations.
-
 ------------
-
-Nova notifikacia: "Notification: Profile list"
-
-Zoznam parametrov:
-- "Enable notification" - toto je novy parameter, zapina/vypina zobrazenie tejto notifikacie
-
-- "Systemove nastavenia" - pre tuto notifikaciu
-- "Systemove nastavenia" - pre vsetky kanaly - toto neviem ci tam dam
-- "Stavovy riadok" - cela kategoria
-- "Panel notifikacii"
-  "Typ farby ikon" - indikatory sa v tejto notifikacii nezobrazuju
-  "Panel notifikacii - farba pozadia" - cela kategoria
-  "Panel notifikacii - indikator parametrov" - nahradit s "Arrows and marker of the activated profile lightness", vid widget
-  "Panel notifikacii - ikona profilu" - cela kategoria
-Pridat:
- - "Pocet profilov na stranku"
-
-Treba potom vriesit aj povolenie, zakazanie parametrov podla zavislosti
-
--------
-
-OK, start aktivity zo servicu, worera. Treba na to mat grantnute:
-
-<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
-cize v PPP "Draw over apps".
-
-1. Grantnutie notifikacii: tu mam obrovsky problem. Tu neviem ako prinutim uzivatela aby grantol notifikacie.
-   Ono by mali byt grantnute pre target SDK 28. Alebo nie? Testni to.
-   Ak nie, mam obrovsky problem, lebo potom mozem pytat "Draw over apps" aj nptifikacie len z aktivit.
-   Neda sa zobrazit notiifikacia o prave "Draw over apps", ked nie su povlene notifikacie.
-   Len z aktivity.
-2. Spustenie action z Taskera. Tu tiez treba "Draw over apps". Tu by som to mohol pytat, ak to pravo nemam
-   grantnute. Ale tu je zasa ten isty problem. Ak nema notifikacie povolene, tak len z aktivity.
-
-Starasna dilema toto. Kua aj s Googlom !!!!.
-
-"Draw over apps" nezobrazujem v Settings/Permissions. Preco? Lebo uz je pravo udelene? Pozri.
-
-"Draw over apps" nie je v Settings, lebo sa pouizva notifikacia DrawOverAppsPermissionNotification.
-No ale prave kvoli tomuto problemu musim toto pravo zviditelnit v Settings/Permissions.
-Aby uizvatel ho vedel nahodit hocikedy.
 
 Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
 - doExecuteForRunApplications()
@@ -801,7 +663,10 @@ Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
 - Permissions.grantPlayRingtoneNotificationPermissions()
 - ActivateProfileHelper.putSettingsParameter() - cize zavolanie PPPPS
 
-Toot neviem, mozno treba, mozno nie
+Toto neviem, mozno treba, mozno nie
 - CustomACRAEmailSender.send()
 
 ----------
+
+Zapnutie wifi - ale podla mna to vyzaduje root.
+- svc wifi enable
