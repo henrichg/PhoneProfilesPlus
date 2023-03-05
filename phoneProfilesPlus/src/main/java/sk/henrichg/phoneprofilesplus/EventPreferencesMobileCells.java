@@ -90,7 +90,8 @@ class EventPreferencesMobileCells extends EventPreferences {
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
-            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) //noinspection SuspiciousIndentAfterControlStatement
+            {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
@@ -116,7 +117,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 if (this._whenOutside)
                     descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context) + "</b>";
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean hasSIMCard = false;
                     final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -136,7 +137,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
                         descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                     }
-                }
+                //}
             }
             else {
                 descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
@@ -232,7 +233,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -275,7 +276,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     }
                 }
             }
-        }
+        //}
 
         Event event = new Event();
         event.createEventPreferences();
@@ -373,7 +374,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
                 setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS, preferences, context);
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     Preference preference;
 
                     boolean showPreferences = false;
@@ -409,7 +410,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         if (preference != null)
                             preference.setVisible(false);
                     }
-                }
+                //}
             }
         }
         setCategorySummary(prefMng, preferences, context);
@@ -463,14 +464,14 @@ class EventPreferencesMobileCells extends EventPreferences {
 
                                     TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
                                     if (telephonyManager != null) {
-                                        if (Build.VERSION.SDK_INT >= 26)
+                                        //if (Build.VERSION.SDK_INT >= 26)
                                             simCount = telephonyManager.getPhoneCount();
-                                        else
-                                            simCount = 1;
+                                        //else
+                                        //    simCount = 1;
                                     }
 
                                     boolean cellIsValid = false;
-                                    if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
+                                    if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (simCount > 1)) {
                                         if ((_forSIMCard == 0) || (_forSIMCard == 1)) {
                                             if (PPApplication.mobileCellsScanner != null) {
                                                 int registeredCell = PPApplication.mobileCellsScanner.getRegisteredCell(1);

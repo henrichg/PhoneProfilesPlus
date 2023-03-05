@@ -269,8 +269,8 @@ class ApplicationPreferences {
     static volatile int applicationWidgetOneRowProfileListNumberOfProfilesPerPage;
 
     static volatile boolean notificationProfileListDisplayNotification;
-    static volatile boolean notificationProfileListShowInStatusBar;
-    static volatile boolean notificationProfileListHideInLockscreen;
+    //static volatile boolean notificationProfileListShowInStatusBar;
+    //static volatile boolean notificationProfileListHideInLockscreen;
     static volatile String notificationProfileListStatusBarStyle;
     static volatile String notificationProfileListBackgroundColor;
     static volatile int notificationProfileListBackgroundCustomColor;
@@ -378,9 +378,9 @@ class ApplicationPreferences {
     //static final String PREF_APPLICATION_ACTIVATOR_HEADER = "applicationActivatorHeader";
     //static final String PREF_APPLICATION_EDITOR_HEADER = "applicationEditorHeader";
     static final String PREF_NOTIFICATION_TOAST = "notificationsToast";
-    static final String PREF_NOTIFICATION_STATUS_BAR = "notificationStatusBar";
+    //static final String PREF_NOTIFICATION_STATUS_BAR = "notificationStatusBar";
     static final String PREF_NOTIFICATION_STATUS_BAR_STYLE = "notificationStatusBarStyle";
-    static final String PREF_NOTIFICATION_STATUS_BAR_PERMANENT = "notificationStatusBarPermanent";
+    //static final String PREF_NOTIFICATION_STATUS_BAR_PERMANENT = "notificationStatusBarPermanent";
     //static final String PREF_NOTIFICATION_STATUS_BAR_CANCEL  = "notificationStatusBarCancel";
     static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR = "notificationShowInStatusBar";
     static final String PREF_NOTIFICATION_TEXT_COLOR = "notificationTextColor";
@@ -570,8 +570,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE = "applicationWidgetOneRowProfileListNumberOfProfilesPerPage";
 
     static final String PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION = "notificationProfileListDisplayNotification";
-    static final String PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR = "notificationProfileListShowInStatusBar";
-    static final String PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN = "notificationProfileListHideInLockscreen";
+    //static final String PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR = "notificationProfileListShowInStatusBar";
+    //static final String PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN = "notificationProfileListHideInLockscreen";
     static final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE = "notificationProfileListStatusBarStyle";
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR = "notificationProfileListBackgroundColor";
     static final String PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR = "notificationProfileListBackgroundCustomColor";
@@ -2174,6 +2174,7 @@ class ApplicationPreferences {
         notificationProfileListDisplayNotification = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION, PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION_DEFAULT_VALUE);
     }
 
+    /*
     static final boolean PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR_DEFAULT_VALUE = true;
     static void notificationProfileListShowInStatusBar(Context context) {
         notificationProfileListShowInStatusBar = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR, PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR_DEFAULT_VALUE);
@@ -2183,6 +2184,7 @@ class ApplicationPreferences {
     static void notificationProfileListHideInLockScreen(Context context) {
         notificationProfileListHideInLockscreen = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN, PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN_DEFAULT_VALUE);
     }
+    */
 
     static private final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE_DEFAULT_VALUE_OTHERS = "1"; // android
     static private final String PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE_DEFAULT_VALUE_PIXEL = "1";  // android

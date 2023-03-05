@@ -41,7 +41,7 @@
             android:maxHeight="68dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:paddingTop="0dp"
+            android:paddingTop="3dp"
             android:paddingBottom="0dp"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
@@ -58,11 +58,11 @@
             android:paddingEnd="2dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:autoSizeTextType="uniform"
             android:text="@string/profile_name_default"
-            android:textSize="14dp"
             android:maxLines="2"
             android:ellipsize="end"
-            tools:ignore="SpUsage" />
+            tools:ignore="SpUsage"/>
 
     </LinearLayout>
 

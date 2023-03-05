@@ -35,7 +35,7 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (android.os.Build.VERSION.SDK_INT >= 26) {
+        //if (android.os.Build.VERSION.SDK_INT >= 26) {
             ComponentName qsTile = intent.getParcelableExtra(Intent.EXTRA_COMPONENT_NAME);
             if (qsTile != null) {
                 if (qsTile.getClassName().contains("PPTileService1"))
@@ -49,7 +49,7 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
                 else if (qsTile.getClassName().contains("PPTileService5"))
                     tileId = 5;
             }
-        }
+        //}
         //else {
             // add dialog for displaying not support for change tile parameter for this android api
         //}

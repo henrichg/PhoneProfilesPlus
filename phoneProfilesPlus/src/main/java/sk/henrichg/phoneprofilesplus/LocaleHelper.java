@@ -186,6 +186,7 @@ class LocaleHelper {
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         config.setLayoutDirection(locale);
+        //noinspection deprecation
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
         PPApplication.collator = GlobalUtils.getCollator();

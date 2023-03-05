@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.NonNull;
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +8,6 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Icon;
-import android.os.Build;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -482,7 +480,7 @@ class DataWrapperStatic {
 */
 
 
-    @TargetApi(Build.VERSION_CODES.N_MR1)
+    //@TargetApi(Build.VERSION_CODES.N_MR1)
     static private ShortcutInfo createShortcutInfo(Profile profile, boolean restartEvents, Context context) {
         boolean isIconResourceID;
         String iconIdentifier;
@@ -605,7 +603,7 @@ class DataWrapperStatic {
     }
 
     static void setDynamicLauncherShortcuts(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 25) {
+        //if (android.os.Build.VERSION.SDK_INT >= 25) {
             try {
                 //noinspection UnnecessaryLocalVariable
                 final Context appContext = context;
@@ -668,7 +666,7 @@ class DataWrapperStatic {
                 //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             }
-        }
+        //}
     }
 
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";

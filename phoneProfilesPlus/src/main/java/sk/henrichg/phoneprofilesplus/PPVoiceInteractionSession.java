@@ -4,7 +4,6 @@ import android.app.assist.AssistContent;
 import android.app.assist.AssistStructure;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
 //import com.arlosoft.macrodroid.macro.C6023h;
@@ -72,8 +71,8 @@ public final class PPVoiceInteractionSession extends VoiceInteractionSession {
             intent3.putExtra("android.settings.extra.battery_saver_mode_enabled", bundle.getBoolean("android.settings.extra.battery_saver_mode_enabled"));
             startVoiceActivity(intent3);
         }
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             setUiEnabled(false);
-        }
+        //}
     }
 }

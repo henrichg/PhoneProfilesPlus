@@ -646,7 +646,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (android.os.Build.VERSION.SDK_INT < 26) {
+        /*if (android.os.Build.VERSION.SDK_INT < 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
             if (preference != null)
             {
@@ -654,7 +654,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "");
                 setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, value);
             }
-        }
+        }*/
         /*if (android.os.Build.VERSION.SDK_INT >= 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
             if (preference != null)
@@ -668,7 +668,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             fillDeviceNetworkTypePreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context);
 
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
@@ -677,7 +677,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         fillDeviceNetworkTypePreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, context);
                     }
                 }
-            }
+            //}
         }
 
         DurationDialogPreference durationPreference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
@@ -976,7 +976,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                      (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
         }
 
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 if (telephonyManager.getPhoneCount() > 1) {
@@ -1313,7 +1313,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setVisible(false);
 
             }
-        }
+        //}
 
         if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
             preference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
@@ -1783,6 +1783,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             RunApplicationsDialogPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null) {
+                //noinspection deprecation
                 preference.updateShortcut(
                         data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
                         data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
@@ -2515,7 +2516,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            if ((Build.VERSION.SDK_INT >= 26) && (audioManager != null)) {
+            if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (audioManager != null)) {
                 String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY,
                         Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY));
 
@@ -2853,7 +2854,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-            if ((Build.VERSION.SDK_INT >= 26) && (profile._deviceAirplaneMode >= 4)) {
+            if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (profile._deviceAirplaneMode >= 4)) {
                 // change only when default assistant is false, becuse may be checked also for another
                 // profile parameters
                 boolean defaultAssistantSet = ActivateProfileHelper.isPPPSetAsDefaultAssistant(context);
@@ -3882,7 +3883,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             if (isDualSIM) {
                 String title;
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, context);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
@@ -4056,7 +4057,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                     cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
-                }
+                //}
             }
         }
         else
@@ -4079,7 +4080,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     isDualSIM = false;
                 }
                 if (isDualSIM) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, context);
                         if (!title.isEmpty()) {
                             cattegorySummaryData.bold = true;
@@ -4176,7 +4177,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                         notGrantedG1Permission ||
                                         notRootedOrGrantetRoot ||
                                         notInstalledPPPPS, false);
-                    }
+                    //}
                 }
             } else
                 preferenceScreen.setVisible(false);
@@ -4251,13 +4252,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.defaultAssistantSet = true;
 
         int phoneCount = 1;
-        TelephonyManager telephonyManager = null;
-        if (Build.VERSION.SDK_INT >= 26) {
+        TelephonyManager telephonyManager;// = null;
+        //if (Build.VERSION.SDK_INT >= 26) {
             telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 phoneCount = telephonyManager.getPhoneCount();
             }
-        }
+        //}
 
         notGrantedG1Permission = false;
         notRootedOrGrantetRoot = false;
@@ -4386,12 +4387,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         Context context = getActivity().getApplicationContext();
 
         int phoneCount = 1;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 phoneCount = telephonyManager.getPhoneCount();
             }
-        }
+        //}
 
         if (key.equals(Profile.PREF_PROFILE_NAME))
         {
@@ -4926,7 +4927,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) && (Build.VERSION.SDK_INT < 26))
+        /*if (key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) && (Build.VERSION.SDK_INT < 26))
         {
             String sValue = value.toString();
             SwitchPreferenceCompat checkBoxPreference = prefMng.findPreference(key);
@@ -4934,7 +4935,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean show = sValue.equals("true");
                 GlobalGUIRoutines.setPreferenceTitleStyleX(checkBoxPreference, true, show, false, false, false, false);
             }
-        }
+        }*/
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_NOTIFICATION) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA) ||
@@ -5352,7 +5353,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummaryForNotificationVolume0(/*context*/);
         }
 
-        if ((Build.VERSION.SDK_INT >= 26) &&
+        if (//(Build.VERSION.SDK_INT >= 26) &&
                 ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
@@ -5730,7 +5731,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
 
             if (phoneCount > 1) {
 
@@ -5900,7 +5901,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
             }
-        }
+        //}
     }
 
     private void setSummary(String key) {
@@ -6354,7 +6355,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if ((Build.VERSION.SDK_INT >= 26) &&
+        if (//(Build.VERSION.SDK_INT >= 26) &&
                 ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {

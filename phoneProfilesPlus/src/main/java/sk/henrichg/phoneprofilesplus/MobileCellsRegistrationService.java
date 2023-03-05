@@ -1,8 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.app.Notification.DEFAULT_SOUND;
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -234,13 +231,13 @@ public class MobileCellsRegistrationService extends Service
 
         Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-        notification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
+        /*notification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
         notification.ledOnMS = 0;
         notification.ledOffMS = 0;
         notification.sound = null;
         notification.vibrate = null;
         notification.defaults &= ~DEFAULT_SOUND;
-        notification.defaults &= ~DEFAULT_VIBRATE;
+        notification.defaults &= ~DEFAULT_VIBRATE;*/
         startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }
 

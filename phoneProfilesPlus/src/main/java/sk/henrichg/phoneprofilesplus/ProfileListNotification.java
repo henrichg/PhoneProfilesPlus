@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import static android.view.View.VISIBLE;
 
 import android.app.ActivityManager;
-import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -92,8 +91,8 @@ public class ProfileListNotification {
         }
 
         boolean notificationProfileListDisplayNotification;
-        boolean notificationProfileListShowInStatusBar;
-        boolean notificationProfileListHideInLockscreen;
+        //boolean notificationProfileListShowInStatusBar;
+        //boolean notificationProfileListHideInLockscreen;
         String notificationProfileListIconLightness;
         String notificationProfileListIconColor;
         boolean notificationProfileListCustomIconLightness;
@@ -105,8 +104,8 @@ public class ProfileListNotification {
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             notificationProfileListDisplayNotification = ApplicationPreferences.notificationProfileListDisplayNotification;
-            notificationProfileListShowInStatusBar = ApplicationPreferences.notificationProfileListShowInStatusBar;
-            notificationProfileListHideInLockscreen = ApplicationPreferences.notificationProfileListHideInLockscreen;
+            //notificationProfileListShowInStatusBar = ApplicationPreferences.notificationProfileListShowInStatusBar;
+            //notificationProfileListHideInLockscreen = ApplicationPreferences.notificationProfileListHideInLockscreen;
             notificationProfileListIconLightness = ApplicationPreferences.notificationProfileListIconLightness;
             notificationProfileListIconColor = ApplicationPreferences.notificationProfileListIconColor;
             notificationProfileListCustomIconLightness = ApplicationPreferences.notificationProfileListCustomIconLightness;
@@ -254,9 +253,9 @@ public class ProfileListNotification {
         */
 
         // ----- create notificationBuilders
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
-        }
+        /*}
         else {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
             if (notificationProfileListShowInStatusBar) {
@@ -274,7 +273,7 @@ public class ProfileListNotification {
             else {
                 notificationBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
             }
-        }
+        }*/
 
         //notificationBuilder.setContentIntent(pIntent);
 
@@ -424,7 +423,7 @@ public class ProfileListNotification {
 
         if (profileListNotification != null) {
 
-            if (Build.VERSION.SDK_INT < 26) {
+            /*if (Build.VERSION.SDK_INT < 26) {
                 profileListNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
                 profileListNotification.ledOnMS = 0;
                 profileListNotification.ledOffMS = 0;
@@ -432,7 +431,7 @@ public class ProfileListNotification {
                 profileListNotification.vibrate = null;
                 profileListNotification.defaults &= ~NotificationCompat.DEFAULT_SOUND;
                 profileListNotification.defaults &= ~NotificationCompat.DEFAULT_VIBRATE;
-            }
+            }*/
 
             // do not use Notification.FLAG_ONGOING_EVENT,
             // with this flag, is not possible to colapse this notification

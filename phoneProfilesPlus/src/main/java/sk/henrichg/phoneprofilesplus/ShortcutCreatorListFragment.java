@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -222,6 +220,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         new CreateShortcutAsyncTask(position, this).execute();
     }
 
+    /*
     private Bitmap combineImages(Bitmap bitmap1, Bitmap bitmap2)
     {
         Bitmap combined;
@@ -241,6 +240,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         return combined;
     }
+    */
 
     private static class CreateShortcutAsyncTask extends AsyncTask<Void, Integer, Void> {
 
@@ -248,7 +248,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         boolean isIconResourceID;
         String iconIdentifier;
         Bitmap profileBitmap;
-        Bitmap shortcutOverlayBitmap;
+        //Bitmap shortcutOverlayBitmap;
         Bitmap profileShortcutBitmap;
         String profileName;
         String longLabel;
@@ -356,8 +356,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                                 profileBitmap = BitmapManipulator.getBitmapFromResource(iconResource, true, context);
                             }
                         }
-                        if (Build.VERSION.SDK_INT < 26)
-                            shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
+                        //if (Build.VERSION.SDK_INT < 26)
+                        //    shortcutOverlayBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_shortcut_overlay, false, context);
 
                         if (ApplicationPreferences.applicationShortcutIconColor.equals("1")) {
                             if (isIconResourceID || useCustomColor) {
@@ -408,9 +408,9 @@ public class ShortcutCreatorListFragment extends Fragment {
                             }
                         }
 
-                        if (Build.VERSION.SDK_INT < 26)
-                            profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
-                        else
+                        //if (Build.VERSION.SDK_INT < 26)
+                        //    profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
+                        //else
                             profileShortcutBitmap = profileBitmap;
                         //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
                         shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));

@@ -1196,7 +1196,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             preference = findPreference(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
             if (preference != null) {
                 preference.setSummary(getString(R.string.phone_profiles_pref_notificationSystemSettings_summary) +
@@ -1285,7 +1285,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     return false;
                 });
             }
-        }
+        //}
 
         preference = findPreference(PREF_ALL_NOTIFICATIONS_SYSTEM_SETTINGS);
         if (preference != null) {
@@ -2405,7 +2405,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
 
-        if (Build.VERSION.SDK_INT < 26) {
+        /*if (Build.VERSION.SDK_INT < 26) {
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
             Preference preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR);
@@ -2413,7 +2413,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setTitle(R.string.phone_profiles_pref_notificationShowInStatusBarAndLockscreen);
             }
             //}
-        }
+        }*/
 
         //if (Build.VERSION.SDK_INT < 26)
         //    setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
@@ -2597,8 +2597,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PROFILE_LIST_NUMBER_OF_PROFILES_PER_PAGE);
 
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_DISPLAY_NOTIFICATION);
-        setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR);
-        setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN);
+        //setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_SHOW_IN_STATUS_BAR);
+        //setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_HIDE_IN_LOCKSCREEN);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_STATUS_BAR_STYLE);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_LIST_BACKGROUND_CUSTOM_COLOR);
@@ -3241,7 +3241,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Context context = getActivity().getApplicationContext();
 
-        if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/ (android.os.Build.VERSION.SDK_INT < 26)) {
+        /*if (//(android.os.Build.VERSION.SDK_INT >= 21) &&
+                (android.os.Build.VERSION.SDK_INT < 26)) {
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
                 boolean show = preferences.getBoolean(key, true);
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
@@ -3254,7 +3255,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(show);
             }
-        }
+        }*/
 
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR) ||
@@ -3966,10 +3967,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("categoryAppNotificationRoot")) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 //if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_notificationSystemSettings);
-            }
+            //}
             /*else {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBar);

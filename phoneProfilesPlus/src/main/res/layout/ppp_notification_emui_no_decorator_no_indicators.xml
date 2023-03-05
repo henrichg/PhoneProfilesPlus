@@ -3,8 +3,8 @@
     android:id="@+id/notification_activated_profile_root"
     android:layout_width="match_parent"
     android:layout_height="54dp"
-    android:paddingStart="0dp"
-    android:paddingEnd="0dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
@@ -13,9 +13,10 @@
         android:layout_width="@dimen/restart_events_notification_icon_size"
         android:layout_height="@dimen/restart_events_notification_icon_size"
         android:padding="2dp"
-        android:layout_marginStart="@dimen/profile_name_notification_margin"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/profile_name_notification_margin"
+        android:layout_marginEnd="2dp"
         android:contentDescription="@string/menu_restart_events"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_widget_restart_events"

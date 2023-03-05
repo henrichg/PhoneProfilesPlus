@@ -650,6 +650,7 @@ public class Shell {
     };
 
     protected void notifyThreads() {
+        //noinspection AnonymousHasLambdaAlternative
         Thread t = new Thread() {
             public void run() {
                 synchronized (commands) {

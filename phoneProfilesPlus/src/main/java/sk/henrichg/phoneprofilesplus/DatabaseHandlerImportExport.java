@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
@@ -271,7 +270,7 @@ class DatabaseHandlerImportExport {
                             PPApplicationStatic.recordException(e);
                         }
 
-                        if (Build.VERSION.SDK_INT >= 26) {
+                        //if (Build.VERSION.SDK_INT >= 26) {
                             value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY));
                             try {
                                 String[] splits = value.split("\\|");
@@ -296,7 +295,7 @@ class DatabaseHandlerImportExport {
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
                             }
-                        }
+                        //}
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO));
                         try {
@@ -338,12 +337,12 @@ class DatabaseHandlerImportExport {
 
         // clear dual sim parameters for device without dual sim support
         int phoneCount = 1;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             TelephonyManager telephonyManager = (TelephonyManager) instance.context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 phoneCount = telephonyManager.getPhoneCount();
             }
-        }
+        //}
         if (phoneCount < 2) {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");

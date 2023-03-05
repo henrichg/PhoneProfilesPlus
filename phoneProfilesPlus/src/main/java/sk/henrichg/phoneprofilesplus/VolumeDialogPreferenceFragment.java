@@ -7,7 +7,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -363,7 +362,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
                                 VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, _ringtoneUri);
                         } else if (preference.volumeType.equalsIgnoreCase("DTMF"))
                             VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
-                        else if ((Build.VERSION.SDK_INT >= 26) && preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                        else if (/*(Build.VERSION.SDK_INT >= 26) &&*/ preference.volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                             VolumeDialogPreference.mediaPlayer = MediaPlayer.create(appContext, R.raw.volume_change_notif);
                         else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
                             Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE);

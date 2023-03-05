@@ -11,24 +11,18 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
-        app:key="notificationProfileListSystemSettingsAll"
+        app:key="notificationProfileListSystemSettingsProfileList"
         app:title="@string/phone_profiles_pref_notificationSystemSettings"
-        app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_A7_summary"
+        app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="notificationProfileListDisplayNotification"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <SwitchPreferenceCompat
-        app:key="notificationProfileListShowInStatusBar"
-        app:title="@string/phone_profiles_pref_notificationShowInStatusBar"
-        app:defaultValue="true"
-        app:dependency="notificationProfileListDisplayNotification"
-        app:layout="@layout/mp_preference_material_widget" />
-
-    <SwitchPreferenceCompat
-        app:key="notificationProfileListHideInLockscreen"
-        app:title="@string/phone_profiles_pref_notificationHideInLockscreen"
-        app:defaultValue="false"
+    <Preference
+        app:key="notificationProfileListSystemSettingsAll"
+        app:title="@string/phone_profiles_pref_notificationSystemSettings"
+        app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_summary"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="notificationProfileListDisplayNotification"
         app:layout="@layout/mp_preference_material_widget" />
 

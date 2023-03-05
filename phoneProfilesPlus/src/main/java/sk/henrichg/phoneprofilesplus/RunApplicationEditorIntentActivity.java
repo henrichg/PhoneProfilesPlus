@@ -678,7 +678,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     action = Intent.ACTION_CALL_BUTTON;
                     break;
                 case "ACTION_CARRIER_SETUP":
-                    if (Build.VERSION.SDK_INT >=26)
+                    //if (Build.VERSION.SDK_INT >=26)
                         action = Intent.ACTION_CARRIER_SETUP;
                     break;
                 case "ACTION_CHOOSER":
@@ -997,7 +997,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addCategory(Intent.CATEGORY_TEST);
                             break;
                         case "CATEGORY_TYPED_OPENABLE":
-                            if (Build.VERSION.SDK_INT >=26)
+                            //if (Build.VERSION.SDK_INT >=26)
                                 intent.addCategory(Intent.CATEGORY_TYPED_OPENABLE);
                             break;
                         case "CATEGORY_UNIT_TEST":
@@ -1007,7 +1007,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addCategory(Intent.CATEGORY_VOICE);
                             break;
                         case "CATEGORY_VR_HOME":
-                            if (Build.VERSION.SDK_INT >=26)
+                            //if (Build.VERSION.SDK_INT >=26)
                                 intent.addCategory(Intent.CATEGORY_VR_HOME);
                             break;
                     }
@@ -1123,7 +1123,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
                             break;
                         case "FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS":
-                            if (Build.VERSION.SDK_INT >= 26)
+                            //if (Build.VERSION.SDK_INT >= 26)
                                 intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
                             break;
                     }

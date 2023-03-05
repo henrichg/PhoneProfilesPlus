@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
-import android.os.Build;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
@@ -143,7 +142,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     _addBullet = true;
                 }
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     int phoneCount = 1;
                     TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -188,19 +187,19 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             _addBullet = true;
                         }
                     }
-                }
+                //}
 
                 if (this._mobileData != 0) {
                     if (_addBullet)
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + ": ";
-                    int phoneCount = 1;
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                    /*int*/ phoneCount = 1;
+                    //if (Build.VERSION.SDK_INT >= 26) {
+                        //TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
                             phoneCount = telephonyManager.getPhoneCount();
                         }
-                    }
+                    //}
                     String[] fieldArray;
                     String[] fieldValues;
                     if (phoneCount > 1) {
@@ -326,12 +325,12 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 PPListPreference listPreference = prefMng.findPreference(key);
                 if (listPreference != null) {
                     int phoneCount = 1;
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
                             phoneCount = telephonyManager.getPhoneCount();
                         }
-                    }
+                    //}
                     String[] fieldArray;
                     String[] fieldValues;
                     if (phoneCount > 1) {
@@ -516,11 +515,11 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        if (Build.VERSION.SDK_INT < 26)
+        /*if (Build.VERSION.SDK_INT < 26)
             runnable = runnable &&
                     ((_wifi != 0) || (_bluetooth != 0) || (_mobileData != 0) || (_gps != 0) ||
                      (_nfc != 0) || (_airplaneMode != 0));
-        else {
+        else {*/
             boolean ok = false;
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
@@ -551,7 +550,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 runnable = runnable &&
                         ((_wifi != 0) || (_bluetooth != 0) || (_mobileData != 0) || (_gps != 0) ||
                          (_nfc != 0) || (_airplaneMode != 0));
-        }
+        //}
 
         return runnable;
     }
@@ -561,7 +560,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED) != null) {
+            if (prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED) != null) //noinspection SuspiciousIndentAfterControlStatement
+            {
                 boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 
                 Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
@@ -573,7 +573,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS);
                 if (preference != null) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         int phoneCount = 1;
                         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
@@ -593,12 +593,12 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                         } else
                             preference.setVisible(false);
-                    } else
-                        preference.setVisible(false);
+                    //} else
+                    //    preference.setVisible(false);
                 }
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS);
                 if (preference != null) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         int phoneCount = 1;
                         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
@@ -618,14 +618,14 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                         } else
                             preference.setVisible(false);
-                    } else
-                        preference.setVisible(false);
+                    //} else
+                    //    preference.setVisible(false);
                 }
 
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
                 if (preference != null)
                     preference.setEnabled(enabled);
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     int phoneCount = 1;
                     TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -651,13 +651,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, preferences, context);
                         }
                     }
-                }
-                PPListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
+                //}
+                /*PPListPreference*/ listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
                 if (listPreference != null) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         listPreference.setEnabled(enabled);
-                        int phoneCount = 1;
-                        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                        /*int*/ phoneCount = 1;
+                        //TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
                             phoneCount = telephonyManager.getPhoneCount();
                         }
@@ -670,8 +670,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             listPreference.setValue(value);
                             setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF, preferences, context);
                         }
-                    } else
-                        listPreference.setVisible(false);
+                    //} else
+                    //    listPreference.setVisible(false);
                 }
 
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
@@ -879,7 +879,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                     else
                     if ((_mobileData == 5) || (_mobileData == 6)) {
-                        if (Build.VERSION.SDK_INT >= 26) {
+                        //if (Build.VERSION.SDK_INT >= 26) {
                             tested = true;
                             int phoneCount = 1;
                             TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -915,7 +915,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                             else
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
-                        }
+                        //}
                     }
                 }
 
@@ -963,7 +963,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 if ((_defaultSIMForCalls != 0) || (_defaultSIMForSMS != 0)) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         int phoneCount = 1;
                         TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
@@ -1003,11 +1003,11 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             else
                                 eventsHandler.radioSwitchPassed = false;
                         }
-                    }
+                    //}
                 }
 
                 if (_simOnOff != 0) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         tested = true;
                         boolean sim0Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 0);
                         boolean sim1Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 1);
@@ -1043,7 +1043,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                         (!sim2Exists);
                                 break;
                         }
-                    }
+                    //}
                 }
 
                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && tested;

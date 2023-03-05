@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.ActivityManager;
-import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -31,6 +30,7 @@ public class PPPAppNotification {
 
     static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     static private void _showNotification(final DataWrapper dataWrapper, boolean forFirstStart)
     {
         //synchronized (PPApplication.applicationPreferencesMutex) {
@@ -71,11 +71,11 @@ public class PPPAppNotification {
         String notificationProfileIconColor;
         String notificationProfileIconLightness;
         boolean notificationCustomProfileIconLightness;
-        boolean notificationShowInStatusBar;
+        //boolean notificationShowInStatusBar;
         boolean notificationUseDecoration;
         boolean notificationPrefIndicator;
         String notificationPrefIndicatorLightness;
-        boolean notificationHideInLockScreen;
+        //boolean notificationHideInLockScreen;
         String notificationStatusBarStyle;
         String notificationTextColor;
         String notificationBackgroundColor;
@@ -96,8 +96,8 @@ public class PPPAppNotification {
                 notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
                 notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
-                notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
-                notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
+                //notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
+                //notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
             }
             notificationShowProfileIcon = false; // for small notification at start
             notificationProfileIconColor = "0";
@@ -134,10 +134,10 @@ public class PPPAppNotification {
                 notificationProfileIconLightness = ApplicationPreferences.notificationProfileIconLightness;
                 notificationCustomProfileIconLightness = ApplicationPreferences.notificationCustomProfileIconLightness;
 
-                notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
+                //notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator;
                 notificationPrefIndicatorLightness = ApplicationPreferences.notificationPrefIndicatorLightness;
-                notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
+                //notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
                 notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle;
                 notificationTextColor = ApplicationPreferences.notificationTextColor;
                 notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor;
@@ -178,8 +178,8 @@ public class PPPAppNotification {
         if (notificationNotificationStyle.equals("0")) {
             // ----- create content view
 
-            useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
-            useDecorator = useDecorator && notificationUseDecoration;
+            //useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
+            useDecorator = /*useDecorator &&*/ notificationUseDecoration;
 
             switch (notificationBackgroundColor) {
                 case "1":
@@ -379,6 +379,7 @@ public class PPPAppNotification {
                     sbt.removeSpan(span);
             }
 
+            //noinspection ConstantConditions
             if (!forFirstStart) {
                 if (notificationProfileIconColor.equals("0")) {
                     profile.generateIconBitmap(appContext, false, 0, false);
@@ -489,9 +490,9 @@ public class PPPAppNotification {
             pIntent = PendingIntent.getActivity(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // ----- create notificationBuilders
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
-        }
+        /*}
         else {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
             if (notificationShowInStatusBar) {
@@ -510,7 +511,7 @@ public class PPPAppNotification {
             else {
                 notificationBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
             }
-        }
+        }*/
 
         notificationBuilder.setContentIntent(pIntent);
 
@@ -792,7 +793,7 @@ public class PPPAppNotification {
 
         if (phoneProfilesNotification != null) {
 
-            if (Build.VERSION.SDK_INT < 26) {
+            /*if (Build.VERSION.SDK_INT < 26) {
                 phoneProfilesNotification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
                 phoneProfilesNotification.ledOnMS = 0;
                 phoneProfilesNotification.ledOffMS = 0;
@@ -800,7 +801,7 @@ public class PPPAppNotification {
                 phoneProfilesNotification.vibrate = null;
                 phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_SOUND;
                 phoneProfilesNotification.defaults &= ~NotificationCompat.DEFAULT_VIBRATE;
-            }
+            }*/
 
             // do not use Notification.FLAG_ONGOING_EVENT,
             // with this flag, is not possible to colapse this notification

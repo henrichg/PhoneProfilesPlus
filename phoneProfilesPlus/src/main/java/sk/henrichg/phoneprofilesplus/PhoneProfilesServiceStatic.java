@@ -23,7 +23,6 @@ import android.net.NetworkRequest;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.VibrationEffect;
@@ -720,11 +719,11 @@ class PhoneProfilesServiceStatic
                                     .build();
 
                             PPApplication.wifiConnectionCallback = new WifiNetworkCallback(appContext);
-                            if (Build.VERSION.SDK_INT >= 26)
+                            //if (Build.VERSION.SDK_INT >= 26)
                                 connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                            else {
-                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
-                            }
+                            //else {
+                            //    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback);
+                            //}
                         }
                     } catch (Exception e) {
                         PPApplication.wifiConnectionCallback = null;
@@ -741,10 +740,10 @@ class PhoneProfilesServiceStatic
                                     .build();
 
                             PPApplication.mobileDataConnectionCallback = new MobileDataNetworkCallback(appContext);
-                            if (Build.VERSION.SDK_INT >= 26)
+                            //if (Build.VERSION.SDK_INT >= 26)
                                 connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                            else
-                                connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback);
+                            //else
+                            //    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback);
                         }
                     } catch (Exception e) {
                         PPApplication.mobileDataConnectionCallback = null;
@@ -1152,11 +1151,11 @@ class PhoneProfilesServiceStatic
             boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     dataWrapper.fillEventList();
                     allowed = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS/*, false*/);
                     allowed = allowed || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS/*, false*/);
-                }
+                //}
             }
             if (allowed) {
                 if (PPApplication.defaultSIMChangedBroadcastReceiver == null) {
@@ -2082,10 +2081,10 @@ class PhoneProfilesServiceStatic
                                         .build();
 
                                 PPApplication.vpnConnectionCallback = new VPNNetworkCallback(appContext);
-                                if (Build.VERSION.SDK_INT >= 26)
+                                //if (Build.VERSION.SDK_INT >= 26)
                                     connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
-                                else
-                                    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback);
+                                //else
+                                //    connectivityManager.registerNetworkCallback(networkRequest, PPApplication.vpnConnectionCallback);
                             }
                         } catch (Exception e) {
                             PPApplication.vpnConnectionCallback = null;
@@ -4519,10 +4518,10 @@ class PhoneProfilesServiceStatic
                 Vibrator vibrator = (Vibrator) appContext.getSystemService(Context.VIBRATOR_SERVICE);
                 if ((vibrator != null) && vibrator.hasVibrator()) {
                     try {
-                        if (Build.VERSION.SDK_INT >= 26)
+                        //if (Build.VERSION.SDK_INT >= 26)
                             vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
-                        else
-                            vibrator.vibrate(300);
+                        //else
+                        //    vibrator.vibrate(300);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }

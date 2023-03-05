@@ -2307,7 +2307,7 @@ class DatabaseHandlerCreateUpdateDB {
                         long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
                         int wifiAP = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP));
 
-                        if ((wifiAP == 3) && (android.os.Build.VERSION.SDK_INT >= 26)) // Toggle is not supported for wifi AP in Android 8+
+                        if ((wifiAP == 3) /*&& (android.os.Build.VERSION.SDK_INT >= 26)*/) // Toggle is not supported for wifi AP in Android 8+
                             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
                                     " SET " + DatabaseHandler.KEY_DEVICE_WIFI_AP + "=0" + " " +
                                     "WHERE " + DatabaseHandler.KEY_ID + "=" + id);

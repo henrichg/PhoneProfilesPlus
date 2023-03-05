@@ -89,8 +89,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Supported Android versions
 
-- From Android 7.0
-- minSdkVersion = 24
+- From Android 8.0
+- minSdkVersion = 26
 - targetSdkVersion = 28
 - compiledSdkVersion = 33
 

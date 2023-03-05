@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 
@@ -179,7 +178,7 @@ class EventPreferencesCall extends EventPreferences {
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
                     descr = descr + ": <b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
 
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
                         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
@@ -199,7 +198,7 @@ class EventPreferencesCall extends EventPreferences {
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventCallForSimCardArray);
                             descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                         }
-                    }
+                    //}
 
                     if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
@@ -291,7 +290,7 @@ class EventPreferencesCall extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -334,7 +333,7 @@ class EventPreferencesCall extends EventPreferences {
                     }
                 }
             }
-        }
+        //}
 
         /*
         if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
@@ -519,7 +518,8 @@ class EventPreferencesCall extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_CALL_ENABLED) != null) {
+            if (prefMng.findPreference(PREF_EVENT_CALL_ENABLED) != null) //noinspection SuspiciousIndentAfterControlStatement
+            {
                 final boolean accessibilityEnabled =
                         PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
                                 /*, "EventPreferencesCall.checkPreferences"*/);
@@ -533,7 +533,7 @@ class EventPreferencesCall extends EventPreferences {
 //                if (preference != null)
 //                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean showPreferences = false;
                     final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -566,7 +566,7 @@ class EventPreferencesCall extends EventPreferences {
                         if (preference != null)
                             preference.setVisible(false);
                     }
-                }
+                //}
 
                 setSummary(prefMng, PREF_EVENT_CALL_ENABLED, preferences, context);
             }
@@ -947,7 +947,7 @@ class EventPreferencesCall extends EventPreferences {
                     if (phoneNumberFound) {
                         _fromSIMSlot = simSlot;
 
-                        if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
+                        if (/*(Build.VERSION.SDK_INT < 26) ||*/ (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
                             if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
                                 //noinspection StatementWithEmptyBody
                                 if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||

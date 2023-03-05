@@ -303,9 +303,9 @@ public class PhoneProfilesService extends Service
         */
 
         //try {
-            if ((Build.VERSION.SDK_INT < 26)) {
+            /*if ((Build.VERSION.SDK_INT < 26)) {
                 PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
-            }
+            }*/
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventPeriodicScanningScanInterval);
             PPApplicationStatic.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
@@ -1347,7 +1347,7 @@ public class PhoneProfilesService extends Service
                     if (oldVersionCode <= 5210) {
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
 
-                        if (Build.VERSION.SDK_INT >= 26) {
+                        //if (Build.VERSION.SDK_INT >= 26) {
                             NotificationManagerCompat manager = NotificationManagerCompat.from(appContext);
                             try {
                                 NotificationChannel channel = manager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL);
@@ -1358,7 +1358,7 @@ public class PhoneProfilesService extends Service
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
                             }
-                        }
+                        //}
 
                         int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
                         if (filterEventsSelectedItem == 2)
@@ -1369,7 +1369,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (actualVersionCode <= 5330) {
+                /*if (actualVersionCode <= 5330) {
                     if (oldVersionCode <= 5300) {
                         // for old packages hide profile notification from status bar if notification is disabled
                         if (Build.VERSION.SDK_INT < 26) {
@@ -1385,7 +1385,7 @@ public class PhoneProfilesService extends Service
                             }
                         }
                     }
-                }
+                }*/
 
                 if (actualVersionCode <= 5430) {
                     SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);

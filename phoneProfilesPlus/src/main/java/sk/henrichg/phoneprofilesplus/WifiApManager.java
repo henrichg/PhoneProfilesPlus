@@ -3,9 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.wifi.WifiConfiguration;
+//import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.ResultReceiver;
 
@@ -16,31 +15,33 @@ final class WifiApManager {
     //private static final int WIFI_AP_STATE_FAILED = 4;
     private final WifiManager mWifiManager;
     //private final String TAG = "Wifi Access Manager";
-    private Method wifiControlMethod = null;
-    private Method wifiApConfigurationMethod = null;
+    //private final Method wifiControlMethod = null;
+    //private final Method wifiApConfigurationMethod = null;
     //private Method wifiApState;
     private Method wifiApEnabled = null;
 
-    private ConnectivityManager mConnectivityManager;
-    private String packageName;
+    private final ConnectivityManager mConnectivityManager;
+    private final String packageName;
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (mWifiManager != null)
             wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             packageName = PPApplication.PACKAGE_NAME;
-        }
+        /*}
         else {
             if (mWifiManager != null) {
                 wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
-                wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
+                wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration");
                 //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
             }
-        }
+        }*/
     }
 
+    /*
     private void setWifiApState(WifiConfiguration config, boolean enabled, boolean doNotChangeWifi) {
         try {
             if (enabled) {
@@ -63,19 +64,23 @@ final class WifiApManager {
             PPApplicationStatic.recordException(e);
         }
     }
+    */
 
+    /*
     void setWifiApState(boolean enabled, boolean doNotChangeWifi) {
         WifiConfiguration wifiConfiguration = getWifiApConfiguration();
-        /*return*/ setWifiApState(wifiConfiguration, enabled, doNotChangeWifi);
+        setWifiApState(wifiConfiguration, enabled, doNotChangeWifi);
     }
+    */
 
+    /*
     // not working in Android 8+ :-/
     // https://stackoverflow.com/questions/46392277/changing-android-hotspot-settings
     private WifiConfiguration getWifiApConfiguration()
     {
         try{
             wifiApConfigurationMethod.setAccessible(true);
-            return (WifiConfiguration)wifiApConfigurationMethod.invoke(mWifiManager/*, null*/);
+            return (WifiConfiguration)wifiApConfigurationMethod.invoke(mWifiManager);
         }
         catch (Exception e)
         {
@@ -84,6 +89,7 @@ final class WifiApManager {
             return null;
         }
     }
+    */
 
     /*
     public int getWifiApState() {

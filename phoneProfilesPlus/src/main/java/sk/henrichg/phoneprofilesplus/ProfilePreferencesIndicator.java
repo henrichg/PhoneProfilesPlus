@@ -721,7 +721,7 @@ class ProfilePreferencesIndicator {
                 }
             }
 
-            if ((Build.VERSION.SDK_INT >= 26) &&
+            if (//(Build.VERSION.SDK_INT >= 26) &&
                     ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
@@ -1008,7 +1008,7 @@ class ProfilePreferencesIndicator {
             }
 
             // default sim card
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -1029,7 +1029,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            }
+            //}
 
             // mobile data
             if (profile._deviceMobileData != 0) {
@@ -1062,7 +1062,7 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
@@ -1129,7 +1129,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            }
+            //}
 
             // mobile data preferences
             if (profile._deviceMobileDataPrefs == 1) {
@@ -1400,8 +1400,8 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
-            if (Build.VERSION.SDK_INT >= 26) {
-                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+            //if (Build.VERSION.SDK_INT >= 26) {
+                //final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
@@ -1435,7 +1435,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            }
+            //}
             // network type prefs
             if (profile._deviceNetworkTypePrefs != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {

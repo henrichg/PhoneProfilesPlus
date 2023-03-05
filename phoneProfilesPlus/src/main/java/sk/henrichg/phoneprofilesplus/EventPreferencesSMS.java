@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 
@@ -166,7 +165,7 @@ class EventPreferencesSMS extends EventPreferences {
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
                     descr = descr + ": <b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
 
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
                         //if (Build.VERSION.SDK_INT >= 26) {
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -188,7 +187,7 @@ class EventPreferencesSMS extends EventPreferences {
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);
                             descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                         }
-                    }
+                    //}
 
                     if (this._permanentRun)
                         descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
@@ -250,7 +249,7 @@ class EventPreferencesSMS extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_SMS_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -293,7 +292,7 @@ class EventPreferencesSMS extends EventPreferences {
                     }
                 }
             }
-        }
+        //}
         /*
         if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
@@ -479,7 +478,8 @@ class EventPreferencesSMS extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null) {
+            if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null) //noinspection SuspiciousIndentAfterControlStatement
+            {
                 final boolean accessibilityEnabled =
                         PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
                                 /*, "EventPreferencesSMS.checkPreferences"*/);
@@ -493,7 +493,7 @@ class EventPreferencesSMS extends EventPreferences {
 //                if (preference != null)
 //                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean showPreferences = false;
                     final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -528,7 +528,7 @@ class EventPreferencesSMS extends EventPreferences {
                         if (preference != null)
                             preference.setVisible(false);
                     }
-                }
+                //}
                 setSummary(prefMng, PREF_EVENT_SMS_ENABLED, preferences, context);
             }
         }
@@ -813,7 +813,7 @@ class EventPreferencesSMS extends EventPreferences {
                 // compute start time
 
                 if (_startTime > 0) {
-                    if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
+                    if (/*(Build.VERSION.SDK_INT < 26) ||*/ (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
 
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         long startTime = _startTime - gmtOffset;

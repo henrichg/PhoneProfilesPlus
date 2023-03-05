@@ -2810,11 +2810,11 @@ public class EditorActivity extends AppCompatActivity
                     try {
                         editor.putInt("maximumVolume_dtmf", audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
                     } catch (Exception ignored) {}
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         try {
                             editor.putInt("maximumVolume_accessibility", audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
                         } catch (Exception ignored) {}
-                    }
+                    //}
                     try {
                         editor.putInt("maximumVolume_bluetoothSCO", audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
                     } catch (Exception ignored) {}
@@ -3943,18 +3943,18 @@ public class EditorActivity extends AppCompatActivity
 
     String getEmailBodyText() {
         String body;
-        if (Build.VERSION.SDK_INT >= 25)
+        //if (Build.VERSION.SDK_INT >= 25)
             body = getString(R.string.important_info_email_body_device) + " " +
                     Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
                     " (" + Build.MODEL + ")" + " \n";
-        else {
+        /*else {
             String manufacturer = Build.MANUFACTURER;
             String model = Build.MODEL;
             if (model.startsWith(manufacturer))
                 body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
             else
                 body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-        }
+        }*/
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
         return body;
     }

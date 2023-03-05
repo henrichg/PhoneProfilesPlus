@@ -31,10 +31,10 @@
 // 6920 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
 
 ext.ppVersions = [
-        publishVersion    : '6.2b',
-        publishVersionCode: 6930,
+        publishVersion    : '7.0b',
+        publishVersionCode: 6931,
 
-        minSdk            : 24,
+        minSdk            : 26,
         targetSdk         : 28,
         compileSdk        : 33,
         buildTools        : '33.0.0',

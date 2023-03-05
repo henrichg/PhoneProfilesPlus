@@ -304,8 +304,6 @@
     <string name="altype_dataImport">restore settings</string>
     <string name="array_event_pref_calendarSearchField_location">Location</string>
     <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
-    <string name="phone_profiles_pref_notificationShowInStatusBar">Show in status bar</string>
-    <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Show in status bar and lockscreen</string>
     <string name="menu_activity_log_reload">Reload</string>
     <string name="event_preferences_atEndDo">More actions</string>
     <string name="array_pref_atEndDo_none">None</string>
@@ -355,7 +353,6 @@
     <string name="event_preferences_volumeNotificationsAccessSettings_summary">To enable Notification sensor, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
     <string name="array_pref_zenModeArray_alarms">Alarms only</string>
     <string name="profile_preferences_zenMode_alarms_summary">Interrupt only with alarms</string>
-    <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
     <string name="permission_group_name_write_settings">Modify system settings</string>
     <string name="permission_group_name_storage">Storage</string>
     <string name="permission_group_name_phone">Phone</string>
@@ -571,7 +568,6 @@
     <string name="info_notification_event_start_order">Events run in \"Start order\". You can modify the start order in Editor in events view \"Start order\". You simply drag events up/down by the \"order handler\".</string>
     <string name="info_notification_event_start_order_handler_icon">Order handler:</string>
     <string name="info_notification_activate_profile_from_tasker">You can activate a profile through Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
-    <string name="phone_profiles_pref_notificationHideInLockscreen">Hide in lockscreen</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">Delete old Activity logs (days)</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Background opaqueness</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Background lightness</string>
@@ -703,7 +699,6 @@
     <string name="about_application_privacy_policy">Privacy Policy:</string>
     <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will activate when no event is running.</string>
     <string name="altype_applicationStartOnBoot">start on boot</string>
-    <string name="profile_preferences_hideStatusBarIcon">Hide status bar icon</string>
     <string name="profile_preferences_lockDevice">Lock device</string>
     <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
     <string name="array_pref_lockDevice_screenOff">Use quick screen off</string>
@@ -1310,7 +1305,6 @@
     <string name="event_type_device_boot">Device boot</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Device boot sensor</string>
     <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Configuration for all notification categories</string>
-    <string name="phone_profiles_pref_notificationSystemSettingsAll_A7_summary">Configuration for all notifications</string>
     <string name="event_preferences_alarm_clock_info">Internally supported Alarm clock applications</string>
     <string name="event_preferences_alarm_clock_applications">Alarm clock applications</string>
     <string name="gui_items_help">Help with GUI items</string>
@@ -1343,7 +1337,6 @@
     <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
     <string name="colorChooser_pref_dialog_customColor">Custom color</string>
     <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi)</string>
-    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Option \"On (do not disable Wi-Fi)\" must be supported by system</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Options \"On (ignore hotspot)\", \"Toggle (ignore hotspot)\" must be supported by system</string>

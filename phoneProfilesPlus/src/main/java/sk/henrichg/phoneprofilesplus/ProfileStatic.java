@@ -1024,7 +1024,7 @@ class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS(preferenceAllowed);
                     break;
                 case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed, context);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed/*, context*/);
                     break;
                 case Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(preferenceAllowed, null, sharedPreferences, fromUIThread, context);

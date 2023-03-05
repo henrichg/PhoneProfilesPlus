@@ -312,6 +312,7 @@ class MobileCellsListener extends PhoneStateListener {
         if (telephonyManager != null) {
             CellLocation location = null;
             if (Permissions.checkLocation(context.getApplicationContext())) {
+                //noinspection deprecation
                 location = telephonyManager.getCellLocation();
                 if (location == null)
                     return null;

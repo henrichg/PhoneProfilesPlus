@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -70,7 +69,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 //        PPApplicationStatic.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "current thread="+Thread.currentThread());
 
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean actualStateSIM1 = ActivateProfileHelper.isMobileData(context, 1);
                 boolean actualStateSIM2 = ActivateProfileHelper.isMobileData(context, 2);
                 if (previousStateSIM1 != actualStateSIM1) {
@@ -81,7 +80,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                     doOnChange(/*selfChange, uri*/);
                     previousStateSIM2 = actualStateSIM2;
                 }
-            }
+            //}
             boolean actualState = ActivateProfileHelper.isMobileData(context, 0);
             if (previousState != actualState) {
                 doOnChange(/*selfChange, uri*/);

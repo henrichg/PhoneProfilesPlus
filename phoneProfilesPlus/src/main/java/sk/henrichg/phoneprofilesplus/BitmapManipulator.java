@@ -421,7 +421,9 @@ class BitmapManipulator {
         }
     }
 
-    static Bitmap getBitmapFromResource(int drawableRes, boolean appIconSize, Context context) {
+    static Bitmap getBitmapFromResource(int drawableRes,
+                                        @SuppressWarnings("SameParameterValue") boolean appIconSize,
+                                        Context context) {
         //Drawable drawable = ContextCompat.getDrawable(context, drawableRes);
         Drawable drawable = AppCompatResources.getDrawable(context, drawableRes);
         return getBitmapFromDrawable(drawable, appIconSize/*, context*/);

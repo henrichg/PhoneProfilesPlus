@@ -264,6 +264,7 @@ class GlobalUtils {
         if (manager != null) {
             List<ActivityManager.RunningServiceInfo> services;
             try {
+                //noinspection deprecation
                 services = manager.getRunningServices(Integer.MAX_VALUE);
             } catch (Exception e) {
                 return null;
@@ -491,10 +492,10 @@ class GlobalUtils {
 //        PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "simCard="+simCard);
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            if (Build.VERSION.SDK_INT < 26) {
+            /*if (Build.VERSION.SDK_INT < 26) {
 //                PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "hasSIM="+(telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY));
                 return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
-            } else {
+            } else {*/
                 if (simCard == 0) {
                     boolean hasSIM1 = _hasSIMCard(appContext, telephonyManager, 1);
                     boolean hasSIM2 = _hasSIMCard(appContext, telephonyManager, 2);
@@ -506,7 +507,7 @@ class GlobalUtils {
 //                    PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "hasSIM="+hasSIM);
                     return hasSIM;
                 }
-            }
+            //}
         }
 //        PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "--- false ---");
         return false;
@@ -515,9 +516,9 @@ class GlobalUtils {
     static int getSIMCardFromSubscriptionId(Context appContext, int subscriptionId) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            if (Build.VERSION.SDK_INT < 26) {
+            /*if (Build.VERSION.SDK_INT < 26) {
                 return 0;
-            } else {
+            } else {*/
                 if (Permissions.checkPhone(appContext)) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
@@ -547,7 +548,7 @@ class GlobalUtils {
                         return 0;
                 } else
                     return -1;
-            }
+            //}
         }
         return -1;
     }

@@ -56,6 +56,23 @@
         app:dependency="eventSMSEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <Preference
+        app:key="eventSMSDualSIMInfo"
+        app:title="@string/event_preferences_sms_forSimCard"
+        app:summary="@string/event_preferences_sms_dualSIM_summary"
+        app:dependency="eventSMSEnabled"
+        app:widgetLayout="@layout/preference_widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_sms_forSimCard"
+        app:summary="@string/event_preferences_forSimCard_bothCards"
+        app:key="eventSMSForSimCard"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventSMSForSimCardArray"
+        app:ppEntryValues="@array/eventSMSForSimCardValues"
+        app:dependency="eventSMSEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
         app:summary="@string/empty_string"

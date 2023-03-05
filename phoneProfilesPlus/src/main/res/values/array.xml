@@ -904,22 +904,6 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="wifiAPArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_wifiAPModeArray_on_keepWifi</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-        <item>@string/array_pref_hardwareModeArray_toggle</item>
-        <item>@string/array_pref_wifiAPModeArray_toggle_keepWifi</item>
-    </string-array>
-    <string-array name="wifiAPValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>1</item>
-        <item>4</item>
-        <item>2</item>
-        <item>3</item>
-        <item>5</item>
-    </string-array>
     <string-array name="notificationLayoutTypeArray">
         <item>@string/phone_profiles_pref_notificationLayoutType_expandable</item>
         <item>@string/phone_profiles_pref_notificationLayoutType_large</item>
@@ -1581,6 +1565,65 @@
     <string-array name="notificationPreferencesNotificationTypeArray">
         <item>@string/notification_channel_activated_profile</item>
         <item>@string/notification_channel_profile_list</item>
+    </string-array>
+
+    <string-array name="wifiAPArray" tools:ignore="InconsistentArrays">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_wifiAPModeArray_on_keepWifi</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="wifiAPValues" tools:ignore="InconsistentArrays">
+        <item>0</item>
+        <item>1</item>
+        <item>4</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="eventRadioSwitchMobileDataDualSIMArray">
+        <item>@string/array_pref_radioSwitch_notDetect</item>
+        <item>@string/array_pref_radioSwitch_on</item>
+        <item>@string/array_pref_radioSwitch_off</item>
+        <item>@string/array_pref_radioSwitch_connected_any_sim_cards</item>
+        <item>@string/array_pref_radioSwitch_connected_sim1</item>
+        <item>@string/array_pref_radioSwitch_connected_sim2</item>
+        <item>@string/array_pref_radioSwitch_disconnected</item>
+    </string-array>
+    <string-array name="eventRadioSwitchhMobileDataDualSIMValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>6</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="eventRadioSwitchDefaultSIMArray">
+        <item>@string/array_pref_radioSwitch_notDetect</item>
+        <item>@string/array_pref_radioSwitch_defaultSIM1</item>
+        <item>@string/array_pref_radioSwitch_defaultSIM2</item>
+    </string-array>
+    <string-array name="eventRadioSwitchDefaultSIMValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="eventRadioSwitchSIMOnOffArray">
+        <item>@string/array_pref_radioSwitch_notDetect</item>
+        <item>@string/array_pref_radioSwitch_any_SIM_on</item>
+        <item>@string/array_pref_radioSwitch_any_SIM_off</item>
+        <item>@string/array_pref_radioSwitch_SIM1_on</item>
+        <item>@string/array_pref_radioSwitch_SIM1_off</item>
+        <item>@string/array_pref_radioSwitch_SIM2_on</item>
+        <item>@string/array_pref_radioSwitch_SIM2_off</item>
+    </string-array>
+    <string-array name="eventRadioSwitchSIMOnOffValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
     </string-array>
 
 </resources>

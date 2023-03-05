@@ -1,8 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.app.Notification.DEFAULT_SOUND;
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -10,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
@@ -2944,12 +2940,12 @@ class Event {
                 mBuilder.setGroup(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_GROUP);
 
                 Notification notification = mBuilder.build();
-                if (Build.VERSION.SDK_INT < 26) {
+                /*if (Build.VERSION.SDK_INT < 26) {
                     notification.sound = null;
                     notification.vibrate = null;
                     notification.defaults &= ~DEFAULT_SOUND;
                     notification.defaults &= ~DEFAULT_VIBRATE;
-                }
+                }*/
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
                 try {

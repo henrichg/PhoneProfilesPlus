@@ -57,6 +57,16 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_call_forSimCard"
+        app:summary="@string/event_preferences_forSimCard_bothCards"
+        app:key="eventCallForSimCard"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventCallForSimCardArray"
+        app:ppEntryValues="@array/eventCallForSimCardValues"
+        app:dependency="eventCallEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
         app:summary="@string/empty_string"

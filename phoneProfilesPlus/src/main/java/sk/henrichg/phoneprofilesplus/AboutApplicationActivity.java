@@ -511,18 +511,18 @@ public class AboutApplicationActivity extends AppCompatActivity {
         String body;
         //switch (bodyType) {
         //    case EMAIL_BODY_SUPPORT:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+                //if (Build.VERSION.SDK_INT >= 25)
                     body = context.getString(R.string.important_info_email_body_device) + " " +
                             Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
                             " (" + Build.MODEL + ")" + " \n";
-                else {
+                /*else {
                     String manufacturer = Build.MANUFACTURER;
                     String model = Build.MODEL;
                     if (model.startsWith(manufacturer))
                         body = context.getString(R.string.important_info_email_body_device) + " " + model + " \n";
                     else
                         body = context.getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-                }
+                }*/
                 body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
                 body = body + context.getString(R.string.important_info_email_body_problems) + " \n";
                 body = body + context.getString(R.string.important_info_email_body_questions) + " \n";

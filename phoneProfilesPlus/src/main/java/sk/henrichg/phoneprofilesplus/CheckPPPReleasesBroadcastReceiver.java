@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -259,10 +256,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
 
         Notification notification = mBuilder.build();
-        if (Build.VERSION.SDK_INT < 26) {
+        /*if (Build.VERSION.SDK_INT < 26) {
             notification.vibrate = null;
             notification.defaults &= ~DEFAULT_VIBRATE;
-        }
+        }*/
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {

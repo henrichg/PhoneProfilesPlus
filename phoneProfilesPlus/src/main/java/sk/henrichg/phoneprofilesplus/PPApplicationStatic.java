@@ -472,9 +472,9 @@ class PPApplicationStatic {
     static void startPPService(Context context, Intent serviceIntent) {
         //if (isPPService)
         //    PhoneProfilesService.startForegroundNotification = true;
-        if (Build.VERSION.SDK_INT < 26)
+        /*if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);
-        else {
+        else {*/
             boolean notificationsEnbaled = true;
             if (Build.VERSION.SDK_INT >= 33) {
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -483,7 +483,7 @@ class PPApplicationStatic {
             }
             if (notificationsEnbaled)
                 context.getApplicationContext().startForegroundService(serviceIntent);
-        }
+        //}
     }
 
     static void runCommand(Context context, Intent intent) {
@@ -759,8 +759,8 @@ class PPApplicationStatic {
             ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage(context);
 
             ApplicationPreferences.notificationProfileListDisplayNotification(context);
-            ApplicationPreferences.notificationProfileListShowInStatusBar(context);
-            ApplicationPreferences.notificationProfileListHideInLockScreen(context);
+            //ApplicationPreferences.notificationProfileListShowInStatusBar(context);
+            //ApplicationPreferences.notificationProfileListHideInLockScreen(context);
             ApplicationPreferences.notificationProfileListStatusBarStyle(context);
             ApplicationPreferences.notificationProfileListBackgroundColor(context);
             ApplicationPreferences.notificationProfileListBackgroundCustomColor(context);
@@ -1072,7 +1072,7 @@ class PPApplicationStatic {
     // notification channels -------------------------
 
     static void createPPPAppNotificationChannel(/*Profile profile, */Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.PROFILE_NOTIFICATION_CHANNEL) != null)
@@ -1103,12 +1103,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
         //return true;
     }
 
     static void createMobileCellsRegistrationNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
@@ -1135,11 +1135,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createInformationNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.INFORMATION_NOTIFICATION_CHANNEL) != null)
@@ -1166,11 +1166,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createExclamationNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL) != null)
@@ -1195,11 +1195,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createGrantPermissionNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
@@ -1227,11 +1227,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createNotifyEventStartNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
@@ -1258,11 +1258,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createMobileCellsNewCellNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
@@ -1290,11 +1290,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createDonationNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.DONATION_NOTIFICATION_CHANNEL) != null)
@@ -1321,11 +1321,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createNewReleaseNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL) != null)
@@ -1352,12 +1352,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     /*
     static void createCrashReportNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL) != null)
@@ -1382,12 +1382,12 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-        }
+        //}
     }
     */
 
     static void createGeneratedByProfileNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null)
@@ -1414,11 +1414,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createKeepScreenOnNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL) != null)
@@ -1447,11 +1447,11 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createProfileListNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
                 if (notificationManager.getNotificationChannel(PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL) != null)
@@ -1479,7 +1479,7 @@ class PPApplicationStatic {
             } catch (Exception e) {
                 recordException(e);
             }
-        }
+        //}
     }
 
     static void createNotificationChannels(Context appContext) {

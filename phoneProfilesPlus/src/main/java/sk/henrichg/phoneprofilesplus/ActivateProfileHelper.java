@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
@@ -199,7 +197,7 @@ class ActivateProfileHelper {
         }
 
         // change default SIM
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     //noinspection ConstantConditions
@@ -241,7 +239,7 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        }
+        //}
 
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
@@ -258,7 +256,7 @@ class ActivateProfileHelper {
                 GlobalUtils.sleep(200);
             }
         }
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
@@ -291,7 +289,7 @@ class ActivateProfileHelper {
                     }
                 }
             }
-        }
+        //}
 
         // setup mobile data
         if (profile._deviceMobileData != 0) {
@@ -328,8 +326,8 @@ class ActivateProfileHelper {
                 }
             }
         }
-        if (Build.VERSION.SDK_INT >= 26) {
-            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        //if (Build.VERSION.SDK_INT >= 26) {
+            //final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
@@ -416,7 +414,7 @@ class ActivateProfileHelper {
 
                 }
             }
-        }
+        //}
 
         // setup WiFi AP
         boolean canChangeWifi = true;
@@ -1225,7 +1223,7 @@ class ActivateProfileHelper {
         }
 
         if (forProfileActivation) {
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 if (profile.getVolumeAccessibilityChange()) {
                     try {
                         //EventPreferencesVolumes.internalChange = true;
@@ -1235,7 +1233,7 @@ class ActivateProfileHelper {
                         PPApplicationStatic.recordException(e);
                     }
                 }
-            }
+            //}
         }
 
         if (forRingerMode) {
@@ -3569,7 +3567,7 @@ class ActivateProfileHelper {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
                                 RingerModeChangeReceiver.notUnlinkVolumes = false;
                             }
-                            if (Build.VERSION.SDK_INT <= 25) {
+                            /*if (Build.VERSION.SDK_INT <= 25) {
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                                 GlobalUtils.sleep(500);
                                 //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
@@ -3582,7 +3580,8 @@ class ActivateProfileHelper {
                                 //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                                 InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_PRIORITY);
                             }
-                            else
+                            else*/
+                            //noinspection IfStatementWithIdenticalBranches
                             if (Build.VERSION.SDK_INT <= 28) {
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                                 //setVibrateSettings(true, audioManager);
@@ -4476,8 +4475,8 @@ class ActivateProfileHelper {
         mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
 
         Notification notification = mBuilder.build();
-        notification.vibrate = null;
-        notification.defaults &= ~DEFAULT_VIBRATE;
+        //notification.vibrate = null;
+        //notification.defaults &= ~DEFAULT_VIBRATE;
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {
@@ -4912,7 +4911,7 @@ class ActivateProfileHelper {
             setScreenDarkMode(context, profile._screenDarkMode, executedProfileSharedPreferences);
         }
 
-        if (android.os.Build.VERSION.SDK_INT >= 26) {
+        //if (android.os.Build.VERSION.SDK_INT >= 26) {
             // set always on display
             if (profile._alwaysOnDisplay != 0) {
                 switch (profile._alwaysOnDisplay) {
@@ -4924,7 +4923,7 @@ class ActivateProfileHelper {
                         break;
                 }
             }
-        }
+        //}
 
         // close all applications
 
@@ -5091,8 +5090,8 @@ class ActivateProfileHelper {
             mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
 
             Notification notification = mBuilder.build();
-            notification.vibrate = null;
-            notification.defaults &= ~DEFAULT_VIBRATE;
+            //notification.vibrate = null;
+            //notification.defaults &= ~DEFAULT_VIBRATE;
 
             NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
             try {
@@ -5545,9 +5544,9 @@ class ActivateProfileHelper {
             //if (android.os.Build.VERSION.SDK_INT < 25)
             //    type = WindowManager.LayoutParams.TYPE_TOAST;
             //else
-            if (android.os.Build.VERSION.SDK_INT < 26)
-                type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
-            else
+            //if (android.os.Build.VERSION.SDK_INT < 26)
+            //    type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+            //else
                 type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
             WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     1, 1,
@@ -5600,8 +5599,8 @@ class ActivateProfileHelper {
                     mBuilder.setGroup(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_GROUP);
 
                     Notification notification = mBuilder.build();
-                    notification.vibrate = null;
-                    notification.defaults &= ~DEFAULT_VIBRATE;
+                    //notification.vibrate = null;
+                    //notification.defaults &= ~DEFAULT_VIBRATE;
 
                     NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
                     try {
@@ -5702,12 +5701,12 @@ class ActivateProfileHelper {
         }
         else
         if (useAssistant && isPPPSetAsDefaultAssistant(context)) {
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 Intent intent = new Intent(PPVoiceService.ACTION_ASSISTANT);
                 intent.putExtra("ACTION", Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE);
                 intent.putExtra(Settings.EXTRA_AIRPLANE_MODE_ENABLED, mode);
                 context.sendBroadcast(intent);
-            }
+            //}
         }
     }
 
@@ -5946,7 +5945,7 @@ class ActivateProfileHelper {
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
-                if ((Build.VERSION.SDK_INT < 26) || (simCard == 0)) {
+                if (/*(Build.VERSION.SDK_INT < 26) ||*/ (simCard == 0)) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "svc data " + (enable ? "enable" : "disable");
                         Command command = new Command(0, /*false,*/ command1);
@@ -6198,7 +6197,7 @@ class ActivateProfileHelper {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionInfo=" + subscriptionInfo);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                        if ((Build.VERSION.SDK_INT < 26) || (simCard == 0) || (simCard == (slotIndex+1))) {
+                                        if (/*(Build.VERSION.SDK_INT < 26) ||*/ (simCard == 0) || (simCard == (slotIndex+1))) {
                                             // dual sim is supported by TelephonyManager from API 26
 
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
@@ -6263,11 +6262,11 @@ class ActivateProfileHelper {
                                   Profile profile, Context context) {
         try {
 
-            if (Build.VERSION.SDK_INT < 26) {
+            /*if (Build.VERSION.SDK_INT < 26) {
                 // for Android 7
                 wifiApManager.setWifiApState(enable, doNotChangeWifi);
             }
-            else
+            else*/
             if (Build.VERSION.SDK_INT < 28) {
                 // for Android 8
                 Context appContext = context.getApplicationContext();
@@ -6932,7 +6931,7 @@ class ActivateProfileHelper {
 
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
 //                    if (simCard != -1) {
                         boolean simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simCard == 1) {
@@ -7084,7 +7083,7 @@ class ActivateProfileHelper {
                         }
                     }
 */
-                }
+                //}
             }
         }
     }

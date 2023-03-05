@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.os.Build;
 import android.os.PowerManager;
 
 public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
@@ -83,6 +82,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 */
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
@@ -90,7 +90,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
             // application is not started
             return;
 
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
 
             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -114,7 +114,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
                     }
                 }
             }
-        }
+        /*}
         else {
             final Context appContext = context;
             //PPApplication.startHandlerThreadBroadcast();
@@ -152,7 +152,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
             }; //);
             PPApplicationStatic.createEventsHandlerExecutor();
             PPApplication.eventsHandlerExecutor.submit(runnable);
-        }
+        }*/
     }
 
     private void _doConnection(Context appContext) {

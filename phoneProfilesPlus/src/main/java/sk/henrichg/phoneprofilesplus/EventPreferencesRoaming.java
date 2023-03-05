@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.telephony.TelephonyManager;
 
 import androidx.preference.Preference;
@@ -113,7 +112,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context) + "</b>";
                 }
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean hasSIMCard = false;
                     final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -133,7 +132,7 @@ class EventPreferencesRoaming extends EventPreferences {
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
                         descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                     }
-                }
+                //}
             }
             else {
                 descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
@@ -158,7 +157,7 @@ class EventPreferencesRoaming extends EventPreferences {
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_ROAMING_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -201,7 +200,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     }
                 }
             }
-        }
+        //}
 
         Event event = new Event();
         event.createEventPreferences();
@@ -294,7 +293,7 @@ class EventPreferencesRoaming extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_ROAMING_ENABLED) != null) {
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_ROAMING_ENABLED, false);
                     Preference preference;
                     boolean showPreferences = false;
@@ -320,7 +319,7 @@ class EventPreferencesRoaming extends EventPreferences {
                         if (preference != null)
                             preference.setVisible(false);
                     }
-                }
+                //}
 
                 setSummary(prefMng, PREF_EVENT_ROAMING_ENABLED, preferences, context);
             }
@@ -412,11 +411,11 @@ class EventPreferencesRoaming extends EventPreferences {
 
                 boolean networkRoaming = false;
                 boolean dataRoaming = false;
-                if (Build.VERSION.SDK_INT < 26) {
+                /*if (Build.VERSION.SDK_INT < 26) {
                     networkRoaming = _networkRoamingInSIMSlot0;
                     dataRoaming = _dataRoamingInSIMSlot0;
                 }
-                else
+                else*/
                 if (_forSIMCard == 0) {
                     networkRoaming = _networkRoamingInSIMSlot0 || _networkRoamingInSIMSlot1 || _networkRoamingInSIMSlot2;
                     dataRoaming = _dataRoamingInSIMSlot0 || _dataRoamingInSIMSlot1 || _dataRoamingInSIMSlot2;
