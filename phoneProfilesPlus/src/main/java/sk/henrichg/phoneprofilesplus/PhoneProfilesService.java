@@ -719,11 +719,11 @@ public class PhoneProfilesService extends Service
                 RootUtils.serviceBinaryExists(false);
                 RootUtils.getServicesList();
 
-                PhoneProfilesService ppService = PhoneProfilesService.getInstance();
+                //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 
-                boolean newVersion = false;
-                if (ppService != null)
-                    newVersion = ppService.doForPackageReplaced(appContext);
+                boolean newVersion;// = false;
+                //if (ppService != null)
+                    newVersion = /*ppService.*/doForPackageReplaced(appContext);
                 if (newVersion) {
                     __activateProfiles = true;
                     __applicationStart = true;

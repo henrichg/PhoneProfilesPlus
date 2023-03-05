@@ -293,12 +293,12 @@ public class ActivatorActivity extends AppCompatActivity
 //            PPApplicationStatic.logE("[START_PP_SERVICE] ActivatorActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplicationStatic.startPPService(this, serviceIntent);
             //return true;
-        } else {
+        }/* else {
             //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 //return true;
             }
-        }
+        }*/
 
         return false;
     }

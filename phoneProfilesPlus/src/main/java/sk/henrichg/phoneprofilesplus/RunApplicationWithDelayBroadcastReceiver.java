@@ -203,16 +203,16 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                Context _context = context;
-                if (PhoneProfilesService.getInstance() != null)
-                    _context = PhoneProfilesService.getInstance();
+                //Context _context = context;
+                //if (PhoneProfilesService.getInstance() != null)
+                //    _context = PhoneProfilesService.getInstance();
 
                 //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                 //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context/*_context*/, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
