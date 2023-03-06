@@ -1,10 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.RemoteServiceException;
 import android.content.Context;
 import android.os.DeadSystemException;
-import android.os.DeadSystemRuntimeException;
 import android.provider.Settings;
+//import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -30,7 +31,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         this.actualVersionCode = actualVersionCode;
     }
 
-    public void uncaughtException(@NonNull Thread t, @NonNull Throwable e)
+    public void uncaughtException(@NonNull Thread _thread, @NonNull Throwable _exception)
     {
 //        Log.e("TopExceptionHandler.uncaughtException", "xxx");
 
@@ -70,8 +71,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         try {
             if (PPApplication.crashIntoFile) {
-                StackTraceElement[] arr = e.getStackTrace();
-                StringBuilder report = new StringBuilder(e.toString());
+                StackTraceElement[] arr = _exception.getStackTrace();
+                StringBuilder report = new StringBuilder(_exception.toString());
 
                 report.append("\n\n");
 
@@ -91,7 +92,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 // If the exception was thrown in a background thread inside
                 // AsyncTask, then the actual exception can be found with getCause
                 report.append("--------- Cause ---------------\n\n");
-                Throwable cause = e.getCause();
+                Throwable cause = _exception.getCause();
                 if (cause != null) {
                     report.append(cause.toString()).append("\n\n");
                     arr = cause.getStackTrace();
@@ -110,35 +111,49 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 //        Log.e("TopExceptionHandler.uncaughtException", "defaultUEH=" + defaultUEH);
 
         if (defaultUEH != null) {
+//            Log.e("TopExceptionHandler.uncaughtException", "(2)");
+
             boolean ignore = false;
-            if (t.getName().equals("FinalizerWatchdogDaemon") && (e instanceof TimeoutException)) {
+            if (_thread.getName().equals("FinalizerWatchdogDaemon") && (_exception instanceof TimeoutException)) {
                 // ignore these exceptions
                 // java.util.concurrent.TimeoutException: com.android.internal.os.BinderInternal$GcWatcher.finalize() timed out after 10 seconds
                 // https://stackoverflow.com/a/55999687/2863059
                 ignore = true;
             }
-            //if (Build.VERSION.SDK_INT >= 24) {
-                if ((e instanceof DeadSystemException) ||
-                        (e instanceof DeadSystemRuntimeException)) {
-                    // ignore these exceptions
-                    // these are from dead of system for example:
-                    // java.lang.RuntimeException: Unable to create service
-                    // androidx.work.impl.background.systemjob.SystemJobService:
-                    // java.lang.RuntimeException: android.os.DeadSystemException
-                    ignore = true;
-                }
-            //}
+//            Log.e("TopExceptionHandler.uncaughtException", "(2x)");
+            if ((_exception instanceof DeadSystemException) /*||
+                    (_exception instanceof DeadSystemRuntimeException)*/) {
+                // ignore these exceptions
+                // these are from dead of system for example:
+                // java.lang.RuntimeException: Unable to create service
+                // androidx.work.impl.background.systemjob.SystemJobService:
+                // java.lang.RuntimeException: android.os.DeadSystemException
+                ignore = true;
+            }
+//            Log.e("TopExceptionHandler.uncaughtException", "(2y)");
+            if (_exception.getClass().getSimpleName().equals("CannotDeliverBroadcastException") &&
+                    (_exception instanceof RemoteServiceException)) {
+                // ignore but not exist exception
+                // android.app.RemoteServiceException$CannotDeliverBroadcastException: can't deliver broadcast
+                // https://stackoverflow.com/questions/72902856/cannotdeliverbroadcastexception-only-on-pixel-devices-running-android-12
+                ignore = true;
+            }
+//            Log.e("TopExceptionHandler.uncaughtException", "(2z)");
 
             // this is only for debuging, how is handled ignored exceptions
-//            if (e instanceof java.lang.RuntimeException) {
-//                if ((e.getMessage() != null) && (e.getMessage().equals("Test Crash"))) {
-//                    ignore = true;
-//                }
-//            }
+            if (_exception instanceof java.lang.RuntimeException) {
+                if ((_exception.getMessage() != null) && (_exception.getMessage().equals("Test Crash"))) {
+                    ignore = true;
+                }
+            }
+
+//            Log.e("TopExceptionHandler.uncaughtException", "ignore="+ignore);
 
             if (!ignore) {
                 //Delegates to Android's error handling
-                defaultUEH.uncaughtException(t, e);
+//                Log.e("TopExceptionHandler.uncaughtException", "(3)");
+                defaultUEH.uncaughtException(_thread, _exception);
+//                Log.e("TopExceptionHandler.uncaughtException", "(4)");
             } else
                 //Prevents the service/app from freezing
                 System.exit(2);
@@ -146,6 +161,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         else
             //Prevents the service/app from freezing
             System.exit(2);
+
+//        Log.e("TopExceptionHandler.uncaughtException", "end");
     }
 
     @SuppressWarnings("SameParameterValue")
