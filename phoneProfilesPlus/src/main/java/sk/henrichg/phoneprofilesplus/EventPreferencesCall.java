@@ -935,6 +935,9 @@ class EventPreferencesCall extends EventPreferences {
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
                 int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
+                //Log.e("EventPreferencesCall.doHandleEvent", "callEventType="+callEventType);
+                //Log.e("EventPreferencesCall.doHandleEvent", "phoneNumber="+phoneNumber);
+                //Log.e("EventPreferencesCall.doHandleEvent", "simSlot="+simSlot);
 
                 boolean phoneNumberFound = false;
 
@@ -970,6 +973,7 @@ class EventPreferencesCall extends EventPreferences {
                             } else if ((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
                                     (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
                                     (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+//                                Log.e("EventPreferencesCall.doHandleEvent", "_startTime="+_startTime);
                                 if (_startTime > 0) {
                                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                                     long startTime = _startTime - gmtOffset;
@@ -982,6 +986,7 @@ class EventPreferencesCall extends EventPreferences {
                                     long nowAlarmTime = now.getTimeInMillis();
 
                                     if (eventsHandler.sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) {
+//                                        Log.e("EventPreferencesCall.doHandleEvent", "SENSOR_TYPE_PHONE_CALL");
                                         //noinspection StatementWithEmptyBody
                                         if (((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) && (_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
                                                 ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
