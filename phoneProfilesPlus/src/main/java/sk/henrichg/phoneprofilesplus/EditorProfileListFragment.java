@@ -17,7 +17,6 @@ import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -134,7 +133,7 @@ public class EditorProfileListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Log.e("EditorProfileListFragment.onCreate", "xxxx");
+//        Log.e("EditorProfileListFragment.onCreate", "xxxx");
 
         // this is really important in order to save the state across screen
         // configuration changes for example
@@ -585,7 +584,7 @@ public class EditorProfileListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
-        Log.e("EditorProfileListFragment.onDestroy", "xxxx");
+//        Log.e("EditorProfileListFragment.onDestroy", "xxxx");
 
         if (isAsyncTaskRunning()) {
             //Log.e("EditorProfileListFragment.onDestroy", "AsyncTask not finished");

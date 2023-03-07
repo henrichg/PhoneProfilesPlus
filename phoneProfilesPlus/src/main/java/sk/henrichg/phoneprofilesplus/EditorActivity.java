@@ -30,7 +30,6 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -254,7 +253,7 @@ public class EditorActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("EditorActivity.onCreate", "xxxx");
+//        Log.e("EditorActivity.onCreate", "xxxx");
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
@@ -609,7 +608,7 @@ public class EditorActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-        Log.e("EditorActivity.onStart", "xxxx");
+//        Log.e("EditorActivity.onStart", "xxxx");
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (doServiceStart) {
@@ -709,7 +708,7 @@ public class EditorActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        Log.e("EditorActivity.onResume", "xxxx");
+//        Log.e("EditorActivity.onResume", "xxxx");
 
         savedInstanceStateChanged = false;
     }
@@ -728,7 +727,7 @@ public class EditorActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e("EditorActivity.onStop", "xxxx");
+//        Log.e("EditorActivity.onStop", "xxxx");
 
         unregisterReceiversInStop();
 
@@ -742,7 +741,7 @@ public class EditorActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        Log.e("EditorActivity.onDestroy", "xxxx");
+//        Log.e("EditorActivity.onDestroy", "xxxx");
 
         unregisterReceiversInStop();
 
@@ -782,11 +781,11 @@ public class EditorActivity extends AppCompatActivity
 
         if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
-            Log.e("EditorActivity.onDestroy", "clear Application cache = "+PPApplicationStatic.getApplicationsCache());
+//            Log.e("EditorActivity.onDestroy", "clear Application cache = "+PPApplicationStatic.getApplicationsCache());
 
             Runnable runnable = () -> {
                 if (PPApplicationStatic.getApplicationsCache() != null) {
-                    Log.e("EditorActivity.onDestroy", "clear Application cache");
+//                    Log.e("EditorActivity.onDestroy", "clear Application cache");
 
                     PPApplicationStatic.getApplicationsCache().cancelCaching();
                     //if (PPApplicationStatic.getApplicationsCache().cached)
