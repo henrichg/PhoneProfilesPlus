@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -131,14 +132,17 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
         //refreshListView(false);
 
-        /*
-        cellsListView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                cellName.setText(cellsList.get(position).name);
-            }
-
+        cellsListView.setOnItemClickListener((parent, item, position, id) -> {
+            int cellId = preference.filteredCellsList.get(position).cellId;
+            MobileCellsPreferenceAdapter.ViewHolder viewHolder =
+                    (MobileCellsPreferenceAdapter.ViewHolder) item.getTag();
+            viewHolder.checkBox.setChecked(!preference.isCellSelected(cellId));
+            if (viewHolder.checkBox.isChecked())
+                preference.addCellId(cellId);
+            else
+                preference.removeCellId(cellId);
+            preference.refreshListView(false, Integer.MAX_VALUE);
         });
-        */
 
         mMobileCellsFilterDialog = new MobileCellNamesDialog((Activity)prefContext, preference, true);
         cellFilter.setOnClickListener(view1 -> {
@@ -547,9 +551,6 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
     }
 
-    //TODO, tu by bolo super pridat: "Delete all non-selected". Toto tam chyba, dalo by sa tym mazat
-    // vsetky bezmenne nepouzite, ak si uzivatel nastavi filter na bezmenne
-    // !!! Bacha! Ako pre "Delete all selected", tiez zmaz len tie z aktualneho filtra !!!
     void showEditMenu(View view) {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         final Context _context = view.getContext();
@@ -566,11 +567,10 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             int itemId = item.getItemId();
             if (itemId == R.id.mobile_cells_pref_item_menu_delete) {
                 if (getActivity() != null) {
-                    //TODO sem daj upozornenie, ze to zmaze bunku pouzivanu aj v inych udalostiach
-                    // lebo jedna bunka sa moze pouzivat v roznych udalostiach naraz
                     PPAlertDialog dialog = new PPAlertDialog(
                             getString(R.string.profile_context_item_delete),
-                            getString(R.string.delete_mobile_cell_alert_message),
+                            getString(R.string.delete_mobile_cell_alert_message) + "\n\n" +
+                            getString(R.string.delete_mobile_cell_alert_message_warning),
                             getString(R.string.alert_button_yes),
                             getString(R.string.alert_button_no),
                             null, null,
@@ -595,26 +595,68 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 }
                 return true;
             }
+            else
             if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_selected) {
                 // this delete all selected cells in actual filter
                 if (getActivity() != null) {
-                    //TODO sem daj upozornenie, ze to zmaze bunky pouzivane aj v inych udalostiach
-                    // lebo jedna bunka sa moze pouzivat v roznych udalostiach naraz
                     PPAlertDialog dialog = new PPAlertDialog(
                             getString(R.string.profile_context_item_delete),
-                            getString(R.string.delete_selected_mobile_cells_alert_message),
+                            getString(R.string.delete_selected_mobile_cells_alert_message) + "\n\n" +
+                                    getString(R.string.delete_selected_mobile_cells_alert_message_warning),
                             getString(R.string.alert_button_yes),
                             getString(R.string.alert_button_no),
                             null, null,
                             (dialog1, which) -> {
+                                String[] splits = preference.value.split("\\|");
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
-                                    String[] splits = preference.value.split("\\|");
                                     for (String valueCell : splits) {
                                         if (valueCell.equals(Integer.toString(cell.cellId))) {
                                             db.deleteMobileCell(cell.cellId);
                                             preference.removeCellId(cell.cellId);
                                         }
+                                    }
+                                }
+                                refreshListView(false, Integer.MAX_VALUE);
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            true, true,
+                            false, false,
+                            true,
+                            getActivity()
+                    );
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
+                }
+                return true;
+            } else if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_unselected) {
+                // this delete all unselected cells in actual filter
+                if (getActivity() != null) {
+                    PPAlertDialog dialog = new PPAlertDialog(
+                            getString(R.string.profile_context_item_delete),
+                            getString(R.string.delete_unselected_mobile_cells_alert_message) + "\n\n" +
+                                    getString(R.string.delete_unselected_mobile_cells_alert_message_warning),
+                            getString(R.string.alert_button_yes),
+                            getString(R.string.alert_button_no),
+                            null, null,
+                            (dialog1, which) -> {
+                                String[] splits = preference.value.split("\\|");
+                                DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                                for (MobileCellsData cell : preference.filteredCellsList) {
+                                    boolean isSelected = false;
+                                    for (String valueCell : splits) {
+                                        if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                            isSelected = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!isSelected) {
+                                        db.deleteMobileCell(cell.cellId);
+                                        preference.removeCellId(cell.cellId);
                                     }
                                 }
                                 refreshListView(false, Integer.MAX_VALUE);

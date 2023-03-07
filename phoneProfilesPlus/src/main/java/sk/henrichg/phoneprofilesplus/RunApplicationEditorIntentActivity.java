@@ -207,7 +207,6 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intentData.clearFocus();
                         intentMimeType.clearFocus();
 
-//TODO spajanie stringov v loope
                         //String categoryValue = "";
                         StringBuilder value = new StringBuilder();
                         int i = 0;
@@ -252,7 +251,6 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intentData.clearFocus();
                         intentMimeType.clearFocus();
 
-//TODO spajanie stringov v loope
                         //String flagsValue = "";
                         StringBuilder value = new StringBuilder();
                         int i = 0;
@@ -791,7 +789,6 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         }
 
         ppIntent._categories = "";
-//TODO spajanie stringov v loope
         StringBuilder value = new StringBuilder();
         int i = 0;
         for (boolean selected : categoryIndices) {

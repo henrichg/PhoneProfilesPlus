@@ -113,7 +113,6 @@ class EventPreferencesWifi extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_ssid) + ": ";
-//TODO spajanie stringov v loope
                 String selectedSSIDs;// = "";
                 StringBuilder value = new StringBuilder();
                 String[] splits = this._SSID.split("\\|");

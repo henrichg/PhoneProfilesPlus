@@ -121,8 +121,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 ignore = true;
             }
 //            Log.e("TopExceptionHandler.uncaughtException", "(2x)");
-            if ((_exception instanceof DeadSystemException) /*||
-                    (_exception instanceof DeadSystemRuntimeException)*/) {
+            if (_exception instanceof DeadSystemException) {
                 // ignore these exceptions
                 // these are from dead of system for example:
                 // java.lang.RuntimeException: Unable to create service

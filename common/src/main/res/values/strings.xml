@@ -2088,6 +2088,12 @@
 
     <string name="notifications_preferences_notification_type">Notification type</string>
 
+    <string name="delete_mobile_cell_alert_message_warning">WARNING: Deleted mobile cell may be used also in another events.</string>
+    <string name="delete_selected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used also in another events.</string>
+    <string name="mobile_cells_item_delete_all_unselected">Delete all unselected</string>
+    <string name="delete_unselected_mobile_cells_alert_message">Delete all unselected mobile cells?</string>
+    <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

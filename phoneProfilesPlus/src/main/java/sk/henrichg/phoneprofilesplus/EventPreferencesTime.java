@@ -202,7 +202,6 @@ class EventPreferencesTime extends EventPreferences {
                 {
                     String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
-//TODO spajanie stringov v loope
                     String _descr;// = "";
                     StringBuilder value = new StringBuilder();
                     int dayOfWeek;

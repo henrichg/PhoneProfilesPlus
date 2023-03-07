@@ -6,4 +6,7 @@
     <item android:id="@+id/mobile_cells_pref_item_menu_delete_all_selected"
         android:title="@string/mobile_cells_item_delete_all_selected"
         android:orderInCategory="103" />
+    <item android:id="@+id/mobile_cells_pref_item_menu_delete_all_unselected"
+        android:title="@string/mobile_cells_item_delete_all_unselected"
+        android:orderInCategory="104" />
 </menu>
