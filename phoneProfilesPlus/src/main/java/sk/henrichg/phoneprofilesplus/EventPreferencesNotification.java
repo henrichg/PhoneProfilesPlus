@@ -661,6 +661,7 @@ class EventPreferencesNotification extends EventPreferences {
     private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification, String packageName, boolean checkEnd/*, Context context*/) {
         try {
             String packageNameFromNotification = statusBarNotification.getPackageName();
+//            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
 
             boolean packageNameFound = false;
             if (checkEnd) {
@@ -934,6 +935,17 @@ class EventPreferencesNotification extends EventPreferences {
                             if (this._missedCall) {
                                 // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
                                 StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
+
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
+                                        return true;
+                                }
+                                // MIUI
+                                activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
