@@ -1245,7 +1245,7 @@ public class PPApplication extends Application
             sLook.initialize(this);
             // true = The Device supports Edge Single Mode, Edge Single Plus Mode, and Edge Feeds Mode.
             sLookCocktailPanelEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_PANEL);
-            Log.e("***** PPApplication.onCreate", "sLookCocktailPanelEnabled="+sLookCocktailPanelEnabled);
+            //Log.e("***** PPApplication.onCreate", "sLookCocktailPanelEnabled="+sLookCocktailPanelEnabled);
             // true = The Device supports Edge Immersive Mode feature.
             //sLookCocktailBarEnabled = sLook.isFeatureEnabled(Slook.COCKTAIL_BAR);
         } catch (SsdkUnsupportedException e) {

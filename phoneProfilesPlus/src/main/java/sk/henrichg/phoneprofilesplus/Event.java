@@ -1575,8 +1575,8 @@ class Event {
                 description = description + "<ul><li>" + desc + "</li></ul>";
         }
 
-        //if (!description.isEmpty())
-        //    description = "<ul>" + description + "</ul>";
+        if (description.isEmpty())
+            description = context.getString(R.string.event_preferences_no_sensor_is_enabled);
 
         return description;
     }
