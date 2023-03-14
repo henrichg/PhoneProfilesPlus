@@ -30,7 +30,7 @@ public class ContactsContentObserverWorker extends Worker {
 
             // must be first
             PPApplicationStatic.createContactsCache(appContext, true);
-            //must be seconds, this ads groups int contacts
+            //must be seconds, this ads groups into contacts
             PPApplicationStatic.createContactGroupsCache(appContext, true);
 
             EventsHandler eventsHandler = new EventsHandler(appContext);

@@ -138,7 +138,7 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);
                 }
-                //must be seconds, this ads groups int contacts
+                //must be seconds, this ads groups into contacts
                 PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
                 ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                 if (contactGroupsCache != null) {
