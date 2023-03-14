@@ -15,6 +15,7 @@ import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -862,6 +863,7 @@ public class EditorActivity extends AppCompatActivity
                 */
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
                     //triangle.setBounds(0, 5, 30, 28);
                     triangle.setBounds(0,
@@ -881,6 +883,7 @@ public class EditorActivity extends AppCompatActivity
             if (subMenu != null) {
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
                     triangle.setBounds(0,
                             GlobalGUIRoutines.sip(1),
@@ -899,6 +902,7 @@ public class EditorActivity extends AppCompatActivity
             if (subMenu != null) {
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
                     triangle.setBounds(0,
                             GlobalGUIRoutines.sip(1),
@@ -917,6 +921,7 @@ public class EditorActivity extends AppCompatActivity
             if (subMenu != null) {
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
                     triangle.setBounds(0,
                             GlobalGUIRoutines.sip(1),
@@ -935,6 +940,7 @@ public class EditorActivity extends AppCompatActivity
             if (subMenu != null) {
                 Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
                     SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
                     triangle.setBounds(0,
                             GlobalGUIRoutines.sip(1),

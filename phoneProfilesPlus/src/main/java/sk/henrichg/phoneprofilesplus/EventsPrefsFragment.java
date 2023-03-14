@@ -354,6 +354,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                 Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
                 if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(getActivity(), R.color.activityNormalTextColor));
                     SpannableString headerTitle = new SpannableString("    " +
                             fragment.getPreferenceScreen().getTitle());
                     triangle.setBounds(0,
