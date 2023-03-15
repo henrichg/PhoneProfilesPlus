@@ -814,6 +814,8 @@ public class EditorActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         editorToolbar.inflateMenu(R.menu.editor_top_bar);
+        if (DebugVersion.enabled)
+            editorToolbar.inflateMenu(R.menu.editor_debug);
 
         MenuCompat.setGroupDividerEnabled(menu, true);
 
@@ -1009,11 +1011,13 @@ public class EditorActivity extends AppCompatActivity
             menuItem.setEnabled(PPApplication.logIntoFile || PPApplication.crashIntoFile);
         }
 
+        /*
         menuItem = menu.findItem(R.id.menu_debug);
         if (menuItem != null) {
             menuItem.setVisible(DebugVersion.enabled);
             menuItem.setEnabled(DebugVersion.enabled);
         }
+        */
 
         /*
         boolean activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT_TREE, getApplicationContext());
