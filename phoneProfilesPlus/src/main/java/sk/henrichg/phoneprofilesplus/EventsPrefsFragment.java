@@ -349,7 +349,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             if (nestedFragment) {
-                toolbar.setTitle(getString(R.string.title_activity_event_preferences));
                 preferenceSubTitle.setVisibility(View.VISIBLE);
 
                 Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
@@ -368,12 +367,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                 //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
 
-                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+                //toolbar.setTitle(getString(R.string.title_activity_event_preferences));
+                //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+                toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
+                toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
             } else {
                 preferenceSubTitle.setVisibility(View.GONE);
 
-                toolbar.setTitle(getString(R.string.title_activity_event_preferences));
-                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+                //toolbar.setTitle(getString(R.string.title_activity_event_preferences));
+                //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+                toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
+                toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
             }
 
         }, 200);
@@ -1231,7 +1235,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         return;
 
                     Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-                    toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
+                    //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
+                    toolbar.setTitle(getString(R.string.event_string_0) + ": " + _value);
                 }, 200);
             }
         }
