@@ -2967,9 +2967,11 @@ class PhoneProfilesServiceStatic
                             } else if (intent.getBooleanExtra(PhoneProfilesService.EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-                                    if (PPApplication.locationScanner != null) {
-                                        String provider = PPApplication.locationScanner.getProvider(true);
-                                        PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
+                                    synchronized (PPApplication.locationScannerMutex) {
+                                        if (PPApplication.locationScanner != null) {
+                                            String provider = PPApplication.locationScanner.getProvider(true);
+                                            PPApplication.locationScanner.updateTransitionsByLastKnownLocation(provider);
+                                        }
                                     }
                                 }
 
