@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.le.BluetoothLeScanner;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,14 +21,19 @@ class BluetoothScanner {
     //static boolean bluetoothEnabledForScan;
     static volatile List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static volatile boolean bluetoothDiscoveryStarted = false;
-    static volatile BluetoothLeScanner bluetoothLEScanner = null;
+    //static volatile BluetoothLeScanner bluetoothLEScanner = null;
 
+    // constructor has Context as parameter
     // this is OK, because this callback will be set to null after stop of LE scan
     @SuppressLint("StaticFieldLeak")
-    static volatile BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
+    static volatile BluetoothLEScanner bluetoothLEScanner = null;
+
+    // this is OK, because this callback will be set to null after stop of LE scan
+    //@SuppressLint("StaticFieldLeak")
+    //static volatile BluetoothLEScanCallback bluetoothLEScanCallback21 = null;
 
     //static BluetoothLEScanCallback18 bluetoothLEScanCallback18 = null;
-    //static BluetoothLEScanCallback21 bluetoothLEScanCallback21 = null;
+    //static BluetoothLEScanCallback bluetoothLEScanCallback21 = null;
 
     private static final String PREF_FORCE_ONE_BLUETOOTH_SCAN = "forceOneBluetoothScanInt";
     private static final String PREF_FORCE_ONE_LE_BLUETOOTH_SCAN = "forceOneLEBluetoothScanInt";
@@ -406,25 +410,35 @@ class BluetoothScanner {
     {
         if (bluetoothLESupported(/*context*/)) {
             int applicationEventBluetoothLEScanDuration = ApplicationPreferences.applicationEventBluetoothLEScanDuration;
+//            Log.e("BluetoothScanner.waitForLEBluetoothScanEnd", "applicationEventBluetoothLEScanDuration="+applicationEventBluetoothLEScanDuration);
+
+            // Wait 12 seconds for ScanCallback.onBatchScanResults after atart scan.
+            // This must be, becausa first data are received after approx 12 seconds after start scan.
             long start = SystemClock.uptimeMillis();
+            do {
+                GlobalUtils.sleep(200);
+            } while (SystemClock.uptimeMillis() - start < 12 * 1000);
+
+            // Wait for configured duration in PPP Settings
+            start = SystemClock.uptimeMillis();
             do {
                 if (!(ApplicationPreferences.prefEventBluetoothLEScanRequest ||
                         ApplicationPreferences.prefEventBluetoothLEWaitForResult))
                     break;
 
                 GlobalUtils.sleep(200);
-            } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5L) * 1000);
+            } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration /* * 5*/) * 1000L);
             BluetoothScanWorker.finishLEScan(context);
-            BluetoothScanWorker.stopLEScan(context);
+            BluetoothScanWorker.stopLEScan(/*context*/);
 
-
-            // wait for ScanCallback.onBatchScanResults after stop scan
+            /*
+            // wait 10 seconds for ScanCallback.onBatchScanResults after stop scan
             start = SystemClock.uptimeMillis();
             do {
                 GlobalUtils.sleep(200);
             } while (SystemClock.uptimeMillis() - start < 10 * 1000);
             // save ScanCallback.onBatchScanResults
-            BluetoothScanWorker.finishLEScan(context);
+            BluetoothScanWorker.finishLEScan(context);*/
 
         }
     }

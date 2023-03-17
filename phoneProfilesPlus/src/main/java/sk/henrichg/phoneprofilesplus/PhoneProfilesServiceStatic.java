@@ -2486,7 +2486,7 @@ class PhoneProfilesServiceStatic
                 boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_TIME_TWILIGHT/*, false*/);
                 if (eventsExists) {
                     if (PPApplication.twilightScanner == null) {
-                        startTwilightScanner(dataWrapper.context);
+                        startTwilightScanner(dataWrapper.context.getApplicationContext());
                     }
                 } else {
                     startTwilightScanner(false, true, dataWrapper);

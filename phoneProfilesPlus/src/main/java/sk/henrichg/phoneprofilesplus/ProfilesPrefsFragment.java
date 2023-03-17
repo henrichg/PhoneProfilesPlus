@@ -393,18 +393,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
 
-                //toolbar.setTitle(getString(R.string.title_activity_profile_preferences));
-                //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
-                toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
-                toolbar.setTitle(getString(R.string.profile_string_0) + ": " + profileName);
             } else {
                 preferenceSubTitle.setVisibility(View.GONE);
-
-                //toolbar.setTitle(getString(R.string.title_activity_profile_preferences));
-                //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
-                toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
-                toolbar.setTitle(getString(R.string.profile_string_0) + ": " + profileName);
             }
+            //toolbar.setTitle(getString(R.string.title_activity_profile_preferences));
+            //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
+            toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
+            toolbar.setTitle(getString(R.string.profile_string_0) + ": " + profileName);
 
         }, 200);
 

@@ -367,18 +367,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                 //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
 
-                //toolbar.setTitle(getString(R.string.title_activity_event_preferences));
-                //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
-                toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
-                toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
             } else {
                 preferenceSubTitle.setVisibility(View.GONE);
-
-                //toolbar.setTitle(getString(R.string.title_activity_event_preferences));
-                //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
-                toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
-                toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
             }
+
+            //toolbar.setTitle(getString(R.string.title_activity_event_preferences));
+            //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+            toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
+            toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
 
         }, 200);
 

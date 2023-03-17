@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -363,8 +362,8 @@ public class ProfileIconPreference extends DialogPreference {
 
     private static class UpdateIconAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        @SuppressLint("StaticFieldLeak")
-        ImageView _imageView;
+        //@SuppressLint("StaticFieldLeak")
+        //ImageView _imageView;
         Bitmap bitmap;
 
         private final WeakReference<ProfileIconPreference> preferenceWeakRef;
@@ -379,19 +378,21 @@ public class ProfileIconPreference extends DialogPreference {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
 
+        /*
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
 
-            ProfileIconPreference preference = preferenceWeakRef.get();
-            if (preference != null) {
-                if (inDialog)
-                    _imageView = preference.dialogIcon;
-                else
-                    _imageView = preference.imageView;
-            }
+            //ProfileIconPreference preference = preferenceWeakRef.get();
+            //if (preference != null) {
+            //    if (inDialog)
+            //        _imageView = preference.dialogIcon;
+            //    else
+            //        _imageView = preference.imageView;
+            //}
         }
+        */
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -427,6 +428,12 @@ public class ProfileIconPreference extends DialogPreference {
             ProfileIconPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
+                ImageView _imageView;
+                if (inDialog)
+                    _imageView = preference.dialogIcon;
+                else
+                    _imageView = preference.imageView;
+
                 if (_imageView != null) {
                     if (bitmap != null)
                         _imageView.setImageBitmap(bitmap);

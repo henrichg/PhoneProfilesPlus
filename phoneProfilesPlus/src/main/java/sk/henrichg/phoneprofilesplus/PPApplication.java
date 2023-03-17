@@ -726,11 +726,13 @@ public class PPApplication extends Application
     //BrightnessView brightnessView = null;
     //BrightnessView screenTimeoutAlwaysOnView = null;
 
+    // constructor has Context as parameter
     // this is OK, ActivateProfileHelper.removeKeepScreenOnView()
     // set it to null
     @SuppressLint("StaticFieldLeak")
     static volatile BrightnessView keepScreenOnView = null;
 
+    // constructor has Context as parameter
     // this is OK, activity will be removed and lockDeviceActivity set to null after destroy of
     // LockDeviceActivity
     @SuppressLint("StaticFieldLeak")
@@ -839,6 +841,7 @@ public class PPApplication extends Application
 
     static volatile SettingsContentObserver settingsContentObserver = null;
 
+    // constructor has Context as parameter
     // this is OK, mobileDataStateChangedContentObserver will set to null when
     // observer will be unregistered
     @SuppressLint("StaticFieldLeak")
@@ -855,15 +858,17 @@ public class PPApplication extends Application
     static volatile OrientationScanner orientationScanner = null;
     static volatile boolean mStartedOrientationSensors = false;
 
+    // constructor has Context as parameter
     // this is OK, locationScanner will be set to null, when location scanner will be stopped
     @SuppressLint("StaticFieldLeak")
     static volatile LocationScanner locationScanner = null;
 
+    // constructor has Context as parameter
     // this is OK, mobileCellsScanner will be set to null, when mobile cells scanner will be stopped
     @SuppressLint("StaticFieldLeak")
     static volatile MobileCellsScanner mobileCellsScanner = null;
 
-
+    // constructor has Context as parameter
     // this is OK, twilightScanner will be set to null, when twilight scanner will be stopped
     @SuppressLint("StaticFieldLeak")
     static volatile TwilightScanner twilightScanner = null;
