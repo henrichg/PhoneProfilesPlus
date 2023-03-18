@@ -11,6 +11,8 @@
     <color name="activityDisabledTextColor">#42000000</color>
     <color name="activityCommandBackgroundColor">#10000000</color>
     <color name="activityPopupMenuBackgroundColor">#FFF7F7F7</color>
+    <color name="activityTitleTextColor">#FF000000</color>
+    <color name="dialogTitleTextColor">#FF212121</color>
 
     <color name="rippleRectangeleItemBackgroundColor">#FFBFBFBF</color>
     <color name="rippleOvalItemBackgroundColor">#FFAFAFAF</color>

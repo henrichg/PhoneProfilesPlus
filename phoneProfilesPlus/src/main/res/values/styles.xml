@@ -184,7 +184,7 @@
 
     <style name="PreferenceToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/title_text_size</item>
-        <item name="android:textColor">@color/activityNormalTextColor</item>
+        <item name="android:textColor">@color/activityTitleTextColor</item>
     </style>
 
     <style name="PreferenceToolbarSubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
