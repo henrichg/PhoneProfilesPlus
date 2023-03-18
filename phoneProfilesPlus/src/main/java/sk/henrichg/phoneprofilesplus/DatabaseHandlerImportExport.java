@@ -650,12 +650,16 @@ class DatabaseHandlerImportExport {
                         Uri uri = Uri.parse(wallpaperFolder);
                         if (uri != null) {
                             try {
+                                instance.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                /*
                                 instance.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri,
-                                        Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                                        Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 // persistent permissions
                                 final int takeFlags = //data.getFlags() &
                                         (Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 instance.context.getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                                */
                                 isGranted = true;
                             } catch (Exception e) {
                                 //isGranted = false;
