@@ -2042,7 +2042,7 @@
     <string name="profile_list_item_menu_duplicate">Duplikovat profil</string>
     <string name="profile_list_item_menu_delete">Smazat profil</string>
     <string name="event_list_item_menu_run">Povolit spuštění události</string>
-    <string name="event_list_item_menu_stop">Zastav</string>
+    <string name="event_list_item_menu_stop">Zastavit událost</string>
     <string name="event_list_item_menu_duplicate">Duplikovat událost</string>
     <string name="event_list_item_menu_delete">Smazat událost</string>
     <string name="phone_profiles_pref_applicationWidgetBackgroundCategory">Pozadí</string>

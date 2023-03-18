@@ -184,10 +184,12 @@
 
     <style name="PreferenceToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textColor">@color/activityNormalTextColor</item>
     </style>
 
     <style name="PreferenceToolbarSubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
         <item name="android:textSize">@dimen/subtitle_text_size</item>
+        <item name="android:textColor">@color/activitySecondaryTextColor</item>
     </style>
 
     <style name="IntentEditorEditTextStyle" parent="@android:style/Widget.EditText">
