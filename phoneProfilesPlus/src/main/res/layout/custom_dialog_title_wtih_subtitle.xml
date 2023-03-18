@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
-    android:paddingTop="20dp"
+    android:paddingTop="18dp"
     tools:ignore="UseCompoundDrawables">
 
     <TextView
