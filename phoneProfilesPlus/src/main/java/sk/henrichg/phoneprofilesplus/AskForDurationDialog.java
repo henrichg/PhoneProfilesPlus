@@ -82,8 +82,21 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //mInteractive = true/*interactive*/;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+
+        // custom dialog title
+        LayoutInflater layoutInflater = LayoutInflater.from(activity);
+        View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
+        TextView titleText = (TextView) titleView.findViewById(R.id.custom_dialog_title);
+        titleText.setText(activity.getString(R.string.profile_string_0) + ": " + profile._name);
+        TextView subtitleText = (TextView) titleView.findViewById(R.id.custom_dialog_subtitle);
+        subtitleText.setText(activity.getString(R.string.profile_preferences_duration));
+        dialogBuilder.setCustomTitle(titleView);
+
+        /*
         dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + "\n" +
                                mActivity.getString(R.string.profile_string_0) + ": " + profile._name);
+        */
+
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override

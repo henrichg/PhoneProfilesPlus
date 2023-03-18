@@ -731,8 +731,9 @@ public class EditorProfileListFragment extends Fragment
         final Profile profile = (Profile)view.getTag();
 
         SingleSelectListDialog dialog = new SingleSelectListDialog(
-                getString(R.string.tooltip_options_menu) + "\n" +
+                true,
                 getString(R.string.profile_string_0) + ": " + profile._name,
+                getString(R.string.tooltip_options_menu),
                 R.array.profileListItemEditArray,
                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                 (dialog1, which) -> {
@@ -1286,8 +1287,9 @@ public class EditorProfileListFragment extends Fragment
                 value = 0;
 
             SingleSelectListDialog dialog = new SingleSelectListDialog(
-                    getString(R.string.profile_preferences_showInActivator) + "\n" +
-                            getString(R.string.profile_string_0) + ": " + profile._name,
+                    true,
+                    getString(R.string.profile_string_0) + ": " + profile._name,
+                    getString(R.string.profile_preferences_showInActivator),
                     R.array.profileListItemShowInActivatorArray,
                     value,
                     (dialog1, which) -> {

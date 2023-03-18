@@ -32,7 +32,9 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
             GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
 
             SingleSelectListDialog dialog = new SingleSelectListDialog(
+                    false,
                     getString(R.string.notifications_preferences_notification_type),
+                    null,
                     R.array.notificationPreferencesNotificationTypeArray,
                     SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                     (dialog1, which) -> {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -22,7 +23,8 @@ class SingleSelectListDialog
 
     static final int NOT_USE_RADIO_BUTTONS = -10;
 
-    SingleSelectListDialog(String _title, int _itemsRes, int _itemValue,
+    SingleSelectListDialog(boolean _showSubtitle, String _title, String _subtitle,
+                           int _itemsRes, int _itemValue,
                            DialogInterface.OnClickListener _itemClick,
                            DialogInterface.OnCancelListener _cancelListener,
                            boolean hideButtonsDivider,
@@ -33,7 +35,18 @@ class SingleSelectListDialog
         this.itemClick = _itemClick;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(_title);
+        if (_showSubtitle) {
+            // custom dialog title
+            LayoutInflater layoutInflater = LayoutInflater.from(activity);
+            View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
+            TextView titleText = (TextView) titleView.findViewById(R.id.custom_dialog_title);
+            titleText.setText(_title);
+            TextView subtitleText = (TextView) titleView.findViewById(R.id.custom_dialog_subtitle);
+            subtitleText.setText(_subtitle);
+            dialogBuilder.setCustomTitle(titleView);
+        } else
+            dialogBuilder.setTitle(_title);
+
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 

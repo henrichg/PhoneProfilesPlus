@@ -398,7 +398,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_change_location_dialog_title));
         myLocationButton.setOnClickListener(v -> {
             SingleSelectListDialog changeLocationDialog = new SingleSelectListDialog(
+                    false,
                     getString(R.string.location_editor_change_location_dialog_title),
+                    null,
                     R.array.locationEditorChangeLocationArray,
                     SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                     (dialog, which) -> {
@@ -432,7 +434,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
         addressButton.setOnClickListener(v -> {
             SingleSelectListDialog renameGeofenceDialog = new SingleSelectListDialog(
+                    false,
                     getString(R.string.location_editor_rename_with_address_button_tooltip),
+                    null,
                     R.array.locationEditorRenameLocationArray,
                     SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                     (dialog, which) -> {

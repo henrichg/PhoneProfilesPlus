@@ -980,8 +980,9 @@ public class EditorEventListFragment extends Fragment
             itemsRes = R.array.eventListItemEditStopArray;
 
         SingleSelectListDialog dialog = new SingleSelectListDialog(
-                getString(R.string.tooltip_options_menu) + "\n" +
-                        getString(R.string.event_string_0) + ": " + event._name,
+                true,
+                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.tooltip_options_menu),
                 itemsRes,
                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                 (dialog1, which) -> {
@@ -2004,8 +2005,9 @@ public class EditorEventListFragment extends Fragment
             value = 0;
 
         SingleSelectListDialog dialog = new SingleSelectListDialog(
-                getString(R.string.event_preferences_ForceRun) + "\n" +
-                        getString(R.string.event_string_0) + ": " + event._name,
+                true,
+                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.event_preferences_ForceRun),
                 R.array.eventListItemIgnoreManualActivationArray,
                 value,
                 (dialog1, which) -> {
