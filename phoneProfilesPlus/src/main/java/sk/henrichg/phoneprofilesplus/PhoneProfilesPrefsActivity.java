@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -73,6 +74,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         activityStarted = true;
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+        toolbar.setVisibility(View.GONE);
+        toolbar = findViewById(R.id.activity_preferences_toolbar_no_subtitle);
+        toolbar.setVisibility(View.VISIBLE);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {

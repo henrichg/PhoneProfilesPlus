@@ -294,7 +294,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (getActivity() == null)
                 return;
 
-            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
+            Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar_no_subtitle);
             if (nestedFragment) {
                 toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
                 preferenceSubTitle.setVisibility(View.VISIBLE);

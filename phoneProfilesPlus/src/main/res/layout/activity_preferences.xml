@@ -17,10 +17,25 @@
         android:background="@color/primary"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/PreferenceToolbarTitleText"
+        app:subtitleTextAppearance="@style/PreferenceToolbarSubtitleText"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="72dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_preferences_toolbar_no_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="72dp"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:elevation="1dp"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/activity_preferences_subtitle"

@@ -182,6 +182,14 @@
         <item name="android:maxLines">3</item>
     </style>
 
+    <style name="PreferenceToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="PreferenceToolbarSubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">@dimen/subtitle_text_size</item>
+    </style>
+
     <style name="IntentEditorEditTextStyle" parent="@android:style/Widget.EditText">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/activityNormalTextColor</item>
