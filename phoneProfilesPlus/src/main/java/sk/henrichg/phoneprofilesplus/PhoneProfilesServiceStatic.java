@@ -3873,42 +3873,15 @@ class PhoneProfilesServiceStatic
                             if (telephonyManager != null) {
                                 int phoneCount = telephonyManager.getPhoneCount();
                                 if (phoneCount > 1) {
-                                    if (PPApplication.deviceIsSamsung) {
-                                        if (fromSIMSlot == 1) {
-                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                                            if (_uri != null)
-                                                _ringtoneFromSystem = _uri;
-                                        }
-                                        if (fromSIMSlot == 2) {
-                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
-                                            if (_uri != null)
-                                                _ringtoneFromSystem = _uri;
-                                        }
-                                    } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                        if (fromSIMSlot == 1) {
-                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                                            if (_uri != null)
-                                                _ringtoneFromSystem = _uri;
-                                        }
-                                        if (fromSIMSlot == 2) {
-                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
-                                            if (_uri != null)
-                                                _ringtoneFromSystem = _uri;
-                                        }
-                                    } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
-                                        int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
-
-                                        if ((fromSIMSlot == 1) || (useUniform == 1)) {
-                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
-                                            if (_uri != null)
-                                                _ringtoneFromSystem = _uri;
-                                        }
-
-                               if ((fromSIMSlot == 2) || (useUniform == 0)) {
-                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
-                                            if (_uri != null)
-                                                _ringtoneFromSystem = _uri;
-                                        }
+                                    if (fromSIMSlot == 1) {
+                                        String _uri = ActivateProfileHelper.getRingtoneFromSystem(appContext, 1);
+                                        if (_uri != null)
+                                            _ringtoneFromSystem = _uri;
+                                    }
+                                    if (fromSIMSlot == 2) {
+                                        String _uri = ActivateProfileHelper.getRingtoneFromSystem(appContext, 2);
+                                        if (_uri != null)
+                                            _ringtoneFromSystem = _uri;
                                     }
                                 }
                             }

@@ -1948,6 +1948,41 @@ class ActivateProfileHelper {
         }
     }
 
+    static final String RINGTONE_SIM1_SAMSUNG = "ringtone";
+    static final String RINGTONE_SIM2_SAMSUNG = "ringtone_2";
+    static final String RINGTONE_SIM1_HUAWEI = "ringtone";
+    static final String RINGTONE_SIM2_HUAWEI = "ringtone2";
+    static final String RINGTONE_SIM1_XIAOMI = "ringtone_sound_slot_1";
+    static final String RINGTONE_SIM2_XIAOMI = "ringtone_sound_slot_2";
+
+    static String getRingtoneFromSystem(Context appContext, int simSlot) {
+        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
+            if (simSlot == 1)
+                return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_SAMSUNG);
+            if (simSlot == 2)
+                return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM2_SAMSUNG);
+        }
+        if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
+            if (simSlot == 1)
+                return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_HUAWEI);
+            if (simSlot == 2)
+                return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM2_HUAWEI);
+        }
+        if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
+            if (simSlot == 1)
+                return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_XIAOMI);
+
+            if (simSlot == 2) {
+                int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
+                if (useUniform == 0)
+                    return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM2_XIAOMI);
+                else
+                    return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_XIAOMI);
+            }
+        }
+        return null;
+    }
+
     private static boolean setTones(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         boolean noError = true;
         Context appContext = context.getApplicationContext();
@@ -2201,7 +2236,7 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {}
 
-                                        Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_SAMSUNG, uri.toString());
 
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
     //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=" + uri.toString());
@@ -2210,7 +2245,7 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {}
 
-                                        Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_HUAWEI, uri.toString());
                                     } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
     //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=" + uri.toString());
 
@@ -2218,7 +2253,7 @@ class ActivateProfileHelper {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                         } catch (Exception ignored) {}
 
-                                        Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_1", uri.toString());
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_XIAOMI, uri.toString());
                                     }
                                 }
                             }
@@ -2263,19 +2298,19 @@ class ActivateProfileHelper {
                                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone", null);
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_SAMSUNG, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone", null);
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_HUAWEI, null);
                                 }
                                 else
                                 if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_1", null);
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_XIAOMI, null);
                                 }
                             }
                             catch (IllegalArgumentException e) {
@@ -2327,7 +2362,7 @@ class ActivateProfileHelper {
                                         } catch (Exception ignored) {
                                         }
 
-                                        Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_SAMSUNG, uri.toString());
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=" + uri.toString());
 
@@ -2336,7 +2371,7 @@ class ActivateProfileHelper {
                                         } catch (Exception ignored) {
                                         }
 
-                                        Settings.System.putString(context.getContentResolver(), "ringtone2", uri.toString());
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_HUAWEI, uri.toString());
                                     } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=" + uri.toString());
 
@@ -2345,7 +2380,7 @@ class ActivateProfileHelper {
                                         } catch (Exception ignored) {
                                         }
 
-                                        Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_2", uri.toString());
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_XIAOMI, uri.toString());
                                     }
                                 }
                             } catch (IllegalArgumentException e) {
@@ -2388,15 +2423,15 @@ class ActivateProfileHelper {
                                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_SAMSUNG, null);
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone2", null);
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_HUAWEI, null);
                                 } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=null");
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_2", null);
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_XIAOMI, null);
                                 }
                             } catch (IllegalArgumentException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
