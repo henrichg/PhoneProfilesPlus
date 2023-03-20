@@ -32,7 +32,6 @@ public class LockDeviceActivity extends AppCompatActivity
 
         @Override
         public void onReceive( Context context, Intent intent ) {
-            Log.e("FinishActivityBroadcastReceiver.onReceive", "xxxx");
             listener.finishActivityFromListener();
         }
     }
