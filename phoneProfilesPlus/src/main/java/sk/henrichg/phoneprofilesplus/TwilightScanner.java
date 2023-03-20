@@ -38,7 +38,7 @@ class TwilightScanner {
     private TwilightState mTwilightState;
 
     TwilightScanner(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
 
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);

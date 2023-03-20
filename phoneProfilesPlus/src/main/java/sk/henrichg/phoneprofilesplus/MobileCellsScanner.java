@@ -50,7 +50,7 @@ class MobileCellsScanner {
     MobileCellsScanner(Context context) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner - constructor", "******** ### *******");
 
-        this.context = context;
+        this.context = context.getApplicationContext();
 
         TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {

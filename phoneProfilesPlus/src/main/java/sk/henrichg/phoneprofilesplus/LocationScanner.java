@@ -37,7 +37,7 @@ class LocationScanner
     static final int INTERVAL_DIVIDE_VALUE_FOR_GPS = 3;
 
     LocationScanner(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
         //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
         mLocationListener = new LocationScannerListener();

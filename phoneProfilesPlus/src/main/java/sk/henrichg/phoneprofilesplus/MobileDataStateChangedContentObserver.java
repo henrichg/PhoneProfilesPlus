@@ -19,7 +19,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
     MobileDataStateChangedContentObserver(Context c, Handler handler) {
         super(handler);
 
-        context=c;
+        context=c.getApplicationContext();
 
         previousState = ActivateProfileHelper.isMobileData(context, 0);
         previousStateSIM1 = ActivateProfileHelper.isMobileData(context, 1);

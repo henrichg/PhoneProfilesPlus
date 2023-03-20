@@ -8,7 +8,7 @@ public class BrightnessView extends ViewGroup {
     //Context context;
 
     public BrightnessView(Context context) {
-        super(context);
+        super(context.getApplicationContext());
         //this.context = context;
     }
 
