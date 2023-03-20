@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;

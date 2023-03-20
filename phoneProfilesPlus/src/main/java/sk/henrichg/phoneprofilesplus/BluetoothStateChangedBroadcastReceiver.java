@@ -57,11 +57,12 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 if (bluetoothState == BluetoothAdapter.STATE_ON) {
                                     //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
                                     //{
-                                    if (ApplicationPreferences.prefEventBluetoothScanRequest) {
-                                        BluetoothScanWorker.startCLScan(appContext);
-                                    } else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
-                                        BluetoothScanWorker.startLEScan(appContext);
-                                    } else if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                                    //if (ApplicationPreferences.prefEventBluetoothScanRequest) {
+                                    //    BluetoothScanWorker.startCLScan(appContext);
+                                    //} else if (ApplicationPreferences.prefEventBluetoothLEScanRequest) {
+                                    //    BluetoothScanWorker.startLEScan(appContext);
+                                    //} else
+                                    if (!(ApplicationPreferences.prefEventBluetoothWaitForResult ||
                                             ApplicationPreferences.prefEventBluetoothLEWaitForResult)) {
                                         // refresh bounded devices
                                         BluetoothScanWorker.fillBoundedDevicesList(appContext);

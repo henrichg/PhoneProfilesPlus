@@ -4,8 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.le.ScanFilter;
-import android.bluetooth.le.ScanSettings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
@@ -37,7 +35,7 @@ public class BluetoothScanWorker extends Worker {
 
     public static volatile BluetoothAdapter bluetooth = null;
 
-    private static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
+    static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
 
     private static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     private static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
@@ -606,161 +604,6 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void startCLScan(Context context)
-    {
-        if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
-
-        if (bluetooth != null) {
-            if (bluetooth.isDiscovering()) {
-//                Log.e("BluetoothScanWorker.startCLScan", "######## cancelDiscovery");
-                bluetooth.cancelDiscovery();
-            }
-
-            BluetoothScanner.bluetoothDiscoveryStarted = false;
-
-            if (Permissions.checkLocation(context)) {
-//                Log.e("BluetoothScanWorker.startCLScan", "######## startDiscovery");
-                boolean startScan = bluetooth.startDiscovery();
-
-                if (!startScan) {
-                    if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                        if (Permissions.checkBluetoothForEMUI(context)) {
-                            //if (Build.VERSION.SDK_INT >= 26)
-                            //    CmdBluetooth.setBluetooth(false);
-                            //else
-                            if (bluetooth.isEnabled()) {
-//                                Log.e("BluetoothScanWorker.startCLScan", "######## disable bluetooth");
-                                bluetooth.disable();
-                            }
-                        }
-                    }
-                }
-                setWaitForResults(context, startScan);
-            }
-            setScanRequest(context, false);
-        }
-    }
-
-    static void stopCLScan() {
-        if (bluetooth == null)
-            bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
-        if (bluetooth != null) {
-            if (bluetooth.isDiscovering()) {
-//                Log.e("BluetoothScanWorke,stopCLScanr", "######## cancelDiscovery");
-                bluetooth.cancelDiscovery();
-            }
-        }
-    }
-
-    // scanning working only when screen is on :-(
-    static void startLEScan(final Context context)
-    {
-        if (BluetoothScanner.bluetoothLESupported(/*context*/)) {
-
-            synchronized (PPApplication.bluetoothLEScanMutex) {
-
-                /*Context context = PhoneProfilesService.getInstance();
-                if (context == null)
-                    return;*/
-
-                if (bluetooth == null)
-                    bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
-
-                if (bluetooth != null) {
-                    if (Permissions.checkLocation(context)) {
-                        try {
-//                            Log.e("BluetoothScanWorker.startLEScan", "BluetoothScanner.bluetoothLEScanner="+BluetoothScanner.bluetoothLEScanner);
-                            if (BluetoothScanner.bluetoothLEScanner == null) {
-                                //BluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
-                                BluetoothScanner.bluetoothLEScanner = new BluetoothLEScanner(context);
-                            }
-                            //if (BluetoothScanner.bluetoothLEScanCallback21 == null) {
-                            //    BluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback(context);
-                            //}
-
-                            ScanSettings.Builder builder = new ScanSettings.Builder();
-
-                            tmpScanLEResults = null;
-
-                            int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
-                            if (forceScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
-                                builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
-                            else
-                                builder.setScanMode(ScanSettings.SCAN_MODE_BALANCED);
-                                //builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
-
-                            if (bluetooth.isOffloadedScanBatchingSupported())
-                                builder.setReportDelay(ApplicationPreferences.applicationEventBluetoothLEScanDuration * 1000L);
-                            ScanSettings settings = builder.build();
-
-                            List<ScanFilter> filters = new ArrayList<>();
-
-                            if (bluetooth.isEnabled()) {
-                                BluetoothScanner.bluetoothLEScanner.bluetoothLeScanner.startScan(
-                                        filters, settings,
-                                        BluetoothScanner.bluetoothLEScanner.bluetoothLEScanCallback21);
-                                setWaitForLEResults(context, true);
-                            }
-
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
-                    }
-                    setLEScanRequest(context, false);
-                }
-            }
-        }
-    }
-
-    static void stopLEScan(/*final Context context*/) {
-        if (BluetoothScanner.bluetoothLESupported(/*context*/)) {
-            if (bluetooth == null)
-                bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
-
-            if (bluetooth != null) {
-                if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
-                    try {
-                        /*if (BluetoothScanner.bluetoothLEScanner == null) {
-                            BluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
-                        }
-                        if (BluetoothScanner.bluetoothLEScanCallback21 == null) {
-                            BluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback(context);
-                        }
-
-                        BluetoothScanner.bluetoothLEScanner.stopScan(BluetoothScanner.bluetoothLEScanCallback21);
-                        BluetoothScanner.bluetoothLEScanCallback21 = null;*/
-
-//                        Log.e("BluetoothScanWorker.stopLEScan", "BluetoothScanner.bluetoothLEScanner="+BluetoothScanner.bluetoothLEScanner);
-                        if (BluetoothScanner.bluetoothLEScanner != null) {
-                            BluetoothScanner.bluetoothLEScanner.bluetoothLeScanner.stopScan(BluetoothScanner.bluetoothLEScanner.bluetoothLEScanCallback21);
-                            BluetoothScanner.bluetoothLEScanner = null;
-                        }
-
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                }
-            }
-        }
-    }
-
-    static void finishLEScan(Context context) {
-        synchronized (PPApplication.bluetoothLEScanMutex) {
-
-            List<BluetoothDeviceData> scanResults = new ArrayList<>();
-
-            if (tmpScanLEResults != null) {
-                for (BluetoothDeviceData device : tmpScanLEResults) {
-                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
-                }
-                //tmpScanLEResults = null;
-            }
-
-            saveLEScanResults(context, scanResults);
-        }
-    }
-
     static void startScanner(Context context, boolean fromDialog)
     {
         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
@@ -965,7 +808,7 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    private static void saveCLScanResults(Context context, List<BluetoothDeviceData> scanResults)
+    static void saveCLScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
         synchronized (PPApplication.bluetoothScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
@@ -985,7 +828,7 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    private static void saveLEScanResults(Context context, List<BluetoothDeviceData> scanResults)
+    static void saveLEScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
         synchronized (PPApplication.bluetoothScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
@@ -1064,101 +907,6 @@ public class BluetoothScanWorker extends Worker {
             if (!found) {
                 if (tmpScanLEResults != null) // maybe set to null by startLEScan() or finishLEScan()
                     tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0, false, true));
-            }
-        }
-    }
-
-    static void finishCLScan(final Context context) {
-        synchronized (PPApplication.bluetoothCLScanMutex) {
-
-            if (BluetoothScanner.bluetoothDiscoveryStarted) {
-
-                BluetoothScanner.bluetoothDiscoveryStarted = false;
-
-                List<BluetoothDeviceData> scanResults = new ArrayList<>();
-
-                if (BluetoothScanner.tmpBluetoothScanResults != null) {
-                    for (BluetoothDeviceData device : BluetoothScanner.tmpBluetoothScanResults) {
-                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
-                    }
-                }
-
-                saveCLScanResults(context, scanResults);
-
-                setWaitForResults(context, false);
-
-                int forceOneScan = ApplicationPreferences.prefForceOneBluetoothScan;
-                BluetoothScanner.setForceOneBluetoothScan(context, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
-
-                if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
-                {
-                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, "SENSOR_TYPE_BLUETOOTH_SCANNER", 5);
-
-                    /*
-                    Data workData = new Data.Builder()
-                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG)
-                                    .setInputData(workData)
-                                    .setInitialDelay(5, TimeUnit.SECONDS)
-                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                    .build();
-                    try {
-                        if (PPApplicationStatic.getApplicationStarted(true)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null) {
-
-//                                //if (PPApplicationStatic.logEnabled()) {
-//                                ListenableFuture<List<WorkInfo>> statuses;
-//                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
-//                                try {
-//                                    List<WorkInfo> workInfoList = statuses.get();
-//                                } catch (Exception ignored) {
-//                                }
-//                                //}
-
-//                                PPApplicationStatic.logE("[WORKER_CALL] BluetoothScanWorker.finishCLScan", "xxx");
-                                //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                            }
-                        }
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                    */
-
-                    /*PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothScanWorker_finishCLScan");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                // start events handler
-                                EventsHandler eventsHandler = new EventsHandler(context);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {}
-                                }
-                            }
-                        }
-                    }, 5000);*/
-                    //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, context);
-                }
-
-                BluetoothScanner.tmpBluetoothScanResults = null;
             }
         }
     }

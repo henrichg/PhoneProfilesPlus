@@ -141,9 +141,8 @@ class WifiScanner {
                             int wifiState;
                             wifiState = enableWifi(WifiScanWorker.wifi/*, wifiChangeHandler*/);
 
-
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                                WifiScanWorker.startScan(context);
+                                /*WifiScanWorker.*/startScan(context);
                             } else if (wifiState != WifiManager.WIFI_STATE_ENABLING) {
                                 WifiScanWorker.setScanRequest(context, false);
                                 WifiScanWorker.setWaitForResults(context, false);
@@ -314,6 +313,49 @@ class WifiScanner {
     }
     */
 
+    private void startScan(Context context)
+    {
+        WifiScanWorker.lock(context); // lock wakeLock and wifiLock, then scan.
+        // unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
+        try {
+            if (WifiScanWorker.wifi == null)
+                WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+            boolean startScan = false;
+            if (WifiScanWorker.wifi != null) {
+                startScan = WifiScanWorker.wifi.startScan();
+            }
+            if (!startScan) {
+                if (ApplicationPreferences.prefEventWifiEnabledForScan) {
+                    //if (Build.VERSION.SDK_INT >= 29)
+                    //    CmdWifi.setWifi(false);
+                    //else
+                    if (WifiScanWorker.wifi != null) {
+                        WifiScanWorker.wifi.setWifiEnabled(false);
+                    }
+                }
+                WifiScanWorker.unlock();
+            }
+            WifiScanWorker.setWaitForResults(context, startScan);
+            WifiScanWorker.setScanRequest(context, false);
+        } catch (Exception e) {
+            if (ApplicationPreferences.prefEventWifiEnabledForScan) {
+                //if (Build.VERSION.SDK_INT >= 29)
+                //    CmdWifi.setWifi(false);
+                //else {
+                if (WifiScanWorker.wifi == null)
+                    WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                if (WifiScanWorker.wifi != null) {
+                    WifiScanWorker.wifi.setWifiEnabled(false);
+                }
+                //}
+            }
+            WifiScanWorker.unlock();
+            WifiScanWorker.setWaitForResults(context, false);
+            WifiScanWorker.setScanRequest(context, false);
+        }
+    }
+
     private int enableWifi(WifiManager wifi/*, Handler wifiChangeHandler*/)
     {
         int wifiState = wifi.getWifiState();
@@ -357,6 +399,18 @@ class WifiScanner {
                             //else
                                 _wifi.setWifiEnabled(true);
 
+                            long start = SystemClock.uptimeMillis();
+                            do {
+                                if (!ApplicationPreferences.prefEventWifiScanRequest)
+                                    break;
+                                if (wifi.getWifiState() == WifiManager.WIFI_STATE_ENABLED) {
+                                    GlobalUtils.sleep(5000);
+                                    startScan(context);
+                                    break;
+                                }
+                                GlobalUtils.sleep(200);
+                            } while (SystemClock.uptimeMillis() - start < 30 * 1000);
+
                         }; //);
                         PPApplicationStatic.createScannersExecutor();
                         PPApplication.scannersExecutor.submit(runnable);
@@ -392,7 +446,7 @@ class WifiScanner {
         return wifiState;
     }
 
-    private static void waitForWifiDisabled(WifiManager wifi) {
+    private void waitForWifiDisabled(WifiManager wifi) {
         long start = SystemClock.uptimeMillis();
         do {
             int wifiState = wifi.getWifiState();
@@ -408,7 +462,7 @@ class WifiScanner {
         } while (SystemClock.uptimeMillis() - start < 5 * 1000);
     }
 
-    private static void waitForWifiScanEnd(/*Context context*//*, AsyncTask<Void, Integer, Void> asyncTask*/)
+    private void waitForWifiScanEnd(/*Context context*//*, AsyncTask<Void, Integer, Void> asyncTask*/)
     {
         long start = SystemClock.uptimeMillis();
         do {

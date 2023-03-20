@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ class SingleSelectListDialog
         if (_showSubtitle) {
             // custom dialog title
             LayoutInflater layoutInflater = LayoutInflater.from(activity);
+            @SuppressLint("InflateParams")
             View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
             TextView titleText = (TextView) titleView.findViewById(R.id.custom_dialog_title);
             titleText.setText(_title);

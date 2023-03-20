@@ -573,49 +573,6 @@ public class WifiScanWorker extends Worker {
         }
     }
 
-    static void startScan(Context context)
-    {
-        lock(context); // lock wakeLock and wifiLock, then scan.
-        // unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
-        try {
-            if (wifi == null)
-                wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
-            boolean startScan = false;
-            if (wifi != null) {
-                startScan = wifi.startScan();
-            }
-            if (!startScan) {
-                if (ApplicationPreferences.prefEventWifiEnabledForScan) {
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    CmdWifi.setWifi(false);
-                    //else
-                    if (wifi != null) {
-                        wifi.setWifiEnabled(false);
-                    }
-                }
-                unlock();
-            }
-            setWaitForResults(context, startScan);
-            setScanRequest(context, false);
-        } catch (Exception e) {
-            if (ApplicationPreferences.prefEventWifiEnabledForScan) {
-                //if (Build.VERSION.SDK_INT >= 29)
-                //    CmdWifi.setWifi(false);
-                //else {
-                    if (wifi == null)
-                        wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                    if (wifi != null) {
-                        wifi.setWifiEnabled(false);
-                    }
-                //}
-            }
-            unlock();
-            setWaitForResults(context, false);
-            setScanRequest(context, false);
-        }
-    }
-
     static void startScanner(Context context, boolean fromDialog)
     {
         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);

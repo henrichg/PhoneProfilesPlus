@@ -131,7 +131,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                 BluetoothScanWorker.fillBoundedDevicesList(appContext);
                                             }
 
-                                            BluetoothScanWorker.finishCLScan(appContext);
+                                            BluetoothScanner.finishCLScan(appContext);
                                             break;
                                     }
                                 }

@@ -10,14 +10,14 @@ class BluetoothLEScanner {
 
     final BluetoothAdapter bluetooth;
     final BluetoothLeScanner bluetoothLeScanner;
-    final BluetoothLEScanCallback bluetoothLEScanCallback21;
+    final BluetoothLEScanCallback bluetoothLEScanCallback;
 
     BluetoothLEScanner(Context _context) {
         //context = _context;
 
         bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
         bluetoothLeScanner = bluetooth.getBluetoothLeScanner();
-        bluetoothLEScanCallback21 = new BluetoothLEScanCallback(_context);
+        bluetoothLEScanCallback = new BluetoothLEScanCallback(_context);
     }
 
 }

@@ -10,7 +10,6 @@ import android.net.wifi.WifiManager;
 import android.os.PowerManager;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -97,7 +96,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             if (EventStatic.getGlobalEventsRunning(appContext) || (forceOneScan == WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
 
                                 if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
-                                    if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                                    /*if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                         // start scan
                                         if (ApplicationPreferences.prefEventWifiScanRequest) {
 //                                            PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** WifiStateChangedBroadcastReceiver.onReceive", "schedule");
@@ -114,38 +113,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             };
                                             PPApplicationStatic.createDelayedEventsHandlerExecutor();
                                             PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
-
-
-                                            /*
-                                            OneTimeWorkRequest worker =
-                                                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                                                            .addTag(WifiScanWorker.WORK_TAG_START_SCAN)
-                                                            .setInitialDelay(5, TimeUnit.SECONDS)
-                                                            .build();
-                                            try {
-                                                if (PPApplicationStatic.getApplicationStarted(true)) {
-                                                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                                    if (workManager != null) {
-
-//                                                        //if (PPApplicationStatic.logEnabled()) {
-//                                                        ListenableFuture<List<WorkInfo>> statuses;
-//                                                        statuses = workManager.getWorkInfosForUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN);
-//                                                        try {
-//                                                            List<WorkInfo> workInfoList = statuses.get();
-//                                                        } catch (Exception ignored) {
-//                                                        }
-//                                                        //}
-
-//                                                        PPApplicationStatic.logE("[WORKER_CALL] WifiStateChangedBroadcastReceiver.onReceive", "xxx");
-                                                        workManager.enqueueUniqueWork(WifiScanWorker.WORK_TAG_START_SCAN, ExistingWorkPolicy.REPLACE, worker);
-                                                    }
-                                                }
-                                            } catch (Exception e) {
-                                                PPApplicationStatic.recordException(e);
-                                            }
-                                            */
                                         }
-                                    }
+                                    }*/
 
                                     if (!(ApplicationPreferences.prefEventWifiScanRequest ||
                                             ApplicationPreferences.prefEventWifiWaitForResult ||
