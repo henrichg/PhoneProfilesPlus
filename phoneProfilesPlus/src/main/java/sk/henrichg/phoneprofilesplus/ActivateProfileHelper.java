@@ -5188,7 +5188,8 @@ class ActivateProfileHelper {
         switch (screenTimeout) {
             case 1:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 15000;
                 else {
@@ -5213,7 +5214,8 @@ class ActivateProfileHelper {
                 break;
             case 2:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 30000;
                 else {
@@ -5239,7 +5241,8 @@ class ActivateProfileHelper {
                 break;
             case 3:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 60000;
                 else {
@@ -5265,7 +5268,8 @@ class ActivateProfileHelper {
                 break;
             case 4:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 120000;
                 else {
@@ -5291,7 +5295,8 @@ class ActivateProfileHelper {
                 break;
             case 5:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 600000;
                 else {
@@ -5329,7 +5334,8 @@ class ActivateProfileHelper {
                 break;*/
             case 7:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 300000;
                 else {
@@ -5363,7 +5369,8 @@ class ActivateProfileHelper {
                 break;*/
             case 9:
                 //removeScreenTimeoutAlwaysOnView(context);
-                if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                //if ((PPApplication.lockDeviceActivity != null) && (!forceSet))
+                if (PPApplication.lockDeviceActivityDisplayed && (!forceSet))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed = 1800000;
                 else {
@@ -6759,7 +6766,8 @@ class ActivateProfileHelper {
                     switch (profile._lockDevice) {
                         case 1:
                             if (PhoneProfilesService.getInstance() != null) {
-                                if (Permissions.checkLockDevice(appContext) && (PPApplication.lockDeviceActivity == null)) {
+                                //if (Permissions.checkLockDevice(appContext) && (PPApplication.lockDeviceActivity == null)) {
+                                if (Permissions.checkLockDevice(appContext) && (!PPApplication.lockDeviceActivityDisplayed)) {
                                     try {
                                         Intent intent = new Intent(appContext, LockDeviceActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

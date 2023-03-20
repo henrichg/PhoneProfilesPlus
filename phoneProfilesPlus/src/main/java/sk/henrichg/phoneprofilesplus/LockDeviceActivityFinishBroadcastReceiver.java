@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +16,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] LockDeviceActivityFinishBroadcastReceiver.onReceive", "xxx");
-        doWork();
+        doWork(context);
     }
 
     static void removeAlarm(Context context)
@@ -85,7 +87,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                            }
 
                         //noinspection Convert2MethodRef
-                        LockDeviceActivityFinishBroadcastReceiver.doWork();
+                        LockDeviceActivityFinishBroadcastReceiver.doWork(context);
 
 //                        long finish = System.currentTimeMillis();
 //                        long timeElapsed = finish - start;
@@ -165,7 +167,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
 
                         //noinspection Convert2MethodRef
-                        LockDeviceActivityFinishBroadcastReceiver.doWork();
+                        LockDeviceActivityFinishBroadcastReceiver.doWork(context);
 
 //                        long finish = System.currentTimeMillis();
 //                        long timeElapsed = finish - start;
@@ -190,10 +192,12 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         }
     }
 
-    static void doWork() {
+    static void doWork(Context context) {
         //if (PhoneProfilesService.getInstance() != null) {
-            if (PPApplication.lockDeviceActivity != null) {
-                PPApplication.lockDeviceActivity.finish();
+            //if (PPApplication.lockDeviceActivity != null) {
+            if (PPApplication.lockDeviceActivityDisplayed) {
+                Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
+                LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
             }
         //}
     }

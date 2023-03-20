@@ -736,8 +736,8 @@ public class PPApplication extends Application
     // constructor has Context as parameter
     // this is OK, activity will be removed and lockDeviceActivity set to null after destroy of
     // LockDeviceActivity
-    @SuppressLint("StaticFieldLeak")
-    static volatile LockDeviceActivity lockDeviceActivity = null;
+    //static volatile LockDeviceActivity lockDeviceActivity = null;
+    static volatile boolean lockDeviceActivityDisplayed = false;
 
     static volatile int screenTimeoutWhenLockDeviceActivityIsDisplayed = 0;
 

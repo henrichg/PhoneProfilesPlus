@@ -118,7 +118,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
 //        PPApplicationStatic.logE("[WORKER_CALL] TimeChangedReceiver.doWork", "xxx");
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
-        LockDeviceActivityFinishBroadcastReceiver.doWork();
+        LockDeviceActivityFinishBroadcastReceiver.doWork(appContext);
         LocationScanner.useGPS = true;
         LocationScannerSwitchGPSBroadcastReceiver.doWork(appContext);
 

@@ -362,7 +362,6 @@ public class ProfileIconPreference extends DialogPreference {
 
     private static class UpdateIconAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        //@SuppressLint("StaticFieldLeak")
         //ImageView _imageView;
         Bitmap bitmap;
 

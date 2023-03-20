@@ -4,9 +4,10 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
@@ -167,18 +168,29 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
+                            /*
                             final Handler handler1 = new Handler(appContext.getMainLooper());
                             handler1.post(() -> {
 //                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - start");
-                                if (PPApplication.lockDeviceActivity != null) {
-                                    try {
-                                        PPApplication.lockDeviceActivity.finish();
-                                    } catch (Exception e) {
-                                        PPApplicationStatic.recordException(e);
-                                    }
-                                }
+                                //if (PPApplication.lockDeviceActivity != null) {
+                                //    try {
+                                //        PPApplication.lockDeviceActivity.finish();
+                                //    } catch (Exception e) {
+                                //        PPApplicationStatic.recordException(e);
+                                //    }
+                                //}
 //                                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "run - from=ScreenOnOffBroadcastReceiver.onReceive - screen off - finish ock actovity - end");
+                                if (PPApplication.lockDeviceActivityDisplayed) {
+                                    Log.e("ScreenOnOffBroadcastReceiver.onReceive", "finish LockDeviceActivity");
+                                    Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
+                                    LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
+                                }
                             });
+                            */
+                            if (PPApplication.lockDeviceActivityDisplayed) {
+                                Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
+                                LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
+                            }
 
                             break;
                         }

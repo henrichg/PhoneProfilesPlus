@@ -1,19 +1,42 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-public class LockDeviceActivity extends AppCompatActivity {
+public class LockDeviceActivity extends AppCompatActivity
+                    implements FinishLockDeviceActivityListener
+{
 
     private View view = null;
     private boolean displayed = false;
+
+    static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
+
+        private final FinishLockDeviceActivityListener listener;
+
+        public FinishActivityBroadcastReceiver(FinishLockDeviceActivityListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            Log.e("FinishActivityBroadcastReceiver.onReceive", "xxxx");
+            listener.finishActivityFromListener();
+        }
+    }
+    private LockDeviceActivity.FinishActivityBroadcastReceiver finishActivityBroadcastReceiver;
 
     @SuppressLint({"WrongConstant", "InflateParams", "SuspiciousIndentation"})
     @Override
@@ -28,7 +51,16 @@ public class LockDeviceActivity extends AppCompatActivity {
             canWriteSettings = Settings.System.canWrite(getApplicationContext());
 
         if (/*(PhoneProfilesService.getInstance() != null) &&*/ canWriteSettings) {
-            PPApplication.lockDeviceActivity = this;
+            //PPApplication.lockDeviceActivity = this;
+
+            finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
+            LocalBroadcastManager.getInstance(this).registerReceiver(finishActivityBroadcastReceiver,
+                        new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));
+            //finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
+            //registerReceiver(finishActivityBroadcastReceiver, new IntentFilter(
+            //        PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));
+
+            PPApplication.lockDeviceActivityDisplayed = true;
 
             /*
             View decorView = getWindow().getDecorView();
@@ -105,6 +137,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         }
         else
             finish();
+
     }
 
     @Override
@@ -172,7 +205,14 @@ public class LockDeviceActivity extends AppCompatActivity {
             //dataWrapper.invalidateDataWrapper();
         }
 
-        PPApplication.lockDeviceActivity = null;
+        //PPApplication.lockDeviceActivity = null;
+        PPApplication.lockDeviceActivityDisplayed = false;
+
+        if (finishActivityBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(finishActivityBroadcastReceiver);
+            //unregisterReceiver(finishActivityBroadcastReceiver);
+            //finishActivityBroadcastReceiver = null;
+        }
     }
 
     @Override
@@ -180,6 +220,11 @@ public class LockDeviceActivity extends AppCompatActivity {
     {
         super.finish();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void finishActivityFromListener() {
+        finish();
     }
 
 }

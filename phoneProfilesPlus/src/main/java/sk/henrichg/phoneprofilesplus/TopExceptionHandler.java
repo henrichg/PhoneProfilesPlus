@@ -36,7 +36,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 //        Log.e("TopExceptionHandler.uncaughtException", "xxx");
 
         try {
-            if (PPApplication.lockDeviceActivity != null) {
+            //if (PPApplication.lockDeviceActivity != null) {
+            if (PPApplication.lockDeviceActivityDisplayed) {
                 boolean canWriteSettings;// = true;
                 canWriteSettings = Settings.System.canWrite(applicationContext);
                 if (canWriteSettings) {
@@ -60,7 +61,9 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                             });
                         }
                     } else*/
-                    if ((PPApplication.lockDeviceActivity != null) &&
+                    //if ((PPApplication.lockDeviceActivity != null) &&
+                    //        (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
+                    if (PPApplication.lockDeviceActivityDisplayed &&
                             (PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed != 0))
                         Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutWhenLockDeviceActivityIsDisplayed);
                 }
