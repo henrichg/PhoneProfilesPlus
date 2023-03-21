@@ -1954,6 +1954,10 @@ class ActivateProfileHelper {
     static final String RINGTONE_SIM2_HUAWEI = "ringtone2";
     static final String RINGTONE_SIM1_XIAOMI = "ringtone_sound_slot_1";
     static final String RINGTONE_SIM2_XIAOMI = "ringtone_sound_slot_2";
+    static final String RINGTONE_FOLLOW_SIM1_XIAOMI = "ringtone_sound_use_uniform";
+    static final String RINGTONE_SIM1_ONEPLUS = "ringtone";
+    static final String RINGTONE_SIM2_ONEPLUS = "ringtone_sim2";
+    static final String RINGTONE_FOLLOW_SIM1_ONEPLUS = "ringtone_follow_sim_one";
 
     static String getRingtoneFromSystem(Context appContext, int simSlot) {
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
@@ -1973,11 +1977,23 @@ class ActivateProfileHelper {
                 return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_XIAOMI);
 
             if (simSlot == 2) {
-                int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
+                int useUniform = Settings.System.getInt(appContext.getContentResolver(), RINGTONE_FOLLOW_SIM1_XIAOMI, 1);
                 if (useUniform == 0)
                     return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM2_XIAOMI);
                 else
                     return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_XIAOMI);
+            }
+        }
+        if (PPApplication.deviceIsOnePlus) {
+            if (simSlot == 1)
+                return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_ONEPLUS);
+
+            if (simSlot == 2) {
+                int useUniform = Settings.System.getInt(appContext.getContentResolver(), RINGTONE_FOLLOW_SIM1_ONEPLUS, 1);
+                if (useUniform == 0)
+                    return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM2_ONEPLUS);
+                else
+                    return Settings.System.getString(appContext.getContentResolver(), RINGTONE_SIM1_ONEPLUS);
             }
         }
         return null;
@@ -2254,6 +2270,14 @@ class ActivateProfileHelper {
                                         } catch (Exception ignored) {}
 
                                         Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_XIAOMI, uri.toString());
+                                    } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
+    //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=" + uri.toString());
+
+                                        try {
+                                            uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
+                                        } catch (Exception ignored) {}
+
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_ONEPLUS, uri.toString());
                                     }
                                 }
                             }
@@ -2311,6 +2335,12 @@ class ActivateProfileHelper {
     //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=null");
 
                                     Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_XIAOMI, null);
+                                }
+                                else
+                                if (PPApplication.deviceIsOnePlus) {
+    //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=null");
+
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_ONEPLUS, null);
                                 }
                             }
                             catch (IllegalArgumentException e) {
@@ -2381,6 +2411,15 @@ class ActivateProfileHelper {
                                         }
 
                                         Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_XIAOMI, uri.toString());
+                                    } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
+//                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=" + uri.toString());
+
+                                        try {
+                                            uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
+                                        } catch (Exception ignored) {
+                                        }
+
+                                        Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_ONEPLUS, uri.toString());
                                     }
                                 }
                             } catch (IllegalArgumentException e) {
@@ -2432,6 +2471,10 @@ class ActivateProfileHelper {
 //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=null");
 
                                     Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_XIAOMI, null);
+                                } else if (PPApplication.deviceIsOnePlus) {
+//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=null");
+
+                                    Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_ONEPLUS, null);
                                 }
                             } catch (IllegalArgumentException e) {
                                 // java.lang.IllegalArgumentException: Invalid column: _data
@@ -2858,23 +2901,33 @@ class ActivateProfileHelper {
                                 value = "0";
 
                             if (isPPPPutSettingsInstalled(appContext) > 0) {
-                                putSettingsParameter(context, "system", "ringtone_sound_use_uniform", value);
+                                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+                                    putSettingsParameter(context, "system", RINGTONE_FOLLOW_SIM1_XIAOMI, value);
+                                else
+                                if (PPApplication.deviceIsOnePlus)
+                                    putSettingsParameter(context, "system", RINGTONE_FOLLOW_SIM1_ONEPLUS, value);
                             } else {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                     synchronized (PPApplication.rootMutex) {
-                                        String command1;
+                                        String command1 = null;
                                         Command command;
-                                        command1 = "settings put system ringtone_sound_use_uniform" + " " + value;
-                                        command = new Command(0, /*false,*/ command1);
-                                        try {
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
-//                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "same ringtone fro bth sim cards with root");
-                                        } catch (Exception e) {
-                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                            //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
-                                            //PPApplicationStatic.recordException(e);
+                                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+                                            command1 = "settings put system " + RINGTONE_FOLLOW_SIM1_XIAOMI + " " + value;
+                                        else
+                                        if (PPApplication.deviceIsOnePlus)
+                                            command1 = "settings put system " + RINGTONE_FOLLOW_SIM1_ONEPLUS + " " + value;
+                                        if (command1 != null) {
+                                            command = new Command(0, /*false,*/ command1);
+                                            try {
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                RootUtils.commandWait(command, "ActivateProfileHelper.setTones");
+//                                            bPPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "same ringtone fro bth sim cards with root");
+                                            } catch (Exception e) {
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                //Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                                                //PPApplicationStatic.recordException(e);
+                                            }
                                         }
                                     }
                                 }

@@ -670,3 +670,23 @@ Toto neviem, mozno treba, mozno nie
 
 Zapnutie wifi - ale podla mna to vyzaduje root.
 - svc wifi enable
+
+----------
+
+OnePlus:
+
+Ringtone:
+- ringtone=OnePlus new feeling
+- ringtone_sim2=Amenity
+- ringtone_2=OnePlus tune -> toto neviem kto kedy pouziva. Hm, hm. Nebude pouizvat, testnem.
+
+Ma tu ako pri Xiaomi "Same as SIM 1" -> "ringtone_follow_sim_one" - 1 zapnute, 0 vypnute, cize ako pri Xiaomi
+Profile._soundSameRingtoneForBothSIMCards
+Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
+
+---
+
+Notification:
+- notification_sound=Blink
+- notification_sim2=Free -> lenze toto nie je v Settings. Hm, hm. Nedovolim to menit a hotovo.
+

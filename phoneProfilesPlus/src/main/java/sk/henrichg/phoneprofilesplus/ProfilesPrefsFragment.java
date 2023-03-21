@@ -1062,7 +1062,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
-                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                            (PPApplication.deviceIsOnePlus)) {
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
                         if (preference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, preferences, true, context);
@@ -1315,7 +1316,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         //}
 
-        if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+        if (!((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) ||
+                PPApplication.deviceIsOnePlus) {
             preference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
             if (preference != null) {
                 preference.setVisible(false);
@@ -2614,7 +2616,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (isDualSIM &&
                 ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
-                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                        (PPApplication.deviceIsOnePlus))) {
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, context);
             if (!title.isEmpty()) {
                 if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
@@ -2628,7 +2631,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
 
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                    PPApplication.deviceIsOnePlus) {
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, R.string.profile_preferences_soundSameRingtoneForBothSIMCards, context);
                 if (!title.isEmpty()) {
                     if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
@@ -4073,7 +4077,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                                            TelephonyManager telephonyManager, int phoneCount) {
         if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                 (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
-                (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+                (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                (PPApplication.deviceIsOnePlus)) {
             boolean isDualSIM = true;
             if (telephonyManager != null) {
                 if (phoneCount < 2) {
@@ -4117,7 +4122,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     + "</b>";
                         }
 
-                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                        if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                                PPApplication.deviceIsOnePlus) {
                             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, R.string.profile_preferences_soundSameRingtoneForBothSIMCards, context);
                             if (!title.isEmpty()) {
                                 if (!cattegorySummaryData.summary.isEmpty())
@@ -5357,7 +5363,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (//(Build.VERSION.SDK_INT >= 26) &&
                 ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
-                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                        (PPApplication.deviceIsOnePlus))) {
 
             if (phoneCount > 1) {
 
@@ -6359,7 +6366,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (//(Build.VERSION.SDK_INT >= 26) &&
                 ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                         (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
-                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                        (PPApplication.deviceIsOnePlus))) {
             if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)) {
                 boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
                 Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);

@@ -46,7 +46,7 @@
         app:simCard="2"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <!-- this is for Xiaomi devices -->
+    <!-- this is for Xiaomi, OnePlus devices -->
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:key="prf_pref_soundSameRingtoneForBothSIMCards"
         app:title="@string/profile_preferences_soundSameRingtoneForBothSIMCards"

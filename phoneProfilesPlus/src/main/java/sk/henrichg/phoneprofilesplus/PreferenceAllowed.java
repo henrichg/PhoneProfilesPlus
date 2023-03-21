@@ -2148,7 +2148,8 @@ class PreferenceAllowed {
         //if (Build.VERSION.SDK_INT >= 26) {
             if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
-                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                    (PPApplication.deviceIsOnePlus)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
@@ -2273,7 +2274,8 @@ class PreferenceAllowed {
                 }
             }
             else
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                PPApplication.deviceIsOnePlus) {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported);
@@ -2300,7 +2302,8 @@ class PreferenceAllowed {
         String preferenceKey = Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS;
 
         //if (Build.VERSION.SDK_INT >= 26) {
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+            if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                    PPApplication.deviceIsOnePlus) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
