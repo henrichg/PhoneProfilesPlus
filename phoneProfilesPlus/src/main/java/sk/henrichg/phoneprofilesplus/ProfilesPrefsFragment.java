@@ -6217,6 +6217,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
             if (preference != null)
                 preference.setEnabled(enabled && sValue.equals("3"));
+            preference = prefMng.findPreference("prf_pref_deviceWallpaperFolderInfo");
+            if (preference != null)
+                preference.setEnabled(enabled && sValue.equals("3"));
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
