@@ -82,7 +82,6 @@
     <!--</style>-->
     <style name="AlertDialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:background">@color/activityBackgroundColor</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>
         <item name="colorAccent">@color/accent_color</item>
 
@@ -92,10 +91,12 @@
 
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
     </style>
+<!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
+<!--    Border of dialog is diplayed correctly withotu this attribute.-->
+<!--    <item name="android:background">@color/activityBackgroundColor</item>-->
 
     <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:background">@color/activityBackgroundColor</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>
         <item name="colorAccent">@color/accent_color</item>
 
@@ -105,6 +106,9 @@
 
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
     </style>
+<!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
+<!--    Border of dialog is diplayed correctly withotu this attribute.-->
+<!--    <item name="android:background">@color/activityBackgroundColor</item>-->
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:background">@drawable/pp_alert_button_background_selector</item>
