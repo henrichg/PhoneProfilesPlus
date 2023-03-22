@@ -2271,7 +2271,7 @@ class ActivateProfileHelper {
 
                                         Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_XIAOMI, uri.toString());
                                     } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
-    //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=" + uri.toString());
+//                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=" + uri.toString());
 
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2338,7 +2338,7 @@ class ActivateProfileHelper {
                                 }
                                 else
                                 if (PPApplication.deviceIsOnePlus) {
-    //                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=null");
+//                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 OnePlus uri=null");
 
                                     Settings.System.putString(context.getContentResolver(), RINGTONE_SIM1_ONEPLUS, null);
                                 }
@@ -2412,7 +2412,7 @@ class ActivateProfileHelper {
 
                                         Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_XIAOMI, uri.toString());
                                     } else if (PPApplication.deviceIsOnePlus && (uri != null)) {
-//                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=" + uri.toString());
+//                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=" + uri.toString());
 
                                         try {
                                             uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2472,7 +2472,7 @@ class ActivateProfileHelper {
 
                                     Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_XIAOMI, null);
                                 } else if (PPApplication.deviceIsOnePlus) {
-//                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=null");
+//                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 OnePlus uri=null");
 
                                     Settings.System.putString(context.getContentResolver(), RINGTONE_SIM2_ONEPLUS, null);
                                 }

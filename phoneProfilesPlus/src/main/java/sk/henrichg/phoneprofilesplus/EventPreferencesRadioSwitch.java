@@ -39,6 +39,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     private static final String PREF_EVENT_RADIO_SWITCH_NFC = "eventRadioSwitchNFC";
     private static final String PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE = "eventRadioSwitchAirplaneMode";
 
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM = "eventRadioSwitchEnabledEnabledNoCheckSim";
+
     private static final String PREF_EVENT_RADIO_SWITCH_CATEGORY = "eventRadioSwitchCategoryRoot";
 
     EventPreferencesRadioSwitch(Event event,
@@ -478,7 +480,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
                     this._wifi, this._bluetooth, this._simOnOff, this._defaultSIMForCalls, this._defaultSIMForSMS,

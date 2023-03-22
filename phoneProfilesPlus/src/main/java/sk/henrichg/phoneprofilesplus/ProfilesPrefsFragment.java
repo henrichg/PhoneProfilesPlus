@@ -1316,8 +1316,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         //}
 
-        if (!((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) ||
-                PPApplication.deviceIsOnePlus) {
+        if (!((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                PPApplication.deviceIsOnePlus)) {
             preference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
             if (preference != null) {
                 preference.setVisible(false);
@@ -4100,7 +4100,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b><" +
-                                    ProfileStatic.getColorForChangedPreferenceValue("ringtone_name_sim2>", prefMng, "prf_pref_soundsDualSIMSupportCategoryRoot", context)
+                                    ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name_sim2>", prefMng, "prf_pref_soundsDualSIMSupportCategoryRoot", context)
                                     + "</b>";
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, context);

@@ -469,6 +469,13 @@ class Permissions {
                     (profile._soundNotificationChangeSIM2 != 0)) {
                 boolean grantedSystemSettings = Settings.System.canWrite(context);
                 boolean grantedStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                boolean grantedReadPhoneState = true;
+                if ((profile._soundRingtoneChangeSIM1 != 0) ||
+                        (profile._soundRingtoneChangeSIM2 != 0) ||
+                        (profile._soundNotificationChangeSIM1 != 0) ||
+                        (profile._soundNotificationChangeSIM2 != 0))
+                    grantedReadPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+
                 if (grantedSystemSettings)
                     setShowRequestWriteSettingsPermission(context, true);
                 if (permissions != null) {
@@ -476,6 +483,8 @@ class Permissions {
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
                     if (!grantedStorage)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_EXTERNAL_STORAGE));
+                    if (!grantedReadPhoneState)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_PHONE_STATE));
                 }
                 return grantedSystemSettings && grantedStorage;
             } else
