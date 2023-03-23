@@ -2095,6 +2095,7 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
 
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
 
     <!-- **************************************************************************************** -->
 

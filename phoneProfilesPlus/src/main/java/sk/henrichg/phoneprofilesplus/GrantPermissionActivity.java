@@ -841,6 +841,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_PPP_PUT_SETTINGS:
                         s = getString(R.string.permission_why_profile_ppp_put_settings);
                         break;
+                    case Permissions.PERMISSION_PROFILE_RINGTONES_DUAL_SIM:
+                        s = getString(R.string.permission_why_profile_ringtones_dual_sim);
+                        break;
                 }
             }
         }

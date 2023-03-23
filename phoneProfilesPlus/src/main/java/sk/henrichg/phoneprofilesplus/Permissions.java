@@ -80,6 +80,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES = 54;
     static final int PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
     static final int PERMISSION_PROFILE_PPP_PUT_SETTINGS = 56;
+    static final int PERMISSION_PROFILE_RINGTONES_DUAL_SIM = 57;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -484,7 +485,7 @@ class Permissions {
                     if (!grantedStorage)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_EXTERNAL_STORAGE));
                     if (!grantedReadPhoneState)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_PHONE_STATE));
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES_DUAL_SIM, permission.READ_PHONE_STATE));
                 }
                 return grantedSystemSettings && grantedStorage;
             } else
