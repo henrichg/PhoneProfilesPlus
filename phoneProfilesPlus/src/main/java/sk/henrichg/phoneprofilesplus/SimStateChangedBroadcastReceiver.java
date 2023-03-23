@@ -62,9 +62,10 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    GlobalUtils.hasSIMCard(appContext, 0);
-                    GlobalUtils.hasSIMCard(appContext, 1);
-                    GlobalUtils.hasSIMCard(appContext, 2);
+                    // Not needed, GlobalUtils.hasSIMCard() do not set result into global variables
+                    //GlobalUtils.hasSIMCard(appContext, 0);
+                    //GlobalUtils.hasSIMCard(appContext, 1);
+                    //GlobalUtils.hasSIMCard(appContext, 2);
 
                     PPApplicationStatic.registerPhoneCallsListener(false, appContext);
                     PPApplicationStatic.registerPPPExtenderReceiverForSMSCall(false, appContext);
