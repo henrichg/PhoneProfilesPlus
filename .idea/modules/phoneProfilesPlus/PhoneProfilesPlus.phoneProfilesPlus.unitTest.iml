@@ -60,7 +60,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: ch.acra:acra-mail:5.9.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: ch.acra:acra-core:5.9.7@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: ch.acra:acra-notification:5.9.7@aar" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime:2.8.0@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: androidx.work:work-runtime:2.8.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.annotation:annotation-experimental:1.3.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.arch.core:core-runtime:2.1.0@aar" level="project" />
