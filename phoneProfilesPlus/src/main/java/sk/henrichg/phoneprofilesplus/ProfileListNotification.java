@@ -472,6 +472,9 @@ public class ProfileListNotification {
     }
 
     static void forceDrawNotification(final Context appContext) {
+        if (!ApplicationPreferences.notificationProfileListDisplayNotification)
+            return;
+
         //boolean doNotShowNotification;
         //synchronized (PPApplication.applicationPreferencesMutex) {
         //    doNotShowNotification = PPApplication.doNotShowPPPAppNotification;
@@ -496,6 +499,9 @@ public class ProfileListNotification {
 
     static void drawNotification(boolean drawImmediatelly, Context context) {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** ProfileListNotification.drawNotification", "schedule");
+
+        if (!ApplicationPreferences.notificationProfileListDisplayNotification)
+            return;
 
         final Context appContext = context.getApplicationContext();
         //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
@@ -549,6 +555,10 @@ public class ProfileListNotification {
 
     static void showNotification(Context context,
                                  @SuppressWarnings("SameParameterValue") boolean drawImmediatelly) {
+
+        if (!ApplicationPreferences.notificationProfileListDisplayNotification)
+            return;
+
         //if (Build.VERSION.SDK_INT >= 26) {
         //if (DebugVersion.enabled)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
