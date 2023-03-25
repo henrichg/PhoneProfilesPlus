@@ -421,6 +421,10 @@ public class DataWrapper {
                 for (Iterator<Profile> it = profileList.iterator(); it.hasNext(); ) {
                     Profile profile = it.next();
                     if (profile._checked) {
+                        if (generateIcon)
+                            profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
+                        if (generateIndicators)
+                            profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
                         return profile;
                     }
                 }

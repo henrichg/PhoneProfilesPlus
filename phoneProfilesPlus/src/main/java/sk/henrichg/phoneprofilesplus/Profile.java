@@ -2773,10 +2773,10 @@ public class Profile {
 
     void generateIconBitmap(Context context, boolean monochrome, int monochromeValue, boolean useMonochromeValueForCustomIcon)
     {
+        releaseIconBitmap();
+
         if (!getIsIconResourceID())
         {
-            releaseIconBitmap();
-
             int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- generateIconBitmap","resampleBitmapUri");

@@ -673,20 +673,31 @@ Zapnutie wifi - ale podla mna to vyzaduje root.
 
 ----------
 
-OnePlus:
+DataWrapper:
+- getNewProfileList() - boolean generateIcons, boolean generateIndicators - vsetky profily vrati
+	- DataWrapper.fillProfileList() - boolean generateIcons, boolean generateIndicators
+	- OneRowProfileList._onUpdate() - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator tu nie je tteba negereuje ho
+	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil + restart udalosti
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	- ProfileListNotification._showNotificaiton - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator tu nie je tteba negereuje ho
+	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil + restart udalosti
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	- ProfileListWidgetFactory.onDataSetChanged - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
+	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	- SamsungEdgeFactory.onDataSetChanged - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
+	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
 
-Ringtone:
-- ringtone=OnePlus new feeling
-- ringtone_sim2=Amenity
-- ringtone_2=OnePlus tune -> toto neviem kto kedy pouziva. Hm, hm. Nebude pouizvat, testnem.
+- getActivatedProfileFromDB() - boolean generateIcons, boolean generateIndicators - len aktivovany profil vrati
+- getProfileByIdFromDB() - boolean generateIcons, boolean generateIndicators - len jeden profil (ako parameter) vrati
+- refreshProfileIcon() - boolean generateIcons, boolean generateIndicators - len jeden profil refreshuje
+- generateProfileIcon() - boolean generateIcons, boolean generateIndicators - len pre jeden profil generuje
 
-Ma tu ako pri Xiaomi "Same as SIM 1" -> "ringtone_follow_sim_one" - 1 zapnute, 0 vypnute, cize ako pri Xiaomi
-Profile._soundSameRingtoneForBothSIMCards
-Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
 
----
+- DataWrapper.fillProfileList() - boolean generateIcons, boolean generateIndicators
+	- ActivatorListFragment.LoadProfileListAsyncTask() - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
+	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
 
-Notification:
-- notification_sound=Blink
-- notification_sim2=Free -> lenze toto nie je v Settings. Hm, hm. Nedovolim to menit a hotovo.
 
