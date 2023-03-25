@@ -338,7 +338,9 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     public void onDataSetChanged() {
         DataWrapper _dataWrapper = createProfilesDataWrapper(true);
 
-        List<Profile> newProfileList = _dataWrapper.getNewProfileList(true, false);
+        //List<Profile> newProfileList = _dataWrapper.getNewProfileList(true, false);
+        List<Profile> newProfileList = _dataWrapper.getNewProfileList(false, false);
+
         _dataWrapper.getEventTimelineList(true);
 
         boolean applicationSamsungEdgeHeader;
@@ -354,6 +356,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             {
                 profile._showInActivator = true;
                 profile._porder = -1;
+            }
+        }
+
+        for (Profile profile : newProfileList) {
+            if (profile._showInActivator) {
+                _dataWrapper.generateProfileIcon(profile, true, false);
             }
         }
 

@@ -678,16 +678,16 @@ DataWrapper:
 	- DataWrapper.fillProfileList() - boolean generateIcons, boolean generateIndicators
 	- OneRowProfileList._onUpdate() - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator tu nie je tteba negereuje ho
 	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
 	- ProfileListNotification._showNotificaiton - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator tu nie je tteba negereuje ho
 	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
 	- ProfileListWidgetFactory.onDataSetChanged - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
 	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
 	- SamsungEdgeFactory.onDataSetChanged - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
 	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
 
 - getActivatedProfileFromDB() - boolean generateIcons, boolean generateIndicators - len aktivovany profil vrati
 - getProfileByIdFromDB() - boolean generateIcons, boolean generateIndicators - len jeden profil (ako parameter) vrati
@@ -698,6 +698,6 @@ DataWrapper:
 - DataWrapper.fillProfileList() - boolean generateIcons, boolean generateIndicators
 	- ActivatorListFragment.LoadProfileListAsyncTask() - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
 	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - OPRAV
+	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
 
 

@@ -294,14 +294,14 @@ public class ActivatorListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
+            //this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
-//            for (Profile profile : this.dataWrapper.profileList) {
-//                if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile,this.dataWrapper.context)) {
-//                    someErrorProfiles = true;
-//                    break;
-//                }
-//            }
+            this.dataWrapper.fillProfileList(false, false);
+            for (Profile profile : this.dataWrapper.profileList) {
+                if (profile._showInActivator) {
+                    this.dataWrapper.generateProfileIcon(profile, true, applicationActivatorPrefIndicator);
+                }
+            }
 
 //            if (!someErrorProfiles) {
             if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
@@ -309,9 +309,9 @@ public class ActivatorListFragment extends Fragment {
                     //Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
                     Profile restartEvents = DataWrapperStatic.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
                             "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
-                    restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
                     restartEvents._showInActivator = true;
                     restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
+                    dataWrapper.generateProfileIcon(restartEvents, true, false);
                     dataWrapper.profileList.add(0, restartEvents);
                 }
             }

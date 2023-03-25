@@ -246,7 +246,8 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     applicationWidgetOneRowProfileListCustomIconLightness,
                     DataWrapper.IT_FOR_WIDGET, 0, 0);
 
-        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
+        //List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
+        List<Profile> newProfileList = dataWrapper.getNewProfileList(false, false);
 
         // add activated profile, when has not enabled _showInActivator
         Profile activatedProfile = dataWrapper.getActivatedProfile(newProfileList);
@@ -255,6 +256,12 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             activatedProfile._showInActivator = true;
             activatedProfile._porder = -1;
         }
+        for (Profile profile : newProfileList) {
+            if (profile._showInActivator) {
+                dataWrapper.generateProfileIcon(profile, true, false);
+            }
+        }
+
         newProfileList.sort(new OneRowProfileListWidgetProvider.ProfileComparator());
 
         Profile restartEvents = null;

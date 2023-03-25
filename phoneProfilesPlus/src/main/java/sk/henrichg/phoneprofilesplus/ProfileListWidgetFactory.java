@@ -585,10 +585,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 applicationWidgetListUseDynamicColors,
                 applicationWidgetListBackgroundType,
                 applicationWidgetListBackgroundColor,
-                                                applicationWidgetListBackground);
+                applicationWidgetListBackground);
 
-        List<Profile> newProfileList = _dataWrapper.getNewProfileList(true,
-                                                        applicationWidgetListPrefIndicator);
+        //List<Profile> newProfileList = _dataWrapper.getNewProfileList(true, applicationWidgetListPrefIndicator);
+        List<Profile> newProfileList = _dataWrapper.getNewProfileList(false, false);
+
         _dataWrapper.getEventTimelineList(true);
 
         if (!applicationWidgetListHeader)
@@ -601,6 +602,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 profile._porder = -1;
             }
         }
+
+        for (Profile profile : newProfileList) {
+            if (profile._showInActivator) {
+                _dataWrapper.generateProfileIcon(profile, true, applicationWidgetListPrefIndicator);
+            }
+        }
+
         newProfileList.sort(new ProfileComparator());
 
         Profile restartEvents = null;

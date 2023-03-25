@@ -170,7 +170,8 @@ public class ProfileListNotification {
                 notificationProfileListCustomIconLightness,
                 DataWrapper.IT_FOR_NOTIFICATION, 0, 0);
 
-        List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
+        //List<Profile> newProfileList = dataWrapper.getNewProfileList(true, false);
+        List<Profile> newProfileList = dataWrapper.getNewProfileList(false, false);
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "(1) newProfileList.size="+newProfileList.size());
 
         // add activated profile, when has not enabled _showInActivator
@@ -180,6 +181,13 @@ public class ProfileListNotification {
             activatedProfile._showInActivator = true;
             activatedProfile._porder = -1;
         }
+
+        for (Profile profile : newProfileList) {
+            if (profile._showInActivator) {
+                dataWrapper.generateProfileIcon(profile, true, false);
+            }
+        }
+
         newProfileList.sort(new ProfileComparator());
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "(2) newProfileList.size="+newProfileList.size());
 
