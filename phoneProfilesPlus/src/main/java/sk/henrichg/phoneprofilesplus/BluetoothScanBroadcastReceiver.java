@@ -23,7 +23,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
         if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
-        if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_DISABLED) {
+        if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
             if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
                 // scanning is disabled
                 return;
@@ -33,7 +33,6 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
         if (action == null)
             return;
-
 
         if (action.equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED) ||
                 action.equals(BluetoothDevice.ACTION_FOUND) ||
@@ -95,6 +94,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                 //String btNameD = device.getName();
                                                 //String btNameE = "";
                                                 String btName = device.getName();
+//                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","btName="+btName);
+//                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","deviceName="+deviceName);
                                                 if (deviceName != null) {
                                                     //btNameE = deviceName;
                                                     //btName = btNameE;
@@ -113,7 +114,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                 }
                                                 if (!found) {
                                                     for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                        if (_device.getName().equalsIgnoreCase(device.getName())) {
+                                                        if (_device.getName().equalsIgnoreCase(/*device.getName()*/btName)) {
                                                             found = true;
                                                             break;
                                                         }
