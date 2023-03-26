@@ -188,7 +188,10 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_E_VOLUMES_SYSTEM + "," +
                         DatabaseHandler.KEY_E_VOLUMES_VOICE + "," +
                         DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO + "," +
-                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY +
+                        DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY + "," +
+                        DatabaseHandler.KEY_E_CALL_EVENT + "," +
+                        DatabaseHandler.KEY_E_SMS_ENABLED + "," +
+                        DatabaseHandler.KEY_E_ROAMING_ENABLED +
                         " FROM " + DatabaseHandler.TABLE_EVENTS;
 
                 //SQLiteDatabase db = this.getWritableDatabase();
@@ -1125,6 +1128,30 @@ class DatabaseHandlerOthers {
                                     db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                                 }
+                            }
+
+                            if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALL_EVENT)) != 0) &&
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(DatabaseHandler.KEY_E_CALL_ENABLED, 0);
+                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                            }
+
+                            if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SMS_ENABLED)) != 0) &&
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(DatabaseHandler.KEY_E_SMS_ENABLED, 0);
+                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                            }
+
+                            if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ROAMING_ENABLED)) != 0) &&
+                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                values.clear();
+                                values.put(DatabaseHandler.KEY_E_ROAMING_ENABLED, 0);
+                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                        new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                             }
 
                         } while (eventsCursor.moveToNext());
