@@ -68,8 +68,8 @@ public class PPApplication extends Application
     static final int VERSION_CODE_EXTENDER_LATEST = 860;      // must be <= as in Extender dependencies.gradle
     static final String VERSION_NAME_EXTENDER_LATEST = "8.1"; // must be <= as in Extender dependencies.gradle
 
-    static final int VERSION_CODE_PPPPS_LATEST = 35;          // must be <= as in PPPPS dependencies.gradle
-    static final String VERSION_NAME_PPPPS_LATEST = "1.0.2";  // must be <= as in PPPPS dependencies.gradle
+    static final int VERSION_CODE_PPPPS_LATEST = 40;          // must be <= as in PPPPS dependencies.gradle
+    static final String VERSION_NAME_PPPPS_LATEST = "1.0.3";  // must be <= as in PPPPS dependencies.gradle
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
