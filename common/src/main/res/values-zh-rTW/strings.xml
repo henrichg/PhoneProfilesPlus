@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">編輯器</string>
     <string name="menu_settings">設置</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -2065,77 +2066,6 @@
     <string name="mobile_cells_item_delete_all_unselected">Delete all unselected</string>
     <string name="delete_unselected_mobile_cells_alert_message">Delete all unselected mobile cells?</string>
     <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
-    <!-- **************************************************************************************** -->
-    <string name="extender_accessibility_service_description">PhoneProfilesPlus 的擴展器。它只能與 PhoneProfilesPlus 一起使用。</string>
-    <string name="extender_about_application_version">版本:</string>
-    <string name="extender_accessibility_service_profile_force_stop_applications">設定檔參數 \"強制停止應用程式\" 的無障礙功能服務</string>
-    <string name="extender_accessibility_service_event_sensor_applications_orientation">事件參數 \"應用程式感測器\" 與 \"翻轉感測器\" 的無障礙功能服務</string>
-    <string name="extender_accessibility_service_enabled">啟用</string>
-    <string name="extender_accessibility_service_disabled">停用</string>
-    <string name="extender_accessibility_service_button">啟用/停用\n無障礙功能服務</string>
-    <string name="extender_setting_screen_not_found_alert">找不到設定畫面。</string>
-    <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender 無障礙功能服務</string>
-    <string name="extender_accessibility_service_event_sensor_sms_mms">事件參數 \"簡訊/多媒體簡訊感測器\" 的無障礙功能服務。不使用無障礙功能，接收簡訊與多媒體簡訊需要服務</string>
-    <string name="extender_permissions_event_sensor_sms_mms">事件參數 \"簡訊/多媒體簡訊感測器\" 的權限 - 簡訊權限</string>
-    <string name="extender_permissions_not_granted">未授予</string>
-    <string name="extender_permissions_granted">授予</string>
-    <string name="extender_permissions_button">授予/拒絕\n權限</string>
-    <string name="extender_accessibility_service_event_sensor_call">事件參數 \"來電感測器\" 的無障礙功能服務。不使用無障礙功能，接收來電需要服務</string>
-    <string name="extender_permissions_event_sensor_call">事件參數 \"來電感測器\" 的權限 - 電話權限</string>
-    <string name="extender_permissions_event_sensor_call_28">事件參數 \"來電感測器\" 的權限 - 電話、來電記錄權限</string>
-    <string name="extender_toast_permissions_not_granted">未授予權限</string>
-    <string name="extender_accessibility_service_profile_lock_device">設定檔參數 \"鎖住裝置\" 的無障礙功能服務</string>
-    <string name="extender_application_releases">發佈版本</string>
-    <string name="extender_web_browser_chooser">開啟網路連結使用</string>
-    <string name="extender_acra_email_subject_text">損毀報告</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender 已損毀。附件是損毀報告。</string>
-    <string name="extender_acra_notification_title">抱歉，PhoneProfilesPlusExtender 已損毀</string>
-    <string name="extender_acra_notification_text">請按此處傳送損毀報告給作者。非常感謝您。</string>
-    <string name="extender_notification_channel_crash_report">損毀報告</string>
-    <string name="extender_scroll_info">注意: 在此螢幕中向下捲動以顯示所有參數。</string>
-    <string name="extender_battery_optimization_text">PhoneProfilesPlusExtender 的電池效能最佳化 - 請增加到 \"不最佳化\" 群組</string>
-    <string name="extender_battery_optimization_optimized">最佳化</string>
-    <string name="extender_battery_optimization_not_optimized">不最佳化</string>
-    <string name="extender_battery_optimization_button">開啟\n電池效能最佳化</string>
-    <string name="extender_acra_email_body_device">裝置:</string>
-    <string name="extender_acra_email_body_android_version">Android 版本:</string>
-    <string name="extender_permissions_popup_windows_in_background">請啟用 \"在背景執行時顯示彈出視窗\"。若未啟用，\"強制停止應用程式\" 將無法作用。</string>
-    <string name="extender_popup_windows_in_background_button">開啟\n其他權限\n(MIUI)</string>
-    <string name="extender_notification_channel_grant_permission">授予權限</string>
-    <string name="extender_notification_channel_grant_permission_description">顯示需要授予它的權限。</string>
-    <string name="extender_notification_permission_title">未授予權限</string>
-    <string name="extender_notification_sms_mms_permission_text">未授予事件參數 \"簡訊/MMS 感測器\" 的權限。按此通知開啟擴展器。按其中的按鍵授予權限。</string>
-    <string name="extender_notification_call_permission_text">未授予事件參數 \"來電感測器\" 的權限。按此通知開啟擴展器。按其中的按鍵授予權限。</string>
-    <string name="extender_notifications_permission_text">未授予通知權限。\n\n請為 PhoneProfilesPlusExtender 啟用通知。若無此權限，將不會顯示來自 PhoneProfilesPlusExtender 的通知。</string>
-    <string name="extender_enable_notificaitons_button">啟用</string>
-    <string name="extender_menu_choose_language">選擇語言</string>
-    <string name="extender_menu_choose_language_system_language">[ System ]</string>
-    <string name="extender_application_translations">Translations:</string>
-    <!-- **************************************************************************************** -->
-    <string name="pppputsettings_permission">PPPPutSettings application permisison</string>
-    <string name="pppputsettings_application_releases">Releases:</string>
-    <string name="pppputsettings_about_application_version">Version:</string>
-    <string name="pppputsettings_notification_channel_grant_permission">Grant permission</string>
-    <string name="pppputsettings_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
-    <string name="pppputsettings_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PPPPutSettings. Without this enabled, notifications from PPPPutSettings will not be displayed.</string>
-    <string name="pppputsettings_web_browser_chooser">View web link using</string>
-    <string name="pppputsettings_enable_notificaitons_button">Enable</string>
-    <string name="pppputsettings_setting_screen_not_found_alert">Setting screen not found.</string>
-    <string name="pppputsettings_permissions_write_settings">Please enable \"Modify system settings\". Without this will not be working put of settings parameter to system database.</string>
-    <string name="pppputsettings_app_name_write_settings_button">Modify system settings</string>
-    <string name="pppputsettings_menu_choose_language">Choose language</string>
-    <string name="pppputsettings_menu_choose_language_system_language">[ System ]</string>
-    <string name="pppputsettings_application_translations">Translations:</string>
-    <string name="pppputsettings_acra_email_body_device">Device:</string>
-    <string name="pppputsettings_acra_email_body_android_version">Android version:</string>
-    <string name="pppputsettings_acra_email_subject_text">crash report</string>
-    <string name="pppputsettings_acra_email_body_text">PPPPutSettings was crashed. Attached is the crash report.</string>
-    <string name="pppputsettings_acra_notification_title">Sorry, PPPPutSettings crashed</string>
-    <string name="pppputsettings_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
-    <string name="pppputsettings_notification_channel_crash_report">Crash report</string>
-    <string name="pppputsettings_notification_channel_exclamation">Exclamation</string>
-    <string name="pppputsettings_not_granted_write_settings_title">\"Modify system settings\" not granted</string>
-    <string name="pppputsettings_not_granted_write_settings_text">\"Modify system settings\" is not granted for PPPPutSettings. Click this notification to grant it.</string>
-    <string name="pppputsettings_modify_system_settings_granted">Granted</string>
-    <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
 </resources>

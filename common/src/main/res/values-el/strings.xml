@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Επεξεργασία</string>
     <string name="menu_settings">Ρυθμίσεις</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -2065,77 +2066,6 @@
     <string name="mobile_cells_item_delete_all_unselected">Delete all unselected</string>
     <string name="delete_unselected_mobile_cells_alert_message">Delete all unselected mobile cells?</string>
     <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
-    <!-- **************************************************************************************** -->
-    <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
-    <string name="extender_about_application_version">Version:</string>
-    <string name="extender_accessibility_service_profile_force_stop_applications">Accessibility service for profile parameter \"Force stop applications\"</string>
-    <string name="extender_accessibility_service_event_sensor_applications_orientation">Accessibility service for event parameters \"Application sensor\" and \"Orientation sensor\"</string>
-    <string name="extender_accessibility_service_enabled">Enabled</string>
-    <string name="extender_accessibility_service_disabled">Disabled</string>
-    <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
-    <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
-    <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
-    <string name="extender_accessibility_service_event_sensor_sms_mms">Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.</string>
-    <string name="extender_permissions_event_sensor_sms_mms">Permissions for event parameter \"SMS/MMS sensor\" - permission SMS</string>
-    <string name="extender_permissions_not_granted">Not granted</string>
-    <string name="extender_permissions_granted">Granted</string>
-    <string name="extender_permissions_button">Grant/deny\npermissions</string>
-    <string name="extender_accessibility_service_event_sensor_call">Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.</string>
-    <string name="extender_permissions_event_sensor_call">Permissions for event parameter \"Call sensor\" - permission Phone</string>
-    <string name="extender_permissions_event_sensor_call_28">Permissions for event parameter \"Call sensor\" - permission Phone, Call logs</string>
-    <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
-    <string name="extender_accessibility_service_profile_lock_device">Accessibility service for profile parameter \"Lock device\"</string>
-    <string name="extender_application_releases">Releases:</string>
-    <string name="extender_web_browser_chooser">View web link using</string>
-    <string name="extender_acra_email_subject_text">αναφορά κατάρευσης</string>
-    <string name="extender_acra_email_body_text">Το PhoneProfilesPlusExtender τερματίστηκε απροσδόκητα. Συνημμένη είναι η αναφορά κατάρρευσης.</string>
-    <string name="extender_acra_notification_title">Συγγνώμη, το PhoneProfilesPlusExtender τερματίστηκε απροσδόκητα</string>
-    <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
-    <string name="extender_notification_channel_crash_report">Αναφορά κατάρρευσης</string>
-    <string name="extender_scroll_info">Note: Scroll down in this screen to show all parameters.</string>
-    <string name="extender_battery_optimization_text">Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group</string>
-    <string name="extender_battery_optimization_optimized">Optimized</string>
-    <string name="extender_battery_optimization_not_optimized">Not optimized</string>
-    <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
-    <string name="extender_acra_email_body_device">Device:</string>
-    <string name="extender_acra_email_body_android_version">Android version:</string>
-    <string name="extender_permissions_popup_windows_in_background">Please enable \"Display pop-up windows while running in the background\". Without this enabled, \"Force stop applications\" will not be working.</string>
-    <string name="extender_popup_windows_in_background_button">Open\nOther permissions\n(MIUI)</string>
-    <string name="extender_notification_channel_grant_permission">Grant permission</string>
-    <string name="extender_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
-    <string name="extender_notification_permission_title">Permission not granted</string>
-    <string name="extender_notification_sms_mms_permission_text">Permission for event parameter \"SMS/MMS sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
-    <string name="extender_notification_call_permission_text">Permission for event parameter \"Call sensor\" is not granted. Click this notification to open Extender. In it use button for grant this permission.</string>
-    <string name="extender_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PhoneProfilesPlusExtender. Without this enabled, notifications from PhoneProfilesPlusExtender will not be displayed.</string>
-    <string name="extender_enable_notificaitons_button">Enable</string>
-    <string name="extender_menu_choose_language">Choose language</string>
-    <string name="extender_menu_choose_language_system_language">[ System ]</string>
-    <string name="extender_application_translations">Translations:</string>
-    <!-- **************************************************************************************** -->
-    <string name="pppputsettings_permission">PPPPutSettings application permisison</string>
-    <string name="pppputsettings_application_releases">Releases:</string>
-    <string name="pppputsettings_about_application_version">Version:</string>
-    <string name="pppputsettings_notification_channel_grant_permission">Grant permission</string>
-    <string name="pppputsettings_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
-    <string name="pppputsettings_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PPPPutSettings. Without this enabled, notifications from PPPPutSettings will not be displayed.</string>
-    <string name="pppputsettings_web_browser_chooser">View web link using</string>
-    <string name="pppputsettings_enable_notificaitons_button">Enable</string>
-    <string name="pppputsettings_setting_screen_not_found_alert">Setting screen not found.</string>
-    <string name="pppputsettings_permissions_write_settings">Please enable \"Modify system settings\". Without this will not be working put of settings parameter to system database.</string>
-    <string name="pppputsettings_app_name_write_settings_button">Modify system settings</string>
-    <string name="pppputsettings_menu_choose_language">Choose language</string>
-    <string name="pppputsettings_menu_choose_language_system_language">[ System ]</string>
-    <string name="pppputsettings_application_translations">Translations:</string>
-    <string name="pppputsettings_acra_email_body_device">Device:</string>
-    <string name="pppputsettings_acra_email_body_android_version">Android version:</string>
-    <string name="pppputsettings_acra_email_subject_text">crash report</string>
-    <string name="pppputsettings_acra_email_body_text">PPPPutSettings was crashed. Attached is the crash report.</string>
-    <string name="pppputsettings_acra_notification_title">Sorry, PPPPutSettings crashed</string>
-    <string name="pppputsettings_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
-    <string name="pppputsettings_notification_channel_crash_report">Crash report</string>
-    <string name="pppputsettings_notification_channel_exclamation">Exclamation</string>
-    <string name="pppputsettings_not_granted_write_settings_title">\"Modify system settings\" not granted</string>
-    <string name="pppputsettings_not_granted_write_settings_text">\"Modify system settings\" is not granted for PPPPutSettings. Click this notification to grant it.</string>
-    <string name="pppputsettings_modify_system_settings_granted">Granted</string>
-    <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
 </resources>

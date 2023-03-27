@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Editor</string>
     <string name="menu_settings">Nastavení</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -2065,77 +2066,6 @@
     <string name="mobile_cells_item_delete_all_unselected">Vymazat všechny nevybrané</string>
     <string name="delete_unselected_mobile_cells_alert_message">Vymazat všechny nevybrané mobilní buňky?</string>
     <string name="delete_unselected_mobile_cells_alert_message_warning">UPOZORNĚNÍ: Vymazané mobilní buňky mohou být použity v jiných událostech.</string>
-    <!-- **************************************************************************************** -->
-    <string name="extender_accessibility_service_description">Extender pro PhoneProfilesPlus. Funguje pouze ve spojení s PhoneProfilesPlus.</string>
-    <string name="extender_about_application_version">Verze:</string>
-    <string name="extender_accessibility_service_profile_force_stop_applications">Služba Usnadnění pro parametr profilu \"Vynutit zastavení aplikací\"</string>
-    <string name="extender_accessibility_service_event_sensor_applications_orientation">Služba Usnadnění pro parametry události \"Senzor aplikací\" a \"Senzor orientace\"</string>
-    <string name="extender_accessibility_service_enabled">Povoleno</string>
-    <string name="extender_accessibility_service_disabled">Zakázáno</string>
-    <string name="extender_accessibility_service_button">Povolit/Zakázat\nslužbu Usnadnění</string>
-    <string name="extender_setting_screen_not_found_alert">Obrazovka nastavení nebyla nalezena.</string>
-    <string name="extender_accessibility_service_permission">Služba usnadnění PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_event_sensor_sms_mms">Služba Usnadnění pro parametry události \"Senzor SMS/MMS\". Funkce usnadnění není použita, běžící servis je potřebný pro příjem SMS a MMS.</string>
-    <string name="extender_permissions_event_sensor_sms_mms">Povolení pro parametry události \"Senzor SMS/MMS\" - povolení SMS</string>
-    <string name="extender_permissions_not_granted">Odepřeno</string>
-    <string name="extender_permissions_granted">Uděleno</string>
-    <string name="extender_permissions_button">Uděl/odepři\npráva</string>
-    <string name="extender_accessibility_service_event_sensor_call">Služba Usnadnění pro parametry události \"Senzor hovoru\". Funkce usnadnění není použita, běžící servis je potřebný pro příjem hovorů.</string>
-    <string name="extender_permissions_event_sensor_call">Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon</string>
-    <string name="extender_permissions_event_sensor_call_28">Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon, Deníky hovorů</string>
-    <string name="extender_toast_permissions_not_granted">Povolení nejsou udělena</string>
-    <string name="extender_accessibility_service_profile_lock_device">Služba Usnadnění pro parametr profilu \"Zamknutí zařízení\"</string>
-    <string name="extender_application_releases">Vydání:</string>
-    <string name="extender_web_browser_chooser">Zobrazit webový odkaz pomocí</string>
-    <string name="extender_acra_email_subject_text">zpráva o selhání</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlus selhal. Připojena je zpráva o selhání.</string>
-    <string name="extender_acra_notification_title">Je mi líto, PhoneProfilesPlus selhal</string>
-    <string name="extender_acra_notification_text">Kliknutím zde, odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
-    <string name="extender_notification_channel_crash_report">Zpráva o selhání</string>
-    <string name="extender_scroll_info">Poznámka: Posunutím dolů na této obrazovce zobrazíte všechny parametry.</string>
-    <string name="extender_battery_optimization_text">Optimalizace baterie pro PhoneProfilesPlusExtender - přidejte ji do skupiny \"Neoptimalizováno\"</string>
-    <string name="extender_battery_optimization_optimized">Optimalizováno</string>
-    <string name="extender_battery_optimization_not_optimized">Neoptimalizováno</string>
-    <string name="extender_battery_optimization_button">Otevři\nOptimalizaci baterie</string>
-    <string name="extender_acra_email_body_device">Zařízení:</string>
-    <string name="extender_acra_email_body_android_version">Verze Android:</string>
-    <string name="extender_permissions_popup_windows_in_background">Povolte \"Zobrazovat kontextová okna při spuštění na pozadí\". Bez tohoto povolení nebude funkce \"Vynutit zastavení aplikací\" fungovat.</string>
-    <string name="extender_popup_windows_in_background_button">Otevři\nDalší povolení\n(MIUI)</string>
-    <string name="extender_notification_channel_grant_permission">Udělení povolení</string>
-    <string name="extender_notification_channel_grant_permission_description">Zobrazuje povolení, které je třeba, abyste udělili.</string>
-    <string name="extender_notification_permission_title">Povolení není uděleno</string>
-    <string name="extender_notification_sms_mms_permission_text">Oprávnění pro parametr události \"Senzor SMS/MMS\" není uděleno. Klepnutím na toto oznámení otevřete Extender. V něm se použije tlačítko pro udělení tohoto oprávnění.</string>
-    <string name="extender_notification_call_permission_text">Oprávnění pro parametr události \"Senzor hovoru\" není uděleno. Klepnutím na toto oznámení otevřete Extender. V něm použijte tlačítko pro udělení tohoto oprávnění.</string>
-    <string name="extender_notifications_permission_text">Povolení k oznámení není uděleno.\n\nPovolte upozornění pro PhoneProfilesPlusExtender. Bez tohoto povolení se upozornění z PhoneProfilesPlusExtender nebudou zobrazovat.</string>
-    <string name="extender_enable_notificaitons_button">Povolit</string>
-    <string name="extender_menu_choose_language">Zvolit jazyk</string>
-    <string name="extender_menu_choose_language_system_language">[ Systémový ]</string>
-    <string name="extender_application_translations">Překlady:</string>
-    <!-- **************************************************************************************** -->
-    <string name="pppputsettings_permission">Povolení aplikace PPPPutSettings</string>
-    <string name="pppputsettings_application_releases">Vydání:</string>
-    <string name="pppputsettings_about_application_version">Verze:</string>
-    <string name="pppputsettings_notification_channel_grant_permission">Udělení povolení</string>
-    <string name="pppputsettings_notification_channel_grant_permission_description">Zobrazuje povolení, které je třeba, abyste udělili.</string>
-    <string name="pppputsettings_notifications_permission_text">Oprávnění k oznámením není uděleno.\n\nProsím povolte oznámení pro PPPPutSettings. Bez tohoto povolení se nezobrazí oznámení z PPPPutSettings.</string>
-    <string name="pppputsettings_web_browser_chooser">Zobrazit webový odkaz pomocí</string>
-    <string name="pppputsettings_enable_notificaitons_button">Povolit</string>
-    <string name="pppputsettings_setting_screen_not_found_alert">Obrazovka nastavení nebyla nalezena.</string>
-    <string name="pppputsettings_permissions_write_settings">Prosím povolte \"Upravit nastavení systému\". Bez toho nebude fungovat parametr nastavení do systémové databáze.</string>
-    <string name="pppputsettings_app_name_write_settings_button">Upravit nastavení systému</string>
-    <string name="pppputsettings_menu_choose_language">Zvolit jazyk</string>
-    <string name="pppputsettings_menu_choose_language_system_language">[ Systémový ]</string>
-    <string name="pppputsettings_application_translations">Překlady:</string>
-    <string name="pppputsettings_acra_email_body_device">Zařízení:</string>
-    <string name="pppputsettings_acra_email_body_android_version">Verze Android:</string>
-    <string name="pppputsettings_acra_email_subject_text">zpráva o selhání</string>
-    <string name="pppputsettings_acra_email_body_text">PPPPutSettngs selhal. Připojena je zpráva o selhání.</string>
-    <string name="pppputsettings_acra_notification_title">Je mi líto, PPPPutSettings selhal</string>
-    <string name="pppputsettings_acra_notification_text">Kliknutím zde, odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
-    <string name="pppputsettings_notification_channel_crash_report">Zpráva o selhání</string>
-    <string name="pppputsettings_notification_channel_exclamation">Upozornění</string>
-    <string name="pppputsettings_not_granted_write_settings_title">\"Úprava nastavení systému\" není povoleno</string>
-    <string name="pppputsettings_not_granted_write_settings_text">\"Úprava nastavení systému\" není povoleno pro PPPPutSettings. Klepnutím na toto upozornění jej udělíte.</string>
-    <string name="pppputsettings_modify_system_settings_granted">Uděleno</string>
-    <string name="pppputsettings_modify_system_settings_not_granted">Odepřeno</string>
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Nekonfigurujte adresář, který je synchronizován s cloudem, například Pictures, Camera.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">pro změnu vyzváněcího tónu, notifikace, budíku v telefonu se dvěma SIM kartami</string>
 </resources>

@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">编辑器</string>
     <string name="menu_settings">设置</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -2065,77 +2066,6 @@
     <string name="mobile_cells_item_delete_all_unselected">Delete all unselected</string>
     <string name="delete_unselected_mobile_cells_alert_message">Delete all unselected mobile cells?</string>
     <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
-    <!-- **************************************************************************************** -->
-    <string name="extender_accessibility_service_description">PhoneProfilesPlus 的扩展。它仅与 PhoneProfilesPlus 一起工作。</string>
-    <string name="extender_about_application_version">版本：</string>
-    <string name="extender_accessibility_service_profile_force_stop_applications">情景参数“强制停止应用程序”的辅助功能服务</string>
-    <string name="extender_accessibility_service_event_sensor_applications_orientation">事件参数“应用程序传感器”和“方向传感器”的辅助功能服务</string>
-    <string name="extender_accessibility_service_enabled">启用</string>
-    <string name="extender_accessibility_service_disabled">已禁用</string>
-    <string name="extender_accessibility_service_button">启用/禁用\n可访问性服务</string>
-    <string name="extender_setting_screen_not_found_alert">设置屏幕未找到。</string>
-    <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender辅助功能服务</string>
-    <string name="extender_accessibility_service_event_sensor_sms_mms">事件参数“SMS / MMS传感器”的辅助功能服务。不使用辅助功能，接收短信和彩信需要服务</string>
-    <string name="extender_permissions_event_sensor_sms_mms">事件参数“SMS / MMS传感器”的权限 - 许可SMS</string>
-    <string name="extender_permissions_not_granted">未授权</string>
-    <string name="extender_permissions_granted">已授权</string>
-    <string name="extender_permissions_button">授予/剥夺\n权限</string>
-    <string name="extender_accessibility_service_event_sensor_call">事件参数“呼叫传感器”的辅助功能服务。未使用辅助功能，接收呼叫需要服务</string>
-    <string name="extender_permissions_event_sensor_call">事件参数“呼叫传感器”的权限 - 权限电话</string>
-    <string name="extender_permissions_event_sensor_call_28">事件参数“呼叫传感器”的权限 - 权限电话，呼叫日志</string>
-    <string name="extender_toast_permissions_not_granted">权限未授予</string>
-    <string name="extender_accessibility_service_profile_lock_device">情景参数“锁定设备”的辅助功能服务</string>
-    <string name="extender_application_releases">版本：</string>
-    <string name="extender_web_browser_chooser">查看Web链接使用</string>
-    <string name="extender_acra_email_subject_text">崩溃报告</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender 已崩溃。附件是崩溃报告。</string>
-    <string name="extender_acra_notification_title">对不起，PhoneProfilesPlusExtender 崩溃了</string>
-    <string name="extender_acra_notification_text">请点击此处，向作者发送崩溃报告，非常感谢您。</string>
-    <string name="extender_notification_channel_crash_report">崩溃报告</string>
-    <string name="extender_scroll_info">提示：滚动屏幕可以显示所有参数。</string>
-    <string name="extender_battery_optimization_text">为 PhoneProfilesPlusExtender 电池优化-请将其添加到“未优化”组</string>
-    <string name="extender_battery_optimization_optimized">已优化</string>
-    <string name="extender_battery_optimization_not_optimized">未优化</string>
-    <string name="extender_battery_optimization_button">打开电池优化</string>
-    <string name="extender_acra_email_body_device">设备：</string>
-    <string name="extender_acra_email_body_android_version">Android 版本：</string>
-    <string name="extender_permissions_popup_windows_in_background">请启用\"在后台运行时显示弹出窗口\"。如果没有启用此功能，\"强制停止应用程序\"将无法工作。</string>
-    <string name="extender_popup_windows_in_background_button">打开\n其他权限\n(MIUI)</string>
-    <string name="extender_notification_channel_grant_permission">授予权限</string>
-    <string name="extender_notification_channel_grant_permission_description">显示需要授予的权限。</string>
-    <string name="extender_notification_permission_title">未授予权限</string>
-    <string name="extender_notification_sms_mms_permission_text">未授予事件参数“SMS/MMS传感器”权限，点击此通知打开扩展。使用按钮授予此权限。</string>
-    <string name="extender_notification_call_permission_text">未授予事件参数“调用传感器”的权限，点击此通知打开扩展。使用按钮授予此权限。</string>
-    <string name="extender_notifications_permission_text">未授予通知权限。\n\n请启用 PhoneProfilesPlusExtender 的通知。没有启用此功能，PhoneProfilesPlusExtender 的通知将不会被显示。</string>
-    <string name="extender_enable_notificaitons_button">启用</string>
-    <string name="extender_menu_choose_language">选择语言</string>
-    <string name="extender_menu_choose_language_system_language">[ 系统 ]</string>
-    <string name="extender_application_translations">翻译：</string>
-    <!-- **************************************************************************************** -->
-    <string name="pppputsettings_permission">PPPPutSettings 应用程序权限</string>
-    <string name="pppputsettings_application_releases">发布版本:</string>
-    <string name="pppputsettings_about_application_version">版本：</string>
-    <string name="pppputsettings_notification_channel_grant_permission">授予权限</string>
-    <string name="pppputsettings_notification_channel_grant_permission_description">显示需要授予的权限。</string>
-    <string name="pppputsettings_notifications_permission_text">未授予通知权限。\n\n请为PPPutSetting启用通知。没有启用此功能，PPPPut设置的通知将不会显示。</string>
-    <string name="pppputsettings_web_browser_chooser">查看Web链接用</string>
-    <string name="pppputsettings_enable_notificaitons_button">启用</string>
-    <string name="pppputsettings_setting_screen_not_found_alert">屏幕设置未找到。</string>
-    <string name="pppputsettings_permissions_write_settings">请开启\"修改系统设置\"权限。否则无法将设置参数放入系统数据库。</string>
-    <string name="pppputsettings_app_name_write_settings_button">修改系统设置</string>
-    <string name="pppputsettings_menu_choose_language">选择语言</string>
-    <string name="pppputsettings_menu_choose_language_system_language">[ 系统 ]</string>
-    <string name="pppputsettings_application_translations">翻译：</string>
-    <string name="pppputsettings_acra_email_body_device">设备：</string>
-    <string name="pppputsettings_acra_email_body_android_version">Android 版本：</string>
-    <string name="pppputsettings_acra_email_subject_text">崩溃报告</string>
-    <string name="pppputsettings_acra_email_body_text">PPPPutSettings 已崩溃。附件是崩溃报告。</string>
-    <string name="pppputsettings_acra_notification_title">抱歉，PPPPutSettings 崩溃了</string>
-    <string name="pppputsettings_acra_notification_text">请点击此处，向作者发送崩溃报告，非常感谢您。</string>
-    <string name="pppputsettings_notification_channel_crash_report">崩溃报告</string>
-    <string name="pppputsettings_notification_channel_exclamation">警告</string>
-    <string name="pppputsettings_not_granted_write_settings_title">“修改系统设置”未授权</string>
-    <string name="pppputsettings_not_granted_write_settings_text">PPPPutSetting 未允许“修改系统设置”。点此通知授权。</string>
-    <string name="pppputsettings_modify_system_settings_granted">已授权</string>
-    <string name="pppputsettings_modify_system_settings_not_granted">未授权</string>
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
 </resources>

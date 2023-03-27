@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Edytor</string>
     <string name="menu_settings">Ustawienia</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -2065,77 +2066,6 @@
     <string name="mobile_cells_item_delete_all_unselected">Usuń wszystkie niezaznaczone</string>
     <string name="delete_unselected_mobile_cells_alert_message">Usunąć wszystkie niewybrane stacje bazowe?</string>
     <string name="delete_unselected_mobile_cells_alert_message_warning">OSTRZEŻENIE: Usunięte stacje bazowe mogą być używane w innych zdarzeniach.</string>
-    <!-- **************************************************************************************** -->
-    <string name="extender_accessibility_service_description">Extender dla PhoneProfilesPlus. Działa tylko w połączeniu z PhoneProfilesPlus.</string>
-    <string name="extender_about_application_version">Wersja:</string>
-    <string name="extender_accessibility_service_profile_force_stop_applications">Usługa ułatwień dostępu dla parametru Profili \"Wymuś zatrzymanie aplikacji\" Profili</string>
-    <string name="extender_accessibility_service_event_sensor_applications_orientation">Usługa Ułatwień Dostępu dla czujników: \"Czujnik Aplikacji\", \"Czujnik Orientacji\"</string>
-    <string name="extender_accessibility_service_enabled">Włączona</string>
-    <string name="extender_accessibility_service_disabled">Wyłączona</string>
-    <string name="extender_accessibility_service_button">Włącz/Wyłącz\nUsługę Ułatwień Dostępu</string>
-    <string name="extender_setting_screen_not_found_alert">Nie znaleziono ekranu ustawień</string>
-    <string name="extender_accessibility_service_permission">Usługa ułatwień dostępu PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_event_sensor_sms_mms">Usługa ułatwień dostępu dla parametru Zdarzeń \"Czujnik SMS/MMS\". Funkcja ułatwień dostępu nie jest używana, usługa jest potrzebna aby odbierać SMS oraz MMS.</string>
-    <string name="extender_permissions_event_sensor_sms_mms">Uprawnienia dla parametru Zdarzeń \"Czujnik SMS/MMS\" - Dostęp do SMS</string>
-    <string name="extender_permissions_not_granted">Nieprzyznane</string>
-    <string name="extender_permissions_granted">Przyznane</string>
-    <string name="extender_permissions_button">Przyznaj/odbierz\nuprawnienia</string>
-    <string name="extender_accessibility_service_event_sensor_call">Usługa ułatwień dostępu dla parametru Zdarzeń \"Czujnik Rozmowy\". Funkcja ułatwień dostępu nie jest używana, usługa jest potrzebna aby odbierać rozmowy.</string>
-    <string name="extender_permissions_event_sensor_call">Uprawnienia dla parametru Zdarzeń \"Czujnik Rozmowy\" - dostęp do Telefonu</string>
-    <string name="extender_permissions_event_sensor_call_28">Uprawnienia dla parametru Zdarzeń \"Czujnik Rozmowy\" - dostęp do Telefonu, Rejestru połączeń</string>
-    <string name="extender_toast_permissions_not_granted">Nie przyznano uprawnień</string>
-    <string name="extender_accessibility_service_profile_lock_device">Usługa Ułatwień Dostępu dla parametru Profili \"Zablokuj urządzenie\":</string>
-    <string name="extender_application_releases">Wydania:</string>
-    <string name="extender_web_browser_chooser">Wyświetl link web używając</string>
-    <string name="extender_acra_email_subject_text">raport błędu</string>
-    <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender uległ awarii. Załączono raport błędu.</string>
-    <string name="extender_acra_notification_title">Przepraszamy, PhoneProfilesPlusExtender uległ awarii</string>
-    <string name="extender_acra_notification_text">Kliknij tutaj, aby wysłać zgłoszenie awarii do autora. Dziękujemy.</string>
-    <string name="extender_notification_channel_crash_report">Raport błędu</string>
-    <string name="extender_scroll_info">Uwaga: Przewiń w dół na tym ekranie, aby wyświetlić wszystkie parametry.</string>
-    <string name="extender_battery_optimization_text">Optymalizacja baterii dla PhoneProfilesPlusExtender - proszę dodać ją do grupy \"Nie zoptymalizowane\"</string>
-    <string name="extender_battery_optimization_optimized">Zoptymalizowana</string>
-    <string name="extender_battery_optimization_not_optimized">Bez optymalizacji</string>
-    <string name="extender_battery_optimization_button">Otwórz\noptymalizację baterii</string>
-    <string name="extender_acra_email_body_device">Urządzenie:</string>
-    <string name="extender_acra_email_body_android_version">Wersja Androida:</string>
-    <string name="extender_permissions_popup_windows_in_background">Proszę włączyć \"Wyświetlanie wyskakujących okienek podczas pracy w tle\". Bez tego nie będzie działać \"Wymuś zatrzymanie aplikacji\".</string>
-    <string name="extender_popup_windows_in_background_button">Otwórz\ninne uprawnienia\n(MIUI)</string>
-    <string name="extender_notification_channel_grant_permission">Przyznaj uprawnienia</string>
-    <string name="extender_notification_channel_grant_permission_description">Pokazuje, które uprawnienia musisz przyznać.</string>
-    <string name="extender_notification_permission_title">Nie przyznano uprawnień</string>
-    <string name="extender_notification_sms_mms_permission_text">Nie przyznano uprawnień dla parametru zdarzenia \"Czujnik SMS/MMS\". Kliknij to powiadomienie, aby otworzyć Extender. Po uruchomieniu użyj przycisku przyznawania uprawnień.</string>
-    <string name="extender_notification_call_permission_text">Nie przyznano uprawnień dla parametru zdarzenia \"Czujnik rozmowy tel\". Kliknij to powiadomienie, aby otworzyć Extender. Po uruchomieniu użyj przycisku przyznawania uprawnień.</string>
-    <string name="extender_notifications_permission_text">Nie przyznano uprawnień dla powiadomień.\n\nProszę włączyć powiadomienia dla PhoneProfilesPlusExtender. W przeciwnym razie powiadomienia z PhoneProfilesPlusExtender nie będą wyświetlane.</string>
-    <string name="extender_enable_notificaitons_button">Włącz</string>
-    <string name="extender_menu_choose_language">Wybierz język</string>
-    <string name="extender_menu_choose_language_system_language">[ Systemowy ]</string>
-    <string name="extender_application_translations">Tłumaczenia:</string>
-    <!-- **************************************************************************************** -->
-    <string name="pppputsettings_permission">Uprawnienia aplikacji PPPPutSettings</string>
-    <string name="pppputsettings_application_releases">Wydania:</string>
-    <string name="pppputsettings_about_application_version">Wersja:</string>
-    <string name="pppputsettings_notification_channel_grant_permission">Przyznaj uprawnienia</string>
-    <string name="pppputsettings_notification_channel_grant_permission_description">Pokazuje, które uprawnienia musisz przyznać.</string>
-    <string name="pppputsettings_notifications_permission_text">Nie przyznano uprawnień dla powiadomień.\n\nProszę włączyć powiadomienia dla PPPPutSettings. W przeciwnym razie powiadomienia z PPPPutSettings nie będą wyświetlane.</string>
-    <string name="pppputsettings_web_browser_chooser">Wyświetl link web używając</string>
-    <string name="pppputsettings_enable_notificaitons_button">Włącz</string>
-    <string name="pppputsettings_setting_screen_not_found_alert">Nie znaleziono ekranu ustawień.</string>
-    <string name="pppputsettings_permissions_write_settings">Proszę włączyć dostęp do \"Modyfikuj ustawienia systemowe\". Bez tego nie będzie działać wprowadzanie parametrów ustawień do bazy danych systemu.</string>
-    <string name="pppputsettings_app_name_write_settings_button">Modyfikowanie ustawień systemu</string>
-    <string name="pppputsettings_menu_choose_language">Wybierz język</string>
-    <string name="pppputsettings_menu_choose_language_system_language">[ Systemowy ]</string>
-    <string name="pppputsettings_application_translations">Tłumaczenia:</string>
-    <string name="pppputsettings_acra_email_body_device">Urządzenie:</string>
-    <string name="pppputsettings_acra_email_body_android_version">Wersja Androida:</string>
-    <string name="pppputsettings_acra_email_subject_text">raport awarii</string>
-    <string name="pppputsettings_acra_email_body_text">PPPPutSettings uległ awarii. Załączono raport awarii.</string>
-    <string name="pppputsettings_acra_notification_title">Przepraszamy, PPPPutSettings uległy awarii</string>
-    <string name="pppputsettings_acra_notification_text">Kliknij tutaj, aby wysłać zgłoszenie awarii do autora. Dziękujemy.</string>
-    <string name="pppputsettings_notification_channel_crash_report">Raport awarii</string>
-    <string name="pppputsettings_notification_channel_exclamation">Ostrzeżenie</string>
-    <string name="pppputsettings_not_granted_write_settings_title">Uprawnienie \"Modyfikuj ustawienia systemowe\" nie zostało przyznane</string>
-    <string name="pppputsettings_not_granted_write_settings_text">\"Modyfikuj ustawienia systemowe\" nie są przyznane dla PPPPutSettings. Kliknij to powiadomienie, aby je przyznać.</string>
-    <string name="pppputsettings_modify_system_settings_granted">Przyznane</string>
-    <string name="pppputsettings_modify_system_settings_not_granted">Nieprzyznane</string>
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
 </resources>
