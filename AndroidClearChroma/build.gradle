@@ -22,6 +22,7 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
+    namespace 'com.kunzisoft.androidclearchroma'
 
 //    lintOptions {
 //        abortOnError false
