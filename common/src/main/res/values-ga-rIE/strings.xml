@@ -3,7 +3,6 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
-    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Editor</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -2068,5 +2067,4 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
     <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
-    <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
 </resources>

@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import static android.view.View.VISIBLE;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -479,6 +480,8 @@ public class ProfileListNotification {
         }
     }
 
+    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
+    @SuppressLint("SuspiciousIndentation")
     static void forceDrawNotification(final Context appContext) {
         if (!ApplicationPreferences.notificationProfileListDisplayNotification)
             return;

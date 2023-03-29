@@ -327,67 +327,6 @@ public class PPApplication extends Application
     static final int ALTYPE_PROFILE_ADDED = 108;
     static final int ALTYPE_EVENT_ADDED = 109;
 
-    //static volatile boolean doNotShowPPPAppNotification = false;
-    static volatile boolean applicationStarted = false;
-    static volatile boolean globalEventsRunStop = true;
-    //static volatile boolean applicationPackageReplaced = false;
-    static volatile boolean deviceBoot = false;
-
-    //static final boolean restoreFinished = true;
-
-    static volatile Collator collator = null;
-
-    static volatile boolean lockRefresh = false;
-    //static volatile long lastRefreshOfGUI = 0;
-    //static volatile long lastRefreshOfPPPAppNotification = 0;
-
-    //static final int DURATION_FOR_GUI_REFRESH = 500;
-    //static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
-    //static final String EXTRA_REFRESH = "refresh";
-
-    static final List<String> elapsedAlarmsProfileDurationWork = new ArrayList<>();
-    static final List<String> elapsedAlarmsRunApplicationWithDelayWork = new ArrayList<>();
-    static final List<String> elapsedAlarmsEventDelayStartWork = new ArrayList<>();
-    static final List<String> elapsedAlarmsEventDelayEndWork = new ArrayList<>();
-    static final List<String> elapsedAlarmsStartEventNotificationWork = new ArrayList<>();
-
-    static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
-    static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
-    static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
-    static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
-    static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
-    static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
-    static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
-    static final EventAccessoriesSensorMutex eventAccessoriesSensorMutex = new EventAccessoriesSensorMutex();
-    static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
-    static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
-    static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
-    static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
-    static final RootMutex rootMutex = new RootMutex();
-    static final ServiceListMutex serviceListMutex = new ServiceListMutex();
-    //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
-    static final ShowPPPNotificationMutex showPPPNotificationMutex = new ShowPPPNotificationMutex();
-    static final LocationScannerLastLocationMutex locationScannerLastLocationMutex = new LocationScannerLastLocationMutex();
-    static final LocationScannerMutex locationScannerMutex = new LocationScannerMutex();
-    static final WifiScannerMutex wifiScannerMutex = new WifiScannerMutex();
-    static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
-    static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
-    static final BluetoothScannerMutex bluetoothScannerMutex = new BluetoothScannerMutex();
-    static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
-    static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
-    static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
-    static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
-    static final MobileCellsScannerMutex mobileCellsScannerMutex = new MobileCellsScannerMutex();
-    static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
-    static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
-    static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
-    static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
-    static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
-    static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
-    static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
-
-    //static PowerManager.WakeLock keepScreenOnWakeLock;
-
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();
     static final boolean deviceIsHuawei = isHuawei();
@@ -715,6 +654,67 @@ public class PPApplication extends Application
 
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
+
+    //static volatile boolean doNotShowPPPAppNotification = false;
+    static volatile boolean applicationStarted = false;
+    static volatile boolean globalEventsRunStop = true;
+    //static volatile boolean applicationPackageReplaced = false;
+    static volatile boolean deviceBoot = false;
+
+    //static final boolean restoreFinished = true;
+
+    static volatile Collator collator = null;
+
+    static volatile boolean lockRefresh = false;
+    //static volatile long lastRefreshOfGUI = 0;
+    //static volatile long lastRefreshOfPPPAppNotification = 0;
+
+    //static final int DURATION_FOR_GUI_REFRESH = 500;
+    //static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
+    //static final String EXTRA_REFRESH = "refresh";
+
+    static final List<String> elapsedAlarmsProfileDurationWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsRunApplicationWithDelayWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsEventDelayStartWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsEventDelayEndWork = new ArrayList<>();
+    static final List<String> elapsedAlarmsStartEventNotificationWork = new ArrayList<>();
+
+    static final ApplicationPreferencesMutex applicationPreferencesMutex = new ApplicationPreferencesMutex();
+    static final ApplicationGlobalPreferencesMutex applicationGlobalPreferencesMutex = new ApplicationGlobalPreferencesMutex();
+    static final ApplicationStartedMutex applicationStartedMutex = new ApplicationStartedMutex();
+    static final ProfileActivationMutex profileActivationMutex = new ProfileActivationMutex();
+    static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
+    static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
+    static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
+    static final EventAccessoriesSensorMutex eventAccessoriesSensorMutex = new EventAccessoriesSensorMutex();
+    static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
+    static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
+    static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
+    static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
+    static final RootMutex rootMutex = new RootMutex();
+    static final ServiceListMutex serviceListMutex = new ServiceListMutex();
+    //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
+    static final ShowPPPNotificationMutex showPPPNotificationMutex = new ShowPPPNotificationMutex();
+    static final LocationScannerLastLocationMutex locationScannerLastLocationMutex = new LocationScannerLastLocationMutex();
+    static final LocationScannerMutex locationScannerMutex = new LocationScannerMutex();
+    static final WifiScannerMutex wifiScannerMutex = new WifiScannerMutex();
+    static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
+    static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
+    static final BluetoothScannerMutex bluetoothScannerMutex = new BluetoothScannerMutex();
+    static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
+    static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
+    static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
+    static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
+    static final MobileCellsScannerMutex mobileCellsScannerMutex = new MobileCellsScannerMutex();
+    static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
+    static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
+    static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
+    static final EventRoamingSensorMutex eventRoamingSensorMutex = new EventRoamingSensorMutex();
+    static final ApplicationCacheMutex applicationCacheMutex = new ApplicationCacheMutex();
+    static final ProfileListWidgetDatasetChangedMutex profileListWidgetDatasetChangedMutex = new ProfileListWidgetDatasetChangedMutex();
+    static final SamsungEdgeDatasetChangedMutex samsungEdgeDatasetChangedMutex = new SamsungEdgeDatasetChangedMutex();
+
+    //static PowerManager.WakeLock keepScreenOnWakeLock;
 
     static volatile ApplicationsCache applicationsCache;
     static volatile ContactsCache contactsCache;
