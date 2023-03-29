@@ -2362,13 +2362,13 @@ class PhoneProfilesServiceStatic
     static void startMobileCellsScanner(final boolean start, final boolean stop,
                                          final DataWrapper dataWrapper,
                                          final boolean forceStart, final boolean rescan, Context context) {
-        synchronized (PPApplication.mobileCellsScannerMutex) {
-            final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
 
-            // keep this: it is required to use handlerThreadBroadcast for cells listener
-            PPApplicationStatic.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(() -> {
+        // keep this: it is required to use handlerThreadBroadcast for cells listener
+        PPApplicationStatic.startHandlerThreadBroadcast();
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(() -> {
+            synchronized (PPApplication.mobileCellsScannerMutex) {
                 if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
                     return;
 
@@ -2419,8 +2419,8 @@ class PhoneProfilesServiceStatic
                     } else
                         startMobileCellsScanner(false, true, dataWrapper, forceStart, rescan, appContext);
                 }
-            });
-        }
+            }
+        });
     }
 
     static void startOrientationScanner(boolean start, boolean stop,
