@@ -63,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="?attr/toolbarTheme"
-                app:popupTheme="?attr/toolbarPopupMenu" />
+                app:popupTheme="?attr/toolbarPopupMenu"
+                app:titleTextAppearance="@style/PreferenceToolbarTitleText" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/editor_subToolbar"
