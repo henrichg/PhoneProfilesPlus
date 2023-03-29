@@ -102,8 +102,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - android-betterpickers (as module, code modified) - https://github.com/code-troopers/android-betterpickers
 - AndroidClearChroma (as module, code modified) - https://github.com/Kunzisoft/AndroidClearChroma
 - RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
-- RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
-- SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
+- RelativePopupWindow (only modified class RelativePopupWindow.java) - https://github.com/kakajika/RelativePopupWindow
+- SunriseSunset (only modified class SunriseSunset.java) - https://github.com/caarmen/SunriseSunset
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
 - AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
