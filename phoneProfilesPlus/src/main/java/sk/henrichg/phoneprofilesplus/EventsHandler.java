@@ -765,6 +765,7 @@ class EventsHandler {
             case SENSOR_TYPE_DEVICE_IDLE_MODE:
             case SENSOR_TYPE_SIM_STATE_CHANGED:
             case SENSOR_TYPE_BOOT_COMPLETED:
+            case SENSOR_TYPE_CONTACTS_CACHE_CHANGED:
                 return true;
         }
         return false;
@@ -789,6 +790,7 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_CALENDAR;
             case SENSOR_TYPE_DOCK_CONNECTION:
             case SENSOR_TYPE_HEADSET_CONNECTION:
+            case SENSOR_TYPE_ACCESSORIES:
                 return DatabaseHandler.ETYPE_ACCESSORY;
             case SENSOR_TYPE_TIME:
                 return DatabaseHandler.ETYPE_TIME;
@@ -833,6 +835,15 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_ROAMING;
             case SENSOR_TYPE_VPN:
                 return DatabaseHandler.ETYPE_VPN;
+            case SENSOR_TYPE_SOUND_PROFILE:
+                return DatabaseHandler.ETYPE_SOUND_PROFILE;
+            case SENSOR_TYPE_PERIODIC:
+            case SENSOR_TYPE_PERIODIC_EVENT_END:
+                return DatabaseHandler.ETYPE_PERIODIC;
+            case SENSOR_TYPE_VOLUMES:
+                return DatabaseHandler.ETYPE_VOLUMES;
+            case SENSOR_TYPE_SCREEN:
+                return DatabaseHandler.ETYPE_SCREEN;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
