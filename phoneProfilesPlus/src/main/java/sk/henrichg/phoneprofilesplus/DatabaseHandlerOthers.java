@@ -169,7 +169,8 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "," +
-                        DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION +
+                        DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "," +
+                        DatabaseHandler.KEY_VOLUME_SPEAKER_PHONE +
                         " FROM " + DatabaseHandler.TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + DatabaseHandler.KEY_E_ID + "," +
                         DatabaseHandler.KEY_E_WIFI_ENABLED + "," +
@@ -876,6 +877,22 @@ class DatabaseHandlerOthers {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
                                     values.clear();
                                     values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, 0);
+                                    db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_SPEAKER_PHONE)) != 0) {
+                                PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, null, sharedPreferences, false, instance.context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_VOLUME_SPEAKER_PHONE, 0);
                                     db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                                 }

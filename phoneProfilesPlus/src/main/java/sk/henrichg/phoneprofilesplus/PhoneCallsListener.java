@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
@@ -424,50 +425,53 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         // audio mode is set to MODE_IN_CALL by system
 
-        //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-        Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
-        //profile = Profile.getMappedProfile(profile, context);
+        if (Build.VERSION.SDK_INT < 29) {
+            //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+            Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
+            //profile = Profile.getMappedProfile(profile, context);
 
-        if (profile != null) {
-            if (profile._volumeSpeakerPhone != 0) {
-                savedSpeakerphone = audioManager.isSpeakerphoneOn();
-                boolean changeSpeakerphone = false;
-                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
-                    changeSpeakerphone = true;
-                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
-                    changeSpeakerphone = true;
-                if (changeSpeakerphone) {
-                    /// activate SpeakerPhone
-                    // not working in EMUI :-/
-                    //audioManager.setMode(AudioManager.MODE_IN_CALL);
-                    GlobalUtils.sleep(500);
+            if (profile != null) {
+                if (profile._volumeSpeakerPhone != 0) {
+                    savedSpeakerphone = audioManager.isSpeakerphoneOn();
+                    boolean changeSpeakerphone = false;
+                    if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
+                        changeSpeakerphone = true;
+                    if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
+                        changeSpeakerphone = true;
+                    if (changeSpeakerphone) {
+                        /// activate SpeakerPhone
+                        // not working in EMUI :-/
+                        //audioManager.setMode(AudioManager.MODE_IN_CALL);
+                        GlobalUtils.sleep(500);
 
-                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                        audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
 
 //                    try {
 //                        Class audioSystemClass = Class.forName("android.media.AudioSystem");
 //                        Method setForceUse = audioSystemClass.getMethod("setForceUse", int.class, int.class);
-                    // First 1 == FOR_MEDIA, second 1 == FORCE_SPEAKER. To go back to the default
-                    // behavior, use FORCE_NONE (0).
-                    // usage for setForceUse, must match AudioSystem::force_use
-                    // public static final int FOR_COMMUNICATION = 0;
-                    // public static final int FOR_MEDIA = 1;
-                    // public static final int FOR_RECORD = 2;
-                    // public static final int FOR_DOCK = 3;
-                    // public static final int FOR_SYSTEM = 4;
-//                        setForceUse.invoke(null, 0, 1);
+                        // First 1 == FOR_MEDIA, second 1 == FORCE_SPEAKER. To go back to the default
+                        // behavior, use FORCE_NONE (0).
+                        // usage for setForceUse, must match AudioSystem::force_use
+                        // public static final int FOR_COMMUNICATION = 0;
+                        // public static final int FOR_MEDIA = 1;
+                        // public static final int FOR_RECORD = 2;
+                        // public static final int FOR_DOCK = 3;
+                        // public static final int FOR_SYSTEM = 4;
+                        // speaker on
+//                        setForceUse.invoke(null, FOR_COMMUNICATION, FORCE_SPEAKER);
+                        // speaker off
+//                        setForceUse.invoke(null, FOR_COMMUNICATION, FORCE_NONE);
 //                    } catch (Exception e) {
 //                        PPApplicationStatic.recordException(e);
 //                    }
 
-                    speakerphoneSelected = true;
+                        speakerphoneSelected = true;
+                    }
                 }
             }
+
+            //dataWrapper.invalidateDataWrapper();
         }
-
-        //dataWrapper.invalidateDataWrapper();
-
-        // setSpeakerphoneOn() moved to ActivateProfileHelper.executeForVolumes
     }
 
     private static void callEnded(boolean incoming, @SuppressWarnings("unused") boolean missed, /*String phoneNumber, Date eventTime,*/ Context context)
