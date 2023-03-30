@@ -441,7 +441,9 @@ public class PhoneCallsListener extends PhoneStateListener {
                     if (changeSpeakerphone) {
                         /// activate SpeakerPhone
                         // not working in EMUI :-/
-                        //audioManager.setMode(AudioManager.MODE_IN_CALL);
+
+                        // set it to MODE_IN_CALL, becaise simulatin ronging call sets it to MODE_NORMAL
+                        audioManager.setMode(AudioManager.MODE_IN_CALL);
                         GlobalUtils.sleep(500);
 
                         audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
@@ -483,27 +485,28 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         // audio mode is set to MODE_IN_CALL by system
 
-        if (speakerphoneSelected)
-        {
-            if (audioManager != null) {
-                //audioManager.setMode(AudioManager.MODE_IN_CALL);
-                audioManager.setSpeakerphoneOn(savedSpeakerphone);
+        if (Build.VERSION.SDK_INT < 29) {
+            if (speakerphoneSelected) {
+                if (audioManager != null) {
+                    //audioManager.setMode(AudioManager.MODE_IN_CALL);
+                    audioManager.setSpeakerphoneOn(savedSpeakerphone);
 
 //                try {
 //                    Class audioSystemClass = Class.forName("android.media.AudioSystem");
 //                    Method setForceUse = audioSystemClass.getMethod("setForceUse", int.class, int.class);
-                // First 1 == FOR_MEDIA, second 1 == FORCE_SPEAKER. To go back to the default
-                // behavior, use FORCE_NONE (0).
-                // usage for setForceUse, must match AudioSystem::force_use
-                // public static final int FOR_COMMUNICATION = 0;
-                // public static final int FOR_MEDIA = 1;
-                // public static final int FOR_RECORD = 2;
-                // public static final int FOR_DOCK = 3;
-                // public static final int FOR_SYSTEM = 4;
+                    // First 1 == FOR_MEDIA, second 1 == FORCE_SPEAKER. To go back to the default
+                    // behavior, use FORCE_NONE (0).
+                    // usage for setForceUse, must match AudioSystem::force_use
+                    // public static final int FOR_COMMUNICATION = 0;
+                    // public static final int FOR_MEDIA = 1;
+                    // public static final int FOR_RECORD = 2;
+                    // public static final int FOR_DOCK = 3;
+                    // public static final int FOR_SYSTEM = 4;
 //                    setForceUse.invoke(null, 0, 0);
 //                } catch (Exception e) {
 //                    PPApplicationStatic.recordException(e);
 //                }
+                }
             }
         }
 
