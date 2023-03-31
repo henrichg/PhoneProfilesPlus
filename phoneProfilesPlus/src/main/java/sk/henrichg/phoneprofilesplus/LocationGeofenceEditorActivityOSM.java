@@ -55,8 +55,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private boolean mListenerEnabled = false;
 
     private MapView mMap = null;
-    private CurrentLocationOverlayOSM currentLocationOverlay = null;
-    private GeofenceOverlayOSM geofenceOverlay = null;
+    private LocationGeofenceEditorCurrentLocationOverlayOSM currentLocationOverlay = null;
+    private LocationGeofenceEditorGeofenceOverlayOSM geofenceOverlay = null;
     private Marker editedMarker = null;
 
     private Handler errorLocationHandler = null;
@@ -108,6 +108,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private static final int MIN_RADIUS = 20;
     private static final int MAX_RADIUS = 500 * 1000;
 
+    // must be less then 20 because in 20+ map tiles are not loaded :-(
+    private static final double MAX_ZOOM_LEVEL = 19.99999d;
+
     static final String FETCH_ADDRESS_WORK_TAG_OSM = "fetchAddressWorkOSM";
 
     @SuppressLint("SetTextI18n")
@@ -118,11 +121,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
 
-        IConfigurationProvider osmDroidCobfigurationProvider = org.osmdroid.config.Configuration.getInstance();
-        osmDroidCobfigurationProvider.load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-        osmDroidCobfigurationProvider.setUserAgentValue(BuildConfig.APPLICATION_ID);
-        osmDroidCobfigurationProvider.setOsmdroidTileCache(getApplicationContext().getExternalFilesDir(null));
-        osmDroidCobfigurationProvider.setOsmdroidBasePath(getApplicationContext().getExternalFilesDir(null));
+        IConfigurationProvider osmDroidConfigurationProvider = org.osmdroid.config.Configuration.getInstance();
+        osmDroidConfigurationProvider.load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        osmDroidConfigurationProvider.setUserAgentValue(BuildConfig.APPLICATION_ID);
+        osmDroidConfigurationProvider.setOsmdroidTileCache(getApplicationContext().getExternalFilesDir(null));
+        osmDroidConfigurationProvider.setOsmdroidBasePath(getApplicationContext().getExternalFilesDir(null));
 
         setContentView(R.layout.activity_location_geofence_editor_osm);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
@@ -159,7 +162,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         //mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.ALWAYS);
-        //mMap.setMaxZoomLevel(20d);
+        mMap.setMaxZoomLevel(MAX_ZOOM_LEVEL);
         mMap.setMultiTouchControls(true);
         //mMap.setTilesScaledToDpi(true);
         //mMap.getTileProvider().clearTileCache();
@@ -559,8 +562,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
             zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
 
-            if (zoom > 20f)
-                zoom = 20f;
+            if (zoom > MAX_ZOOM_LEVEL)
+                zoom = MAX_ZOOM_LEVEL;
         }
 
         return zoom;
@@ -569,12 +572,15 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private void updateEditedMarker(boolean setMapCamera) {
         if (mMap != null) {
 
+//            Log.e("LocationGeofenceEditorActivityOSM.updateEditedMarker", "setMapCamera="+setMapCamera);
+//            Log.e("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom level="+mMap.getZoomLevelDouble());
+
             if (mLastLocation != null) {
                 if (currentLocationOverlay != null) {
                     mMap.getOverlays().remove(currentLocationOverlay);
                     //mMap.invalidate();
                 }
-                currentLocationOverlay = new CurrentLocationOverlayOSM(new GeoPoint(mLastLocation), mLastLocation.getAccuracy(),
+                currentLocationOverlay = new LocationGeofenceEditorCurrentLocationOverlayOSM(new GeoPoint(mLastLocation), mLastLocation.getAccuracy(),
                         ContextCompat.getColor(this, R.color.map_last_location_marker_fill),
                         ContextCompat.getColor(this, R.color.map_last_location_marker_stroke));
                 mMap.getOverlays().add(currentLocationOverlay);
@@ -586,7 +592,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
                     mMap.getOverlays().remove(geofenceOverlay);
                     //mMap.invalidate();
                 }
-                geofenceOverlay = new GeofenceOverlayOSM(new GeoPoint(mLocation), geofence._radius,
+                geofenceOverlay = new LocationGeofenceEditorGeofenceOverlayOSM(new GeoPoint(mLocation), geofence._radius,
                         ContextCompat.getColor(this, R.color.map_edited_location_marker_fill),
                         ContextCompat.getColor(this, R.color.map_edited_location_marker_stroke));
                 mMap.getOverlays().add(geofenceOverlay);

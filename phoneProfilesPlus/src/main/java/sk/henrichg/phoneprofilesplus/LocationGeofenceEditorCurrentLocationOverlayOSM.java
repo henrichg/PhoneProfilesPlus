@@ -9,7 +9,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.Overlay;
 
-public class GeofenceOverlayOSM extends Overlay {
+public class LocationGeofenceEditorCurrentLocationOverlayOSM extends Overlay {
 
     //private Paint paint = new Paint();
     private Paint accuracyPaint = new Paint();
@@ -19,7 +19,7 @@ public class GeofenceOverlayOSM extends Overlay {
     private final Point screenCoords = new Point();
     private final float accuracy;
 
-    public GeofenceOverlayOSM(GeoPoint location, float accuracyInMeters, int colorFill, int colorStoke) {
+    public LocationGeofenceEditorCurrentLocationOverlayOSM(GeoPoint location, float accuracyInMeters, int colorFill, int colorStoke) {
         super();
 
         this.location = location;
