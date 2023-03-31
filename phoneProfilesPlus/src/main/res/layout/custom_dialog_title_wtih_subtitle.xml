@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/title_text_size"
         android:textColor="@color/dialogTitleTextColor"
-        android:textStyle="bold"
         android:text="@string/empty_string" />
+<!--    android:textStyle="bold"-->
 
     <TextView
         android:id="@+id/custom_dialog_subtitle"
