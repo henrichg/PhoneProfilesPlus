@@ -704,11 +704,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     preference.setEnabled(enabled && PPApplication.HAS_FEATURE_BLUETOOTH);
 
                 int phoneCount = 1;
-                boolean hasSIMCard = false;
+                boolean hasSIM1 = false;
+                boolean hasSIM2 = false;
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     phoneCount = telephonyManager.getPhoneCount();
-                    hasSIMCard = GlobalUtils.hasSIMCard(context, 0);
+                    hasSIM1 = GlobalUtils.hasSIMCard(context, 1);
+                    hasSIM2 = GlobalUtils.hasSIMCard(context, 2);
                 }
 
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS);
@@ -716,12 +718,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     //if (Build.VERSION.SDK_INT >= 26) {
                         if (phoneCount > 1) {
                             if (phoneCount == 2) {
-                                boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                                boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
-
-                                boolean twoSimCards =
-                                        sim1Exists &&
-                                                sim2Exists;
+                                boolean twoSimCards = hasSIM1 && hasSIM2;
                                 preference.setEnabled(twoSimCards);
                                 if (twoSimCards)
                                     preference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY);
@@ -736,12 +733,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     //if (Build.VERSION.SDK_INT >= 26) {
                         if (phoneCount > 1) {
                             if (phoneCount == 2) {
-                                boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                                boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
-
-                                boolean twoSimCards =
-                                        sim1Exists &&
-                                                sim2Exists;
+                                boolean twoSimCards = hasSIM1 && hasSIM2;
                                 preference.setEnabled(twoSimCards);
                                 if (twoSimCards)
                                     preference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY);
@@ -754,7 +746,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                 PPListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
                 if (listPreference != null) {
-                    if (hasSIMCard) {
+                    if (hasSIM1 || hasSIM2) {
                         String value = listPreference.getValue();
                         if (phoneCount > 1) {
                             listPreference.setEntries(R.array.eventRadioSwitchMobileDataDualSIMArray);
@@ -768,11 +760,12 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         listPreference.setValue(value);
                         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, preferences, context);
                     }
-                    listPreference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY && hasSIMCard);
+                    listPreference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY && (hasSIM1 || hasSIM2));
                 }
                 listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
                 if (listPreference != null) {
-                    if (hasSIMCard) {
+                    if (hasSIM1 || hasSIM2) {
+                        //TODO tu tiez men pole v list preferences na dual a nedual, ako pri mobilnych datatch
                         if (phoneCount <= 1) {
                             String value = listPreference.getValue();
                             if (value.equals("3") || value.equals("5"))
@@ -783,7 +776,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF, preferences, context);
                         }
                     }
-                    listPreference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY && hasSIMCard);
+                    listPreference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY && (hasSIM1 || hasSIM2));
                 }
 
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
