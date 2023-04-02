@@ -295,6 +295,10 @@ class EventStatic {
                 if (telephonyManager != null) {
                     //if (!preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM)) {
                         boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM)) {
+                            simExists = GlobalUtils.hasSIMCard(context, 1) &&
+                                    GlobalUtils.hasSIMCard(context, 2);
+                        }
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
