@@ -979,12 +979,56 @@ class DatabaseHandlerOthers {
                                         new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
                             }
 
-                            if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED)) != 0) &&
-                                    (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
-                                values.clear();
-                                values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED, 0);
-                                db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
-                                        new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                            if (eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_RADIO_SWITCH_ENABLED)) != 0) {
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_WIFI, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_BLUETOOTH, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_SIM_ON_OFF, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, 0);
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_MOBILE_DATA, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_GPS, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_GPS, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_NFC, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
+                                if (EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, instance.context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                    values.clear();
+                                    values.put(DatabaseHandler.KEY_E_RADIO_SWITCH_AIRPLANE_MODE, 0);
+                                    db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?",
+                                            new String[]{String.valueOf(eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID)))});
+                                }
                             }
 
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_SOUND_PROFILE_ENABLED)) != 0) &&

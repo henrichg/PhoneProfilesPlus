@@ -1046,7 +1046,7 @@ class PhoneProfilesServiceStatic
             }
         }
         if (register) {
-            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 dataWrapper.fillEventList();
@@ -1080,7 +1080,7 @@ class PhoneProfilesServiceStatic
             }
         }
         if (register) {
-            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 dataWrapper.fillEventList();
@@ -1117,7 +1117,7 @@ class PhoneProfilesServiceStatic
                 }
             }
             if (register) {
-                boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (allowed) {
                     dataWrapper.fillEventList();
@@ -1148,7 +1148,7 @@ class PhoneProfilesServiceStatic
             }
         }
         if (register) {
-            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+            boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 //if (Build.VERSION.SDK_INT >= 26) {
@@ -1690,7 +1690,7 @@ class PhoneProfilesServiceStatic
         }
         if (register) {
             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-                boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                boolean allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_GPS, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
                 boolean eventsExists = false;
                 if (allowed) {
@@ -1751,7 +1751,7 @@ class PhoneProfilesServiceStatic
                 if (BluetoothNamePreference.forceRegister)
                     allowed = true;
                 else {
-                    allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                    allowed = EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, appContext).allowed ==
                             PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (allowed) {
                         dataWrapper.fillEventList();

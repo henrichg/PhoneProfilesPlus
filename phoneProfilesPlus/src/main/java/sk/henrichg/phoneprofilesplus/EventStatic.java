@@ -271,6 +271,72 @@ class EventStatic {
         //if (checked)
         //    return preferenceAllowed;
 
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI)) {
+            if (PPApplication.HAS_FEATURE_WIFI)
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH)) {
+            if (PPApplication.HAS_FEATURE_BLUETOOTH)
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF) ||
+                preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM) ||
+                preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA)/* ||
+                preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM)*/) {
+            if (PPApplication.HAS_FEATURE_TELEPHONY) {
+                // device has telephony
+                TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    //if (!preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM)) {
+                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        if (simExists)
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else {
+                            if (!Permissions.checkPhone(appContext)) {
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION;
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_not_granted_phone_permission);
+                            }
+                            else
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                    //}
+                    //else
+                    //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                }
+                else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_GPS)) {
+            if (PPApplication.HAS_FEATURE_LOCATION_GPS)
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NFC)) {
+            if (PPApplication.HAS_FEATURE_NFC)
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            return preferenceAllowed;
+        }
+        //noinspection IfStatementWithIdenticalBranches
+        if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE)) {
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            return preferenceAllowed;
+        }
+
+        /*
         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED) ||
                 preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM))
         {
@@ -301,6 +367,7 @@ class EventStatic {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             return preferenceAllowed;
         }
+        */
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
         return preferenceAllowed;
