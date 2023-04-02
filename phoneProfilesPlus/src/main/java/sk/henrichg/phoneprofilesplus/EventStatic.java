@@ -294,11 +294,12 @@ class EventStatic {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     //if (!preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        boolean simExists;
                         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM)) {
                             simExists = GlobalUtils.hasSIMCard(context, 1) &&
                                     GlobalUtils.hasSIMCard(context, 2);
-                        }
+                        } else
+                            simExists = GlobalUtils.hasSIMCard(context, 0);
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
