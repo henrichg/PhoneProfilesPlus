@@ -119,8 +119,9 @@ class EventPreferencesRoaming extends EventPreferences {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             boolean simExists;
-                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            boolean sim1Exists = hasSIMCardData.hasSIM1;
+                            boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                             simExists = sim1Exists;
                             simExists = simExists && sim2Exists;
@@ -165,8 +166,9 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
@@ -301,8 +303,9 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            boolean sim1Exists = hasSIMCardData.hasSIM1;
+                            boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                             showPreferences = true;
                             preference = prefMng.findPreference(PREF_EVENT_ROAMING_FOR_SIM_CARD);

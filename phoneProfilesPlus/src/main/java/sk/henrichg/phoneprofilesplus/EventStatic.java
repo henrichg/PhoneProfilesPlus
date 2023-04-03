@@ -102,6 +102,8 @@ class EventStatic {
         //if (checked)
         //    return preferenceAllowed;
 
+        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED) ||
                 preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM))
         {
@@ -110,7 +112,7 @@ class EventStatic {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -155,7 +157,7 @@ class EventStatic {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -188,7 +190,7 @@ class EventStatic {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -246,7 +248,7 @@ class EventStatic {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED)) {
-                        boolean simExists = GlobalUtils.hasSIMCard(context, 0);
+                        boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
@@ -296,10 +298,9 @@ class EventStatic {
                     //if (!preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM)) {
                         boolean simExists;
                         if (preferenceKey.equals(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM)) {
-                            simExists = GlobalUtils.hasSIMCard(context, 1) &&
-                                    GlobalUtils.hasSIMCard(context, 2);
+                            simExists = hasSIMCardData.hasSIM1 && hasSIMCardData.hasSIM2;
                         } else
-                            simExists = GlobalUtils.hasSIMCard(context, 0);
+                            simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {

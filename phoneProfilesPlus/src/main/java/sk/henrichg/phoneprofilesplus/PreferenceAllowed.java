@@ -365,7 +365,8 @@ class PreferenceAllowed {
 
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
-                    boolean sim0Exists = GlobalUtils.hasSIMCard(appContext, 0);
+                    GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
                     if (!sim0Exists) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -1419,7 +1420,8 @@ class PreferenceAllowed {
                         }
 
                         boolean sim0Exists;
-                        sim0Exists = GlobalUtils.hasSIMCard(appContext, 0);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
 
                         if (!sim0Exists) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;

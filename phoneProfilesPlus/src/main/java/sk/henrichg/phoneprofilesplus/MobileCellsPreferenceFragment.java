@@ -342,8 +342,9 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         boolean sim2Exists;
         if (getActivity() != null) {
             Context appContext = getActivity().getApplicationContext();
-            sim1Exists = GlobalUtils.hasSIMCard(appContext, 1);
-            sim2Exists = GlobalUtils.hasSIMCard(appContext, 2);
+            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(appContext);
+            sim1Exists = hasSIMCardData.hasSIM1;
+            sim2Exists = hasSIMCardData.hasSIM2;
         } else {
             sim1Exists = false;
             sim2Exists = false;
@@ -778,8 +779,9 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
                 if (fragment.getActivity() != null) {
                     Context appContext = fragment.getActivity().getApplicationContext();
-                    sim1Exists = GlobalUtils.hasSIMCard(appContext, 1);
-                    sim2Exists = GlobalUtils.hasSIMCard(appContext, 2);
+                    GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(appContext);
+                    sim1Exists = hasSIMCardData.hasSIM1;
+                    sim2Exists = hasSIMCardData.hasSIM2;
                 } else {
                     sim1Exists = false;
                     sim2Exists = false;

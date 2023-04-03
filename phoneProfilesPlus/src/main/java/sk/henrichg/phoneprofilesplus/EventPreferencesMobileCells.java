@@ -124,8 +124,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             boolean simExists;
-                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            boolean sim1Exists = hasSIMCardData.hasSIM1;
+                            boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                             simExists = sim1Exists;
                             simExists = simExists && sim2Exists;
@@ -241,8 +242,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
@@ -383,8 +385,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                         boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_MOBILE_CELLS_ENABLED, false);
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            boolean sim1Exists = hasSIMCardData.hasSIM1;
+                            boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                             showPreferences = true;
                             //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
