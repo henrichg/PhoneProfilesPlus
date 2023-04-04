@@ -164,7 +164,6 @@ class ActivateProfileHelper {
                     }
                     if (profile._deviceOnOffSIM2 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            //noinspection ConstantConditions
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -200,7 +199,6 @@ class ActivateProfileHelper {
         //if (Build.VERSION.SDK_INT >= 26) {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    //noinspection ConstantConditions
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
                         firstSleepCalled = true;
@@ -245,7 +243,6 @@ class ActivateProfileHelper {
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //noinspection ConstantConditions
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -263,7 +260,6 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            //noinspection ConstantConditions
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -276,7 +272,6 @@ class ActivateProfileHelper {
                     }
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            //noinspection ConstantConditions
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -294,7 +289,6 @@ class ActivateProfileHelper {
         // setup mobile data
         if (profile._deviceMobileData != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //noinspection ConstantConditions
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -333,7 +327,6 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
                     if (profile._deviceMobileDataSIM1 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            //noinspection ConstantConditions
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -373,7 +366,6 @@ class ActivateProfileHelper {
                     }
                     if (profile._deviceMobileDataSIM2 != 0) {
                         if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            //noinspection ConstantConditions
                             if (!firstSleepCalled) {
                                 GlobalUtils.sleep(300);
                                 firstSleepCalled = true;
@@ -420,7 +412,6 @@ class ActivateProfileHelper {
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //noinspection ConstantConditions
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -520,7 +511,6 @@ class ActivateProfileHelper {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    //noinspection ConstantConditions
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
                         firstSleepCalled = true;
@@ -594,7 +584,6 @@ class ActivateProfileHelper {
             // connect to SSID
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
-                    //noinspection ConstantConditions
                     if (!firstSleepCalled) {
                         GlobalUtils.sleep(300);
                         firstSleepCalled = true;
@@ -687,7 +676,6 @@ class ActivateProfileHelper {
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //noinspection ConstantConditions
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -746,7 +734,6 @@ class ActivateProfileHelper {
         // setup location mode
         if (profile._deviceLocationMode != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //noinspection ConstantConditions
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -803,7 +790,6 @@ class ActivateProfileHelper {
         // setup GPS
         if (profile._deviceGPS != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //noinspection ConstantConditions
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     firstSleepCalled = true;
@@ -847,7 +833,6 @@ class ActivateProfileHelper {
         // setup NFC
         if (profile._deviceNFC != 0) {
             if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                //noinspection ConstantConditions
                 if (!firstSleepCalled) {
                     GlobalUtils.sleep(300);
                     //noinspection UnusedAssignment
@@ -873,20 +858,18 @@ class ActivateProfileHelper {
 
     }
 
+    @SuppressWarnings("RedundantArrayCreation")
     static boolean isPPPSetAsDefaultAssistant(Context context) {
         boolean assistIsSet = false;
 
         ComponentName compName = null;
         try {
-            //noinspection RedundantArrayCreation
             Method declaredMethod = UserHandle.class.getDeclaredMethod("myUserId", new Class[0]);
             declaredMethod.setAccessible(true);
             Integer num = (Integer) declaredMethod.invoke(null, new Object[0]);
             if (num != null) {
-                @SuppressWarnings("RedundantArrayCreation")
                 @SuppressLint("PrivateApi")
                 Object newInstance = Class.forName("com.android.internal.app.AssistUtils").getConstructor(new Class[]{Context.class}).newInstance(new Object[]{context});
-                @SuppressWarnings("RedundantArrayCreation")
                 Method declaredMethod2 = newInstance.getClass().getDeclaredMethod("getAssistComponentForUser", new Class[]{Integer.TYPE});
                 declaredMethod2.setAccessible(true);
                 compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
@@ -3966,7 +3949,6 @@ class ActivateProfileHelper {
                 //__handler.post(new PPHandlerThreadRunnable(
                 //        context.getApplicationContext(), profile, null) {
                 //__handler.post(() -> {
-                //noinspection SuspiciousIndentAfterControlStatement
                 Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
 
@@ -4077,8 +4059,8 @@ class ActivateProfileHelper {
 
                             }
                             if (!vpnConnected) {*/
-                                //noinspection TryWithIdenticalCatches
-                                try {
+                            //noinspection TryWithIdenticalCatches
+                            try {
                                     appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(appIntent);
                                 } catch (ActivityNotFoundException ee) {
@@ -4759,7 +4741,6 @@ class ActivateProfileHelper {
         if (profile.getDeviceBrightnessChange()) {
             if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
                 try {
-                    //noinspection IfStatementWithIdenticalBranches
                     if (profile.getDeviceBrightnessAutomatic()) {
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -6807,7 +6788,6 @@ class ActivateProfileHelper {
         //__handler.post(new PPHandlerThreadRunnable(
         //        context.getApplicationContext(), profile, null) {
         //__handler.post(() -> {
-        //noinspection SuspiciousIndentAfterControlStatement
         Runnable runnable = () -> {
 //                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
 
@@ -6821,36 +6801,67 @@ class ActivateProfileHelper {
 
             //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_lockDevice");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_lockDevice");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
 
-                    switch (profile._lockDevice) {
-                        case 1:
-                            if (PhoneProfilesService.getInstance() != null) {
-                                //if (Permissions.checkLockDevice(appContext) && (PPApplication.lockDeviceActivity == null)) {
-                                if (Permissions.checkLockDevice(appContext) && (!PPApplication.lockDeviceActivityDisplayed)) {
+                switch (profile._lockDevice) {
+                    case 1:
+                        if (PhoneProfilesService.getInstance() != null) {
+                            //if (Permissions.checkLockDevice(appContext) && (PPApplication.lockDeviceActivity == null)) {
+                            if (Permissions.checkLockDevice(appContext) && (!PPApplication.lockDeviceActivityDisplayed)) {
+                                try {
+                                    Intent intent = new Intent(appContext, LockDeviceActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    appContext.startActivity(intent);
+                                } catch (Exception e) {
+                                    PPApplicationStatic.recordException(e);
+                                }
+                            }
+                        }
+                        break;
+                    case 2:
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                (RootUtils.isRooted(false))) {
+                            synchronized (PPApplication.rootMutex) {
+                                /*String command1 = "input keyevent 26";
+                                Command command = new Command(0, false, command1);
+                                try {
+                                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    commandWait(command);
+                                } catch (RootDeniedException e) {
+                                    PPApplication.rootMutex.rootGranted = false;
+                                    Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                }*/
+                                String command1 = RootUtils.getJavaCommandFile(CmdGoToSleep.class, "power", appContext, 0);
+                                if (command1 != null) {
+                                    Command command = new Command(0, /*false,*/ command1);
                                     try {
-                                        Intent intent = new Intent(appContext, LockDeviceActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                        appContext.startActivity(intent);
+                                        RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
+                                        RootUtils.commandWait(command, "ActivateProfileHelper.lockDevice");
                                     } catch (Exception e) {
-                                        PPApplicationStatic.recordException(e);
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                        //CPPApplicationStatic.recordException(e);
                                     }
                                 }
                             }
-                            break;
-                        case 2:
-                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                    (RootUtils.isRooted(false))) {
-                                synchronized (PPApplication.rootMutex) {
-                                    /*String command1 = "input keyevent 26";
+                        }
+                        /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
+                            synchronized (PPApplication.rootMutex) {
+                                try {
+                                    // Get the value of the "TRANSACTION_goToSleep" field.
+                                    String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");
+                                    String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
                                     Command command = new Command(0, false, command1);
                                     try {
                                         roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
@@ -6860,60 +6871,29 @@ class ActivateProfileHelper {
                                         Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                    }*/
-                                    String command1 = RootUtils.getJavaCommandFile(CmdGoToSleep.class, "power", appContext, 0);
-                                    if (command1 != null) {
-                                        Command command = new Command(0, /*false,*/ command1);
-                                        try {
-                                            RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
-                                            RootUtils.commandWait(command, "ActivateProfileHelper.lockDevice");
-                                        } catch (Exception e) {
-                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                            //Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                            //CPPApplicationStatic.recordException(e);
-                                        }
                                     }
+                                } catch(Exception ignored) {
                                 }
                             }
-                            /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
-                                    (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
-                                synchronized (PPApplication.rootMutex) {
-                                    try {
-                                        // Get the value of the "TRANSACTION_goToSleep" field.
-                                        String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");
-                                        String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
-                                        Command command = new Command(0, false, command1);
-                                        try {
-                                            roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            commandWait(command);
-                                        } catch (RootDeniedException e) {
-                                            PPApplication.rootMutex.rootGranted = false;
-                                            Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                        } catch (Exception e) {
-                                            Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                        }
-                                    } catch(Exception ignored) {
-                                    }
-                                }
-                            */
-                            break;
-                        case 3:
-                            Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
-                            intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
-                            appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
-                            break;
-                    }
-                } catch (Exception e) {
+                        */
+                        break;
+                    case 3:
+                        Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
+                        intent.putExtra(PPApplication.EXTRA_BLOCK_PROFILE_EVENT_ACTION, PPApplication.blockProfileEventActions);
+                        appContext.sendBroadcast(intent, PPApplication.PPP_EXTENDER_PERMISSION);
+                        break;
+                }
+            } catch (Exception e) {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplicationStatic.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
+                PPApplicationStatic.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
                     }
                 }
+            }
             //}
         }; //);
         PPApplicationStatic.createProfileActiationExecutorPool();
@@ -7758,9 +7738,7 @@ class ActivateProfileHelper {
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                //noinspection UnnecessaryLocalVariable
-                int version = PPApplicationStatic.getVersionCode(pInfo);
-                return version;
+                return PPApplicationStatic.getVersionCode(pInfo);
             }
             else {
                 return 0;
@@ -7781,9 +7759,7 @@ class ActivateProfileHelper {
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                //noinspection UnnecessaryLocalVariable
-                String version =  pInfo.versionName;
-                return version;
+                return pInfo.versionName;
             }
             else {
                 return "";

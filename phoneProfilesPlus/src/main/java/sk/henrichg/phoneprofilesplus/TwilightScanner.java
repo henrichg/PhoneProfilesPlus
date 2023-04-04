@@ -204,8 +204,8 @@ class TwilightScanner {
         private long mLastUpdateInterval;
         private Location mLocation;
 
-        @SuppressWarnings({"deprecation", "unused"})
-        LocationHandler(Looper looper) {
+        @SuppressWarnings("deprecation")
+        LocationHandler(@SuppressWarnings({"SameParameterValue", "unused"}) Looper looper) {
         }
 
         void processNewLocation(Location location) {

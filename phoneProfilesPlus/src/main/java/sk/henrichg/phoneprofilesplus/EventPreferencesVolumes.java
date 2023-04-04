@@ -247,7 +247,8 @@ class EventPreferencesVolumes extends EventPreferences {
     }
 
     private void setSummary(PreferenceManager prefMng, String key,
-                            @SuppressWarnings("unused") String value, Context context)
+                            @SuppressWarnings("unused") String value,
+                            Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (preferences == null)

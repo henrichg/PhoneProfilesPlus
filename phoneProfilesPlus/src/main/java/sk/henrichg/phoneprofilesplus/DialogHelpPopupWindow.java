@@ -93,13 +93,12 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     static void showPopup(ImageView helpIcon,
                           int titleStringId,
                           Activity activity,
                           /*final Dialog dialog,*/
                           int helpTextResource,
-                          boolean helpIsHtml) {
+                          @SuppressWarnings("SameParameterValue") boolean helpIsHtml) {
         String helpString = activity.getString(helpTextResource);
         showPopup(helpIcon, titleStringId, activity, /*dialog,*/ helpString, helpIsHtml);
     }

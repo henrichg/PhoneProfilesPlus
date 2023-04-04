@@ -5,7 +5,6 @@ import android.app.RemoteServiceException;
 import android.content.Context;
 import android.os.DeadSystemException;
 import android.provider.Settings;
-//import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -167,8 +166,9 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 //        Log.e("TopExceptionHandler.uncaughtException", "end");
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private void logIntoFile(String type, String tag, String text)
+    private void logIntoFile(@SuppressWarnings("SameParameterValue") String type,
+                             @SuppressWarnings("SameParameterValue") String tag,
+                             String text)
     {
         try {
             /*File sd = Environment.getExternalStorageDirectory();

@@ -1481,9 +1481,9 @@ class ApplicationPreferences {
     }
     // is not possible to use decoration when notificication background is not "Native" ("0")
     // look also at notificationBackgroundColor() in this class, in it must be default value = "0"
-    @SuppressWarnings("ConstantConditions")
     static void notificationUseDecoration(Context context) {
         boolean useDecoratorDefaultValue = notificationUseDecorationDefaultValue();
+        //noinspection ConstantConditions
         if (useDecoratorDefaultValue && (!PREF_NOTIFICATION_BACKGROUND_COLOR_DEFAULT_VALUE.equals("0")))
             useDecoratorDefaultValue = false;
         notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, useDecoratorDefaultValue);

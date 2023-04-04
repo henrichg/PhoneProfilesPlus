@@ -157,7 +157,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (!EventStatic.getGlobalEventsRunning(context)/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
                 eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
@@ -180,7 +179,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
                 //else
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
                 eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
@@ -193,7 +191,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //if (event._isInDelayEnd)
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
                 //else
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
                 eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.accent_color));
@@ -201,7 +198,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             else {
                 eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);
                 //eventName.setTextSize(15);
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
                 eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));

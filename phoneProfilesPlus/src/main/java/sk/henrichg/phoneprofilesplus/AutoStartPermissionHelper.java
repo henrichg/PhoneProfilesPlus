@@ -456,8 +456,7 @@ class AutoStartPermissionHelper  {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
-    private void startAction(Context context, String action) {
+    private void startAction(Context context, @SuppressWarnings("SameParameterValue") String action) {
         try {
             Intent intent = new Intent();
             intent.setAction(action);

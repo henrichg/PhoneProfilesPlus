@@ -63,15 +63,16 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
          * @param linkText     Text which contains link on which user presses.
          * @param linkTypeText Type of the link in linkText can be one of {@link LinkType} enumeration
          */
-        @SuppressWarnings("unused")
-        void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
-                           final String linkText, PPLinkMovementMethod.LinkType linkTypeText);
+        void onLinkClicked(final String linkUrl,
+                           @SuppressWarnings("unused") PPLinkMovementMethod.LinkType linkTypeUrl,
+                           @SuppressWarnings("unused") final String linkText,
+                           @SuppressWarnings("unused") PPLinkMovementMethod.LinkType linkTypeText);
 
         /**
          * @param text Whole text of {@link TextView}
          */
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        void onLongClick(final String text);
+        @SuppressWarnings("EmptyMethod")
+        void onLongClick(@SuppressWarnings("unused") final String text);
     }
 
 

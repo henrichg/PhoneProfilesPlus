@@ -1787,11 +1787,11 @@ public class PPApplication extends Application
                 Build.FINGERPRINT.toLowerCase().contains("samsung");
     }
 
-    @SuppressWarnings("JavaReflectionMemberAccess")
     private static String getOneUiVersion() throws Exception {
         //if (!isSemAvailable(getApplicationContext())) {
         //    return ""; // was "1.0" originally but probably just a dummy value for one UI devices
         //}
+        //noinspection JavaReflectionMemberAccess
         Field semPlatformIntField = Build.VERSION.class.getDeclaredField("SEM_PLATFORM_INT");
         int version = semPlatformIntField.getInt(null) - 90000;
         if (version < 0) {

@@ -480,7 +480,7 @@ class EventPreferencesSMS extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null) //noinspection SuspiciousIndentAfterControlStatement
+            if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null)
             {
                 final boolean accessibilityEnabled =
                         PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
@@ -496,41 +496,41 @@ class EventPreferencesSMS extends EventPreferences {
 //                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
                 //if (Build.VERSION.SDK_INT >= 26) {
-                    boolean showPreferences = false;
-                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            boolean sim1Exists;
-                            boolean sim2Exists;
-                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                            sim1Exists = hasSIMCardData.hasSIM1;
-                            sim2Exists = hasSIMCardData.hasSIM2;
+                boolean showPreferences = false;
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        boolean sim1Exists;
+                        boolean sim2Exists;
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        sim1Exists = hasSIMCardData.hasSIM1;
+                        sim2Exists = hasSIMCardData.hasSIM2;
 
-                            showPreferences = true;
-                            preference = prefMng.findPreference("eventSMSDualSIMInfo");
-                            if (preference != null)
-                                preference.setEnabled(enabled && sim1Exists && sim2Exists);
-                            preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
-                            if (preference != null)
-                                preference.setEnabled(enabled && sim1Exists && sim2Exists);
-                        } else {
-                            preference = prefMng.findPreference("eventSMSDualSIMInfo");
-                            if (preference != null)
-                                preference.setEnabled(false);
-                            preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
-                            if (preference != null)
-                                preference.setEnabled(false);
-                        }
-                    }
-                    if (!showPreferences) {
+                        showPreferences = true;
                         preference = prefMng.findPreference("eventSMSDualSIMInfo");
                         if (preference != null)
-                            preference.setVisible(false);
+                            preference.setEnabled(enabled && sim1Exists && sim2Exists);
                         preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
                         if (preference != null)
-                            preference.setVisible(false);
+                            preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                    } else {
+                        preference = prefMng.findPreference("eventSMSDualSIMInfo");
+                        if (preference != null)
+                            preference.setEnabled(false);
+                        preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                        if (preference != null)
+                            preference.setEnabled(false);
                     }
+                }
+                if (!showPreferences) {
+                    preference = prefMng.findPreference("eventSMSDualSIMInfo");
+                    if (preference != null)
+                        preference.setVisible(false);
+                    preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                    if (preference != null)
+                        preference.setVisible(false);
+                }
                 //}
                 setSummary(prefMng, PREF_EVENT_SMS_ENABLED, preferences, context);
             }

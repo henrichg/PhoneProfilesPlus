@@ -23,14 +23,13 @@ final class WifiApManager {
     private final ConnectivityManager mConnectivityManager;
     private final String packageName;
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (mWifiManager != null)
             wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
         //if (Build.VERSION.SDK_INT >= 26) {
-            mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            packageName = PPApplication.PACKAGE_NAME;
+        mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        packageName = PPApplication.PACKAGE_NAME;
         /*}
         else {
             if (mWifiManager != null) {
@@ -154,6 +153,7 @@ final class WifiApManager {
         }
     }
 
+    @SuppressWarnings("JavaReflectionMemberAccess")
     void startTethering(boolean doNotChangeWifi) {
         if (!doNotChangeWifi) {
             if (mWifiManager != null) {
@@ -168,7 +168,6 @@ final class WifiApManager {
         }
         if (mConnectivityManager != null) {
             try {
-                //noinspection JavaReflectionMemberAccess
                 @SuppressLint("DiscouragedPrivateApi")
                 Field internalConnectivityManagerField = ConnectivityManager.class.getDeclaredField("mService");
                 internalConnectivityManagerField.setAccessible(true);
@@ -193,9 +192,8 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess"})
+    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "rawtypes"})
     private void callStartTethering(Object internalConnectivityManager) throws ReflectiveOperationException {
-        @SuppressWarnings("rawtypes")
         Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
         ResultReceiver dummyResultReceiver = new ResultReceiver(null);
         try {
@@ -225,12 +223,12 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "DiscouragedPrivateApi", "SoonBlockedPrivateApi"})
+    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "rawtypes"})
+    @SuppressLint("DiscouragedPrivateApi")
     static boolean canExploitWifiTethering(Context context) {
         try {
             if (canExploitWifiAP(context)) {
                 ConnectivityManager.class.getDeclaredField("mService");
-                //noinspection rawtypes
                 Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
                 try {
                     internalConnectivityManagerClass.getDeclaredMethod("startTethering",
@@ -260,8 +258,8 @@ final class WifiApManager {
         }
     }
 
-    @SuppressLint("PrivateApi")
     @SuppressWarnings("RedundantArrayCreation")
+    @SuppressLint("PrivateApi")
     static boolean canExploitWifiTethering30(Context context) {
         try {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -341,11 +339,11 @@ final class WifiApManager {
 
     // Thanks to author of MacroDroid application.
     // It is used as source of this implenetation.
-    @SuppressLint("PrivateApi")
     @SuppressWarnings("RedundantArrayCreation")
+    @SuppressLint("PrivateApi")
     static private void _startTethering30(Context context,
-                                   MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
-                                   Handler handler) {
+                                          MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
+                                          Handler handler) {
         Object myOnStartTetheringCallbackAbstractObj;
         Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
         try {

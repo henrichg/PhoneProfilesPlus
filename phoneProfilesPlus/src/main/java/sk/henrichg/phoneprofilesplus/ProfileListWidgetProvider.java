@@ -34,7 +34,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     //private boolean isLargeLayout;
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private static RemoteViews buildLayout(Context context, /*AppWidgetManager appWidgetManager,*/ int appWidgetId, /*boolean largeLayout,*/ DataWrapper dataWrapper)
     {
         boolean applicationWidgetListHeader;
@@ -117,7 +116,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     //switch (nightModeFlags) {
-                    //noinspection IfStatementWithIdenticalBranches
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
@@ -545,32 +543,32 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             widget.setImageViewResource(R.id.widget_profile_list_rounded_border, R.drawable.ic_empty);
 
         //if (applicationWidgetListRoundedCorners) {
-            widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
-            widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
-            if (applicationWidgetListShowBorder)
-                widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.VISIBLE);
-            else
-                widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
-            widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
+        widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
+        widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
+        if (applicationWidgetListShowBorder)
+            widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.VISIBLE);
+        else
+            widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
+        widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
 
+        if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
+                applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
+            widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
+
+        widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alphaBackground);
+
+        if (applicationWidgetListShowBorder) {
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
                     applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
-                widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, redBackground, greenBackground, blueBackground));
-
-            widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alphaBackground);
-
-            if (applicationWidgetListShowBorder) {
-                if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetListChangeColorsByNightMode &&
-                        applicationWidgetListIconColor.equals("0") && applicationWidgetListUseDynamicColors))
-                    widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
-                /*else {
-                    // but must be removed android:tint in layout
-                    int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
-                    if (color != 0) {
-                        widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", color);
-                    }
-                }*/
-            }
+                widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+            /*else {
+                // but must be removed android:tint in layout
+                int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOutline, context);
+                if (color != 0) {
+                    widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", color);
+                }
+            }*/
+        }
         /*}
         else {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.GONE);
@@ -1131,9 +1129,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         */
     }
 
-    private static void updateAfterWidgetOptionsChanged(Context context, int appWidgetId) {
-        //noinspection UnnecessaryLocalVariable
-        Context appContext = context;
+    private static void updateAfterWidgetOptionsChanged(Context appContext, int appWidgetId) {
+        //Context appContext = context;
         LocaleHelper.setApplicationLocale(appContext);
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(appContext);

@@ -403,7 +403,8 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
     }
 
-    private static void callAnswered(@SuppressWarnings("unused") boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
+    private static void callAnswered(@SuppressWarnings("unused") boolean incoming,
+            /*String phoneNumber, Date eventTime,*/ Context context)
     {
         speakerphoneSelected = false;
 
@@ -476,7 +477,9 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
     }
 
-    private static void callEnded(boolean incoming, @SuppressWarnings("unused") boolean missed, /*String phoneNumber, Date eventTime,*/ Context context)
+    private static void callEnded(boolean incoming,
+                                  @SuppressWarnings("unused") boolean missed,
+            /*String phoneNumber, Date eventTime,*/ Context context)
     {
         if (audioManager == null)
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);

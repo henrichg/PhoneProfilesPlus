@@ -503,7 +503,6 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, activity)) {
             try {
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                //noinspection deprecation
                 activity.startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
                 if (_preference != null)

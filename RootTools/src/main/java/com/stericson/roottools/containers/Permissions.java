@@ -22,6 +22,7 @@
 
 package com.stericson.roottools.containers;
 
+@SuppressWarnings("unused")
 public class Permissions
 {
     String type;
@@ -31,7 +32,6 @@ public class Permissions
     String symlink;
     int permissions;
 
-    @SuppressWarnings("unused")
     public String getSymlink()
     {
         return this.symlink;
@@ -92,37 +92,31 @@ public class Permissions
         this.other = other;
     }
 
-    @SuppressWarnings("unused")
     public String getUser()
     {
         return user;
     }
 
-    @SuppressWarnings("unused")
     public void setUser(String user)
     {
         this.user = user;
     }
 
-    @SuppressWarnings("unused")
     public String getGroup()
     {
         return group;
     }
 
-    @SuppressWarnings("unused")
     public void setGroup(String group)
     {
         this.group = group;
     }
 
-    @SuppressWarnings("unused")
     public String getOther()
     {
         return other;
     }
 
-    @SuppressWarnings("unused")
     public void setOther(String other)
     {
         this.other = other;

@@ -13,25 +13,23 @@ import java.util.concurrent.TimeUnit;
 
 public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallback {
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private final Context context;
+    //private final Context context;
 
-    @SuppressWarnings("unused")
-    static volatile boolean connected = false;
+    //static volatile boolean connected = false;
 
-    MobileDataNetworkCallback(Context context) { this.context = context.getApplicationContext(); }
+    MobileDataNetworkCallback(/*Context context*/) { /*this.context = context.getApplicationContext();*/ }
 
     @Override
     public void onLost(Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onLost", "xxx");
-        connected = false;
+        //connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onUnavailable", "xxx");
-        connected = false;
+        //connected = false;
         doConnection();
     }
 
@@ -44,7 +42,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     @Override
     public void onAvailable(Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- MobileDataNetworkCallback.onAvailable", "xxx");
-        connected = true;
+        //connected = true;
         doConnection();
     }
 
@@ -54,7 +52,6 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
         doConnection();
     }
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
@@ -95,35 +92,35 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                     .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
                     .build();*/
 
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG)
-                            //.setInputData(workData)
-                            .setInitialDelay(5, TimeUnit.SECONDS)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                            .build();
-            try {
-                if (PPApplicationStatic.getApplicationStarted(true, true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG)
+                        //.setInputData(workData)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .build();
+        try {
+            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
 
-    //                            //if (PPApplicationStatic.logEnabled()) {
-    //                            ListenableFuture<List<WorkInfo>> statuses;
-    //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
-    //                            try {
-    //                                List<WorkInfo> workInfoList = statuses.get();
-    //                            } catch (Exception ignored) {
-    //                            }
-    //                            //}
-    //
-    //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
-                        //workManager.enqueue(worker);
-                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                    //workManager.enqueue(worker);
+                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
             }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
 
             /*
             final Context appContext = this.context;

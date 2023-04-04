@@ -32,7 +32,6 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
     private final Context context;
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     EditorProfileListViewHolder(View itemView, EditorProfileListFragment editorFragment, Context context, int filterType) {
         super(itemView);
 
@@ -44,7 +43,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         else
             dragHandle = null;
         //if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
-            showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
+        showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
         /*else
             showInActivatorButton = null;*/
 
@@ -91,7 +90,6 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         else {
             profileName.setTypeface(null, Typeface.BOLD);
             //profileName.setTextSize(15);
-            //noinspection ConstantConditions
             //profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
             //noinspection ConstantConditions
             profileName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));

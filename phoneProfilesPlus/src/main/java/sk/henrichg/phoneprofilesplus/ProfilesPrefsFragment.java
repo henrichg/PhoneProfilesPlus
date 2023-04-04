@@ -705,7 +705,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
                     intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categorySystemRoot");
                     //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    //noinspection deprecation
                     getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
                 }
                 return false;
@@ -1516,7 +1515,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "specialProfileParametersCategoryRoot");
                     //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    //noinspection deprecation
                     startActivityForResult(intent, RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS);
                     return false;
                 });
@@ -3618,7 +3616,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummaryForceStopApplications(Context context,
-                                             CattegorySummaryData cattegorySummaryData) {
+                                                            CattegorySummaryData cattegorySummaryData) {
         //String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, R.string.profile_preferences_deviceForceStopApplicationsChange, false, context);
         String title = context.getString(R.string.profile_preferences_deviceForceStopApplicationsChange);
         int index = 0;
@@ -3878,9 +3876,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummaryRadiosDualSIMSupport(Context context,
-                                             Preference preferenceScreen,
-                                             CattegorySummaryData cattegorySummaryData,
-                                             TelephonyManager telephonyManager, int phoneCount) {
+                                                           Preference preferenceScreen,
+                                                           CattegorySummaryData cattegorySummaryData,
+                                                           TelephonyManager telephonyManager, int phoneCount) {
         boolean isDualSIM = true;
         if (telephonyManager != null) {
             if (phoneCount < 2) {
@@ -7096,7 +7094,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
             } catch (Exception e) {

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -33,7 +32,6 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
     private TextView ppppsVersionText = null;
     private TextView ppppsLaunchText = null;
 
-    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -117,7 +115,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
     */
 
     static void installPPPPutSettings(final Activity activity, final PPPPSDialogPreference _preference,
-                                      @SuppressWarnings("SameParameterValue") boolean finishActivity) {
+                                      boolean finishActivity) {
         if (activity == null) {
             return;
         }

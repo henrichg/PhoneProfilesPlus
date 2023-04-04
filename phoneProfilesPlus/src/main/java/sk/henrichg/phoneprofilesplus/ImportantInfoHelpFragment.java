@@ -96,7 +96,6 @@ public class ImportantInfoHelpFragment extends Fragment {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
 
-        //noinspection StatementWithEmptyBody
         if (newsLatest) {
             news = PPApplication.SHOW_IMPORTANT_INFO_NEWS; // news is enabled, news must be also in layout
         }
@@ -1010,7 +1009,7 @@ public class ImportantInfoHelpFragment extends Fragment {
     }
 
     static void installPPPPutSettings(Activity activity,
-                                      @SuppressWarnings("SameParameterValue") boolean finishActivity) {
+                                      boolean finishActivity) {
         if (activity == null) {
             return;
         }

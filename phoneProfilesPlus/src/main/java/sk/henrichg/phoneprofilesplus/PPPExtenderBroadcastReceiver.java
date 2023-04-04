@@ -535,9 +535,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                //noinspection UnnecessaryLocalVariable
-                int version = PPApplicationStatic.getVersionCode(pInfo);
-                return version;
+                return PPApplicationStatic.getVersionCode(pInfo);
             }
             else {
                 return 0;
@@ -558,9 +556,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             boolean installed = appInfo.enabled;
             if (installed) {
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                //noinspection UnnecessaryLocalVariable
-                String version =  pInfo.versionName;
-                return version;
+                return pInfo.versionName;
             }
             else {
                 return "";

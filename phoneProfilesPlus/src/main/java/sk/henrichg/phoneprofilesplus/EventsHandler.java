@@ -396,7 +396,6 @@ class EventsHandler {
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
-            //noinspection IfStatementWithIdenticalBranches
             if (isRestart) {
 
 

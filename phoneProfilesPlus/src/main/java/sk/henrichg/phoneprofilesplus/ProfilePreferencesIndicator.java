@@ -52,7 +52,6 @@ class ProfilePreferencesIndicator {
         return Bitmap.createBitmap(width, iconSize, Bitmap.Config.ARGB_8888);
     }
 
-    @SuppressWarnings("DuplicateBranchesInSwitch")
     private void addIndicator(int preferenceBitmapResourceID, int index,
                               boolean monochrome, boolean disabled,
                               int indicatorsType, float indicatorsLightnessValue,
@@ -145,6 +144,7 @@ class ProfilePreferencesIndicator {
                         //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND:
+                        //noinspection DuplicateBranchesInSwitch
                         if (disabled)
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
                         else
@@ -279,6 +279,7 @@ class ProfilePreferencesIndicator {
                         //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND:
+                        //noinspection DuplicateBranchesInSwitch
                         if (disabled)
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
                         else

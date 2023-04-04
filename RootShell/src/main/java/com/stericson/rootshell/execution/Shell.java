@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"FieldCanBeLocal", "UnnecessaryContinue", "TryWithIdenticalCatches", "TryFinallyCanBeTryWithResources", "AnonymousHasLambdaAlternative", "IOStreamConstructor", "ListRemoveInLoop", "ConstantConditions", "StatementWithEmptyBody", "UnusedAssignment", "UnusedReturnValue", "RedundantThrows", "unused"})
 public class Shell {
 
     public enum ShellType {
@@ -95,7 +95,6 @@ public class Shell {
 
     private final ShellType shellType; // = null;
 
-    @SuppressWarnings("UnusedAssignment")
     private ShellContext shellContext = Shell.ShellContext.NORMAL;
 
     private String error = "";
@@ -250,7 +249,6 @@ public class Shell {
     }
 
 
-    @SuppressWarnings("RedundantThrows")
     public Command add(Command command) throws IOException {
         if (this.close) {
             throw new IllegalStateException(
@@ -263,7 +261,6 @@ public class Shell {
                     "This command has already been executed. (Don't re-use command instances.)");
         }
 
-        //noinspection StatementWithEmptyBody
         while (this.isCleaning) {
             //Don't add commands while cleaning
         }
@@ -275,7 +272,6 @@ public class Shell {
         return command;
     }
 
-    @SuppressWarnings({"RedundantThrows"})
     public final void useCWD(Context context) throws IOException, TimeoutException, RootDeniedException {
         add(
                 new Command(
@@ -290,7 +286,6 @@ public class Shell {
         int toClean = Math.abs(this.maxCommands - (this.maxCommands / 4));
         RootShell.log("Cleaning up: " + toClean);
 
-        //noinspection ListRemoveInLoop
         for (int i = 0; i < toClean; i++) {
             this.commands.remove(0);
         }
@@ -318,7 +313,6 @@ public class Shell {
         }
     }
 
-    @SuppressWarnings("RedundantThrows")
     public void close() throws IOException {
         RootShell.log("Request to close shell!");
 
@@ -438,7 +432,6 @@ public class Shell {
 
             // Replace libsuperuser:Shell.run with manual process execution
             Process process;
-            //noinspection TryWithIdenticalCatches
             try {
                 process = Runtime.getRuntime().exec(internal ? "su -V" : "su -v", null);
                 process.waitFor();
@@ -471,7 +464,6 @@ public class Shell {
 
             //List<String> ret = stdout;
 
-            //noinspection ConstantConditions
             if (stdout != null) {
                 for (String line : stdout) {
                     if (!internal) {
@@ -532,9 +524,7 @@ public class Shell {
                 File f = new File("/sys/fs/selinux/enforce");
                 if (f.exists()) {
                     try {
-                        //noinspection IOStreamConstructor
                         InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
-                        //noinspection TryFinallyCanBeTryWithResources
                         try {
                             enforcing = (is.read() == '1');
                         } finally {
@@ -550,7 +540,6 @@ public class Shell {
                 }
             //}
 
-            //noinspection ConstantConditions
             if (enforcing == null) {
                 enforcing = false;
             }
@@ -568,7 +557,6 @@ public class Shell {
      * <p/>
      * The notification of a new command is handled by the method add in this class
      */
-    @SuppressWarnings("FieldCanBeLocal")
     private final Runnable input = new Runnable() {
         public void run() {
 
@@ -650,7 +638,6 @@ public class Shell {
     };
 
     protected void notifyThreads() {
-        //noinspection AnonymousHasLambdaAlternative
         Thread t = new Thread() {
             public void run() {
                 synchronized (commands) {
@@ -667,7 +654,6 @@ public class Shell {
      *
      * This include the output and error stream
      */
-    @SuppressWarnings("FieldCanBeLocal")
     private final Runnable output = new Runnable() {
         public void run() {
             try {
@@ -776,7 +762,6 @@ public class Shell {
 
                                 read++;
                                 totalRead++;
-                                //noinspection UnnecessaryContinue
                                 continue;
                             }
                         }
@@ -900,19 +885,16 @@ public class Shell {
                 RootShell.log("Context is different than open shell, switching context... " + Shell.rootShell.shellContext + " VS " + shellContext);
                 Shell.rootShell.switchRootShellContext(shellContext);
             } catch (IOException e) {
-                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("IOException, could not switch context!");
                     throw e;
                 }
             } catch (RootDeniedException e) {
-                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("RootDeniedException, could not switch context!");
                     throw e;
                 }
             } catch (TimeoutException e) {
-                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("TimeoutException, could not switch context!");
                     throw e;
@@ -961,7 +943,6 @@ public class Shell {
         }
     }
 
-    @SuppressWarnings("UnusedReturnValue")
     public Shell switchRootShellContext(ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         if (this.shellType == ShellType.ROOT) {
             try {
@@ -1047,7 +1028,6 @@ public class Shell {
                     field = processClass.getDeclaredField("id");
                 }
                 field.setAccessible(true);
-                //noinspection ConstantConditions
                 int pid = (Integer) field.get(shell.proc);
                 shell.outputStream.write("(echo -17 > /proc/" + pid + "/oom_adj) &> /dev/null\n");
                 shell.outputStream.write("(echo -17 > /proc/$$/oom_adj) &> /dev/null\n");

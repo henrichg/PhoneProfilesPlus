@@ -22,7 +22,6 @@
 
 package com.stericson.roottools.internal;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -48,14 +47,13 @@ import java.util.Locale;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 
-@SuppressWarnings("JavaDoc")
+@SuppressWarnings({"SynchronizationOnLocalVariableOrMethodParameter", "JavadocDeclaration", "StringBufferReplaceableByString", "StringBufferMayBeStringBuilder", "ConstantConditions", "UnusedAssignment", "ProtectedMemberInFinalClass", "RedundantThrows", "unused"})
 public final class RootToolsInternalMethods {
 
     // --------------------
     // # Internal methods #
     // --------------------
 
-    @SuppressWarnings("ProtectedMemberInFinalClass")
     protected RootToolsInternalMethods() {
     }
 
@@ -95,7 +93,6 @@ public final class RootToolsInternalMethods {
 
             RootTools.log(permissions.getOtherPermissions());
 
-            //noinspection StringBufferReplaceableByString
             StringBuilder finalPermissions = new StringBuilder();
             finalPermissions.append(parseSpecialPermissions(rawPermissions));
             finalPermissions.append(parsePermissions(permissions.getUserPermissions()));
@@ -110,7 +107,6 @@ public final class RootToolsInternalMethods {
         return null;
     }
 
-    @SuppressWarnings("ConstantConditions")
     public int parsePermissions(String permission) {
         permission = permission.toLowerCase(Locale.US);
         int tmp;
@@ -239,7 +235,6 @@ public final class RootToolsInternalMethods {
                         if (preserveFileAttributes) {
                             // get permissions of source before overwriting
                             Permissions permissions = getFilePermissionsSymlinks(source);
-                            //noinspection ConstantConditions
                             filePermission = permissions.getPermissions();
                         }
 
@@ -415,7 +410,6 @@ public final class RootToolsInternalMethods {
      * exceptions.
      * @throws Exception if the operation cannot be completed.
      */
-    @SuppressWarnings("RedundantThrows")
     public boolean fixUtils(String[] utils) throws Exception {
 
         for (String util : utils) {
@@ -521,9 +515,7 @@ public final class RootToolsInternalMethods {
 
                         String[] temp = line.split(" ");
 
-                        //noinspection ConstantConditions
                         if (temp.length > 1 && temp[1].contains("v1.") && !foundVersion) {
-                            //noinspection UnusedAssignment
                             foundVersion = true;
                             version.append(temp[1]);
                             RootTools.log("Found Version: " + version/*.toString()*/);
@@ -554,9 +546,7 @@ public final class RootToolsInternalMethods {
 
                             String[] temp = line.split(" ");
 
-                            //noinspection ConstantConditions
                             if (temp.length > 1 && temp[1].contains("v1.") && !foundVersion) {
-                                //noinspection UnusedAssignment
                                 foundVersion = true;
                                 version.append(temp[1]);
                                 RootTools.log("Found Version: " + version/*.toString()*/);
@@ -590,7 +580,6 @@ public final class RootToolsInternalMethods {
         try {
             double multiplier = 1.0;
             char c;
-            @SuppressWarnings("StringBufferMayBeStringBuilder")
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < spaceStr.length(); i++) {
                 c = spaceStr.charAt(i);
@@ -745,7 +734,6 @@ public final class RootToolsInternalMethods {
 
         InternalVariables.mounts = new ArrayList<>();
 
-        //noinspection ConstantConditions
         if(null == InternalVariables.mounts || InternalVariables.mounts.isEmpty()) {
             Shell shell = RootTools.getShell(true);
 
@@ -787,7 +775,6 @@ public final class RootToolsInternalMethods {
      * @return <code>String</code> What the mount is mounted as.
      * @throws Exception if we cannot determine how the mount is mounted.
      */
-    @SuppressLint("SuspiciousIndentation")
     public String getMountedAs(String path) throws Exception {
         InternalVariables.mounts = getMounts();
         String mp;
@@ -812,7 +799,7 @@ public final class RootToolsInternalMethods {
 
             //throw new Exception();
         } //else {
-            throw new Exception();
+        throw new Exception();
         //}
     }
 
@@ -1329,7 +1316,6 @@ public final class RootToolsInternalMethods {
         return i;
     }
 
-    @SuppressWarnings("RedundantThrows")
     private void commandWait(Shell shell, Command cmd) throws Exception {
 
         while (!cmd.isFinished()) {
@@ -1337,7 +1323,6 @@ public final class RootToolsInternalMethods {
             RootTools.log(Constants.TAG, shell.getCommandQueuePositionString(cmd));
             RootTools.log(Constants.TAG, "Processed " + cmd.totalOutputProcessed + " of " + cmd.totalOutput + " output from command.");
 
-            //noinspection SynchronizationOnLocalVariableOrMethodParameter
             synchronized (cmd) {
                 try {
                     if (!cmd.isFinished()) {

@@ -10,7 +10,6 @@ import android.os.PowerManager;
 
 import java.util.ArrayList;
 
-@SuppressLint("MissingPermission")
 public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
@@ -93,6 +92,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             synchronized (PPApplication.bluetoothCLScanMutex) {
                                                 //String btNameD = device.getName();
                                                 //String btNameE = "";
+                                                @SuppressLint("MissingPermission")
                                                 String btName = device.getName();
 //                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","btName="+btName);
 //                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","deviceName="+deviceName);

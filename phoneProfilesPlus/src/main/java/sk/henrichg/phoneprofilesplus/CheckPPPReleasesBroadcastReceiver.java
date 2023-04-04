@@ -123,79 +123,78 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doWork(/*boolean useHandler,*/ Context context) {
         if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
         //if (useHandler) {
-            final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            //__handler.post(() -> {
-            Runnable runnable = () -> {
+        final Context appContext = context.getApplicationContext();
+        //PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+        //        context.getApplicationContext()) {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
+            //Context appContext= appContextWeakRef.get();
+            //if (appContext != null) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_doWork");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
                     try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_doWork");
-                            wakeLock.acquire(10 * 60 * 1000);
+                        boolean getVersion;
+                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+                            getVersion = false;
+                        else
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                            getVersion = false;
+                        else {
+                            PackageManager packageManager = appContext.getPackageManager();
+
+                            //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+                            //boolean amazonAppStoreInstalled = (intent != null);
+
+                            Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+                            boolean huaweiAppGalleryInstalled = (intent != null);
+
+                            intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+                            boolean fdroidInstalled = (intent != null);
+
+                            intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+                            boolean droidifyInstalled = (intent != null);
+
+                            getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
                         }
+                        if (getVersion)
+                            _doWorkGitHub(appContext);
+                        else
+                            _doWorkOthers(appContext);
 
+                    } catch (Exception ignored) {
+                    }
+
+                    setAlarm(appContext);
+
+                } catch (Exception e) {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
-                            boolean getVersion;
-                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
-                                getVersion = false;
-                            else
-                            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
-                                getVersion = false;
-                            else {
-                                PackageManager packageManager = appContext.getPackageManager();
-
-                                //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-                                //boolean amazonAppStoreInstalled = (intent != null);
-
-                                Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
-                                boolean huaweiAppGalleryInstalled = (intent != null);
-
-                                intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
-                                boolean fdroidInstalled = (intent != null);
-
-                                intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
-                                boolean droidifyInstalled = (intent != null);
-
-                                getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
-                            }
-                            if (getVersion)
-                                _doWorkGitHub(appContext);
-                            else
-                                _doWorkOthers(appContext);
-
+                            wakeLock.release();
                         } catch (Exception ignored) {
                         }
-
-                        setAlarm(appContext);
-
-                    } catch (Exception e) {
-//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplicationStatic.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
                     }
-                //}
-            }; //);
+                }
+            //}
+        }; //);
         PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         /*}
@@ -296,11 +295,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         String versionNameInReleases = "";
                         int versionCodeInReleases = 0;
 
-                        //noinspection UnnecessaryLocalVariable
-                        String contents = response;
+                        //String contents = response;
 
                         PPApplicationStatic.PPPReleaseData pppReleaseData =
-                                PPApplicationStatic.getReleaseData(contents, true, appContext);
+                                PPApplicationStatic.getReleaseData(response, true, appContext);
 
                         showNotification = pppReleaseData != null;
                         if (showNotification) {

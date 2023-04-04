@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeoutException;
 
-@SuppressWarnings("JavaDoc")
+@SuppressWarnings({"SynchronizationOnLocalVariableOrMethodParameter", "JavadocDeclaration", "CollectionAddAllCanBeReplacedWithConstructor", "ConstantConditions", "RedundantThrows", "unused"})
 public class RootShell {
 
     // --------------------
@@ -55,7 +55,6 @@ public class RootShell {
      * By disabling this all callbacks will be called from a thread other than
      * the main UI thread.
      */
-    @SuppressWarnings("unused")
     public static final boolean handlerEnabled = false;
 
 
@@ -176,7 +175,6 @@ public class RootShell {
 
         //Avoid concurrent modification...
         List<String> final_result = new ArrayList<>();
-        //noinspection CollectionAddAllCanBeReplacedWithConstructor
         final_result.addAll(result);
 
         for (String line : final_result) {
@@ -273,7 +271,6 @@ public class RootShell {
                     RootShell.log(binaryName + " was found here: " + path);
                     foundPaths.add(path);
 
-                    //noinspection ConstantConditions
                     if(foundPaths.size() > 0 && singlePath) {
                         break;
                     }
@@ -310,7 +307,6 @@ public class RootShell {
      *
      * @return <code>List<String></code> A List of Strings representing the environment variable $PATH
      */
-    @SuppressWarnings("ConstantConditions")
     public static List<String> getPath() {
         return Arrays.asList(System.getenv("PATH").split(":"));
     }
@@ -340,7 +336,6 @@ public class RootShell {
      * @param timeout      an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      * @param shellContext the context to execute the shell with
      */
-    @SuppressWarnings("unused")
     public static Shell getShell(boolean root, int timeout, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, timeout, shellContext, 3);
     }
@@ -352,7 +347,6 @@ public class RootShell {
      * @param root         a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param shellContext the context to execute the shell with
      */
-    @SuppressWarnings("unused")
     public static Shell getShell(boolean root, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, 0, shellContext, 3);
     }
@@ -382,7 +376,6 @@ public class RootShell {
      * @return <code>true</code> if your app has been given root access.
      * @throws TimeoutException if this operation times out. (cannot determine if access is given)
      */
-    @SuppressWarnings("unused")
     public static boolean isAccessGiven() {
         return isAccessGiven(0, 3);
     }
@@ -531,7 +524,6 @@ public class RootShell {
      *
      * @return true if logging is enabled
      */
-    @SuppressWarnings("unused")
     public static boolean islog() {
         return debugMode;
     }
@@ -580,14 +572,12 @@ public class RootShell {
     // # Public Methods #
     // --------------------
 
-    @SuppressWarnings("RedundantThrows")
     private static void commandWait(Shell shell, Command cmd) throws Exception {
         while (!cmd.isFinished()) {
 
             RootShell.log(version, shell.getCommandQueuePositionString(cmd));
             RootShell.log(version, "Processed " + cmd.totalOutputProcessed + " of " + cmd.totalOutput + " output from command.");
 
-            //noinspection SynchronizationOnLocalVariableOrMethodParameter
             synchronized (cmd) {
                 try {
                     if (!cmd.isFinished()) {

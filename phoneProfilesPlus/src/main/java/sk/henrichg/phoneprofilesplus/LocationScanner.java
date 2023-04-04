@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -257,8 +256,6 @@ class LocationScanner
     /**
      * Requests location updates from the FusedLocationApi.
      */
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
-    @SuppressLint("SuspiciousIndentation")
     String startLocationUpdates() {
         if (!ApplicationPreferences.applicationEventLocationEnableScanning)
             return "";
@@ -338,7 +335,7 @@ class LocationScanner
         //if (ApplicationPreferences.applicationEventLocationUseGPS &&
         //        CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
             // recursive call this for switch usage of GPS
-            LocationScannerSwitchGPSBroadcastReceiver.setAlarm(context);
+        LocationScannerSwitchGPSBroadcastReceiver.setAlarm(context);
         //}
         //else
         //    LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(context);

@@ -6,7 +6,7 @@ import android.widget.RemoteViews;
 
 class ProfileListWidgetFactoryCompactGrid extends ProfileListWidgetFactory {
 
-    ProfileListWidgetFactoryCompactGrid(Context context, @SuppressWarnings("unused") Intent intent) {
+    ProfileListWidgetFactoryCompactGrid(Context context, Intent intent) {
         super(context, intent);
         //Log.e("ProfileListWidgetFactoryCompactGrid constuctor", "xxxxx");
     }

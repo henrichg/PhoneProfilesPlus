@@ -1959,7 +1959,7 @@ class PreferenceAllowed {
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(PreferenceAllowed preferenceAllowed,
-                                             @SuppressWarnings("unused") Context context) {
+                                                                     @SuppressWarnings("unused") Context context) {
         boolean flashAvailable;
 
         if (PPApplication.HAS_FEATURE_CAMERA_FLASH) {

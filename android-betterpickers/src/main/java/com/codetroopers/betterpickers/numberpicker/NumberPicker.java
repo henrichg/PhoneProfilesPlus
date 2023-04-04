@@ -28,6 +28,8 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
+@SuppressWarnings({"RegExpRedundantEscape", "BigDecimalLegacyMethod", "ManualArrayCopy", "resource", "StatementWithEmptyBody"})
+@SuppressLint("CustomViewStyleable")
 public class NumberPicker extends LinearLayout implements Button.OnClickListener/*,
                                                             Button.OnLongClickListener*/ {
 
@@ -109,8 +111,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public void setTheme(int themeResId) {
         mTheme = themeResId;
         if (mTheme != -1) {
-            //noinspection resource
-            @SuppressLint("CustomViewStyleable")
             TypedArray a = getContext().obtainStyledAttributes(themeResId, R.styleable.BetterPickersDialogFragment);
 
             mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);
@@ -298,7 +298,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             addClickedNumber(val);
         } else if (v == mBackspace) {
             if (mInputPointer >= 0) {
-                //noinspection ManualArrayCopy
                 for (int i = 0; i < mInputPointer; i++) {
                     mInput[i] = mInput[i + 1];
                 }
@@ -373,7 +372,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     // Update the number displayed in the picker:
     protected void updateNumber() {
         String numberString = getEnteredNumberString();
-        //noinspection RegExpRedundantEscape
         numberString = numberString.replaceAll("\\-", "");
         String[] split = numberString.split("\\.");
         if (split.length >= 2) {
@@ -404,7 +402,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         if (mInputPointer < mInputSize - 1) {
             // For 0 we need to check if we have a value of zero or not
             if (!(mInput[0] == 0 && mInput[1] == -1 && !containsDecimal() && val != CLICKED_DECIMAL)) {
-                //noinspection ManualArrayCopy
                 for (int i = mInputPointer; i >= 0; i--) {
                     mInput[i + 1] = mInput[i];
                 }
@@ -458,7 +455,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         //String value = "";
         StringBuilder value = new StringBuilder();
         for (int i = mInputPointer; i >= 0; i--) {
-            //noinspection StatementWithEmptyBody
             if (mInput[i] == -1) {
                 // Don't add
             } else if (mInput[i] == CLICKED_DECIMAL) {
@@ -539,7 +535,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
      * @return an String representation of the number with no decimal
      */
     public BigInteger getNumber() {
-        //noinspection BigDecimalLegacyMethod
         BigDecimal bigDecimal = getEnteredNumber().setScale(0, BigDecimal.ROUND_FLOOR);
         return bigDecimal.toBigIntegerExact();
     }
@@ -634,7 +629,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
 
-    @SuppressWarnings("unused")
     private static class SavedState extends BaseSavedState {
 
         int mInputPointer;

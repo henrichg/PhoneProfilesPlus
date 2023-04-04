@@ -16,7 +16,6 @@ import android.os.Bundle;
  * @see TimeDurationPickerDialog
  * @see TimeDurationPicker
  */
-@SuppressWarnings("unused")
 public abstract class TimeDurationPickerDialogFragment
         extends DialogFragment implements TimeDurationPickerDialog.OnDurationSetListener {
 

@@ -907,23 +907,22 @@ class Permissions {
         }
     }*/
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     static void checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
         //if (android.os.Build.VERSION.SDK_INT >= 26) {
-            try {
-                if (profile._alwaysOnDisplay != 0) {
-                    boolean granted = Settings.System.canWrite(context);
-                    if (granted)
-                        setShowRequestWriteSettingsPermission(context, true);
-                    if (!granted) {
-                        if (permissions != null)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
-                    }
+        try {
+            if (profile._alwaysOnDisplay != 0) {
+                boolean granted = Settings.System.canWrite(context);
+                if (granted)
+                    setShowRequestWriteSettingsPermission(context, true);
+                if (!granted) {
+                    if (permissions != null)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
                 }
-            } catch (Exception ignored) {
             }
+        } catch (Exception ignored) {
+        }
         //}
     }
 
@@ -1056,24 +1055,23 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     static void checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;
 
         //if (Build.VERSION.SDK_INT >= 26) {
-            try {
-                if ((profile._deviceAirplaneMode >= 4)/* &&
-                        (!PPApplication.isRooted(false))*/) {
-                    // if deice is not rooted, required is set PPP as default assistant
-                    boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
-                    if ((permissions != null) && (!granted))
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
-                //    return /*granted*/;
-                } //else
-                    //return /*true*/;
-            } catch (Exception e) {
-                //return /*false*/;
-            }
+        try {
+            if ((profile._deviceAirplaneMode >= 4)/* &&
+                    (!PPApplication.isRooted(false))*/) {
+                // if deice is not rooted, required is set PPP as default assistant
+                boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+                if ((permissions != null) && (!granted))
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
+            //    return /*granted*/;
+            } //else
+                //return /*true*/;
+        } catch (Exception e) {
+            //return /*false*/;
+        }
         //} //else
             //return /*true*/;
     }
@@ -1348,13 +1346,14 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     static private void checkEventLocation(Context context, Event event, SharedPreferences preferences,
                                            ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
+
         if (event != null) {
             try {
+                //noinspection DuplicateExpressions
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
@@ -1458,6 +1457,7 @@ class Permissions {
             } catch (Exception ignored) {
             }
         } else {
+            //noinspection DuplicateExpressions
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
@@ -1595,13 +1595,13 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     private static void checkEventPhoneState(Context context, Event event, SharedPreferences preferences,
                                              ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
+                //noinspection DuplicateExpressions
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
@@ -1675,6 +1675,7 @@ class Permissions {
             }
         }
         else {
+            //noinspection DuplicateExpressions
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||

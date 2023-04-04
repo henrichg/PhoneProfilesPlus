@@ -30,7 +30,6 @@ public class PPPAppNotification {
 
     static final String ACTION_START_LAUNCHER_FROM_NOTIFICATION = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION";
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     static private void _showNotification(final DataWrapper dataWrapper, boolean forFirstStart)
     {
         //synchronized (PPApplication.applicationPreferencesMutex) {
@@ -491,7 +490,7 @@ public class PPPAppNotification {
 
         // ----- create notificationBuilders
         //if (Build.VERSION.SDK_INT >= 26) {
-            notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
+        notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         /*}
         else {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);

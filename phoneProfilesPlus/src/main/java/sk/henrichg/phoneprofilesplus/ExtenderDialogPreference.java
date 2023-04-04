@@ -177,9 +177,9 @@ public class ExtenderDialogPreference extends DialogPreference {
             return superState;
         }*/
 
-        //noinspection UnnecessaryLocalVariable
-        final ExtenderDialogPreference.SavedState myState = new ExtenderDialogPreference.SavedState(superState);
-        return myState;
+        //final ExtenderDialogPreference.SavedState myState = new ExtenderDialogPreference.SavedState(superState);
+        //return myState;
+        return new ExtenderDialogPreference.SavedState(superState);
     }
 
     @Override

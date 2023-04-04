@@ -1,22 +1,14 @@
-Nejde dat appcompat 1.5.1, lebo je konflikt s SmoothBottomBar.
-Pouziva staru verziu: androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0@aar
-A appcompat 1.5.1 vyzaduje androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1@aar
-
-Kua fix. Bude treba toto nahlasit v issues SmoothBottomBar.
-
-Vid: dependencies_grpah_6.0.1.txt
-
--------------------------
-
-Ked nejde git push, skus v terminaly AS:
-git config credential.helper store
-
 --------------------------------
 Hadanie warningov v kode:
 Toto hladaj:
 @SuppressLint
 @SuppressWarnings
 //noinspection
+
+------------------
+
+Ked nejde git push, skus v terminaly AS:
+git config credential.helper store
 
 --------------------------------
 

@@ -76,8 +76,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference {
         setSummary(getSummary(value, _context));
     }
 
-    @SuppressWarnings("SameParameterValue")
-    void refreshListView(final boolean notForUnselect) {
+    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
         if (fragment != null)
             fragment.refreshListView(notForUnselect);
     }

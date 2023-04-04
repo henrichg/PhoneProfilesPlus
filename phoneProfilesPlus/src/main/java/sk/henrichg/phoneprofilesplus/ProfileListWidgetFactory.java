@@ -28,7 +28,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     boolean applicationWidgetListGridLayout;
     boolean applicationWidgetListCompactGrid;
 
-    ProfileListWidgetFactory(Context context, @SuppressWarnings("unused") Intent intent) {
+    ProfileListWidgetFactory(Context context,
+                             @SuppressWarnings("unused") Intent intent) {
         this.context = context;
         //Log.e("ProfileListWidgetFactory constuctor", "xxxxx");
     }

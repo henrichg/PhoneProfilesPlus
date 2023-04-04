@@ -260,10 +260,13 @@ class DataWrapperStatic {
         return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper, context);
     }
 
-    @SuppressWarnings("SameParameterValue")
     static String getProfileNameWithManualIndicatorAsString(
-            Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, @NonNull DataWrapper dataWrapper) {
+            Profile profile, boolean addEventName,
+            @SuppressWarnings("SameParameterValue") String indicators,
+            boolean addDuration,
+            @SuppressWarnings("SameParameterValue") boolean multiLine,
+            @SuppressWarnings("SameParameterValue") boolean durationInNextLine,
+            @NonNull DataWrapper dataWrapper) {
         Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
         Spannable sbt = new SpannableString(sProfileName);
         Object[] spansToRemove = sbt.getSpans(0, sProfileName.length(), Object.class);
@@ -602,11 +605,10 @@ class DataWrapperStatic {
                 .build();
     }
 
-    static void setDynamicLauncherShortcuts(Context context) {
+    static void setDynamicLauncherShortcuts(final Context appContext) {
         //if (android.os.Build.VERSION.SDK_INT >= 25) {
             try {
-                //noinspection UnnecessaryLocalVariable
-                final Context appContext = context;
+                //final Context appContext = context;
                 LocaleHelper.setApplicationLocale(appContext);
 
                 ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);

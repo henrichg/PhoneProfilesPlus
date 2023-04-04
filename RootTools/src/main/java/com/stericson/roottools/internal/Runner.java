@@ -29,6 +29,7 @@ import com.stericson.rootshell.execution.Shell;
 
 import java.io.IOException;
 
+@SuppressWarnings({"SynchronizationOnLocalVariableOrMethodParameter", "unused"})
 public class Runner extends Thread
 {
 
@@ -77,7 +78,6 @@ public class Runner extends Thread
 
     private void commandWait(Command cmd)
     {
-        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd)
         {
             try

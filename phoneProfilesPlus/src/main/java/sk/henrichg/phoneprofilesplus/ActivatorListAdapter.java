@@ -224,7 +224,6 @@ class ActivatorListAdapter extends BaseAdapter
                     holder.profileName.setTypeface(null, Typeface.BOLD);
                     holder.profileName.setTextSize(15);
                 }
-                //noinspection ConstantConditions
                 //holder.profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(fragment.getActivity()));
 
                 //noinspection ConstantConditions

@@ -82,7 +82,6 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 */
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
@@ -93,27 +92,27 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
         //if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
 
-            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":VPNNetworkCallback_doConnection_1");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = null;
+        try {
+            if (powerManager != null) {
+                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":VPNNetworkCallback_doConnection_1");
+                wakeLock.acquire(10 * 60 * 1000);
+            }
 
-                _doConnection(context);
+            _doConnection(context);
 
-            } catch (Exception e) {
+        } catch (Exception e) {
 //                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
-                    }
+            PPApplicationStatic.recordException(e);
+        } finally {
+            if ((wakeLock != null) && wakeLock.isHeld()) {
+                try {
+                    wakeLock.release();
+                } catch (Exception ignored) {
                 }
             }
+        }
         /*}
         else {
             final Context appContext = context;

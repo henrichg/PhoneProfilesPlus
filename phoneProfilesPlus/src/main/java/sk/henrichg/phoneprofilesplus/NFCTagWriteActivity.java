@@ -67,7 +67,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 //ToastCompat.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
 
                 //int[] attrs = {R.attr.activityNormalTextColor};
-                //@SuppressLint("ResourceType")
                 //TypedArray ta = obtainStyledAttributes(attrs);
                 //int color = ta.getResourceId(0, android.R.color.black);
                 //writableTextView.setTextColor(ContextCompat.getColor(getBaseContext(), color));

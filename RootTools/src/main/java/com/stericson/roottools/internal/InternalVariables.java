@@ -29,6 +29,7 @@ import com.stericson.roottools.containers.Symlink;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+@SuppressWarnings({"RegExpSimplifiable", "unused"})
 class InternalVariables
 {
 
@@ -43,7 +44,6 @@ class InternalVariables
 
     protected static volatile String[] space;
     protected static volatile String getSpaceFor;
-    @SuppressWarnings("unused")
     protected static volatile String busyboxVersion;
     protected static volatile String pid_list = "";
     protected static volatile ArrayList<Mount> mounts;
@@ -53,7 +53,6 @@ class InternalVariables
 
     // regex to get pid out of ps line, example:
     // root 2611 0.0 0.0 19408 2104 pts/2 S 13:41 0:00 bash
-    @SuppressWarnings("RegExpSimplifiable")
     protected static final String PS_REGEX = "^\\S+\\s+([0-9]+).*$";
     protected static final Pattern psPattern;
 

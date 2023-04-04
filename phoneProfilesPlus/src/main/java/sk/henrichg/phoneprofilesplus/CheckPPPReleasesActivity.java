@@ -102,11 +102,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                             newVersionName = "";
                             newVersionCode = 0;
 
-                            //noinspection UnnecessaryLocalVariable
-                            String contents = response;
+                            //String contents = response;
 
                             PPApplicationStatic.PPPReleaseData pppReleaseData =
-                                    PPApplicationStatic.getReleaseData(contents, true, appContext);
+                                    PPApplicationStatic.getReleaseData(response, true, appContext);
 
                             updateReleasedVersion = pppReleaseData != null;
                             if (updateReleasedVersion) {
@@ -229,7 +228,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint({"InflateParams", "SetTextI18n"})
+    @SuppressLint({"SetTextI18n", "InflateParams"})
     private void checkInGitHub(final Activity activity, final boolean refreshOpenedDialog) {
         int pppVersionCode = 0;
         try {

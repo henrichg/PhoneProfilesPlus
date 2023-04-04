@@ -36,7 +36,7 @@ public class LockDeviceActivity extends AppCompatActivity
     }
     private LockDeviceActivity.FinishActivityBroadcastReceiver finishActivityBroadcastReceiver;
 
-    @SuppressLint({"WrongConstant", "InflateParams", "SuspiciousIndentation"})
+    @SuppressLint({"WrongConstant", "InflateParams"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +126,7 @@ public class LockDeviceActivity extends AppCompatActivity
                         });
                     }
                 } else*/
-                    Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
                 LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
             //}

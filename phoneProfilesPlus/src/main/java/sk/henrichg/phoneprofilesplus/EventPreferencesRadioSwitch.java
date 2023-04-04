@@ -693,7 +693,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED) != null) //noinspection SuspiciousIndentAfterControlStatement
+            if (prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED) != null)
             {
                 boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 

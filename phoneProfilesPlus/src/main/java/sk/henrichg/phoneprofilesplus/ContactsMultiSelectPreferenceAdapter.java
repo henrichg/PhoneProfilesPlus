@@ -39,6 +39,7 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
         holder.bindContact(contact);
     }
 
+    @SuppressWarnings("unused")
     @NonNull
     @Override
     public String getSectionName(int position) {

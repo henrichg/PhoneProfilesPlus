@@ -95,8 +95,8 @@ public class WifiSSIDPreference extends DialogPreference {
         return false;
     }
 
-    @SuppressWarnings("SameParameterValue")
-    void refreshListView(boolean forRescan, final String scrollToSSID)
+    void refreshListView(@SuppressWarnings("SameParameterValue") boolean forRescan,
+                         @SuppressWarnings("SameParameterValue") final String scrollToSSID)
     {
         if (fragment != null)
             fragment.refreshListView(forRescan, scrollToSSID);

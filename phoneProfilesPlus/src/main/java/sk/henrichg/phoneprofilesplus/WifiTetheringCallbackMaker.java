@@ -23,7 +23,7 @@ public final class WifiTetheringCallbackMaker {
     Class<?> tetheringCallback;
     DexMaker dexMaker;
 
-    @SuppressWarnings({"rawtypes", "RedundantArrayCreation"})
+    @SuppressWarnings({"unchecked", "RedundantArrayCreation", "rawtypes"})
     @SuppressLint("PrivateApi")
     public WifiTetheringCallbackMaker(Context context,
                                       MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract) {
@@ -41,7 +41,6 @@ public final class WifiTetheringCallbackMaker {
             this.dexMaker = new DexMaker();
             TypeId typeIdOfLTetheringCallback = TypeId.get("LTetheringCallback;");
             this.dexMaker.declare(typeIdOfLTetheringCallback, "TetheringCallback.generated", 1, typeIdOfOnStartTetheringCallback, new TypeId[0]);
-            //noinspection unchecked
             this.dexMaker.declare(typeIdOfLTetheringCallback.getField(TypeId.get(MyOnStartTetheringCallbackAbstract.class), "callback"), 2, null);
             invokeOnStartTetheringCallback(typeIdOfLTetheringCallback, typeIdOfOnStartTetheringCallback);
             //noinspection TryWithIdenticalCatches
@@ -55,7 +54,7 @@ public final class WifiTetheringCallbackMaker {
         }
     }
 
-    @SuppressWarnings({"RedundantArrayCreation", "rawtypes", "unchecked"})
+    @SuppressWarnings({"unchecked", "RedundantArrayCreation", "rawtypes"})
     public void invokeOnStartTetheringCallback(TypeId typeIdOfLTetheringCallback, TypeId<?> typeIdOfOnStartTetheringCallback) {
         MethodId<?, Void> constructor = typeIdOfOnStartTetheringCallback.getConstructor(new TypeId[0]);
         Code declare = this.dexMaker.declare(typeIdOfLTetheringCallback.getConstructor(TypeId.INT), 1);

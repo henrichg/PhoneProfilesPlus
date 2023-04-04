@@ -448,7 +448,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     }
 */
     static boolean isNotificationListenerServiceEnabled(Context context,
-                                @SuppressWarnings("SameParameterValue") boolean checkConnected) {
+                                                        @SuppressWarnings("SameParameterValue") boolean checkConnected) {
         /*
         ContentResolver contentResolver = context.getContentResolver();
         String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");

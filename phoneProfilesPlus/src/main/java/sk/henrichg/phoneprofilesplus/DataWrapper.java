@@ -42,6 +42,8 @@ public class DataWrapper {
     boolean profileListFilled = false;
     boolean eventListFilled = false;
     boolean eventTimelineListFilled = false;
+
+    // these warning must be, because of usage of Collections.synchronizedList()
     @SuppressWarnings("Convert2Diamond")
     final List<Profile> profileList = Collections.synchronizedList(new ArrayList<Profile>());
     @SuppressWarnings("Convert2Diamond")
@@ -128,8 +130,8 @@ public class DataWrapper {
 
         //if (forGUI)
         //{
-            //noinspection ForLoopReplaceableByForEach
-            for (Iterator<Profile> it = newProfileList.iterator(); it.hasNext();) {
+        //noinspection ForLoopReplaceableByForEach
+        for (Iterator<Profile> it = newProfileList.iterator(); it.hasNext();) {
                 Profile profile = it.next();
                 if (generateIcons)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
@@ -646,9 +648,8 @@ public class DataWrapper {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
     void generateProfileIcon(Profile profile,
-                             boolean generateIcon,
+                             @SuppressWarnings("SameParameterValue") boolean generateIcon,
                              boolean generateIndicator) {
         if (generateIcon)
             profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);

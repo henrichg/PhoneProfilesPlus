@@ -5117,7 +5117,6 @@ class DatabaseHandlerEvents {
             // load events from db
             List<Event> eventList;
             eventList = getAllEvents(instance, calledFromImportDB);
-            //noinspection ForLoopReplaceableByForEach
             for (Iterator<MobileCellsData> it = cellsList.iterator(); it.hasNext(); ) {
                 MobileCellsData cell = it.next();
                 if (cell.name.isEmpty()) {

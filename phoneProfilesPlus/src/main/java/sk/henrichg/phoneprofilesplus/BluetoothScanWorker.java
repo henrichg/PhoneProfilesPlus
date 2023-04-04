@@ -25,7 +25,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-@SuppressLint("MissingPermission")
 public class BluetoothScanWorker extends Worker {
 
     private final Context context;
@@ -655,6 +654,7 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
+    @SuppressLint("MissingPermission")
     static int getBluetoothType(BluetoothDevice device) {
         //if (android.os.Build.VERSION.SDK_INT >= 18)
         return device.getType();
@@ -662,6 +662,7 @@ public class BluetoothScanWorker extends Worker {
         //    return 1; // BluetoothDevice.DEVICE_TYPE_CLASSIC
     }
 
+    @SuppressLint("MissingPermission")
     static void fillBoundedDevicesList(Context context)
     {
         //if (boundedDevicesList == null)
@@ -675,6 +676,7 @@ public class BluetoothScanWorker extends Worker {
         if (bluetooth != null) {
             if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
+                    @SuppressLint("MissingPermission")
                     Set<BluetoothDevice> boundedDevices = bluetooth.getBondedDevices();
                     //boundedDevicesList.clear();
                     if (boundedDevices != null) {

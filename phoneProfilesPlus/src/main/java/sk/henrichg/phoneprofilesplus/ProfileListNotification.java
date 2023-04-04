@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import static android.view.View.VISIBLE;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -480,8 +479,6 @@ public class ProfileListNotification {
         }
     }
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
-    @SuppressLint("SuspiciousIndentation")
     static void forceDrawNotification(final Context appContext) {
         if (!ApplicationPreferences.notificationProfileListDisplayNotification)
             return;
@@ -494,15 +491,15 @@ public class ProfileListNotification {
         //if (!doNotShowNotification) {
             //if (PhoneProfilesService.getInstance() != null) {
 
-            clearOldNotification(appContext);
+        clearOldNotification(appContext);
 
-            //if (PhoneProfilesService.getInstance() != null) {
-            synchronized (PPApplication.showPPPNotificationMutex) {
-                //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+        //if (PhoneProfilesService.getInstance() != null) {
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification.forceDrawNotification", "call of _showNotification");
-                _showNotification(appContext/*, false*/);
-                //dataWrapper.invalidateDataWrapper();
-            }
+            _showNotification(appContext/*, false*/);
+            //dataWrapper.invalidateDataWrapper();
+        }
             //}
             //}
         //}

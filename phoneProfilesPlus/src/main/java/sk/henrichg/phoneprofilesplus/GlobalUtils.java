@@ -287,8 +287,9 @@ class GlobalUtils {
         return null;
     }
 
-    @SuppressWarnings("SameParameterValue")
-    static boolean isServiceRunning(Context context, Class<?> serviceClass, boolean inForeground) {
+    static boolean isServiceRunning(Context context,
+                                    @SuppressWarnings("SameParameterValue") Class<?> serviceClass,
+                                    boolean inForeground) {
         /*boolean isRunning = (instance != null);
         if (inForeground)
             isRunning = isRunning && isInForeground;

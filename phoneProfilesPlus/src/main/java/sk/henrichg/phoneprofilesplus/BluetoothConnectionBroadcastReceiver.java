@@ -16,11 +16,11 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-@SuppressLint("MissingPermission")
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     private static volatile List<BluetoothDeviceData> connectedDevices = null;
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] BluetoothConnectionBroadcastReceiver.onReceive", "xxx");
@@ -230,6 +230,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private static void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
@@ -258,6 +259,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private static void removeConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
@@ -299,7 +301,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             if (connectedDevices != null) {
                 if (onlyOld) {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                    //noinspection ForLoopReplaceableByForEach
                     for (Iterator<BluetoothDeviceData> it = connectedDevices.iterator(); it.hasNext(); ) {
                         BluetoothDeviceData device = it.next();
                         //long bootTime = System.currentTimeMillis() - SystemClock.elapsedRealtime() - gmtOffset;
@@ -316,6 +317,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private static void changeDeviceName(BluetoothDevice device, String deviceName)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {

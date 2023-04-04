@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@SuppressLint("MissingPermission")
 class BluetoothConnectedDevices {
 
     private static volatile BluetoothHeadset bluetoothHeadset = null;
@@ -24,6 +23,7 @@ class BluetoothConnectedDevices {
 
     private static volatile BluetoothProfile.ServiceListener profileListener = null;
 
+    @SuppressLint("MissingPermission")
     static void getConnectedDevices(final Context context) {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
@@ -44,6 +44,7 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothHeadset != null) {
                                 try {
+                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothHeadset.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
@@ -64,6 +65,7 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothHealth != null) {
                                 try {
+                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothHealth.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
@@ -84,6 +86,7 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothA2dp != null) {
                                 try {
+                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothA2dp.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
@@ -154,6 +157,7 @@ class BluetoothConnectedDevices {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private static void addConnectedDevices(List<BluetoothDevice> detectedDevices, List<BluetoothDeviceData> connectedDevices)
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {

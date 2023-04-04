@@ -35,6 +35,8 @@ class MobileCellsScanner {
     static volatile boolean enabledAutoRegistration = false;
     static volatile int durationForAutoRegistration = 0;
     static volatile String cellsNameForAutoRegistration = "";
+
+    // must be this, because of Collections.synchronizedList
     @SuppressWarnings("Convert2Diamond")
     static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
@@ -340,7 +342,7 @@ class MobileCellsScanner {
     }
 
     static void getAllEvents(SharedPreferences sharedPreferences,
-                             @SuppressWarnings("SameParameterValue") String key) {
+                             String key) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.getAllEvents", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             Gson gson = new Gson();
@@ -354,7 +356,7 @@ class MobileCellsScanner {
     }
 
     static void saveAllEvents(SharedPreferences.Editor editor,
-                              @SuppressWarnings("SameParameterValue") String key) {
+                              String key) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.saveAllEvents", "******** ### *******");
         synchronized (autoRegistrationEventList) {
             Gson gson = new Gson();

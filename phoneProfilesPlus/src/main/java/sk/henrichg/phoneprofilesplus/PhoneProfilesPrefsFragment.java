@@ -454,7 +454,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                         try {
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
                             ok = true;
                         } catch (Exception e) {
@@ -499,7 +498,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                             ok = true;
                         } catch (Exception e) {
@@ -601,7 +599,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                             intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                             ok = true;
                         } catch (Exception e) {
@@ -686,7 +683,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         try {
                             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -728,7 +724,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         try {
                             Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -770,7 +765,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         try {
                             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -812,7 +806,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         try {
                             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -1040,7 +1033,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -1406,7 +1398,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (GlobalGUIRoutines.activityActionExists(activity, getActivity().getApplicationContext())) {
                     try {
                         Intent intent = new Intent(activity);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {

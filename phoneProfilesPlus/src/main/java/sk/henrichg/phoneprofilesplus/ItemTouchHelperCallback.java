@@ -10,8 +10,9 @@ class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     private final boolean mAllowSwipe;
     private final boolean mLogPressDrag;
 
-    @SuppressWarnings("SameParameterValue")
-    ItemTouchHelperCallback(ItemTouchHelperAdapter adapter, boolean allowSwipe, boolean longPressDrag) {
+    ItemTouchHelperCallback(ItemTouchHelperAdapter adapter,
+                            @SuppressWarnings("SameParameterValue") boolean allowSwipe,
+                            @SuppressWarnings("SameParameterValue") boolean longPressDrag) {
         mAdapter = adapter;
         mAllowSwipe = allowSwipe;
         mLogPressDrag = longPressDrag;

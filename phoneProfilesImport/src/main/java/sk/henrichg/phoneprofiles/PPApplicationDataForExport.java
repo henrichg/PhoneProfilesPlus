@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofiles;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-@SuppressWarnings("CanBeFinal")
 public class PPApplicationDataForExport implements Parcelable {
 
     public boolean applicationStartOnBoot;

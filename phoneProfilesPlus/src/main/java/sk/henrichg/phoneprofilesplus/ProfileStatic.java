@@ -247,9 +247,7 @@ class ProfileStatic {
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
-        //noinspection UnnecessaryLocalVariable
-        int percentage = BrightnessLookup.lookup(_settingsValue, true);
-        return percentage;
+        return BrightnessLookup.lookup(_settingsValue, true);
     }
 
     private static int getBrightnessManualValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
@@ -491,7 +489,6 @@ class ProfileStatic {
                 //}
 
                 if (PPApplication.deviceIsOnePlus) {
-                    //noinspection ConstantConditions
                     if (Build.VERSION.SDK_INT < 31)
                         value = (getBrightnessAdaptiveValueWithLookup(percentage/) - 512) / 512f;
                     else

@@ -13,7 +13,6 @@ import java.util.List;
 
 public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] ----------- WifiStateChangedBroadcastReceiver.onReceive", "xxx");
@@ -40,6 +39,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                 //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
                 //__handler.post(() -> {
+                @SuppressLint("MissingPermission")
                 Runnable __runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
 

@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -969,18 +970,18 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
     //------------------------------------------
 
-    @SuppressWarnings({"deprecation", "NullableProblems"})
+    @SuppressWarnings("deprecation")
     @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
+    public void startActivityForResult(@NonNull Intent intent, int requestCode) {
         try {
             super.startActivityForResult(intent, requestCode);
         } catch (NullPointerException e) {
             // fixes Google Maps bug: http://stackoverflow.com/a/20905954/2075875
-            String pkg = null;
-            if (intent != null)
+            String pkg;// = null;
+            //if (intent != null)
                 pkg = intent.getPackage();
             //noinspection StatementWithEmptyBody
-            if (intent == null || (pkg != null && pkg.equals("com.android.vending"))) {
+            if (/*intent == null ||*/ ((pkg != null) && (pkg.equals("com.android.vending")))) {
                 //PPApplicationStatic.recordException(e);
             } else {
                 PPApplicationStatic.recordException(e);

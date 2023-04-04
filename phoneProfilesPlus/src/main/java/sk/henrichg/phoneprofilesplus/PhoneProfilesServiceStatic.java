@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -718,7 +717,7 @@ class PhoneProfilesServiceStatic
                                     .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
                                     .build();
 
-                            PPApplication.wifiConnectionCallback = new WifiNetworkCallback(appContext);
+                            PPApplication.wifiConnectionCallback = new WifiNetworkCallback(/*appContext*/);
                             //if (Build.VERSION.SDK_INT >= 26)
                                 connectivityManager.registerNetworkCallback(networkRequest, PPApplication.wifiConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
                             //else {
@@ -739,7 +738,7 @@ class PhoneProfilesServiceStatic
                                     .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                                     .build();
 
-                            PPApplication.mobileDataConnectionCallback = new MobileDataNetworkCallback(appContext);
+                            PPApplication.mobileDataConnectionCallback = new MobileDataNetworkCallback(/*appContext*/);
                             //if (Build.VERSION.SDK_INT >= 26)
                                 connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
                             //else
@@ -1134,7 +1133,6 @@ class PhoneProfilesServiceStatic
         });
     }
 
-    @SuppressLint("InlinedApi")
     static void registerReceiverForRadioSwitchDefaultSIMSensor(boolean register, DataWrapper dataWrapper, Context context) {
         Context appContext = context.getApplicationContext();
         if (!register) {
@@ -2321,8 +2319,9 @@ class PhoneProfilesServiceStatic
         //    cancelSearchCalendarEventsWorker(appContext, handler);
     }
 
-    static void startLocationScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop,
-                                      DataWrapper dataWrapper, boolean forScreenOn, Context context) {
+    static void startLocationScanner(boolean start,
+                                     @SuppressWarnings("SameParameterValue") boolean stop,
+                                     DataWrapper dataWrapper, boolean forScreenOn, Context context) {
         synchronized (PPApplication.locationScannerMutex) {
             Context appContext = context.getApplicationContext();
             if (stop) {

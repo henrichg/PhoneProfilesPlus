@@ -9,7 +9,6 @@ import android.os.PowerManager;
 
 import java.util.List;
 
-@SuppressLint("MissingPermission")
 class BluetoothLEScanCallback extends ScanCallback {
 
     private final Context context;
@@ -55,6 +54,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    @SuppressLint("MissingPermission")
                     String btName = device.getName();
                     if (btName != null) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] BluetoothLEScanCallback.onScanResult", "btName="+btName);
@@ -121,6 +121,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                         }
 
                         //String btAddress = device.getAddress();
+                        @SuppressLint("MissingPermission")
                         String btName = device.getName();
 
                         if (btName != null) {

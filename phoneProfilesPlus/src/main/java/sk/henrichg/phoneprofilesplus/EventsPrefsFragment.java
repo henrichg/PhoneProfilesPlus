@@ -397,7 +397,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 if (GlobalGUIRoutines.activityActionExists(activity1, context)) {
                     try {
                         Intent intent = new Intent(activity1);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -458,7 +457,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "locationScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_LOCATION_APP_SETTINGS);
                 return false;
             });
@@ -472,7 +470,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -513,7 +510,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "wifiScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_WIFI_SCANNING_APP_SETTINGS);
                 return false;
             });
@@ -527,7 +523,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -569,7 +564,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_TIME_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -621,7 +615,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         try {
                             Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            //noinspection deprecation
                             startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
                             ok = true;
                         } catch (Exception e) {
@@ -663,7 +656,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_APP_SETTINGS);
                 return false;
             });
@@ -677,7 +669,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -718,7 +709,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "orientationScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_ORIENTATION_SCANNING_SETTINGS);
                 return false;
             });
@@ -751,7 +741,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_MOBILE_CELLS_SCANNING_SETTINGS);
                 return false;
             });
@@ -765,7 +754,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     try {
                         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                        //noinspection deprecation
                         startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                         ok = true;
                     } catch (Exception e) {
@@ -806,7 +794,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_TIME_SCANNING_APP_SETTINGS);
                 return false;
             });
@@ -819,7 +806,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_CALENDAR_SCANNING_APP_SETTINGS);
                 return false;
             });
@@ -832,7 +818,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_PERIODIC_SCANNING_APP_SETTINGS);
                 return false;
             });
@@ -846,7 +831,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "eventRunCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_USE_PRIORITY_SETTINGS);
                 return false;
             });
@@ -859,7 +843,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "notificationScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_NOTIFICATION_SCANNING_APP_SETTINGS);
                 return false;
             });
@@ -1945,7 +1928,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                //noinspection deprecation
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
                 ok = true;
             } catch (Exception e) {

@@ -31,6 +31,7 @@ import androidx.annotation.Keep;
 
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
+@SuppressWarnings("unused")
 public class FastScrollPopup {
 
     private final FastScrollRecyclerView mRecyclerView;
@@ -122,14 +123,12 @@ public class FastScrollPopup {
     }
 
     // Setter/getter for the popup alpha for animations
-    @SuppressWarnings("unused")
     @Keep
     public void setAlpha(float alpha) {
         mAlpha = alpha;
         mRecyclerView.invalidate(mBgBounds);
     }
 
-    @SuppressWarnings("unused")
     @Keep
     public float getAlpha() {
         return mAlpha;
@@ -139,7 +138,6 @@ public class FastScrollPopup {
         mTextVerticalAlignmentMode = mode;
     }
 
-    @SuppressWarnings("unused")
     @FastScroller.PopupTextVerticalAlignmentMode
     public int getPopupTextVerticalAlignmentMode() {
         return mTextVerticalAlignmentMode;
@@ -149,7 +147,6 @@ public class FastScrollPopup {
         mPosition = position;
     }
 
-    @SuppressWarnings("unused")
     @FastScroller.PopupPosition
     public int getPopupPosition() {
         return mPosition;

@@ -610,7 +610,6 @@ public class EditorProfileListFragment extends Fragment
         int editMode;
 
         if (profile != null)
-        //noinspection SuspiciousIndentAfterControlStatement
         {
             // edit profile
             int profilePos = profileListAdapter.getItemPosition(profile);
@@ -626,7 +625,7 @@ public class EditorProfileListFragment extends Fragment
 
             //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
             //if (startTargetHelps)
-                showAdapterTargetHelps();
+            showAdapterTargetHelps();
 
             editMode = EDIT_MODE_EDIT;
         }
@@ -763,7 +762,6 @@ public class EditorProfileListFragment extends Fragment
             popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
-        //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());
 
         final Profile profile = (Profile)view.getTag();
@@ -827,10 +825,10 @@ public class EditorProfileListFragment extends Fragment
             dialog.show();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void deleteAllProfiles()
     {
         if (profileListAdapter != null) {
+            @SuppressLint("NotifyDataSetChanged")
             PPAlertDialog dialog = new PPAlertDialog(
                     getString(R.string.alert_title_delete_all_profiles),
                     getString(R.string.alert_message_delete_all_profiles),
@@ -1331,16 +1329,13 @@ public class EditorProfileListFragment extends Fragment
             popup = new PopupMenu(_context, view, Gravity.END);
             //else
             //    popup = new PopupMenu(context, view);
-            //noinspection ConstantConditions
             getActivity().getMenuInflater().inflate(R.menu.profile_list_item_show_in_activator, popup.getMenu());
 
             // show icons
             try {
-                @SuppressLint("DiscouragedPrivateApi")
                 Field field = popup.getClass().getDeclaredField("mPopup");
                 field.setAccessible(true);
                 Object menuPopupHelper = field.get(popup);
-                @SuppressLint("PrivateApi")
                 Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
                 Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
                 method.setAccessible(true);

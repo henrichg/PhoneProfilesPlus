@@ -121,7 +121,7 @@ public class LogCrashActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("EmptyMethod")
+    /*
     @Override
     protected void onDestroy()
     {
@@ -130,6 +130,7 @@ public class LogCrashActivity extends AppCompatActivity {
         //if (cursor != null)
         //    cursor.close();
     }
+    */
 
     void refreshListView(boolean showLog)
     {

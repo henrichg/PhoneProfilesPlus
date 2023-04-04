@@ -25,7 +25,7 @@ import java.util.Vector;
 /**
  * Dialog to set alarm time.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"deprecation", "resource", "ConstantConditions"})
 public class NumberPickerDialogFragment extends DialogFragment {
 
     private static final String REFERENCE_KEY = "NumberPickerDialogFragment_ReferenceKey";
@@ -165,7 +165,6 @@ public class NumberPickerDialogFragment extends DialogFragment {
 
         if (mTheme != -1) {
             if (getActivity() != null) {
-                //noinspection resource
                 TypedArray a = getActivity().getApplicationContext().obtainStyledAttributes(mTheme, R.styleable.BetterPickersDialogFragment);
 
                 mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);
@@ -209,7 +208,6 @@ public class NumberPickerDialogFragment extends DialogFragment {
                 handler.onDialogNumberSet(mReference, mPicker.getNumber(), mPicker.getDecimal(), mPicker.getIsNegative(), number);
             }
             final Activity activity = getActivity();
-            //noinspection deprecation
             final Fragment fragment = getTargetFragment();
             if (activity instanceof NumberPickerDialogHandlerV2) {
                 final NumberPickerDialogHandlerV2 act = (NumberPickerDialogHandlerV2) activity;
@@ -235,7 +233,6 @@ public class NumberPickerDialogFragment extends DialogFragment {
         }
         mPicker.setNumber(mCurrentNumber, mCurrentDecimal, mCurrentSign);
 
-        //noinspection ConstantConditions
         if (getDialog().getWindow() != null)
             getDialog().getWindow().setBackgroundDrawableResource(mDialogBackgroundResId);
         return view;

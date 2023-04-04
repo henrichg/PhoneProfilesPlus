@@ -18,7 +18,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
             final String action = intent.getAction();
             if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)/* ||
                     action.equals(Intent.ACTION_TIME_CHANGED) ||
-                    action.equals(Intent.ACTION_TIME_TICK)*/) //noinspection SuspiciousIndentAfterControlStatement
+                    action.equals(Intent.ACTION_TIME_TICK)*/)
             {
 
                 //final Context appContext = context.getApplicationContext();
@@ -52,40 +52,40 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                 //if (timeChanged) {
 
-                    final Context appContext = context.getApplicationContext();
-                    //PPApplication.startHandlerThreadBroadcast(/*"TimeChangedReceiver.onReceive"*/);
-                    //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-                    //        context.getApplicationContext()) {
-                    //__handler.post(() -> {
-                    Runnable runnable = () -> {
+                final Context appContext = context.getApplicationContext();
+                //PPApplication.startHandlerThreadBroadcast(/*"TimeChangedReceiver.onReceive"*/);
+                //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                //        context.getApplicationContext()) {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //if (appContext != null) {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":TimeChangedReceiver_onReceive");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":TimeChangedReceiver_onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                doWork(appContext, false);
+                            doWork(appContext, false);
 
-                            } catch (Exception e) {
+                        } catch (Exception e) {
 //                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplicationStatic.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                        //}
-                    }; //);
+                        }
+                    //}
+                }; //);
                 PPApplicationStatic.createEventsHandlerExecutor();
                     PPApplication.eventsHandlerExecutor.submit(runnable);
                 //}

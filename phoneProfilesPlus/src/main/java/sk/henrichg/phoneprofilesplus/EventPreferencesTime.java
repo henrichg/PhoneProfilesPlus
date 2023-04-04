@@ -547,7 +547,8 @@ class EventPreferencesTime extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    private long computeAlarm(boolean startEvent, @SuppressWarnings("unused") Context context)
+    private long computeAlarm(boolean startEvent,
+                              @SuppressWarnings("unused") Context context)
     {
         Calendar now = Calendar.getInstance();
 

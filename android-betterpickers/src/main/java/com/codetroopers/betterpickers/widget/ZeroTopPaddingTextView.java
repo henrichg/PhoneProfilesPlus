@@ -23,6 +23,7 @@ import android.util.AttributeSet;
 /**
  * Displays text with no padding at the top.
  */
+@SuppressWarnings({"ConstantConditions", "EmptyMethod", "unused"})
 public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     //private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
@@ -62,7 +63,6 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
     }
 
 
-    @SuppressWarnings("EmptyMethod")
     private void init() {
         //decimalSeparator = getResources().getString(R.string.number_picker_separator);
         //timeSeparator = getResources().getString(R.string.time_picker_time_separator);
@@ -73,7 +73,6 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
         float bottomPaddingRatio = NORMAL_FONT_BOTTOM_PADDING_RATIO;
         if (getPaint().getTypeface() != null && getPaint().getTypeface().equals(Typeface.DEFAULT_BOLD)) {
             paddingRatio = BOLD_FONT_PADDING_RATIO;
-            //noinspection ConstantConditions
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         }
         /*if (getTypeface() != null && getTypeface().equals(SAN_SERIF_BOLD)) {
@@ -99,7 +98,6 @@ public class ZeroTopPaddingTextView extends androidx.appcompat.widget.AppCompatT
                 (int) (-BOLD_FONT_BOTTOM_PADDING_RATIO * getTextSize()));
     }
 
-    @SuppressWarnings("unused")
     public void setPaddingRight(int padding) {
         mPaddingRight = padding;
         updatePadding();

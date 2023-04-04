@@ -72,7 +72,6 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             //intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
             if (GlobalGUIRoutines.activityIntentExists(intent, prefContext)) {
                 try {
-                    //noinspection deprecation
                     startActivity(intent);
                     ok = true;
                 } catch (Exception e) {

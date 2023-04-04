@@ -2245,7 +2245,6 @@ class PPApplicationStatic {
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
             LayoutInflater inflater = activity.getLayoutInflater();
-            @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_do_not_kill_my_app, null);
             dialogBuilder.setView(layout);
 

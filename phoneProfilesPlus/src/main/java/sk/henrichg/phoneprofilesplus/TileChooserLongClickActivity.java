@@ -169,7 +169,6 @@ public class TileChooserLongClickActivity extends AppCompatActivity {
             PPApplicationStatic.startPPService(this, serviceIntent);
             //return true;
         } /*else {
-            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 //return true;
             }

@@ -553,7 +553,7 @@ public class PhoneProfilesService extends Service
 //    }
 
     // start service for first start
-    private void doForFirstStart(Intent intent/*, int flags, int startId*/) {
+    private void doForFirstStart(final Intent serviceIntent/*, int flags, int startId*/) {
         PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart START");
 
         final Context appContext = getApplicationContext();
@@ -572,8 +572,7 @@ public class PhoneProfilesService extends Service
         int startForExternalAppDataType = 0;
         String startForExternalAppDataValue = "";
 
-        //noinspection UnnecessaryLocalVariable
-        final Intent serviceIntent = intent;
+        //final Intent serviceIntent = intent;
 
         if (serviceIntent != null) {
             applicationStart = serviceIntent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
@@ -824,7 +823,6 @@ public class PhoneProfilesService extends Service
                     List<NextAlarmClockData> times = NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes(appContext);
                     if (times != null) {
                         for (NextAlarmClockData _time : times) {
-//                            @SuppressLint("SimpleDateFormat")
 //                            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
 //                            String ___time = sdf.format(_time.time);
 //                            PPApplicationStatic.logE("PhoneProfilesService.doForFirstStart - handler", "next alarm clock alarm time="+___time);

@@ -448,10 +448,7 @@ public class EditorActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(
-                (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
-                    //noinspection Convert2MethodRef
-                    return selectViewItem(item);
-                }
+                EditorActivity.this::selectViewItem
         );
         // set size of icons of BottomNavigationView
         /*BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
@@ -695,7 +692,6 @@ public class EditorActivity extends AppCompatActivity
             PPApplicationStatic.startPPService(this, serviceIntent);
             //return true;
         } /*else {
-            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 //return true;
             }
@@ -1086,8 +1082,7 @@ public class EditorActivity extends AppCompatActivity
         //    menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled);
         //}
 
-        //noinspection Convert2MethodRef
-        onNextLayout(editorToolbar, () -> showTargetHelps());
+        onNextLayout(editorToolbar, this::showTargetHelps);
 
         return ret;
     }
@@ -2780,7 +2775,7 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
-    @SuppressLint({"ApplySharedPref", "SetWorldReadable", "SetWorldWritable"})
+    @SuppressLint({"SetWorldReadable", "SetWorldWritable", "ApplySharedPref"})
     private boolean exportApplicationPreferences(File dst, boolean runStopEvents/*, int what*/) {
         boolean res = true;
         ObjectOutputStream output = null;
@@ -5499,12 +5494,12 @@ public class EditorActivity extends AppCompatActivity
                     if (ret == 1) {
                         //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
                         File exportFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
+                        //noinspection StatementWithEmptyBody
                         if (activity.exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
                                 ret = 0;*/
-                            //noinspection ConstantConditions
-                            ret = 1;
+                            //ret = 1;
                         } else
                             ret = 0;
                     }

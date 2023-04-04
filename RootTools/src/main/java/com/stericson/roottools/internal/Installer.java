@@ -42,6 +42,7 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@SuppressWarnings({"SynchronizationOnLocalVariableOrMethodParameter", "StringBufferMayBeStringBuilder", "TryWithIdenticalCatches", "StatementWithEmptyBody", "unused"})
 class Installer
 {
 
@@ -146,7 +147,6 @@ class Installer
                 try
                 {
                     long size = iss.available();
-                    //noinspection StatementWithEmptyBody
                     while ((pos += ofc.transferFrom(rfc, pos, size - pos)) < size)
                     {
 
@@ -239,7 +239,6 @@ class Installer
     /*
      * Note: this method will close any string passed to it
      */
-    @SuppressWarnings("TryWithIdenticalCatches")
     protected String getStreamSignature(InputStream is)
     {
         String signature = "";
@@ -248,13 +247,11 @@ class Installer
             MessageDigest md = MessageDigest.getInstance("MD5");
             DigestInputStream dis = new DigestInputStream(is, md);
             byte[] buffer = new byte[4096];
-            //noinspection StatementWithEmptyBody
             while (-1 != dis.read(buffer))
             {
 
             }
             byte[] digest = md.digest();
-            @SuppressWarnings("StringBufferMayBeStringBuilder")
             StringBuffer sb = new StringBuffer();
 
             for (byte aDigest : digest) {
@@ -286,7 +283,6 @@ class Installer
 
     private void commandWait(Command cmd)
     {
-        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd)
         {
             try

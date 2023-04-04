@@ -181,8 +181,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         String versionNameInReleases = "";
                         int versionCodeInReleases = 0;
 
-                        //noinspection UnnecessaryLocalVariable
-                        String contents = response;
+                        //String contents = response;
 
                         boolean forceDoData = false;
 
@@ -190,9 +189,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         //if (DebugVersion.enabled)
                         //    forceDoData = true;
 
-                        //noinspection ConstantConditions
                         PPApplicationStatic.PPPReleaseData pppReleaseData =
-                                PPApplicationStatic.getReleaseData(contents, forceDoData, appContext);
+                                PPApplicationStatic.getReleaseData(response, forceDoData, appContext);
 
                         showNotification = pppReleaseData != null;
                         if (showNotification) {

@@ -70,7 +70,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     //switch (nightModeFlags) {
-                    //noinspection IfStatementWithIdenticalBranches
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 

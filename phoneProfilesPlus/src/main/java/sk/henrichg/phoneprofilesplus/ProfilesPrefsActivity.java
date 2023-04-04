@@ -148,9 +148,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         //if (profile_id != Profile.SHARED_PROFILE_ID) {
         // no menu for shared profile
 
-        //noinspection Convert2MethodRef
-        onNextLayout(toolbar, () -> showTargetHelps());
-        //}
+        onNextLayout(toolbar, this::showTargetHelps);
 
         /*final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {

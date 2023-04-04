@@ -294,7 +294,6 @@ public class ActivatorActivity extends AppCompatActivity
             PPApplicationStatic.startPPService(this, serviceIntent);
             //return true;
         }/* else {
-            //noinspection StatementWithEmptyBody
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 //return true;
             }
@@ -521,7 +520,6 @@ public class ActivatorActivity extends AppCompatActivity
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
-                //noinspection IfStatementWithIdenticalBranches
                 if (EventStatic.getGlobalEventsRunning(this)) {
                     int id = 1;
                     try {

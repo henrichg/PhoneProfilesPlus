@@ -377,7 +377,6 @@ public class ActivatorListFragment extends Fragment {
 
                             // no profile in list, start Editor
 
-                            //noinspection ConstantConditions
                             Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
@@ -422,7 +421,6 @@ public class ActivatorListFragment extends Fragment {
 
                     fragment.doOnStart();
 
-                    //noinspection ConstantConditions
                     final Handler handler = new Handler(fragment.getActivity().getMainLooper());
                     handler.postDelayed(() -> {
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListFragment.LoadProfileListAsyncTask (2)");

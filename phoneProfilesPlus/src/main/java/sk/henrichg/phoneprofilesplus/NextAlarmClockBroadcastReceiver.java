@@ -18,7 +18,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     static final String PREF_EVENT_ALARM_CLOCK_TIME_COUNT = "eventAlarmClockTimeCount";
     static final String PREF_EVENT_ALARM_CLOCK_TIME = "eventAlarmClockTime";
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
@@ -31,83 +30,82 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //    return;
 
         //if (android.os.Build.VERSION.SDK_INT >= 21) {
-            String action = intent.getAction();
+        String action = intent.getAction();
 //            PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.onReceive", "action="+action);
 
-            if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
+        if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
 
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                if (alarmManager != null) {
-                    AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
 //                    PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo="+alarmClockInfo);
 
-                    if (alarmClockInfo != null) {
+                if (alarmClockInfo != null) {
 
-                        long _time = alarmClockInfo.getTriggerTime();
+                    long _time = alarmClockInfo.getTriggerTime();
 
-//                        @SuppressLint("SimpleDateFormat")
 //                        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
 //                        String time = sdf.format(_time);
 //                        PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time="+time);
 
-                        PendingIntent infoPendingIntent = alarmClockInfo.getShowIntent();
-                        // infoPendingIntent == null - Xiaomi Clock :-/
-                        // infoPendingIntent == null - LG Clock :-/
-                        // infoPendingIntent == null - Huawei Clock :-/
+                    PendingIntent infoPendingIntent = alarmClockInfo.getShowIntent();
+                    // infoPendingIntent == null - Xiaomi Clock :-/
+                    // infoPendingIntent == null - LG Clock :-/
+                    // infoPendingIntent == null - Huawei Clock :-/
 
 //                        PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent="+infoPendingIntent);
 
-                        if (infoPendingIntent != null) {
-                            String packageName = infoPendingIntent.getCreatorPackage();
+                    if (infoPendingIntent != null) {
+                        String packageName = infoPendingIntent.getCreatorPackage();
 //                            PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName="+packageName);
-                            if (packageName != null) {
-                                if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
+                        if (packageName != null) {
+                            if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
 
-                                    // com.google.android.deskclock - Google Clock
-                                    // com.sec.android.app.clockpackage - Samsung Clock
-                                    // com.sonyericsson.organizer - Sony Clock
-                                    // com.amdroidalarmclock.amdroid - AMdroid
-                                    // com.alarmclock.xtreme.free - Alarm Clock XTreme free
-                                    // com.alarmclock.xtreme - Alarm Clock XTreme
-                                    // droom.sleepIfUCan - Alarmy (Sleep if u can)
-                                    // com.funanduseful.earlybirdalarm - Early Bird Alarm Clock
-                                    // com.apalon.alarmclock.smart - Good Morning Alarm Clock
-                                    // com.kog.alarmclock - I Can't Wake Up! Alarm Clock
-                                    // com.urbandroid.sleep - Sleep as Android
-                                    // ch.bitspin.timely - Timely
-                                    // com.angrydoughnuts.android.alarmclock - Alarm Klock
+                                // com.google.android.deskclock - Google Clock
+                                // com.sec.android.app.clockpackage - Samsung Clock
+                                // com.sonyericsson.organizer - Sony Clock
+                                // com.amdroidalarmclock.amdroid - AMdroid
+                                // com.alarmclock.xtreme.free - Alarm Clock XTreme free
+                                // com.alarmclock.xtreme - Alarm Clock XTreme
+                                // droom.sleepIfUCan - Alarmy (Sleep if u can)
+                                // com.funanduseful.earlybirdalarm - Early Bird Alarm Clock
+                                // com.apalon.alarmclock.smart - Good Morning Alarm Clock
+                                // com.kog.alarmclock - I Can't Wake Up! Alarm Clock
+                                // com.urbandroid.sleep - Sleep as Android
+                                // ch.bitspin.timely - Timely
+                                // com.angrydoughnuts.android.alarmclock - Alarm Klock
 
-                                    /*if (packageName.equals("com.google.android.deskclock") ||
-                                        packageName.equals("com.sec.android.app.clockpackage") ||
-                                        packageName.equals("com.sonyericsson.organizer") ||
-                                        packageName.equals("com.amdroidalarmclock.amdroid") ||
-                                        packageName.equals("com.alarmclock.xtreme") ||
-                                        packageName.equals("com.alarmclock.xtreme.free") ||
-                                        packageName.equals("droom.sleepIfUCan") ||
-                                        packageName.equals("com.funanduseful.earlybirdalarm") ||
-                                        packageName.equals("com.apalon.alarmclock.smart") ||
-                                        packageName.equals("com.kog.alarmclock") ||
-                                        packageName.equals("com.urbandroid.sleep") ||
-                                        packageName.equals("ch.bitspin.timely") ||
-                                        packageName.equals("com.angrydoughnuts.android.alarmclock"))*/
+                                /*if (packageName.equals("com.google.android.deskclock") ||
+                                    packageName.equals("com.sec.android.app.clockpackage") ||
+                                    packageName.equals("com.sonyericsson.organizer") ||
+                                    packageName.equals("com.amdroidalarmclock.amdroid") ||
+                                    packageName.equals("com.alarmclock.xtreme") ||
+                                    packageName.equals("com.alarmclock.xtreme.free") ||
+                                    packageName.equals("droom.sleepIfUCan") ||
+                                    packageName.equals("com.funanduseful.earlybirdalarm") ||
+                                    packageName.equals("com.apalon.alarmclock.smart") ||
+                                    packageName.equals("com.kog.alarmclock") ||
+                                    packageName.equals("com.urbandroid.sleep") ||
+                                    packageName.equals("ch.bitspin.timely") ||
+                                    packageName.equals("com.angrydoughnuts.android.alarmclock"))*/
 
-                                        setAlarm(_time, packageName, alarmManager, context);
-                                }
-                            } /*else {
-                                setAlarm(_time, "", alarmManager, context);
-                            }*/
+                                    setAlarm(_time, packageName, alarmManager, context);
+                            }
                         } /*else {
                             setAlarm(_time, "", alarmManager, context);
                         }*/
-                    }
-                    /*else {
-                        //getEventAlarmClockTime(context);
-                        //getEventAlarmClockPackageName(context);
-                        //removeAlarm(ApplicationPreferences.prefEventAlarmClockPackageName, alarmManager, context);
-                        setEventAlarmClockTime("", 0, context);
+                    } /*else {
+                        setAlarm(_time, "", alarmManager, context);
                     }*/
                 }
+                /*else {
+                    //getEventAlarmClockTime(context);
+                    //getEventAlarmClockPackageName(context);
+                    //removeAlarm(ApplicationPreferences.prefEventAlarmClockPackageName, alarmManager, context);
+                    setEventAlarmClockTime("", 0, context);
+                }*/
             }
+        }
         //}
     }
 
@@ -166,7 +164,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
         // alarm is not stored in shared prefs PREF_EVENT_ALARM_CLOCK_TIME_*
 
-//            @SuppressLint("SimpleDateFormat")
 //            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
 //            String time = sdf.format(alarmCalendar.getTimeInMillis());
 //            PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime="+time);
@@ -233,7 +230,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                 if (!json.isEmpty()) {
                     NextAlarmClockData time = gson.fromJson(json, NextAlarmClockData.class);
                     times.add(time);
-//                    @SuppressLint("SimpleDateFormat")
 //                    SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
 //                    String _time = sdf.format(time.time);
 //                    PPApplicationStatic.logE("NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes", "alarmTime="+_time);
@@ -244,7 +240,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         } else
             return null;
     }
-//    @SuppressLint("SimpleDateFormat")
+
     static void setEventAlarmClockTime(String packageName, long time, Context context) {
 //        SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yyyy HH:mm:ss:S");
 //        String ___time = sdf.format(time);

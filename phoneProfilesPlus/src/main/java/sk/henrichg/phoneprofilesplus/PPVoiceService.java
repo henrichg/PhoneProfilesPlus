@@ -26,8 +26,8 @@ public final class PPVoiceService extends VoiceInteractionService {
         private PPPVoiceServiceInternal() {
         }
 
-        @SuppressWarnings({"rawtypes", "unused"})
-        public /* synthetic */ PPPVoiceServiceInternal(Class fVar) {
+        @SuppressWarnings("rawtypes")
+        public /* synthetic */ PPPVoiceServiceInternal(@SuppressWarnings("unused") Class fVar) {
             this();
         }
     }

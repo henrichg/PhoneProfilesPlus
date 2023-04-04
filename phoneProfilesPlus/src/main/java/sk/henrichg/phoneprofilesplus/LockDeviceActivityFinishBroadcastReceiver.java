@@ -86,7 +86,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                                wakeLock.acquire(10 * 60 * 1000);
 //                            }
 
-                        //noinspection Convert2MethodRef
                         LockDeviceActivityFinishBroadcastReceiver.doWork(context);
 
 //                        long finish = System.currentTimeMillis();
@@ -166,7 +165,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 //                        long start = System.currentTimeMillis();
 //                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** LockDeviceActivityFinishBroadcastReceiver.setAlarm", "--------------- START");
 
-                        //noinspection Convert2MethodRef
                         LockDeviceActivityFinishBroadcastReceiver.doWork(context);
 
 //                        long finish = System.currentTimeMillis();

@@ -14,7 +14,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressLint("MissingPermission")
 class BluetoothScanner {
 
     private final Context context;
@@ -86,7 +85,7 @@ class BluetoothScanner {
                     //boolean bluetoothEventsExists = DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTH_NEARBY, false) > 0;
                     //int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
                     //int forceScanLE = ApplicationPreferences.prefForceOneBluetoothLEScan;
-                    boolean classicDevicesScan = true; //DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
+                    //boolean classicDevicesScan = true; //DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_CLASSIC, forceScanLE) > 0;
                     boolean leDevicesScan = bluetoothLESupported(/*context*/);
                     /*if (bluetoothLESupported(context))
                         leDevicesScan = DatabaseHandler.getInstance(context.getApplicationContext()).getBluetoothDevicesTypeCount(EventPreferencesBluetooth.DTYPE_LE, forceScanLE) > 0;
@@ -110,6 +109,7 @@ class BluetoothScanner {
                                 // service restarted during scanning (prefEventBluetoothEnabledForScan is set to false at end of scan),
                                 // dislabe Bluetooth
                                 //bluetoothChangeHandler.post(() -> {
+                                @SuppressLint("MissingPermission")
                                 Runnable runnable = () -> {
 //                                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.1");
                                     if (Permissions.checkBluetoothForEMUI(context)) {
@@ -148,8 +148,7 @@ class BluetoothScanner {
 
                                 int bluetoothState;
 
-                                //noinspection ConstantConditions
-                                if (classicDevicesScan) {
+                                //if (classicDevicesScan) {
                                     ///////// Classic BT scan
 
                                     //lock();
@@ -180,7 +179,7 @@ class BluetoothScanner {
                                     //BluetoothScanWorker.setLEScanRequest(context, false);
 
                                     ///////// Classic BT scan - end
-                                }
+                                //}
 
                                 if (leDevicesScan && !ApplicationPreferences.prefEventBluetoothScanKilled) {
                                     ///////// LE BT scan
@@ -228,6 +227,7 @@ class BluetoothScanner {
 
                             if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
                                 //bluetoothChangeHandler.post(() -> {
+                                @SuppressLint("MissingPermission")
                                 Runnable runnable = () -> {
     //                                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothScanner.doScan.2");
 
@@ -310,6 +310,7 @@ class BluetoothScanner {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void startCLScan(Context context)
     {
         if (BluetoothScanWorker.bluetooth == null)
@@ -346,6 +347,7 @@ class BluetoothScanner {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void stopCLScan() {
         if (BluetoothScanWorker.bluetooth == null)
             BluetoothScanWorker.bluetooth = BluetoothAdapter.getDefaultAdapter(); //getBluetoothAdapter(context);
@@ -453,6 +455,7 @@ class BluetoothScanner {
     }
 
     // scanning working only when screen is on :-(
+    @SuppressLint("MissingPermission")
     private void startLEScan(final Context context)
     {
         if (BluetoothScanner.bluetoothLESupported(/*context*/)) {
@@ -512,6 +515,7 @@ class BluetoothScanner {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void stopLEScan(/*final Context context*/) {
         if (BluetoothScanner.bluetoothLESupported(/*context*/)) {
             if (BluetoothScanWorker.bluetooth == null)
@@ -591,6 +595,7 @@ class BluetoothScanner {
                         BluetoothScanWorker.setLEScanRequest(context, true);
                     final BluetoothAdapter _bluetooth = bluetooth;
                     //bluetoothChangeHandler.post(() -> {
+                    @SuppressLint("MissingPermission")
                     Runnable runnable = () -> {
 
                         if (Permissions.checkBluetoothForEMUI(context)) {

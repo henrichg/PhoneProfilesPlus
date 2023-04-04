@@ -13,13 +13,12 @@ import java.util.concurrent.TimeUnit;
 
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private final Context context;
+    //private final Context context;
 
     static volatile boolean connected = false;
 
-    WifiNetworkCallback(Context context) {
-        this.context = context.getApplicationContext();
+    WifiNetworkCallback(/*Context context*/) {
+        //this.context = context.getApplicationContext();
     }
 
     @Override
@@ -94,7 +93,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 */
 
-    @SuppressWarnings("SuspiciousIndentAfterControlStatement")
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
@@ -134,35 +132,35 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
                         .build();*/
 
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG)
-                            //.setInputData(workData)
-                            .setInitialDelay(5, TimeUnit.SECONDS)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                            .build();
-            try {
-                if (PPApplicationStatic.getApplicationStarted(true, true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG)
+                        //.setInputData(workData)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .build();
+        try {
+            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
 
-                        //                            //if (PPApplicationStatic.logEnabled()) {
-                        //                            ListenableFuture<List<WorkInfo>> statuses;
-                        //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
-                        //                            try {
-                        //                                List<WorkInfo> workInfoList = statuses.get();
-                        //                            } catch (Exception ignored) {
-                        //                            }
-                        //                            //}
-                        //
-                        //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
-                        //workManager.enqueue(worker);
-                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
+                    //                            //if (PPApplicationStatic.logEnabled()) {
+                    //                            ListenableFuture<List<WorkInfo>> statuses;
+                    //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+                    //                            try {
+                    //                                List<WorkInfo> workInfoList = statuses.get();
+                    //                            } catch (Exception ignored) {
+                    //                            }
+                    //                            //}
+                    //
+                    //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                    //workManager.enqueue(worker);
+                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
             }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
 
             /*
             final Context appContext = context;

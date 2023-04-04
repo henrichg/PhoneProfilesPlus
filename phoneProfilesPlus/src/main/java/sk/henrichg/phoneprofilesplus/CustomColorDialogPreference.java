@@ -84,8 +84,7 @@ public class CustomColorDialogPreference extends DialogPreference {
 
         Paint paintImage = new Paint();
         paintImage.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        //noinspection IntegerDivisionInFloatingPointContext
-        canvas.drawBitmap(bitmap, -(bitmap.getWidth() - widthLight)/2 , -(bitmap.getHeight() - heightLight)/2, paintImage);
+        canvas.drawBitmap(bitmap, -(bitmap.getWidth() - widthLight)/2f , -(bitmap.getHeight() - heightLight)/2f, paintImage);
 
         return output;
     }

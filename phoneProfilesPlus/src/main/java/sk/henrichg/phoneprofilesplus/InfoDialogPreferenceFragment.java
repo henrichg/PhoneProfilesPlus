@@ -160,14 +160,12 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     */
 
     // currently supported only Important info - Profiles
-    @SuppressWarnings("unused")
     @Override
     public void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
                               final String linkText, PPLinkMovementMethod.LinkType linkTypeText) {
         boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
 
-        //noinspection UnusedAssignment
-        int iiFragment = -1;
+        int iiFragment;// = -1;
         // 0 = System
         // 1 = Profiles
         // 2 = Events
@@ -188,7 +186,6 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         }
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void onLongClick(String text) {
 

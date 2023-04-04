@@ -90,7 +90,7 @@ class EventPreferencesMobileCells extends EventPreferences {
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
-            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) //noinspection SuspiciousIndentAfterControlStatement
+            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
             {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] EventPreferencesMobileCells.getPreferencesDescription", "******** ### *******");
@@ -118,26 +118,26 @@ class EventPreferencesMobileCells extends EventPreferences {
                     descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context) + "</b>";
 
                 //if (Build.VERSION.SDK_INT >= 26) {
-                    boolean hasSIMCard = false;
-                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            boolean simExists;
-                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
-                            boolean sim1Exists = hasSIMCardData.hasSIM1;
-                            boolean sim2Exists = hasSIMCardData.hasSIM2;
+                boolean hasSIMCard = false;
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        boolean simExists;
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
-                            simExists = sim1Exists;
-                            simExists = simExists && sim2Exists;
-                            hasSIMCard = simExists;
-                        }
+                        simExists = sim1Exists;
+                        simExists = simExists && sim2Exists;
+                        hasSIMCard = simExists;
                     }
-                    if (hasSIMCard) {
-                        descr = descr + " • " + context.getString(R.string.event_preferences_mobile_cells_forSimCard);
-                        String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
-                        descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
-                    }
+                }
+                if (hasSIMCard) {
+                    descr = descr + " • " + context.getString(R.string.event_preferences_mobile_cells_forSimCard);
+                    String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
+                }
                 //}
             }
             else {

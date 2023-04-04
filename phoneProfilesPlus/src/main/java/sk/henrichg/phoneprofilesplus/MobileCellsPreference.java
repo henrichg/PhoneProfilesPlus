@@ -137,8 +137,8 @@ public class MobileCellsPreference extends DialogPreference {
             fragment.setLocationEnableStatus();
     }
 
-    @SuppressWarnings("SameParameterValue")
-    void refreshListView(final boolean forRescan, final int renameCellId)
+    void refreshListView(final boolean forRescan,
+                         @SuppressWarnings("SameParameterValue") final int renameCellId)
     {
         if (fragment != null)
             fragment.refreshListView(forRescan, renameCellId);

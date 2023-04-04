@@ -1,11 +1,9 @@
 package me.drakeet.support.toast;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -14,11 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
-import java.lang.reflect.Field;
-
 /**
  * @author drakeet
  */
+@SuppressWarnings({"EmptyMethod", "unused"})
 public final class ToastCompat extends Toast {
 
   private final @NonNull Toast toast;
@@ -66,7 +63,6 @@ public final class ToastCompat extends Toast {
    * {@link #LENGTH_LONG}
    * @throws Resources.NotFoundException if the resource can't be found.
    */
-  @SuppressWarnings("unused")
   public static Toast makeText(Context context, @StringRes int resId, int duration)
       throws Resources.NotFoundException {
     return makeText(context, context.getResources().getText(resId), duration);
@@ -85,7 +81,6 @@ public final class ToastCompat extends Toast {
     return new ToastCompat(context, toast);
   }
 
-  @SuppressWarnings("unused")
   public @NonNull ToastCompat setBadTokenListener(@NonNull BadTokenListener listener) {
     final Context context = getView().getContext();
     if (context instanceof SafeToastContext) {
@@ -180,17 +175,14 @@ public final class ToastCompat extends Toast {
   }
 
 
-  @SuppressWarnings("unused")
   public @NonNull Toast getBaseToast() {
     return toast;
   }
 
 
-  @SuppressLint("ObsoleteSdkInt")
   private static void setContextCompat(@NonNull View view, @NonNull Context context) {
-    if (Build.VERSION.SDK_INT == 25) {
+    /*if (Build.VERSION.SDK_INT == 25) {
       try {
-        @SuppressLint("DiscouragedPrivateApi")
         Field field = View.class.getDeclaredField("mContext");
         field.setAccessible(true);
         field.set(view, context);
@@ -198,5 +190,7 @@ public final class ToastCompat extends Toast {
         throwable.printStackTrace();
       }
     }
+    */
   }
+
 }

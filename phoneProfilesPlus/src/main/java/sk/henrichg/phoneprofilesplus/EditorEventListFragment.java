@@ -655,7 +655,6 @@ public class EditorEventListFragment extends Fragment
         int editMode;
 
         if (event != null)
-        //noinspection SuspiciousIndentAfterControlStatement
         {
             // edit event
             int eventPos = eventListAdapter.getItemPosition(event);
@@ -670,7 +669,7 @@ public class EditorEventListFragment extends Fragment
 
             //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
             //if (startTargetHelps)
-                showAdapterTargetHelps();
+            showAdapterTargetHelps();
 
             editMode = EDIT_MODE_EDIT;
         }
@@ -1014,7 +1013,6 @@ public class EditorEventListFragment extends Fragment
         //else
         //    popup = new PopupMenu(context, view);
         Menu menu = popup.getMenu();
-        //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_edit, menu);
 
         final Event event = (Event)view.getTag();
@@ -2061,16 +2059,13 @@ public class EditorEventListFragment extends Fragment
         popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
-        //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_ignore_manual_activation, popup.getMenu());
 
         // show icons
         try {
-            @SuppressLint("DiscouragedPrivateApi")
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
-            @SuppressLint("PrivateApi")
             Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
             Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
             method.setAccessible(true);

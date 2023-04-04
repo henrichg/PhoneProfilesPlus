@@ -22,7 +22,6 @@ public class PPPPSDialogPreference extends DialogPreference {
         _context = context;
 
         /*
-        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPppppsDialogPreference);
 
@@ -111,9 +110,9 @@ public class PPPPSDialogPreference extends DialogPreference {
             return superState;
         }*/
 
-        //noinspection UnnecessaryLocalVariable
-        final PPPPSDialogPreference.SavedState myState = new PPPPSDialogPreference.SavedState(superState);
-        return myState;
+        //final PPPPSDialogPreference.SavedState myState = new PPPPSDialogPreference.SavedState(superState);
+        //return myState;
+        return new PPPPSDialogPreference.SavedState(superState);
     }
 
     @Override
