@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string_x" translatable="false"></string>
     <string name="menu_edit_profiles">Edytor</string>
     <string name="menu_settings">Ustawienia</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -1729,7 +1730,7 @@
     <string name="profile_preferences_category_end_of_activation">Koniec aktywacji</string>
     <string name="end_of_activation_time_end_acronym">do</string>
     <string name="end_of_activation_duration_acronym">ct</string>
-    <string name="end_of_activation_time_acronym">t</string>
+    <string name="end_of_activation_time_acronym">k</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Pokazuj czas końca aktywacji profilu</string>
     <string name="event_delay_start_acronym">za</string>
     <string name="event_delay_end_acronym">za</string>
@@ -2065,6 +2066,6 @@
     <string name="mobile_cells_item_delete_all_unselected">Usuń wszystkie niezaznaczone</string>
     <string name="delete_unselected_mobile_cells_alert_message">Usunąć wszystkie niewybrane stacje bazowe?</string>
     <string name="delete_unselected_mobile_cells_alert_message_warning">OSTRZEŻENIE: Usunięte stacje bazowe mogą być używane w innych zdarzeniach.</string>
-    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
-    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Nie konfiguruj folderu, który jest zsynchronizowany z chmurą, na przykład Zdjęcia, Obrazy.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">aby zmieniać dźwięki dzwonka, powiadomień oraz alarmu w telefonie dual SIM</string>
 </resources>

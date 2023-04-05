@@ -3,18 +3,19 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
-    <string name="menu_edit_profiles">Editor</string>
-    <string name="menu_settings">Settings</string>
+    <string name="empty_string_x" translatable="false"></string>
+    <string name="menu_edit_profiles">การแก้ไข</string>
+    <string name="menu_settings">การตั้งค่า</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
-    <string name="title_activity_profile_preferences">Profile preferences</string>
-    <string name="title_activity_event_preferences">Event preferences</string>
-    <string name="menu_new_profile">New profile</string>
-    <string name="menu_delete_all_profiles">Delete all profiles</string>
-    <string name="menu_new_event">New event</string>
-    <string name="menu_delete_all_events">Delete all events</string>
-    <string name="profiles_header_profile_name_no_activated">No profile activated</string>
-    <string name="profile_name_default">Profile</string>
-    <string name="event_name_default">Event</string>
+    <string name="title_activity_profile_preferences">การตั้งค่าโปรไฟล์</string>
+    <string name="title_activity_event_preferences">กำหนดลักษณะเหตุการณ์</string>
+    <string name="menu_new_profile">โปรไฟล์ใหม่</string>
+    <string name="menu_delete_all_profiles">ลบโปรไฟล์ทั้งหมด</string>
+    <string name="menu_new_event">เหตุการณ์ใหม่</string>
+    <string name="menu_delete_all_events">ลบเหตุการณ์ทั้งหมด</string>
+    <string name="profiles_header_profile_name_no_activated">ไม่มีการเปิดใช้งานโปรไฟล์</string>
+    <string name="profile_name_default">โปรไฟล์</string>
+    <string name="event_name_default">เหตุการณ์</string>
     <string name="profile_context_item_edit">Edit</string>
     <string name="profile_context_item_delete">Delete</string>
     <string name="profile_string_0">Profile</string>
