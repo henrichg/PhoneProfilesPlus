@@ -2144,6 +2144,7 @@
     <string name="extender_menu_choose_language">Choose language</string>
     <string name="extender_menu_choose_language_system_language">[ System ]</string>
     <string name="extender_application_translations">Translations:</string>
+    <string name="extender_email_chooser">Send e-mail using</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2168,13 +2169,12 @@
     <string name="pppputsettings_acra_notification_title">Sorry, PPPPutSettings crashed</string>
     <string name="pppputsettings_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="pppputsettings_notification_channel_crash_report">Crash report</string>
-
     <string name="pppputsettings_notification_channel_exclamation">Exclamation</string>
     <string name="pppputsettings_not_granted_write_settings_title">\"Modify system settings\" not granted</string>
     <string name="pppputsettings_not_granted_write_settings_text">\"Modify system settings\" is not granted for PPPPutSettings. Click this notification to grant it.</string>
-
     <string name="pppputsettings_modify_system_settings_granted">Granted</string>
     <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
+    <string name="pppputsettings_email_chooser">Send e-mail using</string>
 
 </resources>
 
