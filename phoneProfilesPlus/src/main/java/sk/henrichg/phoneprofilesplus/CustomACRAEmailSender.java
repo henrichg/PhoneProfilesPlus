@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.LabeledIntent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import com.google.auto.service.AutoService;
@@ -71,6 +72,11 @@ public class CustomACRAEmailSender implements ReportSender {
     }
 
     @Override
+    public boolean requiresForeground() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
+    }
+
+    @Override
     public void send(@NotNull Context context, @NotNull CrashReportData errorContent)
             throws ReportSenderException {
 //        Log.e("CustomACRAEmailSender.send", "Report Sent!");
@@ -83,11 +89,12 @@ public class CustomACRAEmailSender implements ReportSender {
 
                 MailSenderConfiguration mailConfig = (MailSenderConfiguration) plugin;
 
-                String emailAddress =  mailConfig.getMailTo();
+                String emailAddress = mailConfig.getMailTo();
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         "mailto", emailAddress, null));
 
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "(new sender) " + mailConfig.getSubject());
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
+
                 emailIntent.putExtra(Intent.EXTRA_TEXT, mailConfig.getBody());
                 emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -110,9 +117,9 @@ public class CustomACRAEmailSender implements ReportSender {
                 for (ResolveInfo info : resolveInfo) {
                     Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                     intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                    if (!emailAddress.isEmpty())
-                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "(new sender) " + mailConfig.getSubject());
+                    //if (!emailAddress.isEmpty())
+                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                    intent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
                     intent.putExtra(Intent.EXTRA_TEXT, mailConfig.getBody());
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments); //ArrayList<Uri> of attachment Uri's
@@ -136,7 +143,9 @@ public class CustomACRAEmailSender implements ReportSender {
         }
     }
 
-    protected Uri createAttachmentFromString(Context context, String name, String content) {
+    protected Uri createAttachmentFromString(Context context,
+                                             @SuppressWarnings("SameParameterValue") String name,
+                                             String content) {
         File cache = new File(context.getCacheDir(), name);
         try {
             writeStringToFile(cache, content);

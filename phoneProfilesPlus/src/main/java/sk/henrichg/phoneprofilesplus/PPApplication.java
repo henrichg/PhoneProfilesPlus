@@ -1363,7 +1363,7 @@ public class PPApplication extends Application
                         .withBody(body)
                         .withReportAsFile(true)
                         .withReportFileName("crash_report.txt")
-                        .withEnabled(true)
+                        .withEnabled(false) // must be false because of custom report sender
                         .build()
         );
 
