@@ -81,65 +81,69 @@ public class CustomACRAEmailSender implements ReportSender {
             throws ReportSenderException {
 //        Log.e("CustomACRAEmailSender.send", "Report Sent!");
 
-        List<Configuration> plugins = coreConfiguration.getPluginConfigurations();
+        try {
+            List<Configuration> plugins = coreConfiguration.getPluginConfigurations();
 //        Log.e("CustomACRAEmailSender.send", "plugins.size=" + plugins.size());
-        for (Configuration plugin : plugins) {
-            if (plugin instanceof MailSenderConfiguration) {
+            for (Configuration plugin : plugins) {
+                if (plugin instanceof MailSenderConfiguration) {
 //                Log.e("CustomACRAEmailSender.send", "MailSenderConfiguration");
 
-                MailSenderConfiguration mailConfig = (MailSenderConfiguration) plugin;
+                    MailSenderConfiguration mailConfig = (MailSenderConfiguration) plugin;
 
-                String emailAddress = mailConfig.getMailTo();
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", emailAddress, null));
+                    String emailAddress = mailConfig.getMailTo();
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                            "mailto", emailAddress, null));
 
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
 
-                emailIntent.putExtra(Intent.EXTRA_TEXT, mailConfig.getBody());
-                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, mailConfig.getBody());
+                    emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-                ArrayList<Uri> attachments = new ArrayList<>();
+                    ArrayList<Uri> attachments = new ArrayList<>();
 
-                String reportText;
-                try {
-                    reportText = coreConfiguration.getReportFormat().toFormattedString(errorContent, coreConfiguration.getReportContent(), "\n", "\n\t", false);
-                } catch (Exception e) {
-                    throw new ReportSenderException("Failed to convert Report to text", e);
-                }
-
-                Uri report = createAttachmentFromString(context, mailConfig.getReportFileName(), reportText);
-                if (report != null) {
-                    attachments.add(report);
-                }
-
-                List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
-                List<LabeledIntent> intents = new ArrayList<>();
-                for (ResolveInfo info : resolveInfo) {
-                    Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                    intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                    //if (!emailAddress.isEmpty())
-                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
-                    intent.putExtra(Intent.EXTRA_TEXT, mailConfig.getBody());
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments); //ArrayList<Uri> of attachment Uri's
-                    intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
-                }
-//                Log.e("CustomACRAEmailSender.send", "intents.size()="+intents.size());
-                if (intents.size() > 0) {
+                    String reportText;
                     try {
-                        Intent chooser = Intent.createChooser(intents.get(0), context.getString(R.string.email_chooser));
-                        //noinspection ToArrayCallWithZeroLengthArrayArgument
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
-                        chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(chooser);
+                        reportText = coreConfiguration.getReportFormat().toFormattedString(errorContent, coreConfiguration.getReportContent(), "\n", "\n\t", false);
                     } catch (Exception e) {
-                        Log.e("CustomACRAEmailSender.send", Log.getStackTraceString(e));
+                        throw new ReportSenderException("Failed to convert Report to text", e);
                     }
-                }
 
-                break;
+                    Uri report = createAttachmentFromString(context, mailConfig.getReportFileName(), reportText);
+                    if (report != null) {
+                        attachments.add(report);
+                    }
+
+                    List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
+                    List<LabeledIntent> intents = new ArrayList<>();
+                    for (ResolveInfo info : resolveInfo) {
+                        Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                        intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                        //if (!emailAddress.isEmpty())
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                        intent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
+                        intent.putExtra(Intent.EXTRA_TEXT, mailConfig.getBody());
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachments); //ArrayList<Uri> of attachment Uri's
+                        intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
+                    }
+//                Log.e("CustomACRAEmailSender.send", "intents.size()="+intents.size());
+                    if (intents.size() > 0) {
+                        try {
+                            Intent chooser = Intent.createChooser(intents.get(0), context.getString(R.string.email_chooser));
+                            //noinspection ToArrayCallWithZeroLengthArrayArgument
+                            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                            chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(chooser);
+                        } catch (Exception e) {
+                            Log.e("CustomACRAEmailSender.send", Log.getStackTraceString(e));
+                        }
+                    }
+
+                    break;
+                }
             }
+        } catch (Exception ee) {
+            Log.e("CustomACRAEmailSender.send", Log.getStackTraceString(ee));
         }
     }
 
