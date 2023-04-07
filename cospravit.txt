@@ -655,7 +655,7 @@ Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
 - Permissions.grantPlayRingtoneNotificationPermissions()
 - ActivateProfileHelper.putSettingsParameter() - cize zavolanie PPPPS
 
-Toto neviem, mozno treba, mozno nie
+Toto neviem, mozno treba, mozno nie: netreba
 - CustomACRAEmailSender.send()
 
 ----------
@@ -665,31 +665,12 @@ Zapnutie wifi - ale podla mna to vyzaduje root.
 
 ----------
 
-DataWrapper:
-- getNewProfileList() - boolean generateIcons, boolean generateIndicators - vsetky profily vrati
-	- DataWrapper.fillProfileList() - boolean generateIcons, boolean generateIndicators
-	- OneRowProfileList._onUpdate() - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator tu nie je tteba negereuje ho
-	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
-	- ProfileListNotification._showNotificaiton - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator tu nie je tteba negereuje ho
-	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
-	- ProfileListWidgetFactory.onDataSetChanged - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
-	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
-	- SamsungEdgeFactory.onDataSetChanged - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
-	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
+Farba notifikacie:
 
-- getActivatedProfileFromDB() - boolean generateIcons, boolean generateIndicators - len aktivovany profil vrati
-- getProfileByIdFromDB() - boolean generateIcons, boolean generateIndicators - len jeden profil (ako parameter) vrati
-- refreshProfileIcon() - boolean generateIcons, boolean generateIndicators - len jeden profil refreshuje
-- generateProfileIcon() - boolean generateIcons, boolean generateIndicators - len pre jeden profil generuje
+PPP - mam, a u vsetkych:
+- setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
 
+Zostava len ACRA notifikacia. Nema to implemntovane, ale do issue uz autor dal, ze asi implementuje.
 
-- DataWrapper.fillProfileList() - boolean generateIcons, boolean generateIndicators
-	- ActivatorListFragment.LoadProfileListAsyncTask() - vyberie uplne vsetky profily a pre vsetky gegeruje ikonu, indikator
-	  - tu zobrazuje profily co sa zobrazuju v Aktivatire + aktivovany profil (ak je vypnuty header) + restart udalosti
-	  - generuje ikony alel pre vsetky profily, mal by len pre tie, co pojdu do widgetu - HOTOVO
-
+-----------------------
 

@@ -89,7 +89,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
     private static final String PREF_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = "applicationEventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 1994;
-    private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1 = "notificationProfileIconColorInfo1";
+    //private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1 = "notificationProfileIconColorInfo1";
     private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2 = "notificationProfileIconColorInfo2";
 
     private static final String PREF_ALL_NOTIFICATIONS_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsAll";
@@ -2009,6 +2009,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 infoDialogPreference.setIsHtml(true);
             }
         }
+
+        preference = prefMng.findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(preference120 -> {
+//                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
+                scrollToPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
+                return false;
+            });
+        }
     }
 
     private void doOnActivityCreatedBatterySaver(String key) {
@@ -2623,7 +2632,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY);
 
-        setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
+        //setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
         setSummary(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
 
         PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
@@ -3788,7 +3797,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR) ||
-                key.equals(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1) ||
+                //key.equals(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1) ||
                 key.equals(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2)) {
             PPListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
             if (listPreference != null) {
@@ -3804,17 +3813,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     String sSummary = summary.toString();
                     sSummary = sSummary.replace("%", "%%");
 
+                    /*
                     Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
                     if (infoPref != null)
                         infoPref.setSummary(sSummary);
-                    infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
+                    */
+                    Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
                     if (infoPref != null)
-                        infoPref.setSummary(sSummary);
+                        infoPref.setSummary(sSummary + "\n\n" + getString(R.string.phone_profiles_pref_notificationProfileIconColor_info_summary));
                 } else {
+                    /*
                     Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
                     if (infoPref != null)
                         infoPref.setSummary(null);
-                    infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
+                    */
+                    Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
                     if (infoPref != null)
                         infoPref.setSummary(null);
                 }

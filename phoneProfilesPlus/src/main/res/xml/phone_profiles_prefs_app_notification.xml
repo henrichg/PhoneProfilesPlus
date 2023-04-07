@@ -77,15 +77,6 @@
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <sk.henrichg.phoneprofilesplus.PPListPreference
-            app:title="@string/phone_profiles_pref_notificationProfileIconColor"
-            app:summary="0"
-            app:key="notificationProfileIconColor"
-            app:defaultValue="0"
-            app:ppEntries="@array/widgetColorArray"
-            app:ppEntryValues="@array/widgetColorValues"
-            app:layout="@layout/mp_preference_material_widget" />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -140,11 +131,13 @@
         app:title="@string/phone_profiles_pref_notificationProfileIconCategory"
         app:layout="@layout/mp_preference_category" >
 
-        <Preference
-            app:key="notificationProfileIconColorInfo1"
+        <sk.henrichg.phoneprofilesplus.PPListPreference
             app:title="@string/phone_profiles_pref_notificationProfileIconColor"
-            app:summary="@string/empty_string"
-            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:summary="0"
+            app:key="notificationProfileIconColor"
+            app:defaultValue="0"
+            app:ppEntries="@array/widgetColorArray"
+            app:ppEntryValues="@array/widgetColorValues"
             app:layout="@layout/mp_preference_material_widget" />
 
         <SwitchPreferenceCompat
@@ -176,7 +169,7 @@
             app:key="notificationProfileIconColorInfo2"
             app:title="@string/phone_profiles_pref_notificationProfileIconColor"
             app:summary="@string/empty_string"
-            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:widgetLayout="@layout/preference_widget_info_preference_clickable"
             app:layout="@layout/mp_preference_material_widget" />
 
         <SwitchPreferenceCompat
