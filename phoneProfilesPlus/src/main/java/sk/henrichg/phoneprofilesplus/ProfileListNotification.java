@@ -648,8 +648,10 @@ public class ProfileListNotification {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(0)");
             notificationBuilder.setSmallIcon(iconSmallResource);
 
-            if (notificationProfileListIconColor.equals("0"))
+            if (notificationProfileListIconColor.equals("0")) {
+                decoratorColor = ProfileStatic.getIconDefaultColor(Profile.PROFILE_ICON_DEFAULT);
                 notificationBuilder.setColor(decoratorColor);
+            }
 
             return;
         }
