@@ -407,10 +407,8 @@ public class ProfileListNotification {
         PendingIntent pIntentRightArrow = PendingIntent.getBroadcast(appContext, 3, intentRightArrow, PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.notification_profile_list_scroll_right_arrow, pIntentRightArrow);
 
-        notificationBuilder.setStyle(null);
-
         notificationBuilder.setCustomContentView(contentView);
-        notificationBuilder.setCustomBigContentView(contentView);
+        //notificationBuilder.setCustomBigContentView(contentView);
 
         notificationBuilder.setOnlyAlertOnce(true);
 
@@ -420,6 +418,8 @@ public class ProfileListNotification {
             // required, because in API 33+ foreground serbice notification is dismissable
             notificationBuilder.setOngoing(true);
         //}
+
+        notificationBuilder.setStyle(null);
 
         Notification profileListNotification;
         try {
