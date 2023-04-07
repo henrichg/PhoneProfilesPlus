@@ -263,6 +263,7 @@ public class ProfileListNotification {
         // ----- create notificationBuilders
         //if (Build.VERSION.SDK_INT >= 26) {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
+            //notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
         /*}
         else {
             notificationBuilder = new NotificationCompat.Builder(appContext, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
@@ -291,7 +292,7 @@ public class ProfileListNotification {
         // Use CATEGORY_NAVIGATION to show notification in DND
         notificationBuilder.setCategory(NotificationCompat.CATEGORY_NAVIGATION);
 
-        notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_SECRET);
 
         // this disable timestamp in decorator
         notificationBuilder.setShowWhen(false);
@@ -419,6 +420,7 @@ public class ProfileListNotification {
             notificationBuilder.setOngoing(true);
         //}
 
+        //notificationBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
         notificationBuilder.setStyle(null);
 
         Notification profileListNotification;

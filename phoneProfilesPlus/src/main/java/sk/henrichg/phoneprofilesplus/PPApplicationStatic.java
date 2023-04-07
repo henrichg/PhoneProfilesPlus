@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -1474,6 +1475,7 @@ class PPApplicationStatic {
                 channel.setSound(null, null);
                 channel.setShowBadge(false);
                 channel.setBypassDnd(true);
+                channel.setLockscreenVisibility(NotificationCompat.VISIBILITY_SECRET);
 
                 notificationManager.createNotificationChannel(channel);
             } catch (Exception e) {
