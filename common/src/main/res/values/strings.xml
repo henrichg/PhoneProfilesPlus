@@ -2098,6 +2098,8 @@
     <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
 
     <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Click here to go to the preference where this parameter can be changed.</string>
+    <string name="menu_generate_predefined_profiles">Ganarate predefined profiles</string>
+    <string name="menu_generate_predefined_events">Ganarate predefined events</string>
 
     <!-- **************************************************************************************** -->
 

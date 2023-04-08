@@ -19,6 +19,7 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -146,7 +147,7 @@ public class EditorProfileListFragment extends Fragment
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-        loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
+        //loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
 
         setHasOptionsMenu(true);
 
@@ -300,6 +301,12 @@ public class EditorProfileListFragment extends Fragment
                 return true;
             }
             else
+            if (itemId == R.id.menu_generate_predefined_profiles) {
+                loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, true);
+                loadAsyncTask.execute();
+                return true;
+            }
+            else
                 return false;
         });
 
@@ -307,7 +314,7 @@ public class EditorProfileListFragment extends Fragment
             synchronized (activityDataWrapper.profileList) {
                 if (!activityDataWrapper.profileListFilled) {
                     // start new AsyncTask, because old may be cancelled
-                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType);
+                    loadAsyncTask = new LoadProfileListAsyncTask(this, filterType, false);
                     loadAsyncTask.execute();
                 } else {
                     if (profileListAdapter != null) {
@@ -391,6 +398,7 @@ public class EditorProfileListFragment extends Fragment
             }
         }
 
+        updateBottomMenu();
     }
 
     void changeFragmentFilter(int profilesFilterType/*, boolean startTargetHelps*/) {
@@ -408,6 +416,7 @@ public class EditorProfileListFragment extends Fragment
         private final DataWrapper _dataWrapper;
         //private final Context _baseContext;
         private final int _filterType;
+        boolean _generatePredefinedProfiles;
         boolean defaultProfilesGenerated = false;
         //boolean defaultEventsGenerated = false;
 
@@ -416,9 +425,12 @@ public class EditorProfileListFragment extends Fragment
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
-        public LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
+        public LoadProfileListAsyncTask (EditorProfileListFragment fragment,
+                                         int filterType,
+                                         boolean generatePredefinedProfiles) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
+            _generatePredefinedProfiles = generatePredefinedProfiles;
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             //_baseContext = fragment.getActivity();
@@ -447,9 +459,9 @@ public class EditorProfileListFragment extends Fragment
         @Override
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
-            if ((_dataWrapper.profileList.size() == 0) /*&& PPApplication.restoreFinished*/)
-            {
-                if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_PROFILES_FIRST_START, true)) {
+
+            if (_generatePredefinedProfiles) {
+                if (_dataWrapper.profileList.size() == 0) {
                     // no profiles in DB, generate default profiles
                     // PPApplication.restoreFinished = Google auto-backup finished
                     EditorProfileListFragment fragment = this.fragmentWeakRef.get();
@@ -458,13 +470,6 @@ public class EditorProfileListFragment extends Fragment
                         defaultProfilesGenerated = true;
                     }
                 }
-            }
-
-            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(_dataWrapper.context);
-            if (sharedPreferences != null) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_EDITOR_PROFILES_FIRST_START, false);
-                editor.apply();
             }
 
             // sort list
@@ -500,6 +505,7 @@ public class EditorProfileListFragment extends Fragment
                         if (fragment.activityDataWrapper.profileList.size() == 0)
                             fragment.textViewNoData.setVisibility(View.VISIBLE);
                     }
+                    fragment.updateBottomMenu();
 
                     fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, _filterType, fragment);
 
@@ -552,7 +558,8 @@ public class EditorProfileListFragment extends Fragment
     }
 
     void stopRunningAsyncTask() {
-        loadAsyncTask.cancel(true);
+        if (loadAsyncTask != null)
+            loadAsyncTask.cancel(true);
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();
@@ -1841,4 +1848,17 @@ public class EditorProfileListFragment extends Fragment
         }
 
     }
+
+    void updateBottomMenu() {
+        synchronized (activityDataWrapper.eventList) {
+            Menu menu = bottomToolbar.getMenu();
+            if (menu != null) {
+                MenuItem item = menu.findItem(R.id.menu_generate_predefined_profiles);
+                item.setVisible(activityDataWrapper.profileList.size() == 0);
+                item = menu.findItem(R.id.menu_delete_all_profiles);
+                item.setVisible(activityDataWrapper.profileList.size() != 0);
+            }
+        }
+    }
+
 }

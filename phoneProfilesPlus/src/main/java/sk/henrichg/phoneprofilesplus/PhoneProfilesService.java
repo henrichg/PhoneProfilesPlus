@@ -745,11 +745,30 @@ public class PhoneProfilesService extends Service
                 PPApplicationStatic.setBlockProfileEventActions(true);
 
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-
                 dataWrapper.fillProfileList(false, false);
+                dataWrapper.fillEventList();
+
+                // generate predefined profiles and events, for first PPP start (version code is not saved)
+                if (PPApplicationStatic.getSavedVersionCode(appContext) == 0) {
+                    if (dataWrapper.profileList.size() == 0) {
+                        dataWrapper.fillPredefinedProfileList(false, false, appContext);
+                    }
+                    if (dataWrapper.eventList.size() == 0)
+                    {
+                        dataWrapper.generatePredefinedEventList(appContext);
+                    }
+                    try {
+                        PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                        int actualVersionCode = PPApplicationStatic.getVersionCode(pInfo);
+                        PPApplicationStatic.setSavedVersionCode(appContext, actualVersionCode);
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                    }
+                }
+
                 for (Profile profile : dataWrapper.profileList)
                     profile.isAccessibilityServiceEnabled(appContext, true);
-                dataWrapper.fillEventList();
+
                 for (Event event : dataWrapper.eventList)
                     event.isAccessibilityServiceEnabled(appContext, true, true);
                 //PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true, false);

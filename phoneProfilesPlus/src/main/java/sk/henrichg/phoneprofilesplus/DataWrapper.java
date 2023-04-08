@@ -358,7 +358,7 @@ public class DataWrapper {
         return profile;
     }
 
-    void fillPredefinedProfileList(@SuppressWarnings("SameParameterValue") boolean generateIcons,
+    void fillPredefinedProfileList(boolean generateIcons,
                                    boolean generateIndicators,
                                    Context baseContext)
     {

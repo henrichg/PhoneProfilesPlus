@@ -3048,6 +3048,11 @@ public class EditorActivity extends AppCompatActivity
     }
 
     public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment instanceof EditorProfileListFragment) {
+            ((EditorProfileListFragment) fragment).updateBottomMenu();
+        }
+
         // In single-pane mode, simply start the profile preferences activity
         // for the profile position.
         if (((profile != null) ||
@@ -3219,6 +3224,11 @@ public class EditorActivity extends AppCompatActivity
     }
 
     public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment instanceof EditorEventListFragment) {
+            ((EditorEventListFragment) fragment).updateBottomMenu();
+        }
+
         if (((event != null) ||
             (editMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
             (editMode == EditorEventListFragment.EDIT_MODE_DUPLICATE))

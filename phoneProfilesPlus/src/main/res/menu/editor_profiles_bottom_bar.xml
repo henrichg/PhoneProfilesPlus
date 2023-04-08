@@ -20,4 +20,10 @@
         android:orderInCategory="300"
         app:showAsAction="never"
         android:icon="@drawable/ic_action_delete_all" />
+    <item
+        android:id="@+id/menu_generate_predefined_profiles"
+        android:title="@string/menu_generate_predefined_profiles"
+        android:orderInCategory="301"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_action_new_profile" />
 </menu>

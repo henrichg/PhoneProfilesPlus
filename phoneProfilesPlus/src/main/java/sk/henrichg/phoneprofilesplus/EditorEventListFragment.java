@@ -19,6 +19,7 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -181,7 +182,7 @@ public class EditorEventListFragment extends Fragment
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+        //loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
 
         //getActivity().getIntent();
 
@@ -354,17 +355,6 @@ public class EditorEventListFragment extends Fragment
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
-
-//        menu = bottomToolbar.getMenu();
-//        if (menu != null) {
-//            MenuItem item = menu.findItem(R.id.menu_default_profile);
-//
-//            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-//            else
-//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-//        }
-
         bottomToolbar.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_event) {
@@ -386,6 +376,12 @@ public class EditorEventListFragment extends Fragment
                 Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
                 startActivity(intent);
+                return true;
+            }
+            else
+            if (itemId == R.id.menu_generate_predefined_events) {
+                loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, true);
+                loadAsyncTask.execute();
                 return true;
             }
             else
@@ -454,6 +450,8 @@ public class EditorEventListFragment extends Fragment
 
         // first must be set eventsOrderType
         changeEventOrder(orderSelectedItem, fromOnViewCreated);
+
+        updateBottomMenu();
     }
 
     void changeFragmentFilter(int eventsFilterType/*, boolean startTargetHelps*/) {
@@ -471,6 +469,7 @@ public class EditorEventListFragment extends Fragment
         private final DataWrapper _dataWrapper;
         private final int _filterType;
         private final int _orderType;
+        boolean _generatePredefinedProfiles;
         boolean defaultEventsGenerated = false;
 
         final boolean applicationEditorPrefIndicator;
@@ -478,10 +477,14 @@ public class EditorEventListFragment extends Fragment
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
-        public LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
+        public LoadEventListAsyncTask (EditorEventListFragment fragment,
+                                       int filterType,
+                                       int orderType,
+                                       boolean generatePredefinedProfiles) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _orderType = orderType;
+            _generatePredefinedProfiles = generatePredefinedProfiles;
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
@@ -511,9 +514,8 @@ public class EditorEventListFragment extends Fragment
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
 
-            if ((_dataWrapper.eventList.size() == 0) /*&& PPApplication.restoreFinished*/)
-            {
-                if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, true)) {
+            if (_generatePredefinedProfiles) {
+                if ((_dataWrapper.eventList.size() == 0)) {
                     // no events in DB, generate default events
                     // PPApplication.restoreFinished = Google auto-backup finished
                     final EditorEventListFragment fragment = this.fragmentWeakRef.get();
@@ -522,13 +524,6 @@ public class EditorEventListFragment extends Fragment
                         defaultEventsGenerated = true;
                     }
                 }
-            }
-
-            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(_dataWrapper.context);
-            if (sharedPreferences != null) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, false);
-                editor.apply();
             }
 
             _dataWrapper.getEventTimelineList(true);
@@ -569,6 +564,7 @@ public class EditorEventListFragment extends Fragment
                         if (fragment.activityDataWrapper.eventList.size() == 0)
                             fragment.textViewNoData.setVisibility(VISIBLE);
                     }
+                    fragment.updateBottomMenu();
 
                     // get local eventTimelineList
                     _dataWrapper.getEventTimelineList(true);
@@ -617,7 +613,8 @@ public class EditorEventListFragment extends Fragment
     }
 
     void stopRunningAsyncTask() {
-        loadAsyncTask.cancel(true);
+        if (loadAsyncTask != null)
+            loadAsyncTask.cancel(true);
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();
@@ -1099,6 +1096,7 @@ public class EditorEventListFragment extends Fragment
 
                         listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
+                        // this delete events from db
                         activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
                         synchronized (activityDataWrapper.eventList) {
@@ -1308,7 +1306,7 @@ public class EditorEventListFragment extends Fragment
                 if (!activityDataWrapper.eventListFilled) {
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
-                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
                     loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1350,7 +1348,7 @@ public class EditorEventListFragment extends Fragment
                 if (!activityDataWrapper.eventListFilled) {
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
-                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
                     loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -2363,5 +2361,18 @@ public class EditorEventListFragment extends Fragment
         }
 
     }*/
+
+
+    void updateBottomMenu() {
+        synchronized (activityDataWrapper.eventList) {
+            Menu menu = bottomToolbar.getMenu();
+            if (menu != null) {
+                MenuItem item = menu.findItem(R.id.menu_generate_predefined_events);
+                item.setVisible(activityDataWrapper.eventList.size() == 0);
+                item = menu.findItem(R.id.menu_delete_all_events);
+                item.setVisible(activityDataWrapper.eventList.size() != 0);
+            }
+        }
+    }
 
 }

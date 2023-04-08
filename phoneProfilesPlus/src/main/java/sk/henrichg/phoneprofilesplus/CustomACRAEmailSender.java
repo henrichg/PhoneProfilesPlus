@@ -76,6 +76,7 @@ public class CustomACRAEmailSender implements ReportSender {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
     }
 
+    @SuppressWarnings("RedundantThrows")
     @Override
     public void send(@NotNull Context context, @NotNull CrashReportData errorContent)
             throws ReportSenderException {
