@@ -700,8 +700,13 @@ public class ActivatorActivity extends AppCompatActivity
     public void refreshGUIFromListener(Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] ActivatorActivity.refreshGUIBroadcastReceiver", "xxx");
         //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
-        boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
-        refreshGUI(refreshIcons);
+
+        if (intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_RELOAD_ACTIVITY, false))
+            GlobalGUIRoutines.reloadActivity(this, true);
+        else {
+            boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+            refreshGUI(refreshIcons);
+        }
     }
 
     @Override

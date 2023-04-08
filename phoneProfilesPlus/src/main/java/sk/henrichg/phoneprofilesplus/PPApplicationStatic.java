@@ -2089,7 +2089,7 @@ class PPApplicationStatic {
             if (!shutdown) {
                 //ActivateProfileHelper.updateGUI(context, false, true);
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication._exitApp", "call of forceUpdateGUI");
-                PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false/*, true*/);
+                PPApplication.forceUpdateGUI(context.getApplicationContext(), false, false, false);
 
                 Handler _handler = new Handler(context.getMainLooper());
                 Runnable r = () -> {

@@ -5810,11 +5810,16 @@ public class EditorActivity extends AppCompatActivity
     public void refreshGUIFromListener(Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
         //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
-        boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
-        long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
-        // not change selection in editor if refresh is outside editor
-        refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
+
+        if (intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_RELOAD_ACTIVITY, false))
+            GlobalGUIRoutines.reloadActivity(this, true);
+        else {
+            boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+            long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+            long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
+            // not change selection in editor if refresh is outside editor
+            refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
+        }
     }
 
     @Override

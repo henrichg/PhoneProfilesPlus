@@ -87,6 +87,7 @@ public class PPApplication extends Application
     private static volatile PPApplication instance;
     private static volatile WorkManager workManagerInstance;
 
+    static volatile boolean firstStartAfterInstallation = false;
     static volatile boolean applicationFullyStarted = false;
     static volatile boolean normalServiceStart = false;
     static volatile boolean showToastForProfileActivation = false;
@@ -1478,7 +1479,7 @@ public class PPApplication extends Application
         return false;
     }
 
-    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification/*, boolean refresh*/) {
+    static void forceUpdateGUI(Context context, boolean alsoEditor, boolean alsoNotification, boolean reloadActivity) {
         // update gui even when app is not fully started
         //if (!PPApplication.applicationFullyStarted)
         //    return;
@@ -1537,6 +1538,7 @@ public class PPApplication extends Application
         Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
         //intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
+        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_RELOAD_ACTIVITY, reloadActivity);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
         // dynamic shortcuts
@@ -1568,7 +1570,7 @@ public class PPApplication extends Application
 
             if (drawImmediattely) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceUpdateGUI");
-                PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
+                PPApplication.forceUpdateGUI(appContext, true, true, false);
                 return;
             }
 
@@ -1592,7 +1594,7 @@ public class PPApplication extends Application
                     }
 
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of forceUpdateGUI");
-                    PPApplication.forceUpdateGUI(appContext, true, false);
+                    PPApplication.forceUpdateGUI(appContext, true, false, false);
                     if (longDelay) {
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of PPPAppNotification.forceDrawNotification");
                         PPPAppNotification.forceDrawNotification(appContext);

@@ -720,9 +720,10 @@ public class PhoneProfilesService extends Service
 
                 //PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 
-                boolean newVersion;// = false;
-                //if (ppService != null)
-                    newVersion = /*ppService.*/doForPackageReplaced(appContext);
+                PPApplication.firstStartAfterInstallation = PPApplicationStatic.getSavedVersionCode(appContext) == 0;
+
+                // this save actual version
+                boolean newVersion = doForPackageReplaced(appContext);
                 if (newVersion) {
                     __activateProfiles = true;
                     __applicationStart = true;
@@ -749,7 +750,7 @@ public class PhoneProfilesService extends Service
                 dataWrapper.fillEventList();
 
                 // generate predefined profiles and events, for first PPP start (version code is not saved)
-                if (PPApplicationStatic.getSavedVersionCode(appContext) == 0) {
+                if (PPApplication.firstStartAfterInstallation) {
                     if (dataWrapper.profileList.size() == 0) {
                         dataWrapper.fillPredefinedProfileList(false, false, appContext);
                     }

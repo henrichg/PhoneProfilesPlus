@@ -501,7 +501,8 @@ public class MainWorker extends Worker {
 //        PPApplication.setApplicationFullyStarted(appContext, showToast);
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] MainWorker.doAfterFirstStart", "call of forceUpdateGUI");
-        PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
+        PPApplication.forceUpdateGUI(appContext, true, true, PPApplication.firstStartAfterInstallation);
+        PPApplication.firstStartAfterInstallation = false;
         //}
 
         // must be first
