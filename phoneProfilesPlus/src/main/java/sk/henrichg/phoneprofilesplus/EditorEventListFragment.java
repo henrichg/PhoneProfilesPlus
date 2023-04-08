@@ -465,11 +465,11 @@ public class EditorEventListFragment extends Fragment
 
     private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private final WeakReference<EditorEventListFragment> fragmentWeakRef;
-        private final DataWrapper _dataWrapper;
-        private final int _filterType;
-        private final int _orderType;
-        boolean _generatePredefinedProfiles;
+        final WeakReference<EditorEventListFragment> fragmentWeakRef;
+        final DataWrapper _dataWrapper;
+        final int _filterType;
+        final int _orderType;
+        final boolean _generatePredefinedProfiles;
         boolean defaultEventsGenerated = false;
 
         final boolean applicationEditorPrefIndicator;

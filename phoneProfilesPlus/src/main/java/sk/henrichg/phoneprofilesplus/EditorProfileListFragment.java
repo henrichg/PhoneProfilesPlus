@@ -412,11 +412,11 @@ public class EditorProfileListFragment extends Fragment
 
     private static class LoadProfileListAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
-        private final DataWrapper _dataWrapper;
-        //private final Context _baseContext;
-        private final int _filterType;
-        boolean _generatePredefinedProfiles;
+        final WeakReference<EditorProfileListFragment> fragmentWeakRef;
+        final DataWrapper _dataWrapper;
+        //final Context _baseContext;
+        final int _filterType;
+        final boolean _generatePredefinedProfiles;
         boolean defaultProfilesGenerated = false;
         //boolean defaultEventsGenerated = false;
 
