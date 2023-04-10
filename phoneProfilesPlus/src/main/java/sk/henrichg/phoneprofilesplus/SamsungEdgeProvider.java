@@ -59,7 +59,12 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
             applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
             applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition;
-            applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT < 30)
+                applicationSamsungEdgeChangeColorsByNightMode = false;
+            else
+                applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
             applicationSamsungEdgeBackgroundColorNightModeOff = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff;
             applicationSamsungEdgeBackgroundColorNightModeOn = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn;
 

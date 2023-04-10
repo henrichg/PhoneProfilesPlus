@@ -88,7 +88,12 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
-            applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT < 30)
+                applicationWidgetIconChangeColorsByNightMode = false;
+            else
+                applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
+
             applicationWidgetIconUseDynamicColors = ApplicationPreferences.applicationWidgetIconUseDynamicColors;
             applicationWidgetIconBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOff;
             applicationWidgetIconBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOn;

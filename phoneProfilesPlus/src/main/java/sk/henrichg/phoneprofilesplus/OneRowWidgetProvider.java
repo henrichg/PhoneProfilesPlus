@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -99,10 +100,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //applicationWidgetOneRowRoundedCorners = true;
                 applicationWidgetOneRowRoundedCornersRadius = 1;
             }
-
             applicationWidgetOneRowLayoutHeight = ApplicationPreferences.applicationWidgetOneRowLayoutHeight;
             //applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
-            applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT < 30)
+                applicationWidgetOneRowChangeColorsByNightMode = false;
+            else
+                applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
+
             applicationWidgetOneRowUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowUseDynamicColors;
             applicationWidgetOneRowBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOff;
             applicationWidgetOneRowBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowBackgroundColorNightModeOn;
@@ -256,12 +261,16 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             else
                 indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
         } else {
-            if (Integer.parseInt(applicationWidgetOneRowBackground) <= 37)
+            if (Integer.parseInt(applicationWidgetOneRowLightnessB) <= 37)
                 indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
             else
                 indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
         }
 
+        Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowBackgroundType="+applicationWidgetOneRowBackgroundType);
+        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
+        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorMonochromeValue="+prefIndicatorMonochromeValue);
+        Log.e("OneRowWidgetProvider._onUpdate", "indicatorType="+indicatorType);
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,

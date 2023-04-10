@@ -77,7 +77,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
             applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
-            applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT < 30)
+                applicationWidgetListChangeColorsByNightMode = false;
+            else
+                applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
+
             applicationWidgetListUseDynamicColors = ApplicationPreferences.applicationWidgetListUseDynamicColors;
             applicationWidgetListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOff;
             applicationWidgetListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetListBackgroundColorNightModeOn;
@@ -621,7 +626,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         else
                             indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
                     } else {
-                        if (Integer.parseInt(applicationWidgetListBackground) <= 37)
+                        if (Integer.parseInt(applicationWidgetListLightnessB) <= 37)
                             indicatorType = DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND;
                         else
                             indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;

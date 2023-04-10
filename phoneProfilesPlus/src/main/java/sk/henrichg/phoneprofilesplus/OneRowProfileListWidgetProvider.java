@@ -142,7 +142,12 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
             }
 
             applicationWidgetOneRowProfileListLayoutHeight = ApplicationPreferences.applicationWidgetOneRowProfileListLayoutHeight;
-            applicationWidgetOneRowProfileListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT < 30)
+                applicationWidgetOneRowProfileListChangeColorsByNightMode = false;
+            else
+                applicationWidgetOneRowProfileListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowProfileListChangeColorsByNightMode;
+
             applicationWidgetOneRowProfileListUseDynamicColors = ApplicationPreferences.applicationWidgetOneRowProfileListUseDynamicColors;
             applicationWidgetOneRowProfileListBackgroundColorNightModeOff = ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOff;
             applicationWidgetOneRowProfileListBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetOneRowProfileListBackgroundColorNightModeOn;

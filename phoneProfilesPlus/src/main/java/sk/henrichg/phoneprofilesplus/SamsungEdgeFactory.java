@@ -46,7 +46,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
             applicationSamsungEdgeIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
             applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
-            applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT < 30)
+                applicationSamsungEdgeChangeColorsByNightMode = false;
+            else
+                applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
             //applicationSamsungEdgeBackgroundColorNightModeOff = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOff;
             //applicationSamsungEdgeBackgroundColorNightModeOn = ApplicationPreferences.applicationSamsungEdgeBackgroundColorNightModeOn;
 
@@ -177,7 +182,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 synchronized (PPApplication.applicationPreferencesMutex) {
                     applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
                     applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
-                    applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
+                    if (Build.VERSION.SDK_INT < 30)
+                        applicationSamsungEdgeChangeColorsByNightMode = false;
+                    else
+                        applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
                     applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
                     applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType;
                     applicationSamsungEdgeLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB;
