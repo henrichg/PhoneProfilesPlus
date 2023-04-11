@@ -2988,6 +2988,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //if (_preference != null)
             //    _preference.setEnabled(!changeWidgetOneRowColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
+            //noinspection IfStatementWithIdenticalBranches
             if (changeWidgetOneRowColorsByNightMode) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
@@ -3026,6 +3027,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             //if (_preference != null)
             //    _preference.setEnabled(!changeWidgetListColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
+            //noinspection IfStatementWithIdenticalBranches
             if (changeWidgetListColorsByNightMode) {
                 if (_preference != null) {
                     _preference.setEnabled(false);
