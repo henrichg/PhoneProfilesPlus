@@ -267,11 +267,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 indicatorType = DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND;
         }
 
-        Log.e("OneRowWidgetProvider._onUpdate", "applicationWidgetOneRowBackgroundType="+applicationWidgetOneRowBackgroundType);
-        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
-        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorMonochromeValue="+prefIndicatorMonochromeValue);
-        Log.e("OneRowWidgetProvider._onUpdate", "indicatorType="+indicatorType);
-
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowCustomIconLightness,

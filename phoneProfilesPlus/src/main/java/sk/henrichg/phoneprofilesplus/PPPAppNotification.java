@@ -452,9 +452,6 @@ public class PPPAppNotification {
                         else
                             indicatorType = DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND;
                     }
-                    Log.e("PPPAppNotification._showNotification", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
-                    Log.e("PPPAppNotification._showNotification", "prefIndicatorMonochromeValue="+prefIndicatorMonochromeValue);
-                    Log.e("PPPAppNotification._showNotification", "indicatorType="+indicatorType);
 
                     profile.generatePreferencesIndicator(appContext, notificationProfileIconColor.equals("1"),
                             prefIndicatorMonochromeValue,

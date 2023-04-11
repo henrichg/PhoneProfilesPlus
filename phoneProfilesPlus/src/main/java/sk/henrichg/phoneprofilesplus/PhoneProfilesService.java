@@ -838,8 +838,8 @@ public class PhoneProfilesService extends Service
                 editor.apply();
                 NextAlarmClockBroadcastReceiver.setEventAlarmClockTime(prefEventAlarmClockPackageName, prefEventAlarmClockTime, appContext);
 
-                AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
-                if (alarmManager != null) {
+                //AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
+                //if (alarmManager != null) {
                     List<NextAlarmClockData> times = NextAlarmClockBroadcastReceiver.getEventAlarmClockTimes(appContext);
                     if (times != null) {
                         for (NextAlarmClockData _time : times) {
@@ -851,11 +851,11 @@ public class PhoneProfilesService extends Service
                             NextAlarmClockBroadcastReceiver.setAlarm(
                                     _time.time,
                                     _time.packageName,
-                                    alarmManager, appContext);
+                                    appContext);
 
                         }
                     }
-                }
+                //}
 
                 // show info notification
                 ImportantInfoNotification.showInfoNotification(appContext);
