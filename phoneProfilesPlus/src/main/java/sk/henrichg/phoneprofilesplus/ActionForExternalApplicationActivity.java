@@ -89,6 +89,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     {
         super.onStart();
 
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext()))
+            return;
+
         if (action != null) {
             boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
             if (!serviceStarted) {

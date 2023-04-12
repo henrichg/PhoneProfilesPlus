@@ -483,9 +483,10 @@ public class PhoneProfilesService extends Service
         //}
     }
 
-    public static void stop(boolean shutdown) {
+    public static void stop(boolean shutdown, Context context) {
         if (instance != null) {
             try {
+                PPApplicationStatic.setApplicationStopping(context, true);
                 if (!shutdown) {
                     // this avoid generating exception:
                     //   Context.startForegroundService() did not then call Service.startForeground()
@@ -497,6 +498,8 @@ public class PhoneProfilesService extends Service
             } catch (Exception e) {
                 //Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
+            } finally {
+                PPApplicationStatic.setApplicationStopping(context, false);
             }
         }
     }

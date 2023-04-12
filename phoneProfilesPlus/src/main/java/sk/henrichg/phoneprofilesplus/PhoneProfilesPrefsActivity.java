@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -306,7 +307,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        // this is for list widget header
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
+
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);

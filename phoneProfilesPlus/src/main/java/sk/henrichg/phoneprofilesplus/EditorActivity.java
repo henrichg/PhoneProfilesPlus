@@ -673,7 +673,12 @@ public class EditorActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        // this is for list widget header
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
+
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
@@ -2456,7 +2461,7 @@ public class EditorActivity extends AppCompatActivity
                     //    prefEdit = getSharedPreferences("profile_preferences_default_profile", Activity.MODE_PRIVATE).edit();
                     //    prefEdit.clear();
                     //}
-                    //noinspection unchecked
+                    @SuppressWarnings("unchecked")
                     Map<String, ?> entries = (Map<String, ?>) input.readObject();
                     for (Entry<String, ?> entry : entries.entrySet()) {
                         Object v = entry.getValue();

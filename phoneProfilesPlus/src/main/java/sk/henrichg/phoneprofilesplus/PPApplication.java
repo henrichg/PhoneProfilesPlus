@@ -527,6 +527,7 @@ public class PPApplication extends Application
 
     // global internal preferences
     static final String PREF_APPLICATION_STARTED = "applicationStarted";
+    static final String PREF_APPLICATION_STOPPING = "applicationStopping";
     static final String PREF_ACTIVITY_LOG_ENABLED = "activity_log_enabled";
     static final String PREF_SAVED_VERSION_CODE = "saved_version_code";
     static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";

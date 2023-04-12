@@ -534,6 +534,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
      *
      * @return an String representation of the number with no decimal
      */
+    @SuppressWarnings("deprecation")
     public BigInteger getNumber() {
         BigDecimal bigDecimal = getEnteredNumber().setScale(0, BigDecimal.ROUND_FLOOR);
         return bigDecimal.toBigIntegerExact();

@@ -55,6 +55,9 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
     {
         super.onStart();
 
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext()))
+            return;
+
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);

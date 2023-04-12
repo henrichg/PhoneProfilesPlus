@@ -2101,6 +2101,8 @@
     <string name="menu_generate_predefined_profiles">Generate predefined profiles</string>
     <string name="menu_generate_predefined_events">Generate predefined events</string>
 
+    <string name="application_is_stopping_toast">is stopping…</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

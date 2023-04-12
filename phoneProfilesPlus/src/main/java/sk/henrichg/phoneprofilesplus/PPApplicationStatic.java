@@ -840,6 +840,20 @@ class PPApplicationStatic {
         }
     }
 
+    static boolean getApplicationStopping(Context context) {
+        return ApplicationPreferences.
+                getSharedPreferences(context).getBoolean(PPApplication.PREF_APPLICATION_STOPPING, false);
+    }
+
+    static void setApplicationStopping(Context context, boolean appStopping)
+    {
+        synchronized (PPApplication.applicationStartedMutex) {
+            Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putBoolean(PPApplication.PREF_APPLICATION_STOPPING, appStopping);
+            editor.apply();
+        }
+    }
+
     static int getSavedVersionCode(Context context) {
         return ApplicationPreferences.
                 getSharedPreferences(context).getInt(PPApplication.PREF_SAVED_VERSION_CODE, 0);
@@ -2114,7 +2128,7 @@ class PPApplicationStatic {
 
             //workManagerInstance.pruneWork();
 
-            PhoneProfilesService.stop(shutdown);
+            PhoneProfilesService.stop(shutdown, context);
 
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);

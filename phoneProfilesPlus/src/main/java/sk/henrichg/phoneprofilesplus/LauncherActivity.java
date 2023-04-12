@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -164,7 +165,11 @@ public class LauncherActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        // this is for list widget header
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
 
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
