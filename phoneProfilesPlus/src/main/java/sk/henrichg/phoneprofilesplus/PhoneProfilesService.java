@@ -527,6 +527,11 @@ public class PhoneProfilesService extends Service
                 if (notificationManager != null)
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
 
+                // this avoid generating exception:
+                //   Context.startForegroundService() did not then call Service.startForeground()
+                //https://stackoverflow.com/a/72754189/12228079
+                GlobalUtils.sleep(5000);
+
                 instance.stopSelf();
             } catch (Exception e) {
                 //Log.e("PhoneProfilesService.stop", Log.getStackTraceString(e));
