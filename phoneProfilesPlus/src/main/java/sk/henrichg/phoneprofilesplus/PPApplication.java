@@ -197,7 +197,6 @@ public class PPApplication extends Application
                                                 //+"|PPAppNotification._showNotification"
                                                 //+"|[CUST] PPAppNotification._showNotification"
                                                 //+"|PhoneProfilesService.onConfigurationChanged"
-                                                //+"|PhoneProfilesService.stopReceiver"
                                                 //+"|PhoneProfilesService.onTaskRemoved"
                                                 +"|PhoneProfilesService.onDestroy"
                                                 //+"|PhoneProfilesService.cancelWork"

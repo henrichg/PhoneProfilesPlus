@@ -42,7 +42,6 @@ public class PhoneProfilesService extends Service
     //static boolean startForegroundNotification = true;
 
     static final String ACTION_COMMAND = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_COMMAND";
-    //private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_STOP_SERVICE";
     static final String ACTION_EVENT_TIME_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventTimeBroadcastReceiver";
     static final String ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventCalendarBroadcastReceiver";
     static final String ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventDelayStartBroadcastReceiver";
@@ -170,28 +169,6 @@ public class PhoneProfilesService extends Service
         }
     };
 
-    /*
-    private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                context.removeStickyBroadcast(intent);
-            } catch (Exception e) {
-                Log.e("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
-                //PPApplicationStatic.recordException(e);
-            }
-            try {
-                isInForeground = false;
-                stopForeground(true);
-                stopSelf();
-            } catch (Exception e) {
-                Log.e("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
-                //PPApplicationStatic.recordException(e);
-            }
-        }
-    };
-    */
-
     //--------------------------
 
     //public static SipManager mSipManager = null;
@@ -262,8 +239,6 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        //appContext.registerReceiver(stopReceiver, new IntentFilter(PhoneProfilesService.ACTION_STOP));
-        //LocalBroadcastManager.getInstance(this).registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
         if (Build.VERSION.SDK_INT < 31) {
@@ -400,10 +375,6 @@ public class PhoneProfilesService extends Service
         } catch (Exception e) {
             //PPApplicationStatic.recordException(e);
         }
-        /*try {
-            appContext.unregisterReceiver(stopReceiver);
-        } catch (Exception ignored) {}*/
-
 
         PhoneProfilesServiceStatic.stopSimulatingRingingCall(/*true*/true, getApplicationContext());
         //PhoneProfilesServiceStatic.stopSimulatingNotificationTone(true);
@@ -514,19 +485,7 @@ public class PhoneProfilesService extends Service
 
     public static void stop(/*Context context*/) {
         if (instance != null) {
-            /*try {
-                context.sendStickyBroadcast(new Intent(ACTION_STOP));
-                //context.sendBroadcast(new Intent(ACTION_STOP));
-            } catch (Exception ignored) {
-            }*/
             try {
-                /*
-                isInForeground = false;
-                instance.stopForeground(true);
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null)
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);*/
-
                 // this avoid generating exception:
                 //   Context.startForegroundService() did not then call Service.startForeground()
                 //https://stackoverflow.com/a/72754189/12228079

@@ -54,8 +54,6 @@ public class MobileCellsRegistrationService extends Service
 
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
-
-        //registerReceiver(stopReceiver, new IntentFilter(MobileCellsRegistrationService.ACTION_STOP));
     }
 
     @Override
@@ -170,16 +168,6 @@ public class MobileCellsRegistrationService extends Service
         serviceStarted = false;
 
     }
-
-    /*
-    public static void stop(Context context) {
-        try {
-            context.sendBroadcast(new Intent(ACTION_STOP));
-        } catch (Exception e) {
-            PPApplicationStatic.recordException(e);
-        }
-    }
-    */
 
     private void showNotification(long millisUntilFinished) {
         String text;
