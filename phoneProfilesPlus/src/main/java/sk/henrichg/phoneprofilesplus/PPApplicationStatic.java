@@ -2075,7 +2075,6 @@ class PPApplicationStatic {
             PPApplicationStatic.logE("PPApplication._exitApp", "stop service");
             //PhoneProfilesService.getInstance().showProfileNotification(false);
             //context.stopService(new Intent(context, PhoneProfilesService.class));
-            PhoneProfilesService.stop(/*context*/);
             //if (PhoneProfilesService.getInstance() != null)
             //    PhoneProfilesService.getInstance().setApplicationFullyStarted(false, false);
 
@@ -2114,6 +2113,8 @@ class PPApplicationStatic {
             }
 
             //workManagerInstance.pruneWork();
+
+            PhoneProfilesService.stop(/*context*/);
 
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);
