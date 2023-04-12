@@ -22,6 +22,7 @@ import android.service.quicksettings.TileService;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkManager;
 
@@ -1356,6 +1357,7 @@ public class PPApplication extends Application
                         .withResSendButtonIcon(0)
                         .withResDiscardButtonIcon(0)
                         .withSendOnClick(true)
+                        .withColor(ContextCompat.getColor(base, R.color.notification_color))
                         .withEnabled(true)
                         .build(),
                 new MailSenderConfigurationBuilder()

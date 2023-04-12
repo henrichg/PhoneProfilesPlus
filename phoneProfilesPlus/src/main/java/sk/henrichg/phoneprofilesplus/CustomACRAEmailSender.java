@@ -32,35 +32,6 @@ import java.util.List;
 // https://github.com/ACRA/acra/tree/master/examples/acra-basic-java-example
 // https://github.com/ACRA/acra/blob/master/acra-mail/src/main/java/org/acra/sender/EmailIntentSender.kt
 
-/*
-ACRA custom report sender:
-
-This working, method "create" is called:
-
-@AutoService(ReportSenderFactory.class)
-public static class CustomACRAEmailSenderFactory implements ReportSenderFactory {
-    @NotNull
-    @Override
-    public ReportSender create(@NotNull Context context, @NotNull CoreConfiguration coreConfiguration) {
-        Log.e("CustomACRAEmailSenderFactory.create", "#### ***** ####");
-        return new CustomACRAEmailSender(coreConfiguration);
-    }
-}
-
-
-But this not working, in logcat is not log called at start of method "send":
-
-@Override
-public void send(@NotNull Context context, @NotNull CrashReportData errorContent)
-        throws ReportSenderException {
-    Log.e("CustomACRAEmailSender.send", "Report Sent!");
-
-    ...
-}
-
-*/
-
-
 @SuppressWarnings("unused")
 public class CustomACRAEmailSender implements ReportSender {
 

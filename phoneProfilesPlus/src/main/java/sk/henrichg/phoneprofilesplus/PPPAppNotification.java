@@ -745,7 +745,7 @@ public class PPPAppNotification {
                     notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle()
                                     .setBigContentTitle(profileName.toString())
                                     .setSummaryText(indicators)
-                                    .bigLargeIcon(null)
+                                    .bigLargeIcon((Bitmap)null)
                                     .bigPicture((Bitmap)null)
                     );
             }
