@@ -275,9 +275,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplicationStatic.restartAllScanners(appContext, false);
                 }
 
-//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, appContext);
-                PPPAppNotification.drawNotification(false, appContext);
+                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(false, appContext);
 
                 if (EventStatic.getGlobalEventsRunning(appContext)) {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -323,9 +323,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
                 }
 
-//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPPAppNotification.drawNotification");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ScreenOnOffBroadcastReceiver.onReceive", "call of PPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, appContext);
-                PPPAppNotification.drawNotification(false, appContext);
+                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(false, appContext);
 
                 break;
             }

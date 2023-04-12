@@ -157,7 +157,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
     */
 
     static void doWork(final Context appContext) {
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(appContext);
+        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(appContext);
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
             removeNotification(appContext);
 

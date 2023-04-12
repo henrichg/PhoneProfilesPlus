@@ -843,7 +843,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference16 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                if (PPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -886,7 +886,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference17 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
+                if (PPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -3635,7 +3635,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         + "</b>" : null);
 
         boolean ok = true;
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0) {
             cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed) +
                     ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
@@ -3646,7 +3646,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ok = false;
         }
         else
-        if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+        if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                 /*, "ProfilesPrefsFragment.setCategorySummaryForceStopApplications"*/)) {
             cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+ getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
@@ -3705,7 +3705,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     + "</b>";
 
         if ((sValue != null) && sValue.equals("3")) {
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
             if (extenderVersion == 0) {
                 //ok = false;
                 cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
@@ -3716,7 +3716,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
                         getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+            } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                     /*, "ProfilesPrefsFragment.setCategorySummaryLockDevice"*/)) {
                 //ok = false;
                 cattegorySummaryData.summary = /*cattegorySummaryData.summary +*/
@@ -5034,14 +5034,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
                     String summary = getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
                             "\n\n" + getString(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
                     preference.setSummary(summary);
                 }
                 else {
-                    String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
+                    String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
                     if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
@@ -5061,7 +5061,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (listPreference != null) {
                 boolean ok = true;
                 CharSequence changeSummary = "";
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
@@ -5074,7 +5074,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 }
                 else
-                if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                         /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/)) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed)+
@@ -5105,14 +5105,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_LOCK_DEVICE_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
                     String summary = getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
                             "\n\n" + getString(R.string.profile_preferences_lockDevice_PPPExtender_install_summary);
                     preference.setSummary(summary);
                 }
                 else {
-                    String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
+                    String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
                     if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
@@ -5139,7 +5139,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
 
                 if (sValue.equals("3")) {
-                    int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                    int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion == 0) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
@@ -5150,7 +5150,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         changeSummary = changeSummary + "\n\n" +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                    } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
+                    } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                             /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_LOCK_DEVICE)"*/)) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
@@ -6302,9 +6302,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(PREF_FORCE_STOP_APPLICATIONS_EXTENDER);
             //setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+            enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
                     /*, "ProfilesPrefsFragment.disableDependedPref (Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)"*/);
-            //enabled = PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
+            //enabled = PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true);
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             if (preference != null) {
@@ -6709,7 +6709,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 // not enabled accessibility service
                 int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext(), false);
                 /*if (accessibilityEnabled == 1) {
-                    int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                    int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion != 0) {
                         // PPPE is installed
                         if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2)
@@ -6943,9 +6943,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String dialogText = "";
 
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
         if (extenderVersion != 0) {
-            String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
+            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
             dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
         }
         dialogText = dialogText + getString(R.string.install_extender_required_version) +
@@ -7036,9 +7036,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             String dialogText = "";
 
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
             if (extenderVersion != 0) {
-                String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
+                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
                 dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
             }
             dialogText = dialogText + getString(R.string.install_extender_required_version) +

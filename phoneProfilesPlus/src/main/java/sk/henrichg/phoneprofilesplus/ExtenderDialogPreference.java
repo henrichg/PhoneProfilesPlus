@@ -60,7 +60,7 @@ public class ExtenderDialogPreference extends DialogPreference {
     {
         String prefVolumeDataSummary;
 
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
         if (extenderVersion == 0) {
             prefVolumeDataSummary = "<b>" + _context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + "</b>";
 
@@ -68,7 +68,7 @@ public class ExtenderDialogPreference extends DialogPreference {
                 prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + installSummary;
         }
         else {
-            String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(_context);
+            String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(_context);
             prefVolumeDataSummary =  _context.getString(R.string.install_extender_installed_version) +
                     " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br>";
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
@@ -92,7 +92,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             accessibilityEnabled = -98;
         if (accessibilityEnabled == -98) {
             // Extender is in right version
-            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true))
+            if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true))
                 // accessibility enabled
                 accessibilityEnabled = 1;
             else

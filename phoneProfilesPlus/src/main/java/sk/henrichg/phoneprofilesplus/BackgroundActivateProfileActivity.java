@@ -149,7 +149,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                PPPAppNotification.drawNotification(true, getApplicationContext());
+                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
                 activateProfile();
             }
             //if (!isFinishing())

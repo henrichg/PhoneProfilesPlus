@@ -36,7 +36,7 @@ class ImportantInfoNotification {
                 showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
 
             boolean showExtender = false;
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
             if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
                 showExtender = true;
 

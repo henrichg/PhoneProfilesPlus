@@ -241,7 +241,7 @@ class PhoneProfilesServiceStatic
             }
 
             if (PPApplication.pppExtenderBroadcastReceiver == null) {
-                PPApplication.pppExtenderBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                PPApplication.pppExtenderBroadcastReceiver = new PPExtenderBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(PPApplication.ACTION_PPPEXTENDER_STARTED);
                 intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
@@ -1491,7 +1491,7 @@ class PhoneProfilesServiceStatic
             if (smsAllowed || callAllowed) {
                 if (smsAllowed) {
                     if (PPApplication.pppExtenderSMSBroadcastReceiver == null) {
-                        PPApplication.pppExtenderSMSBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.pppExtenderSMSBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
                         appContext.registerReceiver(PPApplication.pppExtenderSMSBroadcastReceiver, intentFilter23,
@@ -1511,7 +1511,7 @@ class PhoneProfilesServiceStatic
 
                 if (callAllowed) {
                     if (PPApplication.pppExtenderCallBroadcastReceiver == null) {
-                        PPApplication.pppExtenderCallBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.pppExtenderCallBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
                         appContext.registerReceiver(PPApplication.pppExtenderCallBroadcastReceiver, intentFilter23,
@@ -1583,7 +1583,7 @@ class PhoneProfilesServiceStatic
 
                 if (forceStopAllowed) {
                     if (PPApplication.pppExtenderForceStopApplicationBroadcastReceiver == null) {
-                        PPApplication.pppExtenderForceStopApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.pppExtenderForceStopApplicationBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
                         appContext.registerReceiver(PPApplication.pppExtenderForceStopApplicationBroadcastReceiver, intentFilter23,
@@ -1612,7 +1612,7 @@ class PhoneProfilesServiceStatic
 
                 if ((applicationsAllowed) || (orientationAllowed)) {
                     if (PPApplication.pppExtenderForegroundApplicationBroadcastReceiver == null) {
-                        PPApplication.pppExtenderForegroundApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.pppExtenderForegroundApplicationBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
                         appContext.registerReceiver(PPApplication.pppExtenderForegroundApplicationBroadcastReceiver, intentFilter23,
@@ -1630,7 +1630,7 @@ class PhoneProfilesServiceStatic
 
                 if (smsAllowed) {
                     if (PPApplication.pppExtenderSMSBroadcastReceiver == null) {
-                        PPApplication.pppExtenderSMSBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.pppExtenderSMSBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
                         appContext.registerReceiver(PPApplication.pppExtenderSMSBroadcastReceiver, intentFilter23,
@@ -1648,7 +1648,7 @@ class PhoneProfilesServiceStatic
 
                 if (callAllowed) {
                     if (PPApplication.pppExtenderCallBroadcastReceiver == null) {
-                        PPApplication.pppExtenderCallBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        PPApplication.pppExtenderCallBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
                         appContext.registerReceiver(PPApplication.pppExtenderCallBroadcastReceiver, intentFilter23,
@@ -3789,7 +3789,7 @@ class PhoneProfilesServiceStatic
             }
 
             String phoneNumber = "";
-            if (PPPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+            if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
                     /*, "PhoneProfilesService.doSimulatingRingingCall"*/))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 

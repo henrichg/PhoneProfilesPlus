@@ -5212,10 +5212,10 @@ class ActivateProfileHelper {
 
         if (profile._deviceForceStopApplicationChange == 1) {
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
+            enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, true
                             /*, "ActivateProfileHelper.execute (profile._deviceForceStopApplicationChange)"*/);
             if (enabled) {
-                // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
+                // executeForInteractivePreferences() is called from broadcast receiver PPExtenderBroadcastReceiver
                 ActivateProfileHelper.executeForForceStopApplications(profile, appContext);
             }
         }
@@ -7746,7 +7746,7 @@ class ActivateProfileHelper {
         }
         catch (Exception e) {
             // extender is not installed = package not found
-            //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+            //Log.e("PPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
             return 0;
         }
@@ -7767,7 +7767,7 @@ class ActivateProfileHelper {
         }
         catch (Exception e) {
             // extender is not installed = package not found
-            //Log.e("PPPExtenderBroadcastReceiver.getExtenderVersionName", Log.getStackTraceString(e));
+            //Log.e("PPExtenderBroadcastReceiver.getExtenderVersionName", Log.getStackTraceString(e));
             //PPApplicationStatic.recordException(e);
             return "";
         }

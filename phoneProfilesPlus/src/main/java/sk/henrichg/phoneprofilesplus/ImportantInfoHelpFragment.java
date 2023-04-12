@@ -93,7 +93,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
 
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
 
         if (newsLatest) {
@@ -792,8 +792,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                    }
 //                }, 1000);
                 //PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
-//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of PPPAppNotification.forceDrawNotification");
-                PPPAppNotification.forceDraweNotification(context.getApplicationContext());
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ImportantInfoHelpFragment.doOnViewCreated", "call of PPAppNotification.forceDrawNotification");
+                PPAppNotification.forceDraweNotification(context.getApplicationContext());
 
                 PPApplication.showToast(context,
                         context.getString(R.string.important_info_notification_settings_toast),
@@ -847,9 +847,9 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
 
         String dialogText = "";
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+        int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
         if (extenderVersion != 0) {
-            String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+            String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
             dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
         }
         dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
@@ -953,9 +953,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 
             String dialogText = "";
 
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
+            int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
             if (extenderVersion != 0) {
-                String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
+                String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
                 dialogText = dialogText + activity.getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
             }
             dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +

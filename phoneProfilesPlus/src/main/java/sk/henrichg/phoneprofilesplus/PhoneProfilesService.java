@@ -235,8 +235,8 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {}
         }*/
         // show notification to avoid ANR in api level 26+
-//        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of PPPAppNotification.showNotification");
-        PPPAppNotification.showNotification(getApplicationContext(),
+//        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onCreate", "call of PPAppNotification.showNotification");
+        sk.henrichg.phoneprofilesplus.PPAppNotification.showNotification(getApplicationContext(),
                 !isServiceRunning, isServiceRunning, true);
 
         PPApplicationStatic.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
@@ -268,7 +268,7 @@ public class PhoneProfilesService extends Service
 
         if (Build.VERSION.SDK_INT < 31) {
             IntentFilter intentFilter5 = new IntentFilter();
-            intentFilter5.addAction(PPPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+            intentFilter5.addAction(sk.henrichg.phoneprofilesplus.PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
             appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5);
         }
 
@@ -771,7 +771,7 @@ public class PhoneProfilesService extends Service
 
                 for (Event event : dataWrapper.eventList)
                     event.isAccessibilityServiceEnabled(appContext, true, true);
-                //PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true, false);
+                //PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true, false);
 
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
@@ -812,7 +812,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                PPPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
+                sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                 EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 EventPreferencesCall.setEventCallEventTime(appContext, 0);
@@ -1609,8 +1609,8 @@ public class PhoneProfilesService extends Service
         //startForegroundNotification = true;
 
         boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, true);
-//        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of PPPAppNotification.showNotification");
-        PPPAppNotification.showNotification(appContext, !isServiceRunning, true, true);
+//        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesService.onStartCommand", "call of PPAppNotification.showNotification");
+        sk.henrichg.phoneprofilesplus.PPAppNotification.showNotification(appContext, !isServiceRunning, true, true);
 
         PPApplication.normalServiceStart = (intent != null);
         PPApplication.showToastForProfileActivation = (intent != null);

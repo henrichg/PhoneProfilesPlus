@@ -158,11 +158,11 @@ public class TileChooserActivity extends AppCompatActivity {
             if (serviceInfo == null)
                 startPPServiceWhenNotStarted();
             else {
-//            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPPAppNotification.drawNotification");
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] ActivatorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                PPPAppNotification.drawNotification(true, getApplicationContext());
+                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
             }
         }
     }

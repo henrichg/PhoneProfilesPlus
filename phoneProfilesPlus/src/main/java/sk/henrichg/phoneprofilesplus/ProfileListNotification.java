@@ -681,7 +681,7 @@ public class ProfileListNotification {
                         }
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-//                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+//                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                     }
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(2)");
                     notificationBuilder.setSmallIcon(iconSmallResource);
@@ -696,7 +696,7 @@ public class ProfileListNotification {
                     }
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-//                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+//                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                 }
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(3)");
                 notificationBuilder.setSmallIcon(iconSmallResource);
@@ -810,7 +810,7 @@ public class ProfileListNotification {
                     contentView.setImageViewBitmap(imageViewId, iconBitmap);
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-//                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+//                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                 }
             }
         } else {
@@ -850,7 +850,7 @@ public class ProfileListNotification {
                 //}
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
-//                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+//                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
             }
         }
 

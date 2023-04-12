@@ -193,9 +193,9 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
-                                                //+"|PPPAppNotification.showNotification"
-                                                //+"|PPPAppNotification._showNotification"
-                                                //+"|[CUST] PPPAppNotification._showNotification"
+                                                //+"|PPAppNotification.showNotification"
+                                                //+"|PPAppNotification._showNotification"
+                                                //+"|[CUST] PPAppNotification._showNotification"
                                                 //+"|PhoneProfilesService.onConfigurationChanged"
                                                 //+"|PhoneProfilesService.stopReceiver"
                                                 //+"|PhoneProfilesService.onTaskRemoved"
@@ -810,11 +810,11 @@ public class PPApplication extends Application
     static volatile WifiScanBroadcastReceiver wifiScanReceiver = null;
     static volatile BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     static volatile BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
-    static volatile PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
-    static volatile PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
-    static volatile PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
-    static volatile PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
-    static volatile PPPExtenderBroadcastReceiver pppExtenderCallBroadcastReceiver = null;
+    static volatile PPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
+    static volatile PPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
+    static volatile PPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
+    static volatile PPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
+    static volatile PPExtenderBroadcastReceiver pppExtenderCallBroadcastReceiver = null;
     static volatile EventTimeBroadcastReceiver eventTimeBroadcastReceiver = null;
     static volatile EventCalendarBroadcastReceiver eventCalendarBroadcastReceiver = null;
     static volatile EventDelayStartBroadcastReceiver eventDelayStartBroadcastReceiver = null;
@@ -1559,8 +1559,8 @@ public class PPApplication extends Application
         ProfileListNotification.drawNotification(true, context);
 
         if (alsoNotification) {
-//            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of PPPAppNotification.drawNotification");
-            PPPAppNotification.drawNotification(true, context);
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of PPAppNotification.drawNotification");
+            sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, context);
         }
     }
 
@@ -1598,8 +1598,8 @@ public class PPApplication extends Application
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of forceUpdateGUI");
                     PPApplication.forceUpdateGUI(appContext, true, false, false);
                     if (longDelay) {
-//                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of PPPAppNotification.forceDrawNotification");
-                        PPPAppNotification.forceDrawNotification(appContext);
+//                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of PPAppNotification.forceDrawNotification");
+                        sk.henrichg.phoneprofilesplus.PPAppNotification.forceDrawNotification(appContext);
                         ProfileListNotification.forceDrawNotification(appContext);
                     }
 
@@ -1660,9 +1660,9 @@ public class PPApplication extends Application
             */
 
             if (!longDelay) {
-//                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPPAppNotification.drawNotification");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, context);
-                PPPAppNotification.drawNotification(false, context);
+                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(false, context);
             }
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
@@ -1672,7 +1672,7 @@ public class PPApplication extends Application
     /*
     static void updateNotificationAndWidgets(boolean refresh, boolean forService, Context context)
     {
-        PPPAppNotification.showNotification(refresh, forService);
+        PPAppNotification.showNotification(refresh, forService);
         updateGUI(context, true, refresh);
     }
     */

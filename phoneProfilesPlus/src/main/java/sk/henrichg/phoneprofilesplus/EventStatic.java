@@ -70,7 +70,7 @@ class EventStatic {
 
         if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
         {
-            //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+            //if (PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
@@ -90,7 +90,7 @@ class EventStatic {
             enabled = enabled || hasProximity || hasLight;
 
             if (enabled) {
-                //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+                //if (PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 //else
                 //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
