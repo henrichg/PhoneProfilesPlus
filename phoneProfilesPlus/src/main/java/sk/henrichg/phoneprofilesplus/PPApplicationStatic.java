@@ -2114,7 +2114,7 @@ class PPApplicationStatic {
 
             //workManagerInstance.pruneWork();
 
-            PhoneProfilesService.stop(/*context*/);
+            PhoneProfilesService.stop(shutdown);
 
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);

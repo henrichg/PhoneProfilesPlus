@@ -483,13 +483,15 @@ public class PhoneProfilesService extends Service
         //}
     }
 
-    public static void stop(/*Context context*/) {
+    public static void stop(boolean shutdown) {
         if (instance != null) {
             try {
-                // this avoid generating exception:
-                //   Context.startForegroundService() did not then call Service.startForeground()
-                //https://stackoverflow.com/a/72754189/12228079
-                GlobalUtils.sleep(5000);
+                if (!shutdown) {
+                    // this avoid generating exception:
+                    //   Context.startForegroundService() did not then call Service.startForeground()
+                    //https://stackoverflow.com/a/72754189/12228079
+                    GlobalUtils.sleep(5000);
+                }
 
                 instance.stopSelf();
             } catch (Exception e) {
