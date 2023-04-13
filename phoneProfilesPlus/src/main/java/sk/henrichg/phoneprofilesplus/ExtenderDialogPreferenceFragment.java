@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -159,7 +160,14 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             else {
                 value = prefContext.getString(R.string.accessibility_service_not_used);
             }
-            extenderAccessibilitySettings.setText(prefContext.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + ":"/* + summary*/);
+
+            String title = prefContext.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + ":";
+            if (Build.VERSION.SDK_INT >= 33) {
+                if (!(_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)))
+                    title = title + "\n" + prefContext.getString(R.string.event_preferences_applications_AccessibilitySettings_subTitle_A13);
+            }
+            extenderAccessibilitySettings.setText(title);
+
             extenderAccessibilitySettingsValue.setText("[ " + value + " ]");
             if (summary != null) {
                 extenderAccessibilitySettingsSummary.setText(summary);
