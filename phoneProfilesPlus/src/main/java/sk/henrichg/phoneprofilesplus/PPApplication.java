@@ -66,8 +66,8 @@ public class PPApplication extends Application
     //static final int VERSION_CODE_EXTENDER_6_2 = 670;
     //static final int VERSION_CODE_EXTENDER_7_0 = 700;
     //static final int VERSION_CODE_EXTENDER_8_0 = 800;
-    static final int VERSION_CODE_EXTENDER_LATEST = 865;      // must be <= as in Extender dependencies.gradle
-    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.1"; // must be <= as in Extender dependencies.gradle
+    static final int VERSION_CODE_EXTENDER_LATEST = 870;      // must be <= as in Extender dependencies.gradle
+    static final String VERSION_NAME_EXTENDER_LATEST = "8.1.2"; // must be <= as in Extender dependencies.gradle
 
     static final int VERSION_CODE_PPPPS_LATEST = 45;          // must be <= as in PPPPS dependencies.gradle
     static final String VERSION_NAME_PPPPS_LATEST = "1.0.4";  // must be <= as in PPPPS dependencies.gradle
