@@ -1140,10 +1140,10 @@ class PPApplicationStatic {
 
                 // Configure the notification channel.
                 channel.setDescription(description);
-                channel.enableLights(true);
-                channel.enableVibration(true);
-                //channel.setSound(null, null);
-                channel.setShowBadge(true);
+                channel.enableLights(false);
+                channel.enableVibration(false);
+                channel.setSound(null, null);
+                channel.setShowBadge(false);
                 channel.setBypassDnd(true);
 
                 notificationManager.createNotificationChannel(channel);
