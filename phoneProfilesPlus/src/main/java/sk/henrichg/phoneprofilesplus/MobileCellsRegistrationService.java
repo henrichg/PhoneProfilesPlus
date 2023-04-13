@@ -254,8 +254,8 @@ public class MobileCellsRegistrationService extends Service
 //            text = text+" ("+getString(R.string.ppp_app_name)+")";
 //        }
 
-        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
+        PPApplicationStatic.createInformationNotificationChannel(this);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
