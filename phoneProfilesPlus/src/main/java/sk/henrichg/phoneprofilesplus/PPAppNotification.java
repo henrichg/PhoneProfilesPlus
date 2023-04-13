@@ -15,6 +15,7 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -781,6 +782,12 @@ public class PPAppNotification {
             // required, because in API 33+ foreground serbice notification is dismissable
             notificationBuilder.setOngoing(true);
         }
+        if (Build.VERSION.SDK_INT >= 33) {
+//            Log.e("PPAppNotification._showNotification", "add delete intent");
+            Intent deleteIntent = new Intent(PPAppNotificationDeletedReceiver.PP_APP_NOTIFICATION_DELETED_ACTION);
+            PendingIntent deletePendingIntent = PendingIntent.getBroadcast(appContext, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.setDeleteIntent(deletePendingIntent);
+        }
 
         Notification phoneProfilesNotification;
         try {
@@ -1353,6 +1360,16 @@ public class PPAppNotification {
         clearNotification(appContext);
         GlobalUtils.sleep(100);
 
+        //if (PhoneProfilesService.getInstance() != null) {
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
+            _showNotification(dataWrapper, false);
+            dataWrapper.invalidateDataWrapper();
+        }
+    }
+
+    static void forceDrawNotificationWhenIsDeleted(final Context appContext) {
         //if (PhoneProfilesService.getInstance() != null) {
         synchronized (PPApplication.showPPPNotificationMutex) {
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);

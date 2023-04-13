@@ -22,6 +22,7 @@ import android.net.NetworkRequest;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.VibrationEffect;
@@ -187,6 +188,34 @@ class PhoneProfilesServiceStatic
                     PPApplication.restartEventsWithDelayBroadcastReceiver = null;
                 }
             }*/
+
+            if (Build.VERSION.SDK_INT >= 33) {
+                if (PPApplication.ppAppNotificationDeletedReceiver != null) {
+                    try {
+                        appContext.unregisterReceiver(PPApplication.ppAppNotificationDeletedReceiver);
+                        PPApplication.ppAppNotificationDeletedReceiver = null;
+                    } catch (Exception e) {
+                        PPApplication.ppAppNotificationDeletedReceiver = null;
+                    }
+                }
+                if (PPApplication.keepScreenOnNotificationDeletedReceiver != null) {
+                    try {
+                        appContext.unregisterReceiver(PPApplication.keepScreenOnNotificationDeletedReceiver);
+                        PPApplication.keepScreenOnNotificationDeletedReceiver = null;
+                    } catch (Exception e) {
+                        PPApplication.keepScreenOnNotificationDeletedReceiver = null;
+                    }
+                }
+                if (PPApplication.profileListNotificationDeletedReceiver != null) {
+                    try {
+                        appContext.unregisterReceiver(PPApplication.profileListNotificationDeletedReceiver);
+                        PPApplication.profileListNotificationDeletedReceiver = null;
+                    } catch (Exception e) {
+                        PPApplication.profileListNotificationDeletedReceiver = null;
+                    }
+                }
+            }
+
         }
         if (register) {
 
@@ -298,6 +327,28 @@ class PhoneProfilesServiceStatic
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER);
                 appContext.registerReceiver(PPApplication.restartEventsWithDelayBroadcastReceiver, intentFilter14);
             }*/
+
+            if (Build.VERSION.SDK_INT >= 33) {
+                if (PPApplication.ppAppNotificationDeletedReceiver == null) {
+                    PPApplication.ppAppNotificationDeletedReceiver = new PPAppNotificationDeletedReceiver();
+                    IntentFilter intentFilter5 = new IntentFilter();
+                    intentFilter5.addAction(PPAppNotificationDeletedReceiver.PP_APP_NOTIFICATION_DELETED_ACTION);
+                    appContext.registerReceiver(PPApplication.ppAppNotificationDeletedReceiver, intentFilter5);
+                }
+                if (PPApplication.keepScreenOnNotificationDeletedReceiver == null) {
+                    PPApplication.keepScreenOnNotificationDeletedReceiver = new KeepScreenOnNotificationDeletedReceiver();
+                    IntentFilter intentFilter5 = new IntentFilter();
+                    intentFilter5.addAction(KeepScreenOnNotificationDeletedReceiver.KEEP_SCREEN_ON_NOTIFICATION_DELETED_ACTION);
+                    appContext.registerReceiver(PPApplication.keepScreenOnNotificationDeletedReceiver, intentFilter5);
+                }
+                if (PPApplication.profileListNotificationDeletedReceiver == null) {
+                    PPApplication.profileListNotificationDeletedReceiver = new ProfileListNotificationDeletedReceiver();
+                    IntentFilter intentFilter5 = new IntentFilter();
+                    intentFilter5.addAction(ProfileListNotificationDeletedReceiver.PROFILE_LIST_NOTIFICATION_DELETED_ACTION);
+                    appContext.registerReceiver(PPApplication.profileListNotificationDeletedReceiver, intentFilter5);
+                }
+            }
+
         }
     }
 

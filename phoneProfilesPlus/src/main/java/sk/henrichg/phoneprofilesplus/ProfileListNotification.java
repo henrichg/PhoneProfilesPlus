@@ -419,6 +419,12 @@ public class ProfileListNotification {
             // required, because in API 33+ foreground serbice notification is dismissable
             notificationBuilder.setOngoing(true);
         //}
+        if (Build.VERSION.SDK_INT >= 33) {
+//            Log.e("PPAppNotification._showNotification", "add delete intent");
+            Intent deleteIntent = new Intent(ProfileListNotificationDeletedReceiver.PROFILE_LIST_NOTIFICATION_DELETED_ACTION);
+            PendingIntent deletePendingIntent = PendingIntent.getBroadcast(appContext, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.setDeleteIntent(deletePendingIntent);
+        }
 
         //notificationBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
         notificationBuilder.setStyle(null);
@@ -506,6 +512,17 @@ public class ProfileListNotification {
             //}
         //}
     }
+
+    static void forceDrawNotificationWhenIsDeleted(final Context appContext) {
+        //if (PhoneProfilesService.getInstance() != null) {
+        synchronized (PPApplication.showPPPNotificationMutex) {
+            //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification.forceDrawNotification", "call of _showNotification");
+            _showNotification(appContext);
+            //dataWrapper.invalidateDataWrapper();
+        }
+    }
+
 
     static void drawNotification(boolean drawImmediatelly, Context context) {
 //        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** ProfileListNotification.drawNotification", "schedule");

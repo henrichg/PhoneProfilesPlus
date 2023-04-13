@@ -771,6 +771,9 @@ public class PPApplication extends Application
     static volatile ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
     static volatile ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     static volatile InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
+    static volatile PPAppNotificationDeletedReceiver ppAppNotificationDeletedReceiver = null;
+    static volatile KeepScreenOnNotificationDeletedReceiver keepScreenOnNotificationDeletedReceiver = null;
+    static volatile ProfileListNotificationDeletedReceiver profileListNotificationDeletedReceiver = null;
 
     static volatile PhoneCallsListener phoneCallsListenerSIM1 = null;
     static volatile PhoneCallsListener phoneCallsListenerSIM2 = null;
