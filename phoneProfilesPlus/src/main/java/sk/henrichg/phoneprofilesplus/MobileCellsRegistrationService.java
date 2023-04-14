@@ -83,6 +83,8 @@ public class MobileCellsRegistrationService extends Service
                 context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
             }
 
+            PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+
             countDownTimer = new CountDownTimer(remainingDuration * 1000L, 1000) {
 
                 @Override
