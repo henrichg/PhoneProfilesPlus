@@ -52,6 +52,7 @@ public class MobileCellsRegistrationService extends Service
 
         context = this;
 
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
     }
@@ -185,7 +186,7 @@ public class MobileCellsRegistrationService extends Service
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
         }
 
-        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+        //PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_information_notify) // notification icon
@@ -230,6 +231,7 @@ public class MobileCellsRegistrationService extends Service
     }
 
     private void stopRegistration() {
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         showNotification(0);
         GlobalUtils.sleep(500);
 
