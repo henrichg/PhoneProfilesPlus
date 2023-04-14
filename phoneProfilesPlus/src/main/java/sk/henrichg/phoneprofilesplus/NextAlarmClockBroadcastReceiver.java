@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -216,7 +215,6 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                 AlarmManager _alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
                 if (_alarmManager != null) {
-                    Log.e("NextAlarmClockBroadcastReceiver.setAlarm", "xxxx");
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                     _alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
                     //else //if (android.os.Build.VERSION.SDK_INT >= 19)

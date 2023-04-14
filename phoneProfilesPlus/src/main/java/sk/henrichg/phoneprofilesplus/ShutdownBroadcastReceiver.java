@@ -10,7 +10,7 @@ public class ShutdownBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //if (PPApplicationStatic.logEnabled()) {
 //            PPApplicationStatic.logE("[IN_BROADCAST] ShutdownBroadcastReceiver.onReceive", "xxx");
-            PPApplicationStatic.logE("PPApplication.exitApp", "from ShutdownBroadcastReceiver.onReceive shutdown=true");
+//            PPApplicationStatic.logE("PPApplication.exitApp", "from ShutdownBroadcastReceiver.onReceive shutdown=true");
         //}
 
         // !!! Do not use handler !!!

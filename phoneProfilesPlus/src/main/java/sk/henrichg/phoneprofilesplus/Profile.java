@@ -3058,7 +3058,6 @@ public class Profile {
             else
                 profileName = profileName + " " + indicators;
         }
-        //todo
         if (!durationString.isEmpty()) {
             if (durationInNextLine) {
                 if (showEndTime /*_checked*/)
