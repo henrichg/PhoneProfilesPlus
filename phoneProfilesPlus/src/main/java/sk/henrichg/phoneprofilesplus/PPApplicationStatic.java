@@ -1122,11 +1122,20 @@ class PPApplicationStatic {
         //return true;
     }
 
+    static void deleteOldMobileCellsRegistrationNotificationChannel(Context context) {
+        try {
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+            if (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_OLD) != null)
+                notificationManager.deleteNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_OLD);
+        } catch (Exception e) {
+            recordException(e);
+        }
+    }
     static void createMobileCellsRegistrationNotificationChannel(Context context) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL) != null)
+                if (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT) != null)
                     return;
 
                 // The user-visible name of the channel.
@@ -1136,7 +1145,7 @@ class PPApplicationStatic {
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
-                NotificationChannel channel = new NotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
                 channel.setDescription(description);
@@ -1507,6 +1516,7 @@ class PPApplicationStatic {
         createKeepScreenOnNotificationChannel(appContext);
         createMobileCellsNewCellNotificationChannel(appContext);
         createMobileCellsRegistrationNotificationChannel(appContext);
+        deleteOldMobileCellsRegistrationNotificationChannel(appContext);
         createNewReleaseNotificationChannel(appContext);
         createNotifyEventStartNotificationChannel(appContext);
         createPPPAppNotificationChannel(appContext);

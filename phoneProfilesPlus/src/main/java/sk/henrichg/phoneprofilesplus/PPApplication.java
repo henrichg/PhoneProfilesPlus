@@ -390,7 +390,9 @@ public class PPApplication extends Application
     //static final int PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE = 3;
 
     static final String PROFILE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_activated_profile";
-    static final String MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_mobile_cells_registration";
+    // will be deleted if exists
+    static final String MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_OLD = "phoneProfilesPlus_mobile_cells_registration";
+    static final String MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT = "phoneProfilesPlus_mobile_cells_registration_silent";
     static final String INFORMATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_information";
     static final String EXCLAMATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_exclamation";
     static final String GRANT_PERMISSION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_grant_permission";
