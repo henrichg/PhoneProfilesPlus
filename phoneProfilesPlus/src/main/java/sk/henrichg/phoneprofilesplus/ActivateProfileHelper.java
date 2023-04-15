@@ -58,6 +58,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.palette.graphics.Palette;
 
 import com.android.internal.telephony.ITelephony;
 import com.noob.noobcameraflash.managers.NoobCameraManager;
@@ -608,7 +609,8 @@ class ActivateProfileHelper {
                                     boolean wifiConnected; // = false;
                                     //if (Build.VERSION.SDK_INT < 28) {
                                         NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-                                        wifiConnected = (activeNetwork != null) &&
+                                    //noinspection deprecation
+                                    wifiConnected = (activeNetwork != null) &&
                                                 (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
                                                 activeNetwork.isConnected();
                                     /*}
@@ -639,18 +641,22 @@ class ActivateProfileHelper {
                                         list = wifiManager.getConfiguredNetworks();
                                     if (list != null) {
                                         for (WifiConfiguration i : list) {
+                                            //noinspection deprecation
                                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
                                                 if (wifiConnected) {
+                                                    //noinspection deprecation
                                                     if (!wifiInfo.getSSID().equals(i.SSID)) {
 
                                                         PPApplication.connectToSSIDStarted = true;
 
                                                         // connected to another SSID
                                                         wifiManager.disconnect();
+                                                        //noinspection deprecation
                                                         wifiManager.enableNetwork(i.networkId, true);
                                                         wifiManager.reconnect();
                                                     }
                                                 } else
+                                                    //noinspection deprecation
                                                     wifiManager.enableNetwork(i.networkId, true);
                                                 break;
                                             }
@@ -5115,91 +5121,7 @@ class ActivateProfileHelper {
             }
         }
 
-        if (profile.getGenerateNotificationGenerate()) {
-            PPApplicationStatic.createGeneratedByProfileNotificationChannel(appContext);
-
-            NotificationCompat.Builder mBuilder;
-            Intent _intent;
-            _intent = new Intent(appContext, EditorActivity.class);
-
-            String nTitle = profile.getGenerateNotificationTitle();
-            String nText = profile.getGenerateNotificationBody();
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = appContext.getString(R.string.ppp_app_name);
-//                nText = profile.getGenerateNotificationTitle() + ": " +
-//                        profile.getGenerateNotificationBody();
-//            }
-            nTitle = nTitle + " (" + profile._name + ")";
-            mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
-                    .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                    .setContentTitle(nTitle) // title for notification
-                    .setContentText(nText)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                    .setAutoCancel(true); // clear notification after click
-
-            switch (profile.getGenerateNotificationIconType()) {
-                case 0:
-                    mBuilder.setSmallIcon(R.drawable.ic_information_notify);
-                    break;
-                case 1:
-                    mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
-                    break;
-                default:
-                    // not supported color profile icons
-                    if (profile.getIsIconResourceID()) {
-                        int iconSmallResource = R.drawable.ic_profile_default_notify;
-                        try {
-                            String iconIdentifier = profile.getIconIdentifier();
-                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
-                                if (idx != null)
-                                    iconSmallResource = (int) idx;
-                            }
-                        } catch (Exception e) {
-                            PPApplicationStatic.recordException(e);
-                        }
-                        mBuilder.setSmallIcon(iconSmallResource);
-                    } else {
-                        profile.generateIconBitmap(appContext, false, 0, false);
-                        if (profile._iconBitmap != null) {
-                            mBuilder.setSmallIcon(IconCompat.createWithBitmap(profile._iconBitmap));
-                        }
-                        else {
-                            int iconSmallResource;
-                            iconSmallResource = R.drawable.ic_profile_default_notify;
-                            mBuilder.setSmallIcon(iconSmallResource);
-                        }
-                    }
-                    break;
-            }
-
-            PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(pi);
-            mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
-            mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-            //}
-
-            mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
-
-            Notification notification = mBuilder.build();
-            //notification.vibrate = null;
-            //notification.defaults &= ~DEFAULT_VIBRATE;
-
-            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
-            try {
-                mNotificationManager.notify(
-                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
-                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int)profile._id,
-                        notification);
-            } catch (SecurityException en) {
-                Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(en));
-            } catch (Exception e) {
-                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
-                PPApplicationStatic.recordException(e);
-            }
-        }
+        generateNotifiction(appContext, profile);
 
         setCameraFlash(appContext, profile, executedProfileSharedPreferences);
 
@@ -7512,6 +7434,176 @@ class ActivateProfileHelper {
 
                 }
             } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        }
+    }
+
+    static void generateNotifiction(Context appContext, Profile profile)  {
+        if (profile.getGenerateNotificationGenerate()) {
+            PPApplicationStatic.createGeneratedByProfileNotificationChannel(appContext);
+
+            NotificationCompat.Builder mBuilder;
+            Intent _intent;
+            _intent = new Intent(appContext, EditorActivity.class);
+
+            String nTitle = profile.getGenerateNotificationTitle();
+            String nText = profile.getGenerateNotificationBody();
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = appContext.getString(R.string.ppp_app_name);
+//                nText = profile.getGenerateNotificationTitle() + ": " +
+//                        profile.getGenerateNotificationBody();
+//            }
+            nTitle = nTitle + " (" + profile._name + ")";
+            mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
+                    .setContentTitle(nTitle) // title for notification
+                    .setContentText(nText)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                    .setAutoCancel(true); // clear notification after click
+
+            switch (profile.getGenerateNotificationIconType()) {
+                case 0:
+                    mBuilder.setSmallIcon(R.drawable.ic_information_notify);
+                    break;
+                case 1:
+                    mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
+                    break;
+                default:
+                    // not supported colorful ststus bar icon
+                    boolean isIconResourceID = profile.getIsIconResourceID();
+                    Bitmap  iconBitmap = profile._iconBitmap;
+                    String iconIdentifier = profile.getIconIdentifier();
+
+                    int decoratorColor = ContextCompat.getColor(appContext, R.color.notification_color);
+
+                    if (isIconResourceID) {
+                        int iconSmallResource;
+                        if (iconBitmap != null) {
+                            /*
+                            if (notificationProfileListStatusBarStyle.equals("0")) {
+                                // colorful icon
+
+                                notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                            } else*/ {
+                                // native icon
+
+                                iconSmallResource = R.drawable.ic_profile_default_notify;
+                                try {
+                                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                        Object obj = Profile.profileIconNotifyId.get(iconIdentifier);
+                                        if (obj != null)
+                                            iconSmallResource = (int) obj;
+                                    }
+                                } catch (Exception e) {
+                                    PPApplicationStatic.recordException(e);
+//                                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                                }
+                                mBuilder.setSmallIcon(iconSmallResource);
+                            }
+                        } else {
+                            /*
+                            if (notificationProfileListStatusBarStyle.equals("0")) {
+                                // colorful icon
+
+                                iconSmallResource = R.drawable.ic_profile_default_notify_color;
+                                try {
+                                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                        Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                                        if (idx != null)
+                                            iconSmallResource = (int) idx;
+                                    }
+                                } catch (Exception e) {
+                                    PPApplicationStatic.recordException(e);
+//                                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                                }
+                            } else*/ {
+                                // native icon
+
+                                iconSmallResource = R.drawable.ic_profile_default_notify;
+                                try {
+                                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                        Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
+                                        if (idx != null)
+                                            iconSmallResource = (int) idx;
+                                    }
+                                } catch (Exception e) {
+                                    PPApplicationStatic.recordException(e);
+//                                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                                }
+                            }
+                            mBuilder.setSmallIcon(iconSmallResource);
+                        }
+
+                        if (profile.getUseCustomColorForIcon())
+                            decoratorColor = profile.getIconCustomColor();
+                        else {
+                            if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                                decoratorColor = ProfileStatic.getIconDefaultColor(iconIdentifier);
+                            }
+                        }
+                    } else {
+                        if (iconBitmap != null) {
+                            /*if (notificationProfileListStatusBarStyle.equals("2")) {
+                                Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
+                                notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
+                                //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+                            } else*/ {
+                                mBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                            }
+                        } else {
+                            int iconSmallResource;
+                            /*if (notificationProfileListStatusBarStyle.equals("0"))
+                                iconSmallResource = R.drawable.ic_profile_default;
+                            else*/
+                                iconSmallResource = R.drawable.ic_profile_default_notify;
+                            mBuilder.setSmallIcon(iconSmallResource);
+                        }
+
+                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                            if (iconBitmap != null) {
+                                // do not use increaseNotificationDecorationBrightness(),
+                                // because icon will not be visible in AOD
+                                //int color = profile.increaseNotificationDecorationBrightness(appContext);
+                                //if (color != 0)
+                                //    decoratorColor = color;
+                                //else {
+                                try {
+                                    Palette palette = Palette.from(iconBitmap).generate();
+                                    decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notification_color));
+                                } catch (Exception ignored) {}
+                            }
+                        }
+                    }
+
+                    mBuilder.setColor(decoratorColor);
+                    break;
+            }
+
+            PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(pi);
+            mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
+            mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            //}
+
+            mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_PREFS_NOTIFICATION_GROUP);
+
+            Notification notification = mBuilder.build();
+            //notification.vibrate = null;
+            //notification.defaults &= ~DEFAULT_VIBRATE;
+
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+            try {
+                mNotificationManager.notify(
+                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int)profile._id,
+                        notification);
+            } catch (SecurityException en) {
+                Log.e("ActivateProfileHelper.generateNotifiction", Log.getStackTraceString(en));
+            } catch (Exception e) {
+                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             }
         }

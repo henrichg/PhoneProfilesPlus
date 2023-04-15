@@ -784,7 +784,6 @@ public class ProfileListNotification {
             }
 
         }
-
 */
         if (notificationProfileListIconColor.equals("0"))
             notificationBuilder.setColor(decoratorColor);
