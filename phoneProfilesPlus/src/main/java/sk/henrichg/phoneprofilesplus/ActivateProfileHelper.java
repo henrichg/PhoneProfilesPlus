@@ -7444,8 +7444,17 @@ class ActivateProfileHelper {
             PPApplicationStatic.createGeneratedByProfileNotificationChannel(appContext);
 
             NotificationCompat.Builder mBuilder;
-            Intent _intent;
-            _intent = new Intent(appContext, EditorActivity.class);
+
+            Intent launcherIntent;
+            if (Build.VERSION.SDK_INT < 31) {
+                launcherIntent = new Intent(PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+            } else {
+                launcherIntent = new Intent(appContext, LauncherActivity.class);
+                // clear all opened activities
+                launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+                // setup startupSource
+                launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+            }
 
             String nTitle = profile.getGenerateNotificationTitle();
             String nText = profile.getGenerateNotificationBody();
@@ -7580,8 +7589,13 @@ class ActivateProfileHelper {
                     break;
             }
 
-            PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(pi);
+            PendingIntent pIntent;
+            if (Build.VERSION.SDK_INT < 31)
+                pIntent = PendingIntent.getBroadcast(appContext, 0, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            else
+                pIntent = PendingIntent.getActivity(appContext, 0, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            mBuilder.setContentIntent(pIntent);
             mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
             mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
