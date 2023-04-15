@@ -22,8 +22,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.graphics.drawable.IconCompat;
-import androidx.palette.graphics.Palette;
 
 import java.util.Comparator;
 import java.util.List;
@@ -647,6 +645,7 @@ public class ProfileListNotification {
         //}
     }
 
+    @SuppressWarnings("unused")
     private static void setSmallIcon(Profile activatedProfile,
                                      String notificationProfileListStatusBarStyle,
                                      String notificationProfileListIconColor,
@@ -656,6 +655,9 @@ public class ProfileListNotification {
 
         int decoratorColor = ContextCompat.getColor(appContext, R.color.notification_color);
 
+        notificationBuilder.setSmallIcon(R.drawable.ic_app_notification_icon);
+
+/*
         if (activatedProfile == null) {
             int iconSmallResource;
             if (notificationProfileListStatusBarStyle.equals("0"))
@@ -704,16 +706,34 @@ public class ProfileListNotification {
                     notificationBuilder.setSmallIcon(iconSmallResource);
                 }
             } else {
-                iconSmallResource = R.drawable.ic_profile_default_notify_color;
-                try {
-                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                        Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
-                        if (idx != null)
-                            iconSmallResource = (int) idx;
-                    }
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
+                if (notificationProfileListStatusBarStyle.equals("0")) {
+                    // colorful icon
+
+                    iconSmallResource = R.drawable.ic_profile_default_notify_color;
+                    try {
+                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                            Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
+                            if (idx != null)
+                                iconSmallResource = (int) idx;
+                        }
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
 //                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                    }
+                } else {
+                    // native icon
+
+                    iconSmallResource = R.drawable.ic_profile_default_notify;
+                    try {
+                        if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                            Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
+                            if (idx != null)
+                                iconSmallResource = (int) idx;
+                        }
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+//                            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
+                    }
                 }
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification.setProfileIcon", "(3)");
                 notificationBuilder.setSmallIcon(iconSmallResource);
@@ -751,10 +771,10 @@ public class ProfileListNotification {
                 if (iconBitmap != null) {
                     // do not use increaseNotificationDecorationBrightness(),
                     // because icon will not be visible in AOD
-                        /*int color = profile.increaseNotificationDecorationBrightness(appContext);
-                        if (color != 0)
-                            decoratorColor = color;
-                        else*/ {
+                        //int color = profile.increaseNotificationDecorationBrightness(appContext);
+                        //if (color != 0)
+                        //    decoratorColor = color;
+                        //else {
                         try {
                             Palette palette = Palette.from(iconBitmap).generate();
                             decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notification_color));
@@ -765,6 +785,7 @@ public class ProfileListNotification {
 
         }
 
+*/
         if (notificationProfileListIconColor.equals("0"))
             notificationBuilder.setColor(decoratorColor);
     }
