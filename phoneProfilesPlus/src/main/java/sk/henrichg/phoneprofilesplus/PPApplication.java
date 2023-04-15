@@ -1599,7 +1599,34 @@ public class PPApplication extends Application
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceUpdateGUI");
 
                 Runnable runnable = () -> {
-                    PPApplication.forceUpdateGUI(appContext, true, true, false);
+//                    long start = System.currentTimeMillis();
+//                    PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- START");
+
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_updateGUI_0");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        PPApplication.forceUpdateGUI(appContext, true, true, false);
+
+//                        long finish = System.currentTimeMillis();
+//                        long timeElapsed = finish - start;
+//                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPApplication.updateGUI", "--------------- END - timeElapsed="+timeElapsed);
+                    } catch (Exception e) {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                        //worker.shutdown();
+                    }
                 };
                 PPApplication.delayedGuiExecutor.submit(runnable);
                 return;
@@ -1631,7 +1658,6 @@ public class PPApplication extends Application
                         sk.henrichg.phoneprofilesplus.PPAppNotification.forceDrawNotification(appContext);
                         ProfileListNotification.forceDrawNotification(appContext);
                     }
-
 
 //                    long finish = System.currentTimeMillis();
 //                    long timeElapsed = finish - start;
