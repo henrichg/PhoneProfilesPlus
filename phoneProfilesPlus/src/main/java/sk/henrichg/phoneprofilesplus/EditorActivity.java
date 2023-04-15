@@ -1838,9 +1838,6 @@ public class EditorActivity extends AppCompatActivity
                     notificationManager.cancel(
                             PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile_id,
                             PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile_id);
-                    notificationManager.cancel(
-                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
-                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile_id);
                     ActivateProfileHelper.cancelNotificationsForInteractiveParameters(getApplicationContext());
 
                     Profile profile = DatabaseHandler.getInstance(getApplicationContext()).getProfile(profile_id, false);

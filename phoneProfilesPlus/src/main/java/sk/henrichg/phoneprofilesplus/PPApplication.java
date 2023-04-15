@@ -18,6 +18,7 @@ import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.os.Process;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.service.quicksettings.TileService;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -1562,6 +1563,25 @@ public class PPApplication extends Application
         TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         ProfileListNotification.drawNotification(true, context);
+
+        // notifications generated from profile
+        NotificationManager _notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (_notificationManager != null) {
+            StatusBarNotification[] notifications = _notificationManager.getActiveNotifications();
+            for (StatusBarNotification notification : notifications) {
+                String tag = notification.getTag();
+                if ((tag != null) && tag.contains(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG)) {
+                    if (notification.getId() >= PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID) {
+                        long profile_id = notification.getId() - PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID;
+                        Profile profile = DatabaseHandler.getInstance(context).getProfile(profile_id, false);
+                        if (profile != null) {
+                            profile.generateIconBitmap(context, false, 0, false);
+                            ActivateProfileHelper.generateNotifiction(context, profile);
+                        }
+                    }
+                }
+            }
+        }
 
         if (alsoNotification) {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of PPAppNotification.drawNotification");
