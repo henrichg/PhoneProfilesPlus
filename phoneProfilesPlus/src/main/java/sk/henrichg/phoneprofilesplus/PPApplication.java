@@ -1597,7 +1597,11 @@ public class PPApplication extends Application
 
             if (drawImmediattely) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of forceUpdateGUI");
-                PPApplication.forceUpdateGUI(appContext, true, true, false);
+
+                Runnable runnable = () -> {
+                    PPApplication.forceUpdateGUI(appContext, true, true, false);
+                };
+                PPApplication.delayedGuiExecutor.submit(runnable);
                 return;
             }
 
