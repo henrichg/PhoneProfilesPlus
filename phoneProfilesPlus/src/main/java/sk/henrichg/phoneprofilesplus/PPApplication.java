@@ -1577,6 +1577,10 @@ public class PPApplication extends Application
                         if (profile != null) {
                             profile.generateIconBitmap(context, false, 0, false);
                             ActivateProfileHelper.generateNotifiction(context, profile);
+                        } else {
+                            _notificationManager.cancel(
+                                    PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                                    PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile_id);
                         }
                     }
                 }
