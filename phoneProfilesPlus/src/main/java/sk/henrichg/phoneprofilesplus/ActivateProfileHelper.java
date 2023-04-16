@@ -7469,7 +7469,8 @@ class ActivateProfileHelper {
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                    .setAutoCancel(true); // clear notification after click
+                    .setAutoCancel(true) // clear notification after click
+                    .setOnlyAlertOnce(true);
 
             switch (profile.getGenerateNotificationIconType()) {
                 case 0:
