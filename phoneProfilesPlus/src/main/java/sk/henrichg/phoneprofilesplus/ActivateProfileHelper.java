@@ -7621,6 +7621,18 @@ class ActivateProfileHelper {
                 //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             }
+        } else {
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+            try {
+                mNotificationManager.cancel(
+                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
+            } catch (SecurityException en) {
+                Log.e("ActivateProfileHelper.generateNotifiction", Log.getStackTraceString(en));
+            } catch (Exception e) {
+                //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            }
         }
     }
 

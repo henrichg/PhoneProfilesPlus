@@ -1847,9 +1847,6 @@ public class EditorActivity extends AppCompatActivity
                         profile.generatePreferencesIndicator(getApplicationContext(), false, 0, DataWrapper.IT_FOR_EDITOR, 0f);
 
                         // redraw generated notification
-                        //notificationManager.cancel(
-                        //        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
-                        //        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile_id);
                         ActivateProfileHelper.generateNotifiction(getApplicationContext(), profile);
 
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
