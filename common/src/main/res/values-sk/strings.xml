@@ -2067,4 +2067,9 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">UPOZORNENIE: Vymazané mobilné bunky môžu byť použité v iných udalostiach.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Nekonfigurujte adresár, ktorý je synchronizovaný s cloudom, napríklad Pictures, Camera.</string>
     <string name="permission_why_profile_ringtones_dual_sim">pre zmenu tónu zvonenia, notifikácie, budíka v telefóne s dvoma SIM kartami</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Kliknutím sem prejdete na predvoľbu, kde je možné tento parameter zmeniť.</string>
+    <string name="menu_generate_predefined_profiles">Vytvoriť preddefinované profily</string>
+    <string name="menu_generate_predefined_events">Vytvoriť preddefinované udalosti</string>
+    <string name="application_is_stopping_toast">sa zastavuje…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Poznámka: Ak nie je možné povoliť Dostupnosť, spustite PhoneProfilesPlusExtender a povoľte ho odtiaľ.</string>
 </resources>

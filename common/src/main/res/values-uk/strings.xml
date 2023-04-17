@@ -2067,4 +2067,9 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">УВАГА: Вилучені мобільні вежі можуть використовуватись в інших подіях.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Не налаштовувати теку, яка синхронізується з хмарою, наприклад Зображення, Камера.</string>
     <string name="permission_why_profile_ringtones_dual_sim">для зміни мелодії виклику, сповіщення, будильника в телефоні з 2-ма Sim</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Натисніть тут, щоб перейти до налаштувань, де цей параметр можна змінити.</string>
+    <string name="menu_generate_predefined_profiles">Створити попередньо визначені профілі</string>
+    <string name="menu_generate_predefined_events">Створити попередньо визначені події</string>
+    <string name="application_is_stopping_toast">зупиняється…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Примітка: Якщо неможливо увімкнути налаштування Спеціальних можливостей, будь ласка, запустіть PhoneProfilesPlusExtender і увімкніть їх звідти.</string>
 </resources>

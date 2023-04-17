@@ -2067,4 +2067,9 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">OSTRZEŻENIE: Usunięte stacje bazowe mogą być używane w innych zdarzeniach.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Nie konfiguruj folderu, który jest zsynchronizowany z chmurą, na przykład Zdjęcia, Obrazy.</string>
     <string name="permission_why_profile_ringtones_dual_sim">aby zmieniać dźwięki dzwonka, powiadomień oraz alarmu w telefonie dual SIM</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Click here to go to the preference, where this parameter can be changed.</string>
+    <string name="menu_generate_predefined_profiles">Generate predefined profiles</string>
+    <string name="menu_generate_predefined_events">Generate predefined events</string>
+    <string name="application_is_stopping_toast">is stopping…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
 </resources>

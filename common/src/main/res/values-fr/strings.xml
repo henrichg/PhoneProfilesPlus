@@ -2067,4 +2067,9 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">AVERTISSEMENT : Les antennes-relais supprimées peuvent être utilisées dans d\'autres événements.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Ne configurez pas de dossier synchronisé avec le cloud, par exemple, Images ou Appareil photo.</string>
     <string name="permission_why_profile_ringtones_dual_sim">pour changer la sonnerie, la notification, le son de l\'alarme sur les téléphones double SIM</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Cliquez ici pour accéder à la préférence, où ce paramètre peut être modifié.</string>
+    <string name="menu_generate_predefined_profiles">Générer des profils prédéfinis</string>
+    <string name="menu_generate_predefined_events">Générer des événements prédéfinis</string>
+    <string name="application_is_stopping_toast">s\'arrête…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Remarque : S\'il n\'est pas possible d\'activer les paramètres d\'accessibilité, veuillez lancer PhoneProfilesPlusExtender et l\'activer à partir de là.</string>
 </resources>

@@ -1683,7 +1683,7 @@
     <string name="install_extender_required_version">Gerekli sürüm:</string>
     <string name="install_extender_text1">PhoneProfilesPlusGenişletici\'nin gerekli sürümünü butona dokunarak kurunuz</string>
     <string name="install_extender_text2">Bu, PhoneProfilesPlusExtender.apk\'yı \"İndirilenler\" klasörüne indirmek için internet tarayıcısını açar.</string>
-    <string name="install_extender_text3">Ardından, indirilen APK ile ilgili bildirime tıklayarak bu APK\'yı yükleyin.</string>
+    <string name="install_extender_text3">Ardından, indirilen APK ile ilgili bildirime dokunarak bu APK\'yı yükleyin.</string>
     <string name="install_extender_github_releases">GitHub sürümleri:</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender gerekli sürümde değil!</string>
     <string name="install_extender_where_is_assets_button">\"Assets\" klasörü nerede?</string>
@@ -1755,7 +1755,7 @@
     <string name="profile_preferences_red_texts_text_4">Tercih ayarlarındaki hatalar, Değerler ekranının üst kısmında kırmızı metinler olarak görüntülenir. Lütfen düzeltiniz.</string>
     <string name="event_preferences_red_texts_text_4">Durum ayarlarındaki hatalar, Değerler ekranının üst kısmında kırmızı metinler olarak görüntülenir. Lütfen düzeltiniz.</string>
     <string name="profile_preferences_savedProfilePreferences_title_new">Ayarlanan tercih değerleri</string>
-    <string name="profile_preferences_savedProfilePreferences_summary_new">Ayarlanmış Tercih değerlerini göstermek için burayı tıklayın.</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Ayarlanmış Tercih değerlerini göstermek için burayı dokunun.</string>
     <string name="phone_profiles_pref_notificationProfileIconColor">Tercih simgesi ve Ayarlar göstergesi renk çeşidi</string>
     <string name="phone_profiles_pref_notificationProfileIconLightness">Tercih simgesi şeffaflığı</string>
     <string name="phone_profiles_pref_notificationProfileCustomIconLightness">Hususi Tercih simgesi için simge rengi açıklığını kullan</string>
@@ -1983,7 +1983,7 @@
     <string name="install_pppps_dialog_title">PPPAyarlarıYap\'ı kur</string>
     <string name="install_pppps_text1">PPPAyarlarıYap\'ın son sürümünü butona dokunarak kurunuz</string>
     <string name="install_pppps_text2">Bu, PPPAyarlarıYap.apk\'yı \"İndirilenler\" klasörüne indirmek için internet tarayıcısını açar.</string>
-    <string name="install_pppps_text3">Ardından, indirilen APK ile ilgili bildirime tıklayarak bu APK\'yı yükleyin.</string>
+    <string name="install_pppps_text3">Ardından, indirilen APK ile ilgili bildirime dokunarak bu APK\'yı yükleyin.</string>
     <string name="install_pppps_text4">Dikkat: PPPAyarlarıYap için hedef Android sürümü 5.1\'dir. Bu sebeple Google Play Protect ile uyumlu değildir. Ancak PPPAyarlarıYap güvenlidir, sadece PhoneProfilesPlus\'ın kullanmasına izin verilir.</string>
     <string name="preferences_not_installed_PPPPutSettings_title">PPPAyarlarıYap kurulmadı!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPAyarlarıYap\'ı kurulmadı</string>
@@ -2065,6 +2065,11 @@
     <string name="mobile_cells_item_delete_all_unselected">Seçilmeyenlerin tamamını sil</string>
     <string name="delete_unselected_mobile_cells_alert_message">Seçilmeyen şebeke hücrelerinin tamamı silinsin mi?</string>
     <string name="delete_unselected_mobile_cells_alert_message_warning">DİKKAT: Silinmiş şebeke hücreleri, başka diğer Durumlar ile kullanılıyor olabilir.</string>
-    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
-    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Resimler, Kamera gibi bulutla senkronize edilen klasörleri ayarlarmayınız.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">çift SIM olan telefonun zil sesi, bildirim, alarm sesini değiştirmek için</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Bu değerlerin değiştirilebileceği ayarlara gitmek için buraya dokunun.</string>
+    <string name="menu_generate_predefined_profiles">Önceden tanımlanmış Tercihler üret</string>
+    <string name="menu_generate_predefined_events">Önceden tanımlanmış Durumlar üret</string>
+    <string name="application_is_stopping_toast">is stopping…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
 </resources>

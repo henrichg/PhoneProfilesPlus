@@ -2067,4 +2067,9 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">WAARSCHUWING: Verwijderde zendmast cellen kunnen zijn gebruikt in een ander event.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Configureer geen map die synchroniseert met de cloud, bijvoorbeeld Afbeeldingen en Camera.</string>
     <string name="permission_why_profile_ringtones_dual_sim">voor het wijzigen van beltoon, notificatie, alarm geluid bij een dual SIM telefoon</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Klik hier om naar de voorkeur te gaan, waar je deze parameter kunt wijzigen.</string>
+    <string name="menu_generate_predefined_profiles">Genereer vooraf gedefinieerde profielen</string>
+    <string name="menu_generate_predefined_events">Genereer vooraf gedefinieerde events</string>
+    <string name="application_is_stopping_toast">aan het stoppen…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Opmerking: Lukt het niet de Toegankelijkheidsinstellingen in te schakelen, start dan PhoneProfilesPlusExtender en schakel het daar in.</string>
 </resources>

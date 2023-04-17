@@ -2067,4 +2067,9 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">ATENCIÓN: Las celdas móviles eliminadas pueden estar utilizándose en otros eventos.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">No configurar las carpetas sincronizadas con la nube, por ejemplo Imágenes o Cámara.</string>
     <string name="permission_why_profile_ringtones_dual_sim">para cambiar el tono de llamada, notificación, sonido de alarma de la SIM dual</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Haz clic aquí para ir a la preferencia en la que se puede cambiar este parámetro.</string>
+    <string name="menu_generate_predefined_profiles">Generar perfiles predefinidos</string>
+    <string name="menu_generate_predefined_events">Generar eventos predefinidos</string>
+    <string name="application_is_stopping_toast">se está deteniendo…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Nota: Si no es posible habilitar los ajustes de accesibilidad, ejecuta, por favor, PhoneProfilesPlusExtender y habilítalo desde allí.</string>
 </resources>

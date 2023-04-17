@@ -2067,4 +2067,9 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
     <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Click here to go to the preference, where this parameter can be changed.</string>
+    <string name="menu_generate_predefined_profiles">Generate predefined profiles</string>
+    <string name="menu_generate_predefined_events">Generate predefined events</string>
+    <string name="application_is_stopping_toast">is stopping…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
 </resources>
