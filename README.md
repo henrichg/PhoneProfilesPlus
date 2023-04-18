@@ -37,7 +37,7 @@ __If it is not possible to install PhoneProfilesPlus from GitHub or other source
 
 ### Applications required for some PhoneProfilesPlus features:
 
-- __[PhonePtofilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)__
+- __[PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)__
 - __[PPPPutSettings](https://github.com/henrichg/PPPPutSettings)__
 
 ---
