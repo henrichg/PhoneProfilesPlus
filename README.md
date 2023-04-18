@@ -11,25 +11,25 @@ PhoneProfilesPlus (aka PPP)
 
 ### Sources of PhoneProfilesPlus:
 
-__[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
+- __[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores.
 
-__[Galaxy Store PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
+- __[Galaxy Store PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
 
-__[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)__  
-__[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
+- __[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)__  
+- __[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
 
-__[APKPure PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__  
-__[APKPure application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)__
+- __[APKPure PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__  
+- __[APKPure application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)__
 
-__[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
+- __[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
-__[F-Droid application (download)](https://www.f-droid.org/)__
+- __[F-Droid application (download)](https://www.f-droid.org/)__
 
 __Droid-ify (F-Droid alternative)__  
-__[Droid-ify PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__  
-__[Droid-ify applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
+- __[Droid-ify PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__  
+- __[Droid-ify applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
 &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
 __If it is not possible to install PhoneProfilesPlus from GitHub or other sources directly on the device, then it can be installed from PC.__
