@@ -35,6 +35,11 @@ __[Droid-ify applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com
 __If it is not possible to install PhoneProfilesPlus from GitHub or other sources directly on the device, then it can be installed from PC.__
 - [Show how](docs/install_apk_from_pc.md)
 
+### Applications required for some PhoneProfilesPlus features:
+
+__[PhonePtofilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)__
+__[PPPPutSettings](https://github.com/henrichg/PPPPutSettings)__
+
 ---
 
 __What is PhoneProfilesPlus:__
