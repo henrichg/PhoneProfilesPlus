@@ -144,7 +144,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "<br>";
         dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "<br><br>";
         if (Build.VERSION.SDK_INT >= 33)
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text5) + "<br><br>";
+            dialogText = dialogText + "<b>" + activity.getString(R.string.install_pppps_text5) + "</b><br><br>";
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
         dialogText = dialogText.replace("\n", "<br>");
