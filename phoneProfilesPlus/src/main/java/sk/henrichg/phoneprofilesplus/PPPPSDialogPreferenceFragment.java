@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -142,6 +143,8 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"<br>";
         dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "<br>";
         dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "<br><br>";
+        if (Build.VERSION.SDK_INT >= 33)
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text5) + "<br><br>";
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
         dialogText = dialogText.replace("\n", "<br>");
