@@ -1273,15 +1273,16 @@ public class EditorActivity extends AppCompatActivity
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                     intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+                    intent.setType("*/*"); // gmail will only match with type set
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                     intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
                 }
                 if (intents.size() > 0) {
                     try {
-                        Intent chooser = Intent.createChooser(intents.get(0), getString(R.string.email_chooser));
-                        //noinspection ToArrayCallWithZeroLengthArrayArgument
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                        Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
+                        chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                         startActivity(chooser);
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
@@ -5662,6 +5663,7 @@ public class EditorActivity extends AppCompatActivity
                                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                             intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
                             intent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
+                            intent.setType("*/*"); // gmail will only match with type set
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                             intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
@@ -5669,9 +5671,9 @@ public class EditorActivity extends AppCompatActivity
                         //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
                         if (intents.size() > 0) {
                             try {
-                                Intent chooser = Intent.createChooser(intents.get(0), context.getString(R.string.email_chooser));
-                                //noinspection ToArrayCallWithZeroLengthArrayArgument
-                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                                Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), context.getString(R.string.email_chooser));
+                                chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                                 activity.startActivity(chooser);
                             } catch (Exception e) {
                                 //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
