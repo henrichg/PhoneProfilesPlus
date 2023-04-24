@@ -846,6 +846,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 if (connManager != null) {
                                     //noinspection deprecation
                                     NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                                    //noinspection deprecation
                                     connected = activeNetwork != null && activeNetwork.isConnected();
 //                                    PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
 
@@ -944,6 +945,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (connManager != null) {
                             //noinspection deprecation
                             NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                            //noinspection deprecation
                             connected = activeNetwork != null && activeNetwork.isConnected();
 //                            PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "mobile data connected="+connected);
 

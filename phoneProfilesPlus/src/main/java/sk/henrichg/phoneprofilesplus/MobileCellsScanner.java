@@ -127,6 +127,7 @@ class MobileCellsScanner {
             if (/*(Build.VERSION.SDK_INT >= 26) &&*/ (simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
                     try {
+                        //noinspection deprecation
                         telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
                                 PhoneStateListener.LISTEN_CELL_INFO
                                         | PhoneStateListener.LISTEN_CELL_LOCATION // is required for some devices, especially with AP level < 26
@@ -138,6 +139,7 @@ class MobileCellsScanner {
                 }
                 if ((telephonyManagerSIM2 != null) && (mobileCellsListenerSIM2 != null)) {
                     try {
+                        //noinspection deprecation
                         telephonyManagerSIM2.listen(mobileCellsListenerSIM2,
                                 PhoneStateListener.LISTEN_CELL_INFO
                                         | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
@@ -150,6 +152,7 @@ class MobileCellsScanner {
             }
             else {
                 try {
+                    //noinspection deprecation
                     telephonyManagerDefault.listen(mobileCellsListenerDefault,
                             PhoneStateListener.LISTEN_CELL_INFO
                                     | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26

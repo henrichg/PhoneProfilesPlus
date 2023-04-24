@@ -618,6 +618,7 @@ class PhoneProfilesServiceStatic
                                                 try {
                                                     PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
                                                     PPApplication.phoneCallsListenerSIM1 = new PhoneCallsListener(context, 1);
+                                                    //noinspection deprecation
                                                     PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1,
                                                             PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
                                                 } catch (Exception e) {
@@ -632,6 +633,7 @@ class PhoneProfilesServiceStatic
                                                 try {
                                                     PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
                                                     PPApplication.phoneCallsListenerSIM2 = new PhoneCallsListener(context, 2);
+                                                    //noinspection deprecation
                                                     PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneCallsListenerSIM2,
                                                             PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
                                                 } catch (Exception e) {
@@ -648,6 +650,7 @@ class PhoneProfilesServiceStatic
                     } else {
                         try {
                             PPApplication.phoneCallsListenerDefaul = new PhoneCallsListener(context, 0);
+                            //noinspection deprecation
                             PPApplication.telephonyManagerDefault.listen(PPApplication.phoneCallsListenerDefaul,
                                     PhoneStateListener.LISTEN_CALL_STATE | PhoneStateListener.LISTEN_SERVICE_STATE);
                         } catch (Exception e) {

@@ -571,20 +571,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceCategory.removePreference(preference);
             }
         }*/
-        if (Build.VERSION.SDK_INT != 23) {
+        //if (Build.VERSION.SDK_INT != 23) {
             Preference preference = prefMng.findPreference("prf_pref_volumeVibrateWhenRingingRootInfo");
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-        }
+        //}
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-            PPListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
-            if (preference != null)
+            PPListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            if (listPreference != null)
             {
-                preference.setTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
-                preference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+                listPreference.setTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+                listPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
@@ -690,7 +690,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(Profile.PREF_PROFILE_DURATION, value);
         }
 
-        Preference preference;
+        //Preference preference;
 
         preference = prefMng.findPreference(Profile.PREF_PROFILE_ASK_FOR_DURATION);
         if (preference != null) {

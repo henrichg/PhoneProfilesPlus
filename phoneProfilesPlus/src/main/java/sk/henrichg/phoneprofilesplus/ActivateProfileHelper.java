@@ -573,7 +573,9 @@ class ActivateProfileHelper {
                                     //WTF?: DOOGEE- X5pro - java.lang.SecurityException: Permission Denial: Enable WiFi requires com.mediatek.permission.CTA_ENABLE_WIFI
                                     //Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
                                     //PPApplicationStatic.recordException(e);;
-                                    showError(context, profile._name, Profile.PARAMETER_TYPE_WIFI);
+                                    //showError(context, profile._name, Profile.PARAMETER_TYPE_WIFI);
+                                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_WIFI,
+                                            null, profile._name, "");
                                 }
                                 GlobalUtils.sleep(200);
                             }
@@ -5062,7 +5064,9 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                                     //PPApplicationStatic.recordException(e);
-                                    ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+                                    //ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
+                                    PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS,
+                                            null, profileName, "");
                                 }
                             }
 
@@ -6362,7 +6366,9 @@ class ActivateProfileHelper {
             }
 
         } catch (SecurityException e) {
-            showError(context, profile._name, Profile.PARAMETER_TYPE_WIFIAP);
+            //showError(context, profile._name, Profile.PARAMETER_TYPE_WIFIAP);
+            PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP,
+                    null, profile._name, "");
         } catch (Exception e) {
             //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -7922,7 +7928,7 @@ class ActivateProfileHelper {
             GlobalUtils.sleep(500);
         }
     }
-
+/*
     static void showError(Context context, String profileName, int parameterType) {
         if ((context == null) || (profileName == null))
             return;
@@ -7988,6 +7994,7 @@ class ActivateProfileHelper {
         }
 
     }
+*/
 
 /*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 

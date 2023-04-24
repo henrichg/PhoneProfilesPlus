@@ -257,7 +257,10 @@ class PPApplicationStatic {
                 (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM) ||
                 (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER) ||
                 (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN) ||
-                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH)) {
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFI) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS)) {
 
                 boolean manualProfileActivation = false;
                 if (EventStatic.getGlobalEventsRunning(context)) {
@@ -318,6 +321,21 @@ class PPApplicationStatic {
                             text = appContext.getString(R.string.altype_profileError_cameraFlash);
                             notificationId = PPApplication.PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_ID;
                             notificationTag = PPApplication.PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_WIFI:
+                            text = appContext.getString(R.string.altype_profileError_wifi);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_WIFI_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_WIFI_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP:
+                            text = appContext.getString(R.string.altype_profileError_wifiAP);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS:
+                            text = appContext.getString(R.string.altype_profileError_closeAllApplications);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG;
                             break;
                     }
                     if (!text.isEmpty()) {

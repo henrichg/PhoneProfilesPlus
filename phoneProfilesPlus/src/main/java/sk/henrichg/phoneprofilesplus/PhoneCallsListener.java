@@ -43,6 +43,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         this.simSlot = simSlot;
     }
 
+    @SuppressWarnings("deprecation")
     public void onCallStateChanged (int state, String phoneNumber) {
 
         if (PPApplicationStatic.getApplicationStarted(true, true)) {
@@ -93,6 +94,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void onServiceStateChanged(ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 

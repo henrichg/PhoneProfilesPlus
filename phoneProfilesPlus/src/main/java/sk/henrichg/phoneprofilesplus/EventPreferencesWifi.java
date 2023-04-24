@@ -415,6 +415,7 @@ class EventPreferencesWifi extends EventPreferences {
                                         //if (Build.VERSION.SDK_INT < 28) {
                                             NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                             if (ntkInfo != null) {
+                                                //noinspection deprecation
                                                 if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
                                                     if (wifiInfo != null) {
                                                         wifiConnected = true;

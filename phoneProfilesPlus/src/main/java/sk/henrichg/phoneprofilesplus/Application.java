@@ -174,7 +174,8 @@ class Application  implements Parcelable {
                         }
                     }
                     else
-                    if (activityShortcutIdDelay.length >= 2) {
+                        //noinspection NonStrictComparisonCanBeEquality
+                        if (activityShortcutIdDelay.length >= 2) {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[1]);
                         } catch (Exception e) {

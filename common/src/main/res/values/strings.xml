@@ -2107,6 +2107,10 @@
 
     <string name="install_pppps_text5">When the dialog \"Unsafe app blocked\" from Google Play Protect appears during installation, click at bottom, text \"More details\" and in it at bottom, text \"Install anyway\".</string>
 
+    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
+    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

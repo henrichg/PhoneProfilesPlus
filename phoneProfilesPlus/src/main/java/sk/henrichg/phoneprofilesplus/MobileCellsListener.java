@@ -212,6 +212,7 @@ class MobileCellsListener extends PhoneStateListener {
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onServiceStateChanged (ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
@@ -324,6 +325,7 @@ class MobileCellsListener extends PhoneStateListener {
         return null;
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("MissingPermission")
     @Override
     public void onCellLocationChanged (final CellLocation location) {

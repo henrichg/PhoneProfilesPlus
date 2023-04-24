@@ -73,6 +73,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connMgr != null) {
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            //noinspection deprecation
             return (networkInfo != null && networkInfo.isConnected());
         }
         else

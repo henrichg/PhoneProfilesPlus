@@ -661,16 +661,19 @@ public class WifiScanWorker extends Worker {
             //wifiConfigurationList.clear();
             for (WifiConfiguration device : _wifiConfigurationList)
             {
+                //noinspection deprecation
                 if (device.SSID != null) {
                     boolean found = false;
                     for (WifiSSIDData _device : wifiConfigurationList) {
                         //if (_device.bssid.equals(device.BSSID))
+                        //noinspection deprecation
                         if ((_device.ssid != null) && (_device.ssid.equals(device.SSID))) {
                             found = true;
                             break;
                         }
                     }
                     if (!found) {
+                        //noinspection deprecation
                         wifiConfigurationList.add(new WifiSSIDData(device.SSID, /*device.BSSID,*/ false, true, false));
                     }
                 }
@@ -881,7 +884,9 @@ public class WifiScanWorker extends Worker {
             if (listOfConfigurations != null) {
                 for (int index = 0; index < listOfConfigurations.size(); index++) {
                     WifiConfiguration configuration = listOfConfigurations.get(index);
+                    //noinspection deprecation
                     if (configuration.networkId == wifiInfo.getNetworkId()) {
+                        //noinspection deprecation
                         return configuration.SSID;
                     }
                 }

@@ -468,6 +468,7 @@ public final class RootToolsInternalMethods {
         RootShell.getShell(false).add(command);
         commandWait(RootShell.getShell(false), command);
 
+        //noinspection NonStrictComparisonCanBeEquality
         if (results.size() <= 0) {
             //try with root...
 

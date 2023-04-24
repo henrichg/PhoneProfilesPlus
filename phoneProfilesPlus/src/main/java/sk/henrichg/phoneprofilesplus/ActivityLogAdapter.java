@@ -82,6 +82,9 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.string.altype_profileError_setTone_alarm);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.string.altype_profileError_setWallpaper);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH, R.string.altype_profileError_cameraFlash);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFI, R.string.altype_profileError_wifi);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP, R.string.altype_profileError_wifiAP);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS, R.string.altype_profileError_closeAllApplications);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, R.string.altype_dataImport_fromPP);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_EXPORT, R.string.altype_dataExport);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, R.string.altype_actionFromExternalApp_profileActivation);
@@ -149,6 +152,9 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH, color);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFI, color);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP, color);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS, color);
         color = shiftColor(ContextCompat.getColor(context, R.color.altype_other), context);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, color);

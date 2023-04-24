@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -1046,6 +1047,7 @@ class PreferenceAllowed {
         }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     static void isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(
             PreferenceAllowed preferenceAllowed,
             Context context) {

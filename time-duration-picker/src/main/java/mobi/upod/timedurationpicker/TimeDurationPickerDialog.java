@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
  * @see TimeDurationPicker
  * @see TimeDurationPickerDialogFragment
  */
+@SuppressWarnings("JavadocBlankLines")
 public class TimeDurationPickerDialog extends AlertDialog implements DialogInterface.OnClickListener {
     private static final String DURATION = "duration";
     private final TimeDurationPicker durationInputView;

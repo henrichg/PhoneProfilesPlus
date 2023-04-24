@@ -65,6 +65,7 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothHealth != null) {
                                 try {
+                                    @SuppressWarnings("deprecation")
                                     @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothHealth.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();

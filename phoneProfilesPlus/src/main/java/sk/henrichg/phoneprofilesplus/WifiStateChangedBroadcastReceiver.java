@@ -72,8 +72,10 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     list = wifiManager.getConfiguredNetworks();
                                                 if (list != null) {
                                                     for (WifiConfiguration i : list) {
+                                                        //noinspection deprecation
                                                         if (i.SSID != null && i.SSID.equals(PPApplication.connectToSSID)) {
                                                             //wifiManager.disconnect();
+                                                            //noinspection deprecation
                                                             wifiManager.enableNetwork(i.networkId, true);
                                                             //wifiManager.reconnect();
                                                             break;

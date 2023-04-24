@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-@SuppressWarnings({"FieldCanBeLocal", "UnnecessaryContinue", "TryWithIdenticalCatches", "TryFinallyCanBeTryWithResources", "AnonymousHasLambdaAlternative", "IOStreamConstructor", "ListRemoveInLoop", "ConstantConditions", "StatementWithEmptyBody", "UnusedAssignment", "UnusedReturnValue", "RedundantThrows", "unused"})
+@SuppressWarnings("ALL")
 public class Shell {
 
     public enum ShellType {
