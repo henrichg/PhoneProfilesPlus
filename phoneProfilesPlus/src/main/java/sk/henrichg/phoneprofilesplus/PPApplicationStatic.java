@@ -4,6 +4,7 @@ import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.WorkInfo;
@@ -246,6 +248,115 @@ class PPApplicationStatic {
                                final String profileName, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
             final Context appContext = context;
+
+            if ((logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN) ||
+                (logType == PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH)) {
+
+                boolean manualProfileActivation = false;
+                if (EventStatic.getGlobalEventsRunning(context)) {
+                    if (EventStatic.getEventsBlocked(context)) {
+                        if (!EventStatic.getForceRunEventRunning(context))
+                            manualProfileActivation = true;
+                    }
+                }
+                else
+                    manualProfileActivation = true;
+                if (manualProfileActivation) {
+                    String title = appContext.getString(R.string.profile_activation_activation_error_title) + " " + profileName;
+                    String text = "";
+                    int notificationId = 0;
+                    String notificationTag = "";
+                    switch (logType) {
+                        case PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION:
+                            text = appContext.getString(R.string.altype_profileError_runApplication_application);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_RUN_APPLICATION_APPLICATION_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_RUN_APPLICATION_APPLICATION_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT:
+                            text = appContext.getString(R.string.altype_profileError_runApplication_shortcut);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_RUN_APPLICATION_SHORTCUT_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_RUN_APPLICATION_SHORTCUT_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT:
+                            text = appContext.getString(R.string.altype_profileError_runApplication_intent);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_RUN_APPLICATION_INTENT_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_RUN_APPLICATION_INTENT_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE:
+                            text = appContext.getString(R.string.altype_profileError_setTone_ringtone);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_SET_TONE_RINGTONE_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_SET_TONE_RINGTONE_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION:
+                            text = appContext.getString(R.string.altype_profileError_setTone_notification);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_SET_TONE_NOTIFICATION_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_SET_TONE_NOTIFICATION_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM:
+                            text = appContext.getString(R.string.altype_profileError_setTone_alarm);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_SET_TONE_ALARM_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_SET_TONE_ALARM_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER:
+                            text = appContext.getString(R.string.altype_profileError_setWallpaper);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_SET_WALLPAPER_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_SET_WALLPAPER_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN:
+                            text = appContext.getString(R.string.altype_profileError_setVPN);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_SET_VPN_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_SET_VPN_ERROR_NOTIFICATION_TAG;
+                            break;
+                        case PPApplication.ALTYPE_PROFILE_ERROR_CAMERA_FLASH:
+                            text = appContext.getString(R.string.altype_profileError_cameraFlash);
+                            notificationId = PPApplication.PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_ID;
+                            notificationTag = PPApplication.PROFILE_ACTIVATION_CAMERA_FLASH_ERROR_NOTIFICATION_TAG;
+                            break;
+                    }
+                    if (!text.isEmpty()) {
+                        text = appContext.getString(R.string.profile_activation_activation_error) + ": " + text + ".";
+
+                        PPApplicationStatic.createExclamationNotificationChannel(appContext);
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
+                                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                                .setContentTitle(title) // title for notification
+                                .setContentText(text) // message for notification
+                                .setAutoCancel(true); // clear notification after click
+                        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(text));
+                        //PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        //mBuilder.setContentIntent(pi);
+                        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                        //if (android.os.Build.VERSION.SDK_INT >= 21)
+                        //{
+                        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                        //}
+
+                        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
+
+                        Notification notification = mBuilder.build();
+
+                        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+                        try {
+                            mNotificationManager.notify(notificationTag, notificationId, notification);
+                        } catch (SecurityException en) {
+                            Log.e("PPApplicationStatic.addActivityLog", Log.getStackTraceString(en));
+                        } catch (Exception e) {
+                            //Log.e("ActivateProfileHelper.showError", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        }
+                    }
+                }
+            }
+
             //PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
             //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
