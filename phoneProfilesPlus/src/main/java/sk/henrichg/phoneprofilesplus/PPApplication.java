@@ -169,7 +169,7 @@ public class PPApplication extends Application
     //TODO change it back to not log crash for releases
     static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
-    static final boolean crashIntoFile = false && DebugVersion.enabled;
+    static final boolean crashIntoFile = true; //false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
     static final String logFilterTags = "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"
@@ -1401,6 +1401,7 @@ public class PPApplication extends Application
 
         ACRA.init(this, builder);
 
+        /*
         int actualVersionCode = 0;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
@@ -1410,6 +1411,7 @@ public class PPApplication extends Application
         // Look at TopExceptionHandler.uncaughtException() for ignored exceptions
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(base, actualVersionCode));
         //}
+        */
 
     }
 
