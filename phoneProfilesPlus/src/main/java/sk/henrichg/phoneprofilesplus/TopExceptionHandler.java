@@ -142,11 +142,15 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 //            Log.e("TopExceptionHandler.uncaughtException", "(2z)");
 
             // this is only for debuging, how is handled ignored exceptions
-            //if (_exception instanceof java.lang.RuntimeException) {
-            //    if ((_exception.getMessage() != null) && (_exception.getMessage().equals("Test Crash"))) {
-            //        ignore = true;
-            //    }
-            //}
+//            if (_exception instanceof java.lang.RuntimeException) {
+//                if (_exception.getMessage() != null) {
+//                    if (_exception.getMessage().equals("Test Crash"))
+//                        ignore = true;
+//                    else
+//                    if (_exception.getMessage().equals("Test non-fatal exception"))
+//                        ignore = true;
+//                }
+//            }
 
 //            Log.e("TopExceptionHandler.uncaughtException", "ignore="+ignore);
 
