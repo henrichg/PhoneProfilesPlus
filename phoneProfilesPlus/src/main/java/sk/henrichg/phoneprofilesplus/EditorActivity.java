@@ -1243,7 +1243,6 @@ public class EditorActivity extends AppCompatActivity
                 uris.add(fileUri);
             }
 
-            //File crashFile = new File(sd, TopExceptionHandler.CRASH_FILENAME);
             File crashFile = new File(sd, CustomACRAReportingAdministrator.CRASH_FILENAME);
             if (crashFile.exists()) {
                 Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", crashFile);

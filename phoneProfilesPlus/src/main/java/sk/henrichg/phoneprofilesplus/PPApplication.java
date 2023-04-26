@@ -169,7 +169,7 @@ public class PPApplication extends Application
     //TODO change it back to not log crash for releases
     static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
-    static final boolean crashIntoFile = true; //false && DebugVersion.enabled;
+    static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
     static final String logFilterTags = "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"
@@ -213,7 +213,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.updateGUI"
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
-                                                //+"|TopExceptionHandler.uncaughtException"
+                                                //+"|CustomACRAReportingAdministrator.shouldStartCollecting"
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
 

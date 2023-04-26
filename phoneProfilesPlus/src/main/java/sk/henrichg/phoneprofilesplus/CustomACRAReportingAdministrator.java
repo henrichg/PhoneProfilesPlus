@@ -65,10 +65,10 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                                     Command command = new Command(0, false, command1); //, command2);
                                     try {
                                         RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        PPApplication.commandWait(command, "TopExceptionHandler.uncaughtException");
+                                        PPApplication.commandWait(command, "CustomACRAReportingAdministrator.shouldStartCollecting");
                                     } catch (Exception ee) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                        //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(e));
+                                        //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(e));
                                         //PPApplicationStatic.recordException(e);
                                     }
                                 }
@@ -83,7 +83,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 }
             }
         } catch (Exception ee) {
-            //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
+            //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
         }
 
         try {
@@ -135,7 +135,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 PPApplication.basicExecutorPool.submit(runnable);
             }
         } catch (Exception ee) {
-            //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
+            //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
         }
 
         if (_exception instanceof TimeoutException) {
@@ -211,7 +211,7 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
             buf.flush();
             buf.close();
         } catch (IOException ee) {
-            //Log.e("TopExceptionHandler.logIntoFile", Log.getStackTraceString(ee));
+            //Log.e("CustomACRAReportingAdministrator.logIntoFile", Log.getStackTraceString(ee));
         }
     }
 
