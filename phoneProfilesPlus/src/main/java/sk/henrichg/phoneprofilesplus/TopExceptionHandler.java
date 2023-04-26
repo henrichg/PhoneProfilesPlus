@@ -115,6 +115,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         if (defaultUEH != null) {
 //            Log.e("TopExceptionHandler.uncaughtException", "(2)");
 
+            //TODO must add these filtered exceptions also into CustomACRAReportingAdministrator
+
             boolean ignore = false;
             if (_thread.getName().equals("FinalizerWatchdogDaemon") && (_exception instanceof TimeoutException)) {
                 // ignore these exceptions
