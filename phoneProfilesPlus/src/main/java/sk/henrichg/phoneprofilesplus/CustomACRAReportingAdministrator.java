@@ -43,12 +43,6 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "xxxx");
 
-        final Throwable _exception = reportBuilder.getException();
-        final Thread _thread = reportBuilder.getUncaughtExceptionThread();
-
-        if (_exception == null)
-            return true;
-
         try {
             //if (PPApplication.lockDeviceActivity != null) {
             if (PPApplication.lockDeviceActivityDisplayed) {
@@ -85,6 +79,12 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
         } catch (Exception ee) {
             //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
         }
+
+        final Throwable _exception = reportBuilder.getException();
+        final Thread _thread = reportBuilder.getUncaughtExceptionThread();
+
+        if (_exception == null)
+            return true;
 
         try {
             if (PPApplication.crashIntoFile) {
