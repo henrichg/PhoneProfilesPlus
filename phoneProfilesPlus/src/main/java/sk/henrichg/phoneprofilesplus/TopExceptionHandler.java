@@ -1,9 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.RemoteServiceException;
 import android.content.Context;
-import android.os.DeadSystemException;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeoutException;
 
 class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
 
@@ -115,8 +112,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
         if (defaultUEH != null) {
 //            Log.e("TopExceptionHandler.uncaughtException", "(2)");
 
-            //TODO must add these filtered exceptions also into CustomACRAReportingAdministrator
-
+            // moved to CustomACRAReportingAdministrator
+/*
             boolean ignore = false;
             if (_thread.getName().equals("FinalizerWatchdogDaemon") && (_exception instanceof TimeoutException)) {
                 // ignore these exceptions
@@ -164,6 +161,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             } else
                 //Prevents the service/app from freezing
                 System.exit(2);
+ */
+            defaultUEH.uncaughtException(_thread, _exception);
         }
         else
             //Prevents the service/app from freezing
