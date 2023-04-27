@@ -683,8 +683,6 @@ public class EditorProfileListFragment extends Fragment
         // delete deleted profile from FIFO
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = activityDataWrapper.fifoGetActivatedProfiles();
-            if (activateProfilesFIFO == null)
-                activateProfilesFIFO = new ArrayList<>();
             List<String> newActivateProfilesFIFO = new ArrayList<>();
             for (String toFifo : activateProfilesFIFO) {
                 String[] splits = toFifo.split("\\|");

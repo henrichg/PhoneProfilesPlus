@@ -2788,16 +2788,14 @@ public class DataWrapper {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
             int count = preferences.getInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
 
+            List<String> activateProfilesFifo = new ArrayList<>();
             if (count > -1) {
-                List<String> activateProfilesFifo = new ArrayList<>();
-
                 for (int i = 0; i < count; i++) {
                     String profileId = preferences.getString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, "0|0");
                     activateProfilesFifo.add(profileId);
                 }
-                return activateProfilesFifo;
-            } else
-                return null;
+            }
+            return activateProfilesFifo;
         //}
     }
 
@@ -2829,8 +2827,6 @@ public class DataWrapper {
 
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
-            if (activateProfilesFIFO == null)
-                activateProfilesFIFO = new ArrayList<>();
             int size = activateProfilesFIFO.size();
             if (size > PPApplication.ACTIVATED_PROFILES_FIFO_SIZE) {
                 activateProfilesFIFO.remove(0);
