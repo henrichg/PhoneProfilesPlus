@@ -36,12 +36,13 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
         synchronized (PPApplication.dashClockWidgetMutex) {
             instance = this;
+
+            //GlobalGUIRoutines.setLanguage(this);
+
+            if (dataWrapper == null)
+                dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
+
         }
-
-        //GlobalGUIRoutines.setLanguage(this);
-
-        if (dataWrapper == null)
-            dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
 
         setUpdateWhenScreenOn(true);
     }
@@ -55,10 +56,10 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
         synchronized (PPApplication.dashClockWidgetMutex) {
             instance = null;
+            /*if (dataWrapper != null)
+                dataWrapper.invalidateDataWrapper();
+            dataWrapper = null;*/
         }
-        /*if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;*/
     }
 
     @Override
@@ -74,9 +75,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         //final PhoneProfilesDashClockExtension _instance = instance;
         //final DataWrapper _dataWrapper = dataWrapper;
 
-        final Context appContext = dataWrapper.context;
-        LocaleHelper.setApplicationLocale(appContext);
-
         //PPApplication.startHandlerThreadWidget();
         //final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         //__handler.post(new PPHandlerThreadRunnable(appContext, dataWrapper) {
@@ -89,10 +87,13 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
             synchronized (PPApplication.dashClockWidgetMutex) {
 
-                if (/*(appContext != null) && (dataWrapper != null) &&*/ (instance != null)) {
+                if ((dataWrapper != null) && (instance != null)) {
 
                     try {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
+
+                        Context appContext = dataWrapper.context;
+                        LocaleHelper.setApplicationLocale(appContext);
 
                         //profile = Profile.getMappedProfile(
                         //                            _dataWrapper.getActivatedProfile(true, false), this);
@@ -120,42 +121,39 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
                         /////////////////////////////////////////////////////////////
 
-                        if (instance != null) {
-                            // intent
-                            Intent intent = new Intent(instance, LauncherActivity.class);
-                            // clear all opened activities
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+                        // intent
+                        Intent intent = new Intent(this, LauncherActivity.class);
+                        // clear all opened activities
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
 
-                            String status = "";
-                            //if (ApplicationPreferences.prefEventsBlocked) {
-                            if (EventStatic.getEventsBlocked(appContext)) {
-                                if (EventStatic.getForceRunEventRunning(appContext)) {
-                                    /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                                        status = "\u23E9";
-                                    else*/
-                                    status = "[»]";
-                                } else {
-                                    /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                                        status = "\uD83D\uDC46";
-                                    else */
-                                    status = "[M]";
-                                }
+                        String status = "";
+                        //if (ApplicationPreferences.prefEventsBlocked) {
+                        if (EventStatic.getEventsBlocked(appContext)) {
+                            if (EventStatic.getForceRunEventRunning(appContext)) {
+                                /*if (android.os.Build.VERSION.SDK_INT >= 16)
+                                    status = "\u23E9";
+                                else*/
+                                status = "[»]";
+                            } else {
+                                /*if (android.os.Build.VERSION.SDK_INT >= 16)
+                                    status = "\uD83D\uDC46";
+                                else */
+                                status = "[M]";
                             }
-
-                            ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
-
-                            // Publish the extension data update.
-                            if (instance != null)
-                                instance.publishUpdate(new ExtensionData()
-                                        .visible(true)
-                                        .icon(iconResource)
-                                        .status(status)
-                                        .expandedTitle(profileName)
-                                        .expandedBody(indicators.getString(profile, /*0,*/ appContext))
-                                        .contentDescription("PhoneProfilesPlus - " + profileName)
-                                        .clickIntent(intent));
                         }
+
+                        ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
+
+                        // Publish the extension data update.
+                        publishUpdate(new ExtensionData()
+                                .visible(true)
+                                .icon(iconResource)
+                                .status(status)
+                                .expandedTitle(profileName)
+                                .expandedBody(indicators.getString(profile, /*0,*/ appContext))
+                                .contentDescription("PhoneProfilesPlus - " + profileName)
+                                .clickIntent(intent));
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
