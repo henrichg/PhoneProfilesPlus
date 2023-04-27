@@ -70,7 +70,13 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
                 contactList = new ArrayList<>();
-                contactList.addAll(localContactList);
+                if (!withoutNumbers) {
+                    for (Contact contact : localContactList) {
+                        if (contact.phoneId != 0)
+                            contactList.add(contact);
+                    }
+                } else
+                    contactList.addAll(localContactList);
                 String[] splits = value.split("\\|");
                 for (Contact contact : contactList) {
                     if (withoutNumbers || (contact.phoneId != 0)) {
