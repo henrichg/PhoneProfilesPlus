@@ -1932,7 +1932,9 @@ class Event {
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
-                                int size = activateProfilesFIFO.size();
+                                int size = 0;
+                                if (activateProfilesFIFO != null)
+                                    size = activateProfilesFIFO.size();
                                 if (size > 0) {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
                                     // remove profiles from this event
@@ -2024,7 +2026,9 @@ class Event {
                             synchronized (PPApplication.profileActivationMutex) {
                                 List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
-                                int size = activateProfilesFIFO.size();
+                                int size = 0;
+                                if (activateProfilesFIFO != null)
+                                    size = activateProfilesFIFO.size();
                                 if (size > 0) {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
                                     // remove profiles from this event
