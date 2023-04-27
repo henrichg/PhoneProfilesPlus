@@ -144,7 +144,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                                     .icon(iconResource)
                                     .status(status)
                                     .expandedTitle(profileName)
-                                    .expandedBody(indicators.getString(profile, /*0,*/ instance))
+                                    .expandedBody(indicators.getString(profile, /*0,*/ appContext))
                                     .contentDescription("PhoneProfilesPlus - " + profileName)
                                     .clickIntent(intent));
                     }
