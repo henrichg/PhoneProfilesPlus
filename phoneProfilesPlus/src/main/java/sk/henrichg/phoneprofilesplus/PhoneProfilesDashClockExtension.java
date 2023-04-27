@@ -18,7 +18,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     public static PhoneProfilesDashClockExtension getInstance()
     {
-        return instance;
+        synchronized (PPApplication.dashClockWidgetMutex) {
+            return instance;
+        }
     }
 
     @Override
@@ -32,7 +34,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
 //        PPApplicationStatic.logE("[IN_LISTENER] DashClockExtension.onInitialize", "xxx");
 
-        instance = this;
+        synchronized (PPApplication.dashClockWidgetMutex) {
+            instance = this;
+        }
 
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -49,7 +53,9 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
 //        PPApplicationStatic.logE("[IN_LISTENER] DashClockExtension.onDestroy", "xxx");
 
-        instance = null;
+        synchronized (PPApplication.dashClockWidgetMutex) {
+            instance = null;
+        }
         /*if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
         dataWrapper = null;*/
@@ -81,75 +87,78 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             //Context appContext= appContextWeakRef.get();
             //DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
-            if (/*(appContext != null) && (dataWrapper != null) &&*/ (instance != null)) {
+            synchronized (PPApplication.dashClockWidgetMutex) {
 
-                try {
+                if (/*(appContext != null) && (dataWrapper != null) &&*/ (instance != null)) {
+
+                    try {
 //                    PPApplicationStatic.logE("[IN_EXECUTOR] PhoneProfilesDashClockExtension.onUpdateData", "do it");
 
-                    //profile = Profile.getMappedProfile(
-                    //                            _dataWrapper.getActivatedProfile(true, false), this);
-                    Profile profile = dataWrapper.getActivatedProfile(true, false);
+                        //profile = Profile.getMappedProfile(
+                        //                            _dataWrapper.getActivatedProfile(true, false), this);
+                        Profile profile = dataWrapper.getActivatedProfile(true, false);
 
-                    boolean isIconResourceID;
-                    String iconIdentifier;
-                    String profileName;
-                    if (profile != null) {
-                        isIconResourceID = profile.getIsIconResourceID();
-                        iconIdentifier = profile.getIconIdentifier();
-                        profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
-                    } else {
-                        isIconResourceID = true;
-                        iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
-                        profileName = appContext.getString(R.string.profiles_header_profile_name_no_activated);
-                    }
-                    int iconResource;
-                    if (isIconResourceID)
-                        //iconResource = getResources().getIdentifier(iconIdentifier, "drawable", PPApplication.PACKAGE_NAME);
-                        iconResource = ProfileStatic.getIconResource(iconIdentifier);
-                    else
-                        //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
-                        iconResource = ProfileStatic.getIconResource(Profile.PROFILE_ICON_DEFAULT);
-
-                    /////////////////////////////////////////////////////////////
-
-                    if (instance != null) {
-                        // intent
-                        Intent intent = new Intent(instance, LauncherActivity.class);
-                        // clear all opened activities
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-
-                        String status = "";
-                        //if (ApplicationPreferences.prefEventsBlocked) {
-                        if (EventStatic.getEventsBlocked(appContext)) {
-                            if (EventStatic.getForceRunEventRunning(appContext)) {
-                    /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                        status = "\u23E9";
-                    else*/
-                                status = "[»]";
-                            } else {
-                    /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                        status = "\uD83D\uDC46";
-                    else */
-                                status = "[M]";
-                            }
+                        boolean isIconResourceID;
+                        String iconIdentifier;
+                        String profileName;
+                        if (profile != null) {
+                            isIconResourceID = profile.getIsIconResourceID();
+                            iconIdentifier = profile.getIconIdentifier();
+                            profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
+                        } else {
+                            isIconResourceID = true;
+                            iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
+                            profileName = appContext.getString(R.string.profiles_header_profile_name_no_activated);
                         }
+                        int iconResource;
+                        if (isIconResourceID)
+                            //iconResource = getResources().getIdentifier(iconIdentifier, "drawable", PPApplication.PACKAGE_NAME);
+                            iconResource = ProfileStatic.getIconResource(iconIdentifier);
+                        else
+                            //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
+                            iconResource = ProfileStatic.getIconResource(Profile.PROFILE_ICON_DEFAULT);
 
-                        ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
+                        /////////////////////////////////////////////////////////////
 
-                        // Publish the extension data update.
-                        if (instance != null)
-                            instance.publishUpdate(new ExtensionData()
-                                    .visible(true)
-                                    .icon(iconResource)
-                                    .status(status)
-                                    .expandedTitle(profileName)
-                                    .expandedBody(indicators.getString(profile, /*0,*/ appContext))
-                                    .contentDescription("PhoneProfilesPlus - " + profileName)
-                                    .clickIntent(intent));
+                        if (instance != null) {
+                            // intent
+                            Intent intent = new Intent(instance, LauncherActivity.class);
+                            // clear all opened activities
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+
+                            String status = "";
+                            //if (ApplicationPreferences.prefEventsBlocked) {
+                            if (EventStatic.getEventsBlocked(appContext)) {
+                                if (EventStatic.getForceRunEventRunning(appContext)) {
+                                    /*if (android.os.Build.VERSION.SDK_INT >= 16)
+                                        status = "\u23E9";
+                                    else*/
+                                    status = "[»]";
+                                } else {
+                                    /*if (android.os.Build.VERSION.SDK_INT >= 16)
+                                        status = "\uD83D\uDC46";
+                                    else */
+                                    status = "[M]";
+                                }
+                            }
+
+                            ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
+
+                            // Publish the extension data update.
+                            if (instance != null)
+                                instance.publishUpdate(new ExtensionData()
+                                        .visible(true)
+                                        .icon(iconResource)
+                                        .status(status)
+                                        .expandedTitle(profileName)
+                                        .expandedBody(indicators.getString(profile, /*0,*/ appContext))
+                                        .contentDescription("PhoneProfilesPlus - " + profileName)
+                                        .clickIntent(intent));
+                        }
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
                     }
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
                 }
             }
         }; //);
