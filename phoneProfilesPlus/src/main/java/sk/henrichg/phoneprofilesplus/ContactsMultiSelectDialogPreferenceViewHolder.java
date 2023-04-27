@@ -94,10 +94,11 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
             if (contact.accountType.equals("com.whatsapp"))
                 accountType = "WhatsApp";
         }
-        if ((!contact.accountType.equals("vnd.sec.contact.sim")) &&
-            (!contact.accountType.equals("vnd.sec.contact.sim2")) &&
-            (!contact.accountType.equals("vnd.sec.contact.phone")) &&
-            (!contact.accountName.equals(accountType)))
+        if ((!accountType.isEmpty()) &&
+                (!contact.accountType.equals("vnd.sec.contact.sim")) &&
+                (!contact.accountType.equals("vnd.sec.contact.sim2")) &&
+                (!contact.accountType.equals("vnd.sec.contact.phone")) &&
+                (!contact.accountName.equals(accountType)))
             accountType = accountType + "\n  - " + contact.accountName;
         textViewAccountType.setText(accountType);
 
