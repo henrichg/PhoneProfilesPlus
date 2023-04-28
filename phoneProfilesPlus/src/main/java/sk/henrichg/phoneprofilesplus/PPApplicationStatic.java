@@ -92,7 +92,8 @@ class PPApplicationStatic {
         }
     }
 
-    static void cancelWork(final String name, final boolean forceCancel) {
+    static void cancelWork(final String name,
+                           @SuppressWarnings("SameParameterValue") final boolean forceCancel) {
         // cancel only enqueued works
         //PPApplication.startHandlerThreadCancelWork();
         //final Handler __handler = new Handler(PPApplication.handlerThreadCancelWork.getLooper());
@@ -142,8 +143,8 @@ class PPApplicationStatic {
         _cancelWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, false);
         _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_1, false);
         _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
-        _cancelWork(GeofenceScanWorker.WORK_TAG, false);
-        _cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
+        //_cancelWork(GeofenceScanWorker.WORK_TAG, false);
+        //_cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
         _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
         _cancelWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, false);
         //if (atStart)
@@ -177,9 +178,9 @@ class PPApplicationStatic {
         _cancelWork(MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG, false);
         _cancelWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, false);
-        _cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
-        _cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
-        _cancelWork(DisableVolumesInternalChangeWorker.WORK_TAG, false);
+        //_cancelWork(DisableInternalChangeWorker.WORK_TAG, false);
+        //_cancelWork(DisableScreenTimeoutInternalChangeWorker.WORK_TAG, false);
+        //_cancelWork(DisableVolumesInternalChangeWorker.WORK_TAG, false);
 
     }
 
@@ -2599,9 +2600,9 @@ class PPApplicationStatic {
         if (enable) {
             PPExecutors.scheduleDisableBlockProfileEventActionExecutor();
         }
-        else {
-            cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG, false);
-        }
+        //else {
+        //    cancelWork(DisableBlockProfileEventActionWorker.WORK_TAG, false);
+        //}
     }
 
 /*    static abstract class PPHandlerThreadRunnable implements Runnable {

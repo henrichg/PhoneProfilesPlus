@@ -10,7 +10,7 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("unused")
 public class DisableBlockProfileEventActionWorker extends Worker {
 
-    static final String WORK_TAG = "setBlockProfileEventsActionWork";
+    //static final String WORK_TAG = "setBlockProfileEventsActionWork";
 
     public DisableBlockProfileEventActionWorker(
             @NonNull Context context,

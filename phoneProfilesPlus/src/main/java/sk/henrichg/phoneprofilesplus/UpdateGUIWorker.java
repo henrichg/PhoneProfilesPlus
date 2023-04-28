@@ -10,13 +10,12 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("unused")
 public class UpdateGUIWorker extends Worker {
 
-    static final String WORK_TAG = "updateGUIWork";
+    //static final String WORK_TAG = "updateGUIWork";
 
     public UpdateGUIWorker(
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        //this.context = context;
     }
 
     @NonNull

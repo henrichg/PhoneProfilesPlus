@@ -438,7 +438,7 @@ public class PhoneProfilesService extends Service
             //isInForeground = false;
             stopForeground(true);
 
-            PPApplicationStatic.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
+            //PPApplicationStatic.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {

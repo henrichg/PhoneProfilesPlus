@@ -10,7 +10,7 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("unused")
 public class DisableInternalChangeWorker extends Worker {
 
-    static final String WORK_TAG = "disableInternalChangeWork";
+    //static final String WORK_TAG = "disableInternalChangeWork";
 
     public DisableInternalChangeWorker(
             @NonNull Context context,

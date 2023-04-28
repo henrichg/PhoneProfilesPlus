@@ -185,11 +185,17 @@
             android:name="android.max_aspect"
             android:value="2.4"/>
 
+        <!-- Library App Startup is not used in PPP
+             https://developer.android.com/topic/libraries/app-startup -->
+        <!-- https://developer.android.com/guide/background/persistent/configuration/custom-configuration -->
+        <!-- Since WorkManager 2.6, App Startup is used internally within WorkManager.
+             To provide a custom initializer you need to remove the androidx.startup node.
+             If you don't use App Startup in your app, you can remove it completely. -->
 <!--        <provider-->
-<!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
-<!--            android:authorities="${applicationId}.workmanager-init"-->
-<!--            android:exported="false"-->
-<!--            tools:node="remove" />-->
+<!--            android:name="androidx.startup.InitializationProvider"-->
+<!--            android:authorities="${applicationId}.androidx-startup"-->
+<!--            tools:node="remove">-->
+<!--        </provider>-->
 
         <provider
             android:name="androidx.core.content.FileProvider"

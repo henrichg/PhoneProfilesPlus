@@ -10,7 +10,7 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("unused")
 public class DisableScreenTimeoutInternalChangeWorker extends Worker {
 
-    static final String WORK_TAG = "disableScreenTimeoutInternalChangeWork";
+    //static final String WORK_TAG = "disableScreenTimeoutInternalChangeWork";
 
     public DisableScreenTimeoutInternalChangeWorker(
             @NonNull Context context,

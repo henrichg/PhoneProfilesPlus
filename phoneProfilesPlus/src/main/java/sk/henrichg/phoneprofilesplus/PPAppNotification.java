@@ -1567,7 +1567,7 @@ public class PPAppNotification {
             //isInForeground = false;
             if (PhoneProfilesService.getInstance() != null)
                 PhoneProfilesService.getInstance().stopForeground(true);
-            PPApplicationStatic.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
+            //PPApplicationStatic.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {
