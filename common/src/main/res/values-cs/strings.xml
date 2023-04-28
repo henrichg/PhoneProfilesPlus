@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Špatná hodnota</string>
     <string name="profile_activation_activation_error_title">Aktivovaný profil:</string>
     <string name="profile_activation_activation_error">Chyba během aktivace profilu</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Chyba během aktivace profilu. Změna stavu Wi-Fi přístupového bodu selhala.</string>
-    <string name="profile_activation_activation_error_change_wifi">Chyba během aktivace profilu. Změna stavu Wi-Fi selhala.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Chyba během aktivace profilu. Zavření všech aplikací selhalo.</string>
     <string name="menu_check_github_releases">Zkontrolovat vydání apl.</string>
     <string name="check_github_releases_go_to_github">Jít do GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Stáhněte si nejnovější verzi PhoneProfilesPlus.apk z jeho GitHub. Klikněte na notifikaci o staženém apk a nainstalujte ho.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Vytvořit předdefinované události</string>
     <string name="application_is_stopping_toast">se zastavuje…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Poznámka: Pokud nelze povolit Dostupnost, spusťte PhoneProfilesPlusExtender a povolte jej odtud.</string>
+    <string name="install_pppps_text5">Když se během instalace zobrazí dialogové okno \"Nebezpečná aplikace je zablokována\" od Google Play Protect, klikněte v dolní části na text \"Více podrobností\" a tam v dolní části na text \"Přesto nainstalovat\".</string>
+    <string name="altype_profileError_wifi">profil - chyba při nastavování Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profil - chyba při nastavování Wi-Fi hotspotu</string>
+    <string name="altype_profileError_closeAllApplications">profil - chyba při zavírání všech aplikací</string>
 </resources>

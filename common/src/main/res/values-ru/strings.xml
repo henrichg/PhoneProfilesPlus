@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Неверное значение</string>
     <string name="profile_activation_activation_error_title">Активируемый профиль:</string>
     <string name="profile_activation_activation_error">Ошибка при активации профиля</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Ошибка при активации профиля. Не удалось изменить состояние точки доступа Wi-Fi.</string>
-    <string name="profile_activation_activation_error_change_wifi">Ошибка при активации профиля. Не удалось изменить состояние Wi-Fi.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Ошибка при активации профиля. Не удалось закрыть все приложения.</string>
     <string name="menu_check_github_releases">Проверить релизы</string>
     <string name="check_github_releases_go_to_github">Перейти к релизам на GitHub</string>
     <string name="check_github_releases_install_info_1">Загрузите последнюю версию PhoneProfilesPlus.apk с GitHub. Затем нажмите на уведомление о загруженном apk и установите его.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Создать предустановленные события</string>
     <string name="application_is_stopping_toast">останавливается…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Примечание: если вы не можете включить настройки спец. возможностей, запустите, пожалуйста, PhoneProfilesPlusExtender и включите их оттуда.</string>
+    <string name="install_pppps_text5">Когда во время установки появится окно Google Play Защиты \"Подозрительное приложение заблокировано\", нажмите внизу \"Подробнее\", а затем \"Всё равно установить\".</string>
+    <string name="altype_profileError_wifi">профиль - ошибка при установке сети Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">профиль - ошибка при установке точки доступа Wi-Fi</string>
+    <string name="altype_profileError_closeAllApplications">профиль - ошибка при закрытии всех приложений</string>
 </resources>

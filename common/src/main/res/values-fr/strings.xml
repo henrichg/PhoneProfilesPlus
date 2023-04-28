@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Mauvaise valeur</string>
     <string name="profile_activation_activation_error_title">Profil actif :</string>
     <string name="profile_activation_activation_error">Erreur lors de l\'activation du profil</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Erreur lors de l\'activation du profil. La modification de l\'état du point d\'accès Wi-Fi a échoué.</string>
-    <string name="profile_activation_activation_error_change_wifi">Erreur lors de l\'activation du profil. Le changement d\'état Wi-Fi a échoué.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Erreur lors de l\'activation du profil. La fermeture de toutes les applications a échoué.</string>
     <string name="menu_check_github_releases">Vérifier les versions de l\'application</string>
     <string name="check_github_releases_go_to_github">Accéder aux versions de GitHub</string>
     <string name="check_github_releases_install_info_1">Téléchargez la dernière version de PhoneProfilesPlus.apk depuis son GitHub. Cliquez ensuite sur la notification de l\'apk téléchargé et installez-le.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Générer des événements prédéfinis</string>
     <string name="application_is_stopping_toast">s\'arrête…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Remarque : S\'il n\'est pas possible d\'activer les paramètres d\'accessibilité, veuillez lancer PhoneProfilesPlusExtender et l\'activer à partir de là.</string>
+    <string name="install_pppps_text5">Lorsque la boîte de dialogue \"Application non sécurisée bloquée\" de Google Play Protect apparaît lors de l\'installation, cliquez en bas, texte \"Plus de détails\" et en bas, texte \"Installer quand même\".</string>
+    <string name="altype_profileError_wifi">profil - erreur lors de la configuration du Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profil - erreur lors de la configuration du point d\'accès Wi-Fi</string>
+    <string name="altype_profileError_closeAllApplications">profil - erreur lors de la fermeture de toutes les applications</string>
 </resources>

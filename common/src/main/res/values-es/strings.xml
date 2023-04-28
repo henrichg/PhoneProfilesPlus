@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Valor incorrecto</string>
     <string name="profile_activation_activation_error_title">Perfil activo:</string>
     <string name="profile_activation_activation_error">Error durante la activación del perfil</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Error durante la activación del perfil. Falló el cambio de estado del punto de acceso Wi-Fi.</string>
-    <string name="profile_activation_activation_error_change_wifi">Error durante la activación del perfil. Falló el cambio de estado de la Wi-Fi.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Error durante la activación del perfil. Falló el cierre de todas las aplicaciones.</string>
     <string name="menu_check_github_releases">Comprobar versiones de la app</string>
     <string name="check_github_releases_go_to_github">Ir a GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Descarga la última versión de la PhoneProfilesPlusExtender.apk desde GitHub. Después haz clic en la notificación de la apk descargada e instálala.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Generar eventos predefinidos</string>
     <string name="application_is_stopping_toast">se está deteniendo…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Nota: Si no es posible habilitar los ajustes de accesibilidad, ejecuta, por favor, PhoneProfilesPlusExtender y habilítalo desde allí.</string>
+    <string name="install_pppps_text5">Cuando aparece el cuadro de diálogo \"Aplicación no segura\" de Google Play Protect durante la instalación, haz clic en la parte inferior, en el texto \"Más detalles\" y allí, también en la parte inferior, en el texto \"Instalar de todos modos\".</string>
+    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
+    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
 </resources>

@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Ungültiger Wert</string>
     <string name="profile_activation_activation_error_title">Aktives Profil:</string>
     <string name="profile_activation_activation_error">Fehler bei der Aktivierung des Profils</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Fehler bei der Aktivierung des Profils. Ändern des WLAN-Hotspot-Status fehlgeschlagen.</string>
-    <string name="profile_activation_activation_error_change_wifi">Fehler bei der Aktivierung des Profils. Ändern des WLAN-Status fehlgeschlagen.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Fehler bei der Aktivierung des Profils. Schließen aller Anwendungen fehlgeschlagen.</string>
     <string name="menu_check_github_releases">App-Veröffentlichungen prüfen</string>
     <string name="check_github_releases_go_to_github">Zu den GitHub-Veröffentlichungen</string>
     <string name="check_github_releases_install_info_1">Laden Sie die neueste Version von PhoneProfilesPlusExtender.apk von GitHub herunter. Anschließend klicken Sie auf die Benachrichtigung über der heruntergeladenen apk und installieren Sie sie.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Vordefinierte Ereignisse generieren</string>
     <string name="application_is_stopping_toast">wird angehalten …</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Hinweis: Wenn es nicht möglich ist, die Einstellungen für die Barrierefreiheit zu aktivieren, starten Sie bitte PhoneProfilesPlusExtender und aktivieren Sie sie von dort aus.</string>
+    <string name="install_pppps_text5">When the dialog \"Unsafe app blocked\" from Google Play Protect appears during installation, click at bottom, text \"More details\" and in it at bottom, text \"Install anyway\".</string>
+    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
+    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
 </resources>

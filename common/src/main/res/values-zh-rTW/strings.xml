@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">錯誤值</string>
     <string name="profile_activation_activation_error_title">啟用設定檔:</string>
     <string name="profile_activation_activation_error">啟用設定檔發生錯誤</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">啟用設定檔發生錯誤。變更 Wi-Fi 熱點狀態失敗。</string>
-    <string name="profile_activation_activation_error_change_wifi">啟用設定檔發生錯誤。變更 Wi-Fi 狀態失敗。</string>
-    <string name="profile_activation_activation_error_close_all_applications">啟用設定檔發生錯誤。關閉所有應用程式失敗。</string>
     <string name="menu_check_github_releases">檢查新版程式</string>
     <string name="check_github_releases_go_to_github">移至 GitHub 發佈頁面</string>
     <string name="check_github_releases_install_info_1">從 GitHub 下載最新版的 PhoneProfilesPlus.apk。然後按有關下載 apk 的通知並安裝它。</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Generate predefined events</string>
     <string name="application_is_stopping_toast">is stopping…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
+    <string name="install_pppps_text5">When the dialog \"Unsafe app blocked\" from Google Play Protect appears during installation, click at bottom, text \"More details\" and in it at bottom, text \"Install anyway\".</string>
+    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
+    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
 </resources>

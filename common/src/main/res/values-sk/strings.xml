@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Zlá hodnota</string>
     <string name="profile_activation_activation_error_title">Aktivovaný profil:</string>
     <string name="profile_activation_activation_error">Chyba počas aktivácie profilu</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Chyba počas aktivácie profilu. Zmena stavu Wi-Fi prístupového bodu zlyhala.</string>
-    <string name="profile_activation_activation_error_change_wifi">Chyba počas aktivácie profilu. Zmena stavu Wi-Fi zlyhala.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Chyba počas aktivácie profilu. Zatvorenie všetkých aplikácií zlyhalo.</string>
     <string name="menu_check_github_releases">Skontrolovať vydania apl.</string>
     <string name="check_github_releases_go_to_github">Ísť do GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Stiahnite si najnovšiu verziu PhoneProfilesPlus.apk z jeho GitHub. Kliknite na notifikáciu o stiahnutom apk a nainštalujte ho.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Vytvoriť preddefinované udalosti</string>
     <string name="application_is_stopping_toast">sa zastavuje…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Poznámka: Ak nie je možné povoliť Dostupnosť, spustite PhoneProfilesPlusExtender a povoľte ho odtiaľ.</string>
+    <string name="install_pppps_text5">Keď sa počas inštalácie zobrazí dialógové okno \"Nebezpečná aplikácia je zablokovaná\" od Google Play Protect, kliknite v dolnej časti na text \"Viac podrobností\" a tam v dolnej časti na text \"Napriek tomu nainštalovať\".</string>
+    <string name="altype_profileError_wifi">profil - chyba pri nastavovaní Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profil - chyba pri nastavovaní Wi-Fi hotspotu</string>
+    <string name="altype_profileError_closeAllApplications">profil - chyba pri zatváraní všetkých aplikácií</string>
 </resources>

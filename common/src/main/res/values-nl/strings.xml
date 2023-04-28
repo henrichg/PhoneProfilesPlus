@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Verkeerde waarde</string>
     <string name="profile_activation_activation_error_title">Actief profiel:</string>
     <string name="profile_activation_activation_error">Fout tijdens activering profiel</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Fout bij het activeren van het profiel. Wijzigen van Wi-Fi hotspot status is mislukt.</string>
-    <string name="profile_activation_activation_error_change_wifi">Fout tijdens het activeren van het profiel. Wijzigen van de Wi-Fi status is mislukt.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Fout bij het activeren van profiel. Sluiten alle applicaties mislukt.</string>
     <string name="menu_check_github_releases">Controleer de app releases</string>
     <string name="check_github_releases_go_to_github">Ga naar GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Download de nieuwste versie van PhoneProfilesPlus.apk vanaf GitHub. Klik vervolgens op de notificatie van de gedownloade apk en installeer deze.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Genereer vooraf gedefinieerde events</string>
     <string name="application_is_stopping_toast">aan het stoppen…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Opmerking: Lukt het niet de Toegankelijkheidsinstellingen in te schakelen, start dan PhoneProfilesPlusExtender en schakel het daar in.</string>
+    <string name="install_pppps_text5">Wanneer je melding \"Onveilige app geblokkeerd\" van Google Play Protect krijgt tijdens de installatie klik je onderaan op \"Meer details\". Vervolgens onderaan op \"Toch installeren\".</string>
+    <string name="altype_profileError_wifi">profiel - fout bij instellen Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profiel - fout bij instellen Wi-Fi hotspot</string>
+    <string name="altype_profileError_closeAllApplications">profiel - fout bij sluiten van alle applicaties</string>
 </resources>

@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
     <string name="profile_activation_activation_error_title">Activated profile:</string>
     <string name="profile_activation_activation_error">Error during profile activation</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Error during profile activation. Change of Wi-Fi hotspot state failed.</string>
-    <string name="profile_activation_activation_error_change_wifi">Error during profile activation. Change of Wi-Fi state failed.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
     <string name="menu_check_github_releases">Check app. releases</string>
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Download the latest version of PhoneProfilesPlus.apk from its GitHub repository, then click on notification about the downloaded apk and install it.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Generate predefined events</string>
     <string name="application_is_stopping_toast">is stopping…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
+    <string name="install_pppps_text5">When the dialog \"Unsafe app blocked\" from Google Play Protect appears during installation, click at bottom, text \"More details\" and in it at bottom, text \"Install anyway\".</string>
+    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
+    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
 </resources>

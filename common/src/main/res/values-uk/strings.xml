@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Невірне значення</string>
     <string name="profile_activation_activation_error_title">Активований профіль:</string>
     <string name="profile_activation_activation_error">Помилка під час активації профілю</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Помилка під час активації профілю. Зміна стану точки доступу Wi-Fi не вдалася.</string>
-    <string name="profile_activation_activation_error_change_wifi">Помилка під час активації профілю. Зміна стану Wi-Fi не вдалася.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Помилка під час активації профілю. Закриття всіх застосунків не вдалося.</string>
     <string name="menu_check_github_releases">Перевірити оновлення</string>
     <string name="check_github_releases_go_to_github">Перейти до GitHub</string>
     <string name="check_github_releases_install_info_1">Завантажте останню версію PhoneProfilesPlus.apk з GitHub. Після цього натисніть на сповіщення про завантажений apk і встановіть його.</string>
@@ -2072,4 +2069,8 @@
     <string name="menu_generate_predefined_events">Створити попередньо визначені події</string>
     <string name="application_is_stopping_toast">зупиняється…</string>
     <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Примітка: Якщо неможливо увімкнути налаштування Спеціальних можливостей, будь ласка, запустіть PhoneProfilesPlusExtender і увімкніть їх звідти.</string>
+    <string name="install_pppps_text5">Коли діалогове вікно \"Небезпечний додаток\" від Google Play Protect з\'являється під час встановлення, натисніть надолі текст: \"Більше інформації\", далі також унизу, текст \"Встановити у будь-якому випадку\".</string>
+    <string name="altype_profileError_wifi">профіль - помилка при налаштуванні Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">профіль - помилка при налаштуванні точки доступу Wi-Fi</string>
+    <string name="altype_profileError_closeAllApplications">профіль - помилка закриття всіх додатків</string>
 </resources>

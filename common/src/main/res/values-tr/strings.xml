@@ -1367,9 +1367,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Hatalı değer</string>
     <string name="profile_activation_activation_error_title">Faal Tercih:</string>
     <string name="profile_activation_activation_error">Tercihi faaliyete geçirmede hata</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Tercihi faaliyete geçirmede hata. Wi-Fi hotspot halini değiştirme hatalı.</string>
-    <string name="profile_activation_activation_error_change_wifi">Tercihi faaliyete geçirmede hata. Wi-Fi halini değiştirme hatalı.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Tercihi faaliyete geçirmede hata. Bütün uygulamaları kapatma hatalı.</string>
     <string name="menu_check_github_releases">Uygulama sürümlerini kontrol et</string>
     <string name="check_github_releases_go_to_github">GitHub sürümlerine git</string>
     <string name="check_github_releases_install_info_1">PhoneProfilesPlus.apk\'nın son sürümünü GitHub\'dan indirin. Daha sonra indirilen apk ilgili bildirime dokunup yükleyin.</string>
@@ -1677,11 +1674,11 @@
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Durumların başlaması kapatıldı</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Durumların başlaması açıldı</string>
     <string name="icon_widget_description">Faal Tercih simgesini gösterir.</string>
-    <string name="one_row_widget_description">Faal Tercihi ve \"Durumları yeniden başlat\" butonunu gösterir.</string>
-    <string name="profile_list_widget_description">Faal Tercihi, \"Durumları yeniden başlat\" butonunu ve Muharrik\'teki gibi ayarlanan Tercihlerin listesini gösterir.</string>
+    <string name="one_row_widget_description">Faal Tercihi ve \"Durumları yeniden başlat\" düğmesini gösterir.</string>
+    <string name="profile_list_widget_description">Faal Tercihi, \"Durumları yeniden başlat\" düğmesini ve Muharrik\'teki gibi ayarlanan Tercihlerin listesini gösterir.</string>
     <string name="install_extender_installed_version">Yüklenmiş sürüm:</string>
     <string name="install_extender_required_version">Gerekli sürüm:</string>
-    <string name="install_extender_text1">PhoneProfilesPlusGenişletici\'nin gerekli sürümünü butona dokunarak kurunuz</string>
+    <string name="install_extender_text1">PhoneProfilesPlusGenişletici\'nin gerekli sürümünü düğmeye dokunarak kurunuz</string>
     <string name="install_extender_text2">Bu, PhoneProfilesPlusExtender.apk\'yı \"İndirilenler\" klasörüne indirmek için internet tarayıcısını açar.</string>
     <string name="install_extender_text3">Ardından, indirilen APK ile ilgili bildirime dokunarak bu APK\'yı yükleyin.</string>
     <string name="install_extender_github_releases">GitHub sürümleri:</string>
@@ -1763,7 +1760,7 @@
     <string name="phone_profiles_pref_notificationTextColorCategory">Bildirim Paneli - Metin Rengi</string>
     <string name="phone_profiles_pref_notificationProfileIconCategory">Bildirim Paneli - Tercih Simgesi</string>
     <string name="phone_profiles_pref_notificationPreferencesIndicatorCategory">Bildirim Paneli - Ayarlar göstergesi</string>
-    <string name="phone_profiles_pref_notificationButtonsCategory">Bildirim Paneli - Butonlar</string>
+    <string name="phone_profiles_pref_notificationButtonsCategory">Bildirim Paneli - Düğmeler</string>
     <string name="editor_activity_targetHelps_bottomNavigation_title">Değiştiriciyi göster</string>
     <string name="editor_activity_targetHelps_bottomNavigation_description">Tercihler ve Durumlar listesi arasında geçiş yapmak için buna dokunun.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help">Simge paketinden hususi simge</string>
@@ -1981,7 +1978,7 @@
     <string name="important_info_profile_pppps_howTo_2">Bu uygulama GitHub Sürümleri içerisindedir. Buraya dokunarak indirip yükleyiniz.</string>
     <string name="important_info_profile_pppps_howTo_4">Başarılı kurulumdan sonra, (S) işaretli Tercih değerlerinin tamamı kullanılabilir.</string>
     <string name="install_pppps_dialog_title">PPPAyarlarıYap\'ı kur</string>
-    <string name="install_pppps_text1">PPPAyarlarıYap\'ın son sürümünü butona dokunarak kurunuz</string>
+    <string name="install_pppps_text1">PPPAyarlarıYap\'ın son sürümünü düğmeye dokunarak kurunuz</string>
     <string name="install_pppps_text2">Bu, PPPAyarlarıYap.apk\'yı \"İndirilenler\" klasörüne indirmek için internet tarayıcısını açar.</string>
     <string name="install_pppps_text3">Ardından, indirilen APK ile ilgili bildirime dokunarak bu APK\'yı yükleyin.</string>
     <string name="install_pppps_text4">Dikkat: PPPAyarlarıYap için hedef Android sürümü 5.1\'dir. Bu sebeple Google Play Protect ile uyumlu değildir. Ancak PPPAyarlarıYap güvenlidir, sadece PhoneProfilesPlus\'ın kullanmasına izin verilir.</string>
@@ -2070,6 +2067,10 @@
     <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Bu değerlerin değiştirilebileceği ayarlara gitmek için buraya dokunun.</string>
     <string name="menu_generate_predefined_profiles">Önceden tanımlanmış Tercihler üret</string>
     <string name="menu_generate_predefined_events">Önceden tanımlanmış Durumlar üret</string>
-    <string name="application_is_stopping_toast">is stopping…</string>
-    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
+    <string name="application_is_stopping_toast">durduruluyor…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Not: Erişilebilirlik ayarlarını etkinleştirmek mümkün değilse, lütfen PhoneProfilesPlusExtender\'ı başlatın ve oradan faaliyete geçirin.</string>
+    <string name="install_pppps_text5">Yükleme sırasında Google Play Protect\'ten \"Güvenli olmayan uygulama engellendi\" penceresi göründüğünde, alttaki \"Daha fazla tafsilat\" metnini ve \"Yine de yükle\" metnine dokunun.</string>
+    <string name="altype_profileError_wifi">Tercih - Wi-Fi ayarlamada hata</string>
+    <string name="altype_profileError_wifiAP">Tercih - Wi-Fi hotspot ayarlamada hata</string>
+    <string name="altype_profileError_closeAllApplications">Tercih - bütün uygulamaları kapatmada hata</string>
 </resources>
