@@ -31,7 +31,7 @@ __F-Droid:__
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 - __[Store application (download)](https://www.f-droid.org/)__
 
-__Droid-ify (F-Droid alternative)__  
+__Droid-ify (F-Droid alternative):__  
 - __[PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__  
 - __[Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
 &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
