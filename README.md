@@ -13,7 +13,7 @@ PhoneProfilesPlus (aka PPP)
 
 - __[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
-Use keyword "PhoneProfilesPlus" for search this application in these stores.
+Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
 __Galaxy Store:__
 - __[PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
