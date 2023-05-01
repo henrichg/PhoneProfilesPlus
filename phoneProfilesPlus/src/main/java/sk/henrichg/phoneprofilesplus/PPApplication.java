@@ -257,6 +257,8 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesOrientation"
                                                 //+"|LocationScanner.updateTransitionsByLastKnownLocation"
                                                 //+"|ActivateProfileHelper.changeWallpaperFromFolder"
+                                                //+"|AutostartPermissionNotification"
+                                                //+"|LauncherActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

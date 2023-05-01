@@ -13,7 +13,9 @@ import androidx.core.content.ContextCompat;
 class AutostartPermissionNotification {
 
     static void showNotification(Context context, @SuppressWarnings("SameParameterValue") boolean useHandler) {
-        if (PPApplication.applicationFullyStarted) {
+//        PPApplicationStatic.logE("AutostartPermissionNotification.showNotification", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+
+        if (!PPApplication.applicationFullyStarted) {
             final Context appContext = context.getApplicationContext();
 
             if (useHandler) {
@@ -28,8 +30,9 @@ class AutostartPermissionNotification {
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
 
-                    boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                    if (!isServiceRunning) {
+                    //boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                    //PPApplicationStatic.logE("AutostartPermissionNotification.showNotification", "isServiceRunning="+isServiceRunning);
+                    //if (!isServiceRunning) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -59,13 +62,14 @@ class AutostartPermissionNotification {
                                 }
                             }
                         }
-                    }
+                    //}
                 }; //);
                 PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             } else {
-                boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                if (!isServiceRunning) {
+                //boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                //PPApplicationStatic.logE("AutostartPermissionNotification.showNotification", "isServiceRunning="+isServiceRunning);
+                //if (!isServiceRunning) {
                     try {
                         final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
                         if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
@@ -75,8 +79,7 @@ class AutostartPermissionNotification {
                         }
                     } catch (Exception ignore) {
                     }
-
-                }
+                //}
             }
         }
     }

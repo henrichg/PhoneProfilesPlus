@@ -172,6 +172,7 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+//        PPApplicationStatic.logE("LauncherActivity.startPPServiceWhenNotStarted", "serviceStarted="+serviceStarted);
         if (!serviceStarted) {
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
