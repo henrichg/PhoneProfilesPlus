@@ -94,10 +94,6 @@
                     android:title="@string/menu_export_and_email"
                     android:orderInCategory="110"
                     app:showAsAction="never" />
-                <item android:id="@+id/menu_import_from_pp"
-                    android:title="@string/menu_import_from_pp"
-                    android:orderInCategory="120"
-                    app:showAsAction="never" />
             </group>
         </menu>
     </item>

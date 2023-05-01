@@ -75,9 +75,9 @@ class ApplicationPreferences {
     //static volatile boolean notificationStatusBarPermanent;
     //static volatile String notificationStatusBarCancel;
     static volatile String notificationStatusBarStyle;
-    static volatile boolean notificationShowInStatusBar;
+    //static volatile boolean notificationShowInStatusBar;
     static volatile String notificationTextColor;
-    static volatile boolean notificationHideInLockScreen;
+    //static volatile boolean notificationHideInLockScreen;
     //static volatile String notificationTheme;
     static volatile boolean applicationWidgetListPrefIndicator;
     static volatile String applicationWidgetListPrefIndicatorLightness;
@@ -108,7 +108,7 @@ class ApplicationPreferences {
     //static volatile String applicationEventWifiRescan;
     //static volatile String applicationEventBluetoothRescan;
     static volatile boolean applicationWidgetIconHideProfileName;
-    static volatile boolean applicationShortcutEmblem;
+    //static volatile boolean applicationShortcutEmblem;
     static volatile String applicationEventWifiScanInPowerSaveMode;
     static volatile String applicationEventBluetoothScanInPowerSaveMode;
     //static volatile String applicationPowerSaveModeInternal;
@@ -382,7 +382,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_STATUS_BAR_STYLE = "notificationStatusBarStyle";
     //static final String PREF_NOTIFICATION_STATUS_BAR_PERMANENT = "notificationStatusBarPermanent";
     //static final String PREF_NOTIFICATION_STATUS_BAR_CANCEL  = "notificationStatusBarCancel";
-    static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR = "notificationShowInStatusBar";
+    //static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR = "notificationShowInStatusBar";
     static final String PREF_NOTIFICATION_TEXT_COLOR = "notificationTextColor";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR = "applicationWidgetListPrefIndicator";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS = "applicationWidgetListPrefIndicatorLightness";
@@ -415,7 +415,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME = "applicationWidgetIconHideProfileName";
     static final String PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES = "applicationUnlinkRingerNotificationVolumes";
     //static final String PREF_APPLICATION_RINGER_NOTIFICATION_VOLUMES_UNLINKED_INFO = "applicationRingerNotificationVolumesUnlinkedInfo";
-    static final String PREF_APPLICATION_SHORTCUT_EMBLEM = "applicationShortcutEmblem";
+    //static final String PREF_APPLICATION_SHORTCUT_EMBLEM = "applicationShortcutEmblem";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE = "applicationEventWifiScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_POWER_SAVE_MODE = "applicationEventBluetoothScanInPowerSaveMode";
     //static final String PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
@@ -428,7 +428,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventOrientationScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_SCAN_IN_POWER_SAVE_MODE = "applicationEventMobileCellScanInPowerSaveMode";
     //static final String PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN = "applicationEventMobileCellsRescan";
-    static final String PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN = "notificationHideInLockscreen";
+    //static final String PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN = "notificationHideInLockscreen";
     static final String PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS = "applicationDeleteOldActivityLogs";
     static final String PREF_APPLICATION_WIDGET_ICON_BACKGROUND = "applicationWidgetIconBackground";
     static final String PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B = "applicationWidgetIconLightnessB";
@@ -819,10 +819,12 @@ class ApplicationPreferences {
         }
     }
 
+    /*
     static final boolean PREF_NOTIFICATION_SHOW_IN_STATUS_BAR_DEFAULT_VALUE = true;
     static void notificationShowInStatusBar(Context context) {
         notificationShowInStatusBar = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, PREF_NOTIFICATION_SHOW_IN_STATUS_BAR_DEFAULT_VALUE);
     }
+    */
 
     static final String PREF_NOTIFICATION_TEXT_COLOR_DEFAULT_VALUE = "0";
     static void notificationTextColor(Context context) {
@@ -830,10 +832,12 @@ class ApplicationPreferences {
         notificationTextColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_TEXT_COLOR, PREF_NOTIFICATION_TEXT_COLOR_DEFAULT_VALUE);
     }
 
+    /*
     static final boolean PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN_DEFAULT_VALUE = false;
     static void notificationHideInLockScreen(Context context) {
         notificationHideInLockScreen = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN_DEFAULT_VALUE);
     }
+    */
 
     /*
     static String notificationTheme(Context context) {
@@ -1029,10 +1033,12 @@ class ApplicationPreferences {
         applicationWidgetIconHideProfileName = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME_DEFAULT_VALUE);
     }
 
+    /*
     static final boolean PREF_APPLICATION_SHORTCUT_EMBLEM_DEFAULT_VALUE = true;
     static void applicationShortcutEmblem(Context context) {
         applicationShortcutEmblem = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SHORTCUT_EMBLEM, PREF_APPLICATION_SHORTCUT_EMBLEM_DEFAULT_VALUE);
     }
+    */
 
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_POWER_SAVE_MODE_DEFAULT_VALUE = "1";
     static void applicationEventWifiScanInPowerSaveMode(Context context) {

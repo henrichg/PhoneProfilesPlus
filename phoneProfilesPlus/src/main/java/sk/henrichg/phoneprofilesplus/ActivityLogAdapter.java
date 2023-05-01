@@ -85,7 +85,6 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFI, R.string.altype_profileError_wifi);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP, R.string.altype_profileError_wifiAP);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS, R.string.altype_profileError_closeAllApplications);
-        activityTypeStrings.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, R.string.altype_dataImport_fromPP);
         activityTypeStrings.put(PPApplication.ALTYPE_DATA_EXPORT, R.string.altype_dataExport);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, R.string.altype_actionFromExternalApp_profileActivation);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS, R.string.altype_actionFromExternalApp_restartEvents);
@@ -172,7 +171,6 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, color);
         activityTypeColors.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, color);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, color);
-        activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, color);
         activityTypeColors.put(PPApplication.ALTYPE_DATA_EXPORT, color);
         activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, color);
         activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS, color);

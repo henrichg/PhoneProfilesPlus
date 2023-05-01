@@ -34,7 +34,6 @@
     <orderEntry type="module" module-name="PhoneProfilesPlus.AndroidClearChroma.main" scope="TEST" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll.main" scope="TEST" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.noobcameraflash.main" scope="TEST" />
-    <orderEntry type="module" module-name="PhoneProfilesPlus.phoneProfilesImport.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:guava:31.1-android" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />

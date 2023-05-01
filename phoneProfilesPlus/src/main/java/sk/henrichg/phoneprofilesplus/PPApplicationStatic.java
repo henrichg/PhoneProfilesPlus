@@ -693,9 +693,9 @@ class PPApplicationStatic {
             //ApplicationPreferences.notificationStatusBarPermanent(context);
             //ApplicationPreferences.notificationStatusBarCancel(context);
             ApplicationPreferences.notificationStatusBarStyle(context);
-            ApplicationPreferences.notificationShowInStatusBar(context);
+            //ApplicationPreferences.notificationShowInStatusBar(context);
             ApplicationPreferences.notificationTextColor(context);
-            ApplicationPreferences.notificationHideInLockScreen(context);
+            //ApplicationPreferences.notificationHideInLockScreen(context);
             //ApplicationPreferences.notificationTheme(context);
             ApplicationPreferences.applicationWidgetListPrefIndicator(context);
             ApplicationPreferences.applicationWidgetListPrefIndicatorLightness(context);
@@ -726,7 +726,7 @@ class PPApplicationStatic {
             //ApplicationPreferences.applicationEventWifiRescan(context);
             //ApplicationPreferences.applicationEventBluetoothRescan(context);
             ApplicationPreferences.applicationWidgetIconHideProfileName(context);
-            ApplicationPreferences.applicationShortcutEmblem(context);
+            //ApplicationPreferences.applicationShortcutEmblem(context);
             ApplicationPreferences.applicationEventWifiScanInPowerSaveMode(context);
             ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode(context);
             //ApplicationPreferences.applicationPowerSaveModeInternal(context);

@@ -786,8 +786,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting all profiles
-    boolean deleteAllProfiles() {
-        return DatabaseHandlerProfiles.deleteAllProfiles(this);
+    void deleteAllProfiles() {
+        DatabaseHandlerProfiles.deleteAllProfiles(this);
     }
 
     void activateProfile(Profile profile)

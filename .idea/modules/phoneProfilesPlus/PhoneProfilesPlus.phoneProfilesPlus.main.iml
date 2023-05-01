@@ -47,7 +47,6 @@
     <orderEntry type="module" module-name="PhoneProfilesPlus.AndroidClearChroma.main" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll.main" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.noobcameraflash.main" />
-    <orderEntry type="module" module-name="PhoneProfilesPlus.phoneProfilesImport.main" />
     <orderEntry type="library" name="Gradle: com.google.auto.service:auto-service-annotations:1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:guava:31.1-android" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />

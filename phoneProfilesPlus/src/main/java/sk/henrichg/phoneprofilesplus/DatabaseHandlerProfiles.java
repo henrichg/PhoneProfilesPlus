@@ -874,8 +874,8 @@ class DatabaseHandlerProfiles {
     }
 
     // Deleting all profiles
-    static boolean deleteAllProfiles(DatabaseHandler instance) {
-        boolean ok = false;
+    static void deleteAllProfiles(DatabaseHandler instance) {
+        //boolean ok = false;
         instance.importExportLock.lock();
         try {
             try {
@@ -901,7 +901,7 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
 
-                    ok = true;
+                    //ok = true;
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
                 } finally {
@@ -915,7 +915,7 @@ class DatabaseHandlerProfiles {
         } finally {
             instance.stopRunningCommand();
         }
-        return ok;
+        //return ok;
     }
 
     // Getting max(porder)
