@@ -1331,17 +1331,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Опція \"Увімкнуто (не вимикайте Wi-Fi)\" повинна підтримуватися системою</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Опції \"Увімкнено (ігнорувати точку доступу)\", \"Перемкнути\" (ігнорувати точку доступу)\" повинні підтримуватися системою</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Режим \"Пріоритет\" подібний до системного \"Не турбувати\". Будуть використані всі параметри, налаштовані в налаштуваннях системи для режиму \"Не турбувати\"</string>
-    <string name="menu_import_from_pp">Імпортувати дані з PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_title">Імпортувати дані з PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_error">Помилка під час імпорту з PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">Помилка імпорту бази даних.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Помилка при імпорті параметрів застосунку.</string>
-    <string name="altype_dataImport_fromPP">імпортувати дані з PhoneProfiles</string>
-    <string name="toast_import_from_pp_ok">Дані з PhoneProfiles імпортовано</string>
-    <string name="export_pp_data_dialog_profiles_chb">Імпорт профілів</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Видалити налаштовані профілі</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Імпорт налаштувань застосунку</string>
-    <string name="export_pp_data_dialog_start_pp">Якщо PhoneProfiles не запущений, запустіть його.</string>
     <string name="export_data_email_subject">Експортовані налаштування</string>
     <string name="backup_settings_alert_title">Створення резервної копії налаштувань</string>
     <string name="dialog_backup_settings_alert_text">Копіювати налаштування до теки?</string>

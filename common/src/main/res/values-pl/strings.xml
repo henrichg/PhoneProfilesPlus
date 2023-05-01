@@ -1331,17 +1331,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Opcja \"Włączone (nie wyłączaj Wi-Fi)\" musi być obsługiwana przez system</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Opcje \"Włącz (ignoruj hotspot)\", \"Przełącz (ignoruj hotspot)\" muszą być obsługiwane przez system</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Typ \"Priorytet\" jest podobny do systemowego \"Nie przeszkadzać\". Zostaną użyte wszystkie opcje skonfigurowane w ustawieniach systemu dla \"Nie przeszkadzać\"</string>
-    <string name="menu_import_from_pp">Importuj dane z PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_title">Importuj dane z PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_error">Błąd podczas importowania z PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">Błąd importowania bazy danych.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Błąd importowania ustawień aplikacji.</string>
-    <string name="altype_dataImport_fromPP">importuj dane z PhoneProfiles</string>
-    <string name="toast_import_from_pp_ok">Zaimportowano dane z PhoneProfiles</string>
-    <string name="export_pp_data_dialog_profiles_chb">Importuj profile</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Usuń skonfigurowane profile</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Importuj ustawienia aplikacji</string>
-    <string name="export_pp_data_dialog_start_pp">Jeśli PhoneProfiles nie jest uruchomiony, uruchom go proszę.</string>
     <string name="export_data_email_subject">Wyeksportowane ustawienia</string>
     <string name="backup_settings_alert_title">Kopia zapasowa ustawień</string>
     <string name="dialog_backup_settings_alert_text">Skopiować ustawienia do katalogu?</string>

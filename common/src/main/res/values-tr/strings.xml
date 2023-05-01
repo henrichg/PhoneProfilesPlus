@@ -1331,17 +1331,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">\"Açık (Wi-Fi\'yi devre dışı bırakma)\" tercihi sistem tarafından desteklenmelidir</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">\"Açık (Hotspot\'u ihmal et)\", \"Geçiş (Hotspot\'u ihmal et)\" tercihleri sistem tarafından desteklenmelidir</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">\"Öncelik\" türü \"Rahatsız etmeyin\" sistemine benzer. \"Rahatsız etmeyin\" için sistem ayarlarında ayarlanan tercihlerin tamamı kullanılacaktır</string>
-    <string name="menu_import_from_pp">Verileri PhoneProfiles\'tan içe aktar</string>
-    <string name="import_profiles_from_pp_alert_title">Verileri PhoneProfiles\'tan içe aktar</string>
-    <string name="import_profiles_from_pp_alert_error">PhoneProfiles\'tan veriler geri yüklenirken hata meydana geldi</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">Veritabanı geri yüklenirken hata meydana geldi.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Uygulama ayarları geri yüklenirken hata meydana geldi.</string>
-    <string name="altype_dataImport_fromPP">verileri PhoneProfiles\'tan içe aktar</string>
-    <string name="toast_import_from_pp_ok">PhoneProfile\'tan veriler aktarıldı</string>
-    <string name="export_pp_data_dialog_profiles_chb">Tercihleri içe aktar</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Ayarlanmış Tercihleri sil</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Uygulama ayarlarını içe aktar</string>
-    <string name="export_pp_data_dialog_start_pp">PhoneProfiles çalışmıyorsa, lütfen başlatın.</string>
     <string name="export_data_email_subject">Ayarlar dışa aktarıldı</string>
     <string name="backup_settings_alert_title">Ayarları yedekle</string>
     <string name="dialog_backup_settings_alert_text">Ayarlar klasöre kopyalansın mı?</string>

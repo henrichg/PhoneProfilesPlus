@@ -1331,17 +1331,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">L\'opzione \"On (non disabilitare il Wi-Fi)\" deve essere supportata dal sistema byt</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Le opzioni \"On (ignora hotspot)\", \"cambiare (ignora hotspot)\" devono essere supportate dal sistema</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Il tipo \"Priorità\" è simile al sistema \"Non disturbare\". Verranno utilizzate tutte le opzioni configurate nelle impostazioni di sistema per \"Non disturbare\"</string>
-    <string name="menu_import_from_pp">Importa dati da PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_title">Importa dati da PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_error">Errore durante il processo di importazione da PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">Errore nell\'importazione del database.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Errore durante l\'importazione delle impostazioni dell\'applicazione.</string>
-    <string name="altype_dataImport_fromPP">importa dati da PhoneProfiles</string>
-    <string name="toast_import_from_pp_ok">Dati da PhoneProfiles importati</string>
-    <string name="export_pp_data_dialog_profiles_chb">Importa profili</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Elimina profili configurati</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Preferenze di importazione dell\'applicazione</string>
-    <string name="export_pp_data_dialog_start_pp">Se PhoneProfiles non è in esecuzione, sei pregato di avviarlo.</string>
     <string name="export_data_email_subject">Impostazioni esportate</string>
     <string name="backup_settings_alert_title">Backup impostazioni</string>
     <string name="dialog_backup_settings_alert_text">Copiare le impostazioni nella directory?</string>

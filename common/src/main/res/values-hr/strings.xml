@@ -1331,17 +1331,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Opcija \"Uključeno ( ne isključuj Wi-Fi)\" mora biti podržana od strane sustava</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Opcije \"Uključeno (ignoriraj Pristupnu točku), Prebaci ( Ignoriraj Pristupnu točku)\" mora da su podržane od sustava</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Tip \"Prioriteti\" sličan je sustavu \"Ne uznemiravaj\". Koristit će se sve opcije konfigurirane u postavkama sustava za \"Ne uznemiravaj\"</string>
-    <string name="menu_import_from_pp">Uvoz podataka iz Profila telefona</string>
-    <string name="import_profiles_from_pp_alert_title">Uvoz podataka iz Profila telefona</string>
-    <string name="import_profiles_from_pp_alert_error">Pogreška pri uvozu iz Profila telefona</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">Pogreška pri uvozu baze.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Pogreška pri uvozu postavki aplikacije.</string>
-    <string name="altype_dataImport_fromPP">uvoz podataka iz Profila telefona</string>
-    <string name="toast_import_from_pp_ok">Podaci iz Profila telefona su uveženi</string>
-    <string name="export_pp_data_dialog_profiles_chb">Uvoz profila</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Brisanje konfiguriranih profila</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Uvoz postavki aplikacije</string>
-    <string name="export_pp_data_dialog_start_pp">Ako Profili telefona nisu pokrenuti, molimo da ih pokrenete.</string>
     <string name="export_data_email_subject">Izvezene postavke</string>
     <string name="backup_settings_alert_title">Siguronosne kopije postavki</string>
     <string name="dialog_backup_settings_alert_text">Kopiraj postavke u direktorij?</string>

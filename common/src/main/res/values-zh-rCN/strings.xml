@@ -1331,17 +1331,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">选项\"开启(不禁用Wi-Fi)\"必须由系统支持</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">\"开启(忽略热点)\"，\"切换(忽略热点)\"的选项必须由系统支持</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">\"优先级\"类型类似于系统的\"勿扰模式\"。将使用系统设置中\"勿扰模式\"配置的所有选项</string>
-    <string name="menu_import_from_pp">从 PhoneProfiles 导入数据</string>
-    <string name="import_profiles_from_pp_alert_title">从 PhoneProfiles 导入数据</string>
-    <string name="import_profiles_from_pp_alert_error">从 PhoneProfiles 导入过程中出错</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">导入数据库时出错。</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">导入应用程序设置时出错。</string>
-    <string name="altype_dataImport_fromPP">从 PhoneProfiles 导入数据</string>
-    <string name="toast_import_from_pp_ok">从 PhoneProfiles 导入的数据</string>
-    <string name="export_pp_data_dialog_profiles_chb">导入情景</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">删除已配置的情景</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">导入应用程序设置</string>
-    <string name="export_pp_data_dialog_start_pp">如果PhoneProfiles 未运行，请启动</string>
     <string name="export_data_email_subject">导出设置</string>
     <string name="backup_settings_alert_title">备份设置</string>
     <string name="dialog_backup_settings_alert_text">复制设置到目录？</string>

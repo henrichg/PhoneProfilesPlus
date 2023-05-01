@@ -1331,17 +1331,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Die Option „Ein (WLAN nicht deaktivieren)” muss vom System unterstützt werden</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Die Optionen „Ein (Hotspot ignorieren)”, „Umschalten (Hotspot ignorieren)” müssen vom System unterstützt werden</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">Der Typ „Priorität” ist dem System „Bitte nicht stören” ähnlich. Es werden alle Optionen verwendet, die in den Systemeinstellungen für „Bitte nicht stören” konfiguriert sind.</string>
-    <string name="menu_import_from_pp">Daten aus PhoneProfiles importieren</string>
-    <string name="import_profiles_from_pp_alert_title">Daten aus PhoneProfiles importieren</string>
-    <string name="import_profiles_from_pp_alert_error">Fehler beim Import aus dem PhoneProfiles-Prozess</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">Fehler beim Importieren der Datenbank.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Fehler beim Importieren der Anwendungseinstellungen.</string>
-    <string name="altype_dataImport_fromPP">Daten aus PhoneProfiles importieren</string>
-    <string name="toast_import_from_pp_ok">Daten aus PhoneProfiles importiert</string>
-    <string name="export_pp_data_dialog_profiles_chb">Profile importieren</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Konfigurierte Profile löschen</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Anwendungseinstellungen importieren</string>
-    <string name="export_pp_data_dialog_start_pp">Wenn PhoneProfiles nicht ausgeführt wird, starten Sie es bitte.</string>
     <string name="export_data_email_subject">Exportierte Einstellungen</string>
     <string name="backup_settings_alert_title">Einstellungen sichern</string>
     <string name="dialog_backup_settings_alert_text">Einstellungen in Ordner kopieren?</string>
