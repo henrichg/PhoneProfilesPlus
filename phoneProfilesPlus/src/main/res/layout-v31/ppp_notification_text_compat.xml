@@ -10,4 +10,4 @@
     android:ellipsize="end"
     android:maxLines="1"
     tools:ignore="SpUsage" />
-    <!--        android:textSize="14dp"-->
+<!--    android:textSize="14sp"-->
