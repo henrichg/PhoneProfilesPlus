@@ -671,15 +671,14 @@ public class PPAppNotification {
                     }
                 } else {
                     if (notificationProfileIconColor.equals("0")) {
-                        // In One UI is not used Material You in motifications
-                        if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)) {
-                            int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
-                            if (color != 0) {
+                        int color = GlobalGUIRoutines.getDynamicColor(R.attr.colorOnBackground, appContext);
+                        if (color != 0) {
+                            // In One UI is not used Material You in motifications
+                            if (!(PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy))
                                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, color);
-                                if (contentView != null)
-                                    contentView.setTextColor(R.id.notification_activated_profile_name, color);
+                            if (contentView != null)
+                                contentView.setTextColor(R.id.notification_activated_profile_name, color);
 
-                            }
                         }
                     }
                 }
