@@ -428,7 +428,8 @@ public class ProfileListNotification {
         //https://developer.android.com/develop/ui/views/notifications/custom-notification
         // If you don't want your notification decorated with the standard notification icon and header,
         // follow the steps above but do not call setStyle().
-        //notificationBuilder.setStyle(null);
+        // But long time is used this and notification working, then keep call this
+        notificationBuilder.setStyle(null);
 
         Notification profileListNotification;
         try {
