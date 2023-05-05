@@ -570,7 +570,6 @@
     <string name="info_notification_manage_events_from_tasker">يمكنك إدارة الأحداث من خلال تطبيق تاسكر. تكوين المهمة \"النظام\" / \"إرسال هدف\" مع عوامل التشغيل:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">إعادة تشغيل الأحداث:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">تمكين تشغيل الحدث:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">إيقاف مؤقت للحدث:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">وقف الحدث:</string>
     <string name="phone_profiles_pref_category_eventRun">تشغيل الحدث</string>
     <string name="phone_profiles_pref_eventRunUsePriority">استخدام عامل الحدث \"الأولوية\"</string>

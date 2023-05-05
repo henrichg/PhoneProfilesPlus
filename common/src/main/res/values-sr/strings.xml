@@ -570,7 +570,6 @@
     <string name="info_notification_manage_events_from_tasker">You can manage events through Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">понови догађаје:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">омогући старт догађаја:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">паузирај догађај:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">заустави догађај:</string>
     <string name="phone_profiles_pref_category_eventRun">Покрени догађај</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Користи \"Приоритет\" параметар догађаја</string>

@@ -570,7 +570,6 @@
     <string name="info_notification_manage_events_from_tasker">Puedes administrar los eventos desde Tasker. Configura una tarea \"Sistema\"/\"Enviar Intento\" con los parámetros:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">reiniciar eventos:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">habilitar ejecución de eventos:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">pausar eventos:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">detener eventos:</string>
     <string name="phone_profiles_pref_category_eventRun">Ejecutar evento</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Utilizar el parámetro \"Prioridad\" del evento</string>

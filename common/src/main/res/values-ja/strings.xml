@@ -570,7 +570,6 @@
     <string name="info_notification_manage_events_from_tasker">Tasker を通じてイベントを管理することができます。次のパラメーターでタスク「システム」/「インテントの送信」を設定します。</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">イベントの再起動:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">イベントの実行を有効にする:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">イベントを一時停止:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">イベントを停止:</string>
     <string name="phone_profiles_pref_category_eventRun">イベントを実行</string>
     <string name="phone_profiles_pref_eventRunUsePriority">「優先度」イベントパラメータを使用する</string>

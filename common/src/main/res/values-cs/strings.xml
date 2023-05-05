@@ -570,7 +570,6 @@
     <string name="info_notification_manage_events_from_tasker">Můžete ovládat události z Taskeru. Nakonfigurujte task \"System\"/\"Send Intent\" s parametry:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">restart událostí:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">povolit spuštění události:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">pozastavení události:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">zastavení události:</string>
     <string name="phone_profiles_pref_category_eventRun">Běh události</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Používat parametr události \"Priorita\"</string>
