@@ -42,7 +42,8 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
                 //noinspection ConstantConditions
                 if (fragment != null) {
-                    if (!fragment.runStopEvent(_event))
+                    boolean ok = EventStatic.runStopEvent(fragment.activityDataWrapper, _event, (EditorActivity) fragment.getActivity());
+                    if (!ok)
                         checkBox.setChecked(false);
                 }
             });

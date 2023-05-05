@@ -239,7 +239,7 @@ public class MainWorker extends Worker {
                                 // application is not started
                                 return Result.success();
 
-                            String profileName = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_PROFILE_NAME);
+                            String profileName = getInputData().getString(PPApplication.EXTRA_PROFILE_NAME);
                             String runApplicationData = getInputData().getString(RunApplicationWithDelayBroadcastReceiver.EXTRA_RUN_APPLICATION_DATA);
 //                            Log.e("MainWorker.dWork", "call of RunApplicationWithDelayBroadcastReceiver.doWork");
                             RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
@@ -520,7 +520,7 @@ public class MainWorker extends Worker {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                     if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_PROFILE)
-                        intent.putExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME, startForExternalAppDataValue);
+                        intent.putExtra(PPApplication.EXTRA_PROFILE_NAME, startForExternalAppDataValue);
                     if (startForExternalAppDataType == PhoneProfilesService.START_FOR_EXTERNAL_APP_EVENT)
                         intent.putExtra(ActionForExternalApplicationActivity.EXTRA_EVENT_NAME, startForExternalAppDataValue);
                     appContext.startActivity(intent);

@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_RUN_APPLICATION_DATA = "run_application_data";
-    static final String EXTRA_PROFILE_NAME = "profile_name";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,7 +30,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             return;
 
         if (intent != null) {
-            final String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
+            final String profileName = intent.getStringExtra(PPApplication.EXTRA_PROFILE_NAME);
             final String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
 
             final Context appContext = context.getApplicationContext();
@@ -98,7 +97,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                     //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
-                    intent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                    intent.putExtra(PPApplication.EXTRA_PROFILE_NAME, profileName);
                     intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
@@ -117,7 +116,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     }
                 } else {
                     Data workData = new Data.Builder()
-                            .putString(EXTRA_PROFILE_NAME, profileName)
+                            .putString(PPApplication.EXTRA_PROFILE_NAME, profileName)
                             .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                             .build();
 
@@ -164,7 +163,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                 //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
-                intent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_NAME, profileName);
                 intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);

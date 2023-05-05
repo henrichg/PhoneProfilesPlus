@@ -674,3 +674,28 @@ Zostava len ACRA notifikacia. Nema to implemntovane, ale do issue uz autor dal, 
 
 -----------------------
 
+Tasker:
+
+ACTION_ENABLE_RUN_FOR_EVENT
+- Toto funguje len pre nebeziacu udalost.
+- Spravi pause udalosti. Preco? Toto povoli beh udalosti ak nie je povoleny? Pozri, ale nezda sa mi to.
+  Ano povoli, nastavi Event._status = ESTATUS_PAUSE. To iste robi EditorEventListFragment.runStopEvent().
+- Potom spravi restart udalsoti.
+
+ACTION_PAUSE_EVENT:
+- Toto funguje len na beziacu udalost.
+- Spravi pause udalosti. Ale sa znova spusti ak ma vsetky senzory passed. Cize nefunkcne.
+- Toto by som teda vyhodil. Musis aj z Important info.
+HOTOVO - nahradim toto tym senzorom na klik, co budem robit. Len to nezastavi konkretnu udalost,
+  ale vsetky, co budu mat ten senzor.
+
+ACTION_STOP_EVENT:
+- Toto funguje len na nestopnute udalosti.
+- Spravi stop udalosti. Preco? Toto zakaze beh udalosti ak nie je zakazany? Pozri, ale nezda sa mi to.
+  Ano zakaze, nastavi Event._status = ESTATUS_STOP. To iste robi EditorEventListFragment.runStopEvent().
+- Potom spravi restart udalsoti.
+
+Co treba spravit je, ze EditorEventListFragment.runStopEvent() by mal byt staicky, aby sa dal volat aj z
+ActionForExternalApplicationActivity, lebo treba aj receivery a workery reregistrovat.
+HOTOVO
+

@@ -13,7 +13,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -39,9 +38,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -51,7 +47,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -682,6 +677,7 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
+/*
     boolean runStopEvent(final Event event) {
         if (EventStatic.getGlobalEventsRunning(activityDataWrapper.context)) {
             // events are not globally stopped
@@ -793,10 +789,10 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
-            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            //Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            //PPApplication.startPPService(activityDataWrapper.context, serviceIntent);
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -848,10 +844,10 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
-            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            //Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            //PPApplication.startPPService(activityDataWrapper.context, serviceIntent);
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
@@ -884,6 +880,7 @@ public class EditorEventListFragment extends Fragment
         }
         return true;
     }
+*/
 
     private void duplicateEvent(Event origEvent)
     {
@@ -984,7 +981,8 @@ public class EditorEventListFragment extends Fragment
                 (dialog1, which) -> {
                     switch (which) {
                         case 0:
-                            runStopEvent(event);
+                            //runStopEvent(event);
+                            EventStatic.runStopEvent(activityDataWrapper, event, (EditorActivity) getActivity());
                             break;
                         case 1:
                             duplicateEvent(event);

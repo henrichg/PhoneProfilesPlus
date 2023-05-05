@@ -3,9 +3,17 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
+import android.os.PowerManager;
 import android.telephony.TelephonyManager;
+
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
+import java.util.concurrent.TimeUnit;
 
 class EventStatic {
 
@@ -441,6 +449,214 @@ class EventStatic {
             editor.apply();
             //ApplicationPreferences.prefForceRunEventRunning = forceRunEventRunning;
         }
+    }
+
+    static boolean runStopEvent(final DataWrapper dataWrapper,
+                                final Event event,
+                                final EditorActivity editor) {
+        if (EventStatic.getGlobalEventsRunning(dataWrapper.context)) {
+            // events are not globally stopped
+
+            dataWrapper.getEventTimelineList(true);
+            if (event.getStatusFromDB(dataWrapper.context) == Event.ESTATUS_STOP) {
+                if (!EventsPrefsFragment.isRedTextNotificationRequired(event, false, dataWrapper.context)) {
+                    // pause event
+                    //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
+
+                    //final DataWrapper dataWrapper = activityDataWrapper;
+                    //PPApplication.startHandlerThread();
+                    //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                    //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                    //__handler.post(() -> {
+                    Runnable runnable = () -> {
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
+
+                        //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                        //Event event = eventWeakRef.get();
+
+                        //if ((dataWrapper != null) && (event != null)) {
+                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_1");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            synchronized (PPApplication.eventsHandlerMutex) {
+                                event.pauseEvent(dataWrapper, false, false,
+                                        false, true, null, false, false, true);
+                            }
+
+                        } catch (Exception e) {
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                        //}
+                    }; //);
+                    PPApplicationStatic.createBasicExecutorPool();
+                    PPApplication.basicExecutorPool.submit(runnable);
+
+                }
+                else {
+                    if (editor != null)
+                        GlobalGUIRoutines.showDialogAboutRedText(null, event, false, false, false, true, editor);
+                    else
+                        DataWrapperStatic.displayPreferencesErrorNotification(null, event, false, dataWrapper.context);
+                    return false;
+                }
+            } else {
+                // stop event
+
+                //final DataWrapper dataWrapper = activityDataWrapper;
+                //PPApplication.startHandlerThread();
+                //final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                //__handler.post(() -> {
+                Runnable runnable = () -> {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+
+                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    //Event event = eventWeakRef.get();
+
+                    //if ((dataWrapper != null) && (event != null)) {
+                    PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_2");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        synchronized (PPApplication.eventsHandlerMutex) {
+                            event.stopEvent(dataWrapper, false, false,
+                                    true, true, true); // activate return profile
+                        }
+
+                    } catch (Exception e) {
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    //}
+                }; //);
+                PPApplicationStatic.createBasicExecutorPool();
+                PPApplication.basicExecutorPool.submit(runnable);
+
+            }
+
+            // redraw event list
+            //updateListView(event, false, false, true, 0);
+            if (editor != null)
+                editor.redrawEventListFragment(event, EditorEventListFragment.EDIT_MODE_EDIT);
+
+            // restart events
+            //activityDataWrapper.restartEvents(false, true, true, true, true);
+            dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+
+            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
+                            .setInitialDelay(30, TimeUnit.MINUTES)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+                    workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+
+        } else {
+            if (event.getStatusFromDB(dataWrapper.context) == Event.ESTATUS_STOP) {
+                // pause event
+                event.setStatus(Event.ESTATUS_PAUSE);
+            } else {
+                // stop event
+                event.setStatus(Event.ESTATUS_STOP);
+            }
+
+            // update event in DB
+            DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
+
+            // redraw event list
+            //updateListView(event, false, false, true, 0);
+            if (editor != null)
+                editor.redrawEventListFragment(event, EditorEventListFragment.EDIT_MODE_EDIT);
+
+            // restart events
+            //activityDataWrapper.restartEvents(false, true, true, true, true);
+            dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
+
+            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            PPApplicationStatic.runCommand(dataWrapper.context, commandIntent);
+
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(MainWorker.class)
+                            .addTag(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG)
+                            .setInitialDelay(30, TimeUnit.MINUTES)
+                            .build();
+            try {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
+
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+
+//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+                    workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        }
+        return true;
     }
 
 }

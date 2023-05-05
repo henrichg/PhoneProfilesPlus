@@ -296,19 +296,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivateProfileFromExternalApplicationActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
-            android:theme="@style/EmptyAppCompatActivity"
-            tools:ignore="IntentFilterExportedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ActionForExternalApplicationActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"

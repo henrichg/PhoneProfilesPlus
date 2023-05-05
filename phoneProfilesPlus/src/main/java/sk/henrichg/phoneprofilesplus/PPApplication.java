@@ -367,6 +367,7 @@ public class PPApplication extends Application
     static final String LOG_FILENAME = "log.txt";
 
     static final String EXTRA_PROFILE_ID = "profile_id";
+    static final String EXTRA_PROFILE_NAME = "profile_name";
     static final String EXTRA_EVENT_ID = "event_id";
     static final String EXTRA_STARTUP_SOURCE = "startup_source";
     static final String EXTRA_EVENT_STATUS = "event_status";

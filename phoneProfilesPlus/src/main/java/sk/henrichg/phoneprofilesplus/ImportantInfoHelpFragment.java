@@ -541,6 +541,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
+        /*
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_3);
         if (infoText100 != null) {
             String text = "<ul>" +
@@ -549,6 +550,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
+        */
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_4);
         if (infoText100 != null) {
             String text = "<ul>" +
@@ -603,6 +605,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText43.setText(spannable);
         }
+        /*
         TextView infoText44 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_pause_event);
         if (infoText44 != null) {
             String str = "Send Intent [\n" +
@@ -618,6 +621,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             infoText44.setText(spannable);
         }
+        */
         TextView infoText45 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
         if (infoText45 != null) {
             String str = "Send Intent [\n" +

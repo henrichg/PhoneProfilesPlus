@@ -294,24 +294,24 @@
         android:textIsSelectable="true"
         android:focusable="true"
         android:longClickable="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/info_notification_manage_events_from_tasker_pause_event"
-        android:textSize="@dimen/important_info_text_size"
-        android:id="@+id/activity_info_manage_events_from_tasker_params_3" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp"
-        android:paddingBottom="10dp"
-        android:text="@string/empty_string"
-        android:textSize="@dimen/important_info_text_size_monospace"
-        android:id="@+id/activity_info_manage_events_from_tasker_params_pause_event"
-        android:fontFamily="monospace"
-        android:textIsSelectable="true"
-        android:focusable="true"
-        android:longClickable="true" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/info_notification_manage_events_from_tasker_pause_event"-->
+<!--        android:textSize="@dimen/important_info_text_size"-->
+<!--        android:id="@+id/activity_info_manage_events_from_tasker_params_3" />-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="-5dp"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:text="@string/empty_string"-->
+<!--        android:textSize="@dimen/important_info_text_size_monospace"-->
+<!--        android:id="@+id/activity_info_manage_events_from_tasker_params_pause_event"-->
+<!--        android:fontFamily="monospace"-->
+<!--        android:textIsSelectable="true"-->
+<!--        android:focusable="true"-->
+<!--        android:longClickable="true" />-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

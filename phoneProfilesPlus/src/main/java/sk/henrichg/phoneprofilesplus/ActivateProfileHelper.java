@@ -112,8 +112,6 @@ class ActivateProfileHelper {
     private static final String PREF_KEEP_SCREEN_ON_PERMANENT = "keep_screen_on_permanent";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
-    //static final String EXTRA_PROFILE_NAME = "profile_name";
-
     //static final int LOCATION_MODE_TOGGLE_OFF_HIGH_ACCURACY = -100;
     //static final int LOCATION_MODE_TOGGLE_BATTERY_SAVING_HIGH_ACCURACY = -110;
 
@@ -5059,7 +5057,7 @@ class ActivateProfileHelper {
                                     appContext.startActivity(startMain);
                                 /*} catch (SecurityException e) {
                                     //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
-                                    String profileName = getInputData().getString(ActivateProfileHelper.EXTRA_PROFILE_NAME);
+                                    String profileName = getInputData().getString(PPApplication.EXTRA_PROFILE_NAME);
                                     ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);*/
                                 } catch (Exception e) {
                                     //Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
@@ -5090,7 +5088,7 @@ class ActivateProfileHelper {
                     PPApplication.delayedProfileActivationExecutor.schedule(runnable, 1500, TimeUnit.MILLISECONDS);
                     /*
                     Data workData = new Data.Builder()
-                            .putString(EXTRA_PROFILE_NAME, profile._name)
+                            .putString(PPApplication.EXTRA_PROFILE_NAME, profile._name)
                             .build();
 
                     OneTimeWorkRequest worker =
