@@ -2052,13 +2052,13 @@
     <string name="delete_unselected_mobile_cells_alert_message_warning">警告：已删除的移动基站也可能用于其他事件。</string>
     <string name="profile_preferences_deviceWallpaperFolderInfo_summary">不配置同步到云端的文件夹，例如图片、相机。</string>
     <string name="permission_why_profile_ringtones_dual_sim">在双卡手机中更改铃声，通知，警报声音</string>
-    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Click here to go to the preference, where this parameter can be changed.</string>
-    <string name="menu_generate_predefined_profiles">Generate predefined profiles</string>
-    <string name="menu_generate_predefined_events">Generate predefined events</string>
-    <string name="application_is_stopping_toast">is stopping…</string>
-    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
-    <string name="install_pppps_text5">When the dialog \"Unsafe app blocked\" from Google Play Protect appears during installation, click at bottom, text \"More details\" and in it at bottom, text \"Install anyway\".</string>
-    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
-    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
-    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">点此转到首选项来更改参数。</string>
+    <string name="menu_generate_predefined_profiles">生成预定义情景</string>
+    <string name="menu_generate_predefined_events">生成预定义事件</string>
+    <string name="application_is_stopping_toast">正在停止…</string>
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">注意：如果无法启用辅助功能设置，请运行 PhoneProfilesPlusExtender。</string>
+    <string name="install_pppps_text5">当安装过程中弹出Google Play 保护对话框“不安全的应用程序已被屏蔽” ，请点击底部文本\"更多细节\"，然后点击文本\"仍然安装\"。</string>
+    <string name="altype_profileError_wifi">情景 - 设置 Wi-Fi 时出错</string>
+    <string name="altype_profileError_wifiAP">情景 - 设置 Wi-Fi 热点时出错</string>
+    <string name="altype_profileError_closeAllApplications">情景 - 关闭所有应用时出错</string>
 </resources>
