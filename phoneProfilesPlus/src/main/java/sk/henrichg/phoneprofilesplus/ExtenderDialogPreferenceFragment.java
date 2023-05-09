@@ -323,10 +323,14 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         }
 
         PackageManager packageManager = activity.getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        Intent _intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+        boolean fdroidInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+        boolean droidifyInstalled = (_intent != null);
+        _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
         boolean galaxyStoreInstalled = (_intent != null);
 
-        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {
+        if (droidifyInstalled || fdroidInstalled || galaxyStoreInstalled) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
@@ -346,24 +350,98 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             dialogText = dialogText + activity.getString(R.string.install_extender_required_version) +
                     " <b>" + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b><br><br>";
             dialogText = dialogText + activity.getString(R.string.install_extender_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
-
             text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 
+            text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
+            CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
+            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + "\u00A0»»";
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+
             dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
-                try {
-                    activity.startActivity(intent);
-                    if (_preference != null)
-                        _preference.fragment.dismiss();
-                    if (finishActivity)
-                        activity.finish();
-                } catch (Exception e) {
-                    PPApplicationStatic.recordException(e);
-                    if (_preference != null)
-                        _preference.fragment.dismiss();
-                    if (finishActivity)
-                        activity.finish();
+                if (droidifyInstalled) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
+                    intent.setPackage("com.looker.droidify");
+                    try {
+                        activity.startActivity(intent);
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    }
+                }
+                else
+                if (fdroidInstalled) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
+                    intent.setPackage("org.fdroid.fdroid");
+                    try {
+                        activity.startActivity(intent);
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    }
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
+                    try {
+                        activity.startActivity(intent);
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    } catch (Exception e) {
+                        PPApplicationStatic.recordException(e);
+                        if (_preference != null)
+                            _preference.fragment.dismiss();
+                        if (finishActivity)
+                            activity.finish();
+                    }
                 }
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
