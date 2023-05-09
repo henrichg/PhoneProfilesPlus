@@ -158,13 +158,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             i.setData(Uri.parse(url));
             try {
                 activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                if (_preference != null)
+                if ((_preference != null) && (_preference.fragment != null))
                     _preference.fragment.dismiss();
                 if (finishActivity)
                     activity.finish();
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
-                if (_preference != null)
+                if ((_preference != null) && (_preference.fragment != null))
                     _preference.fragment.dismiss();
                 if (finishActivity)
                     activity.finish();
@@ -200,13 +200,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     dialog.cancel();
                     //if (activity != null)
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if (_preference != null)
+                    if ((_preference != null) && (_preference.fragment != null))
                         _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if (_preference != null)
+                    if ((_preference != null) && (_preference.fragment != null))
                         _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
@@ -288,13 +288,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     i.setData(Uri.parse(url));
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
@@ -314,13 +314,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     intent.setPackage("com.looker.droidify");
                     try {
                         activity.startActivity(intent);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
@@ -332,13 +332,13 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     intent.setPackage("org.fdroid.fdroid");
                     try {
                         activity.startActivity(intent);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();

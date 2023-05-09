@@ -262,13 +262,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 i.setData(Uri.parse(url));
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    if (_preference != null)
+                    if ((_preference != null) && (_preference.fragment != null))
                         _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    if (_preference != null)
+                    if ((_preference != null) && (_preference.fragment != null))
                         _preference.fragment.dismiss();
                     if (finishActivity)
                         activity.finish();
@@ -288,11 +288,11 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             i.setData(Uri.parse(url));
             try {
                 activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                if (_preference != null)
+                if ((_preference != null) && (_preference.fragment != null))
                     _preference.fragment.dismiss();
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
-                if (_preference != null)
+                if ((_preference != null) && (_preference.fragment != null))
                     _preference.fragment.dismiss();
             }
         });
@@ -371,13 +371,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     i.setData(Uri.parse(url));
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
@@ -396,13 +396,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     intent.setPackage("com.looker.droidify");
                     try {
                         activity.startActivity(intent);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
@@ -415,13 +415,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                     intent.setPackage("org.fdroid.fdroid");
                     try {
                         activity.startActivity(intent);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
@@ -431,13 +431,13 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                             Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
                     try {
                         activity.startActivity(intent);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
-                        if (_preference != null)
+                        if ((_preference != null) && (_preference.fragment != null))
                             _preference.fragment.dismiss();
                         if (finishActivity)
                             activity.finish();
