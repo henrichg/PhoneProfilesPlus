@@ -2342,7 +2342,7 @@ class PPApplicationStatic {
                 try {
                     return ((JSONObject) new JSONTokener(
                             InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
-                    ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", fragment.getString(R.string.app_name));
+                    ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", activity.getString(R.string.app_name));
                 } catch (Exception e) {
                     // This vendor is not in the DontKillMyApp list
                     Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
@@ -2357,7 +2357,7 @@ class PPApplicationStatic {
                         String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
                         String html = "<html>" + head + "<body>" + result + "</body></html>";
 
-                        WebView wv = new WebView(fragment.getContext());
+                        WebView wv = new WebView(activity);
                         WebSettings settings = wv.getSettings();
                         WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
                         settings.setLayoutAlgorithm(layoutAlgorithm);
@@ -2370,7 +2370,7 @@ class PPApplicationStatic {
                             }
                         });
 
-                        new AlertDialog.Builder(fragment.getContext())
+                        new AlertDialog.Builder(activity)
                                 .setTitle("How to make my app work")
                                 .setView(wv).setPositiveButton(android.R.string.ok, null).show();
 
@@ -2380,7 +2380,7 @@ class PPApplicationStatic {
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         try {
-                            fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                         } catch (Exception ignored) {}
                     }
                 } catch (Exception e) {
@@ -2389,7 +2389,7 @@ class PPApplicationStatic {
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     try {
-                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception ignored) {}
                 }
             }

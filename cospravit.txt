@@ -699,4 +699,4 @@ Co treba spravit je, ze EditorEventListFragment.runStopEvent() by mal byt staick
 ActionForExternalApplicationActivity, lebo treba aj receivery a workery reregistrovat.
 HOTOVO
 
-.
+---------------------
