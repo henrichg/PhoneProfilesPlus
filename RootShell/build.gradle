@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply from: '../dependencies.gradle'
 
 android {
+    namespace 'com.stericson.rootshell'
+
     compileSdkVersion ppVersions.compileSdk
     buildToolsVersion ppVersions.buildTools
 

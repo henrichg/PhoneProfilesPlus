@@ -74,7 +74,6 @@
 <!--    <uses-permission android:name="android.permission.RECORD_AUDIO" android:maxSdkVersion="30" />-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <uses-permission android:name="sk.henrichg.phoneprofiles.EXPORT_PP_DATA_PERMISSION" />
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
     <uses-permission android:name="sk.henrichg.pppputsettings.PPP_PUT_SETTINGS_PERMISSION"/>
 
@@ -85,6 +84,8 @@
     <uses-permission android:name="com.wireguard.android.permission.CONTROL_TUNNELS"/>
 
 <!--    <uses-permission android:name="com.huawei.permission.external_app_settings.USE_COMPONENT"/>-->
+
+
 
 <!--    https://developer.android.com/guide/topics/manifest/uses-feature-element-->
 <!--    <uses-feature-->
@@ -185,11 +186,17 @@
             android:name="android.max_aspect"
             android:value="2.4"/>
 
+        <!-- Library App Startup is not used in PPP
+             https://developer.android.com/topic/libraries/app-startup -->
+        <!-- https://developer.android.com/guide/background/persistent/configuration/custom-configuration -->
+        <!-- Since WorkManager 2.6, App Startup is used internally within WorkManager.
+             To provide a custom initializer you need to remove the androidx.startup node.
+             If you don't use App Startup in your app, you can remove it completely. -->
 <!--        <provider-->
-<!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
-<!--            android:authorities="${applicationId}.workmanager-init"-->
-<!--            android:exported="false"-->
-<!--            tools:node="remove" />-->
+<!--            android:name="androidx.startup.InitializationProvider"-->
+<!--            android:authorities="${applicationId}.androidx-startup"-->
+<!--            tools:node="remove">-->
+<!--        </provider>-->
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -211,6 +218,11 @@
 <!--                android:name="autoStoreLocales"-->
 <!--                android:value="true" />-->
 <!--        </service>-->
+
+        <!-- this is for Galaxy Apps -->
+        <meta-data
+            android:name="com.samsung.android.cocktail.mode"
+            android:value="edge_single_plus" />
 
         <activity
             android:name=".LauncherActivity"
@@ -254,7 +266,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
-                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
             </intent-filter>
         </activity>
         <activity
@@ -276,19 +287,6 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
-            android:theme="@style/EmptyAppCompatActivity"
-            tools:ignore="IntentFilterExportedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ActivateProfileFromExternalApplicationActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
@@ -504,16 +502,35 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
+<!--        <activity-->
+<!--            android:name=".GrantNotificationPermissionAtFirstStartActivity"-->
+<!--            android:excludeFromRecents="true"-->
+<!--            android:label="@string/empty_string"-->
+<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
+<!--            android:theme="@style/EmptyAppCompatActivity">-->
+<!--        </activity>-->
         <activity
-            android:name=".GrantNotificationPermissionAtFirstStartActivity"
+            android:name=".LogCrashActivity"
+            android:label="@string/empty_string">
+        </activity>
+        <activity
+            android:name=".LaunchWidgetOneRowProfileListConfigurationActivity"
+            android:exported="true"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".LogCrashActivity"
-            android:label="@string/empty_string">
+            android:name=".NotificationsPreferncesActivity"
+            android:exported="true"
+            android:label="@string/notifications_preferences_notification_type"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
+            android:theme="@style/EmptyAppCompatActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
+            </intent-filter>
         </activity>
 
 
@@ -614,6 +631,20 @@
             <meta-data
                 android:name="com.samsung.android.cocktail.provider"
                 android:resource="@xml/samsung_edge"/>
+        </receiver>
+        <receiver
+            android:name=".OneRowProfileListWidgetProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/widget_label_one_row_profile_list">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/one_row_profile_list_widget_info"/>
         </receiver>
 
         <!-- main service -->

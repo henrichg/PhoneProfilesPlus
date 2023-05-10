@@ -24,9 +24,9 @@ class RunApplicationEditorDialogAdapter extends RecyclerView.Adapter<RunApplicat
     public RunApplicationEditorDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int resId;
         if (dialog.selectedFilter == 2)
-            resId = R.layout.run_applications_editor_dialog_list_item_intent;
+            resId = R.layout.listitem_run_applications_editor_dialog_intent;
         else
-            resId = R.layout.run_applications_editor_dialog_list_item;
+            resId = R.layout.listitem_run_applications_editor_dialog;
         View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
         return new RunApplicationEditorDialogViewHolder(view, /*context,*/ dialog);
     }
@@ -39,6 +39,7 @@ class RunApplicationEditorDialogAdapter extends RecyclerView.Adapter<RunApplicat
         holder.bindApplication(application, position);
     }
 
+    @SuppressWarnings("unused")
     @NonNull
     @Override
     public String getSectionName(int position) {

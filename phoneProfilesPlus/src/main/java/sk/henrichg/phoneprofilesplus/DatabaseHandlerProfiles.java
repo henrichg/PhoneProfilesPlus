@@ -141,7 +141,7 @@ class DatabaseHandlerProfiles {
                 }
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -396,7 +396,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return profile;
         } finally {
@@ -649,7 +649,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return profileList;
@@ -782,7 +782,7 @@ class DatabaseHandlerProfiles {
                         new String[]{String.valueOf(profile._id)});
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -859,14 +859,14 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -874,8 +874,8 @@ class DatabaseHandlerProfiles {
     }
 
     // Deleting all profiles
-    static boolean deleteAllProfiles(DatabaseHandler instance) {
-        boolean ok = false;
+    static void deleteAllProfiles(DatabaseHandler instance) {
+        //boolean ok = false;
         instance.importExportLock.lock();
         try {
             try {
@@ -901,21 +901,21 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
 
-                    ok = true;
+                    //ok = true;
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
         }
-        return ok;
+        //return ok;
     }
 
     // Getting max(porder)
@@ -942,7 +942,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -981,14 +981,14 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1254,7 +1254,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return profile;
         } finally {
@@ -1292,7 +1292,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return id;
         } finally {
@@ -1327,14 +1327,14 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1364,7 +1364,7 @@ class DatabaseHandlerProfiles {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1389,14 +1389,14 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1426,7 +1426,7 @@ class DatabaseHandlerProfiles {
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return r;
         } finally {
@@ -1456,14 +1456,14 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1530,7 +1530,7 @@ class DatabaseHandlerProfiles {
                             }
                         }
                         if (!existsInTile) {
-//                            PPApplication.logE("DatabaseHandlerProfiles.getProfilesForDynamicShortcuts", "profile._name="+profile._name);
+//                            PPApplicationStatic.logE("DatabaseHandlerProfiles.getProfilesForDynamicShortcuts", "profile._name="+profile._name);
                             profileList.add(profile);
                         }
                     } while (cursor.moveToNext());
@@ -1540,7 +1540,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return profileList;
@@ -1596,7 +1596,7 @@ class DatabaseHandlerProfiles {
                         for (int i = 0; i < PPApplication.quickTileProfileId.length; i++) {
                             long tiledProfileId = ApplicationPreferences.getQuickTileProfileId(instance.context, i);
                             if (tiledProfileId == profile._id) {
-//                                PPApplication.logE("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._name="+profile._name);
+//                                PPApplicationStatic.logE("DatabaseHandlerProfiles.getProfilesInQuickTilesForDynamicShortcuts", "profile._name="+profile._name);
                                 profileList.add(profile);
                             }
                         }
@@ -1607,7 +1607,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return profileList;
@@ -1636,14 +1636,14 @@ class DatabaseHandlerProfiles {
 
                     db.setTransactionSuccessful();
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1675,14 +1675,14 @@ class DatabaseHandlerProfiles {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1724,7 +1724,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return shortcut;
         } finally {
@@ -1754,15 +1754,15 @@ class DatabaseHandlerProfiles {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteShortcut", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    //Log.e("DatabaseHandlerProfiles.deleteShortcut", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1834,14 +1834,14 @@ class DatabaseHandlerProfiles {
                     db.setTransactionSuccessful();
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -1964,7 +1964,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return intentList;
         } finally {
@@ -2037,15 +2037,15 @@ class DatabaseHandlerProfiles {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.updateIntent", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    //Log.e("DatabaseHandlerProfiles.updateIntent", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();
@@ -2167,7 +2167,7 @@ class DatabaseHandlerProfiles {
                 //db.close();
 
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return intent;
         } finally {
@@ -2196,15 +2196,15 @@ class DatabaseHandlerProfiles {
 
                 } catch (Exception e) {
                     //Error in between database transaction
-                    //Log.e("DatabaseHandler.deleteIntent", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    //Log.e("DatabaseHandlerProfiles.deleteIntent", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     db.endTransaction();
                 }
 
                 //db.close();
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         } finally {
             instance.stopRunningCommand();

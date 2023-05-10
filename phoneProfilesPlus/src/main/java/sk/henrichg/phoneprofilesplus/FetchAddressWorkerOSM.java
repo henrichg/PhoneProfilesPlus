@@ -31,9 +31,9 @@ public class FetchAddressWorkerOSM extends Worker {
     public Result doWork() {
         try {
 //            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "--------------- START");
+//            PPApplicationStatic.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "--------------- START");
 
-            if (!PPApplication.getApplicationStarted(true, true))
+            if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
                 return Result.success();
 
@@ -56,20 +56,20 @@ public class FetchAddressWorkerOSM extends Worker {
             } catch (IOException ioException) {
                 // Catch network or other I/O problems.
                 //Log.e("FetchAddressWorkerOSM.doWork", "Service not available", ioException);
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             } catch (IllegalArgumentException illegalArgumentException) {
                 // Catch invalid latitude or longitude values.
                 /*Log.e("FetchAddressWorkerOSM.doWork", "Invalid location. " +
                         "Latitude = " + latitude +
                         ", Longitude = " +
                         longitude, illegalArgumentException);
-                PPApplication.recordException(e);*/
+                PPApplicationStatic.recordException(e);*/
             }
 
             // Handle case where no address was found.
             if (addresses == null || addresses.size() == 0) {
                 //if (errorMessage.isEmpty()) {
-                //Log.e("FetchAddressIntentService.onHandleIntent", "No address found");
+                //Log.e("FetchAddressWorkerOSM.doWork", "No address found");
                 //}
                 outputData = generateResult(LocationGeofenceEditorActivityOSM.FAILURE_RESULT,
                         getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
@@ -98,11 +98,11 @@ public class FetchAddressWorkerOSM extends Worker {
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            PPApplicationStatic.logE("[IN_WORKER]  FetchAddressWorkerOSM.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success(outputData);
         } catch (Exception e) {
             //Log.e("FetchAddressWorkerOSM.doWork", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return Result.failure();
         }
     }

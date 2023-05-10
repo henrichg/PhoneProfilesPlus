@@ -12,6 +12,7 @@ import androidx.preference.SwitchPreferenceCompat;
 class EventPreferencesVolumes extends EventPreferences {
 
     static boolean internalChange = false;
+    static boolean mediaVolumeChangeed = false;
 
     String _volumeRingtone;
     String _volumeNotification;
@@ -100,7 +101,7 @@ class EventPreferencesVolumes extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_volumes_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_VOLUMES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_VOLUMES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_volumes), addPassStatus, DatabaseHandler.ETYPE_VOLUMES, context);
@@ -246,7 +247,8 @@ class EventPreferencesVolumes extends EventPreferences {
     }
 
     private void setSummary(PreferenceManager prefMng, String key,
-                            @SuppressWarnings("unused") String value, Context context)
+                            @SuppressWarnings("unused") String value,
+                            Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (preferences == null)
@@ -255,7 +257,7 @@ class EventPreferencesVolumes extends EventPreferences {
         if (key.equals(PREF_EVENT_VOLUMES_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -278,43 +280,43 @@ class EventPreferencesVolumes extends EventPreferences {
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO);
         if (preference != null) {
             String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0").split("\\|");
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
 
     }
@@ -356,7 +358,7 @@ class EventPreferencesVolumes extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_VOLUMES_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VOLUMES_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesVolumes tmp = new EventPreferencesVolumes(this._event, this._enabled,
                     this._volumeRingtone, this._volumeNotification, this._volumeMedia,
@@ -371,7 +373,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_VOLUMES).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -512,7 +514,7 @@ class EventPreferencesVolumes extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesVolumes.PREF_EVENT_VOLUMES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 AudioManager audioManager = (AudioManager)eventsHandler.context.getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
 

@@ -34,6 +34,7 @@ public class VibrationIntensityPreference extends DialogPreference {
 
         _context = context;
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
             R.styleable.PPVibrationIntensityDialogPreference);
 
@@ -99,7 +100,7 @@ public class VibrationIntensityPreference extends DialogPreference {
             }
         } catch (Exception e) {
             //Log.e("VibrationIntensityPreference.getValueVDP", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             value = 0;
         }
         //value = value - minimumValue;

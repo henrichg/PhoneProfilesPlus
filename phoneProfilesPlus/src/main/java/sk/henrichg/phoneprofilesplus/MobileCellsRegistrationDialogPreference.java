@@ -25,6 +25,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference {
 
     public MobileCellsRegistrationDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        //noinspection resource
         TypedArray durationDialogType = context.obtainStyledAttributes(attrs,
                 R.styleable.PPDurationDialogPreference, 0, 0);
 
@@ -76,8 +78,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference {
         setSummary(summary);
     }
 
-    @SuppressWarnings("SameParameterValue")
-    void updateInterface(long millisUntilFinished, boolean forceStop) {
+    void updateInterface(long millisUntilFinished,
+                         @SuppressWarnings("SameParameterValue") boolean forceStop) {
         if (fragment != null)
             fragment.updateInterface(millisUntilFinished, forceStop);
     }

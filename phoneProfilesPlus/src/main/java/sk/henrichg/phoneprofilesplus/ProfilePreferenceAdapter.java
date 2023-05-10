@@ -87,9 +87,9 @@ class ProfilePreferenceAdapter extends BaseAdapter {
         if (convertView == null)
         {
             if (applicationEditorPrefIndicator)
-                vi = LayoutInflater.from(context).inflate(R.layout.profile_preference_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_profile_preference, parent, false);
             else
-                vi = LayoutInflater.from(context).inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_profile_preference_no_indicator, parent, false);
 
             holder = new ViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);

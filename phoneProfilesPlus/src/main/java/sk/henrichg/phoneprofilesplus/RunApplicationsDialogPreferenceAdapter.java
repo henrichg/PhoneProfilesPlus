@@ -32,7 +32,7 @@ class RunApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<RunApp
     @Override
     public RunApplicationsDialogPreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.run_applications_preference_list_item, parent, false);
+                .inflate(R.layout.listitem_run_applications_preference, parent, false);
         return new RunApplicationsDialogPreferenceViewHolder(view, context, preference);
     }
 
@@ -91,4 +91,10 @@ class RunApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<RunApp
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
+
+    @Override
+    public void clearView() {
+
+    }
+
 }

@@ -24,7 +24,7 @@ import java.util.Locale;
  * the Lollipop stock timer app.
  *
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"FieldCanBeLocal", "ConstantConditions", "unused"})
 public class TimeDurationPicker extends FrameLayout {
 
     public static final int HH_MM_SS = 0;
@@ -50,7 +50,6 @@ public class TimeDurationPicker extends FrameLayout {
     private OnDurationChangedListener changeListener = null;
     private final TextView secondsLabel;
     private final TextView hoursLabel;
-    @SuppressWarnings("FieldCanBeLocal")
     private final TextView minutesLabel;
 
     /**
@@ -412,7 +411,6 @@ public class TimeDurationPicker extends FrameLayout {
         numPad.measure(MeasureSpec.makeMeasureSpec(numPadWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(numPadHeight, MeasureSpec.EXACTLY));
 
         // forward calculated size to super implementation
-        //noinspection ConstantConditions
         final int width = Math.max(displayRowWidth, numPadWidth);
         final int height = minDisplayHeight + numPadHeight;
         setMeasuredDimension(width, height);

@@ -10,8 +10,8 @@ import androidx.work.WorkerParameters;
 @SuppressWarnings("unused")
 public class GeofenceScanWorker extends Worker {
 
-    static final String WORK_TAG  = "GeofenceScannerJob";
-    static final String WORK_TAG_SHORT  = "GeofenceScannerJobShort";
+    //static final String WORK_TAG  = "GeofenceScannerJob";
+    //static final String WORK_TAG_SHORT  = "GeofenceScannerJobShort";
 
     public GeofenceScanWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);

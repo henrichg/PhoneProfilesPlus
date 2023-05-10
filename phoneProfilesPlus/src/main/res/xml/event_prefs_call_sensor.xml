@@ -56,26 +56,47 @@
         app:dMax="86400"
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="eventCallInstallExtender"
-        app:title="@string/install_extender_dialog_title"
-        app:summary="@string/event_preferences_call_PPPExtender_install_summary"
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_call_forSimCard"
+        app:summary="@string/event_preferences_forSimCard_bothCards"
+        app:key="eventCallForSimCard"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventCallForSimCardArray"
+        app:ppEntryValues="@array/eventCallForSimCardValues"
         app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="eventCallAccessibilitySettings"
-        app:title="@string/event_preferences_applications_AccessibilitySettings_title"
-        app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
+
+    <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
+        app:title="@string/pppextender_pref_dialog_title"
+        app:summary="@string/empty_string"
+        app:installSummary="@string/event_preferences_call_PPPExtender_install_summary"
+        app:launchSummary="@string/event_preferences_call_LaunchExtender_summary"
+        app:enableExtenderSummaryDisabled="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
+        app:key="eventCallExtender"
         app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="eventCallLaunchExtender"
-        app:title="@string/event_preferences_applications_LaunchExtender_title"
-        app:summary="@string/event_preferences_call_LaunchExtender_summary"
-        app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
-        app:layout="@layout/mp_preference_material_widget" />
+
+<!--    <Preference-->
+<!--        app:key="eventCallInstallExtender"-->
+<!--        app:title="@string/install_extender_dialog_title"-->
+<!--        app:summary="@string/event_preferences_call_PPPExtender_install_summary"-->
+<!--        app:dependency="eventCallEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+<!--    <Preference-->
+<!--        app:key="eventCallAccessibilitySettings"-->
+<!--        app:title="@string/event_preferences_applications_AccessibilitySettings_title"-->
+<!--        app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"-->
+<!--        app:dependency="eventCallEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
+<!--    <Preference-->
+<!--        app:key="eventCallLaunchExtender"-->
+<!--        app:title="@string/pppextender_pref_dialog_launch_button"-->
+<!--        app:summary="@string/event_preferences_call_LaunchExtender_summary"-->
+<!--        app:dependency="eventCallEnabled"-->
+<!--        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     
 </androidx.preference.PreferenceScreen>

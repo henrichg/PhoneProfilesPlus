@@ -6,5 +6,6 @@
     previewImage="@drawable/samsung_edge_panel"
     updatePeriodMills="0"
     configure="sk.henrichg.phoneprofilesplus.LaunchSamsungEdgeConfigurationActivity"
-    cocktailWidth="550">
+    cocktailWidth="550"
+    launchOnClick="sk.henrichg.phoneprofilesplus.EditorActivity" >
 </cocktail-provider>

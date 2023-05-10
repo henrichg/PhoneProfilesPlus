@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
-public class ProfileStatic {
+class ProfileStatic {
 
     static String getIconIdentifier(String icon)
     {
@@ -247,9 +247,7 @@ public class ProfileStatic {
         else
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
             _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
-        //noinspection UnnecessaryLocalVariable
-        int percentage = BrightnessLookup.lookup(_settingsValue, true);
-        return percentage;
+        return BrightnessLookup.lookup(_settingsValue, true);
     }
 
     private static int getBrightnessManualValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
@@ -491,7 +489,6 @@ public class ProfileStatic {
                 //}
 
                 if (PPApplication.deviceIsOnePlus) {
-                    //noinspection ConstantConditions
                     if (Build.VERSION.SDK_INT < 31)
                         value = (getBrightnessAdaptiveValueWithLookup(percentage/) - 512) / 512f;
                     else
@@ -1024,7 +1021,7 @@ public class ProfileStatic {
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS(preferenceAllowed);
                     break;
                 case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed, context);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed/*, context*/);
                     break;
                 case Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
@@ -1163,7 +1160,7 @@ public class ProfileStatic {
                     iconResource = (int) idx;
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         return iconResource;
     }

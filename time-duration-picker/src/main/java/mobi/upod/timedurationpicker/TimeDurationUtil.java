@@ -3,6 +3,7 @@ package mobi.upod.timedurationpicker;
 /**
  * Utility class for handling duration values.
  */
+@SuppressWarnings("unused")
 class TimeDurationUtil {
     /** The number of milliseconds within a second. */
     public static final int MILLIS_PER_SECOND = 1000;
@@ -43,7 +44,6 @@ class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return number of seconds within the specified duration.
      */
-    @SuppressWarnings("unused")
     public static int secondsOf(long duration) {
         return (int) duration / MILLIS_PER_SECOND;
     }

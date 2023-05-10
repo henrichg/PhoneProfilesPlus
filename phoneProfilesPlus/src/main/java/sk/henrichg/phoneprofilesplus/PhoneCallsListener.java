@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.SystemClock;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
@@ -42,9 +43,10 @@ public class PhoneCallsListener extends PhoneStateListener {
         this.simSlot = simSlot;
     }
 
+    @SuppressWarnings("deprecation")
     public void onCallStateChanged (int state, String phoneNumber) {
 
-        if (PPApplication.getApplicationStarted(true, true)) {
+        if (PPApplicationStatic.getApplicationStarted(true, true)) {
             if(lastState == state){
                 //No change, de-bounce extras
                 return;
@@ -92,6 +94,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public void onServiceStateChanged(ServiceState serviceState) {
         super.onServiceStateChanged(serviceState);
 
@@ -185,7 +188,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
 
         if ((newNetworkRoaming != oldNetworkRoaming) || (newDataRoaming != oldDataRoaming)) {
-            if (Event.getGlobalEventsRunning()) {
+            if (EventStatic.getGlobalEventsRunning(savedContext)) {
                 //if (useHandler) {
                 final Context appContext = savedContext.getApplicationContext();
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_ROAMING, "SENSOR_TYPE_ROAMING", 0);
@@ -195,7 +198,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 __handler.post(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallListener.onServiceStateChanged");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallListener.onServiceStateChanged");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -207,13 +210,13 @@ public class PhoneCallsListener extends PhoneStateListener {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-//                        PPApplication.logE("[EVENTS_HANDLER_CALL] PhoneCallListener.onServiceStateChanged", "sensorType=SENSOR_TYPE_ROAMING");
+//                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PhoneCallListener.onServiceStateChanged", "sensorType=SENSOR_TYPE_ROAMING");
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ROAMING);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -232,7 +235,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallStarted", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallStarted", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false/*, number, eventTime*/);
     }
 
@@ -243,31 +246,31 @@ public class PhoneCallsListener extends PhoneStateListener {
 
     protected void onIncomingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallAnswered", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallAnswered", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false/*, number, eventTime*/);
     }
 
     protected void onIncomingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallEnded", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallEnded", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false/*, number, eventTime*/);
     }
 
     protected void onMissedCall(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onMissedCall", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] PhoneCallsListener.onMissedCall", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
     }
 
@@ -280,7 +283,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
+//            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
             //Context appContext= appContextWeakRef.get();
 
@@ -303,7 +306,7 @@ public class PhoneCallsListener extends PhoneStateListener {
 
             //}
         }; //);
-        PPApplication.createEventsHandlerExecutor();
+        PPApplicationStatic.createEventsHandlerExecutor();
         PPApplication.eventsHandlerExecutor.submit(runnable);
     }
 
@@ -402,14 +405,15 @@ public class PhoneCallsListener extends PhoneStateListener {
         }
     }
 
-    private static void callAnswered(@SuppressWarnings("unused") boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
+    private static void callAnswered(@SuppressWarnings("unused") boolean incoming,
+            /*String phoneNumber, Date eventTime,*/ Context context)
     {
         speakerphoneSelected = false;
 
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PhoneProfilesService.stopSimulatingRingingCall(true, context.getApplicationContext());
+        PhoneProfilesServiceStatic.stopSimulatingRingingCall(true, context.getApplicationContext());
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -424,29 +428,77 @@ public class PhoneCallsListener extends PhoneStateListener {
 
         // audio mode is set to MODE_IN_CALL by system
 
-        //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-        Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
-        //profile = Profile.getMappedProfile(profile, context);
+        if (Build.VERSION.SDK_INT < 29) {
+            //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+            Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
+            //profile = Profile.getMappedProfile(profile, context);
 
-        if (profile != null) {
-            if (profile._volumeSpeakerPhone != 0) {
-                savedSpeakerphone = audioManager.isSpeakerphoneOn();
-                boolean changeSpeakerphone = false;
-                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
-                    changeSpeakerphone = true;
-                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
-                    changeSpeakerphone = true;
-                if (changeSpeakerphone) {
-                    /// activate SpeakerPhone
-                    // not working in EMUI :-/
-                    //audioManager.setMode(AudioManager.MODE_IN_CALL);
-                    GlobalUtils.sleep(500);
+            if (profile != null) {
+                if (profile._volumeSpeakerPhone != 0) {
+                    savedSpeakerphone = audioManager.isSpeakerphoneOn();
+                    boolean changeSpeakerphone = false;
+                    if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
+                        changeSpeakerphone = true;
+                    if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
+                        changeSpeakerphone = true;
+                    if (changeSpeakerphone) {
+                        /// activate SpeakerPhone
+                        // not working in EMUI :-/
 
-                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                        // set it to MODE_IN_CALL, becaise simulatin ronging call sets it to MODE_NORMAL
+                        audioManager.setMode(AudioManager.MODE_IN_CALL);
+                        GlobalUtils.sleep(500);
+
+                        audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
 
 //                    try {
 //                        Class audioSystemClass = Class.forName("android.media.AudioSystem");
 //                        Method setForceUse = audioSystemClass.getMethod("setForceUse", int.class, int.class);
+                        // First 1 == FOR_MEDIA, second 1 == FORCE_SPEAKER. To go back to the default
+                        // behavior, use FORCE_NONE (0).
+                        // usage for setForceUse, must match AudioSystem::force_use
+                        // public static final int FOR_COMMUNICATION = 0;
+                        // public static final int FOR_MEDIA = 1;
+                        // public static final int FOR_RECORD = 2;
+                        // public static final int FOR_DOCK = 3;
+                        // public static final int FOR_SYSTEM = 4;
+                        // speaker on
+//                        setForceUse.invoke(null, FOR_COMMUNICATION, FORCE_SPEAKER);
+                        // speaker off
+//                        setForceUse.invoke(null, FOR_COMMUNICATION, FORCE_NONE);
+//                    } catch (Exception e) {
+//                        PPApplicationStatic.recordException(e);
+//                    }
+
+                        speakerphoneSelected = true;
+                    }
+                }
+            }
+
+            //dataWrapper.invalidateDataWrapper();
+        }
+    }
+
+    private static void callEnded(boolean incoming,
+                                  @SuppressWarnings("unused") boolean missed,
+            /*String phoneNumber, Date eventTime,*/ Context context)
+    {
+        if (audioManager == null)
+            audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+        PhoneProfilesServiceStatic.stopSimulatingRingingCall(false, context.getApplicationContext());
+
+        // audio mode is set to MODE_IN_CALL by system
+
+        if (Build.VERSION.SDK_INT < 29) {
+            if (speakerphoneSelected) {
+                if (audioManager != null) {
+                    //audioManager.setMode(AudioManager.MODE_IN_CALL);
+                    audioManager.setSpeakerphoneOn(savedSpeakerphone);
+
+//                try {
+//                    Class audioSystemClass = Class.forName("android.media.AudioSystem");
+//                    Method setForceUse = audioSystemClass.getMethod("setForceUse", int.class, int.class);
                     // First 1 == FOR_MEDIA, second 1 == FORCE_SPEAKER. To go back to the default
                     // behavior, use FORCE_NONE (0).
                     // usage for setForceUse, must match AudioSystem::force_use
@@ -455,51 +507,11 @@ public class PhoneCallsListener extends PhoneStateListener {
                     // public static final int FOR_RECORD = 2;
                     // public static final int FOR_DOCK = 3;
                     // public static final int FOR_SYSTEM = 4;
-//                        setForceUse.invoke(null, 0, 1);
-//                    } catch (Exception e) {
-//                        PPApplication.recordException(e);
-//                    }
-
-                    speakerphoneSelected = true;
-                }
-            }
-        }
-
-        //dataWrapper.invalidateDataWrapper();
-
-        // setSpeakerphoneOn() moved to ActivateProfileHelper.executeForVolumes
-    }
-
-    private static void callEnded(boolean incoming, @SuppressWarnings("unused") boolean missed, /*String phoneNumber, Date eventTime,*/ Context context)
-    {
-        if (audioManager == null)
-            audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-
-        PhoneProfilesService.stopSimulatingRingingCall(false, context.getApplicationContext());
-
-        // audio mode is set to MODE_IN_CALL by system
-
-        if (speakerphoneSelected)
-        {
-            if (audioManager != null) {
-                //audioManager.setMode(AudioManager.MODE_IN_CALL);
-                audioManager.setSpeakerphoneOn(savedSpeakerphone);
-
-//                try {
-//                    Class audioSystemClass = Class.forName("android.media.AudioSystem");
-//                    Method setForceUse = audioSystemClass.getMethod("setForceUse", int.class, int.class);
-                // First 1 == FOR_MEDIA, second 1 == FORCE_SPEAKER. To go back to the default
-                // behavior, use FORCE_NONE (0).
-                // usage for setForceUse, must match AudioSystem::force_use
-                // public static final int FOR_COMMUNICATION = 0;
-                // public static final int FOR_MEDIA = 1;
-                // public static final int FOR_RECORD = 2;
-                // public static final int FOR_DOCK = 3;
-                // public static final int FOR_SYSTEM = 4;
 //                    setForceUse.invoke(null, 0, 0);
 //                } catch (Exception e) {
-//                    PPApplication.recordException(e);
+//                    PPApplicationStatic.recordException(e);
 //                }
+                }
             }
         }
 

@@ -1,8 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.app.Notification.DEFAULT_SOUND;
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -14,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -54,10 +52,9 @@ public class MobileCellsRegistrationService extends Service
 
         context = this;
 
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
-
-        //registerReceiver(stopReceiver, new IntentFilter(MobileCellsRegistrationService.ACTION_STOP));
     }
 
     @Override
@@ -74,7 +71,7 @@ public class MobileCellsRegistrationService extends Service
             serviceStarted = true;
 
             forceStart = true;
-            PPApplication.forceStartMobileCellsScanner(this);
+            PPApplicationStatic.forceStartMobileCellsScanner(this);
 
             //MobileCellsScanner.autoRegistrationService = this;
 
@@ -85,6 +82,8 @@ public class MobileCellsRegistrationService extends Service
                         new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver(this);
                 context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
             }
+
+            PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
 
             countDownTimer = new CountDownTimer(remainingDuration * 1000L, 1000) {
 
@@ -147,7 +146,7 @@ public class MobileCellsRegistrationService extends Service
         try {
             notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
         if (serviceStarted) {
@@ -155,7 +154,7 @@ public class MobileCellsRegistrationService extends Service
             //MobileCellsScanner.autoRegistrationService = null;
 
             forceStart = false;
-            PPApplication.restartMobileCellsScanner(this);
+            PPApplicationStatic.restartMobileCellsScanner(this);
 
             showResultNotification();
 
@@ -163,7 +162,7 @@ public class MobileCellsRegistrationService extends Service
                 try {
                     context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
                 } catch (IllegalArgumentException e) {
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
                 mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }
@@ -172,16 +171,6 @@ public class MobileCellsRegistrationService extends Service
         serviceStarted = false;
 
     }
-
-    /*
-    public static void stop(Context context) {
-        try {
-            context.sendBroadcast(new Intent(ACTION_STOP));
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
-    }
-    */
 
     private void showNotification(long millisUntilFinished) {
         String text;
@@ -199,9 +188,9 @@ public class MobileCellsRegistrationService extends Service
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
         }
 
-        PPApplication.createMobileCellsRegistrationNotificationChannel(this);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
+        //PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT)
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
@@ -233,17 +222,18 @@ public class MobileCellsRegistrationService extends Service
 
         Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-        notification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
+        /*notification.flags &= ~Notification.FLAG_SHOW_LIGHTS;
         notification.ledOnMS = 0;
         notification.ledOffMS = 0;
         notification.sound = null;
         notification.vibrate = null;
         notification.defaults &= ~DEFAULT_SOUND;
-        notification.defaults &= ~DEFAULT_VIBRATE;
+        notification.defaults &= ~DEFAULT_VIBRATE;*/
         startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }
 
     private void stopRegistration() {
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         showNotification(0);
         GlobalUtils.sleep(500);
 
@@ -268,9 +258,9 @@ public class MobileCellsRegistrationService extends Service
 //            text = text+" ("+getString(R.string.ppp_app_name)+")";
 //        }
 
-        PPApplication.createMobileCellsRegistrationNotificationChannel(this);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
+        PPApplicationStatic.createInformationNotificationChannel(this);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
@@ -292,9 +282,11 @@ public class MobileCellsRegistrationService extends Service
             mNotificationManager.notify(
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
+        } catch (SecurityException en) {
+            Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("MobileCellsRegistrationService.showResultNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -305,7 +297,7 @@ public class MobileCellsRegistrationService extends Service
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_TAG,
                     PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -367,7 +359,7 @@ public class MobileCellsRegistrationService extends Service
 
     @Override
     public void stopRegistrationFromListener() {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
         stopRegistration();
     }
 
@@ -376,7 +368,7 @@ public class MobileCellsRegistrationService extends Service
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsPreferenceUseBroadcastReceiver", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsPreferenceUseBroadcastReceiver", "xxx");
             //Log.d("MobileCellsRegistrationCellsDialogStateBroadcastReceiver", "xxx");
         }
     }

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categoryAppNotification"
+    app:title="@string/phone_profiles_pref_category_status_bar">
+
+    <Preference
+        app:key="notificationSystemSettingsActivatedProfile"
+        app:title="@string/phone_profiles_pref_notificationSystemSettings"
+        app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:key="notificationSystemSettingsAll"
+        app:title="@string/phone_profiles_pref_notificationSystemSettings"
+        app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_summary"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <PreferenceCategory
+        app:key="notificationStatusBarCategory"
+        app:title="@string/phone_profiles_pref_notificationStatusBarCategory"
+        app:layout="@layout/mp_preference_category" >
+
+        <Preference
+            app:key="notificationStatusBarStyleInfo"
+            app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
+            app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/phone_profiles_pref_notificationStatusBarStyle"
+            app:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
+            app:key="notificationStatusBarStyle"
+            app:defaultValue="1"
+            app:ppEntries="@array/notificationIconStyleArray"
+            app:ppEntryValues="@array/notificationIconStyleValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationPanelCategory"
+        app:title="@string/phone_profiles_pref_notificationNotificationPanelCategory"
+        app:layout="@layout/mp_preference_category" >
+
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/phone_profiles_pref_notificationNotificationStyle"
+            app:summary="@string/phone_profiles_pref_notificationNotificationStyle_custom"
+            app:key="notificationNotificationStyle"
+            app:defaultValue="0"
+            app:ppEntries="@array/notificationNotificationStyleArray"
+            app:ppEntryValues="@array/notificationNotificationStyleValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/phone_profiles_pref_notificationLayoutType"
+            app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
+            app:key="notificationLayoutType"
+            app:defaultValue="0"
+            app:ppEntries="@array/notificationLayoutTypeArray"
+            app:ppEntryValues="@array/notificationLayoutTypeValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <Preference
+            app:key="notificationUseDecoratorInfo"
+            app:title="@string/phone_profiles_pref_notificationUseDecoration"
+            app:summary="@string/phone_profiles_pref_notificationUseDecorationInfo_summary"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationUseDecoration"
+            app:title="@string/phone_profiles_pref_notificationUseDecoration"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationPanelBackgroundColorCategory"
+        app:title="@string/phone_profiles_pref_notificationBackgroundColorCategory"
+        app:layout="@layout/mp_preference_category" >
+
+        <Preference
+            app:key="notificationBackgroundColorInfo"
+            app:title="@string/phone_profiles_pref_notificationBackgroundColor"
+            app:summary="@string/phone_profiles_pref_notificationBackgroundColorInfo_summary"
+            app:widgetLayout="@layout/preference_widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/phone_profiles_pref_notificationBackgroundColor"
+            app:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"
+            app:key="notificationBackgroundColor"
+            app:defaultValue="0"
+            app:ppEntries="@array/notificationBackgroundColorArray"
+            app:ppEntryValues="@array/notificationBackgroundColorValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <sk.henrichg.phoneprofilesplus.CustomColorDialogPreference
+            app:key="notificationBackgroundCustomColor"
+            app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
+            app:defaultValue="#FFFFFFFF"
+            app:chromaColorMode="RGB"
+            app:chromaIndicatorMode="HEX"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationPanelTextColorCategory"
+        app:title="@string/phone_profiles_pref_notificationTextColorCategory"
+        app:layout="@layout/mp_preference_category" >
+
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/phone_profiles_pref_notificationTextColor"
+            app:summary="@string/array_pref_no_change"
+            app:key="notificationTextColor"
+            app:defaultValue="0"
+            app:ppEntries="@array/notificationTextColorArray"
+            app:ppEntryValues="@array/notificationTextColorValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationPanelProfileIconCategory"
+        app:title="@string/phone_profiles_pref_notificationProfileIconCategory"
+        app:layout="@layout/mp_preference_category" >
+
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:title="@string/phone_profiles_pref_notificationProfileIconColor"
+            app:summary="0"
+            app:key="notificationProfileIconColor"
+            app:defaultValue="0"
+            app:ppEntries="@array/widgetColorArray"
+            app:ppEntryValues="@array/widgetColorValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationShowProfileIcon"
+            app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
+            app:title="@string/phone_profiles_pref_notificationProfileIconLightness"
+            app:summary="100%%"
+            app:key="notificationProfileIconLightness"
+            app:defaultValue="100"
+            app:showLighting="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="notificationCustomProfileIconLightness"
+            app:title="@string/phone_profiles_pref_notificationProfileCustomIconLightness"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationPanelIndicatorCategory"
+        app:title="@string/phone_profiles_pref_notificationPreferencesIndicatorCategory"
+        app:layout="@layout/mp_preference_category" >
+
+        <Preference
+            app:key="notificationProfileIconColorInfo2"
+            app:title="@string/phone_profiles_pref_notificationProfileIconColor"
+            app:summary="@string/empty_string"
+            app:widgetLayout="@layout/preference_widget_info_preference_clickable"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationPrefIndicator"
+            app:title="@string/phone_profiles_pref_notificationPrefIndicator"
+            app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreference
+            app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
+            app:summary="50%%"
+            app:key="notificationPrefIndicatorLightness"
+            app:defaultValue="50"
+            app:showLighting="true"
+            app:dependency="notificationPrefIndicator"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationPanelButtonsCategory"
+        app:title="@string/phone_profiles_pref_notificationButtonsCategory"
+        app:layout="@layout/mp_preference_category" >
+
+        <SwitchPreferenceCompat
+            app:key="notificationShowRestartEventsAsButton"
+            app:title="@string/phone_profiles_pref_notificationShowReastartEventsAsButton"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationShowButtonExit"
+            app:title="@string/phone_profiles_pref_notificationShowButtonExit"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

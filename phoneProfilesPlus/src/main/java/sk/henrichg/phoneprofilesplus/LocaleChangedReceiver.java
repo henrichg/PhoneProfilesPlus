@@ -8,21 +8,22 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] LocaleChangedReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] LocaleChangedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
 
             //final Context appContext = context.getApplicationContext();
 
-            if (PPApplication.getApplicationStarted(false, false)) {
+            if (PPApplicationStatic.getApplicationStarted(false, false)) {
 
                 PPApplication.collator = GlobalUtils.getCollator();
                 //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
                 //PPApplication.showProfileNotification(/*true*/);
                 //if (PhoneProfilesService.getInstance() != null)
-//                PPApplication.logE("[PPP_NOTIFICATION] LocaleChangedReceiver.onReceive", "call of showProfileNotification");
-                PhoneProfilesNotification.showProfileNotification(context.getApplicationContext(),
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] LocaleChangedReceiver.onReceive", "call of PPAppNotification.showNotification");
+                sk.henrichg.phoneprofilesplus.PPAppNotification.showNotification(context.getApplicationContext(),
                             false, true, false);
+                ProfileListNotification.showNotification(context.getApplicationContext(), false);
                 //}
 
 /*
@@ -31,7 +32,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
+                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
 
                         PPApplication.collator = PPApplication.getCollator();
                         //if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {

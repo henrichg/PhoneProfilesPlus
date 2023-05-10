@@ -16,9 +16,9 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -31,7 +31,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         //        context.getApplicationContext()) {
         //__handler.post(() -> {
         Runnable runnable = () -> {
-//          PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckOnlineStatusBroadcastReceiver.onReceive");
+//          PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckOnlineStatusBroadcastReceiver.onReceive");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -48,8 +48,8 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
 //                    boolean isNetworkRoaming = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).isNetworkRoaming();
 
                 } catch (Exception e) {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -60,11 +60,11 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
                 }
             //}
         }; //);
-        PPApplication.createBasicExecutorPool();
+        PPApplicationStatic.createBasicExecutorPool();
         PPApplication.basicExecutorPool.submit(runnable);
 
 
-//        PPApplication.logE("[LOCAL_BROADCAST_CALL] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] CheckOnlineStatusBroadcastReceiver.onReceive", "xxx");
         Intent _intent = new Intent(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver");
         LocalBroadcastManager.getInstance(context.getApplicationContext()).sendBroadcast(_intent);
     }
@@ -73,6 +73,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connMgr != null) {
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            //noinspection deprecation
             return (networkInfo != null && networkInfo.isConnected());
         }
         else

@@ -96,19 +96,23 @@ public class NFCTagPreference extends DialogPreference {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void removeNfcTag(String tagName) {
         String[] splits = value.split("\\|");
         value = "";
+        StringBuilder _value = new StringBuilder();
         for (String tag : splits) {
             if (!tag.isEmpty()) {
                 if (!tag.equals(tagName)) {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + tag;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + tag;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(tag);
                 }
             }
         }
+        value = _value.toString();
     }
 
     boolean isNfcTagSelected(String tagName) {

@@ -31,6 +31,7 @@ public class ProfilePreference extends DialogPreference {
     {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PPProfilePreference);
 
         addNoActivateItem = typedArray.getInt(R.styleable.PPProfilePreference_addNoActivateItem, 0);
@@ -102,7 +103,7 @@ public class ProfilePreference extends DialogPreference {
 
             Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
                 setSummary(Long.parseLong(profileId));
             }, 200);
         }

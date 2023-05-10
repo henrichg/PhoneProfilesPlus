@@ -37,6 +37,7 @@ import java.util.List;
  * Chroma color view to show a color view with channels
  * @author JJamet
  */
+@SuppressWarnings({"resource", "unused"})
 public class ChromaColorView extends RelativeLayout {
 
     private final Context context;
@@ -71,7 +72,6 @@ public class ChromaColorView extends RelativeLayout {
         init(context, attrs);
     }
 
-    @SuppressWarnings("unused")
     public ChromaColorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         this.context = context;
@@ -109,7 +109,6 @@ public class ChromaColorView extends RelativeLayout {
     }
 
     private final ChannelView.OnProgressChangedListener seekBarChangeListener = new ChannelView.OnProgressChangedListener() {
-        @SuppressWarnings("unused")
         @Override
         public void onProgressChanged() {
             List<Channel> channels = new ArrayList<>();
@@ -199,7 +198,6 @@ public class ChromaColorView extends RelativeLayout {
                     return true;
                 if ((c == 'A') || (c == 'B') || (c == 'C') || (c == 'D') || (c == 'E') || (c == 'F'))
                     return true;
-                //noinspection RedundantIfStatement
                 if ((c == 'a') || (c == 'b') || (c == 'c') || (c == 'd') || (c == 'e') || (c == 'f'))
                     return true;
                 //if (c == '#')
@@ -269,7 +267,6 @@ public class ChromaColorView extends RelativeLayout {
         super.invalidate();
     }
 
-    @SuppressWarnings("unused")
     public void setOnColorChangedListener(OnColorChangedListener listener) {
         mOnColorChangedListener = listener;
     }
@@ -283,7 +280,6 @@ public class ChromaColorView extends RelativeLayout {
         invalidate();
     }
 
-    @SuppressWarnings("unused")
     public ColorMode getColorMode() {
         return colorMode;
     }
@@ -293,7 +289,6 @@ public class ChromaColorView extends RelativeLayout {
         invalidate();
     }
 
-    @SuppressWarnings("unused")
     public IndicatorMode getIndicatorMode() {
         return indicatorMode;
     }

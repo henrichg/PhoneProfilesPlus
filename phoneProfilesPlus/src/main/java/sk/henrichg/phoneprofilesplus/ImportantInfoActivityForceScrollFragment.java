@@ -41,15 +41,15 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (showQuickGuide)
-            return inflater.inflate(R.layout.important_info_fragment_quick_guide, container, false);
+            return inflater.inflate(R.layout.fragment_important_info_quick_guide, container, false);
         else {
             switch (showFragment) {
                 case 1:
-                    return inflater.inflate(R.layout.important_info_fragment_profiles_force_scroll, container, false);
+                    return inflater.inflate(R.layout.fragment_important_info_profiles_force_scroll, container, false);
                 case 2:
-                    return inflater.inflate(R.layout.important_info_fragment_events_force_scroll, container, false);
+                    return inflater.inflate(R.layout.fragment_important_info_events_force_scroll, container, false);
                 default:
-                    return inflater.inflate(R.layout.important_info_fragment_system_force_scroll, container, false);
+                    return inflater.inflate(R.layout.fragment_important_info_system_force_scroll, container, false);
             }
         }
     }
@@ -91,7 +91,7 @@ public class ImportantInfoActivityForceScrollFragment extends Fragment {
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }

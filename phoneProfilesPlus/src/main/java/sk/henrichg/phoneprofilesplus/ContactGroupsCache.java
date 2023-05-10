@@ -115,8 +115,8 @@ class ContactGroupsCache {
                 cached = true;
             }
         } catch (SecurityException e) {
-            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //Log.e("ContactGroupsCache.getContactGroupList", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
 
             _contactGroupList.clear();
             clearGroups(_contactList);
@@ -124,8 +124,8 @@ class ContactGroupsCache {
 
             cached = false;
         } catch (Exception e) {
-            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            //Log.e("ContactGroupsCache.getContactGroupList", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
 
             _contactGroupList.clear();
             clearGroups(_contactList);
@@ -170,7 +170,7 @@ class ContactGroupsCache {
         caching = true;
         //cancelled = false;
 
-        ContactsCache contactsCache = PPApplication.getContactsCache();
+        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
         if (contactsCache == null) {
             caching = false;
             return;
@@ -284,7 +284,7 @@ class ContactGroupsCache {
             }
         } catch (SecurityException e) {
 //            Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
 
             _contactGroupList.clear();
             clearGroups(_contactList);
@@ -300,7 +300,7 @@ class ContactGroupsCache {
             cached = false;
         } catch (Exception e) {
 //            Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
 
             _contactGroupList.clear();
             clearGroups(_contactList);

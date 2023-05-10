@@ -46,7 +46,7 @@
         app:simCard="2"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <!-- this is for Xiaomi devices -->
+    <!-- this is for Xiaomi, OnePlus devices -->
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:key="prf_pref_soundSameRingtoneForBothSIMCards"
         app:title="@string/profile_preferences_soundSameRingtoneForBothSIMCards"
@@ -90,6 +90,12 @@
         app:showSilent="true"
         app:showDefault="true"
         app:simCard="2"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference
+        app:title="@string/pppps_pref_dialog_title"
+        app:summary="@string/empty_string"
+        app:key="prf_pref_soundDualSIMSupportPPPPS"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

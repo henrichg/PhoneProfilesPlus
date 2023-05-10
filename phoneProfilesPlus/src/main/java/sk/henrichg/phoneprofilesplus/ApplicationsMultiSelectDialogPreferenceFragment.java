@@ -87,10 +87,10 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
             asyncTask.cancel(true);
         }
 
-        if (PPApplication.getApplicationsCache() != null) {
-            PPApplication.getApplicationsCache().cancelCaching();
-            if (!PPApplication.getApplicationsCache().cached)
-                PPApplication.getApplicationsCache().clearCache(false);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            PPApplicationStatic.getApplicationsCache().cancelCaching();
+            if (!PPApplicationStatic.getApplicationsCache().cached)
+                PPApplicationStatic.getApplicationsCache().clearCache(false);
         }
 
         preference.fragment = null;
@@ -137,9 +137,9 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
             ApplicationsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (PPApplication.getApplicationsCache() != null)
-                    if (!PPApplication.getApplicationsCache().cached)
-                        PPApplication.getApplicationsCache().cacheApplicationsList(prefContext);
+                if (PPApplicationStatic.getApplicationsCache() != null)
+                    if (!PPApplicationStatic.getApplicationsCache().cached)
+                        PPApplicationStatic.getApplicationsCache().cacheApplicationsList(prefContext);
 
                 preference.getValueAMSDP();
             }
@@ -157,9 +157,9 @@ public class ApplicationsMultiSelectDialogPreferenceFragment extends PreferenceD
             ApplicationsMultiSelectDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (PPApplication.getApplicationsCache() != null)
-                    if (!PPApplication.getApplicationsCache().cached)
-                        PPApplication.getApplicationsCache().clearCache(false);
+                if (PPApplicationStatic.getApplicationsCache() != null)
+                    if (!PPApplicationStatic.getApplicationsCache().cached)
+                        PPApplicationStatic.getApplicationsCache().clearCache(false);
 
                 fragment.listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {

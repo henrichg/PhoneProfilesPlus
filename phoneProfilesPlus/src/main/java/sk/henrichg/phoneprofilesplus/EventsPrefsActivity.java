@@ -157,7 +157,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             try {
                 unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
             } catch (IllegalArgumentException e) {
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
             mobileCellsRegistrationCountDownBroadcastReceiver = null;
         }
@@ -166,7 +166,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             try {
                 unregisterReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver);
             } catch (IllegalArgumentException e) {
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
             mobileCellsRegistrationNewCellsBroadcastReceiver = null;
         }
@@ -174,7 +174,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         try {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         } catch (IllegalArgumentException e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
     }
 
@@ -226,9 +226,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         //if (profile_id != Profile.SHARED_PROFILE_ID) {
         // no menu for shared profile
 
-        //noinspection Convert2MethodRef
-        onNextLayout(toolbar, () -> showTargetHelps());
-        //}
+        onNextLayout(toolbar, this::showTargetHelps);
 
         /*final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
@@ -416,9 +414,10 @@ public class EventsPrefsActivity extends AppCompatActivity
             final String eventName = event._name;
             Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
                 //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
-                toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+                //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+                toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
             }, 200);
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -559,21 +558,21 @@ public class EventsPrefsActivity extends AppCompatActivity
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
         {
-            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, "");
+            PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, "");
 
             // add event into DB
             DatabaseHandler.getInstance(dataWrapper.context).addEvent(event);
             event_id = event._id;
 
             // restart Events
-            PPApplication.setBlockProfileEventActions(true);
+            PPApplicationStatic.setBlockProfileEventActions(true);
             //dataWrapper.restartEvents(false, true, true, true, true);
             dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
         }
         else
         if (event_id > 0)
         {
-            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, "");
+            PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, "");
 
             // update event in DB
             DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
@@ -594,7 +593,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                 //Event event = eventWeakRef.get();
@@ -620,7 +619,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                                             true, true, true);
                                 }
 
-                                PPApplication.setBlockProfileEventActions(true);
+                                PPApplicationStatic.setBlockProfileEventActions(true);
                             }
                             // restart Events
                             //dataWrapper.restartEvents(false, true, true, true, false);
@@ -628,8 +627,8 @@ public class EventsPrefsActivity extends AppCompatActivity
                         }
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -640,7 +639,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
         else {
@@ -649,7 +648,7 @@ public class EventsPrefsActivity extends AppCompatActivity
             //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
                 //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                 //Event event = eventWeakRef.get();
@@ -671,13 +670,13 @@ public class EventsPrefsActivity extends AppCompatActivity
                         event.doLogForPauseEvent(dataWrapper.context, false);
 
                         // restart Events
-                        PPApplication.setBlockProfileEventActions(true);
+                        PPApplicationStatic.setBlockProfileEventActions(true);
                         //dataWrapper.restartEvents(false, true, true, true, false);
                         dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -688,7 +687,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
     }
@@ -724,7 +723,8 @@ public class EventsPrefsActivity extends AppCompatActivity
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
+            int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+            int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             //boolean tintTarget = !appTheme.equals("white");
@@ -737,7 +737,8 @@ public class EventsPrefsActivity extends AppCompatActivity
                         TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
-                                .textColor(textColor)
+                                .titleTextColor(titleTextColor)
+                                .descriptionTextColor(descriptionTextColor)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)
@@ -745,7 +746,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                 );
                 ++id;
             } catch (Exception e) {
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
 
             sequence.targets(targets);
@@ -804,7 +805,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void countDownFromListener(Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null) {
             long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
@@ -830,7 +831,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void registrationStoppedFromListener() {
-//            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
+//            PPApplicationStatic.logE("[IN_BROADCAST] MobileCellsRegistrationStoppedBroadcastReceiver.onReceive", "xxx");
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)
             ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
@@ -1075,7 +1076,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     @Override
     public void refreshGUIFromListener(Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] EventsPrefsActivity.refreshGUIBroadcastReceiver", "xxx");
         changeCurentLightSensorValue();
     }
 

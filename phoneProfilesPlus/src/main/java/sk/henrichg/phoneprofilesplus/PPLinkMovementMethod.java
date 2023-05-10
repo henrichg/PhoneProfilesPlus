@@ -63,15 +63,16 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
          * @param linkText     Text which contains link on which user presses.
          * @param linkTypeText Type of the link in linkText can be one of {@link LinkType} enumeration
          */
-        @SuppressWarnings("unused")
-        void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
-                           final String linkText, PPLinkMovementMethod.LinkType linkTypeText);
+        void onLinkClicked(final String linkUrl,
+                           @SuppressWarnings("unused") PPLinkMovementMethod.LinkType linkTypeUrl,
+                           @SuppressWarnings("unused") final String linkText,
+                           @SuppressWarnings("unused") PPLinkMovementMethod.LinkType linkTypeText);
 
         /**
          * @param text Whole text of {@link TextView}
          */
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        void onLongClick(final String text);
+        @SuppressWarnings("EmptyMethod")
+        void onLongClick(@SuppressWarnings("unused") final String text);
     }
 
 
@@ -105,11 +106,11 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         @Override
         public void onLongPress(MotionEvent e) {
             // Notified when a long press occurs.
-            String text = mBuffer.toString().replace("\u00A0\u21D2", "");
-            text = text.replace(" \u21D2", "");
+            String text = mBuffer.toString().replace("\u00A0»»", "");
+            text = text.replace(" »»", "");
 
             if (mListener != null) {
-                //Log.e(TAG, "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
+                //Log.e("PPLinkMovementMethod.onLongPress", "----> Long Click Occurs on TextView with ID: " + mWidget.getId() + "\n" +
                 //        "Text: " + text + "\n<----");
 
                 mListener.onLongClick(text);
@@ -134,7 +135,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
                 try {
                     mContext.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             } else if (linkType == LinkType.EMAIL_ADDRESS) {
                 String emailLink = link.replace("mailto:", "");
@@ -146,7 +147,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
                 try {
                     mContext.startActivity(Intent.createChooser(intent, emailText));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         }
@@ -154,8 +155,8 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         @Override
         public boolean onSingleTapConfirmed(MotionEvent event) {
             // Notified when tap occurs.
-            String linkText = getLinkText(mWidget, mBuffer, event).replace("\u00A0\u21D2", "");
-            linkText = linkText.replace(" \u21D2", "");
+            String linkText = getLinkText(mWidget, mBuffer, event).replace("\u00A0»»", "");
+            linkText = linkText.replace(" »»", "");
             final String linkUrl = getLinkURL(mWidget, mBuffer, event);
 
             LinkType linkTypeUrl = getLinkTye(linkUrl);
@@ -223,7 +224,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
             URLSpan[] link = buffer.getSpans(off, off, URLSpan.class);
 
             if (link.length != 0) {
-                //Log.e("PPLinkMovementMethod", link[0].getURL());
+                //Log.e("PPLinkMovementMethod.getLinkURL", link[0].getURL());
                 return link[0].getURL();
 
                 /*return buffer.subSequence(buffer.getSpanStart(link[0]),

@@ -52,7 +52,7 @@ class LiveWallpapersDialogPreferenceAdapter extends BaseAdapter
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.live_wallpapers_preference_list_item, parent, false);
+            vi = inflater.inflate(R.layout.listitem_live_wallpapers_preference, parent, false);
             holder = new ViewHolder();
             holder.wallpaperName = vi.findViewById(R.id.live_wallpapers_pref_dlg_item_label);
             holder.radioButton = vi.findViewById(R.id.live_wallpapers_pref_dlg_item_radiobutton);

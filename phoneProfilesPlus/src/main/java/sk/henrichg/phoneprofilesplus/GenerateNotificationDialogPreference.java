@@ -29,6 +29,7 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
 
         _context = context;
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPGenerateNotificationDialogPreference);
 

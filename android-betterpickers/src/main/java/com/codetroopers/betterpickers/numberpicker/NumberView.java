@@ -14,6 +14,8 @@ import androidx.core.content.ContextCompat;
 import com.codetroopers.betterpickers.R;
 import com.codetroopers.betterpickers.widget.ZeroTopPaddingTextView;
 
+@SuppressWarnings("resource")
+@SuppressLint("CustomViewStyleable")
 public class NumberView extends LinearLayout {
 
     private ZeroTopPaddingTextView mNumber, mDecimal;
@@ -57,7 +59,6 @@ public class NumberView extends LinearLayout {
      */
     public void setTheme(int themeResId) {
         if (themeResId != -1) {
-            @SuppressLint("CustomViewStyleable")
             TypedArray a = getContext().obtainStyledAttributes(themeResId, R.styleable.BetterPickersDialogFragment);
 
             mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);

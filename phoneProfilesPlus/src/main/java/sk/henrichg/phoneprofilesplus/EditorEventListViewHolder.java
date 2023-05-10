@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -38,7 +37,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
     private final AppCompatImageButton ignoreManualActivationButton;
 
     private Event event;
-    private final EditorEventListFragment editorFragment;
+    final EditorEventListFragment editorFragment;
 
     private final Context context;
     private final int filterType;
@@ -95,31 +94,44 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //dataWrapper.invalidateDataWrapper();
 
             int statusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
+            int colorRes = R.color.event_status_stop;
             /*if (!Event.getGlobalEventsRunning()) {
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
             }*/
-            if (Event.getGlobalEventsRunning()) {
+            if (EventStatic.getGlobalEventsRunning(context)) {
             //else {
                 switch (_eventStatus) {
                     case Event.ESTATUS_RUNNING:
-                        if (event._isInDelayEnd)
+                        if (event._isInDelayEnd) {
                             statusRes = R.drawable.ic_event_status_running_delay;
-                        else
+                            colorRes = R.color.altype_eventDelayStartEnd;
+                        }
+                        else {
                             statusRes = R.drawable.ic_event_status_running;
+                            colorRes = R.color.altype_eventStart;
+                        }
                         break;
                     case Event.ESTATUS_PAUSE:
-                        if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._ignoreManualActivation))
+                        if (/*!Event.getGlobalEventsRunning() ||*/ (manualProfileActivation && !event._ignoreManualActivation)) {
                             statusRes = R.drawable.ic_event_status_pause_manual_activation;
-                        else if (event._isInDelayStart)
+                            colorRes = R.color.altype_eventEnd;
+                        }
+                        else if (event._isInDelayStart) {
                             statusRes = R.drawable.ic_event_status_pause_delay;
-                        else
+                            colorRes = R.color.altype_eventDelayStartEnd;
+                        }
+                        else {
                             statusRes = R.drawable.ic_event_status_pause;
+                            colorRes = R.color.altype_eventEnd;
+                        }
                         break;
                     case Event.ESTATUS_STOP:
                         //if (isRunnable)
                         //noinspection ConstantConditions
                         statusRes = R.drawable.ic_event_status_stop;
+                        //noinspection ConstantConditions
+                        colorRes = R.color.event_status_stop;
                         //statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
                         //else
                         //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
@@ -127,6 +139,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             }
             eventStatus.setImageResource(statusRes);
+            eventStatus.setColorFilter(ContextCompat.getColor(context, colorRes));
 
 
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
@@ -138,13 +151,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //else
                 //    eventName.setTypeface(null, Typeface.NORMAL);
                 //eventName.setTextSize(15);
-                eventName.setTextColor(Color.RED);
+                eventName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
             }
             else
-            if (!Event.getGlobalEventsRunning()/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
+            if (!EventStatic.getGlobalEventsRunning(context)/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
                 eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
@@ -167,7 +179,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
                 //else
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
                 eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
@@ -180,15 +191,13 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //if (event._isInDelayEnd)
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
                 //else
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
-                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.accent));
+                eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.accent_color));
             }
             else {
                 eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);
                 //eventName.setTextSize(15);
-                //noinspection ConstantConditions
                 //eventName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
                 //noinspection ConstantConditions
                 eventName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));
@@ -233,17 +242,17 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     profile = editorFragment.activityDataWrapper.getProfileById(Long.parseLong(event._startWhenActivatedProfile), false, false, false);
                     if (profile != null) {
                         if (addedLF)
-                            _eventName = _eventName + "  ";
+                            _eventName = _eventName + " ";
                         else
                             _eventName = _eventName + "\n";
-                        _eventName = _eventName + "[#] " + profile._name;
+                        _eventName = _eventName + "[#:" + profile._name + "]";
                     }
                 } else {
                     if (addedLF)
-                        _eventName = _eventName + "  ";
+                        _eventName = _eventName + " ";
                     else
                         _eventName = _eventName + "\n";
-                    _eventName = _eventName + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                    _eventName = _eventName + "[#:" + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length + "]";
                 }
             }
 
@@ -459,7 +468,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             eventItemEditMenu.setOnClickListener(v -> editorFragment.showEditMenu(eventItemEditMenu));
 
             TooltipCompat.setTooltipText(eventStatus, context.getString(R.string.editor_event_list_item_event_status));
-            final ImageView _eventStatusView = eventStatus;
             final Event _event = this.event;
             eventStatus.setOnClickListener(view -> {
                 if (editorFragment.getActivity() == null)
@@ -468,35 +476,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (!editorFragment.getActivity().isFinishing()) {
                     EventStatusPopupWindow popup = new EventStatusPopupWindow(editorFragment, _event);
 
-                    View contentView = popup.getContentView();
-                    contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    int popupWidth = contentView.getMeasuredWidth();
-                    int popupHeight = contentView.getMeasuredHeight();
-
                     ViewGroup activityView = editorFragment.getActivity().findViewById(android.R.id.content);
-                    //View activityView = editorFragment.getActivity().getWindow().getDecorView().getRootView();
-                    int activityHeight = activityView.getHeight();
-                    int activityWidth = activityView.getWidth();
 
-                    //int[] activityLocation = new int[2];
-                    //_eventStatusView.getLocationOnScreen(location);
-                    //activityView.getLocationInWindow(activityLocation);
-
-                    int[] statusViewLocation = new int[2];
-                    //_eventStatusView.getLocationOnScreen(statusViewLocation);
-                    _eventStatusView.getLocationInWindow(statusViewLocation);
-
-                    int x = 0;
+                    int x = GlobalGUIRoutines.dpToPx(10);
                     int y = 0;
 
-                    if ((statusViewLocation[0] + popupWidth) > activityWidth)
-                        x = -(statusViewLocation[0] - (activityWidth - popupWidth));
-
-                    if ((statusViewLocation[1] + popupHeight) > activityHeight)
-                        y = -(statusViewLocation[1] - (activityHeight - popupHeight));
-
-                    //popup.setClippingEnabled(false); // disabled for draw outside activity
-                    popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                    popup.showOnAnchor(activityView, RelativePopupWindow.VerticalPosition.CENTER,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
                 }
             });

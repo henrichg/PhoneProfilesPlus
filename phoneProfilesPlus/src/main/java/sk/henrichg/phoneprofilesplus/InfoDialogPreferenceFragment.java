@@ -40,35 +40,35 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         int[] importantInfoTagEndIndex = new int[2];
 
         for (int tagIndex = 0; tagIndex < 2; tagIndex++) {
-//            Log.e("InfoDialogPreferenceFragment", "(1) _infoText="+_infoText);
+//            Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(1) _infoText="+_infoText);
 
             String beginTag = "<II" + tagIndex + " [";
-//            Log.e("InfoDialogPreferenceFragment", "(1) beginTag="+beginTag);
+//            Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(1) beginTag="+beginTag);
 
             int _importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
             int _importantInfoTagEndIndex = _infoText.indexOf("]>");
-//            Log.e("InfoDialogPreferenceFragment", "(1) importantInfoTagBeginIndex="+importantInfoTagBeginIndex);
-//            Log.e("InfoDialogPreferenceFragment", "(1) importantInfoTagEndIndex="+importantInfoTagEndIndex);
+//            Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(1) importantInfoTagBeginIndex="+importantInfoTagBeginIndex);
+//            Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(1) importantInfoTagEndIndex="+importantInfoTagEndIndex);
 
             if ((_importantInfoTagBeginIndex != -1) && (_importantInfoTagEndIndex != -1)) {
                 String _importantInfoTagDataString = _infoText.substring(_importantInfoTagBeginIndex + beginTag.length(), _importantInfoTagEndIndex);
-//                Log.e("InfoDialogPreferenceFragment", "importantInfoTagDataString="+importantInfoTagDataString);
+//                Log.e("InfoDialogPreferenceFragment.onBindDialogView", "importantInfoTagDataString="+importantInfoTagDataString);
 
                 beginTag = "<II" + tagIndex + " [" + _importantInfoTagDataString + "]>";
                 String endTag = "<II" + tagIndex + "/>";
-//                Log.e("InfoDialogPreferenceFragment", "(2) beginTag="+beginTag);
-//                Log.e("InfoDialogPreferenceFragment", "(2) endTag="+endTag);
+//                Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(2) beginTag="+beginTag);
+//                Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(2) endTag="+endTag);
 
                 _importantInfoTagBeginIndex = _infoText.indexOf(beginTag);
                 _importantInfoTagEndIndex = _infoText.indexOf(endTag);
-//                Log.e("InfoDialogPreferenceFragment", "(2) importantInfoTagBeginIndex="+importantInfoTagBeginIndex);
-//                Log.e("InfoDialogPreferenceFragment", "(2) importantInfoTagEndIndex="+importantInfoTagEndIndex);
+//                Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(2) importantInfoTagBeginIndex="+importantInfoTagBeginIndex);
+//                Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(2) importantInfoTagEndIndex="+importantInfoTagEndIndex);
 
                 if ((_importantInfoTagBeginIndex != -1) && (_importantInfoTagEndIndex != -1)) {
                     _infoText = _infoText.replace(beginTag, "");
                     _infoText = _infoText.replace(endTag, "");
 
-//                    Log.e("InfoDialogPreferenceFragment", "(2) _infoText="+_infoText);
+//                    Log.e("InfoDialogPreferenceFragment.onBindDialogView", "(2) _infoText="+_infoText);
 
                     tagType[tagIndex] = beginTag.substring(1, 3);
                     importantInfoTagDataString[tagIndex] = _importantInfoTagDataString;
@@ -160,14 +160,12 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     */
 
     // currently supported only Important info - Profiles
-    @SuppressWarnings("unused")
     @Override
     public void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
                               final String linkText, PPLinkMovementMethod.LinkType linkTypeText) {
         boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
 
-        //noinspection UnusedAssignment
-        int iiFragment = -1;
+        int iiFragment;// = -1;
         // 0 = System
         // 1 = Profiles
         // 2 = Events
@@ -188,7 +186,6 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         }
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void onLongClick(String text) {
 

@@ -12,7 +12,7 @@ If you do not have adb installed on your PC:
 
 ##### Disable Wi-Fi scan throttling:
 
-1. On your device, go into Settings > About > Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
+1. On your device, go into Settings > About > Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.
 2. Go into Settings > Developer Options and enable USB Debugging.
 3. On your PC, open a Command Prompt (Windows), or Terminal (Linux, OSX). Navigate to the folder where you extracted your adb files, and EXACTLY execute the following command:
 

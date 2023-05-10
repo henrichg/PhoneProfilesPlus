@@ -132,15 +132,15 @@ public class ContactsMultiSelectDialogPreferenceFragment extends PreferenceDialo
                 //    PhoneProfilesService.getContactsCache().getContactList(prefContext);
 
                 // must be first
-                PPApplication.createContactsCache(prefContext.getApplicationContext(), false);
-                ContactsCache contactsCache = PPApplication.getContactsCache();
+                PPApplicationStatic.createContactsCache(prefContext.getApplicationContext(), false);
+                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache != null) {
                     while (contactsCache.getCaching())
                         GlobalUtils.sleep(100);
                 }
-                //must be seconds, this ads groups int contacts
-                PPApplication.createContactGroupsCache(prefContext.getApplicationContext(), false);
-                ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+                //must be seconds, this ads groups into contacts
+                PPApplicationStatic.createContactGroupsCache(prefContext.getApplicationContext(), false);
+                ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
                 if (contactGroupsCache != null) {
                     while (contactGroupsCache.getCaching())
                         GlobalUtils.sleep(100);

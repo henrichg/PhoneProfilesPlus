@@ -18,7 +18,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_important_info);
-        textView.setText(activity.getString(R.string.popup_window_events_status_show_info) + "\u00A0\u21D2");
+        textView.setText(activity.getString(R.string.popup_window_events_status_show_info) + "\u00A0»»");
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
             Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
@@ -44,7 +44,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         });
 
         final SwitchCompat checkBox = popupView.findViewById(R.id.run_stop_indicator_popup_window_checkbox);
-        checkBox.setChecked(Event.getGlobalEventsRunning());
+        checkBox.setChecked(EventStatic.getGlobalEventsRunning(activity));
         checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (dataWrapper != null)
                 dataWrapper.runStopEventsWithAlert(activity, checkBox, isChecked);

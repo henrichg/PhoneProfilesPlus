@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -56,6 +55,7 @@ public class VolumeDialogPreference extends DialogPreference {
 
         _context = context;
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
             R.styleable.PPVolumeDialogPreference);
 
@@ -97,7 +97,7 @@ public class VolumeDialogPreference extends DialogPreference {
                     maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
                 else if (volumeType.equalsIgnoreCase("DTMF"))
                     maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
-                else if ((Build.VERSION.SDK_INT >= 26) && volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                else if (/*(Build.VERSION.SDK_INT >= 26) &&*/ volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                     maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
                 else if (volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
                     maximumValue = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
@@ -117,7 +117,7 @@ public class VolumeDialogPreference extends DialogPreference {
             defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
             defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
             defaultValueDTMF = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
-            if (Build.VERSION.SDK_INT >= 26)
+            //if (Build.VERSION.SDK_INT >= 26)
                 defaultValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
             defaultValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
 
@@ -172,7 +172,7 @@ public class VolumeDialogPreference extends DialogPreference {
             }
         } catch (Exception e) {
             //Log.e("VolumeDialogPreference.getValueVDP", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             value = 0;
         }
         //value = value - minimumValue;

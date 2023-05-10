@@ -22,6 +22,7 @@ public class BetterNumberPickerPreference extends DialogPreference {
     public BetterNumberPickerPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray numberPickerType = context.obtainStyledAttributes(attrs,
                 R.styleable.PPBetterNumberPickerPreference, 0, 0);
 

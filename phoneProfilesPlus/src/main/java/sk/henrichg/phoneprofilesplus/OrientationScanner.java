@@ -19,8 +19,8 @@ class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
-//        PPApplication.logE("[IN_LISTENER] OrientationScanner.onSensorChanged", "xxx");
-//        PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (1)");
+//        PPApplicationStatic.logE("[IN_LISTENER] OrientationScanner.onSensorChanged", "xxx");
+//        PPApplicationStatic.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* (1)");
 
         if (PhoneProfilesService.getInstance() == null)
             return;
@@ -29,13 +29,13 @@ class OrientationScanner implements SensorEventListener {
 
         final int sensorType = event.sensor.getType();
 
-        PPApplication.startHandlerThreadOrientationScanner();
+        PPApplicationStatic.startHandlerThreadOrientationScanner();
         OrientationScannerHandlerThread orientationHandler = PPApplication.handlerThreadOrientationScanner;
         if (orientationHandler == null)
             return;
 
         if (sensorType == Sensor.TYPE_PROXIMITY) {
-//            PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_PROXIMITY");
+//            PPApplicationStatic.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_PROXIMITY");
 
             //if ((event.values[0] == 0) || (event.values[0] == mMaxProximityDistance)) {
             //if (event.timestamp - tmpDistanceTimestamp >= 250000000L /*1000000000L*/) {
@@ -58,7 +58,7 @@ class OrientationScanner implements SensorEventListener {
         }
         boolean runEventsHandler = false;
         if ((sensorType == Sensor.TYPE_ACCELEROMETER) || (sensorType == Sensor.TYPE_MAGNETIC_FIELD)) {
-//            PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_ACCELEROMETER, TYPE_MAGNETIC_FIELD");
+//            PPApplicationStatic.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_ACCELEROMETER, TYPE_MAGNETIC_FIELD");
 
             if (PPApplication.magneticFieldSensor != null) {
                 if (sensorType == Sensor.TYPE_ACCELEROMETER) {
@@ -182,14 +182,14 @@ class OrientationScanner implements SensorEventListener {
             runEventsHandler = true;
         }
         if (sensorType == Sensor.TYPE_LIGHT) {
-//            PPApplication.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_LIGHT");
+//            PPApplicationStatic.logE("[TEST BATTERY] OrientationScanner.onSensorChanged", "******** ### ******* TYPE_LIGHT");
 
             //orientationHandler.resultLight = convertLightToSensor(event.values[0], orientationHandler.maxLightDistance);
             orientationHandler.resultLight = Math.round(event.values[0]);
 
             try {
                 // redraw light current value preference
-//                PPApplication.logE("[LOCAL_BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
+//                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] OrientationScanner.onSensorChanged", "xxx");
                 Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
                 LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
             } catch (Exception ignored) {}
@@ -208,20 +208,19 @@ class OrientationScanner implements SensorEventListener {
     void runEventsHandlerForOrientationChange(OrientationScannerHandlerThread orientationHandler) {
         // start events handler
 
-//        PPApplication.logE("[TEST BATTERY] OrientationScanner.runEventsHandlerForOrientationChange", "******** ### *******");
+//        PPApplicationStatic.logE("[TEST BATTERY] OrientationScanner.runEventsHandlerForOrientationChange", "******** ### *******");
 
         if (
             (orientationHandler.previousResultDisplayUp != orientationHandler.resultDisplayUp) ||
             (orientationHandler.previousResultSideUp != orientationHandler.resultSideUp) ||
             (orientationHandler.previousResultDeviceDistance != orientationHandler.resultDeviceDistance) ||
             (orientationHandler.previousResultLight != orientationHandler.resultLight)
-           )
-        {
-            if (Event.getGlobalEventsRunning())
-            {
-                PhoneProfilesService service = PhoneProfilesService.getInstance();
-                if (service != null) {
-                    Context context = service.getApplicationContext();
+           ) {
+            PhoneProfilesService service = PhoneProfilesService.getInstance();
+            if (service != null) {
+                Context context = service.getApplicationContext();
+
+                if (EventStatic.getGlobalEventsRunning(context)) {
 
                     Data workData = new Data.Builder()
                             .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION)
@@ -234,8 +233,7 @@ class OrientationScanner implements SensorEventListener {
                         if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
                             // start scanning in power save mode is not allowed
                             return;
-                    }
-                    else {
+                    } else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
                             if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
@@ -250,8 +248,7 @@ class OrientationScanner implements SensorEventListener {
                     if (isPowerSaveMode) {
                         if (applicationEventOrientationScanInPowerSaveMode.equals("1"))
                             interval = 2 * interval;
-                    }
-                    else {
+                    } else {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
                             if (GlobalUtils.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
@@ -271,27 +268,27 @@ class OrientationScanner implements SensorEventListener {
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true, true)) {
+                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
-        //                        //if (PPApplication.logEnabled()) {
-        //                        ListenableFuture<List<WorkInfo>> statuses;
-        //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
-        //                        try {
-        //                            List<WorkInfo> workInfoList = statuses.get();
-        //                        } catch (Exception ignored) {
-        //                        }
-        //                        //}
+                                //                        //if (PPApplicationStatic.logEnabled()) {
+                                //                        ListenableFuture<List<WorkInfo>> statuses;
+                                //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_ORIENTATION_SCANNER_WORK_TAG);
+                                //                        try {
+                                //                            List<WorkInfo> workInfoList = statuses.get();
+                                //                        } catch (Exception ignored) {
+                                //                        }
+                                //                        //}
 
-//                                PPApplication.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] OrientationScanner.runEventsHandlerForOrientationChange", "xxx");
                                 //workManager.enqueue(worker);
                                 // MUST BE KEEP !!! REPLACE cause to not call worker, because is replaced with delay again !!!
                                 workManager.enqueueUniqueWork(MainWorker.ORIENTATION_SCANNER_WORK_TAG, ExistingWorkPolicy.KEEP, worker);
                             }
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }
@@ -318,8 +315,8 @@ class OrientationScanner implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//        PPApplication.logE("[IN_LISTENER] OrientationScanner.onAccuracyChanged", "xxx");
-//        PPApplication.logE("[TEST BATTERY] OrientationScanner.onAccuracyChanged", "******** ### *******");
+//        PPApplicationStatic.logE("[IN_LISTENER] OrientationScanner.onAccuracyChanged", "xxx");
+//        PPApplicationStatic.logE("[TEST BATTERY] OrientationScanner.onAccuracyChanged", "******** ### *******");
     }
 
 }

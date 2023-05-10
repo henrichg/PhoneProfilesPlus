@@ -51,7 +51,7 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         View vi = convertView;
         if (convertView == null)
         {
-            vi = LayoutInflater.from(context).inflate(R.layout.profileicon_preference_gridview_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.listitem_profileicon_preference_grid, parent, false);
             holder = new ViewHolder();
             holder.icon = vi.findViewById(R.id.profileicon_preference_gridview_item_icon);
             holder.mark = vi.findViewById(R.id.profileicon_preference_gridview_item_mark);

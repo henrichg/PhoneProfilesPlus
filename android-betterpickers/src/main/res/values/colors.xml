@@ -18,4 +18,7 @@
 
     <color name="bpBlue">#33b5e5</color>
 
+    <color name="pp_rippleRectangeleItemBackgroundColor">#FFBFBFBF</color>
+    <color name="pp_dialpad_textColor">#CF000000</color>
+
 </resources>

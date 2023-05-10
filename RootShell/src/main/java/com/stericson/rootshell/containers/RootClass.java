@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 /* #ANNOTATIONS @SupportedAnnotationTypes("com.stericson.rootshell.containers.RootClass.Candidate") */
 /* #ANNOTATIONS @SupportedSourceVersion(SourceVersion.RELEASE_6) */
+@SuppressWarnings({"InstantiationOfUtilityClass", "unused"})
 public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     /* #ANNOTATIONS
@@ -25,7 +26,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     }
     */
 
-    @SuppressWarnings("unused")
     static volatile String PATH_TO_DX = "/Users/Chris/Projects/android-sdk-macosx/build-tools/18.0.1/dx";
 
     enum READ_STATE {
@@ -51,7 +51,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     @SuppressWarnings("unused")
     public @interface Candidate {
-
     }
 
     @SuppressWarnings("InnerClassMayBeStatic")
@@ -70,14 +69,13 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     // I reckon it would be better to investigate classes using getAttribute()
     // however this method allows the developer to simply select "Run" on RootClass
     // and immediately re-generate the necessary jar file.
+    @SuppressWarnings({"RegExpSimplifiable", "FieldCanBeLocal", "IndexOfReplaceableByContains", "TryWithIdenticalCatches", "ToArrayCallWithZeroLengthArrayArgument", "ConstantConditions", "ResultOfMethodCallIgnored", "StatementWithEmptyBody"})
     static public class AnnotationsFinder {
 
         private final String AVOIDDIRPATH = "stericson" + File.separator + "rootshell" + File.separator;
 
-        @SuppressWarnings("FieldCanBeLocal")
         private final List<File> classFiles;
 
-        @SuppressWarnings("TryWithIdenticalCatches")
         public AnnotationsFinder() throws IOException {
             System.out.println("Discovering root class annotations...");
             classFiles = new ArrayList<>();
@@ -112,15 +110,14 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                         + "containers" + File.separator
                         + "RootClass$AnnotationsFinder$2.class";
                 String[] cmd;
-                @SuppressWarnings({"IndexOfReplaceableByContains", "ConstantConditions"})
                 boolean onWindows = (-1 != System.getProperty("os.name").toLowerCase().indexOf("win"));
                 if (onWindows) {
                     StringBuilder sb = new StringBuilder(
                             " " + rc1 + " " + rc2 + " " + rc3 + " " + rc4 + " " + rc5
                     );
                     for (File file : classFiles) {
-                        //noinspection StringConcatenationInsideStringBufferAppend
-                        sb.append(" " + file.getPath());
+                        //sb.append(" " + file.getPath());
+                        sb.append(" ").append(file.getPath());
                     }
                     cmd = new String[]{
                             "cmd", "/C",
@@ -141,7 +138,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                     for (File file : classFiles) {
                         al.add(file.getPath());
                     }
-                    //noinspection ToArrayCallWithZeroLengthArrayArgument
                     cmd = al.toArray(new String[al.size()]);
                 }
                 ProcessBuilder jarBuilder = new ProcessBuilder(cmd);
@@ -153,13 +149,11 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                 }
 
                 String strRawFolder; // = "res" + File.separator + "raw";
-                //noinspection StatementWithEmptyBody
                 if (builtPath.toString().startsWith("build")); //Check if running in AndroidStudio
                 strRawFolder = "src" + File.separator + "main" + File.separator + "res" + File.separator + "raw";
 
                 File rawFolder = new File(strRawFolder);
                 if (!rawFolder.exists()) {
-                    //noinspection ResultOfMethodCallIgnored
                     rawFolder.mkdirs();
                 }
 
@@ -195,7 +189,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
             if (files != null) {
                 for (File file : files) {
                     if (file.isDirectory()) {
-                        //noinspection IndexOfReplaceableByContains
                         if (-1 == file.getAbsolutePath().indexOf(AVOIDDIRPATH)) {
                             lookup(file, fileList);
                         }
@@ -217,7 +210,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
             }
         }
 
-        @SuppressWarnings("TryWithIdenticalCatches")
         protected boolean hasClassAnnotation(File file) {
             READ_STATE readState = READ_STATE.STARTING;
             Pattern p = Pattern.compile(" class ([A-Za-z0-9_]+)");
@@ -227,7 +219,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                 while (null != (line = reader.readLine())) {
                     switch (readState) {
                         case STARTING:
-                            //noinspection IndexOfReplaceableByContains
                             if (-1 < line.indexOf("@RootClass.Candidate")) {
                                 readState = READ_STATE.FOUND_ANNOTATION;
                             }
@@ -333,7 +324,6 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
 
     }
 
-    @SuppressWarnings("InstantiationOfUtilityClass")
     public static void main(String[] args) {
         try {
             if (args.length == 0) {

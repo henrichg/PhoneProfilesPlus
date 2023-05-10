@@ -9,7 +9,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
@@ -17,6 +16,7 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
@@ -140,7 +140,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_notification_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
@@ -234,7 +234,7 @@ class EventPreferencesNotification extends EventPreferences {
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -248,7 +248,7 @@ class EventPreferencesNotification extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
-                        titleColor = Color.RED; //0xFFffb000;
+                        titleColor = ContextCompat.getColor(context, R.color.altype_error);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
@@ -302,7 +302,7 @@ class EventPreferencesNotification extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, false, false, false, false);
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE)) {
             PPListPreference listPreference = prefMng.findPreference(key);
@@ -340,49 +340,49 @@ class EventPreferencesNotification extends EventPreferences {
         boolean enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
         SwitchPreferenceCompat switchPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
         if (switchPreference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false), false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false), false, true, !isRunnable, false);
         }
         switchPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
         if (switchPreference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false), false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(switchPreference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false), false, true, !isRunnable, false);
         }
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
         if (applicationsPreference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, false, true, !isRunnable, false);
         }
 
         Preference checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
         if (checkContactsPreference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(checkContactsPreference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkContactsPreference, enabled, bold, false, true, !isRunnable, false);
 
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable, false);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACTS, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, true, !isRunnable, false);
             }
             _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable, false);
             }
         }
 
         Preference checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
         if (checkTextPreference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_NOTIFICATION_CHECK_TEXT, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(checkTextPreference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(checkTextPreference, enabled, bold, false, true, !isRunnable, false);
 
             Preference _preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (_preference != null) {
                 bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_TEXT, "").isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(_preference, enabled, bold, false, false, !isRunnable, false);
             }
         }
     }
@@ -435,7 +435,7 @@ class EventPreferencesNotification extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNotification tmp = new EventPreferencesNotification(this._event, this._enabled,
                                                         this._applications, this._inCall, this._missedCall, this._duration,
@@ -450,7 +450,7 @@ class EventPreferencesNotification extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NOTIFICATION).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -618,7 +618,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_NOTIFICATION_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -661,6 +661,7 @@ class EventPreferencesNotification extends EventPreferences {
     private StatusBarNotification isNotificationActive(StatusBarNotification statusBarNotification, String packageName, boolean checkEnd/*, Context context*/) {
         try {
             String packageNameFromNotification = statusBarNotification.getPackageName();
+//            Log.e("EventPreferencesNotification.isNotificationActive", "packageNameFromNotification="+packageNameFromNotification);
 
             boolean packageNameFound = false;
             if (checkEnd) {
@@ -883,7 +884,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
         } catch (Exception e) {
             //Log.e("EventPreferencesNotification.isNotificationActive", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         // package name not found
         return null;
@@ -934,6 +935,17 @@ class EventPreferencesNotification extends EventPreferences {
                             if (this._missedCall) {
                                 // Samsung, MIUI, Nexus/Pixel??? stock ROM, Sony
                                 StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
+                                if (activeNotification != null) {
+                                    if (_duration != 0) {
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
+
+                                        if (System.currentTimeMillis() < postTime)
+                                            return true;
+                                    } else
+                                        return true;
+                                }
+                                // MIUI
+                                activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -1001,7 +1013,7 @@ class EventPreferencesNotification extends EventPreferences {
 
                     // Hm: java.lang.RuntimeException: Could not read bitmap blob.
                     //     in StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
             }
         }
@@ -1164,7 +1176,7 @@ class EventPreferencesNotification extends EventPreferences {
             }*/
 
             if (!split.isEmpty()) {
-                ContactsCache contactsCache = PPApplication.getContactsCache();
+                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                 if (contactsCache == null)
                     return false;
 
@@ -1227,7 +1239,7 @@ class EventPreferencesNotification extends EventPreferences {
                 }*/
 
                 if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                    ContactsCache contactsCache = PPApplication.getContactsCache();
+                    ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                     if (contactsCache == null)
                         return false;
 
@@ -1260,7 +1272,7 @@ class EventPreferencesNotification extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
 
                 if (!eventsHandler.notAllowedNotification) {

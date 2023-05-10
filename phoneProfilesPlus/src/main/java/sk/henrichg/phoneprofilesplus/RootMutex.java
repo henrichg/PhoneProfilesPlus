@@ -26,4 +26,8 @@ class RootMutex {
     int transactionCode_setSubscriptionEnabled;
     int transactionCode_setWifiApEnabled;
 
+    static final String SERVICE_PHONE = "phone";
+    static final String SERVICE_WIFI = "wifi";
+    static final String SERVICE_ISUB = "isub";
+
 }

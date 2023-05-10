@@ -52,7 +52,7 @@ public class TileChooserListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        rootView = inflater.inflate(R.layout.tile_chooser_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_tile_chooser_list, container, false);
 
         return rootView;
     }
@@ -134,7 +134,7 @@ public class TileChooserListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(this.dataWrapper.context.getMainLooper());
                 progressBarRunnable = () -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TileChooserListFragment.LoadProfileListAsyncTask");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TileChooserListFragment.LoadProfileListAsyncTask");
                     //fragment.textViewNoData.setVisibility(GONE);
                     fragment.progressBar.setVisibility(View.VISIBLE);
                 };

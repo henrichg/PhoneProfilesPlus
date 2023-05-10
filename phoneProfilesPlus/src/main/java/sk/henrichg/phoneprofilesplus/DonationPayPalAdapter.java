@@ -83,7 +83,7 @@ class DonationPayPalAdapter extends BaseAdapter
         {
             holder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
-            vi = inflater.inflate(R.layout.donation_paypal_grid_item, parent, false);
+            vi = inflater.inflate(R.layout.listitem_donation_paypal_grid, parent, false);
             holder.price = vi.findViewById(R.id.donation_paypal_grid_item_price);
             vi.setTag(holder);
         }

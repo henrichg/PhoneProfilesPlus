@@ -18,7 +18,7 @@
         app:indicatorColor="@android:color/transparent"
         app:textColor="@color/smoothBottomBarTextColor"
         app:iconTint="@color/smoothBottomBarIconTint"
-        app:iconTintActive="@color/accent"
+        app:iconTintActive="@color/accent_color"
         app:iconSize="28dp"
         app:textSize="14sp"
         app:indicatorRadius="10dp"
@@ -63,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="?attr/toolbarTheme"
-                app:popupTheme="?attr/toolbarPopupMenu" />
+                app:popupTheme="?attr/toolbarPopupMenu"
+                app:titleTextAppearance="@style/EditorToolbarTitleText" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/editor_subToolbar"

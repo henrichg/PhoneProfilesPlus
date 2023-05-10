@@ -56,6 +56,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 //            }
 //        });
 
+        //noinspection resource
         final TypedArray ta = activity.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];
         int preselect = -1;

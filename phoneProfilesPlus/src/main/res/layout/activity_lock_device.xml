@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
-    tools:context="sk.henrichg.phoneprofilesplus.LockDeviceActivity">
+    tools:context="sk.henrichg.phoneprofilesplus.LockDeviceActivity"
+    tools:ignore="Overdraw">
 
     <TextClock
         android:id="@+id/activity_lockDevice_clock"

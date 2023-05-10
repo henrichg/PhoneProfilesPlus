@@ -19,19 +19,18 @@ import java.util.concurrent.TimeUnit;
 public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_RUN_APPLICATION_DATA = "run_application_data";
-    static final String EXTRA_PROFILE_NAME = "profile_name";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] RunApplicationWithDelayBroadcastReceiver.onReceive", "xxx");
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
         if (intent != null) {
-            final String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
+            final String profileName = intent.getStringExtra(PPApplication.EXTRA_PROFILE_NAME);
             final String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
 
             final Context appContext = context.getApplicationContext();
@@ -40,7 +39,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
 
                 //Context appContext= appContextWeakRef.get();
 
@@ -53,11 +52,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+//                        Log.e("RunApplicationWithDelayBroadcastReceiver.onReceive", "call of RunApplicationWithDelayBroadcastReceiver.doWork");
                         doWork(appContext, profileName, runApplicationData);
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -68,7 +68,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     }
                 //}
             }; //);
-            PPApplication.createProfileActiationExecutorPool();
+            PPApplicationStatic.createProfileActiationExecutorPool();
             PPApplication.profileActiationExecutorPool.submit(runnable);
         }
     }
@@ -90,14 +90,14 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         {
             int requestCode = hashData(runApplicationData); //PPApplication.requestCodeForAlarm.nextInt();
 
-            if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+            if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
                     //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                     Intent intent = new Intent();
                     intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                     //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
-                    intent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                    intent.putExtra(PPApplication.EXTRA_PROFILE_NAME, profileName);
                     intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
@@ -116,7 +116,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     }
                 } else {
                     Data workData = new Data.Builder()
-                            .putString(EXTRA_PROFILE_NAME, profileName)
+                            .putString(PPApplication.EXTRA_PROFILE_NAME, profileName)
                             .putString(EXTRA_RUN_APPLICATION_DATA, runApplicationData)
                             .build();
 
@@ -131,11 +131,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                     .keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_DAYS, TimeUnit.DAYS)
                                     .build();
                     try {
-                        if (PPApplication.getApplicationStarted(true, true)) {
+                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_TAG_WORK +"_"+requestCode);
 //                            try {
@@ -144,7 +144,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 //                            }
 //                            //}
 
-//                                PPApplication.logE("[WORKER_CALL] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "xxx");
+//                                PPApplicationStatic.logE("[WORKER_CALL] RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "xxx");
                                 //workManager.enqueue(worker);
                                 // REPLACE is OK, because at top is called removeDelayAlarm()
                                 workManager.enqueueUniqueWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG + "_" + requestCode, ExistingWorkPolicy.REPLACE, worker);
@@ -152,7 +152,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             }
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }
@@ -163,7 +163,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                 //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
-                intent.putExtra(EXTRA_PROFILE_NAME, profileName);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_NAME, profileName);
                 intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
@@ -202,25 +202,25 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                Context _context = context;
-                if (PhoneProfilesService.getInstance() != null)
-                    _context = PhoneProfilesService.getInstance();
+                //Context _context = context;
+                //if (PhoneProfilesService.getInstance() != null)
+                //    _context = PhoneProfilesService.getInstance();
 
                 //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                 //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context/*_context*/, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     alarmManager.cancel(pendingIntent);
                     pendingIntent.cancel();
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
-        PPApplication._cancelWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode, false);
+        PPApplicationStatic._cancelWork(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode, false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsRunApplicationWithDelayWork.remove(MainWorker.RUN_APPLICATION_WITH_DELAY_WORK_TAG +"_"+requestCode);
 
@@ -229,10 +229,11 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     static void doWork(Context context, String profileName, String runApplicationData) {
         //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
+//        Log.e("RunApplicationWithDelayBroadcastReceiver.doWork", "call of ActivateProfileHelper.doExecuteForRunApplications");
         ActivateProfileHelper.doExecuteForRunApplications(context, profileName, runApplicationData);
     }
 

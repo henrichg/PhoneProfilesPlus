@@ -35,8 +35,8 @@ class TonesHandler {
         } catch (Exception e) {
             // FC in manager.getCursor() for RingtoneManager.TYPE_NOTIFICATION.
             // Nokia 8 (HMD Global), hm
-            //Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //Log.e("TonesHandler.getPhoneProfilesSilentUri", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
         }
         return "";
     }
@@ -70,8 +70,8 @@ class TonesHandler {
         } catch (Exception e) {
             // FC in manager.getCursor() for RingtoneManager.TYPE_NOTIFICATION.
             // Nokia 8 (HMD Global), hm
-            //Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //Log.e("TonesHandler.searchUri", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
         }
         return "";
     }
@@ -124,9 +124,9 @@ class TonesHandler {
                 cursor.close();
             }
         } catch (SecurityException e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
         return (displayName != null) && displayName.equals(filename);
@@ -206,7 +206,7 @@ class TonesHandler {
 
                 } catch (Exception e) {
                     Log.e("TonesHandler._installTone", "Error writing " + filename, e);
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     isError = true;
                 } finally {
                     // Close the streams
@@ -262,7 +262,7 @@ class TonesHandler {
                     try {
                         context.getContentResolver().delete(contentUri, MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
                     } catch (Exception eee) {
-                        PPApplication.recordException(eee);
+                        PPApplicationStatic.recordException(eee);
                     }
 
                     Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
@@ -340,13 +340,13 @@ class TonesHandler {
 //                                isError = true;
 //                            }
 //                        } else {
-//                            Log.e("TonesHandler","exists in content resolver");
+//                            Log.e("TonesHandler._installTone","exists in content resolver");
 //                            cursor.close();
 //                        }
 //                    }
                 } catch (Exception e) {
                     Log.e("TonesHandler._installTone", "Error installing tone " + filename, e);
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     isError = true;
                 }
             }

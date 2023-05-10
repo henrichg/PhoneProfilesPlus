@@ -4,23 +4,18 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 import java.util.Arrays;
 import java.util.List;
-
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 
 class EventPreferencesBluetooth extends EventPreferences {
 
@@ -96,7 +91,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_bluetooth_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, DatabaseHandler.ETYPE_BLUETOOTH, context);
@@ -135,19 +130,22 @@ class EventPreferencesBluetooth extends EventPreferences {
                 */
 
                 descr = descr + context.getString(R.string.event_preferences_bluetooth_adapter_name) + ": ";
-                String selectedBluetoothNames = "";
+                String selectedBluetoothNames;// = "";
+                StringBuilder value = new StringBuilder();
                 String[] splits = this._adapterName.split("\\|");
                 for (String _bluetoothName : splits) {
                     if (_bluetoothName.isEmpty()) {
-                        //noinspection StringConcatenationInLoop
-                        selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        //selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_not_selected));
                     } else if (splits.length == 1) {
                         switch (_bluetoothName) {
                             case ALL_BLUETOOTH_NAMES_VALUE:
-                                selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]";
+                                //selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]";
+                                value.append("[\u00A0").append(context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb)).append("\u00A0]");
                                 break;
                             case CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                                selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]";
+                                //selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]";
+                                value.append("[\u00A0").append(context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb)).append("\u00A0]");
                                 break;
                             default:
                                 /*if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
@@ -158,15 +156,19 @@ class EventPreferencesBluetooth extends EventPreferences {
                                             selectedBluetoothNames = selectedBluetoothNames + "[LE] ";
                                     }
                                 }*/
-                                selectedBluetoothNames = selectedBluetoothNames + _bluetoothName;
+                                //selectedBluetoothNames = selectedBluetoothNames + _bluetoothName;
+                                value.append(_bluetoothName);
                                 break;
                         }
                     } else {
-                        selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;
+                        //selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        //selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_selected));
+                        value.append(" ").append(splits.length);
                         break;
                     }
                 }
+                selectedBluetoothNames = value.toString();
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context) + "</b>";
             }
         }
@@ -183,7 +185,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -197,7 +199,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
-                        titleColor = Color.RED; //0xFFffb000;
+                        titleColor = ContextCompat.getColor(context, R.color.altype_error);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
@@ -319,7 +321,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_BLUETOOTH_ADAPTER_NAME, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
     }
 
@@ -356,7 +358,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS, preferences, context);
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
+        if (EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference;
@@ -373,7 +375,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType/*, this._devicesType*/);
             if (preferences != null)
@@ -385,7 +387,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -441,7 +443,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)
                 && Permissions.checkEventBluetoothForEMUI(context, event, null)*/) {

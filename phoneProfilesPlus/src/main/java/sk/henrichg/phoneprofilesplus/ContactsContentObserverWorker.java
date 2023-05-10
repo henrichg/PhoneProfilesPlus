@@ -24,24 +24,24 @@ public class ContactsContentObserverWorker extends Worker {
     public Result doWork() {
         try {
 //            long start = System.currentTimeMillis();
-//            PPApplication.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
+//            PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- START");
 
             Context appContext = context.getApplicationContext();
 
             // must be first
-            PPApplication.createContactsCache(appContext, true);
-            //must be seconds, this ads groups int contacts
-            PPApplication.createContactGroupsCache(appContext, true);
+            PPApplicationStatic.createContactsCache(appContext, true);
+            //must be seconds, this ads groups into contacts
+            PPApplicationStatic.createContactGroupsCache(appContext, true);
 
             EventsHandler eventsHandler = new EventsHandler(appContext);
             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 
 //            long finish = System.currentTimeMillis();
 //            long timeElapsed = finish - start;
-//            PPApplication.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
+//            PPApplicationStatic.logE("[IN_WORKER]  ContactsContentObserverWorker.doWork", "--------------- END - timeElapsed="+timeElapsed);
             return Result.success();
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return Result.failure();
         }
     }

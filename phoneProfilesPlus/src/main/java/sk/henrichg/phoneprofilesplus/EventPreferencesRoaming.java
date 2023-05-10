@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.telephony.TelephonyManager;
 
 import androidx.preference.Preference;
@@ -102,7 +101,7 @@ class EventPreferencesRoaming extends EventPreferences {
                 descr = descr + "</b> ";
             }
 
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (this._checkNetwork) {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context) + "</b>";
@@ -113,15 +112,16 @@ class EventPreferencesRoaming extends EventPreferences {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context) + "</b>";
                 }
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean hasSIMCard = false;
                     final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             boolean simExists;
-                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            boolean sim1Exists = hasSIMCardData.hasSIM1;
+                            boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                             simExists = sim1Exists;
                             simExists = simExists && sim2Exists;
@@ -133,7 +133,7 @@ class EventPreferencesRoaming extends EventPreferences {
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
                         descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                     }
-                }
+                //}
             }
             else {
                 descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
@@ -152,13 +152,13 @@ class EventPreferencesRoaming extends EventPreferences {
         if (key.equals(PREF_EVENT_ROAMING_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_ROAMING_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -166,8 +166,9 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
@@ -201,7 +202,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     }
                 }
             }
-        }
+        //}
 
         Event event = new Event();
         event.createEventPreferences();
@@ -211,16 +212,16 @@ class EventPreferencesRoaming extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_ROAMING_CHECK_NETWORK);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_ROAMING_CHECK_NETWORK, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_ROAMING_CHECK_DATA);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_ROAMING_CHECK_DATA, false);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_ROAMING_FOR_SIM_CARD);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, false, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, false, !isRunnable, false);
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context) {
@@ -250,7 +251,7 @@ class EventPreferencesRoaming extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesRoaming tmp = new EventPreferencesRoaming(this._event, this._enabled, this._checkNetwork, this._checkData, this._forSIMCard);
             if (preferences != null)
@@ -263,7 +264,7 @@ class EventPreferencesRoaming extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ROAMING).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -294,7 +295,7 @@ class EventPreferencesRoaming extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_ROAMING_ENABLED) != null) {
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_ROAMING_ENABLED, false);
                     Preference preference;
                     boolean showPreferences = false;
@@ -302,8 +303,9 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                            boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                            boolean sim1Exists = hasSIMCardData.hasSIM1;
+                            boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                             showPreferences = true;
                             preference = prefMng.findPreference(PREF_EVENT_ROAMING_FOR_SIM_CARD);
@@ -320,7 +322,7 @@ class EventPreferencesRoaming extends EventPreferences {
                         if (preference != null)
                             preference.setVisible(false);
                     }
-                }
+                //}
 
                 setSummary(prefMng, PREF_EVENT_ROAMING_ENABLED, preferences, context);
             }
@@ -401,7 +403,7 @@ class EventPreferencesRoaming extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesRoaming.PREF_EVENT_ROAMING_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                 this._networkRoamingInSIMSlot0 = ApplicationPreferences.prefEventRoamingNetworkInSIMSlot0;
                 this._dataRoamingInSIMSlot0 = ApplicationPreferences.prefEventRoamingDataInSIMSlot0;
@@ -412,11 +414,11 @@ class EventPreferencesRoaming extends EventPreferences {
 
                 boolean networkRoaming = false;
                 boolean dataRoaming = false;
-                if (Build.VERSION.SDK_INT < 26) {
+                /*if (Build.VERSION.SDK_INT < 26) {
                     networkRoaming = _networkRoamingInSIMSlot0;
                     dataRoaming = _dataRoamingInSIMSlot0;
                 }
-                else
+                else*/
                 if (_forSIMCard == 0) {
                     networkRoaming = _networkRoamingInSIMSlot0 || _networkRoamingInSIMSlot1 || _networkRoamingInSIMSlot2;
                     dataRoaming = _dataRoamingInSIMSlot0 || _dataRoamingInSIMSlot1 || _dataRoamingInSIMSlot2;

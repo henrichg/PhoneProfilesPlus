@@ -13,22 +13,24 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
@@ -76,9 +78,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
 import me.ibrahimsn.lib.SmoothBottomBar;
-import sk.henrichg.phoneprofiles.PPIntentForExport;
-import sk.henrichg.phoneprofiles.PPProfileForExport;
-import sk.henrichg.phoneprofiles.PPShortcutForExport;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
 
@@ -100,8 +99,6 @@ public class EditorActivity extends AppCompatActivity
     @SuppressWarnings("rawtypes")
     private AsyncTask importAsyncTask = null;
     @SuppressWarnings("rawtypes")
-    private AsyncTask importFromPPAsyncTask = null;
-    @SuppressWarnings("rawtypes")
     private AsyncTask exportAsyncTask = null;
     @SuppressWarnings("rawtypes")
     private AsyncTask backupAsyncTask = null;
@@ -113,8 +110,6 @@ public class EditorActivity extends AppCompatActivity
     private AlertDialog exportProgressDialog = null;
     private AlertDialog backupProgressDialog = null;
     private AlertDialog restoreProgressDialog = null;
-
-    static volatile boolean importFromPPStopped = false;
 
     private static final int DSI_PROFILES_ALL = 0;
     private static final int DSI_PROFILES_SHOW_IN_ACTIVATOR = 1;
@@ -161,7 +156,6 @@ public class EditorActivity extends AppCompatActivity
 
     private static final int IMPORTEXPORT_IMPORT = 1;
     private static final int IMPORTEXPORT_EXPORT = 2;
-    private static final int IMPORTEXPORT_IMPORTFROMPP = 3;
 
     private Toolbar editorToolbar;
     //Toolbar bottomToolbar;
@@ -214,7 +208,7 @@ public class EditorActivity extends AppCompatActivity
             listener.refreshGUIFromListener(intent);
         }
     }
-    private final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
+    private RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver;// = new RefreshGUIBroadcastReceiver(this);
 
     static private class ShowTargetHelpsBroadcastReceiver extends BroadcastReceiver {
         private final ShowTargetHelpsActivatorEditorListener listener;
@@ -228,7 +222,7 @@ public class EditorActivity extends AppCompatActivity
             listener.showTargetHelpsFromListener(intent);
         }
     }
-    private final ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
+    private ShowTargetHelpsBroadcastReceiver showTargetHelpsBroadcastReceiver;// = new ShowTargetHelpsBroadcastReceiver(this);
 
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
         private final FinishActivityActivatorEditorListener listener;
@@ -242,19 +236,20 @@ public class EditorActivity extends AppCompatActivity
             listener.finishActivityFromListener(intent);
         }
     }
-    private final FinishActivityBroadcastReceiver finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
+    private FinishActivityBroadcastReceiver finishBroadcastReceiver;// = new FinishActivityBroadcastReceiver(this);
 
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        Log.e("EditorActivity.onCreate", "xxxx");
 
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
-        PPApplication.createApplicationsCache(true);
+        PPApplicationStatic.createApplicationsCache(true);
 
         setContentView(R.layout.activity_editor);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
@@ -442,10 +437,7 @@ public class EditorActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(
-                (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
-                    //noinspection Convert2MethodRef
-                    return selectViewItem(item);
-                }
+                EditorActivity.this::selectViewItem
         );
         // set size of icons of BottomNavigationView
         /*BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
@@ -460,15 +452,15 @@ public class EditorActivity extends AppCompatActivity
 
         filterSpinner = findViewById(R.id.editor_filter_spinner);
         String[] filterItems = new String[] {
-                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
-                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
+                /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_all),
+                /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
         };
         GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_filter_spinner,
+                R.layout.spinner_highlighted_filter,
                 filterItems);
-        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all_editor));
 /*        switch (appTheme) {
@@ -589,6 +581,7 @@ public class EditorActivity extends AppCompatActivity
         });
         */
 
+        finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
         getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY));
     }
 
@@ -601,6 +594,7 @@ public class EditorActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
+//        Log.e("EditorActivity.onStart", "xxxx");
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (doServiceStart) {
@@ -620,8 +614,10 @@ public class EditorActivity extends AppCompatActivity
             intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
             getApplicationContext().sendBroadcast(intent);
 
+            refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
+            showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
@@ -637,10 +633,10 @@ public class EditorActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-        PPApplication.setApplicationFullyStarted(getApplicationContext());
-//        PPApplication.logE("[APPLICATION_FULLY_STARTED] EditorActivity.showNotStartedToast", "xxx");
+        PPApplicationStatic.setApplicationFullyStarted(getApplicationContext());
+//        PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EditorActivity.showNotStartedToast", "xxx");
         return false;
-/*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+/*        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted;
         if (!applicationStarted) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
@@ -664,15 +660,21 @@ public class EditorActivity extends AppCompatActivity
         return false;*/
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        // this is for list widget header
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
+
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -680,14 +682,14 @@ public class EditorActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//            PPApplication.logE("[START_PP_SERVICE] EditorActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplication.startPPService(this, serviceIntent);
-            return true;
-        } else {
+//            PPApplicationStatic.logE("[START_PP_SERVICE] EditorActivity.startPPServiceWhenNotStarted", "(1)");
+            PPApplicationStatic.startPPService(this, serviceIntent);
+            //return true;
+        } /*else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
-        }
+        }*/
 
         return false;
     }
@@ -696,16 +698,28 @@ public class EditorActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
+//        Log.e("EditorActivity.onResume", "xxxx");
+
         savedInstanceStateChanged = false;
     }
 
-    @Override
-    protected void onStop()
-    {
-        super.onStop();
+    private void unregisterReceiversInStop() {
+        if (refreshGUIBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+            refreshGUIBroadcastReceiver = null;
+        }
+        if (showTargetHelpsBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+            showTargetHelpsBroadcastReceiver = null;
+        }
+    }
 
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        Log.e("EditorActivity.onStop", "xxxx");
+
+        unregisterReceiversInStop();
 
         if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
             addProfileDialog.mDialog.dismiss();
@@ -717,6 +731,9 @@ public class EditorActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
+//        Log.e("EditorActivity.onDestroy", "xxxx");
+
+        unregisterReceiversInStop();
 
         if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
             importProgressDialog.dismiss();
@@ -738,10 +755,6 @@ public class EditorActivity extends AppCompatActivity
             importAsyncTask.cancel(true);
             doImport = false;
         }
-        if ((importFromPPAsyncTask != null) && importFromPPAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
-            importFromPPAsyncTask.cancel(true);
-            doImport = false;
-        }
         if ((exportAsyncTask != null) && exportAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             exportAsyncTask.cancel(true);
         }
@@ -754,21 +767,31 @@ public class EditorActivity extends AppCompatActivity
 
         if (!savedInstanceStateChanged) {
             // no destroy caches on orientation change
+//            Log.e("EditorActivity.onDestroy", "clear Application cache = "+PPApplicationStatic.getApplicationsCache());
+
             Runnable runnable = () -> {
-                if (PPApplication.getApplicationsCache() != null) {
-                    PPApplication.getApplicationsCache().cancelCaching();
-                    if (!PPApplication.getApplicationsCache().cached)
-                        PPApplication.getApplicationsCache().clearCache(false);
+                if (PPApplicationStatic.getApplicationsCache() != null) {
+//                    Log.e("EditorActivity.onDestroy", "clear Application cache");
+
+                    PPApplicationStatic.getApplicationsCache().cancelCaching();
+                    //if (PPApplicationStatic.getApplicationsCache().cached)
+                    PPApplicationStatic.getApplicationsCache().clearCache(true);
+                    synchronized (PPApplication.applicationCacheMutex) {
+                        PPApplication.applicationsCache = null;
+                    }
                 }
             };
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         }
 
-        try {
-            getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
-        } catch (Exception e) {
-            //PPApplication.recordException(e);
+        if (finishBroadcastReceiver != null) {
+            try {
+                getApplicationContext().unregisterReceiver(finishBroadcastReceiver);
+            } catch (Exception e) {
+                //PPApplicationStatic.recordException(e);
+            }
+            finishBroadcastReceiver = null;
         }
     }
 
@@ -776,6 +799,8 @@ public class EditorActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         editorToolbar.inflateMenu(R.menu.editor_top_bar);
+        if (DebugVersion.enabled)
+            editorToolbar.inflateMenu(R.menu.editor_debug);
 
         MenuCompat.setGroupDividerEnabled(menu, true);
 
@@ -809,6 +834,114 @@ public class EditorActivity extends AppCompatActivity
 
         MenuItem menuItem;
 
+        menuItem = menu.findItem(R.id.menu_settings_submenu);
+        if (menuItem != null)
+        {
+            //Log.e("EditorActivity.onPrepareOptionsMenu", "(1)");
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                //Log.e("EditorActivity.onPrepareOptionsMenu", "(2)");
+                /*
+                SpannableString headerTitle = new SpannableString("▼   " + menuItem.getTitle());
+                //headerTitle.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                headerTitle.setSpan(new AbsoluteSizeSpan(40, false), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ScaleXSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //headerTitle.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.altype_error)), 0, headerTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                */
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    //triangle.setBounds(0, 5, 30, 28);
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(10.5f),
+                            GlobalGUIRoutines.sip(8.5f));
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
+            }
+        }
+        menuItem = menu.findItem(R.id.menu_import_export);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(10.5f),
+                            GlobalGUIRoutines.sip(8.5f));
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
+            }
+        }
+        menuItem = menu.findItem(R.id.menu_support);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(10.5f),
+                            GlobalGUIRoutines.sip(8.5f));
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
+            }
+        }
+        menuItem = menu.findItem(R.id.menu_check_github_releases);
+        if (menuItem != null)
+        {
+            SubMenu subMenu = menuItem.getSubMenu();
+            if (subMenu != null) {
+                Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                if (triangle != null) {
+                    triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
+                    SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                    triangle.setBounds(0,
+                            GlobalGUIRoutines.sip(1),
+                            GlobalGUIRoutines.sip(10.5f),
+                            GlobalGUIRoutines.sip(8.5f));
+                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    subMenu.setHeaderTitle(headerTitle);
+                }
+            }
+        }
+        if (DebugVersion.enabled) {
+            menuItem = menu.findItem(R.id.menu_debug);
+            if (menuItem != null) {
+                SubMenu subMenu = menuItem.getSubMenu();
+                if (subMenu != null) {
+                    Drawable triangle = ContextCompat.getDrawable(this, R.drawable.ic_submenu_triangle);
+                    if (triangle != null) {
+                        triangle.setTint(ContextCompat.getColor(this, R.color.activitySecondaryTextColor));
+                        SpannableString headerTitle = new SpannableString("    " + menuItem.getTitle());
+                        triangle.setBounds(0,
+                                GlobalGUIRoutines.sip(1),
+                                GlobalGUIRoutines.sip(10.5f),
+                                GlobalGUIRoutines.sip(8.5f));
+                        headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        //headerTitle.setSpan(new ImageSpan(this, R.drawable.ic_submenu_triangle, DynamicDrawableSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        subMenu.setHeaderTitle(headerTitle);
+                    }
+                }
+            }
+        }
+
+
         //menuItem = menu.findItem(R.id.menu_import_export);
         //menuItem.setTitle(getResources().getString(R.string.menu_import_export) + "  >");
 
@@ -816,7 +949,7 @@ public class EditorActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_run_stop_events);
         if (menuItem != null)
         {
-            if (Event.getGlobalEventsRunning())
+            if (EventStatic.getGlobalEventsRunning(this))
             {
                 menuItem.setTitle(R.string.menu_stop_events);
                 menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
@@ -831,10 +964,11 @@ public class EditorActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
-            menuItem.setVisible(Event.getGlobalEventsRunning());
-            menuItem.setEnabled(PPApplication.getApplicationStarted(true, false));
+            menuItem.setVisible(EventStatic.getGlobalEventsRunning(this));
+            menuItem.setEnabled(PPApplicationStatic.getApplicationStarted(true, false));
         }
 
+        /*
         menuItem = menu.findItem(R.id.menu_dark_theme);
         if (menuItem != null)
         {
@@ -852,6 +986,7 @@ public class EditorActivity extends AppCompatActivity
                 menuItem.setEnabled(false);
             }
         }
+        */
 
         menuItem = menu.findItem(R.id.menu_email_debug_logs_to_author);
         if (menuItem != null)
@@ -862,11 +997,13 @@ public class EditorActivity extends AppCompatActivity
             menuItem.setEnabled(PPApplication.logIntoFile || PPApplication.crashIntoFile);
         }
 
+        /*
         menuItem = menu.findItem(R.id.menu_debug);
         if (menuItem != null) {
             menuItem.setVisible(DebugVersion.enabled);
             menuItem.setEnabled(DebugVersion.enabled);
         }
+        */
 
         /*
         boolean activityExists = GlobalGUIRoutines.activityActionExists(Intent.ACTION_OPEN_DOCUMENT_TREE, getApplicationContext());
@@ -895,31 +1032,6 @@ public class EditorActivity extends AppCompatActivity
             menuItem.setEnabled(activityExists);
         }*/
 
-        menuItem = menu.findItem(R.id.menu_import_from_pp);
-        if (menuItem != null) {
-            try {
-                PackageManager packageManager = getPackageManager();
-                PackageInfo pInfo = packageManager.getPackageInfo(PPApplication.PACKAGE_NAME_PP, 0);
-                int packageVersionCode = PPApplication.getVersionCode(pInfo);
-
-                /*ActivityManager manager = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
-                List<ActivityManager.RunningAppProcessInfo> processes = manager.getRunningAppProcesses();
-                boolean isRunnning = false;
-                for (ActivityManager.RunningAppProcessInfo process : processes)
-                {
-                    if (process.processName.equals(PPApplication.PACKAGE_NAME_PP)) {
-                        isRunnning = true;
-                        break;
-                    }
-                }*/
-                menuItem.setVisible((packageVersionCode >= 3601) /*&& isRunnning*/);
-                menuItem.setEnabled((packageVersionCode >= 3601) /*&& isRunnning*/);
-            } catch (Exception e) {
-                menuItem.setVisible(false);
-                menuItem.setEnabled(false);
-            }
-        }
-
         //PackageManager packageManager = getPackageManager();
         //Intent intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
         //boolean galaxyStoreInstalled = (intent != null);
@@ -935,8 +1047,7 @@ public class EditorActivity extends AppCompatActivity
         //    menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled);
         //}
 
-        //noinspection Convert2MethodRef
-        onNextLayout(editorToolbar, () -> showTargetHelps());
+        onNextLayout(editorToolbar, this::showTargetHelps);
 
         return ret;
     }
@@ -993,6 +1104,7 @@ public class EditorActivity extends AppCompatActivity
             return true;
         }
         else
+        /*
         if (itemId == R.id.menu_dark_theme) {
             String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
             if (!theme.equals("night_mode")) {
@@ -1001,7 +1113,7 @@ public class EditorActivity extends AppCompatActivity
                 if (theme.equals("dark")) {
                     //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "white");
                     //theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white"/*theme*/);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
                     editor.apply();
                     ApplicationPreferences.applicationTheme = "white";
                 } else {
@@ -1013,6 +1125,15 @@ public class EditorActivity extends AppCompatActivity
                 GlobalGUIRoutines.switchNightMode(getApplicationContext(), false);
                 GlobalGUIRoutines.reloadActivity(this, true);
             }
+            return true;
+        }
+        else
+        */
+        if (itemId == R.id.menu_appliction_theme) {
+            intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "applicationInterfaceCategoryRoot");
+            //noinspection deprecation
+            startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
             return true;
         }
         else
@@ -1051,16 +1172,16 @@ public class EditorActivity extends AppCompatActivity
             String packageVersion = "";
             try {
                 PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
             intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return true;
@@ -1082,7 +1203,7 @@ public class EditorActivity extends AppCompatActivity
                 uris.add(fileUri);
             }
 
-            File crashFile = new File(sd, TopExceptionHandler.CRASH_FILENAME);
+            File crashFile = new File(sd, CustomACRAReportingAdministrator.CRASH_FILENAME);
             if (crashFile.exists()) {
                 Uri fileUri = FileProvider.getUriForFile(this, PPApplication.PACKAGE_NAME + ".provider", crashFile);
                 uris.add(fileUri);
@@ -1096,9 +1217,9 @@ public class EditorActivity extends AppCompatActivity
                 String packageVersion = "";
                 try {
                     PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                 emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
@@ -1112,18 +1233,19 @@ public class EditorActivity extends AppCompatActivity
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                     intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
+                    intent.setType("*/*"); // gmail will only match with type set
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                     intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
                 }
                 if (intents.size() > 0) {
                     try {
-                        Intent chooser = Intent.createChooser(intents.get(0), getString(R.string.email_chooser));
-                        //noinspection ToArrayCallWithZeroLengthArrayArgument
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                        Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), getString(R.string.email_chooser));
+                        chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                         startActivity(chooser);
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             } else {
@@ -1160,7 +1282,7 @@ public class EditorActivity extends AppCompatActivity
                         ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
                         ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                        PPApplication.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true);
+                        PPApplicationStatic.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true);
                     },
                     null,
                     null,
@@ -1221,11 +1343,6 @@ public class EditorActivity extends AppCompatActivity
 
             if (!isFinishing())
                 dialog.show();
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_import_from_pp) {
-            importDataFromPP();
             return true;
         }
         else
@@ -1313,20 +1430,22 @@ public class EditorActivity extends AppCompatActivity
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
             final EditorActivity activity = this;
+            editorToolbar.setTitle(getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.title_activity_editor));
+            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
                 if (!activity.isFinishing()) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (0)");
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (0)");
                     String[] filterItems = new String[]{
-                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_all),
-                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                            activity.getString(R.string.editor_drawer_title_profiles) + " - " + activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_all),
+                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                            /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                     };
                     GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                             activity,
-                            R.layout.highlighted_filter_spinner,
+                            R.layout.spinner_highlighted_filter,
                             filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
                     filterSpinner.setAdapter(filterSpinnerAdapter);
                     activity.selectFilterItem(0, filterProfilesSelectedItem, false/*, startTargetHelps*/);
                     Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1338,23 +1457,25 @@ public class EditorActivity extends AppCompatActivity
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
             final EditorActivity activity = this;
+            editorToolbar.setTitle(getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.title_activity_editor));
+            //editorToolbar.setSubtitle(R.string.title_activity_editor);
             final Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
                 if (!activity.isFinishing()) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (1)");
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.selectViewItem (1)");
                     String[] filterItems = new String[]{
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_start_order),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_all),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_running),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_paused),
-                            activity.getString(R.string.editor_drawer_title_events) + " - " + activity.getString(R.string.editor_drawer_list_item_events_stopped)
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_start_order),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_all),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_running),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_paused),
+                            /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_stopped)
                     };
                     GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                             activity,
-                            R.layout.highlighted_filter_spinner,
+                            R.layout.spinner_highlighted_filter,
                             filterItems);
-                    filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                    filterSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
                     filterSpinner.setAdapter(filterSpinnerAdapter);
                     activity.selectFilterItem(1, filterEventsSelectedItem, false/*, startTargetHelps*/);
                     Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1673,9 +1794,6 @@ public class EditorActivity extends AppCompatActivity
                     notificationManager.cancel(
                             PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile_id,
                             PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile_id);
-                    notificationManager.cancel(
-                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
-                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile_id);
                     ActivateProfileHelper.cancelNotificationsForInteractiveParameters(getApplicationContext());
 
                     Profile profile = DatabaseHandler.getInstance(getApplicationContext()).getProfile(profile_id, false);
@@ -1683,6 +1801,9 @@ public class EditorActivity extends AppCompatActivity
                         // generate bitmaps
                         profile.generateIconBitmap(getApplicationContext(), false, 0, false);
                         profile.generatePreferencesIndicator(getApplicationContext(), false, 0, DataWrapper.IT_FOR_EDITOR, 0f);
+
+                        // redraw generated notification
+                        ActivateProfileHelper.generateNotifiction(getApplicationContext(), profile);
 
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode);
@@ -1701,7 +1822,7 @@ public class EditorActivity extends AppCompatActivity
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                 //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.runCommand(this, commandIntent);
+                PPApplicationStatic.runCommand(this, commandIntent);
             }
             else
             if (data != null) {
@@ -1740,7 +1861,7 @@ public class EditorActivity extends AppCompatActivity
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
                 //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-                PPApplication.runCommand(this, commandIntent);
+                PPApplicationStatic.runCommand(this, commandIntent);
 
                 //IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext());
 
@@ -1753,7 +1874,7 @@ public class EditorActivity extends AppCompatActivity
                     WorkManager workManager = PPApplication.getWorkManagerInstance();
                     if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //                            try {
@@ -1762,11 +1883,11 @@ public class EditorActivity extends AppCompatActivity
 //                            }
 //                            //}
 
-//                        PPApplication.logE("[WORKER_CALL] EditorActivity.onActivityResult", "xxx");
+//                        PPApplicationStatic.logE("[WORKER_CALL] EditorActivity.onActivityResult", "xxx");
                         workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
             }
@@ -1869,7 +1990,7 @@ public class EditorActivity extends AppCompatActivity
                     startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                     ok = true;
                 } catch (Exception e) {
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
                 if (!ok) {
                     PPAlertDialog dialog = new PPAlertDialog(
@@ -1911,7 +2032,7 @@ public class EditorActivity extends AppCompatActivity
                     startActivityForResult(intent, REQUEST_CODE_RESTORE_SHARED_SETTINGS);
                     ok = true;
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 if (!ok) {
                     PPAlertDialog dialog = new PPAlertDialog(
@@ -2144,10 +2265,16 @@ public class EditorActivity extends AppCompatActivity
         else
         if (requestCode == Permissions.NOTIFICATIONS_PERMISSION_REQUEST_CODE)
         {
-//            PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of drawProfileNotification");
-            PhoneProfilesNotification.drawProfileNotification(true, getApplicationContext());
-            DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
-            IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+            ActivityManager.RunningServiceInfo serviceInfo = GlobalUtils.getServiceInfo(getApplicationContext(), PhoneProfilesService.class);
+            if (serviceInfo == null)
+                startPPServiceWhenNotStarted();
+            else {
+//            PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorActivity.onActivityResult", "call of PPAppNotification.drawNotification");
+                ProfileListNotification.drawNotification(true, getApplicationContext());
+                DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
+                IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
+                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
+            }
         }
 
     }
@@ -2185,9 +2312,6 @@ public class EditorActivity extends AppCompatActivity
         if (importExport == IMPORTEXPORT_IMPORT)
             title = getString(R.string.import_profiles_alert_title);
         else
-        if (importExport == IMPORTEXPORT_IMPORTFROMPP)
-            title = getString(R.string.import_profiles_from_pp_alert_title);
-        else
             title = getString(R.string.export_profiles_alert_title);
         //dialogBuilder.setTitle(title);
         String message;
@@ -2205,16 +2329,6 @@ public class EditorActivity extends AppCompatActivity
             //    message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
         }
         else
-        if (importExport == IMPORTEXPORT_IMPORTFROMPP) {
-            message = getString(R.string.import_profiles_from_pp_alert_error) + ":";
-            if (dbResult != DatabaseHandler.IMPORT_OK) {
-                message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_database_bug);
-            }
-            if (appSettingsResult == 0)
-                message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_appSettings_bug);
-            /*if (sharedProfileResult == 0)
-                message = message + "\n• " + getString(R.string.import_profiles_from_pp_alert_error_sharedProfile_bug);*/
-        } else
             message = getString(R.string.export_profiles_alert_error);
         //dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
         //    // refresh activity
@@ -2270,15 +2384,16 @@ public class EditorActivity extends AppCompatActivity
                         //noinspection ResultOfMethodCallIgnored
                         src.setReadable(true, false);
                     } catch (Exception ee) {
-                        PPApplication.recordException(ee);
+                        PPApplicationStatic.recordException(ee);
                     }
                     try {
                         //noinspection ResultOfMethodCallIgnored
                         src.setWritable(true, false);
                     } catch (Exception ee) {
-                        PPApplication.recordException(ee);
+                        PPApplicationStatic.recordException(ee);
                     }
 
+                    //noinspection IOStreamConstructor
                     input = new ObjectInputStream(new FileInputStream(src));
                     Editor prefEdit;
                     //if (what == 1) {
@@ -2289,7 +2404,7 @@ public class EditorActivity extends AppCompatActivity
                     //    prefEdit = getSharedPreferences("profile_preferences_default_profile", Activity.MODE_PRIVATE).edit();
                     //    prefEdit.clear();
                     //}
-                    //noinspection unchecked
+                    @SuppressWarnings("unchecked")
                     Map<String, ?> entries = (Map<String, ?>) input.readObject();
                     for (Entry<String, ?> entry : entries.entrySet()) {
                         Object v = entry.getValue();
@@ -2334,10 +2449,10 @@ public class EditorActivity extends AppCompatActivity
                         try {
                             Context appContext = getApplicationContext();
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                            int actualVersionCode = PPApplication.getVersionCode(pInfo);
-                            PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+                            int actualVersionCode = PPApplicationStatic.getVersionCode(pInfo);
+                            PPApplicationStatic.setSavedVersionCode(appContext, actualVersionCode);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     //}
 
@@ -2396,9 +2511,9 @@ public class EditorActivity extends AppCompatActivity
                         }
                     }
 
-                    PPApplication.loadGlobalApplicationData(getApplicationContext());
-                    PPApplication.loadApplicationPreferences(getApplicationContext());
-                    PPApplication.loadProfileActivationData(getApplicationContext());
+                    PPApplicationStatic.loadGlobalApplicationData(getApplicationContext());
+                    PPApplicationStatic.loadApplicationPreferences(getApplicationContext());
+                    PPApplicationStatic.loadProfileActivationData(getApplicationContext());
                 }
                 else
                     res = false;
@@ -2406,7 +2521,7 @@ public class EditorActivity extends AppCompatActivity
                 // no error, this is OK
             }*/ catch (Exception e) {
                 //Log.e("EditorActivity.importApplicationPreferences", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 res = false;
             }
         }finally {
@@ -2415,7 +2530,7 @@ public class EditorActivity extends AppCompatActivity
                     input.close();
                 }
             } catch (IOException e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             WifiScanWorker.setScanRequest(getApplicationContext(), false);
@@ -2465,7 +2580,7 @@ public class EditorActivity extends AppCompatActivity
                                 startActivityForResult(intent, REQUEST_CODE_RESTORE_SHARED_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                             if (!ok) {
                                 PPAlertDialog _dialog = new PPAlertDialog(
@@ -2512,7 +2627,7 @@ public class EditorActivity extends AppCompatActivity
                                 startActivityForResult(intent, REQUEST_CODE_RESTORE_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                             if (!ok) {
                                 PPAlertDialog _dialog = new PPAlertDialog(
@@ -2552,63 +2667,7 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
-    private void doImportDataFromPP(final boolean importProfiles,
-                                    final boolean deleteConfiguredProfiles,
-                                    final boolean importApplicationPreferences) {
-        importFromPPAsyncTask = new ImportFromPPAsyncTask(
-                        importProfiles,
-                        deleteConfiguredProfiles,
-                        importApplicationPreferences,
-                        this).execute();
-    }
-
-    private void importDataFromPP() {
-        AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(this);
-        dialogBuilder2.setTitle(R.string.import_profiles_from_pp_alert_title);
-
-        LayoutInflater inflater = (getLayoutInflater());
-        final View layout = inflater.inflate(R.layout.dialog_import_pp_data_alert, null);
-        dialogBuilder2.setView(layout);
-
-        dialogBuilder2.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-            boolean importProfiles = true;
-            boolean deleteConfiguredProfiles = false;
-            boolean importApplicationPreferences = false;
-            CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
-            if (checkbox != null) importProfiles = checkbox.isChecked();
-            checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
-            if (checkbox != null) deleteConfiguredProfiles = checkbox.isChecked();
-            checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
-            if (checkbox != null) importApplicationPreferences = checkbox.isChecked();
-            doImportDataFromPP(importProfiles, deleteConfiguredProfiles, importApplicationPreferences);
-        });
-        dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
-
-        AlertDialog dialog = dialogBuilder2.create();
-        dialog.setOnShowListener(dialog1 -> {
-            CheckBox checkbox = layout.findViewById(R.id.exportPPDataDataProfiles);
-            if (checkbox != null) checkbox.setChecked(true);
-            checkbox = layout.findViewById(R.id.exportPPDataDataDeleteConfiguredProfiles);
-            if (checkbox != null) checkbox.setChecked(false);
-            checkbox = layout.findViewById(R.id.exportPPDataDataApplicationPreferences);
-            if (checkbox != null) checkbox.setChecked(false);
-        });
-
-//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//            @Override
-//            public void onShow(DialogInterface dialog) {
-//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                if (positive != null) positive.setAllCaps(false);
-//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                if (negative != null) negative.setAllCaps(false);
-//            }
-//        });
-
-        if (!isFinishing())
-            dialog.show();
-    }
-
-    @SuppressLint({"ApplySharedPref", "SetWorldReadable", "SetWorldWritable"})
+    @SuppressLint({"SetWorldReadable", "SetWorldWritable", "ApplySharedPref"})
     private boolean exportApplicationPreferences(File dst, boolean runStopEvents/*, int what*/) {
         boolean res = true;
         ObjectOutputStream output = null;
@@ -2647,11 +2706,11 @@ public class EditorActivity extends AppCompatActivity
                     try {
                         editor.putInt("maximumVolume_dtmf", audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
                     } catch (Exception ignored) {}
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         try {
                             editor.putInt("maximumVolume_accessibility", audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
                         } catch (Exception ignored) {}
-                    }
+                    //}
                     try {
                         editor.putInt("maximumVolume_bluetoothSCO", audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
                     } catch (Exception ignored) {}
@@ -2666,20 +2725,20 @@ public class EditorActivity extends AppCompatActivity
                     //noinspection ResultOfMethodCallIgnored
                     dst.setReadable(true, false);
                 } catch (Exception ee) {
-                    PPApplication.recordException(ee);
+                    PPApplicationStatic.recordException(ee);
                 }
                 try {
                     //noinspection ResultOfMethodCallIgnored
                     dst.setWritable(true, false);
                 } catch (Exception ee) {
-                    PPApplication.recordException(ee);
+                    PPApplicationStatic.recordException(ee);
                 }
 
             } catch (FileNotFoundException e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 // this is OK
             } catch (IOException e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 res = false;
             }
         } finally {
@@ -2689,7 +2748,7 @@ public class EditorActivity extends AppCompatActivity
                     output.close();
                 }
             } catch (IOException e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         return res;
@@ -2881,6 +2940,11 @@ public class EditorActivity extends AppCompatActivity
     }
 
     public void onStartProfilePreferences(Profile profile, int editMode, int predefinedProfileIndex/*, boolean startTargetHelps*/) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment instanceof EditorProfileListFragment) {
+            ((EditorProfileListFragment) fragment).updateBottomMenu();
+        }
+
         // In single-pane mode, simply start the profile preferences activity
         // for the profile position.
         if (((profile != null) ||
@@ -2907,7 +2971,7 @@ public class EditorActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
-//                PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.redrawProfileListFragment", "call of updateGUI");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorActivity.redrawProfileListFragment", "call of updateGUI");
                 PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
@@ -2916,7 +2980,7 @@ public class EditorActivity extends AppCompatActivity
                     final EditorActivity editorActivity = this;
                     Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawProfileListFragment");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawProfileListFragment");
                         if (!editorActivity.isFinishing()) {
                             boolean changeFilter = false;
                             switch (filterProfilesSelectedItem) {
@@ -3052,6 +3116,11 @@ public class EditorActivity extends AppCompatActivity
     }
 
     public void onStartEventPreferences(Event event, int editMode, int predefinedEventIndex/*, boolean startTargetHelps*/) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+        if (fragment instanceof EditorEventListFragment) {
+            ((EditorEventListFragment) fragment).updateBottomMenu();
+        }
+
         if (((event != null) ||
             (editMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
             (editMode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
@@ -3080,7 +3149,7 @@ public class EditorActivity extends AppCompatActivity
                     final EditorActivity editorActivity = this;
                     Handler handler = new Handler(getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawEventListFragment");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.redrawEventListFragment");
                         if (!editorActivity.isFinishing()) {
                             boolean changeFilter = false;
                             switch (filterEventsSelectedItem) {
@@ -3129,10 +3198,10 @@ public class EditorActivity extends AppCompatActivity
     private void setEventsRunStopIndicator()
     {
         //boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
-        if (Event.getGlobalEventsRunning())
+        if (EventStatic.getGlobalEventsRunning(this))
         {
             //if (ApplicationPreferences.prefEventsBlocked) {
-            if (Event.getEventsBlocked(getApplicationContext())) {
+            if (EventStatic.getEventsBlocked(getApplicationContext())) {
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_traffic_light_manual_activation);
             }
             else {
@@ -3256,7 +3325,8 @@ public class EditorActivity extends AppCompatActivity
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
+                int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+                int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
 
@@ -3286,7 +3356,7 @@ public class EditorActivity extends AppCompatActivity
                     startTargetHelpsRunStopIndicator = false;
                     startTargetHelpsBottomNavigation = false;
 
-                    if (Event.getGlobalEventsRunning()) {
+                    if (EventStatic.getGlobalEventsRunning(this)) {
                         /*targets.add(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .outerCircleColor(outerCircleColor)
@@ -3325,7 +3395,8 @@ public class EditorActivity extends AppCompatActivity
                                 TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -3338,7 +3409,8 @@ public class EditorActivity extends AppCompatActivity
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_restart_events, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
+                                            .titleTextColor(titleTextColor)
+                                            .descriptionTextColor(descriptionTextColor)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3346,14 +3418,15 @@ public class EditorActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
+                                            .titleTextColor(titleTextColor)
+                                            .descriptionTextColor(descriptionTextColor)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3361,14 +3434,15 @@ public class EditorActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info_menu, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
+                                            .titleTextColor(titleTextColor)
+                                            .descriptionTextColor(descriptionTextColor)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3376,14 +3450,15 @@ public class EditorActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
 
                         targets.add(
                                 TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
@@ -3421,7 +3496,8 @@ public class EditorActivity extends AppCompatActivity
                                         getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
@@ -3469,7 +3545,8 @@ public class EditorActivity extends AppCompatActivity
                                 TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -3482,7 +3559,8 @@ public class EditorActivity extends AppCompatActivity
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_run_stop_events, getString(R.string.editor_activity_targetHelps_runStopEvents_title), getString(R.string.editor_activity_targetHelps_runStopEvents_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
+                                            .titleTextColor(titleTextColor)
+                                            .descriptionTextColor(descriptionTextColor)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3490,14 +3568,15 @@ public class EditorActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
+                                            .titleTextColor(titleTextColor)
+                                            .descriptionTextColor(descriptionTextColor)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3505,14 +3584,15 @@ public class EditorActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         try {
                             targets.add(
                                     TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
+                                            .titleTextColor(titleTextColor)
+                                            .descriptionTextColor(descriptionTextColor)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -3520,14 +3600,15 @@ public class EditorActivity extends AppCompatActivity
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
 
                         targets.add(
                                 TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
@@ -3565,7 +3646,8 @@ public class EditorActivity extends AppCompatActivity
                                         getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(false)
                                         .drawShadow(true)
@@ -3607,7 +3689,8 @@ public class EditorActivity extends AppCompatActivity
                             TapTarget.forView(eventsRunStopIndicator, getString(R.string.editor_activity_targetHelps_trafficLightIcon_title), getString(R.string.editor_activity_targetHelps_trafficLightIcon_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -3643,7 +3726,8 @@ public class EditorActivity extends AppCompatActivity
                                     getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(false)
                                     .drawShadow(true)
@@ -3744,9 +3828,9 @@ public class EditorActivity extends AppCompatActivity
                 //final Context context = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.showTargetHelps");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.showTargetHelps");
 
-//                        PPApplication.logE("[LOCAL_BROADCAST_CALL] EditorProfileActivity.showTargetHelps", "xxx");
+//                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EditorProfileActivity.showTargetHelps", "xxx");
                     Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver");
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                     /*if (EditorActivity.getInstance() != null) {
@@ -3765,18 +3849,18 @@ public class EditorActivity extends AppCompatActivity
 
     String getEmailBodyText() {
         String body;
-        if (Build.VERSION.SDK_INT >= 25)
+        //if (Build.VERSION.SDK_INT >= 25)
             body = getString(R.string.important_info_email_body_device) + " " +
                     Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
                     " (" + Build.MODEL + ")" + " \n";
-        else {
+        /*else {
             String manufacturer = Build.MANUFACTURER;
             String model = Build.MODEL;
             if (model.startsWith(manufacturer))
                 body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
             else
                 body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-        }
+        }*/
         body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
         return body;
     }
@@ -3940,7 +4024,7 @@ public class EditorActivity extends AppCompatActivity
                         return 0;
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     return 0;
                 }
             }
@@ -4170,7 +4254,7 @@ public class EditorActivity extends AppCompatActivity
                         return 0;
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     return 0;
                 }
             }
@@ -4217,7 +4301,7 @@ public class EditorActivity extends AppCompatActivity
                         return 0;
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     return 0;
                 }
             }
@@ -4292,7 +4376,7 @@ public class EditorActivity extends AppCompatActivity
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (_dataWrapper != null) {
-                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true);
+                    PPApplicationStatic.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true);
 
                     //File sd = Environment.getExternalStorageDirectory();
                     //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
@@ -4307,7 +4391,7 @@ public class EditorActivity extends AppCompatActivity
                             exportPath.setWritable(true, false);
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }*/
 
                     // import application preferences must be first,
@@ -4331,9 +4415,9 @@ public class EditorActivity extends AppCompatActivity
                         //this.dataWrapper.invalidateProfileList();
                         //this.dataWrapper.invalidateEventList();
                         //this.dataWrapper.invalidateEventTimelineList();
-                        Event.setEventsBlocked(_dataWrapper.context, false);
+                        EventStatic.setEventsBlocked(_dataWrapper.context, false);
                         DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
-                        Event.setForceRunEventRunning(_dataWrapper.context, false);
+                        EventStatic.setForceRunEventRunning(_dataWrapper.context, false);
                     }
 
                     if (!appSettingsError) {
@@ -4382,12 +4466,12 @@ public class EditorActivity extends AppCompatActivity
                     // clear shared preferences for last activated profile
                     //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
                     //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
-                    PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
+                    PPApplicationStatic.setLastActivatedProfile(_dataWrapper.context, 0);
 
-//                    PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.importAsyncTask", "call of updateGUI");
+//                    PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorActivity.importAsyncTask", "call of updateGUI");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
 
-                    PPApplication.setApplicationStarted(_dataWrapper.context, true);
+                    PPApplicationStatic.setApplicationStarted(_dataWrapper.context, true);
                     Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
                     //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                     //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -4395,8 +4479,8 @@ public class EditorActivity extends AppCompatActivity
                     serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                     serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//                    PPApplication.logE("[START_PP_SERVICE] EditorActivity.doImportData", "xxx");
-                    PPApplication.startPPService(activity, serviceIntent);
+//                    PPApplicationStatic.logE("[START_PP_SERVICE] EditorActivity.doImportData", "xxx");
+                    PPApplicationStatic.startPPService(activity, serviceIntent);
                 }
 
                 if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/))) {
@@ -4405,7 +4489,7 @@ public class EditorActivity extends AppCompatActivity
                     //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                     //}
 
-                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, "");
+                    PPApplicationStatic.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, "");
 
                     // toast notification
                     if (!activity.isFinishing())
@@ -4420,7 +4504,7 @@ public class EditorActivity extends AppCompatActivity
                     DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
                     IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
 
-                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
+                    PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
                 } else {
                     int appSettingsResult = 1;
                     if (appSettingsError) appSettingsResult = 0;
@@ -4429,795 +4513,7 @@ public class EditorActivity extends AppCompatActivity
                     if (!activity.isFinishing())
                         activity.importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult/*, sharedProfileResult*/);
 
-                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
-                }
-            }
-        }
-    }
-
-    private static class ImportFromPPAsyncTask extends AsyncTask<Void, Integer, Integer> {
-        private final DataWrapper _dataWrapper;
-        private boolean profilesError = true;
-        private boolean shortcutsError = true;
-        private boolean intentsError = true;
-        private boolean appSettingsError = true;
-        private boolean deleteProfilesError = true;
-        private ImportPPDataBroadcastReceiver importPPDataBroadcastReceiver = null;
-
-        private final WeakReference<EditorActivity> activityWeakRef;
-        final boolean importProfiles;
-        final boolean deleteConfiguredProfiles;
-        final boolean importApplicationPreferences;
-
-        public ImportFromPPAsyncTask(
-                final boolean importProfiles,
-                final boolean deleteConfiguredProfiles,
-                final boolean importApplicationPreferences,
-                EditorActivity activity) {
-            this.activityWeakRef = new WeakReference<>(activity);
-            this.importProfiles = importProfiles;
-            this.deleteConfiguredProfiles = deleteConfiguredProfiles;
-            this.importApplicationPreferences = importApplicationPreferences;
-
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-            dialogBuilder.setTitle(R.string.import_profiles_from_pp_alert_title);
-
-            LayoutInflater inflater = (activity.getLayoutInflater());
-            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-            dialogBuilder.setView(layout);
-
-            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                // send stop into PP
-                Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PPP);
-                activity.sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
-                importFromPPStopped = true;
-            });
-
-            activity.importProgressDialog = dialogBuilder.create();
-
-//                    importProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-
-            _dataWrapper = activity.getDataWrapper();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            EditorActivity activity = activityWeakRef.get();
-            if (activity != null) {
-                doImport = true;
-
-                importPPDataBroadcastReceiver = new ImportPPDataBroadcastReceiver();
-                IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PP);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STARTED);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_ENDED);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES);
-                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES);
-                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS);
-                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS);
-                activity.registerReceiver(importPPDataBroadcastReceiver, intentFilter,
-                        PPApplication.EXPORT_PP_DATA_PERMISSION, null);
-
-
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                activity.importProgressDialog.setCancelable(false);
-                activity.importProgressDialog.setCanceledOnTouchOutside(false);
-
-                if (!activity.isFinishing())
-                    activity.importProgressDialog.show();
-
-                Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment != null) {
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).removeAdapter();
-                    else
-                        ((EditorEventListFragment) fragment).removeAdapter();
-                }
-            }
-        }
-
-        @SuppressWarnings("StringConcatenationInLoop")
-        @Override
-        protected Integer doInBackground(Void... params) {
-            EditorActivity activity = activityWeakRef.get();
-            if (activity != null) {
-                if (_dataWrapper != null) {
-
-                    // send start into PP
-                    importFromPPStopped = false;
-                    Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_START_FROM_PPP);
-                    activity.sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
-
-                    // get PP data
-                    long start = SystemClock.uptimeMillis();
-                    do {
-                        if (importFromPPStopped)
-                            break;
-
-                        if (importPPDataBroadcastReceiver.importStarted &&
-                                importPPDataBroadcastReceiver.importEndeed)
-                            break;
-
-                        GlobalUtils.sleep(200);
-                    } while (SystemClock.uptimeMillis() - start < 30 * 1000);
-
-                    if (!importFromPPStopped) {
-                        PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true);
-
-                        if (importPPDataBroadcastReceiver.importStarted &&
-                                importPPDataBroadcastReceiver.importEndeed) {
-
-                            // import application preferences must be first,
-                            // because in DatabaseHandler.importDB is recompute of volumes in profiles
-                            if (importApplicationPreferences) {
-                                try {
-                                    synchronized (PPApplication.applicationPreferencesMutex) {
-                                        ApplicationPreferences.applicationStartOnBoot = importPPDataBroadcastReceiver.applicationData.applicationStartOnBoot;
-                                        ApplicationPreferences.applicationActivate = importPPDataBroadcastReceiver.applicationData.applicationActivate;
-                                        ApplicationPreferences.applicationActivateWithAlert = importPPDataBroadcastReceiver.applicationData.applicationActivateWithAlert;
-                                        ApplicationPreferences.applicationClose = importPPDataBroadcastReceiver.applicationData.applicationClose;
-                                        ApplicationPreferences.applicationLongClickActivation = importPPDataBroadcastReceiver.applicationData.applicationLongClickActivation;
-                                        ApplicationPreferences.applicationTheme = importPPDataBroadcastReceiver.applicationData.applicationTheme;
-                                        ApplicationPreferences.applicationEditorPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationEditorPrefIndicator;
-                                        ApplicationPreferences.notificationsToast = importPPDataBroadcastReceiver.applicationData.notificationsToast;
-                                        ApplicationPreferences.notificationStatusBarStyle = importPPDataBroadcastReceiver.applicationData.notificationStatusBarStyle;
-                                        ApplicationPreferences.notificationShowInStatusBar = importPPDataBroadcastReceiver.applicationData.notificationShowInStatusBar;
-                                        ApplicationPreferences.notificationTextColor = importPPDataBroadcastReceiver.applicationData.notificationTextColor;
-                                        ApplicationPreferences.notificationHideInLockScreen = importPPDataBroadcastReceiver.applicationData.notificationHideInLockscreen;
-                                        ApplicationPreferences.applicationWidgetListPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetListPrefIndicator;
-                                        ApplicationPreferences.applicationWidgetListHeader = importPPDataBroadcastReceiver.applicationData.applicationWidgetListHeader;
-                                        ApplicationPreferences.applicationWidgetListBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackground;
-                                        ApplicationPreferences.applicationWidgetListLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessB;
-                                        ApplicationPreferences.applicationWidgetListLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessT;
-                                        ApplicationPreferences.applicationWidgetIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
-                                        ApplicationPreferences.applicationWidgetIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
-                                        ApplicationPreferences.applicationWidgetListIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconColor;
-                                        ApplicationPreferences.applicationWidgetListIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconLightness;
-                                        ApplicationPreferences.notificationPrefIndicator = importPPDataBroadcastReceiver.applicationData.notificationPrefIndicator;
-                                        ApplicationPreferences.applicationActivatorGridLayout = importPPDataBroadcastReceiver.applicationData.applicationActivatorGridLayout;
-                                        ApplicationPreferences.applicationWidgetListGridLayout = importPPDataBroadcastReceiver.applicationData.applicationWidgetListGridLayout;
-                                        ApplicationPreferences.applicationWidgetIconHideProfileName = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconHideProfileName;
-                                        ApplicationPreferences.applicationShortcutEmblem = importPPDataBroadcastReceiver.applicationData.applicationShortcutEmblem;
-                                        ApplicationPreferences.applicationWidgetIconBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackground;
-                                        ApplicationPreferences.applicationWidgetIconLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessB;
-                                        ApplicationPreferences.applicationWidgetIconLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessT;
-                                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationUnlinkRingerNotificationVolumes;
-                                        ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationForceSetMergeRingNotificationVolumes;
-                                        ApplicationPreferences.applicationSamsungEdgeHeader = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeHeader;
-                                        ApplicationPreferences.applicationSamsungEdgeBackground = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackground;
-                                        ApplicationPreferences.applicationSamsungEdgeLightnessB = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessB;
-                                        ApplicationPreferences.applicationSamsungEdgeLightnessT = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessT;
-                                        ApplicationPreferences.applicationSamsungEdgeIconColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconColor;
-                                        ApplicationPreferences.applicationSamsungEdgeIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconLightness;
-                                        ApplicationPreferences.applicationWidgetListRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetListRoundedCorners;
-                                        ApplicationPreferences.applicationWidgetIconRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconRoundedCorners;
-                                        ApplicationPreferences.applicationWidgetListBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundType;
-                                        ApplicationPreferences.applicationWidgetListBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundColor;
-                                        ApplicationPreferences.applicationWidgetIconBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundType;
-                                        ApplicationPreferences.applicationWidgetIconBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundColor;
-                                        ApplicationPreferences.applicationSamsungEdgeBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundType;
-                                        ApplicationPreferences.applicationSamsungEdgeBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundColor;
-                                        ApplicationPreferences.applicationNeverAskForGrantRoot = importPPDataBroadcastReceiver.applicationData.applicationNeverAskForGrantRoot;
-                                        ApplicationPreferences.notificationShowButtonExit = importPPDataBroadcastReceiver.applicationData.notificationShowButtonExit;
-                                        ApplicationPreferences.applicationWidgetOneRowPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowPrefIndicator;
-                                        ApplicationPreferences.applicationWidgetOneRowBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackground;
-                                        ApplicationPreferences.applicationWidgetOneRowLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessB;
-                                        ApplicationPreferences.applicationWidgetOneRowLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessT;
-                                        ApplicationPreferences.applicationWidgetOneRowIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconColor;
-                                        ApplicationPreferences.applicationWidgetOneRowIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconLightness;
-                                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowRoundedCorners;
-                                        ApplicationPreferences.applicationWidgetOneRowBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundType;
-                                        ApplicationPreferences.applicationWidgetOneRowBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundColor;
-                                        ApplicationPreferences.applicationWidgetListLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessBorder;
-                                        ApplicationPreferences.applicationWidgetOneRowLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessBorder;
-                                        ApplicationPreferences.applicationWidgetIconLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessBorder;
-                                        ApplicationPreferences.applicationWidgetListShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListShowBorder;
-                                        ApplicationPreferences.applicationWidgetOneRowShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowShowBorder;
-                                        ApplicationPreferences.applicationWidgetIconShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconShowBorder;
-                                        ApplicationPreferences.applicationWidgetListCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListCustomIconLightness;
-                                        ApplicationPreferences.applicationWidgetOneRowCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowCustomIconLightness;
-                                        ApplicationPreferences.applicationWidgetIconCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
-                                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeCustomIconLightness;
-                                        ApplicationPreferences.notificationUseDecoration = importPPDataBroadcastReceiver.applicationData.notificationUseDecoration;
-                                        ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
-                                        ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
-                                        ApplicationPreferences.notificationNotificationStyle = "0"; // custom notification style
-                                        //ApplicationPreferences.notificationNightMode = false;
-                                        ApplicationPreferences.notificationShowProfileIcon = true;
-                                        if (ApplicationPreferences.notificationBackgroundColor.equals("2")) {
-                                            ApplicationPreferences.notificationBackgroundColor = "0";
-                                            //ApplicationPreferences.notificationNightMode = true;
-                                        }
-                                        ApplicationPreferences.notificationShowRestartEventsAsButton = Build.VERSION.SDK_INT >= 31;
-                                        ApplicationPreferences.applicationShortcutIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
-                                        ApplicationPreferences.applicationShortcutIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
-                                        ApplicationPreferences.applicationShortcutCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
-
-                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.applicationActivate);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.applicationActivateWithAlert);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.applicationClose);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.applicationLongClickActivation);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationTheme);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.applicationEditorPrefIndicator);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.notificationsToast);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyle);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.notificationTextColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, ApplicationPreferences.notificationHideInLockScreen);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.applicationWidgetListHeader);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.applicationWidgetIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconLightness);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, ApplicationPreferences.notificationPrefIndicator);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, ApplicationPreferences.applicationActivatorGridLayout);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.applicationWidgetListGridLayout);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.applicationWidgetIconHideProfileName);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, ApplicationPreferences.applicationShortcutEmblem);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, ApplicationPreferences.applicationWidgetIconLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.applicationWidgetIconLightnessT);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, String.valueOf(ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes));
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.applicationSamsungEdgeHeader);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, ApplicationPreferences.applicationSamsungEdgeBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, ApplicationPreferences.applicationSamsungEdgeLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, ApplicationPreferences.applicationSamsungEdgeLightnessT);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.applicationSamsungEdgeIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetIconRoundedCorners);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetIconBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetIconBackgroundColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, ApplicationPreferences.applicationSamsungEdgeBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, ApplicationPreferences.applicationSamsungEdgeBackgroundColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, ApplicationPreferences.applicationNeverAskForGrantRoot);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, ApplicationPreferences.notificationShowButtonExit);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetOneRowPrefIndicator);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetOneRowLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetOneRowLightnessT);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetOneRowIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetOneRowBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetOneRowBackgroundColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetListLightnessBorder);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetOneRowLightnessBorder);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetIconLightnessBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.applicationWidgetListShowBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.applicationWidgetOneRowShowBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.applicationWidgetIconShowBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_COLOR, ApplicationPreferences.applicationShortcutIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_ICON_LIGHTNESS, ApplicationPreferences.applicationShortcutIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationShortcutCustomIconLightness);
-                                        editor.apply();
-                                    }
-                                    for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
-                                        ApplicationPreferences.setQuickTileProfileId(activity.getApplicationContext(),i, 0);
-
-                                    PPApplication.loadGlobalApplicationData(activity.getApplicationContext());
-                                    PPApplication.loadApplicationPreferences(activity.getApplicationContext());
-                                    PPApplication.loadProfileActivationData(activity.getApplicationContext());
-
-                                    appSettingsError = false;
-                                } catch (Exception e) {
-                                    appSettingsError = true;
-                                }
-                            } else
-                                appSettingsError = false;
-
-                            if (deleteConfiguredProfiles) {
-                                deleteProfilesError = !DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
-                            } else
-                                deleteProfilesError = false;
-                            if (importProfiles && (!deleteProfilesError)) {
-                                List<Long> ppShortcutIds = new ArrayList<>();
-                                List<Long> importedShortcutIds = new ArrayList<>();
-                                List<Long> ppIntentIds = new ArrayList<>();
-                                List<Long> importedIntentIds = new ArrayList<>();
-
-                                // first import shortcuts and intents
-                                try {
-                                    for (PPShortcutForExport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
-                                        Shortcut shortcut = new Shortcut();
-                                        shortcut._intent = shortcutForImport.KEY_S_INTENT;
-                                        shortcut._name = shortcutForImport.KEY_S_NAME;
-
-                                        DatabaseHandler.getInstance(_dataWrapper.context).addShortcut(shortcut);
-                                        // save shortcut id
-                                        ppShortcutIds.add(shortcutForImport.KEY_S_ID);
-                                        importedShortcutIds.add(shortcut._id);
-                                    }
-                                    shortcutsError = false;
-                                } catch (Exception e) {
-                                    shortcutsError = true;
-                                }
-                                try {
-                                    for (PPIntentForExport intentForImport : importPPDataBroadcastReceiver.intents) {
-                                        PPIntent ppIntent = new PPIntent(
-                                                intentForImport.KEY_IN_ID,
-                                                intentForImport.KEY_IN_NAME,
-                                                intentForImport.KEY_IN_PACKAGE_NAME,
-                                                intentForImport.KEY_IN_CLASS_NAME,
-                                                intentForImport.KEY_IN_ACTION,
-                                                intentForImport.KEY_IN_DATA,
-                                                intentForImport.KEY_IN_MIME_TYPE,
-                                                intentForImport.KEY_IN_EXTRA_KEY_1,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_1,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_1,
-                                                intentForImport.KEY_IN_EXTRA_KEY_2,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_2,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_2,
-                                                intentForImport.KEY_IN_EXTRA_KEY_3,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_3,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_3,
-                                                intentForImport.KEY_IN_EXTRA_KEY_4,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_4,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_4,
-                                                intentForImport.KEY_IN_EXTRA_KEY_5,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_5,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_5,
-                                                intentForImport.KEY_IN_EXTRA_KEY_6,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_6,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_6,
-                                                intentForImport.KEY_IN_EXTRA_KEY_7,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_7,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_7,
-                                                intentForImport.KEY_IN_EXTRA_KEY_8,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_8,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_8,
-                                                intentForImport.KEY_IN_EXTRA_KEY_9,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_9,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_9,
-                                                intentForImport.KEY_IN_EXTRA_KEY_10,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_10,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_10,
-                                                intentForImport.KEY_IN_CATEGORIES,
-                                                intentForImport.KEY_IN_FLAGS,
-                                                //intentForImport.KEY_IN_USED_COUNT,
-                                                intentForImport.KEY_IN_INTENT_TYPE,
-                                                false
-                                        );
-
-                                        DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
-                                        // save intent id
-                                        ppIntentIds.add(intentForImport.KEY_IN_ID);
-                                        importedIntentIds.add(ppIntent._id);
-                                    }
-                                    intentsError = false;
-                                } catch (Exception e) {
-                                    intentsError = true;
-                                }
-
-                                try {
-                                    for (PPProfileForExport profileForImport : importPPDataBroadcastReceiver.profiles) {
-                                        Profile profile = new Profile(
-                                                profileForImport.KEY_NAME,
-                                                profileForImport.KEY_ICON,
-                                                profileForImport.KEY_CHECKED,
-                                                profileForImport.KEY_PORDER,
-                                                profileForImport.KEY_VOLUME_RINGER_MODE,
-                                                profileForImport.KEY_VOLUME_RINGTONE,
-                                                profileForImport.KEY_VOLUME_NOTIFICATION,
-                                                profileForImport.KEY_VOLUME_MEDIA,
-                                                profileForImport.KEY_VOLUME_ALARM,
-                                                profileForImport.KEY_VOLUME_SYSTEM,
-                                                profileForImport.KEY_VOLUME_VOICE,
-                                                profileForImport.KEY_SOUND_RINGTONE_CHANGE,
-                                                profileForImport.KEY_SOUND_RINGTONE,
-                                                profileForImport.KEY_SOUND_NOTIFICATION_CHANGE,
-                                                profileForImport.KEY_SOUND_NOTIFICATION,
-                                                profileForImport.KEY_SOUND_ALARM_CHANGE,
-                                                profileForImport.KEY_SOUND_ALARM,
-                                                profileForImport.KEY_DEVICE_AIRPLANE_MODE,
-                                                profileForImport.KEY_DEVICE_WIFI,
-                                                profileForImport.KEY_DEVICE_BLUETOOTH,
-                                                profileForImport.KEY_DEVICE_SCREEN_TIMEOUT,
-                                                profileForImport.KEY_DEVICE_BRIGHTNESS,
-                                                profileForImport.KEY_DEVICE_WALLPAPER_CHANGE,
-                                                profileForImport.KEY_DEVICE_WALLPAPER,
-                                                profileForImport.KEY_DEVICE_MOBILE_DATA,
-                                                profileForImport.KEY_DEVICE_MOBILE_DATA_PREFS,
-                                                profileForImport.KEY_DEVICE_GPS,
-                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                                                profileForImport.KEY_DEVICE_AUTOSYNC,
-                                                true,
-                                                profileForImport.KEY_DEVICE_AUTOROTATE,
-                                                profileForImport.KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                                                profileForImport.KEY_VOLUME_SPEAKER_PHONE,
-                                                profileForImport.KEY_DEVICE_NFC,
-                                                profileForImport.KEY_DURATION,
-                                                profileForImport.KEY_AFTER_DURATION_DO,
-                                                profileForImport.KEY_VOLUME_ZEN_MODE,
-                                                profileForImport.KEY_DEVICE_KEYGUARD,
-                                                profileForImport.KEY_VIBRATE_ON_TOUCH,
-                                                profileForImport.KEY_DEVICE_WIFI_AP,
-                                                profileForImport.KEY_DEVICE_POWER_SAVE_MODE,
-                                                profileForImport.KEY_ASK_FOR_DURATION,
-                                                profileForImport.KEY_DEVICE_NETWORK_TYPE,
-                                                profileForImport.KEY_NOTIFICATION_LED,
-                                                profileForImport.KEY_VIBRATE_WHEN_RINGING,
-                                                profileForImport.KEY_DEVICE_WALLPAPER_FOR,
-                                                profileForImport.KEY_HIDE_STATUS_BAR_ICON,
-                                                profileForImport.KEY_LOCK_DEVICE,
-                                                profileForImport.KEY_DEVICE_CONNECT_TO_SSID,
-                                                0,
-                                                0,
-                                                profileForImport.KEY_DURATION_NOTIFICATION_SOUND,
-                                                profileForImport.KEY_DURATION_NOTIFICATION_VIBRATE,
-                                                profileForImport.KEY_DEVICE_WIFI_AP_PREFS,
-                                                0,
-                                                0,
-                                                0,
-                                                profileForImport.KEY_HEADS_UP_NOTIFICATIONS,
-                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
-                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
-                                                profileForImport.KEY_ACTIVATION_BY_USER_COUNT,
-                                                profileForImport.KEY_DEVICE_NETWORK_TYPE_PREFS,
-                                                profileForImport.KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                                profileForImport.KEY_SCREEN_NIGHT_MODE,
-                                                profileForImport.KEY_DTMF_TONE_WHEN_DIALING,
-                                                profileForImport.KEY_SOUND_ON_TOUCH,
-                                                profileForImport.KEY_VOLUME_DTMF,
-                                                profileForImport.KEY_VOLUME_ACCESSIBILITY,
-                                                profileForImport.KEY_VOLUME_BLUETOOTH_SCO,
-                                                0,
-                                                0,
-                                                0,
-                                                false,
-                                                0,
-                                                0,
-                                                "0|0||",
-                                                0,
-                                                0,
-                                                0,
-                                                0,
-                                                0,
-                                                "0|0|0",
-                                                0,
-                                                0,
-                                                0,
-                                                "",
-                                                0,
-                                                "",
-                                                0,
-                                                "",
-                                                0,
-                                                "",
-                                                0,
-                                                "",
-                                                0,
-                                                "-",
-                                                0,
-                                                0,
-                                                0,
-                                                0,
-                                                0,
-                                                "0|0|||0",
-                                                "-1|1",
-                                                "-1|1",
-                                                "-1|1"
-                                        );
-
-                                        // replace ids in profile._deviceRunApplicationPackageName
-                                        // with new shortcut and intent ids
-                                        String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                                        String newValue = "";
-                                        for (String split : splits) {
-                                            String newSplit = "";
-                                            if (Application.isShortcut(split)) {
-                                                if (split.length() > 2) {
-                                                    long id = Application.getShortcutId(split);
-                                                    for (int i = 0; i < ppShortcutIds.size(); i++) {
-                                                        if (id == ppShortcutIds.get(i)) {
-                                                            id = importedShortcutIds.get(i);
-
-                                                            // "(s)package_name/activity#shortcut_id#delay"
-                                                            String[] valueSplits = split.split("#");
-                                                            if (valueSplits.length == 3)
-                                                                newSplit = valueSplits[0] + "#" + id + "#" + valueSplits[2];
-                                                            else
-                                                                newSplit = split;
-
-                                                            break;
-                                                        }
-                                                    }
-                                                } else
-                                                    newSplit = split;
-                                            } else if (Application.isIntent(split)) {
-                                                if (split.length() > 2) {
-                                                    long id = Application.getIntentId(split);
-                                                    for (int i = 0; i < ppIntentIds.size(); i++) {
-                                                        if (id == ppIntentIds.get(i)) {
-                                                            id = importedIntentIds.get(i);
-
-                                                            // "(i)intent_id#delay"
-                                                            String[] valueSplits = split.split("#");
-                                                            if (valueSplits.length == 2)
-                                                                newSplit = "(i)" + id + "#" + valueSplits[1];
-                                                            else
-                                                                newSplit = split;
-
-                                                            break;
-                                                        }
-                                                    }
-                                                } else
-                                                    newSplit = split;
-                                            } else
-                                                newSplit = split;
-
-                                            if (!newValue.isEmpty())
-                                                newValue = newValue + "|";
-                                            newValue = newValue + newSplit;
-                                        }
-                                        profile._deviceRunApplicationPackageName = newValue;
-
-                                        ContentResolver contentResolver = _dataWrapper.context.getContentResolver();
-
-                                        // set profile parameters to "Not used" for non-granted Uri premissions
-                                        String icon = profile._icon;
-                                        if (!ProfileStatic.getIsIconResourceID(icon)) {
-                                            String iconIdentifier = ProfileStatic.getIconIdentifier(icon);
-                                            boolean isGranted = false;
-                                            Uri uri = Uri.parse(iconIdentifier);
-                                            if (uri != null) {
-                                                try {
-                                                    _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                                    isGranted = true;
-                                                } catch (Exception e) {
-                                                    //isGranted = false;
-                                                }
-                                            }
-                                            if (!isGranted) {
-                                                profile._icon = Profile.defaultValuesString.get(Profile.PREF_PROFILE_ICON);
-                                            }
-                                        }
-                                        String tone = profile._soundRingtone;
-                                        splits = tone.split("\\|");
-                                        String ringtone = splits[0];
-                                        if (!ringtone.isEmpty()) {
-                                            if (ringtone.contains("content://media/external")) {
-                                                boolean isGranted = false;
-                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_RINGTONE);
-                                                if (uri != null) {
-                                                    try {
-                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                                        isGranted = true;
-                                                    } catch (Exception e) {
-                                                        //isGranted = false;
-                                                    }
-                                                }
-                                                if (!isGranted) {
-                                                    //noinspection ConstantConditions
-                                                    profile._soundRingtoneChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE));
-                                                    profile._soundRingtone = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE);
-                                                }
-                                            }
-                                        }
-                                        tone = profile._soundNotification;
-                                        splits = tone.split("\\|");
-                                        ringtone = splits[0];
-                                        if (!ringtone.isEmpty()) {
-                                            if (ringtone.contains("content://media/external")) {
-                                                boolean isGranted = false;
-                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_NOTIFICATION);
-                                                if (uri != null) {
-                                                    try {
-                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                                        isGranted = true;
-                                                    } catch (Exception e) {
-                                                        //isGranted = false;
-                                                    }
-                                                }
-                                                if (!isGranted) {
-                                                    //noinspection ConstantConditions
-                                                    profile._soundNotificationChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE));
-                                                    profile._soundNotification = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
-                                                }
-                                            }
-                                        }
-                                        tone = profile._soundAlarm;
-                                        splits = tone.split("\\|");
-                                        ringtone = splits[0];
-                                        if (!ringtone.isEmpty()) {
-                                            if (ringtone.contains("content://media/external")) {
-                                                boolean isGranted = false;
-                                                Uri uri = ActivateProfileHelper.getUriOfSavedTone(_dataWrapper.context, ringtone, RingtoneManager.TYPE_ALARM);
-                                                if (uri != null) {
-                                                    try {
-                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                                        isGranted = true;
-                                                    } catch (Exception e) {
-                                                        //isGranted = false;
-                                                    }
-                                                }
-                                                if (!isGranted) {
-                                                    //noinspection ConstantConditions
-                                                    profile._soundAlarmChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE));
-                                                    profile._soundAlarm = Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM);
-                                                }
-                                            }
-                                        }
-                                        String wallpaper = profile._deviceWallpaper;
-                                        if (!wallpaper.isEmpty() && !wallpaper.equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER))) {
-                                            boolean isGranted = false;
-                                            Uri uri = Uri.parse(wallpaper);
-                                            if (uri != null) {
-                                                try {
-                                                    _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                                                    contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                                    isGranted = true;
-                                                } catch (Exception e) {
-                                                    //isGranted = false;
-                                                }
-                                            }
-                                            if (!isGranted) {
-                                                //noinspection ConstantConditions
-                                                profile._deviceWallpaperChange = Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
-                                                profile._deviceWallpaper = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
-                                            }
-                                        }
-                                        tone = profile._durationNotificationSound;
-                                        if (!tone.isEmpty()) {
-                                            if (tone.contains("content://media/external")) {
-                                                boolean isGranted = false;
-                                                Uri uri = Uri.parse(tone);
-                                                if (uri != null) {
-                                                    try {
-                                                        _dataWrapper.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                                                        contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                                        isGranted = true;
-                                                    } catch (Exception e) {
-                                                        //isGranted = false;
-                                                    }
-                                                }
-                                                if (!isGranted) {
-                                                    profile._durationNotificationSound = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND);
-                                                }
-                                            }
-                                        }
-
-                                        DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
-                                    }
-                                    profilesError = false;
-                                } catch (Exception e) {
-                                    profilesError = true;
-                                }
-                            } else {
-                                profilesError = false;
-                                shortcutsError = false;
-                                intentsError = false;
-                            }
-                        }
-                    }
-
-                    if (importFromPPStopped)
-                        return 2;
-
-                    if (deleteProfilesError || profilesError || shortcutsError || intentsError || appSettingsError)
-                        return 0;
-                    else
-                        return 1;
-                } else
-                    return 0;
-            }
-            else
-                return 0;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-
-            EditorActivity activity = activityWeakRef.get();
-            if (activity != null) {
-                doImport = false;
-
-                if (!activity.isFinishing()) {
-                    if ((activity.importProgressDialog != null) && activity.importProgressDialog.isShowing()) {
-                        if (!activity.isDestroyed())
-                            activity.importProgressDialog.dismiss();
-                        activity.importProgressDialog = null;
-                    }
-                    GlobalGUIRoutines.unlockScreenOrientation(activity);
-                }
-
-                if (importPPDataBroadcastReceiver != null) {
-                    try {
-                        activity.unregisterReceiver(importPPDataBroadcastReceiver);
-                    } catch (Exception ignored) {
-                    }
-                }
-
-                if (!importFromPPStopped) {
-                    if (_dataWrapper != null) {
-                        // clear shared preferences for last activated profile
-                        //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                        //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
-                        PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
-
-//                        PPApplication.logE("[PPP_NOTIFICATION] EditorActivity.importFromPPAsyncTask", "call of updateGUI");
-                        PPApplication.updateGUI(true, false, _dataWrapper.context);
-
-                        PPApplication.setApplicationStarted(_dataWrapper.context, true);
-                        Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
-                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                        serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//                        PPApplication.logE("[START_PP_SERVICE] EditorActivity.doImportDataFromPP", "xxx");
-                        PPApplication.startPPService(activity, serviceIntent);
-                    }
-
-                    if ((_dataWrapper != null) && (!deleteProfilesError) && (!profilesError) && (!shortcutsError) && (!intentsError) && (!appSettingsError)) {
-                        // restart events
-                        //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
-                        //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
-                        //}
-
-                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, "");
-
-                        // toast notification
-                        if (!activity.isFinishing())
-                            PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                    activity.getString(R.string.toast_import_from_pp_ok),
-                                    Toast.LENGTH_SHORT);
-
-                        // refresh activity
-                        if (!activity.isFinishing())
-                            GlobalGUIRoutines.reloadActivity(activity, true);
-
-                        DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
-                        IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
-
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, true);
-                    } else {
-                        int appSettingsResult = 1;
-                        if (appSettingsError) appSettingsResult = 0;
-                        int dbError = DatabaseHandler.IMPORT_OK;
-                        if (deleteProfilesError || profilesError || shortcutsError || intentsError)
-                            dbError = DatabaseHandler.IMPORT_ERROR_BUG;
-                        if (!activity.isFinishing())
-                            activity.importExportErrorDialog(IMPORTEXPORT_IMPORTFROMPP, dbError, appSettingsResult/*, 1*/);
-
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, false);
-                    }
+                    PPApplicationStatic.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
                 }
             }
         }
@@ -5284,7 +4580,7 @@ public class EditorActivity extends AppCompatActivity
                 if (!activity.isFinishing())
                     activity.exportProgressDialog.show();
 
-                runStopEvents = Event.getGlobalEventsRunning();
+                runStopEvents = EventStatic.getGlobalEventsRunning(dataWrapper.context);
             }
         }
 
@@ -5308,12 +4604,12 @@ public class EditorActivity extends AppCompatActivity
                     if (ret == 1) {
                         //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + PPApplication.EXPORT_APP_PREF_FILENAME);
                         File exportFile = new File(sd, PPApplication.EXPORT_APP_PREF_FILENAME);
+                        //noinspection StatementWithEmptyBody
                         if (activity.exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
                             /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
                                 ret = 0;*/
-                            //noinspection ConstantConditions
-                            ret = 1;
+                            //ret = 1;
                         } else
                             ret = 0;
                     }
@@ -5348,14 +4644,14 @@ public class EditorActivity extends AppCompatActivity
                             if (!zipManager.zip(filesToZip, zipFilePath))
                                 ret = 0;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                             e.printStackTrace();
                             ret = 0;
                         }
 
                     }
 
-                    PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
+                    PPApplicationStatic.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
 
                     synchronized (PPApplication.applicationStartedMutex) {
                         PPApplication.exportIsRunning = false;
@@ -5429,7 +4725,7 @@ public class EditorActivity extends AppCompatActivity
                             fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", appSettingsFile);
                             uris.add(fileUri);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
                         String emailAddress = "";
@@ -5441,10 +4737,10 @@ public class EditorActivity extends AppCompatActivity
                         String packageVersion = "";
                         try {
                             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                            packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                            packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
                         } catch (Exception e) {
-                            //Log.e("EditorActivity.doExportData", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+                            //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         }
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
                         emailIntent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
@@ -5461,6 +4757,7 @@ public class EditorActivity extends AppCompatActivity
                                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                             intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
                             intent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
+                            intent.setType("*/*"); // gmail will only match with type set
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
                             intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
@@ -5468,13 +4765,13 @@ public class EditorActivity extends AppCompatActivity
                         //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", "intents.size()="+intents.size());
                         if (intents.size() > 0) {
                             try {
-                                Intent chooser = Intent.createChooser(intents.get(0), context.getString(R.string.email_chooser));
-                                //noinspection ToArrayCallWithZeroLengthArrayArgument
-                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                                Intent chooser = Intent.createChooser(new Intent(Intent.ACTION_CHOOSER), context.getString(R.string.email_chooser));
+                                chooser.putExtra(Intent.EXTRA_INTENT, intents.get(0));
+                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                                 activity.startActivity(chooser);
                             } catch (Exception e) {
                                 //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                     } else
@@ -5543,7 +4840,7 @@ public class EditorActivity extends AppCompatActivity
                                     activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                             if (!ok) {
                                 PPAlertDialog _dialog = new PPAlertDialog(
@@ -5612,18 +4909,23 @@ public class EditorActivity extends AppCompatActivity
 
     @Override
     public void refreshGUIFromListener(Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] EditorActivity.refreshGUIBroadcastReceiver", "xxx");
         //boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
-        boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
-        long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
-        // not change selection in editor if refresh is outside editor
-        refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
+
+        if (intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_RELOAD_ACTIVITY, false))
+            GlobalGUIRoutines.reloadActivity(this, true);
+        else {
+            boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+            long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+            long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
+            // not change selection in editor if refresh is outside editor
+            refreshGUI(/*refresh,*//* true,*/  refreshIcons, false, profileId, eventId);
+        }
     }
 
     @Override
     public void showTargetHelpsFromListener(Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] EditorActivity.showTargetHelpsBroadcastReceiver", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] EditorActivity.showTargetHelpsBroadcastReceiver", "xxx");
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
         if (fragment != null) {
             if (fragment instanceof EditorProfileListFragment)
@@ -5635,7 +4937,7 @@ public class EditorActivity extends AppCompatActivity
 
     @Override
     public void finishActivityFromListener(Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] EditorActivity.finishBroadcastReceiver", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] EditorActivity.finishBroadcastReceiver", "xxx");
         String action = intent.getAction();
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
@@ -5645,7 +4947,7 @@ public class EditorActivity extends AppCompatActivity
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }

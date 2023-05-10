@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 
@@ -50,7 +49,7 @@ class DatabaseHandlerImportExport {
         }
         catch (Exception e) {
             /* not exists ? */
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
         return false;
@@ -115,10 +114,10 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_RINGTONE, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+                            //Log.e("DatabaseHandlerImportExport.afterImportDb", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         }
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_NOTIFICATION));
@@ -141,9 +140,9 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_NOTIFICATION, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA));
@@ -166,9 +165,9 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_MEDIA, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ALARM));
@@ -191,9 +190,9 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_ALARM, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_SYSTEM));
@@ -216,9 +215,9 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_SYSTEM, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_VOICE));
@@ -241,9 +240,9 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_VOICE, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_DTMF));
@@ -266,12 +265,12 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_DTMF, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
-                        if (Build.VERSION.SDK_INT >= 26) {
+                        //if (Build.VERSION.SDK_INT >= 26) {
                             value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY));
                             try {
                                 String[] splits = value.split("\\|");
@@ -292,11 +291,11 @@ class DatabaseHandlerImportExport {
                                     values.put(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY, volume + "|" + splits[1]);
                             } catch (IllegalArgumentException e) {
                                 // java.lang.IllegalArgumentException: Bad stream type 10 - Android 6
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
-                        }
+                        //}
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO));
                         try {
@@ -318,9 +317,9 @@ class DatabaseHandlerImportExport {
                                 values.put(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO, volume + "|" + splits[1]);
                         } catch (IllegalArgumentException e) {
                             // java.lang.IllegalArgumentException: Bad stream type X
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
 
                         // updating row
@@ -338,12 +337,12 @@ class DatabaseHandlerImportExport {
 
         // clear dual sim parameters for device without dual sim support
         int phoneCount = 1;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             TelephonyManager telephonyManager = (TelephonyManager) instance.context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 phoneCount = telephonyManager.getPhoneCount();
             }
-        }
+        //}
         if (phoneCount < 2) {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
@@ -651,12 +650,16 @@ class DatabaseHandlerImportExport {
                         Uri uri = Uri.parse(wallpaperFolder);
                         if (uri != null) {
                             try {
+                                instance.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                /*
                                 instance.context.grantUriPermission(PPApplication.PACKAGE_NAME, uri,
-                                        Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                                        Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 // persistent permissions
                                 final int takeFlags = //data.getFlags() &
                                         (Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 instance.context.getContentResolver().takePersistableUriPermission(uri, takeFlags);
+                                */
                                 isGranted = true;
                             } catch (Exception e) {
                                 //isGranted = false;
@@ -1210,13 +1213,13 @@ class DatabaseHandlerImportExport {
                             //noinspection ResultOfMethodCallIgnored
                             exportedDB.setReadable(true, false);
                         } catch (Exception ee) {
-                            PPApplication.recordException(ee);
+                            PPApplicationStatic.recordException(ee);
                         }
                         try {
                             //noinspection ResultOfMethodCallIgnored
                             exportedDB.setWritable(true, false);
                         } catch (Exception ee) {
-                            PPApplication.recordException(ee);
+                            PPApplicationStatic.recordException(ee);
                         }
 
                         SQLiteDatabase exportedDBObj;
@@ -1267,16 +1270,16 @@ class DatabaseHandlerImportExport {
                         }
                     }
                 } catch (Exception e1) {
-                    //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e1));
+                    //Log.e("DatabaseHandlerImportExport.importDB", Log.getStackTraceString(e1));
                     //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
-                    PPApplication.recordException(e1);
+                    PPApplicationStatic.recordException(e1);
                     ret = DatabaseHandler.IMPORT_ERROR_BUG;
                 }
 
             } catch (Exception e2) {
-                //Log.e("DatabaseHandler.importDB", Log.getStackTraceString(e2));
+                //Log.e("DatabaseHandlerImportExport.importDB", Log.getStackTraceString(e2));
                 //getVersion(): android.database.sqlite.SQLiteCantOpenDatabaseException: unable to open database file (Sqlite code 14), (OS error - 2:No such file or directory)
-                PPApplication.recordException(e2);
+                PPApplicationStatic.recordException(e2);
             }
             return ret;
         } finally {
@@ -1316,7 +1319,9 @@ class DatabaseHandlerImportExport {
                             src = new FileInputStream(dataDB);
                             dst = new FileOutputStream(exportedDB);
 
+                            //noinspection resource
                             FileChannel srcCh = new FileInputStream(dataDB).getChannel();
+                            //noinspection resource
                             FileChannel dstCh = new FileOutputStream(exportedDB).getChannel();
 
                             srcCh.force(true);
@@ -1339,13 +1344,13 @@ class DatabaseHandlerImportExport {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportedDB.setReadable(true, false);
                             } catch (Exception ee) {
-                                PPApplication.recordException(ee);
+                                PPApplicationStatic.recordException(ee);
                             }
                             try {
                                 //noinspection ResultOfMethodCallIgnored
                                 exportedDB.setWritable(true, false);
                             } catch (Exception ee) {
-                                PPApplication.recordException(ee);
+                                PPApplicationStatic.recordException(ee);
                             }
 
                             if (ok) {
@@ -1378,7 +1383,7 @@ class DatabaseHandlerImportExport {
                                         }
 
                                     } catch (Exception ee) {
-                                        PPApplication.recordException(ee);
+                                        PPApplicationStatic.recordException(ee);
                                         ok = false;
                                     }
                                 } finally {
@@ -1390,8 +1395,8 @@ class DatabaseHandlerImportExport {
                                 ret = 1;
                         }
                     } catch (Exception e) {
-                        //Log.e("DatabaseHandler.exportDB", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+                        //Log.e("DatabaseHandlerImportExport.exportDB", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     }
                 } finally {
                     if (src != null)
@@ -1400,7 +1405,7 @@ class DatabaseHandlerImportExport {
                         dst.close();
                 }
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return ret;
         } finally {

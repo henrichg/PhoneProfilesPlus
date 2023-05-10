@@ -93,6 +93,7 @@ public class OpaquenessLightingPreference extends DialogPreference {
     {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.OpaquenessLightingPference);
 
         showLighting = typedArray.getBoolean(R.styleable.OpaquenessLightingPference_showLighting, false);
@@ -136,7 +137,7 @@ public class OpaquenessLightingPreference extends DialogPreference {
 
             Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePreference.onBindViewHolder");
                 int _position = getPosition(value);
                 if (_position != -1) {
                     String summary;

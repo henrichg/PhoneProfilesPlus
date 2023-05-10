@@ -70,7 +70,7 @@ class BitmapManipulator {
                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                     // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
                     //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                     return null;
                 }
                 //if (!ok)
@@ -134,7 +134,7 @@ class BitmapManipulator {
                 return decodedSampleBitmap;
             } catch (Exception ee) {
                 //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(ee));
-                PPApplication.recordException(ee);
+                PPApplicationStatic.recordException(ee);
                 return null;
             }
         }
@@ -205,7 +205,7 @@ class BitmapManipulator {
                 final int rawWidth = options.outWidth;
                 return (rawWidth <= ICON_BITMAP_SIZE_MULTIPLIER * width) && (rawHeight <= ICON_BITMAP_SIZE_MULTIPLIER * height);
             } catch (Exception e) {
-                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                //Log.e("BitmapManipulator.checkBitmapSize", Log.getStackTraceString(e));
                 return false;
             }
         }
@@ -416,12 +416,14 @@ class BitmapManipulator {
             return bitmap;
         } catch (Exception e) {
             //Log.e("BitmapManipulator.getBitmapFromDrawable", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return null;
         }
     }
 
-    static Bitmap getBitmapFromResource(int drawableRes, boolean appIconSize, Context context) {
+    static Bitmap getBitmapFromResource(int drawableRes,
+                                        @SuppressWarnings("SameParameterValue") boolean appIconSize,
+                                        Context context) {
         //Drawable drawable = ContextCompat.getDrawable(context, drawableRes);
         Drawable drawable = AppCompatResources.getDrawable(context, drawableRes);
         return getBitmapFromDrawable(drawable, appIconSize/*, context*/);

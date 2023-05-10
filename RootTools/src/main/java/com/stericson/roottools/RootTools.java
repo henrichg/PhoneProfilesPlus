@@ -22,7 +22,6 @@
 
 package com.stericson.roottools;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +44,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
-@SuppressWarnings({"JavaDoc", "unused"})
+@SuppressWarnings({"ParameterCanBeLocal", "JavadocDeclaration", "ConstantConditions", "UnusedReturnValue", "unused", "SameReturnValue"})
 public final class RootTools {
 
     /**
@@ -67,13 +66,12 @@ public final class RootTools {
         RootTools.rim = rim;
     }
 
-    @SuppressLint("SuspiciousIndentation")
     private static RootToolsInternalMethods getInternals() {
         if (rim == null) {
             RootToolsInternalMethods.getInstance();
         //    return rim;
         } //else {
-            return rim;
+        return rim;
         //}
     }
 
@@ -354,7 +352,6 @@ public final class RootTools {
      * @return <code>List<String></code> A List of Strings representing the environment variable $PATH
      */
     public static List<String> getPath() {
-        //noinspection ConstantConditions
         return Arrays.asList(System.getenv("PATH").split(":"));
     }
 
@@ -623,7 +620,6 @@ public final class RootTools {
      * @param processName name of process to kill
      * @return <code>true</code> if process was found and killed successfully
      */
-    @SuppressWarnings("UnusedReturnValue")
     public static boolean killProcess(final String processName) {
         return getInternals().killProcess(processName);
     }
@@ -684,7 +680,6 @@ public final class RootTools {
      * @return a <code>boolean</code> which indicates whether or not the partition has been
      * remounted as specified.
      */
-    @SuppressWarnings("UnusedReturnValue")
     public static boolean remount(String file, String mountType) {
         // Received a request, get an instance of Remounter
         Remounter remounter = new Remounter();
@@ -801,7 +796,6 @@ public final class RootTools {
      *
      * @return true if logging is enabled
      */
-    @SuppressWarnings("SameReturnValue")
     public static boolean islog() {
         return debugMode;
     }
@@ -821,7 +815,7 @@ public final class RootTools {
      * @param type The type of log, 1 for verbose, 2 for error, 3 for debug
      * @param e    The exception that was thrown (Needed for errors)
      */
-    public static void log(@SuppressWarnings("ParameterCanBeLocal") String TAG, String msg, int type, Exception e) {
+    public static void log(String TAG, String msg, int type, Exception e) {
         if (msg != null && !msg.equals("")) {
             if (debugMode) {
                 if (TAG == null) {

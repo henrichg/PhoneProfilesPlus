@@ -63,12 +63,12 @@
     <!--<style name="AlertDialogStyleColor" parent="Theme.AppCompat.Light.Dialog.Alert">-->
         <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="AlertDialogStyleDLight" parent="Theme.AppCompat.Light.Dialog.Alert">-->
         <!--<item name="android:windowDisablePreview">true</item>-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="AlertDialogStyleDark" parent="Theme.AppCompat.Dialog.Alert">-->
         <!--<item name="android:windowDisablePreview">true</item>-->
@@ -82,9 +82,8 @@
     <!--</style>-->
     <style name="AlertDialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:background">@color/activityBackgroundColor</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent_color</item>
 
         <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
@@ -92,12 +91,14 @@
 
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
     </style>
+<!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
+<!--    Border of dialog is diplayed correctly withotu this attribute.-->
+<!--    <item name="android:background">@color/activityBackgroundColor</item>-->
 
     <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:background">@color/activityBackgroundColor</item>
         <item name="android:windowBackground">@drawable/pp_dialog_background</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent_color</item>
 
         <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
@@ -105,6 +106,9 @@
 
         <item name="android:windowTitleStyle">@style/DialogActivityTitleStyle</item>
     </style>
+<!--    !!! Do not use this, because of Copy/Paste popup in EditText and is not needed. -->
+<!--    Border of dialog is diplayed correctly withotu this attribute.-->
+<!--    <item name="android:background">@color/activityBackgroundColor</item>-->
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:background">@drawable/pp_alert_button_background_selector</item>
@@ -121,11 +125,11 @@
 
     <!--<style name="DialogStyleColor" parent="Theme.AppCompat.Light.Dialog">-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="DialogStyleDLight" parent="Theme.AppCompat.Light.Dialog">-->
         <!--<item name="android:background">@color/activityBackgroundColor</item>-->
-        <!--<item name="colorAccent">@color/accent</item>-->
+        <!--<item name="colorAccent">@color/accent_color</item>-->
     <!--</style>-->
     <!--<style name="DialogStyleDark" parent="Theme.AppCompat.Dialog">-->
         <!--<item name="android:background">@color/activityBackgroundColor_dark</item>-->
@@ -144,7 +148,7 @@
     <!--</style>-->
 
     <style name="TextViewTheme" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/text_view_color</item>
+        <item name="android:textColor">@color/text_view_color_secondary</item>
     </style>
 
     <style name="popup_window_animation">
@@ -168,7 +172,7 @@
 <!--        <item name="android:textAllCaps">false</item>-->
 <!--    </style>-->
 
-    <style name="Actionbar" parent="Widget.AppCompat.ActionBar">
+    <style name="PPPActionbar" parent="Widget.AppCompat.ActionBar">
         <item name="android:layout_marginStart">@dimen/activity_margin_start</item>
         <item name="android:layout_marginEnd">@dimen/activity_margin_end</item>
 
@@ -180,6 +184,21 @@
         <item name="android:textSize">18sp</item>
         <item name="android:singleLine">false</item>
         <item name="android:maxLines">3</item>
+    </style>
+
+    <style name="PreferenceToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:textColor">@color/activityTitleTextColor</item>
+    </style>
+
+    <style name="PreferenceToolbarSubtitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">@dimen/subtitle_text_size</item>
+        <item name="android:textColor">@color/activitySecondaryTextColor</item>
+    </style>
+
+    <style name="EditorToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/editor_title_text_size</item>
+        <item name="android:textColor">@color/activityTitleTextColor</item>
     </style>
 
     <style name="IntentEditorEditTextStyle" parent="@android:style/Widget.EditText">

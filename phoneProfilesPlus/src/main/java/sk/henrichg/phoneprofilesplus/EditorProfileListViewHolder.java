@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.view.View;
@@ -29,7 +28,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
     private final AppCompatImageButton showInActivatorButton;
 
     private Profile profile;
-    private final EditorProfileListFragment editorFragment;
+    final EditorProfileListFragment editorFragment;
 
     private final Context context;
 
@@ -44,7 +43,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         else
             dragHandle = null;
         //if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
-            showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
+        showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
         /*else
             showInActivatorButton = null;*/
 
@@ -86,12 +85,11 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, context)){
             profileName.setTypeface(null, Typeface.BOLD);
             //profileName.setTextSize(15);
-            profileName.setTextColor(Color.RED);
+            profileName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
         }
         else {
             profileName.setTypeface(null, Typeface.BOLD);
             //profileName.setTextSize(15);
-            //noinspection ConstantConditions
             //profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(editorFragment.getActivity()));
             //noinspection ConstantConditions
             profileName.setTextColor(ContextCompat.getColor(editorFragment.getActivity(), R.color.activityNormalTextColor));

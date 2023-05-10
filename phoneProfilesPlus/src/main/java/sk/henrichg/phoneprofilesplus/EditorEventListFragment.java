@@ -9,17 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +25,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,23 +38,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-//import me.drakeet.support.toast.ToastCompat;
 
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
@@ -67,11 +54,11 @@ public class EditorEventListFragment extends Fragment
     DataWrapper activityDataWrapper;
 
     private View rootView;
-    private RelativeLayout activatedProfileHeader;
+    RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
-    private Toolbar bottomToolbar;
+    Toolbar bottomToolbar;
     TextView textViewNoData;
     private LinearLayout progressBar;
     private AppCompatSpinner orderSpinner;
@@ -170,6 +157,7 @@ public class EditorEventListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+//        Log.e("EditorEventListFragment.onCreate", "xxxx");
 
         // this is really important in order to save the state across screen
         // configuration changes for example
@@ -189,7 +177,7 @@ public class EditorEventListFragment extends Fragment
 
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
-        loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+        //loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
 
         //getActivity().getIntent();
 
@@ -199,7 +187,7 @@ public class EditorEventListFragment extends Fragment
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.editor_event_list, container, false);
+        rootView = inflater.inflate(R.layout.fragment_editor_event_list, container, false);
 
         return rootView;
     }
@@ -297,13 +285,14 @@ public class EditorEventListFragment extends Fragment
                 }, 200);
             }*/
 
-            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar) {
+            if (ApplicationPreferences.applicationEditorHideHeaderOrBottomBar ||
+                    getResources().getBoolean(R.bool.forceHideHeaderOrBottomBar)) {
                 final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
                         .getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
                 //layoutTransition.setDuration(500);
 
-                listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
+                listView.addOnScrollListener(new HidingRecyclerViewScrollListener(2) {
                     @Override
                     public void onHide() {
                         //if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
@@ -361,17 +350,6 @@ public class EditorEventListFragment extends Fragment
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
-
-//        menu = bottomToolbar.getMenu();
-//        if (menu != null) {
-//            MenuItem item = menu.findItem(R.id.menu_default_profile);
-//
-//            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-//            else
-//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-//        }
-
         bottomToolbar.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_event) {
@@ -393,6 +371,12 @@ public class EditorEventListFragment extends Fragment
                 Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
                 intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
                 startActivity(intent);
+                return true;
+            }
+            else
+            if (itemId == R.id.menu_generate_predefined_events) {
+                loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, true);
+                loadAsyncTask.execute();
                 return true;
             }
             else
@@ -435,9 +419,9 @@ public class EditorEventListFragment extends Fragment
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 getActivity(),
-                R.layout.highlighted_order_spinner,
+                R.layout.spinner_highlighted_order,
                 orderItems);
-        orderSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         orderSpinner.setBackgroundTintList(ContextCompat.getColorStateList(getActivity()/*.getBaseContext()*/, R.color.highlighted_spinner_all_editor));
         orderSpinner.setAdapter(orderSpinnerAdapter);
@@ -461,6 +445,8 @@ public class EditorEventListFragment extends Fragment
 
         // first must be set eventsOrderType
         changeEventOrder(orderSelectedItem, fromOnViewCreated);
+
+        updateBottomMenu();
     }
 
     void changeFragmentFilter(int eventsFilterType/*, boolean startTargetHelps*/) {
@@ -474,10 +460,11 @@ public class EditorEventListFragment extends Fragment
 
     private static class LoadEventListAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private final WeakReference<EditorEventListFragment> fragmentWeakRef;
-        private final DataWrapper _dataWrapper;
-        private final int _filterType;
-        private final int _orderType;
+        final WeakReference<EditorEventListFragment> fragmentWeakRef;
+        final DataWrapper _dataWrapper;
+        final int _filterType;
+        final int _orderType;
+        final boolean _generatePredefinedProfiles;
         boolean defaultEventsGenerated = false;
 
         final boolean applicationEditorPrefIndicator;
@@ -485,10 +472,14 @@ public class EditorEventListFragment extends Fragment
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
-        public LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
+        public LoadEventListAsyncTask (EditorEventListFragment fragment,
+                                       int filterType,
+                                       int orderType,
+                                       boolean generatePredefinedProfiles) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _orderType = orderType;
+            _generatePredefinedProfiles = generatePredefinedProfiles;
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
@@ -505,7 +496,7 @@ public class EditorEventListFragment extends Fragment
             if ((fragment != null) && (fragment.isAdded())) {
                 progressBarHandler = new Handler(_dataWrapper.context.getMainLooper());
                 progressBarRunnable = () -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.LoadEventListAsyncTask (1)");
                     //fragment.textViewNoData.setVisibility(GONE);
                     fragment.progressBar.setVisibility(VISIBLE);
                 };
@@ -518,9 +509,8 @@ public class EditorEventListFragment extends Fragment
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
 
-            if ((_dataWrapper.eventList.size() == 0) /*&& PPApplication.restoreFinished*/)
-            {
-                if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, true)) {
+            if (_generatePredefinedProfiles) {
+                if ((_dataWrapper.eventList.size() == 0)) {
                     // no events in DB, generate default events
                     // PPApplication.restoreFinished = Google auto-backup finished
                     final EditorEventListFragment fragment = this.fragmentWeakRef.get();
@@ -529,13 +519,6 @@ public class EditorEventListFragment extends Fragment
                         defaultEventsGenerated = true;
                     }
                 }
-            }
-
-            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(_dataWrapper.context);
-            if (sharedPreferences != null) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, false);
-                editor.apply();
             }
 
             _dataWrapper.getEventTimelineList(true);
@@ -576,6 +559,7 @@ public class EditorEventListFragment extends Fragment
                         if (fragment.activityDataWrapper.eventList.size() == 0)
                             fragment.textViewNoData.setVisibility(VISIBLE);
                     }
+                    fragment.updateBottomMenu();
 
                     // get local eventTimelineList
                     _dataWrapper.getEventTimelineList(true);
@@ -624,7 +608,8 @@ public class EditorEventListFragment extends Fragment
     }
 
     void stopRunningAsyncTask() {
-        loadAsyncTask.cancel(true);
+        if (loadAsyncTask != null)
+            loadAsyncTask.cancel(true);
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();
@@ -636,6 +621,7 @@ public class EditorEventListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
+//        Log.e("EditorEventListFragment.onDestroy", "xxxx");
 
         if (isAsyncTaskRunning()) {
             //Log.e("EditorEventListFragment.onDestroy", "AsyncTask not finished");
@@ -675,7 +661,7 @@ public class EditorEventListFragment extends Fragment
 
             //boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
             //if (startTargetHelps)
-                showAdapterTargetHelps();
+            showAdapterTargetHelps();
 
             editMode = EDIT_MODE_EDIT;
         }
@@ -691,8 +677,9 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
+/*
     boolean runStopEvent(final Event event) {
-        if (Event.getGlobalEventsRunning()) {
+        if (EventStatic.getGlobalEventsRunning(activityDataWrapper.context)) {
             // events are not globally stopped
 
             activityDataWrapper.getEventTimelineList(true);
@@ -707,7 +694,7 @@ public class EditorEventListFragment extends Fragment
                     //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
                     //__handler.post(() -> {
                     Runnable runnable = () -> {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
                         //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                         //Event event = eventWeakRef.get();
@@ -727,8 +714,8 @@ public class EditorEventListFragment extends Fragment
                                 }
 
                             } catch (Exception e) {
-//                                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
+//                                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplicationStatic.recordException(e);
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -739,7 +726,7 @@ public class EditorEventListFragment extends Fragment
                             }
                         //}
                     }; //);
-                    PPApplication.createBasicExecutorPool();
+                    PPApplicationStatic.createBasicExecutorPool();
                     PPApplication.basicExecutorPool.submit(runnable);
 
                 }
@@ -756,7 +743,7 @@ public class EditorEventListFragment extends Fragment
                 //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
                     //DataWrapper dataWrapper = dataWrapperWeakRef.get();
                     //Event event = eventWeakRef.get();
@@ -776,8 +763,8 @@ public class EditorEventListFragment extends Fragment
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -788,7 +775,7 @@ public class EditorEventListFragment extends Fragment
                         }
                     //}
                 }; //);
-                PPApplication.createBasicExecutorPool();
+                PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
 
             }
@@ -802,14 +789,14 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
-            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            //Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            //PPApplication.startPPService(activityDataWrapper.context, serviceIntent);
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+            PPApplicationStatic.runCommand(activityDataWrapper.context, commandIntent);
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -820,7 +807,7 @@ public class EditorEventListFragment extends Fragment
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //                            try {
@@ -829,11 +816,11 @@ public class EditorEventListFragment extends Fragment
 //                            }
 //                            //}
 
-//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
         } else {
@@ -857,14 +844,14 @@ public class EditorEventListFragment extends Fragment
             //activityDataWrapper.restartEvents(false, true, true, true, true);
             activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
-            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            //Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
+            //PPApplication.startPPService(activityDataWrapper.context, serviceIntent);
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
-            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
+            PPApplicationStatic.runCommand(activityDataWrapper.context, commandIntent);
 
             OneTimeWorkRequest worker =
                     new OneTimeWorkRequest.Builder(MainWorker.class)
@@ -875,7 +862,7 @@ public class EditorEventListFragment extends Fragment
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
-//                            //if (PPApplication.logEnabled()) {
+//                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
 //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG);
 //                            try {
@@ -884,15 +871,16 @@ public class EditorEventListFragment extends Fragment
 //                            }
 //                            //}
 
-//                    PPApplication.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
+//                    PPApplicationStatic.logE("[WORKER_CALL] EditorEventListFragment.runStopEvent", "xxx");
                     workManager.enqueueUniqueWork(MainWorker.DISABLE_NOT_USED_SCANNERS_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         return true;
     }
+*/
 
     private void duplicateEvent(Event origEvent)
     {
@@ -933,7 +921,7 @@ public class EditorEventListFragment extends Fragment
             // event not exists
             return;
 
-        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
+        PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
 
         listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
@@ -945,7 +933,7 @@ public class EditorEventListFragment extends Fragment
                         PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
                         PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
 
@@ -966,13 +954,52 @@ public class EditorEventListFragment extends Fragment
         //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, true);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
-        PPApplication.runCommand(getActivity(), commandIntent);
+        PPApplicationStatic.runCommand(getActivity(), commandIntent);
 
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
     }
 
     void showEditMenu(View view)
     {
+        // because of refresh list is popup menu moved up
+        // for this reason is used SingleSelectListDialog
+
+        final Event event = (Event)view.getTag();
+
+        int itemsRes;
+        if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP)
+            itemsRes = R.array.eventListItemEditEnableRunArray;
+        else
+            itemsRes = R.array.eventListItemEditStopArray;
+
+        SingleSelectListDialog dialog = new SingleSelectListDialog(
+                true,
+                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.tooltip_options_menu),
+                itemsRes,
+                SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
+                (dialog1, which) -> {
+                    switch (which) {
+                        case 0:
+                            //runStopEvent(event);
+                            EventStatic.runStopEvent(activityDataWrapper, event, (EditorActivity) getActivity());
+                            break;
+                        case 1:
+                            duplicateEvent(event);
+                            break;
+                        case 2:
+                            deleteEventWithAlert(event);
+                            break;
+                        default:
+                    }
+                },
+                null,
+                false,
+                getActivity());
+        dialog.show();
+
+
+/*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         PopupMenu popup;
@@ -981,7 +1008,6 @@ public class EditorEventListFragment extends Fragment
         //else
         //    popup = new PopupMenu(context, view);
         Menu menu = popup.getMenu();
-        //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_edit, menu);
 
         final Event event = (Event)view.getTag();
@@ -1026,6 +1052,7 @@ public class EditorEventListFragment extends Fragment
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
+ */
     }
 
     private void deleteEventWithAlert(Event event)
@@ -1063,10 +1090,11 @@ public class EditorEventListFragment extends Fragment
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
-                        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
+                        PPApplicationStatic.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
                         listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
+                        // this delete events from db
                         activityDataWrapper.stopAllEventsFromMainThread(true, true);
 
                         synchronized (activityDataWrapper.eventList) {
@@ -1080,7 +1108,7 @@ public class EditorEventListFragment extends Fragment
                                             PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG + "_" + event._id,
                                             PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
                                 } catch (Exception e) {
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                             }
                         }
@@ -1098,7 +1126,7 @@ public class EditorEventListFragment extends Fragment
                             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                             commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, true);
                             commandIntent.putExtra(PhoneProfilesService.EXTRA_DISABLE_NOT_USED_SCANNERS, true);
-                            PPApplication.runCommand(getActivity(), commandIntent);
+                            PPApplicationStatic.runCommand(getActivity(), commandIntent);
                         }
 
                         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
@@ -1276,7 +1304,7 @@ public class EditorEventListFragment extends Fragment
                 if (!activityDataWrapper.eventListFilled) {
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
-                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
                     loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1318,7 +1346,7 @@ public class EditorEventListFragment extends Fragment
                 if (!activityDataWrapper.eventListFilled) {
 //                    Log.e("EditorEventListFragment.changeListOrder", "eventList not filled");
                     // start new AsyncTask, because old may be cancelled
-                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType);
+                    loadAsyncTask = new LoadEventListAsyncTask(this, filterType, orderType, false);
                     loadAsyncTask.execute();
                 } else {
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
@@ -1539,7 +1567,7 @@ public class EditorEventListFragment extends Fragment
                     }
                 } catch (Exception e) {
                     if ((activityDataWrapper != null) && (activityDataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
                 return null;
             }
@@ -1671,7 +1699,8 @@ public class EditorEventListFragment extends Fragment
                 int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
+                int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+                int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
                 //boolean tintTarget = !appTheme.equals("white");
@@ -1692,7 +1721,8 @@ public class EditorEventListFragment extends Fragment
                                         .transparentTarget(true)
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1700,7 +1730,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     try {
@@ -1708,7 +1738,8 @@ public class EditorEventListFragment extends Fragment
                                 TapTarget.forToolbarOverflow(bottomToolbar, getString(R.string.editor_activity_targetHelps_eventsBottomMenu_title), getString(R.string.editor_activity_targetHelps_eventsBottomMenu_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1716,7 +1747,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
 
                     try {
@@ -1724,7 +1755,8 @@ public class EditorEventListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, getString(R.string.editor_activity_targetHelps_newEventButton_title), getString(R.string.editor_activity_targetHelps_newEventButton_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1732,14 +1764,15 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_title), getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1747,7 +1780,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
                 if (startTargetHelpsDefaultProfile) {
@@ -1756,7 +1789,8 @@ public class EditorEventListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_default_profile, getString(R.string.editor_activity_targetHelps_backgroundProfileButton_title), getString(R.string.editor_activity_targetHelps_backgroundProfileButton_description))
                                         .outerCircleColor(outerCircleColor)
                                         .targetCircleColor(targetCircleColor)
-                                        .textColor(textColor)
+                                        .titleTextColor(titleTextColor)
+                                        .descriptionTextColor(descriptionTextColor)
                                         .textTypeface(Typeface.DEFAULT_BOLD)
                                         .tintTarget(true)
                                         .drawShadow(true)
@@ -1764,7 +1798,7 @@ public class EditorEventListFragment extends Fragment
                         );
                         ++id;
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
                 if (startTargetHelpsOrderSpinner) {
@@ -1776,7 +1810,8 @@ public class EditorEventListFragment extends Fragment
                                             .transparentTarget(true)
                                             .outerCircleColor(outerCircleColor)
                                             .targetCircleColor(targetCircleColor)
-                                            .textColor(textColor)
+                                            .titleTextColor(titleTextColor)
+                                            .descriptionTextColor(descriptionTextColor)
                                             .textTypeface(Typeface.DEFAULT_BOLD)
                                             .tintTarget(true)
                                             .drawShadow(true)
@@ -1784,7 +1819,7 @@ public class EditorEventListFragment extends Fragment
                             );
                             ++id;
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -1848,7 +1883,7 @@ public class EditorEventListFragment extends Fragment
                 //Log.d("EditorEventListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 final Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.showTargetHelps");
                     //noinspection Convert2MethodRef
                     showAdapterTargetHelps();
                 }, 500);
@@ -1945,9 +1980,73 @@ public class EditorEventListFragment extends Fragment
         return _eventsOrderType;
     }
 
-    @SuppressWarnings("RedundantArrayCreation")
     void showIgnoreManualActivationMenu(View view)
     {
+        // because of refresh list is popup menu moved up
+        // for this reason is used SingleSelectListDialog
+
+        if (getActivity() == null)
+            return;
+
+        final Event event = (Event)view.getTag();
+
+        int value;
+        if (event._ignoreManualActivation && event._noPauseByManualActivation)
+            value = 2;
+        else if (event._ignoreManualActivation)
+            value = 1;
+        else
+            value = 0;
+
+        SingleSelectListDialog dialog = new SingleSelectListDialog(
+                true,
+                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.event_preferences_ForceRun),
+                R.array.eventListItemIgnoreManualActivationArray,
+                value,
+                (dialog1, which) -> {
+                    switch (which) {
+                        case 0:
+                            event._ignoreManualActivation = false;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                    getString(R.string.ignore_manual_activation_not_ignore_toast),
+                                    Toast.LENGTH_LONG);
+                            break;
+                        case 1:
+                            event._ignoreManualActivation = true;
+                            event._noPauseByManualActivation = false;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                    getString(R.string.ignore_manual_activation_ignore_toast),
+                                    Toast.LENGTH_LONG);
+                            break;
+                        case 2:
+                            event._ignoreManualActivation = true;
+                            event._noPauseByManualActivation = true;
+                            DatabaseHandler.getInstance(activityDataWrapper.context).updateEventForceRun(event);
+                            EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
+                            ((EditorActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                            PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                    getString(R.string.ignore_manual_activation_ignore_no_pause_toast),
+                                    Toast.LENGTH_LONG);
+                            break;
+                        default:
+                    }
+                },
+                null,
+                false,
+                getActivity());
+        dialog.show();
+
+/*
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context _context = view.getContext();
         //Context context = new ContextThemeWrapper(getActivity().getBaseContext(), R.style.PopupMenu_editorItem_dayNight);
@@ -1956,41 +2055,50 @@ public class EditorEventListFragment extends Fragment
         popup = new PopupMenu(_context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
-        //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_ignore_manual_activation, popup.getMenu());
-        /*Menu menu = popup.getMenu();
-        MenuItem menuItem = menu.findItem(R.id.event_list_item_ignore_manual_activation_title);
-        menuItem.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));*/
 
         // show icons
         try {
-            @SuppressLint("DiscouragedPrivateApi")
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
-            @SuppressLint("PrivateApi")
             Class<?> cls = Class.forName("com.android.internal.view.menu.MenuPopupHelper");
             Method method = cls.getDeclaredMethod("setForceShowIcon", new Class[]{boolean.class});
             method.setAccessible(true);
             method.invoke(menuPopupHelper, new Object[]{true});
         } catch (Exception e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
 
         final Event event = (Event)view.getTag();
 
         Menu menu = popup.getMenu();
         Drawable drawable;
-        if (event._ignoreManualActivation && event._noPauseByManualActivation)
+        {
             drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation_no_pause).getIcon();
-        else
-        if (event._ignoreManualActivation)
+            if (drawable != null) {
+                drawable.mutate();
+                if (event._ignoreManualActivation && event._noPauseByManualActivation)
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
+                else
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
+            }
             drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation).getIcon();
-        else
+            if (drawable != null) {
+                drawable.mutate();
+                if (event._ignoreManualActivation && (!event._noPauseByManualActivation))
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
+                else
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
+            }
             drawable = menu.findItem(R.id.event_list_item_not_ignore_manual_activation).getIcon();
-        if(drawable != null) {
-            drawable.mutate();
-            drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+            if (drawable != null) {
+                drawable.mutate();
+                if ((!event._ignoreManualActivation))
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent_color), PorterDuff.Mode.SRC_ATOP);
+                else
+                    drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.notSelectedIconColor), PorterDuff.Mode.SRC_ATOP);
+            }
         }
 
         popup.setOnMenuItemClickListener(item -> {
@@ -2052,6 +2160,7 @@ public class EditorEventListFragment extends Fragment
 
         if ((getActivity() != null) && (!getActivity().isFinishing()))
             popup.show();
+*/
     }
 
     void showHeaderAndBottomToolbar() {
@@ -2155,7 +2264,7 @@ public class EditorEventListFragment extends Fragment
                     }
                 } catch (Exception e) {
                     if ((dataWrapper != null) && (dataWrapper.context != null))
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                 }
             }
             return null;
@@ -2230,7 +2339,7 @@ public class EditorEventListFragment extends Fragment
                             redText.setVisibility(GONE);
                         //}
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             }
@@ -2250,5 +2359,18 @@ public class EditorEventListFragment extends Fragment
         }
 
     }*/
+
+
+    void updateBottomMenu() {
+        synchronized (activityDataWrapper.eventList) {
+            Menu menu = bottomToolbar.getMenu();
+            if (menu != null) {
+                MenuItem item = menu.findItem(R.id.menu_generate_predefined_events);
+                item.setVisible(activityDataWrapper.eventList.size() == 0);
+                item = menu.findItem(R.id.menu_delete_all_events);
+                item.setVisible(activityDataWrapper.eventList.size() != 0);
+            }
+        }
+    }
 
 }

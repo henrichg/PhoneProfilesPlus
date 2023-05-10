@@ -99,10 +99,10 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
             asyncTask.cancel(true);
         }
 
-        if (PPApplication.getApplicationsCache() != null) {
-            PPApplication.getApplicationsCache().cancelCaching();
-            if (!PPApplication.getApplicationsCache().cached)
-                PPApplication.getApplicationsCache().clearCache(false);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            PPApplicationStatic.getApplicationsCache().cancelCaching();
+            if (!PPApplicationStatic.getApplicationsCache().cached)
+                PPApplicationStatic.getApplicationsCache().clearCache(false);
         }
 
         preference.fragment = null;
@@ -159,9 +159,9 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
             RunApplicationsDialogPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
-                if (PPApplication.getApplicationsCache() != null)
-                    if (!PPApplication.getApplicationsCache().cached)
-                        PPApplication.getApplicationsCache().cacheApplicationsList(prefContext);
+                if (PPApplicationStatic.getApplicationsCache() != null)
+                    if (!PPApplicationStatic.getApplicationsCache().cached)
+                        PPApplicationStatic.getApplicationsCache().cacheApplicationsList(prefContext);
 
                 List<PPIntent> _intentDBList = DatabaseHandler.getInstance(prefContext.getApplicationContext()).getAllIntents();
                 preference.intentDBList.clear();
@@ -191,9 +191,9 @@ public class RunApplicationsDialogPreferenceFragment extends PreferenceDialogFra
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
-                if (PPApplication.getApplicationsCache() != null)
-                    if (!PPApplication.getApplicationsCache().cached)
-                        PPApplication.getApplicationsCache().clearCache(false);
+                if (PPApplicationStatic.getApplicationsCache() != null)
+                    if (!PPApplicationStatic.getApplicationsCache().cached)
+                        PPApplicationStatic.getApplicationsCache().clearCache(false);
 
                 fragment.applicationsListView.setAdapter(fragment.listAdapter);
                 fragment.rellaDialog.setVisibility(View.VISIBLE);

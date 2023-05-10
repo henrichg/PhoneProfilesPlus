@@ -37,6 +37,7 @@ public class ColorChooserPreference extends DialogPreference {
 
         this.context = context;
 
+        //noinspection resource
         final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];
         for (int i = 0; i < ta.length(); i++) {
@@ -152,7 +153,6 @@ public class ColorChooserPreference extends DialogPreference {
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        //noinspection IfStatementWithIdenticalBranches
         if (applicationTheme.equals("white")) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));

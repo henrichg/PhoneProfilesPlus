@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply from: '../dependencies.gradle'
 
 android {
+    namespace 'com.noob.noobcameraflash'
+
     compileSdkVersion ppVersions.compileSdk
     buildToolsVersion ppVersions.buildTools
 
@@ -28,8 +30,6 @@ android {
 dependencies {
     //compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 }

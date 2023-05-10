@@ -18,8 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] LocationScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
 
         final Context appContext = context.getApplicationContext();
 
@@ -43,10 +43,10 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
 
-        PPApplication.cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        PPApplicationStatic.cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
     }
 
     static void setAlarm(Context context)
@@ -61,7 +61,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
         if (!LocationScanner.useGPS)
             delay = 30 * 60;  // 30 minutes with GPS OFF
 
-        if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
+        if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 //Intent intent = new Intent(_context, LocationScannerSwitchGPSBroadcastReceiver.class);
                 Intent intent = new Intent();
@@ -92,10 +92,10 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                 .setInitialDelay(delay, TimeUnit.SECONDS)
                                 .build();
                 try {
-                    if (PPApplication.getApplicationStarted(true, true)) {
+                    if (PPApplicationStatic.getApplicationStarted(true, true)) {
                         WorkManager workManager = PPApplication.getWorkManagerInstance();
                         if (workManager != null) {
-//                        //if (PPApplication.logEnabled()) {
+//                        //if (PPApplicationStatic.logEnabled()) {
 //                        ListenableFuture<List<WorkInfo>> statuses;
 //                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK);
 //                        try {
@@ -104,12 +104,12 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                        }
 //                        //}
 
-//                            PPApplication.logE("[WORKER_CALL] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "xxx");
+//                            PPApplicationStatic.logE("[WORKER_CALL] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "xxx");
                             workManager.enqueueUniqueWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                         }
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         }
@@ -156,7 +156,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
         //        appContext) {
         //__handler2.post(() -> {
         Runnable runnable = () -> {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
 
             //Context appContext= appContextWeakRef.get();
             //if (appContext != null) {
@@ -200,8 +200,8 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     }
 
                 } catch (Exception e) {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -212,7 +212,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                 }
             //}
         }; //);
-        PPApplication.createScannersExecutor();
+        PPApplicationStatic.createScannersExecutor();
         PPApplication.scannersExecutor.submit(runnable);
     }
 

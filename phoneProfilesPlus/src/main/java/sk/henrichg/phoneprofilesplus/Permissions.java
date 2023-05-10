@@ -76,6 +76,11 @@ class Permissions {
     static final int PERMISSION_EVENT_ROAMING_PREFERENCES = 50;
     static final int PERMISSION_PROFILE_WIREGUARD = 51;
     //static final int PERMISSION_PROFILE_VIBRATION_INTENSITY = 52;
+    static final int PERMISSION_PROFILE_RUN_APPLICATIONS = 53;
+    static final int PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES = 54;
+    static final int PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS = 55;
+    static final int PERMISSION_PROFILE_PPP_PUT_SETTINGS = 56;
+    static final int PERMISSION_PROFILE_RINGTONES_DUAL_SIM = 57;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -279,6 +284,11 @@ class Permissions {
         //checkProfileBackgroundLocation(context, profile, permissions);
         checkProfileMicrophone(context, profile, permissions);
 
+        checkProfileRunApplications(context, profile, permissions);
+        checkProfileInteractivePreferences(context, profile, permissions);
+        checkProfileCloseAllApplications(context, profile, permissions);
+        checkProfilePPPPutSettings(context, profile, permissions);
+
         return permissions;
     }
 
@@ -303,6 +313,9 @@ class Permissions {
     static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts, ArrayList<PermissionType>  permissions) {
         try {
             boolean grantedReadExternalStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            boolean grantedDrawOverApps = true;
+            if (Build.VERSION.SDK_INT >= 29)
+                grantedDrawOverApps = Settings.canDrawOverlays(context);
             boolean grantedContacts = true;
             if (alsoContacts)
                 grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
@@ -311,6 +324,8 @@ class Permissions {
                     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
                 if (!grantedContacts)
                     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
+                if (!grantedDrawOverApps)
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, permission.SYSTEM_ALERT_WINDOW));
             }
             return grantedReadExternalStorage && grantedContacts;
         } catch (Exception e) {
@@ -455,6 +470,13 @@ class Permissions {
                     (profile._soundNotificationChangeSIM2 != 0)) {
                 boolean grantedSystemSettings = Settings.System.canWrite(context);
                 boolean grantedStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                boolean grantedReadPhoneState = true;
+                if ((profile._soundRingtoneChangeSIM1 != 0) ||
+                        (profile._soundRingtoneChangeSIM2 != 0) ||
+                        (profile._soundNotificationChangeSIM1 != 0) ||
+                        (profile._soundNotificationChangeSIM2 != 0))
+                    grantedReadPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
+
                 if (grantedSystemSettings)
                     setShowRequestWriteSettingsPermission(context, true);
                 if (permissions != null) {
@@ -462,6 +484,8 @@ class Permissions {
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
                     if (!grantedStorage)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_EXTERNAL_STORAGE));
+                    if (!grantedReadPhoneState)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES_DUAL_SIM, permission.READ_PHONE_STATE));
                 }
                 return grantedSystemSettings && grantedStorage;
             } else
@@ -577,14 +601,28 @@ class Permissions {
         if (profile == null) return true;
 
         try {
+            boolean externalStorageGranted = true;
             if ((profile._deviceWallpaperChange == 1) ||
-                (profile._deviceWallpaperChange == 4)) {
-                boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                if ((permissions != null) && (!granted))
+                    (profile._deviceWallpaperChange == 4)) {
+                externalStorageGranted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            }
+            boolean drawOverAppsGranted = true;
+            if (Build.VERSION.SDK_INT >= 29) {
+                if ((profile._deviceWallpaperChange == 4) ||
+                        (profile._deviceWallpaperChange == 2)) {
+                    drawOverAppsGranted = Settings.canDrawOverlays(context);
+                    if (drawOverAppsGranted)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                }
+            }
+            if ((permissions != null) && ((!drawOverAppsGranted) || (!externalStorageGranted))) {
+                if (!drawOverAppsGranted)
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.SYSTEM_ALERT_WINDOW));
+                if (!externalStorageGranted)
                     permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
-                return granted;
-            } else
-                return true;
+            }
+            return drawOverAppsGranted && externalStorageGranted;
+
         } catch (Exception e) {
             return false;
         }
@@ -872,20 +910,20 @@ class Permissions {
     static void checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
-        if (android.os.Build.VERSION.SDK_INT >= 26) {
-            try {
-                if (profile._alwaysOnDisplay != 0) {
-                    boolean granted = Settings.System.canWrite(context);
-                    if (granted)
-                        setShowRequestWriteSettingsPermission(context, true);
-                    if (!granted) {
-                        if (permissions != null)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
-                    }
+        //if (android.os.Build.VERSION.SDK_INT >= 26) {
+        try {
+            if (profile._alwaysOnDisplay != 0) {
+                boolean granted = Settings.System.canWrite(context);
+                if (granted)
+                    setShowRequestWriteSettingsPermission(context, true);
+                if (!granted) {
+                    if (permissions != null)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_ALWAYS_ON_DISPLAY, permission.WRITE_SETTINGS));
                 }
-            } catch (Exception ignored) {
             }
+        } catch (Exception ignored) {
         }
+        //}
     }
 
     static boolean checkLockDevice(Context context) {
@@ -1020,22 +1058,118 @@ class Permissions {
     static void checkProfileMicrophone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return /*true*/;
 
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
+        try {
+            if ((profile._deviceAirplaneMode >= 4)/* &&
+                    (!PPApplication.isRooted(false))*/) {
+                // if deice is not rooted, required is set PPP as default assistant
+                boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+                if ((permissions != null) && (!granted))
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
+            //    return /*granted*/;
+            } //else
+                //return /*true*/;
+        } catch (Exception e) {
+            //return /*false*/;
+        }
+        //} //else
+            //return /*true*/;
+    }
+
+    static void checkProfileRunApplications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
             try {
-                if ((profile._deviceAirplaneMode >= 4)/* &&
-                        (!PPApplication.isRooted(false))*/) {
-                    // if deice is not rooted, required is set PPP as default assistant
-                    boolean granted = ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
-                    if ((permissions != null) && (!granted))
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_MICROPHONE, permission.RECORD_AUDIO));
-                //    return /*granted*/;
+                if (profile._deviceRunApplicationChange == 1) {
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_RUN_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
                 } //else
-                    //return /*true*/;
+                //  return true;
             } catch (Exception e) {
-                //return /*false*/;
+                //return false;
             }
         } //else
-            //return /*true*/;
+        //return /*true*/;
+    }
+
+    static void checkProfileInteractivePreferences(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                if ((profile._deviceMobileDataPrefs == 1) ||
+                        (profile._deviceNetworkTypePrefs == 1) ||
+                        (profile._deviceLocationServicePrefs == 1) ||
+                        (profile._deviceWiFiAPPrefs == 1) ||
+                        (profile._deviceVPNSettingsPrefs == 1)){
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
+                } //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
+    }
+
+    static void checkProfileCloseAllApplications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                if ((profile._deviceCloseAllApplications == 1)){
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
+                } //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
+    }
+
+    static void checkProfilePPPPutSettings(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return /*true*/;
+
+        if (Build.VERSION.SDK_INT >= 29) {
+            try {
+                //if ((profile._deviceCloseAllApplications == 1)){
+                    boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+                    if (grantedDrawOverlays)
+                        setShowRequestDrawOverlaysPermission(context, true);
+                    if (permissions != null) {
+                        if (!grantedDrawOverlays)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_PPP_PUT_SETTINGS, permission.SYSTEM_ALERT_WINDOW));
+                    }
+                    //return grantedDrawOverlays;
+                //} //else
+                //  return true;
+            } catch (Exception e) {
+                //return false;
+            }
+        } //else
+        //return /*true*/;
     }
 
     static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
@@ -1212,13 +1346,14 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     static private void checkEventLocation(Context context, Event event, SharedPreferences preferences,
                                            ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
+
         if (event != null) {
             try {
+                //noinspection DuplicateExpressions
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
@@ -1322,6 +1457,7 @@ class Permissions {
             } catch (Exception ignored) {
             }
         } else {
+            //noinspection DuplicateExpressions
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_WIFI_SCANNER) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER) ||
@@ -1459,13 +1595,13 @@ class Permissions {
         }
     }
 
-    @SuppressWarnings("DuplicateExpressions")
     private static void checkEventPhoneState(Context context, Event event, SharedPreferences preferences,
                                              ArrayList<PermissionType>  permissions, int sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
             try {
+                //noinspection DuplicateExpressions
                 if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
                         (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
@@ -1484,7 +1620,7 @@ class Permissions {
                         }
                     }
 
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                             if (event._eventPreferencesMobileCells._enabled) {
                                 if (permissions != null) {
@@ -1531,7 +1667,7 @@ class Permissions {
                             }
                         }
 
-                    }
+                    //}
 
                 }
 
@@ -1539,6 +1675,7 @@ class Permissions {
             }
         }
         else {
+            //noinspection DuplicateExpressions
             if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_PHONE_CALL) ||
                     (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS) ||
@@ -1557,7 +1694,7 @@ class Permissions {
                     }
                 }
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     if ((sensorType == EventsHandler.SENSOR_TYPE_ALL) || (sensorType == EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                         if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                             if (permissions != null) {
@@ -1580,7 +1717,8 @@ class Permissions {
                         if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
                             if ((!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, "0").equals("0")) ||
                                     (!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, "0").equals("0")) ||
-                                    (!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, "0").equals("0"))) {
+                                    (!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, "0").equals("0")) ||
+                                    (!preferences.getString(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, "0").equals("0"))) {
                                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                                 if (telephonyManager != null) {
                                     int phoneCount = telephonyManager.getPhoneCount();
@@ -1604,7 +1742,7 @@ class Permissions {
                         }
                     }
 
-                }
+                //}
 
             }
 
@@ -1621,10 +1759,10 @@ class Permissions {
 
     static boolean checkMicrophone(Context context) {
         try {
-            if (Build.VERSION.SDK_INT >= 26)
+            //if (Build.VERSION.SDK_INT >= 26)
                 return (ContextCompat.checkSelfPermission(context, permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED);
-            else
-                return true;
+            //else
+            //    return true;
         } catch (Exception e) {
             return false;
         }
@@ -1699,7 +1837,7 @@ class Permissions {
                 //    context.startActivity(intent);
             } catch (Exception e) {
                 //Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 //return false;
             }
         }
@@ -1950,7 +2088,7 @@ class Permissions {
                 //    context.startActivity(intent);
             } catch (Exception e) {
                 //Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
                 //return false;
             }
         }
@@ -2176,7 +2314,7 @@ class Permissions {
                 // only for API 29 add also background location For 30+ must be granted separatelly
                 //if (Build.VERSION.SDK_INT == 29)
                 //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-                if (Build.VERSION.SDK_INT >= 26)
+                //if (Build.VERSION.SDK_INT >= 26)
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
@@ -2376,7 +2514,7 @@ class Permissions {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2397,7 +2535,7 @@ class Permissions {
                     PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_TAG,
                     PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2420,7 +2558,7 @@ class Permissions {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2442,12 +2580,12 @@ class Permissions {
         //try {
             //notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
         //} catch (Exception e) {
-        //    PPApplication.recordException(e);
+        //    PPApplicationStatic.recordException(e);
         //}
         //try {
             //notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
         //} catch (Exception e) {
-        //    PPApplication.recordException(e);
+        //    PPApplicationStatic.recordException(e);
         //}
     }
 
@@ -3115,7 +3253,7 @@ class Permissions {
                                 activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -3165,7 +3303,7 @@ class Permissions {
                                         activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
                                         ok = true;
                                     } catch (Exception e) {
-                                        PPApplication.recordException(e);
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                                 if (!ok) {

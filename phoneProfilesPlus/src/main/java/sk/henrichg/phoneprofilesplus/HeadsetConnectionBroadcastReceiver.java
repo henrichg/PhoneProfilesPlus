@@ -16,9 +16,9 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] HeadsetConnectionBroadcastReceiver.onReceive","xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] HeadsetConnectionBroadcastReceiver.onReceive","xxx");
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -67,7 +67,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                     connectedBluetoothHeadphones, connectedBluetoothMicrophone);
         }
 
-        if (Event.getGlobalEventsRunning())
+        if (EventStatic.getGlobalEventsRunning(context))
         {
             if (broadcast)
             {
@@ -79,7 +79,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 __handler.post(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -98,15 +98,15 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                             //if (accessoryEventsExists)
                             //{
                             // start events handler
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] HeadsetConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_HEADSET_CONNECTION");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] HeadsetConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_HEADSET_CONNECTION");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
 
                             //}
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

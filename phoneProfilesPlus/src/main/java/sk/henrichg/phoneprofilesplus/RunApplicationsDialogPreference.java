@@ -72,8 +72,8 @@ public class RunApplicationsDialogPreference extends DialogPreference {
 
         setWidgetLayoutResource(R.layout.preference_widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        if (PPApplication.getApplicationsCache() == null)
-            PPApplication.createApplicationsCache(false);
+        if (PPApplicationStatic.getApplicationsCache() == null)
+            PPApplicationStatic.createApplicationsCache(false);
 
     }
 
@@ -114,10 +114,11 @@ public class RunApplicationsDialogPreference extends DialogPreference {
 
         final List<Application> _applicationsList = new ArrayList<>();
 
-        if (PPApplication.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
 
-            String notPassedIntents = "";
+            //String notPassedIntents = "";
+            StringBuilder _notPassedIntents = new StringBuilder();
 
             String[] splits = _value.split("\\|");
             for (String split : splits) {
@@ -294,14 +295,17 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                 if (intentPassed)
                     continue;
 
-                if (!notPassedIntents.isEmpty())
-                    //noinspection StringConcatenationInLoop
-                    notPassedIntents = notPassedIntents + "|";
-                //noinspection StringConcatenationInLoop
-                notPassedIntents = notPassedIntents + split;
+                //if (!notPassedIntents.isEmpty())
+                //    notPassedIntents = notPassedIntents + "|";
+                //notPassedIntents = notPassedIntents + split;
+                if (_notPassedIntents.length() > 0)
+                    _notPassedIntents.append("|");
+                _notPassedIntents.append(split);
             }
 
-            if (!notPassedIntents.isEmpty()) {
+            //if (!notPassedIntents.isEmpty()) {
+            if (_notPassedIntents.length() > 0) {
+                String notPassedIntents = _notPassedIntents.toString();
                 // add not passed intents
                 splits = notPassedIntents.split("\\|");
                 for (String split : splits) {
@@ -392,10 +396,10 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                             if (app != null)
                                 prefSummary = packageManager.getApplicationLabel(app).toString();
                         } catch (PackageManager.NameNotFoundException e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                         catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                     else {
@@ -411,13 +415,14 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         setSummary(prefSummary);
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private String getValue() {
-        String _value = "";
+        //String _value = "";
+        StringBuilder _val = new StringBuilder();
         if (applicationsList != null)
         {
             for (Application application : applicationsList)
             {
+                /*
                 if (!_value.isEmpty())
                     _value = _value + "|";
 
@@ -431,13 +436,33 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                 else
                     _value = _value + application.intentId;
 
-                if ((application.type == Application.TYPE_SHORTCUT)/* && (application.shortcutId > 0)*/)
+                if ((application.type == Application.TYPE_SHORTCUT))
                     _value = _value + "#" + application.shortcutId;
 
                 _value = _value + "#" + application.startApplicationDelay;
+                */
+
+                if (_val.length() > 0)
+                    _val.append("|");
+
+                if (application.type == Application.TYPE_SHORTCUT)
+                    _val.append("(s)");
+                if (application.type == Application.TYPE_INTENT)
+                    _val.append("(i)");
+
+                if (application.type != Application.TYPE_INTENT)
+                    _val.append(application.packageName).append("/").append(application.activityName);
+                else
+                    _val.append(application.intentId);
+
+                if ((application.type == Application.TYPE_SHORTCUT)/* && (application.shortcutId > 0)*/)
+                    _val.append("#").append(application.shortcutId);
+
+                _val.append("#").append(application.startApplicationDelay);
             }
         }
-        return _value;
+        //return _value;
+        return _val.toString();
     }
 
     void persistValue() {
@@ -469,7 +494,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
     }
 
     private void setIcons() {
-        PackageManager packageManager = context.getPackageManager();
+        PackageManager packageManager = context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
         String[] splits = value.split("\\|");
@@ -708,8 +733,8 @@ public class RunApplicationsDialogPreference extends DialogPreference {
             return;
         }
 
-        if (PPApplication.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
             if (cachedApplicationList != null) {
                 int _position = applicationsList.indexOf(application);
                 Application editedApplication = application;

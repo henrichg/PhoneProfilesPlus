@@ -18,6 +18,7 @@ public class InfoDialogPreference extends DialogPreference {
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPInfoDialogPreference);
 

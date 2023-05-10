@@ -2,22 +2,23 @@
 <resources>
     <color name="primary">#1B1B1B</color>
     <color name="primaryDark">#1B1B1B</color>
-    <!--    <color name="primary">#201a18</color>-->
-    <!--    <color name="primaryDark">#201a18</color>-->
 
-    <color name="accent">#f8b367</color>
     <color name="navigationBar">#000000</color>
 
     <color name="activityBackgroundColor">#FF1B1B1B</color>
     <!--    <color name="activityBackgroundColor">#FF201a18</color>-->
 
-    <color name="activityNormalTextColor">#FFd4d4d4</color>
+    <color name="activityNormalTextColor">#FFefefef</color>
     <color name="activitySecondaryTextColor">#CFFFFFFF</color>
     <color name="activityDisabledTextColor">#2FFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1Fffffff</color>
     <color name="activityPopupMenuBackgroundColor">#FF151515</color>
-    <!-- this is for no-ripple selector -->
-    <color name="activityPopupMenuClickedItemBackgroundColor">#37ffffff</color>
+    <color name="activityTitleTextColor">#FFffffff</color>
+    <color name="dialogTitleTextColor">#FFffffff</color>
+
+    <color name="rippleRectangeleItemBackgroundColor">#FF606060</color>
+    <color name="rippleOvalItemBackgroundColor">#FF707070</color>
+
     <!--    <color name="activityDisabledTextColor">#4Dffdad3</color>-->
     <!--    <color name="activityCommandBackgroundColor">#1Fffdad3</color>-->
     <!--    <color name="activityPopupMenuBackgroundColor">#FF1a1513</color>-->
@@ -27,7 +28,7 @@
 
     <!--    <color name="changedPreferenceValueTextColor">#FFd4d4d4</color>-->
 
-    <color name="notificationDecorationColor">#cc893e</color>
+<!--    <color name="notificationDecorationColor">#cc893e</color>-->
 
     <color name="smoothBottomBarIconTint">#FFFFFFFF</color>
     <color name="smoothBottomBarTextColor">#FFE0E0E0</color>
@@ -40,11 +41,9 @@
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
     <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
-
     <color name="tabTargetHelpTargetCircleColor">#1B1B1B</color>
-    <!--    <color name="tabTargetHelpTargetCircleColor">#FF201a18</color>-->
-
-    <color name="tabTargetHelpTextColor">#FF000000</color>
+    <color name="tabTargetHelpTitleTextColor">#FF000000</color>
+    <color name="tabTargetHelpDescriptionTextColor">#FF000000</color>
 
     <color name="fastScrollTrackPP">#27ffffff</color>
     <color name="fastScrollThumbInactivePP">#60ffffff</color>
@@ -56,6 +55,8 @@
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
     <color name="eventStopTextColor">#FFb5b5b5</color>
+
+<!--    <color name="notSelectedIconColor">#FFc5c5c5</color>-->
 
     <color name="sensor_pass_status_passed">#FF67F86A</color>
     <color name="sensor_pass_status_not_passed">#FF67ACF8</color>
@@ -87,8 +88,10 @@
     <color name="altype_eventEnd">#FF67ACF8</color>
     <color name="altype_eventDelayStartEnd">#FFF867F4</color>
     <color name="altype_restartEvents">#FFc1c068</color>
-    <color name="altype_error">#FFFF0000</color>
+    <color name="altype_error">#FFFF2424</color>
     <color name="altype_other">#FF7F7F7F</color>
+
+    <color name="event_status_stop">#FFb5b5b5</color>
 
     <!--    <color name="bottom_navigation_indicator">#80E99B7F</color>-->
 

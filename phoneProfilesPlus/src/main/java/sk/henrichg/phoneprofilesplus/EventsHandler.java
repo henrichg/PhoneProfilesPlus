@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -158,10 +157,11 @@ class EventsHandler {
             boolean manualRestart = sensorType == SENSOR_TYPE_MANUAL_RESTART_EVENTS;
             boolean isRestart = (sensorType == SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
 
-            if (!PPApplication.getApplicationStarted(true, true))
+            if (!PPApplicationStatic.getApplicationStarted(true, true))
                 // application is not started
                 return;
 
+            /*
             PhoneProfilesService ppService;
 
             if (PhoneProfilesService.getInstance() != null) {
@@ -169,11 +169,12 @@ class EventsHandler {
             }
             else
                 return;
+            */
 
             this.sensorType = sensorType;
 
 //            if ((sensorType == SENSOR_TYPE_LOCATION_SCANNER))
-//                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
+//                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ do EventsHandler, sensorType="+sensorType+" ------");
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation (in doEndHandler())
@@ -193,46 +194,16 @@ class EventsHandler {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                            if (_uri != null)
-                                oldRingtoneSIM1 = _uri;
-                            else
-                                oldRingtoneSIM1 = oldRingtone;
-                            _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
-                            if (_uri != null)
-                                oldRingtoneSIM2 = _uri;
-                            else
-                                oldRingtoneSIM2 = oldRingtone;
-                        } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                            if (_uri != null)
-                                oldRingtoneSIM1 = _uri;
-                            else
-                                oldRingtoneSIM1 = oldRingtone;
-                            _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
-                            if (_uri != null)
-                                oldRingtoneSIM2 = _uri;
-                            else
-                                oldRingtoneSIM2 = oldRingtone;
-                        } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
-                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
-                            if (_uri != null)
-                                oldRingtoneSIM1 = _uri;
-                            else
-                                oldRingtoneSIM1 = oldRingtone;
-
-                            int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
-                            if (useUniform == 0) {
-                                _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
-                                if (_uri != null)
-                                    oldRingtoneSIM2 = _uri;
-                                else
-                                    oldRingtoneSIM2 = oldRingtone;
-                            }
-                            else
-                                oldRingtoneSIM2 = oldRingtoneSIM1;
-                        }
+                        String _uri = ActivateProfileHelper.getRingtoneFromSystem(appContext, 1);
+                        if (_uri != null)
+                            oldRingtoneSIM1 = _uri;
+                        else
+                            oldRingtoneSIM1 = oldRingtone;
+                        _uri = ActivateProfileHelper.getRingtoneFromSystem(appContext, 2);
+                        if (_uri != null)
+                            oldRingtoneSIM2 = _uri;
+                        else
+                            oldRingtoneSIM2 = oldRingtone;
                     }
                 }
             } catch (SecurityException e) {
@@ -246,7 +217,7 @@ class EventsHandler {
                 oldRingtoneSIM2 = "";
             }
 
-            if (!Event.getGlobalEventsRunning()) {
+            if (!EventStatic.getGlobalEventsRunning(context)) {
                 // events are globally stopped
 
                 doEndHandler(null, null);
@@ -258,8 +229,8 @@ class EventsHandler {
             if ((DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) &&
                     (!manualRestart)){
                 // not any event is paused or running
-                PPApplication.setApplicationFullyStarted(context);
-//                PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(1)");
+                PPApplicationStatic.setApplicationFullyStarted(context);
+//                PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(1)");
 
                 doEndHandler(null, null);
 
@@ -272,10 +243,10 @@ class EventsHandler {
                     // events not exists
 
 //                    if ((sensorType == SENSOR_TYPE_BATTERY) || (sensorType == SENSOR_TYPE_BATTERY_WITH_LEVEL))
-//                        PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
+//                        PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 
-                    PPApplication.setApplicationFullyStarted(context);
-//                    PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
+                    PPApplicationStatic.setApplicationFullyStarted(context);
+//                    PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(2)");
 
                     doEndHandler(null, null);
 
@@ -298,7 +269,7 @@ class EventsHandler {
 // ---- Special for sensors which requires calendar data - START -----------
             boolean saveCalendarStartEndTime = false;
             if (isRestart) {
-                if (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
+                if (EventStatic.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED) {
                     for (Event _event : dataWrapper.eventList) {
                         if ((_event.getStatus() != Event.ESTATUS_STOP) &&
@@ -425,12 +396,11 @@ class EventsHandler {
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
-            //noinspection IfStatementWithIdenticalBranches
             if (isRestart) {
 
 
                 // 1. pause events
-                Event pausedEvent = null;
+                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -442,7 +412,10 @@ class EventsHandler {
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
-                            pausedEvent = _event;
+                            if ((_event._notificationSoundEnd != null) &&
+                                (!_event._notificationSoundEnd.isEmpty()) ||
+                                _event._notificationVibrateEnd)
+                                notifiedPausedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -450,15 +423,13 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //_event.notifyEventEnd(false, false);
                         }
 
                     }
                 }
-                if (pausedEvent != null) {
+                if (notifiedPausedEvent != null) {
                     // notify this event
-                    pausedEvent.notifyEventEnd(/*true, true*/);
+                    notifiedPausedEvent.notifyEventEnd(context, /*true,*/ true);
                     //notified = true;
                 }
 
@@ -470,7 +441,7 @@ class EventsHandler {
 
                 // 2. start events
                 //sortEventsByStartOrderAsc(dataWrapper.eventList);
-                Event startedEvent = null;
+                Event notifiedStartedEvent = null;
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 
@@ -483,7 +454,10 @@ class EventsHandler {
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
-                            startedEvent = _event;
+                            if ((_event._notificationSoundStart != null) &&
+                                    (!_event._notificationSoundStart.isEmpty()) ||
+                                    _event._notificationVibrateStart)
+                                notifiedStartedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -491,22 +465,20 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //_event.notifyEventStart(context, false, false);
                         }
 
                     }
                 }
-                if (startedEvent != null) {
+                if (notifiedStartedEvent != null) {
                     // notify this event;
-                    startedEvent.notifyEventStart(context/*, true, true*/);
+                    notifiedStartedEvent.notifyEventStart(context, /*true,*/ true);
                     //notified = true;
                 }
 
             } else {
 
                 //1. pause events
-                Event pausedEvent = null;
+                Event notifiedPausedEvent = null;
                 for (Event _event : dataWrapper.eventList) {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
@@ -518,7 +490,10 @@ class EventsHandler {
 
                         if (running && paused) {
                             // pause only running events
-                            pausedEvent = _event;
+                            if ((_event._notificationSoundEnd != null) &&
+                                    (!_event._notificationSoundEnd.isEmpty()) ||
+                                    _event._notificationVibrateEnd)
+                                notifiedPausedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -526,22 +501,18 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //if (_event.notifyEventEnd(!notified, true))
-                            //    notified = true;
-
                         }
 
                     }
                 }
-                if (pausedEvent != null) {
+                if (notifiedPausedEvent != null) {
                     // notify this event;
-                    pausedEvent.notifyEventStart(context/*, true, true*/);
+                    notifiedPausedEvent.notifyEventEnd(context, /*true,*/ true);
                     //notified = true;
                 }
 
                 //2. start events
-                Event startedEvent = null;
+                Event notifiedStartedEvent = null;
                 Collections.reverse(dataWrapper.eventList);
                 for (Event _event : dataWrapper.eventList) {
 
@@ -554,7 +525,10 @@ class EventsHandler {
 
                         if (running && paused) {
                             // start only paused events
-                            startedEvent = _event;
+                            if ((_event._notificationSoundStart != null) &&
+                                    (!_event._notificationSoundStart.isEmpty()) ||
+                                    _event._notificationVibrateStart)
+                                notifiedStartedEvent = _event;
 
                             if (startProfileMerged)
                                 mergedProfilesCount++;
@@ -562,16 +536,13 @@ class EventsHandler {
                                 mergedProfilesCount++;
                             if (startProfileMerged || endProfileMerged)
                                 usedEventsCount++;
-
-                            //if (_event.notifyEventStart(context, !notified, true))
-                            //    notified = true;
                         }
 
                     }
                 }
-                if (startedEvent != null) {
+                if (notifiedStartedEvent != null) {
                     // notify this event;
-                    startedEvent.notifyEventStart(context/*, true, true*/);
+                    notifiedStartedEvent.notifyEventStart(context, /*true,*/ true);
                     //notified = true;
                 }
             }
@@ -635,7 +606,7 @@ class EventsHandler {
                             //
                             // this is set, because is not good to again execute interactive parameters
                             // for already activated default profile
-                            PPApplication.setBlockProfileEventActions(true);
+                            PPApplicationStatic.setBlockProfileEventActions(true);
                         }
 
                     } else {
@@ -693,7 +664,7 @@ class EventsHandler {
                             //
                             // this is set, because is not good to again execute interactive parameters
                             // for already activated default profile
-                            PPApplication.setBlockProfileEventActions(true);
+                            PPApplicationStatic.setBlockProfileEventActions(true);
                         }
                     }
                 }
@@ -723,7 +694,7 @@ class EventsHandler {
                 if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 
                     // log only when merged profile is not the same as last activated or for restart events
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
+                    PPApplicationStatic.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
                             null,
                             DataWrapperStatic.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
                             mergedProfilesCount + "\u00A0[\u00A0" + usedEventsCount + "\u00A0]");
@@ -737,13 +708,11 @@ class EventsHandler {
             //if (!notified) {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
-                    if (ppService != null) {
-                        ppService.playNotificationSound(
-                                defaultProfileNotificationSound,
-                                defaultProfileNotificationVibrate/*,
-                                false*/);
-                        //notified = true;
-                    }
+                    PhoneProfilesServiceStatic.playNotificationSound(
+                            defaultProfileNotificationSound,
+                            defaultProfileNotificationVibrate,
+                            false, context);
+                    //notified = true;
                 }
             //}
 
@@ -753,12 +722,12 @@ class EventsHandler {
 
             doEndHandler(dataWrapper, mergedProfile);
 
-            PPApplication.setApplicationFullyStarted(context);
-//            PPApplication.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(3)");
+            PPApplicationStatic.setApplicationFullyStarted(context);
+//            PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] EventsHandler.handleEvents", "(3)");
 
             // refresh all GUI - must be for restart scanners
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
-//                PPApplication.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] EventsHandler.handleEvents", "call of updateGUI");
                 PPApplication.updateGUI(false, false, context);
 
 //                synchronized (PPApplication.profileActivationMutex) {
@@ -776,7 +745,7 @@ class EventsHandler {
 
             dataWrapper.invalidateDataWrapper();
 
-//                PPApplication.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
+//                PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventsHandler.handleEvents", "-- end --------------------------------");
 
         }
     }
@@ -795,6 +764,7 @@ class EventsHandler {
             case SENSOR_TYPE_DEVICE_IDLE_MODE:
             case SENSOR_TYPE_SIM_STATE_CHANGED:
             case SENSOR_TYPE_BOOT_COMPLETED:
+            case SENSOR_TYPE_CONTACTS_CACHE_CHANGED:
                 return true;
         }
         return false;
@@ -819,6 +789,7 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_CALENDAR;
             case SENSOR_TYPE_DOCK_CONNECTION:
             case SENSOR_TYPE_HEADSET_CONNECTION:
+            case SENSOR_TYPE_ACCESSORIES:
                 return DatabaseHandler.ETYPE_ACCESSORY;
             case SENSOR_TYPE_TIME:
                 return DatabaseHandler.ETYPE_TIME;
@@ -863,6 +834,15 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_ROAMING;
             case SENSOR_TYPE_VPN:
                 return DatabaseHandler.ETYPE_VPN;
+            case SENSOR_TYPE_SOUND_PROFILE:
+                return DatabaseHandler.ETYPE_SOUND_PROFILE;
+            case SENSOR_TYPE_PERIODIC:
+            case SENSOR_TYPE_PERIODIC_EVENT_END:
+                return DatabaseHandler.ETYPE_PERIODIC;
+            case SENSOR_TYPE_VOLUMES:
+                return DatabaseHandler.ETYPE_VOLUMES;
+            case SENSOR_TYPE_SCREEN:
+                return DatabaseHandler.ETYPE_SCREEN;
             default:
                 return DatabaseHandler.ETYPE_ALL;
         }
@@ -917,10 +897,10 @@ class EventsHandler {
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM2, mergedProfile._soundRingtoneSIM2);
 
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_CALL_FROM_SIM_SLOT, simSlot);
-                        PPApplication.runCommand(context, commandIntent);
+                        PPApplicationStatic.runCommand(context, commandIntent);
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
 

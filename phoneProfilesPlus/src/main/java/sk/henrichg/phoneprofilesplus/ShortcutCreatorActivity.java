@@ -11,7 +11,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] ShortcutCreatorActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] ShortcutCreatorActivity.onCreate", "xxx");
 
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, true, false, false);
         //GlobalGUIRoutines.setLanguage(this);

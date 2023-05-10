@@ -176,7 +176,7 @@ public class LiveWallpapersDialogPreferenceFragment extends PreferenceDialogFrag
                         _wallpapersList.add(new LiveWallpapersData(prefContext.getString(R.string.profile_preferences_deviceLiveWallpaper_noneInstalled), null));
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
 

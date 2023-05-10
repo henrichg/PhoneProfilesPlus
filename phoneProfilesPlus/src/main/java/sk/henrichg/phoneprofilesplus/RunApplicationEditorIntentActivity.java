@@ -124,9 +124,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentIntentTypeSpinner = findViewById(R.id.application_editor_intent_intent_type_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentIntentTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentIntentTypeSpinner.setAdapter(spinnerAdapter);
         intentIntentTypeSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentIntentTypeSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -155,9 +155,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentActionArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentActionSpinner.setAdapter(spinnerAdapter);
         intentActionSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentActionSpinner.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -207,20 +207,23 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intentData.clearFocus();
                         intentMimeType.clearFocus();
 
-                        String categoryValue = "";
+                        //String categoryValue = "";
+                        StringBuilder value = new StringBuilder();
                         int i = 0;
                         for (boolean selected : categoryIndices) {
                             //Log.e("RunApplicationEditorIntentActivity.cattegoryButton.onClick", "selected="+selected);
                             if (selected) {
-                                if (!categoryValue.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    categoryValue = categoryValue + "\n";
-                                //noinspection StringConcatenationInLoop
-                                categoryValue = categoryValue + categoryArray[i];
+                                //if (!categoryValue.isEmpty())
+                                //    categoryValue = categoryValue + "\n";
+                                //categoryValue = categoryValue + categoryArray[i];
+                                if (value.length() > 0)
+                                    value.append("\n");
+                                value.append(categoryArray[i]);
                             }
                             ++i;
                         }
-                        categoryTextView.setText(categoryValue);
+                        //categoryTextView.setText(categoryValue);
+                        categoryTextView.setText(value.toString());
                         //intentScrollView.post(new Runnable() {
                         //    public void run() {
                         //        intentScrollView.scrollTo(0, categoryTextView.getBottom());
@@ -248,19 +251,22 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intentData.clearFocus();
                         intentMimeType.clearFocus();
 
-                        String flagsValue = "";
+                        //String flagsValue = "";
+                        StringBuilder value = new StringBuilder();
                         int i = 0;
                         for (boolean selected : flagIndices) {
                             if (selected) {
-                                if (!flagsValue.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    flagsValue = flagsValue + "\n";
-                                //noinspection StringConcatenationInLoop
-                                flagsValue = flagsValue + flagArray[i];
+                                //if (!flagsValue.isEmpty())
+                                //    flagsValue = flagsValue + "\n";
+                                //flagsValue = flagsValue + flagArray[i];
+                                if (value.length() > 0)
+                                    value.append("\n");
+                                value.append(flagArray[i]);
                             }
                             ++i;
                         }
-                        flagsTextView.setText(flagsValue);
+                        //flagsTextView.setText(flagsValue);
+                        flagsTextView.setText(value.toString());
                         //intentScrollView.post(new Runnable() {
                         //    public void run() {
                         //        intentScrollView.scrollTo(0, flagsTextView.getBottom());
@@ -278,9 +284,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner1.setAdapter(spinnerAdapter);
         intentExtraSpinner1.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner1.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -302,9 +308,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner2.setAdapter(spinnerAdapter);
         intentExtraSpinner2.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner2.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -326,9 +332,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner3.setAdapter(spinnerAdapter);
         intentExtraSpinner3.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner3.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -350,9 +356,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner4.setAdapter(spinnerAdapter);
         intentExtraSpinner4.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner4.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -374,9 +380,9 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         intentExtraSpinner5.setAdapter(spinnerAdapter);
         intentExtraSpinner5.setPopupBackgroundResource(R.drawable.popupmenu_background);
         intentExtraSpinner5.setBackgroundTintList(ContextCompat.getColorStateList(this/*getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -543,15 +549,15 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             startActivity(testIntent);
                             ok = true;
                         } catch (Exception e) {
-                            //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
-                            //PPApplication.recordException(e);
+                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
+                            //PPApplicationStatic.recordException(e);
                         }
                     } else {
                         try {
                             sendBroadcast(testIntent);
                             ok = true;
                         } catch (Exception e) {
-                            //Log.e("ApplicationEditorIntentActivityX.onCreate.testButtonClick", Log.getStackTraceString(e));
+                            //Log.e("RunApplicationEditorIntentActivity.onCreate.testButtonClick", Log.getStackTraceString(e));
                         }
                     }
                 }
@@ -670,7 +676,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     action = Intent.ACTION_CALL_BUTTON;
                     break;
                 case "ACTION_CARRIER_SETUP":
-                    if (Build.VERSION.SDK_INT >=26)
+                    //if (Build.VERSION.SDK_INT >=26)
                         action = Intent.ACTION_CARRIER_SETUP;
                     break;
                 case "ACTION_CHOOSER":
@@ -783,30 +789,36 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         }
 
         ppIntent._categories = "";
+        StringBuilder value = new StringBuilder();
         int i = 0;
         for (boolean selected : categoryIndices) {
             if (selected) {
-                if (!ppIntent._categories.isEmpty())
-                    //noinspection StringConcatenationInLoop
-                    ppIntent._categories = ppIntent._categories + "|";
-                //noinspection StringConcatenationInLoop
-                ppIntent._categories = ppIntent._categories + categoryArray[i];
+                //if (!ppIntent._categories.isEmpty())
+                //    ppIntent._categories = ppIntent._categories + "|";
+                //ppIntent._categories = ppIntent._categories + categoryArray[i];
+                if (value.length() > 0)
+                    value.append("|");
+                value.append(categoryArray[i]);
             }
             ++i;
         }
+        ppIntent._categories = value.toString();
 
         ppIntent._flags = "";
+        value.setLength(0);
         i = 0;
         for (boolean selected : flagIndices) {
             if (selected) {
-                if (!ppIntent._flags.isEmpty())
-                    //noinspection StringConcatenationInLoop
-                    ppIntent._flags = ppIntent._flags + "|";
-                //noinspection StringConcatenationInLoop
-                ppIntent._flags = ppIntent._flags + flagArray[i];
+                //if (!ppIntent._flags.isEmpty())
+                //    ppIntent._flags = ppIntent._flags + "|";
+                //ppIntent._flags = ppIntent._flags + flagArray[i];
+                if (value.length() > 0)
+                    value.append("|");
+                value.append(flagArray[i]);
             }
             ++i;
         }
+        ppIntent._flags = value.toString();
 
         if (intentExtraKeyName1.getText() != null)
             ppIntent._extraKey1 = intentExtraKeyName1.getText().toString();
@@ -982,7 +994,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addCategory(Intent.CATEGORY_TEST);
                             break;
                         case "CATEGORY_TYPED_OPENABLE":
-                            if (Build.VERSION.SDK_INT >=26)
+                            //if (Build.VERSION.SDK_INT >=26)
                                 intent.addCategory(Intent.CATEGORY_TYPED_OPENABLE);
                             break;
                         case "CATEGORY_UNIT_TEST":
@@ -992,7 +1004,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addCategory(Intent.CATEGORY_VOICE);
                             break;
                         case "CATEGORY_VR_HOME":
-                            if (Build.VERSION.SDK_INT >=26)
+                            //if (Build.VERSION.SDK_INT >=26)
                                 intent.addCategory(Intent.CATEGORY_VR_HOME);
                             break;
                     }
@@ -1108,7 +1120,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_RECEIVER_REPLACE_PENDING);
                             break;
                         case "FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS":
-                            if (Build.VERSION.SDK_INT >= 26)
+                            //if (Build.VERSION.SDK_INT >= 26)
                                 intent.addFlags(Intent.FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS);
                             break;
                     }

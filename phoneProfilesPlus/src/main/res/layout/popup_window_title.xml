@@ -25,6 +25,7 @@
             android:layout_centerVertical="true"
             android:textSize="@dimen/gui_info_popup_title_size"
             android:textStyle="bold"
+            android:textColor="@color/activityNormalTextColor"
             android:text="Title"
             tools:ignore="HardcodedText" />
 
@@ -38,6 +39,7 @@
             android:layout_gravity="end"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_button_close"
+            app:tint="@color/accent_color"
             android:contentDescription="@string/popup_window_close_button_name"
             app:textAllCaps="true" />
 

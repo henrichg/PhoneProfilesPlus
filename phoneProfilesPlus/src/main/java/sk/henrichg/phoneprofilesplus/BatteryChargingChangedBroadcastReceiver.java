@@ -8,22 +8,22 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "xxx");
 
         //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
         String action = intent.getAction();
-//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "action=" + action);
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "action=" + action);
 
         if (action == null)
             return;
 
-//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "isCharging="+PPApplication.isCharging);
-//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "plugged="+PPApplication.plugged);
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "isCharging="+PPApplication.isCharging);
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "plugged="+PPApplication.plugged);
 
         boolean _isCharging = false;
         //int _plugged = -1;
@@ -38,12 +38,12 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
             _isCharging = false;
         }*/
 
-//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "PPApplication.isCharging="+PPApplication.isCharging);
-//        PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "_isCharging="+_isCharging);
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "PPApplication.isCharging="+PPApplication.isCharging);
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "_isCharging="+_isCharging);
 
         if ((PPApplication.isCharging != _isCharging) /*||
             ((_plugged != -1) && (PPApplication.plugged != _plugged))*/) {
-//            PPApplication.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "---- state changed");
+//            PPApplicationStatic.logE("[IN_BROADCAST] BatteryChargingChangedBroadcastReceiver.onReceive", "---- state changed");
 
             PPApplication.isCharging = _isCharging;
 
@@ -107,7 +107,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
             }
             */
 
-            if (Event.getGlobalEventsRunning()) {
+            if (EventStatic.getGlobalEventsRunning(context)) {
                 final Context appContext = context.getApplicationContext();
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY, "SENSOR_TYPE_BATTERY", 0);
                 /*
@@ -116,7 +116,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 __handler.post(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -129,13 +129,13 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             // start events handler
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

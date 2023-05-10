@@ -3,44 +3,46 @@
 PhoneProfilesPlus (aka PPP)
 ===========================
 
-[![version](https://img.shields.io/badge/version-6.1.0.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.1.0.2)
+[![version](https://img.shields.io/badge/version-6.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/6.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
-__[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__  
-Latest version is 4.2.0.3 and will never by upgraded.  
-Reason: Google restrictions:  
-1. Android - All Wi-Fi related functions not working since Android 10.  
-2. Google Play - Google require (currently) Android 10+ for applications. In application exists gradle configuration parameter:  
-   `targetSdkVersion targetSdk`  
-   and in PPP must be target sdk = 28. Android 10 is 29.
+### Sources of PhoneProfilesPlus:
 
-In stores, in which is currently deployed PPP, restriction about target sdk does not apply.
+- __[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
 
-### Another sources of PhoneProfilesPlus:
+Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
-__[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
+__Galaxy Store:__
+- [PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)
 
-Use keyword "PhoneProfilesPlus" for search this application in these stores.
+__Huawei AppGallery:__
+- [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)  
+- [Store application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)
 
-__[Galaxy Store PPP release (for Samsung devices only)](https://galaxystore.samsung.com/detail/sk.henrichg.phoneprofilesplus)__
+__APKPure:__
+- [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)  
+- [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
 
-__[Huawei AppGallery PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)__  
-__[Huawei AppGallery application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)__
-
-__[APKPure PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__  
-__[APKPure application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)__
-
-__[F-Droid PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
+__F-Droid:__
+- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
-__[F-Droid application (download)](https://www.f-droid.org/)__
+- [Store application (download)](https://www.f-droid.org/)
 
-__Droid-ify (F-Droid alternative)__  
-__[Droid-ify PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__  
-__[Droid-ify applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)__
+__Droid-ify (F-Droid alternative):__  
+- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)  
+- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
 &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
+
+__If it is not possible to install PhoneProfilesPlus from GitHub or other sources directly on the device, then it can be installed from PC.__
+- [Show how](docs/install_apk_from_pc.md)
+
+### Applications required for some PhoneProfilesPlus features:
+
+- __[PhoneProfilesPlusExtender](https://github.com/henrichg/PhoneProfilesPlusExtender)__
+- __[PPPPutSettings](https://github.com/henrichg/PPPPutSettings)__
 
 ---
 
@@ -50,7 +52,7 @@ Android application - manually and by event triggered change of device settings 
 This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.  
 In it is also possibility to automatically activate Profiles by Events.  
 
-[Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
+- [Privacy Policy](https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html)
 
 _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gron@gmail.com>. Speed up the especially bug fixes. Thank you very much. ****_
 
@@ -86,8 +88,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Supported Android versions
 
-- From Android 7.0
-- minSdkVersion = 24
+- From Android 8.0
+- minSdkVersion = 26
 - targetSdkVersion = 28
 - compiledSdkVersion = 33
 
@@ -112,8 +114,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - android-betterpickers (as module, code modified) - https://github.com/code-troopers/android-betterpickers
 - AndroidClearChroma (as module, code modified) - https://github.com/Kunzisoft/AndroidClearChroma
 - RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
-- RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
-- SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
+- RelativePopupWindow (only modified class RelativePopupWindow.java) - https://github.com/kakajika/RelativePopupWindow
+- SunriseSunset (only modified class SunriseSunset.java) - https://github.com/caarmen/SunriseSunset
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
 - AndroidHiddenApiBypass - https://github.com/LSPosed/AndroidHiddenApiBypass
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash

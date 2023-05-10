@@ -48,6 +48,7 @@ import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
+@SuppressWarnings({"resource", "UnusedAssignment", "unused"})
 public class FastScroller {
     private static final int DEFAULT_AUTO_HIDE_DELAY = 1500;
 
@@ -79,14 +80,11 @@ public class FastScroller {
 
     private Animator mAutoHideAnimator;
     private boolean mAnimatingShow;
-    @SuppressWarnings("UnusedAssignment")
     private int mAutoHideDelay = DEFAULT_AUTO_HIDE_DELAY;
-    @SuppressWarnings("UnusedAssignment")
     private boolean mAutoHideEnabled = true;
     private final Runnable mHideRunnable;
 
     private int mThumbActiveColor;
-    @SuppressWarnings("UnusedAssignment")
     private int mThumbInactiveColor = 0x79000000;
     private boolean mThumbInactiveState;
 
@@ -289,10 +287,9 @@ public class FastScroller {
                 mTrack);
 
         //Handle
-        //noinspection IntegerDivisionInFloatingPointContext
-        rect.set(mThumbPosition.x + mOffset.x + (mThumbWidth - mTrackWidth) / 2,
+        rect.set(mThumbPosition.x + mOffset.x + (mThumbWidth - mTrackWidth) / 2f,
                 mThumbPosition.y + mOffset.y,
-                mThumbPosition.x + mOffset.x + mThumbWidth + (mThumbWidth - mTrackWidth) / 2,
+                mThumbPosition.x + mOffset.x + mThumbWidth + (mThumbWidth - mTrackWidth) / 2f,
                 mThumbPosition.y + mOffset.y + mThumbHeight);
         canvas.drawRoundRect(rect,
                 mThumbWidth,
@@ -340,13 +337,11 @@ public class FastScroller {
     }
 
     // Setter/getter for the popup alpha for animations
-    @SuppressWarnings("unused")
     @Keep
     public void setOffsetX(int x) {
         setOffset(x, mOffset.y);
     }
 
-    @SuppressWarnings("unused")
     @Keep
     public int getOffsetX() {
         return mOffset.x;

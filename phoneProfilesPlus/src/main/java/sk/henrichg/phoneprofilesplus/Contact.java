@@ -13,6 +13,7 @@ class Contact {
     long photoId = 0;
     boolean checked = false;
     String accountType = "";
+    String accountName = "";
 
     Contact() {
     }

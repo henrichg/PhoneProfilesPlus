@@ -17,10 +17,37 @@
         android:background="@color/primary"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
+        app:titleTextAppearance="@style/PreferenceToolbarTitleText"
+        app:subtitleTextAppearance="@style/PreferenceToolbarSubtitleText"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="72dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
         android:elevation="1dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_preferences_toolbar_no_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="72dp"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:elevation="1dp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/activity_preferences_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/title_activity_phone_profiles_preferences"
+        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:textSize="17sp"/>
 
     <View
         android:id="@+id/activity_preferences_divider"

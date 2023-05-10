@@ -163,7 +163,7 @@ public class WallpaperFolderPreference extends Preference {
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;
                 if (!(wallpaperFolder.isEmpty() || wallpaperFolder.equals("-"))) {
                     try {
@@ -184,12 +184,12 @@ public class WallpaperFolderPreference extends Preference {
                     } catch (Exception ignored) {
                     }
                 }
-            }
+            //}
 
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
             _ok = true;
         } catch (Exception e) {
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
         }
         if (!_ok) {
             try {
@@ -213,7 +213,7 @@ public class WallpaperFolderPreference extends Preference {
                 //if (!activity.isFinishing())
                 _dialog.show();
             } catch (Exception e) {
-                //PPApplication.recordException(e);
+                //PPApplicationStatic.recordException(e);
             }
         }
     }

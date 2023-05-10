@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,9 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -31,8 +29,8 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
     private static final String PREF_PPP_RELEASE_ALARM = "github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
-//        PPApplication.logE("[IN_BROADCAST_ALARM] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST_ALARM] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
 
         if (intent != null) {
             doWork(/*true,*/ context);
@@ -120,84 +118,84 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_DONATION_TAG_WORK);
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
         //if (useHandler) {
-            final Context appContext = context.getApplicationContext();
-            //PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
-            //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
-            //        context.getApplicationContext()) {
-            //__handler.post(() -> {
-            Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
+        final Context appContext = context.getApplicationContext();
+        //PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
+        //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+        //        context.getApplicationContext()) {
+        //__handler.post(() -> {
+        Runnable runnable = () -> {
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
-                //Context appContext= appContextWeakRef.get();
-                //if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
+            //Context appContext= appContextWeakRef.get();
+            //if (appContext != null) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_doWork");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
                     try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_doWork");
-                            wakeLock.acquire(10 * 60 * 1000);
+                        boolean getVersion;
+                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
+                            getVersion = false;
+                        else
+                        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
+                            getVersion = false;
+                        else {
+                            PackageManager packageManager = appContext.getPackageManager();
+
+                            //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+                            //boolean amazonAppStoreInstalled = (intent != null);
+
+                            Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+                            boolean huaweiAppGalleryInstalled = (intent != null);
+
+                            intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+                            boolean fdroidInstalled = (intent != null);
+
+                            intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+                            boolean droidifyInstalled = (intent != null);
+
+                            getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
                         }
+                        if (getVersion)
+                            _doWorkGitHub(appContext);
+                        else
+                            _doWorkOthers(appContext);
 
+                    } catch (Exception ignored) {
+                    }
+
+                    setAlarm(appContext);
+
+                } catch (Exception e) {
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
-                            boolean getVersion;
-                            if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy)
-                                getVersion = false;
-                            else
-                            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
-                                getVersion = false;
-                            else {
-                                PackageManager packageManager = appContext.getPackageManager();
-
-                                //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-                                //boolean amazonAppStoreInstalled = (intent != null);
-
-                                Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
-                                boolean huaweiAppGalleryInstalled = (intent != null);
-
-                                intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
-                                boolean fdroidInstalled = (intent != null);
-
-                                intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
-                                boolean droidifyInstalled = (intent != null);
-
-                                getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);
-                            }
-                            if (getVersion)
-                                _doWorkGitHub(appContext);
-                            else
-                                _doWorkOthers(appContext);
-
+                            wakeLock.release();
                         } catch (Exception ignored) {
                         }
-
-                        setAlarm(appContext);
-
-                    } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
                     }
-                //}
-            }; //);
-            PPApplication.createBasicExecutorPool();
+                }
+            //}
+        }; //);
+        PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
         /*}
         else {
@@ -226,7 +224,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         }
 
         // show notification for check new release
-        PPApplication.createNewReleaseNotificationChannel(appContext);
+        PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
 
         NotificationCompat.Builder mBuilder;
         Intent _intent;
@@ -236,10 +234,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
         _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, critical);
 
-        String nTitle = appContext.getString(R.string.menu_check_github_releases);
+        String nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.menu_check_github_releases);
         String nText = appContext.getString(R.string.check_ppp_releases_notification);
         mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText)
@@ -257,19 +255,21 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
 
         Notification notification = mBuilder.build();
-        if (Build.VERSION.SDK_INT < 26) {
+        /*if (Build.VERSION.SDK_INT < 26) {
             notification.vibrate = null;
             notification.defaults &= ~DEFAULT_VIBRATE;
-        }
+        }*/
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
         try {
             mNotificationManager.notify(
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
                     PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+        } catch (SecurityException en) {
+            Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
-            //Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            //Log.e("CheckPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -295,11 +295,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                         String versionNameInReleases = "";
                         int versionCodeInReleases = 0;
 
-                        //noinspection UnnecessaryLocalVariable
-                        String contents = response;
+                        //String contents = response;
 
-                        PPApplication.PPPReleaseData pppReleaseData =
-                                PPApplication.getReleaseData(contents, true, appContext);
+                        PPApplicationStatic.PPPReleaseData pppReleaseData =
+                                PPApplicationStatic.getReleaseData(response, true, appContext);
 
                         showNotification = pppReleaseData != null;
                         if (showNotification) {
@@ -317,17 +316,17 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             }
 
                         } catch (Exception e) {
-//                            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+//                            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
                         }
 
                     },
                     error -> {
-//                        Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(error));
+//                        Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(error));
                     });
             queue.add(stringRequest);
 
         } catch (Exception e) {
-//            Log.e("CheckPPPReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+//            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
         }
     }
 

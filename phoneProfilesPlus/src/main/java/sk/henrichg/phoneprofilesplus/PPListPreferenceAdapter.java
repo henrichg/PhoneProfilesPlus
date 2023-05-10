@@ -47,7 +47,7 @@ class PPListPreferenceAdapter extends BaseAdapter
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.pp_list_preference_list_item, parent, false);
+            vi = inflater.inflate(R.layout.listitem_pp_list_preference, parent, false);
             holder = new ViewHolder();
             holder.entry = vi.findViewById(R.id.pp_list_pref_dlg_item_label);
             holder.radioButton = vi.findViewById(R.id.pp_list_pref_dlg_item_radiobutton);
@@ -63,11 +63,13 @@ class PPListPreferenceAdapter extends BaseAdapter
         holder.radioButton.setTag(position);
         holder.radioButton.setChecked(preference.value.equals(preference.entryValues[position].toString()));
         holder.radioButton.setOnClickListener(v -> {
-            RadioButton rb = (RadioButton) v;
-            preference.value = preference.entryValues[(Integer)rb.getTag()].toString();
-            //notifyDataSetChanged();
-            preference.persistValue();
-            preference.fragment.dismiss();
+            if (preference.fragment != null) {
+                RadioButton rb = (RadioButton) v;
+                preference.value = preference.entryValues[(Integer) rb.getTag()].toString();
+                //notifyDataSetChanged();
+                preference.persistValue();
+                preference.fragment.dismiss();
+            }
         });
 
         return vi;

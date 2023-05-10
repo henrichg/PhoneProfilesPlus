@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@SuppressLint("MissingPermission")
 class BluetoothConnectedDevices {
 
     private static volatile BluetoothHeadset bluetoothHeadset = null;
@@ -24,6 +23,7 @@ class BluetoothConnectedDevices {
 
     private static volatile BluetoothProfile.ServiceListener profileListener = null;
 
+    @SuppressLint("MissingPermission")
     static void getConnectedDevices(final Context context) {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
@@ -35,7 +35,7 @@ class BluetoothConnectedDevices {
             if (profileListener == null) {
                 profileListener = new BluetoothProfile.ServiceListener() {
                     public void onServiceConnected(int profile, BluetoothProfile proxy) {
-//                        PPApplication.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
+//                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
 
                         if (profile == BluetoothProfile.HEADSET) {
                             bluetoothHeadset = (BluetoothHeadset) proxy;
@@ -44,6 +44,7 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothHeadset != null) {
                                 try {
+                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothHeadset.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
@@ -52,7 +53,7 @@ class BluetoothConnectedDevices {
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, bluetoothHeadset);
                             }
@@ -64,6 +65,8 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothHealth != null) {
                                 try {
+                                    @SuppressWarnings("deprecation")
+                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothHealth.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
@@ -72,7 +75,7 @@ class BluetoothConnectedDevices {
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
                             }
@@ -84,6 +87,7 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothA2dp != null) {
                                 try {
+                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothA2dp.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
@@ -92,7 +96,7 @@ class BluetoothConnectedDevices {
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, bluetoothA2dp);
                             }
@@ -149,11 +153,12 @@ class BluetoothConnectedDevices {
 
             } catch (Exception e) {
                 //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
 
+    @SuppressLint("MissingPermission")
     private static void addConnectedDevices(List<BluetoothDevice> detectedDevices, List<BluetoothDeviceData> connectedDevices)
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {

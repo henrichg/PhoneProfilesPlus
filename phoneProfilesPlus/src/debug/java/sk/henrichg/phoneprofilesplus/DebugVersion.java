@@ -29,7 +29,7 @@ class DebugVersion {
                 //
                 // Crashlytics only stores the most recent 8 exceptions in a given app session. If your app
                 // throws more than 8 exceptions in a session, older exceptions are lost.
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             return true;
         }

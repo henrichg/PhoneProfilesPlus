@@ -24,4 +24,14 @@
         app:dependency="eventRoamingEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_roaming_forSimCard"
+        app:summary="@string/event_preferences_forSimCard_bothCards"
+        app:key="eventRomanigForSimCard"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventRoamingForSimCardArray"
+        app:ppEntryValues="@array/eventRoamingForSimCardValues"
+        app:dependency="eventRoamingEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

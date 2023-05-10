@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@SuppressWarnings({"SynchronizationOnLocalVariableOrMethodParameter", "TryWithIdenticalCatches", "ConstantConditions", "LoopConditionNotUpdatedInsideLoop", "unused"})
 public class Remounter
 {
 
@@ -93,7 +94,6 @@ public class Remounter
             {
                 try
                 {
-                    //noinspection ConstantConditions
                     file = (new File(file).getParent());
                 }
                 catch (Exception e)
@@ -173,14 +173,12 @@ public class Remounter
         return false;
     }
 
-    @SuppressWarnings("TryWithIdenticalCatches")
     private Mount findMountPointRecursive(String file)
     {
         try
         {
             ArrayList<Mount> mounts = RootTools.getMounts();
 
-            //noinspection ConstantConditions,LoopConditionNotUpdatedInsideLoop
             for (File path = new File(file); path != null; )
             {
                 for (Mount mount : mounts)
@@ -215,7 +213,6 @@ public class Remounter
 
     private void commandWait(Command cmd)
     {
-        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd)
         {
             try

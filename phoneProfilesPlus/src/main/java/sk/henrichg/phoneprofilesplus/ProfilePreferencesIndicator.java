@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -24,8 +25,8 @@ class ProfilePreferencesIndicator {
     final int[] countItems = new int[60];
     int countPreferences = 0;
 
-    static final int DISABLED_ALPHA_DYNAMIC_LIGHT = 255;
-    static final int DISABLED_ALPHA_DYNAMIC_DARK = 150;
+    //static final int DISABLED_ALPHA_DYNAMIC_LIGHT = 255;
+    //static final int DISABLED_ALPHA_DYNAMIC_DARK = 150;
     static final int DISABLED_ALPHA_MONOCHROME = 128;
 
     private Bitmap createIndicatorBitmap(/*Context context,*/ int countDrawables)
@@ -95,12 +96,13 @@ class ProfilePreferencesIndicator {
             //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
             //                    == Configuration.UI_MODE_NIGHT_YES;
 
-            boolean setAlpha = true;
+            //boolean setAlpha = true;
 
             if ((Build.VERSION.SDK_INT >= 31) &&
                     (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_NATIVE_BACKGROUND)) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
+                    dynamicColor = saturateColor(dynamicColor);
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 } else {
                     if (!monochrome) {
@@ -131,7 +133,7 @@ class ProfilePreferencesIndicator {
                             else
                                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         }
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_NOTIFICATION_DARK_BACKGROUND:
                         if (disabled)
@@ -139,15 +141,16 @@ class ProfilePreferencesIndicator {
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = true;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_NOTIFICATION_LIGHT_BACKGROUND:
+                        //noinspection DuplicateBranchesInSwitch
                         if (disabled)
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = false;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     default:
                         //nightModeOn = false;
@@ -159,7 +162,7 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (setAlpha) {
                         if (nightModeOn)
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
@@ -167,6 +170,8 @@ class ProfilePreferencesIndicator {
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                     }
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -194,6 +199,7 @@ class ProfilePreferencesIndicator {
 
             int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
             if ((dynamicColor != 0) && (!disabled) && (!monochrome)) {
+                dynamicColor = saturateColor(dynamicColor);
                 paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
             } else {
                 if (!monochrome) {
@@ -212,12 +218,14 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (nightModeOn)
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
                     else
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -244,7 +252,7 @@ class ProfilePreferencesIndicator {
             //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
             //                == Configuration.UI_MODE_NIGHT_YES;
 
-            boolean setAlpha = true;
+            //boolean setAlpha = true;
 
             if (!monochrome) {
                 switch (indicatorsType) {
@@ -260,7 +268,7 @@ class ProfilePreferencesIndicator {
                             else
                                 paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         }
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_WIDGET_DARK_BACKGROUND:
                         if (disabled)
@@ -268,15 +276,16 @@ class ProfilePreferencesIndicator {
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = true;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     case DataWrapper.IT_FOR_WIDGET_LIGHT_BACKGROUND:
+                        //noinspection DuplicateBranchesInSwitch
                         if (disabled)
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
                         else
                             paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
                         //nightModeOn = false;
-                        setAlpha = false;
+                        //setAlpha = false;
                         break;
                     default:
                         if (disabled)
@@ -288,7 +297,7 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (setAlpha) {
                         if (nightModeOn)
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
@@ -296,6 +305,8 @@ class ProfilePreferencesIndicator {
                             paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                     }
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -324,6 +335,7 @@ class ProfilePreferencesIndicator {
             if (!monochrome) {
                 int dynamicColor = GlobalGUIRoutines.getDynamicColor(R.attr.colorPrimary, context);
                 if ((dynamicColor != 0) && (!disabled)/* && (!monochrome)*/) {
+                    dynamicColor = saturateColor(dynamicColor);
                     paint.setColorFilter(new PorterDuffColorFilter(dynamicColor, PorterDuff.Mode.SRC_ATOP));
                 } else {
                     if (nightModeOn) {
@@ -341,12 +353,14 @@ class ProfilePreferencesIndicator {
             }
 
             if (disabled) {
-                if (!monochrome) {
+                /*if (!monochrome) {
                     if (nightModeOn)
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_DARK);
                     else
                         paint.setAlpha(DISABLED_ALPHA_DYNAMIC_LIGHT);
                 } else
+                    paint.setAlpha(DISABLED_ALPHA_MONOCHROME);*/
+                if (monochrome)
                     paint.setAlpha(DISABLED_ALPHA_MONOCHROME);
             }
 
@@ -708,10 +722,11 @@ class ProfilePreferencesIndicator {
                 }
             }
 
-            if ((Build.VERSION.SDK_INT >= 26) &&
+            if (//(Build.VERSION.SDK_INT >= 26) &&
                     ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
-                            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
+                            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                            (PPApplication.deviceIsOnePlus))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
@@ -995,7 +1010,7 @@ class ProfilePreferencesIndicator {
             }
 
             // default sim card
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -1016,7 +1031,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            }
+            //}
 
             // mobile data
             if (profile._deviceMobileData != 0) {
@@ -1049,7 +1064,7 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
@@ -1116,7 +1131,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            }
+            //}
 
             // mobile data preferences
             if (profile._deviceMobileDataPrefs == 1) {
@@ -1387,8 +1402,8 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
-            if (Build.VERSION.SDK_INT >= 26) {
-                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+            //if (Build.VERSION.SDK_INT >= 26) {
+                //final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
@@ -1422,7 +1437,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            }
+            //}
             // network type prefs
             if (profile._deviceNetworkTypePrefs != 0) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -1649,7 +1664,7 @@ class ProfilePreferencesIndicator {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._lockDevice == 3) {
                         boolean enabled;
-                        enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, false, false
+                        enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, false, false
                                 /*, "ProfilePreferencesIndicator.fillArrays (profile._lockDevice)"*/);
                         if (enabled) {
                             if (fillPreferences)
@@ -1867,7 +1882,7 @@ class ProfilePreferencesIndicator {
             if (profile._deviceForceStopApplicationChange == 1) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean enabled;
-                    enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, false, false
+                    enabled = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(appContext/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, false, false
                             /*, "ProfilePreferencesIndicator.fillArrays (profile._deviceForceStopApplicationChange)"*/);
                     if (enabled) {
                         if (fillPreferences)
@@ -2268,6 +2283,16 @@ class ProfilePreferencesIndicator {
         }
 
         return indicator1;
+    }
+
+    private int saturateColor(int color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        //Log.e("ProfilePreferencesIndicator.saturateColor", "hsv[1]="+hsv[1]);
+        if (hsv[1] < 0.45f)
+            hsv[1] = 0.45f;  // saturation component
+        //hsv[2] = 0.75f; // value component
+        return Color.HSVToColor(hsv);
     }
 
 }

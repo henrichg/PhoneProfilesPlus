@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -12,7 +13,9 @@ import androidx.core.content.ContextCompat;
 class AutostartPermissionNotification {
 
     static void showNotification(Context context, @SuppressWarnings("SameParameterValue") boolean useHandler) {
-        if (PPApplication.applicationFullyStarted) {
+//        PPApplicationStatic.logE("AutostartPermissionNotification.showNotification", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+
+        if (!PPApplication.applicationFullyStarted) {
             final Context appContext = context.getApplicationContext();
 
             if (useHandler) {
@@ -22,13 +25,14 @@ class AutostartPermissionNotification {
                 //        context.getApplicationContext()) {
                 //__handler.post(() -> {
                 Runnable runnable = () -> {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=AutostartPermissionNotification.showNotification");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
 
-                    boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                    if (!isServiceRunning) {
+                    //boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                    //PPApplicationStatic.logE("AutostartPermissionNotification.showNotification", "isServiceRunning="+isServiceRunning);
+                    //if (!isServiceRunning) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -48,8 +52,8 @@ class AutostartPermissionNotification {
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -58,13 +62,14 @@ class AutostartPermissionNotification {
                                 }
                             }
                         }
-                    }
+                    //}
                 }; //);
-                PPApplication.createBasicExecutorPool();
+                PPApplicationStatic.createBasicExecutorPool();
                 PPApplication.basicExecutorPool.submit(runnable);
             } else {
-                boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                if (!isServiceRunning) {
+                //boolean isServiceRunning = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
+                //PPApplicationStatic.logE("AutostartPermissionNotification.showNotification", "isServiceRunning="+isServiceRunning);
+                //if (!isServiceRunning) {
                     try {
                         final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
                         if (autoStartPermissionHelper.isAutoStartPermissionAvailable(appContext)) {
@@ -74,16 +79,15 @@ class AutostartPermissionNotification {
                         }
                     } catch (Exception ignore) {
                     }
-
-                }
+                //}
             }
         }
     }
 
     static private void showNotification(Context context, String title, String text) {
-        PPApplication.createExclamationNotificationChannel(context);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+        PPApplicationStatic.createExclamationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
@@ -110,9 +114,11 @@ class AutostartPermissionNotification {
             mNotificationManager.notify(
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_TAG,
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("AutostartPermissionNotification.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -124,7 +130,7 @@ class AutostartPermissionNotification {
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_TAG,
                     PPApplication.AUTOSTART_PERMISSION_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

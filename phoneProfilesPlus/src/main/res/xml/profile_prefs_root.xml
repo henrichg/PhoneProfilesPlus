@@ -40,11 +40,6 @@
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsActivationDuration" />
 
-        <SwitchPreferenceCompat
-            app:key="prf_pref_hideStatusBarIcon"
-            app:title="@string/profile_preferences_hideStatusBarIcon"
-            app:defaultValue="false"
-            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 
     <PreferenceCategory

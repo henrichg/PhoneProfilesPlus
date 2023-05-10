@@ -23,7 +23,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckCriticalGitHubReleasesDisableActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] CheckCriticalGitHubReleasesDisableActivity.onCreate", "xxx");
 
 //        if (showNotStartedToast()) {
 //            finish();
@@ -143,7 +143,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
     }
 
 //    private boolean showNotStartedToast() {
-//        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+//        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
 //        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
 //        if (!applicationStarted) {
 //            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);

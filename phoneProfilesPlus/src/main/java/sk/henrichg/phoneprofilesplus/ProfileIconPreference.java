@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -225,7 +223,7 @@ public class ProfileIconPreference extends DialogPreference {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
 
-            if (Build.VERSION.SDK_INT >= 26) {
+            //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;
                 if (!isImageResourceID) {
                     try {
@@ -248,13 +246,13 @@ public class ProfileIconPreference extends DialogPreference {
                     } catch (Exception ignored) {
                     }
                 }
-            }
+            //}
 
             // is not possible to get activity from preference, used is static method
             //ProfilesPrefsFragment.setChangedProfileIconPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         /*} catch (ActivityNotFoundException e) {
             try {
@@ -364,8 +362,7 @@ public class ProfileIconPreference extends DialogPreference {
 
     private static class UpdateIconAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        @SuppressLint("StaticFieldLeak")
-        ImageView _imageView;
+        //ImageView _imageView;
         Bitmap bitmap;
 
         private final WeakReference<ProfileIconPreference> preferenceWeakRef;
@@ -380,19 +377,21 @@ public class ProfileIconPreference extends DialogPreference {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
 
+        /*
         @Override
         protected void onPreExecute()
         {
             super.onPreExecute();
 
-            ProfileIconPreference preference = preferenceWeakRef.get();
-            if (preference != null) {
-                if (inDialog)
-                    _imageView = preference.dialogIcon;
-                else
-                    _imageView = preference.imageView;
-            }
+            //ProfileIconPreference preference = preferenceWeakRef.get();
+            //if (preference != null) {
+            //    if (inDialog)
+            //        _imageView = preference.dialogIcon;
+            //    else
+            //        _imageView = preference.imageView;
+            //}
         }
+        */
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -428,6 +427,12 @@ public class ProfileIconPreference extends DialogPreference {
             ProfileIconPreference preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((preference != null) && (prefContext != null)) {
+                ImageView _imageView;
+                if (inDialog)
+                    _imageView = preference.dialogIcon;
+                else
+                    _imageView = preference.imageView;
+
                 if (_imageView != null) {
                     if (bitmap != null)
                         _imageView.setImageBitmap(bitmap);

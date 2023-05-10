@@ -48,7 +48,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] NotUsedMobileCellsDetectedActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] NotUsedMobileCellsDetectedActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -93,7 +93,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-                //                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (1)");
+                //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsDetectedActivity.onStart (1)");
 
                 //Context appContext= appContextWeakRef.get();
 
@@ -174,17 +174,19 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             }
                         }
 
-                        if ((PhoneProfilesService.getInstance() != null) && PPApplication.mobileCellsScanner != null) {
-                            PPApplication.mobileCellsScanner.handleEvents(appContext);
+                        synchronized (PPApplication.mobileCellsScannerMutex) {
+                            if ((PhoneProfilesService.getInstance() != null) && (PPApplication.mobileCellsScanner != null)) {
+                                PPApplication.mobileCellsScanner.handleEvents(appContext);
+                            }
                         }
                         // must be higher then delay in handleEvents
-                        //                        PPApplication.logE("[PPP_NOTIFICATION] NotUsedMobileCellsDetectedActivity.onStart", "call of updateGUI");
+                        //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] NotUsedMobileCellsDetectedActivity.onStart", "call of updateGUI");
                         PPApplication.updateGUI(false, true, appContext);
                     }
 
                 } catch (Exception e) {
-                    //                            PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    //                            PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -195,7 +197,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
             finish();

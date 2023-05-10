@@ -4,6 +4,8 @@
     android:id="@+id/about_application_application_root3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
     android:orientation="vertical">
 
     <View
@@ -18,9 +20,9 @@
         android:id="@+id/about_application_application_root2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_margin_start"
-        android:layout_marginEnd="@dimen/activity_margin_end"
         android:fitsSystemWindows="false">
+<!--        android:layout_marginStart="@dimen/activity_margin_start"-->
+<!--        android:layout_marginEnd="@dimen/activity_margin_end"-->
 
         <LinearLayout
             android:id="@+id/about_application_liLa2"

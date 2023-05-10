@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +20,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] RestartEventsFromGUIActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] RestartEventsFromGUIActivity.onCreate", "xxx");
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
         if (doServiceStart) {
@@ -81,10 +82,10 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-        PPApplication.setApplicationFullyStarted(getApplicationContext());
-//        PPApplication.logE("[APPLICATION_FULLY_STARTED] RestartEventsFromGUIActivity.showNotStartedToast", "xxx");
+        PPApplicationStatic.setApplicationFullyStarted(getApplicationContext());
+//        PPApplicationStatic.logE("[APPLICATION_FULLY_STARTED] RestartEventsFromGUIActivity.showNotStartedToast", "xxx");
         return false;
-/*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+/*        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted;
         if (!applicationStarted) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
@@ -123,7 +124,12 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
     }
 
     private boolean startPPServiceWhenNotStarted() {
-        // this is for list widget header
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
+
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
 
@@ -131,7 +137,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -139,8 +145,8 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//            PPApplication.logE("[START_PP_SERVICE] RestartEventsFromGUIActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplication.startPPService(this, serviceIntent);
+//            PPApplicationStatic.logE("[START_PP_SERVICE] RestartEventsFromGUIActivity.startPPServiceWhenNotStarted", "(1)");
+            PPApplicationStatic.startPPService(this, serviceIntent);
             return true;
         } else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {

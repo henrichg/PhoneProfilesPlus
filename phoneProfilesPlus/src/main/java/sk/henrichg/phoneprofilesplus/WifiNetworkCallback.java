@@ -13,45 +13,44 @@ import java.util.concurrent.TimeUnit;
 
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private final Context context;
+    //private final Context context;
 
     static volatile boolean connected = false;
 
-    WifiNetworkCallback(Context context) {
-        this.context = context.getApplicationContext();
+    WifiNetworkCallback(/*Context context*/) {
+        //this.context = context.getApplicationContext();
     }
 
     @Override
     public void onLost(Network network) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
         connected = false;
         doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         connected = true;
         doConnection();
     }
 
     @Override
     public void onCapabilitiesChanged (Network network, NetworkCapabilities networkCapabilities) {
-//        PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection();
     }
 
@@ -60,14 +59,14 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
         //final Context appContext = getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true))
+        if (!PPApplicationStatic.getApplicationStarted(true))
             // application is not started
             return;
 
         PPApplication.startHandlerThreadBroadcast();
         final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         handler.postDelayed(() -> {
-//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
+//            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -80,8 +79,8 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                 _doConnection();
 
             } catch (Exception e) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {
                     try {
@@ -97,7 +96,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     private void doConnection() {
         //final Context appContext = getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 /*
@@ -115,8 +114,8 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                 _doConnection(context);
 
             } catch (Exception e) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
             } finally {
                 if ((wakeLock != null) && wakeLock.isHeld()) {
                     try {
@@ -133,35 +132,35 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_VOLUMES)
                         .build();*/
 
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG)
-                            //.setInputData(workData)
-                            .setInitialDelay(5, TimeUnit.SECONDS)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                            .build();
-            try {
-                if (PPApplication.getApplicationStarted(true, true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG)
+                        //.setInputData(workData)
+                        .setInitialDelay(5, TimeUnit.SECONDS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .build();
+        try {
+            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                if (workManager != null) {
 
-                        //                            //if (PPApplication.logEnabled()) {
-                        //                            ListenableFuture<List<WorkInfo>> statuses;
-                        //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
-                        //                            try {
-                        //                                List<WorkInfo> workInfoList = statuses.get();
-                        //                            } catch (Exception ignored) {
-                        //                            }
-                        //                            //}
-                        //
-                        //                            PPApplication.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
-                        //workManager.enqueue(worker);
-                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
+                    //                            //if (PPApplicationStatic.logEnabled()) {
+                    //                            ListenableFuture<List<WorkInfo>> statuses;
+                    //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+                    //                            try {
+                    //                                List<WorkInfo> workInfoList = statuses.get();
+                    //                            } catch (Exception ignored) {
+                    //                            }
+                    //                            //}
+                    //
+                    //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                    //workManager.enqueue(worker);
+                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
             }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
 
             /*
             final Context appContext = context;
@@ -171,7 +170,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             //        appContext) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
+//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -186,8 +185,8 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         _doConnection(appContext);
 
                     } catch (Exception e) {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -207,23 +206,21 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     static void _doConnection(Context appContext) {
-        if (PhoneProfilesService.getInstance() != null) {
-            if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
-                // connect to SSID is started
-//                PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "connectToSSIDStarted");
+        if (PPApplication.connectToSSIDStarted) {
+            // connect to SSID is started
+//                PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "connectToSSIDStarted");
 
-                if (connected) {
-                    //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                    //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                    //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
-                    //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
-                    PhoneProfilesService.getInstance().connectToSSIDStarted = false;
-                }
+            if (connected) {
+                //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
+                //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
+                PPApplication.connectToSSIDStarted = false;
             }
         }
 
-        if (Event.getGlobalEventsRunning()) {
-//            PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "xxx");
+        if (EventStatic.getGlobalEventsRunning(appContext)) {
+//            PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "xxx");
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
             if (!(ApplicationPreferences.prefEventWifiScanRequest ||
@@ -231,16 +228,16 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     ApplicationPreferences.prefEventWifiEnabledForScan)) {
                 // wifi is not scanned
 
-                if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
+                if ((PhoneProfilesService.getInstance() != null) && (!PPApplication.connectToSSIDStarted)) {
                     // connect to SSID is not started
 
                     // start events handler
 
-//                                    PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-//                                PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
+//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
                 }

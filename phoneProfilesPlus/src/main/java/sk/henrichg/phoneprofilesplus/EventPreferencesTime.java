@@ -168,7 +168,7 @@ class EventPreferencesTime extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_time_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
@@ -202,15 +202,17 @@ class EventPreferencesTime extends EventPreferences {
                 {
                     String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
-                    String _descr = "";
+                    String _descr;// = "";
+                    StringBuilder value = new StringBuilder();
                     int dayOfWeek;
                     for (int i = 0; i < 7; i++) {
                         dayOfWeek = getDayOfWeekByLocale(i);
 
                         if (daySet[dayOfWeek])
-                            //noinspection StringConcatenationInLoop
-                            _descr = _descr + namesOfDay[dayOfWeek + 1] + " ";
+                            //_descr = _descr + namesOfDay[dayOfWeek + 1] + " ";
+                            value.append(namesOfDay[dayOfWeek + 1]).append(" ");
                     }
+                    _descr = value.toString();
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
                 }
 
@@ -250,7 +252,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                     if (addBullet) {
-                        if (Event.getGlobalEventsRunning()) {
+                        if (EventStatic.getGlobalEventsRunning(context)) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                             String alarmTimeS;
@@ -299,7 +301,7 @@ class EventPreferencesTime extends EventPreferences {
                                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                                     if (addBullet) {
-                                        if (Event.getGlobalEventsRunning()) {
+                                        if (EventStatic.getGlobalEventsRunning(context)) {
                                             long alarmTime;
                                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
                                             String alarmTimeS;
@@ -355,7 +357,7 @@ class EventPreferencesTime extends EventPreferences {
         if (key.equals(PREF_EVENT_TIME_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -369,7 +371,7 @@ class EventPreferencesTime extends EventPreferences {
                     //if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
                         summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + ".\n\n" +
                                             context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
-                        //titleColor = Color.RED; //0xFFffb000;
+                        //titleColor = ContextCompat.getColor(context, R.color.altype_error);
                     //}
                     //else {
                     //    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
@@ -444,7 +446,7 @@ class EventPreferencesTime extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_TIME_DAYS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_TIME_DAYS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         /*preference = prefMng.findPreference(PREF_EVENT_TIME_TYPE);
         if (preference != null) {
@@ -485,7 +487,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesTime tmp = new EventPreferencesTime(this._event, this._enabled, this._sunday, this._monday, this._tuesday, this._wednesday,
                     this._thursday, this._friday, this._saturday, this._startTime, this._endTime, this._timeType);
@@ -498,7 +500,7 @@ class EventPreferencesTime extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_TIME).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -545,7 +547,8 @@ class EventPreferencesTime extends EventPreferences {
         setCategorySummary(prefMng, preferences, context);
     }
 
-    private long computeAlarm(boolean startEvent, @SuppressWarnings("unused") Context context)
+    private long computeAlarm(boolean startEvent,
+                              @SuppressWarnings("unused") Context context)
     {
         Calendar now = Calendar.getInstance();
 
@@ -1034,7 +1037,7 @@ class EventPreferencesTime extends EventPreferences {
                         pendingIntent.cancel();
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
                 try {
@@ -1044,11 +1047,11 @@ class EventPreferencesTime extends EventPreferences {
                         pendingIntent.cancel();
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         } catch (Exception ee) {
-            PPApplication.recordException(ee);
+            PPApplicationStatic.recordException(ee);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_TIME_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -1109,7 +1112,7 @@ class EventPreferencesTime extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
 

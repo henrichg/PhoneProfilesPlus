@@ -13,7 +13,7 @@ import java.util.Vector;
 /**
  * User: derek Date: 5/2/13 Time: 7:55 PM
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"deprecation", "unused"})
 public class NumberPickerBuilder {
 
     private FragmentManager manager; // Required
@@ -218,7 +218,6 @@ public class NumberPickerBuilder {
                 .newInstance(mReference, styleResId, minNumber, maxNumber, plusMinusVisibility, decimalVisibility,
                         labelText, currentNumberValue, currentDecimalValue, currentSignValue);
         if (targetFragment != null) {
-            //noinspection deprecation
             fragment.setTargetFragment(targetFragment, 0);
         }
         fragment.setNumberPickerDialogHandlersV2(mNumberPickerDialogHandlersV2);

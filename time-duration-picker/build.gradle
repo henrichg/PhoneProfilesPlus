@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply from: '../dependencies.gradle'
 
 android {
+    namespace 'mobi.upod.timedurationpicker'
+
     compileSdkVersion ppVersions.compileSdk
     buildToolsVersion ppVersions.buildTools
 
@@ -22,16 +24,12 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
-    namespace 'mobi.upod.timedurationpicker'
-
 }
 
 dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
     implementation project(':common')

@@ -563,13 +563,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //            try {
 //                startRunningUpgrade();
 
-//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onCreate", "xxx");
+//                PPApplicationStatic.logE("[IN_LISTENER] DatabaseHandler.onCreate", "xxx");
 
                 DatabaseHandlerCreateUpdateDB.createTables(db);
                 DatabaseHandlerCreateUpdateDB.createIndexes(db);
 
 //            } catch (Exception e) {
-//                //PPApplication.recordException(e);
+//                //PPApplicationStatic.recordException(e);
 //            }
 //        } finally {
 //            stopRunningUpgrade();
@@ -589,7 +589,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //            try {
 //                startRunningUpgrade();
 
-//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onDowngrade", "xxx");
+//                PPApplicationStatic.logE("[IN_LISTENER] DatabaseHandler.onDowngrade", "xxx");
 
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
                 db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
@@ -606,7 +606,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 DatabaseHandlerCreateUpdateDB.createIndexes(db);
 
 //            } catch (Exception e) {
-//                //PPApplication.recordException(e);
+//                //PPApplicationStatic.recordException(e);
 //            }
 //        } finally {
 //            stopRunningUpgrade();
@@ -620,12 +620,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //            try {
 //                startRunningUpgrade();
 
-//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onUpgrade", "xxx");
+//                PPApplicationStatic.logE("[IN_LISTENER] DatabaseHandler.onUpgrade", "xxx");
 
-                if (PPApplication.logEnabled()) {
-                    PPApplication.logE("DatabaseHandler.onUpgrade", "--------- START");
-                    PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
-                    PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
+                if (PPApplicationStatic.logEnabled()) {
+                    PPApplicationStatic.logE("DatabaseHandler.onUpgrade", "--------- START");
+                    PPApplicationStatic.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
+                    PPApplicationStatic.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
                 }
 
                 /*
@@ -658,10 +658,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //PPApplication.sleep(10000); // for test only
 
-                PPApplication.logE("DatabaseHandler.onUpgrade", " --------- END");
+                PPApplicationStatic.logE("DatabaseHandler.onUpgrade", " --------- END");
 
 //            } catch (Exception e) {
-//                //PPApplication.recordException(e);
+//                //PPApplicationStatic.recordException(e);
 //                Log.e("DatabaseHandler.onUpgrade", Log.getStackTraceString(e));
 //                throw e;
 //            }
@@ -671,11 +671,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void startRunningCommand() throws Exception {
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "lock");
-//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningCommand=" + runningCommand);
-//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningImportExport=" + runningImportExport);
-//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningUpgrade=" + runningUpgrade);
+//        if (PPApplicationStatic.logEnabled()) {
+//            PPApplicationStatic.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "lock");
+//            PPApplicationStatic.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningCommand=" + runningCommand);
+//            PPApplicationStatic.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningImportExport=" + runningImportExport);
+//            PPApplicationStatic.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningUpgrade=" + runningUpgrade);
 //        }
 
 //        if (runningUpgrade)
@@ -686,11 +686,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void stopRunningCommand() {
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "unlock");
-//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningCommand=" + runningCommand);
-//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningImportExport=" + runningImportExport);
-//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningUpgrade=" + runningUpgrade);
+//        if (PPApplicationStatic.logEnabled()) {
+//            PPApplicationStatic.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "unlock");
+//            PPApplicationStatic.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningCommand=" + runningCommand);
+//            PPApplicationStatic.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningImportExport=" + runningImportExport);
+//            PPApplicationStatic.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningUpgrade=" + runningUpgrade);
 //        }
 
         runningCommand = false;
@@ -699,42 +699,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void startRunningImportExport() throws Exception {
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "lock");
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningImportExport=" + runningImportExport);
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningUpgrade=" + runningUpgrade);
+//        if (PPApplicationStatic.logEnabled()) {
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "lock");
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningImportExport=" + runningImportExport);
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningUpgrade=" + runningUpgrade);
 //        }
 
 //        if (runningUpgrade)
 //            runningUpgradeCondition.await();
         if (runningCommand)
             runningCommandCondition.await();
-        //PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
+        //PPApplicationStatic.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
         runningImportExport = true;
     }
 
     void stopRunningImportExport() {
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "unlock");
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningCommand=" + runningCommand);
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningImportExport=" + runningImportExport);
-//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningUpgrade=" + runningUpgrade);
+//        if (PPApplicationStatic.logEnabled()) {
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "unlock");
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningCommand=" + runningCommand);
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningImportExport=" + runningImportExport);
+//            PPApplicationStatic.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningUpgrade=" + runningUpgrade);
 //        }
 
         runningImportExport = false;
         runningImportExportCondition.signalAll();
         importExportLock.unlock();
-        //PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
+        //PPApplicationStatic.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
     }
 
 /*
     private void startRunningUpgrade() throws Exception {
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "lock");
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningCommand=" + runningCommand);
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningImportExport=" + runningImportExport);
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningUpgrade=" + runningUpgrade);
+        if (PPApplicationStatic.logEnabled()) {
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "lock");
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningCommand=" + runningCommand);
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningImportExport=" + runningImportExport);
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningUpgrade=" + runningUpgrade);
         }
 
         if (runningImportExport)
@@ -745,11 +745,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private void stopRunningUpgrade() {
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "unlock");
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningCommand=" + runningCommand);
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningImportExport=" + runningImportExport);
-            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningUpgrade=" + runningUpgrade);
+        if (PPApplicationStatic.logEnabled()) {
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "unlock");
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningCommand=" + runningCommand);
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningImportExport=" + runningImportExport);
+            PPApplicationStatic.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningUpgrade=" + runningUpgrade);
         }
 
         runningUpgrade = false;
@@ -786,8 +786,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting all profiles
-    boolean deleteAllProfiles() {
-        return DatabaseHandlerProfiles.deleteAllProfiles(this);
+    void deleteAllProfiles() {
+        DatabaseHandlerProfiles.deleteAllProfiles(this);
     }
 
     void activateProfile(Profile profile)

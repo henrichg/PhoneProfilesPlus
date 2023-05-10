@@ -44,7 +44,7 @@ import java.lang.reflect.Method;
  *
  * @hide
  */
-@SuppressWarnings("JavaDoc")
+@SuppressWarnings({"JavadocDeclaration", "JavadocBlankLines"})
 @RestrictTo(LIBRARY_GROUP)
 public final class TabLayoutMediator {
     private final @NonNull TabLayout mTabLayout;

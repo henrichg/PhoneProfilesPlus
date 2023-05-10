@@ -18,7 +18,7 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onCreate", "xxx");
 
 //        if (showNotStartedToast()) {
 //            finish();
@@ -41,7 +41,7 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "xxx");
 
 //        if (showNotStartedToast()) {
 //            if (!isFinishing())
@@ -54,8 +54,8 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
             GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
-//            PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "do installExtender");
-            ImportantInfoHelpFragment.installExtender(this, true);
+//            PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "do installExtender");
+            ExtenderDialogPreferenceFragment.installPPPExtender(this, null, true);
         }
         else {
             if (isFinishing())
@@ -64,7 +64,7 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
     }
 
 //    private boolean showNotStartedToast() {
-//        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+//        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
 //        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
 //        if (!applicationStarted) {
 //            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);

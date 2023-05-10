@@ -29,6 +29,7 @@ import com.stericson.roottools.containers.Symlink;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+@SuppressWarnings({"RegExpSimplifiable", "unused"})
 class InternalVariables
 {
 
@@ -43,7 +44,6 @@ class InternalVariables
 
     protected static volatile String[] space;
     protected static volatile String getSpaceFor;
-    @SuppressWarnings("unused")
     protected static volatile String busyboxVersion;
     protected static volatile String pid_list = "";
     protected static volatile ArrayList<Mount> mounts;

@@ -10,11 +10,11 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "xxx");
 
         //final Context appContext = context.getApplicationContext();
 
-        if (!PPApplication.getApplicationStarted(true, true))
+        if (!PPApplicationStatic.getApplicationStarted(true, true))
             // application is not started
             return;
 
@@ -40,7 +40,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 batteryStatus = context.registerReceiver(null, iFilter);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             if (batteryStatus != null) {
                 _status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
@@ -79,13 +79,13 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
         }
         */
 
-//        PPApplication.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "PPApplication.isCharging="+PPApplication.isCharging);
-//        PPApplication.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "_isCharging="+_isCharging);
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "PPApplication.isCharging="+PPApplication.isCharging);
+//        PPApplicationStatic.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "_isCharging="+_isCharging);
 
         if ((PPApplication.isCharging != _isCharging) ||
             ((_plugged != -1) && (PPApplication.plugged != _plugged)) ||
             ((_level != -1) && (PPApplication.batteryPct != _batteryPct))) {
-//            PPApplication.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "---- state changed");
+//            PPApplicationStatic.logE("[IN_BROADCAST] BatteryLevelChangedBroadcastReceiver.onReceive", "---- state changed");
 
             PPApplication.isCharging = _isCharging;
 
@@ -151,7 +151,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 }
             }*/
 
-            if (Event.getGlobalEventsRunning()) {
+            if (EventStatic.getGlobalEventsRunning(context)) {
                 final Context appContext = context.getApplicationContext();
                 PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL, "SENSOR_TYPE_BATTERY_WITH_LEVEL", 0);
                 /*
@@ -160,7 +160,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
                 __handler.post(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryLevelChangedBroadcastReceiver.onReceive");
 
                     //Context appContext= appContextWeakRef.get();
                     //if (appContext != null) {
@@ -173,13 +173,13 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             // start events handler
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] BatteryLevelChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
+//                            PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BatteryLevelChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY_WITH_LEVEL);
 
                         } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -202,7 +202,7 @@ public class BatteryLevelChangedBroadcastReceiver extends BroadcastReceiver {
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             batteryStatus = appContext.registerReceiver(null, filter);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);

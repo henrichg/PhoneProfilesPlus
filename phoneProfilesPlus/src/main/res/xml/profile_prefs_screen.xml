@@ -84,4 +84,25 @@
         app:ppEntryValues="@array/headsUpNotificationsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <Preference
+        app:key="prf_pref_alwaysOnDisplayInfo"
+        app:title="@string/profile_preferences_alwaysOnDisplay"
+        app:summary="@string/profile_preferences_notificationLedInfo_summary"
+        app:widgetLayout="@layout/preference_widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/profile_preferences_alwaysOnDisplay"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_alwaysOnDisplay"
+        app:defaultValue="0"
+        app:ppEntries="@array/alwaysOnDisplayArray"
+        app:ppEntryValues="@array/alwaysOnDisplayValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference
+        app:title="@string/pppps_pref_dialog_title"
+        app:summary="@string/empty_string"
+        app:key="prf_pref_screenPPPPS"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

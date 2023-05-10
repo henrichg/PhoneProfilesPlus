@@ -12,21 +12,21 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] StartLauncherFromNotificationReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] StartLauncherFromNotificationReceiver.onReceive", "xxx");
 
         if (intent != null) {
             String action = intent.getAction();
             if (action != null) {
 
-                if (action.equals(PhoneProfilesNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
+                if (action.equals(sk.henrichg.phoneprofilesplus.PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
 
-//                    PPApplication.logE("[EXECUTOR_CALL]  ***** StartLauncherFromNotificationReceiver.onReceive", "schedule");
+//                    PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** StartLauncherFromNotificationReceiver.onReceive", "schedule");
 
                     final Context appContext = context.getApplicationContext();
                     //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
                     Runnable runnable = () -> {
 //                        long start = System.currentTimeMillis();
-//                        PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
+//                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
 
                             // intent to LauncherActivity, for click on notification
                             Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
@@ -38,10 +38,10 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 
 //                            long finish = System.currentTimeMillis();
 //                            long timeElapsed = finish - start;
-//                            PPApplication.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- END - timeElapsed="+timeElapsed);
+//                            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- END - timeElapsed="+timeElapsed);
                         //worker.shutdown();
                     };
-                    PPApplication.createDelayedGuiExecutor();
+                    PPApplicationStatic.createDelayedGuiExecutor();
                     if ((Build.VERSION.SDK_INT >= 29) &&
                             ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
                         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
@@ -64,7 +64,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     //PPApplication.PPHandlerThreadRunnable r = new PPApplication.PPHandlerThreadRunnable(
                     //        context.getApplicationContext()) {
                     Runnable r = () -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
 
                         //Context appContext= appContextWeakRef.get();
                         //if (appContext != null) {

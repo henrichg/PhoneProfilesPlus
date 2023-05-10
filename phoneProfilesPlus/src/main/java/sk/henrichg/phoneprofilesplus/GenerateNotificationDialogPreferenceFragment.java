@@ -34,6 +34,9 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
     private RadioButton profileIconRBtn = null;
     private EditText notificationTitleEdtText = null;
     private EditText notificationBodyEdtText = null;
+    private TextView iconTypeLabel = null;
+    private TextView notificationTitleLabel = null;
+    private TextView notificationBodyLabel = null;
 
     @SuppressLint("SetTextI18n")
     @NonNull
@@ -70,6 +73,10 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         View layout = inflater.inflate(R.layout.dialog_generate_notification_preference, null);
         dialogBuilder.setView(layout);
 
+        iconTypeLabel = layout.findViewById(R.id.generateNotificationPrefDialogIconTypeLabel);
+        notificationTitleLabel = layout.findViewById(R.id.generateNotificationPrefDialogNotificationTitleLabel);
+        notificationBodyLabel = layout.findViewById(R.id.generateNotificationPrefDialogNotificationBodyLabel);
+
         mDialog = dialogBuilder.create();
 
         mDialog.setOnShowListener(dialog -> {
@@ -80,12 +87,9 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
 
             //preference.updateInterface(0, false);
 
-            TextView text = layout.findViewById(R.id.generateNotificationPrefDialogIconTypeLabel);
-            text.setText(getString(R.string.generate_notification_pref_dialog_icon_type)+":");
-            text = layout.findViewById(R.id.generateNotificationPrefDialogNotificationTitleLabel);
-            text.setText(getString(R.string.generate_notification_pref_dialog_notification_title)+":");
-            text = layout.findViewById(R.id.generateNotificationPrefDialogNotificationBodyLabel);
-            text.setText(getString(R.string.generate_notification_pref_dialog_notification_body)+":");
+            iconTypeLabel.setText(getString(R.string.generate_notification_pref_dialog_icon_type)+":");
+            notificationTitleLabel.setText(getString(R.string.generate_notification_pref_dialog_notification_title)+":");
+            notificationBodyLabel.setText(getString(R.string.generate_notification_pref_dialog_notification_body)+":");
 
             generateChBtn.setChecked(preference.generate == 1);
             informationIconRBtn.setChecked(preference.iconType == 0);
@@ -94,6 +98,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
             notificationTitleEdtText.setText(preference.notificationTitle);
             notificationBodyEdtText.setText(preference.notificationBody);
 
+            enableViews();
         });
 
         generateChBtn = layout.findViewById(R.id.generateNotificationPrefDialogGenerate);
@@ -117,13 +122,15 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
                 if ((preference.fragment != null) && (preference.fragment.getDialog() != null) && preference.fragment.getDialog().isShowing()) {
                     String value = notificationTitleEdtText.getText().toString();
                     Button okButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                    okButton.setEnabled(!value.isEmpty());
+                    okButton.setEnabled((!value.isEmpty()) || (!generateChBtn.isChecked()));
                 }
             }
         });
 
         notificationBodyEdtText = layout.findViewById(R.id.generateNotificationPrefDialogNotificationBody);
         notificationBodyEdtText.setBackgroundTintList(ContextCompat.getColorStateList(preference._context, R.color.highlighted_spinner_all));
+
+        generateChBtn.setOnCheckedChangeListener((buttonView, isChecked) -> enableViews());
 
         return mDialog;
     }
@@ -133,6 +140,23 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         if ((mDialog != null) && mDialog.isShowing())
             mDialog.dismiss();
         preference.fragment = null;
+    }
+
+    private void enableViews() {
+        boolean checked = generateChBtn.isChecked();
+        informationIconRBtn.setEnabled(checked);
+        exclamationIconRBtn.setEnabled(checked);
+        profileIconRBtn.setEnabled(checked);
+        notificationTitleEdtText.setEnabled(checked);
+        notificationBodyEdtText.setEnabled(checked);
+        iconTypeLabel.setEnabled(checked);
+        notificationTitleLabel.setEnabled(checked);
+        notificationBodyLabel.setEnabled(checked);
+
+        String value = notificationTitleEdtText.getText().toString();
+        Button okButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        okButton.setEnabled((!value.isEmpty()) || (!generateChBtn.isChecked()));
+
     }
 
 }

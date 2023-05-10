@@ -102,11 +102,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                             newVersionName = "";
                             newVersionCode = 0;
 
-                            //noinspection UnnecessaryLocalVariable
-                            String contents = response;
+                            //String contents = response;
 
-                            PPApplication.PPPReleaseData pppReleaseData =
-                                    PPApplication.getReleaseData(contents, true, appContext);
+                            PPApplicationStatic.PPPReleaseData pppReleaseData =
+                                    PPApplicationStatic.getReleaseData(response, true, appContext);
 
                             updateReleasedVersion = pppReleaseData != null;
                             if (updateReleasedVersion) {
@@ -122,17 +121,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                                     checkInGitHub(activity, true);
                                 }
                             } catch (Exception e) {
-//                            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
                             }
 
                         },
                         error -> {
-//                        Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
+//                        Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(error));
                         });
                 queue.add(stringRequest);
 
             } catch (Exception e) {
-//            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
             }
         }
 
@@ -229,12 +228,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint({"InflateParams", "SetTextI18n"})
+    @SuppressLint({"SetTextI18n", "InflateParams"})
     private void checkInGitHub(final Activity activity, final boolean refreshOpenedDialog) {
         int pppVersionCode = 0;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            pppVersionCode = PPApplication.getVersionCode(pInfo);
+            pppVersionCode = PPApplicationStatic.getVersionCode(pInfo);
         } catch (Exception ignored) {
         }
         newVersionDataExists = (!newVersionName.isEmpty()) && (newVersionCode > 0);
@@ -244,17 +243,18 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.menu_check_github_releases);
         }
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
-        message = message + "\n";
+        message = message + "<br>";
         if (newVersionDataExists) {
-            message = message + activity.getString(R.string.check_github_releases_released_version) + " " + newVersionName + " (" + newVersionCode + ")";
+            message = message + activity.getString(R.string.check_github_releases_released_version) + " <b>" + newVersionName + " (" + newVersionCode + ")</b>";
             if (newVersionCritical)
                 message = message + " - " + activity.getString(R.string.check_github_releases_version_critical);
         }
@@ -263,17 +263,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         newVersionDataExists = newVersionDataExists && (newVersionCode > pppVersionCode);
 
-        message = message + "\n\n";
+        message = message + "<br><br>";
         message = message + activity.getString(R.string.check_github_releases_install_info_1);
 
         if (!newVersionDataExists) {
-            message = message + "\n";
+            message = message + "<br>";
             message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
             message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
         }
 
         if (criticalCheck) {
-            message = message + "\n\n";
+            message = message + "<br><br>";
             message = message + activity.getString(R.string.check_github_releases_install_info_app_stores_release);
         }
 
@@ -285,7 +285,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
-        text.setText(message);
+        message = message.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         if (newVersionDataExists) {
@@ -294,7 +295,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             button.setVisibility(View.GONE);
 
             CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL + "\u00A0\u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL + "\u00A0»»";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -312,7 +313,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -359,7 +360,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 activity.finish();
             });
@@ -400,12 +401,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         // org.fdroid.fdroid
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -426,13 +428,14 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_fdroid_info_text);
-        text.setText(message);
+        message = message.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
         if (text != null) {
             if (!fdroidInstalled) {
                 CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
-                CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + "\u00A0\u21D2";
+                CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + "\u00A0»»";
                 Spannable sbt = new SpannableString(str2);
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -450,7 +453,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         try {
                             activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 };
@@ -465,7 +468,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp_to_configure);
         CharSequence str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
-        CharSequence str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL + "\u00A0\u21D2";
+        CharSequence str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL + "\u00A0»»";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -483,7 +486,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -495,7 +498,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_fdroid_go_to_repository_with_ppp);
         if (text != null) {
             str1 = activity.getString(R.string.check_releases_fdroid_go_to_repository_with_ppp);
-            str2 = str1 + " " + PPApplication.FDROID_PPP_RELEASES_URL + "\u00A0\u21D2";
+            str2 = str1 + " " + PPApplication.FDROID_PPP_RELEASES_URL + "\u00A0»»";
             sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             clickableSpan = new ClickableSpan() {
@@ -513,7 +516,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -538,8 +541,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    //Log.e("CheckPPPReleasesActivity.checkInFDroid", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 }
             }
             else {
@@ -549,7 +552,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -578,16 +581,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void checkInGalaxyStore(final Activity activity, boolean galaxyStoreInstalled) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         if (!galaxyStoreInstalled) {
-            message = message + "\n\n" + activity.getString(R.string.check_releases_web_galaxy_store_install_restriction);
+            message = message + "<br><br>" + activity.getString(R.string.check_releases_web_galaxy_store_install_restriction);
         }
 
         View layout;
@@ -597,7 +601,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
-        text.setText(message);
+        message = message.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
@@ -618,7 +623,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             try {
                 activity.startActivity(intent);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
             activity.finish();
         });
@@ -647,12 +652,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         // com.amazon.venezia
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -675,7 +681,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
             text.setVisibility(View.VISIBLE);
             CharSequence str1 = activity.getString(R.string.check_releases_amazon_appstore_application);
-            CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " \u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " »»";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -693,7 +699,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -723,7 +729,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             } else {
                 String url = PPApplication.AMAZON_APPSTORE_PPP_RELEASES_URL;
@@ -732,7 +738,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -762,12 +768,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void checkInHuaweiAppGallery(final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -777,7 +784,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_appgallery_info_text);
-        text.setText(message);
+        message = message.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         boolean appGalleryInstalled = false;
         PackageManager pm = activity.getPackageManager();
@@ -790,13 +798,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         View buttonsDivider = layout.findViewById(R.id.dialog_for_appgallery_buttonsDivider);
         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             text.setVisibility(View.GONE);
-            buttonsDivider.setVisibility(View.GONE);
+            //buttonsDivider.setVisibility(View.GONE);
         } else {
             if (!appGalleryInstalled) {
                 text.setVisibility(View.VISIBLE);
                 buttonsDivider.setVisibility(View.VISIBLE);
                 CharSequence str1 = activity.getString(R.string.check_releases_appgallery_application);
-                CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + "\u00A0\u21D2";
+                CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + "\u00A0»»";
                 Spannable sbt = new SpannableString(str2);
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -814,7 +822,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         try {
                             activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 };
@@ -846,7 +854,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             } else {
                 String url = PPApplication.HUAWEI_APPGALLERY_PPP_RELEASES_URL;
@@ -855,7 +863,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -885,12 +893,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         // https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -914,7 +923,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_apkpure_info_text);
-        text.setText(message);
+        message = message.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
@@ -933,7 +943,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             buttonsDivider.setVisibility(View.VISIBLE);
 
             CharSequence str1 = activity.getString(R.string.check_releases_apkpure_appstore_application);
-            CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + "\u00A0\u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + "\u00A0»»";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -951,7 +961,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -961,7 +971,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             text.setVisibility(View.GONE);
-            buttonsDivider.setVisibility(View.GONE);
+            //buttonsDivider.setVisibility(View.GONE);
         }
 
         final boolean _apkPureInstalled = apkPureInstalled;
@@ -976,8 +986,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    //Log.e("CheckPPPReleasesActivity.checkInAPKPure", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 }
             }
             else {
@@ -987,7 +997,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();
@@ -1016,12 +1026,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private void checkInDroidIfy(final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
-        String message;
+
+        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_installed_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "";
+            message = "<br>";
         }
 
         View layout;
@@ -1045,7 +1056,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_droidify_info_text);
-        text.setText(message);
+        message = message.replace("\n", "<br>");
+        text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
@@ -1064,7 +1076,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             buttonsDivider.setVisibility(View.VISIBLE);
 
             CharSequence str1 = activity.getString(R.string.check_releases_droidify_application);
-            CharSequence str2 = str1 + " " + PPApplication.DROIDIFY_APPLICATION_URL + "\u00A0\u21D2";
+            CharSequence str2 = str1 + " " + PPApplication.DROIDIFY_APPLICATION_URL + "\u00A0»»";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -1082,7 +1094,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     try {
                         activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
             };
@@ -1092,7 +1104,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setMovementMethod(LinkMovementMethod.getInstance());
         } else {
             text.setVisibility(View.GONE);
-            buttonsDivider.setVisibility(View.GONE);
+            //buttonsDivider.setVisibility(View.GONE);
         }
 
         final boolean _droidifyInstalled = droidifyInstalled;
@@ -1107,8 +1119,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
-                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
+                    //Log.e("CheckPPPReleasesActivity.checkInDroidify", Log.getStackTraceString(e));
+                    PPApplicationStatic.recordException(e);
                 }
             }
             else {
@@ -1118,7 +1130,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
             activity.finish();

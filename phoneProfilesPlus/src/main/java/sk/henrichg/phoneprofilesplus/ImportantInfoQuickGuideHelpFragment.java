@@ -30,7 +30,7 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.important_info_fragment_quick_guide, container, false);
+        return inflater.inflate(R.layout.fragment_important_info_quick_guide, container, false);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         String str1 = getString(R.string.about_application_translations);
-        String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + "\u00A0\u21D2";
+        String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + "\u00A0»»";
         Spannable spannable = new SpannableString(str2);
         //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -87,7 +87,7 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -107,7 +107,7 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoQuickGuideHelpFragment.onViewCreated");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoQuickGuideHelpFragment.onViewCreated");
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }

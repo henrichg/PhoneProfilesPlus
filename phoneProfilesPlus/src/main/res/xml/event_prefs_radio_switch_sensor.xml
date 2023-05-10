@@ -34,6 +34,36 @@
         app:ppEntryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_radioSwitch_simOnOff"
+        app:summary="@string/array_pref_radioSwitch_notDetect"
+        app:key="eventRadioSwitchSIMOnOff"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventRadioSwitchSIMOnOffArray"
+        app:ppEntryValues="@array/eventRadioSwitchSIMOnOffValues"
+        app:dependency="eventRadioSwitchEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_radioSwitch_defaultSIMForCalls"
+        app:summary="@string/array_pref_radioSwitch_notDetect"
+        app:key="eventRadioSwitchDefaultSIMForCalls"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventRadioSwitchDefaultSIMArray"
+        app:ppEntryValues="@array/eventRadioSwitchDefaultSIMValues"
+        app:dependency="eventRadioSwitchEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.PPListPreference
+        app:title="@string/event_preferences_radioSwitch_defaultSIMForSMS"
+        app:summary="@string/array_pref_radioSwitch_notDetect"
+        app:key="eventRadioSwitchDefaultSIMForSMS"
+        app:defaultValue="0"
+        app:ppEntries="@array/eventRadioSwitchDefaultSIMArray"
+        app:ppEntryValues="@array/eventRadioSwitchDefaultSIMValues"
+        app:dependency="eventRadioSwitchEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_mobileData"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -43,6 +73,7 @@
         app:ppEntryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_radioSwitch_gps"
         app:summary="@string/array_pref_radioSwitch_notDetect"

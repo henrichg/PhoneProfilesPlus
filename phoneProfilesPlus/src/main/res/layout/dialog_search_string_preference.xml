@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/calendar_search_string_pref_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,6 +32,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_button_help"
+            app:tint="@color/accent_color"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/help_button_tooltip"/>
 

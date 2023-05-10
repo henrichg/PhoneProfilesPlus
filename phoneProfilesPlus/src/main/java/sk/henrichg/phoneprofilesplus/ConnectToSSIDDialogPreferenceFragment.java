@@ -2,12 +2,15 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -24,6 +27,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
 
     private ListView listView;
     private LinearLayout linlaProgress;
+    private LinearLayout linLaListView;
 
     private ConnectToSSIDPreferenceAdapter listAdapter;
 
@@ -43,18 +47,59 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
         return inflater.inflate(R.layout.dialog_connect_to_ssid_preference, null, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
         listView = view.findViewById(R.id.connect_to_ssid_pref_dlg_listview);
         linlaProgress = view.findViewById(R.id.connect_to_ssid_pref_dlg_linla_progress);
+        linLaListView = view.findViewById(R.id.connect_to_ssid_pref_dlg_root2);
+        TextView helpTextView = view.findViewById(R.id.connect_to_ssid_pref_dlg_help);
 
         listAdapter = new ConnectToSSIDPreferenceAdapter(prefContext, preference);
 
         listView.setOnItemClickListener((parent, v, position, id) -> {
             preference.value = preference.ssidList.get(position).ssid;
             listAdapter.notifyDataSetChanged();
+        });
+
+        helpTextView.setText(getString(R.string.connect_to_ssid_dialog_help) + "\u00A0»»");
+        helpTextView.setOnClickListener(v -> {
+            boolean ok = false;
+            Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+            //intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+            if (GlobalGUIRoutines.activityIntentExists(intent, prefContext)) {
+                try {
+                    startActivity(intent);
+                    ok = true;
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+            }
+            if (!ok){
+                PPAlertDialog dialog = new PPAlertDialog(
+                        preference.getTitle(),
+                        getString(R.string.setting_screen_not_found_alert),
+                        getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        getActivity()
+                );
+
+                if ((getActivity() != null) && (!getActivity().isFinishing()))
+                    dialog.show();
+            }
+
         });
 
         wifiEnabled = false;
@@ -119,7 +164,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
 
             ConnectToSSIDDialogPreferenceFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
-                fragment.listView.setVisibility(View.GONE);
+                fragment.linLaListView.setVisibility(View.GONE);
                 fragment.linlaProgress.setVisibility(View.VISIBLE);
             }
         }
@@ -145,7 +190,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                             WifiScanWorker.fillWifiConfigurationList(prefContext.getApplicationContext());
                     }
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
 
@@ -207,7 +252,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                             wifi.setWifiEnabled(false);
                         }
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 }
                 fragment.wifiEnabled = false;
@@ -243,7 +288,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
                 fragment.listView.setAdapter(fragment.listAdapter);
 
                 fragment.linlaProgress.setVisibility(View.GONE);
-                fragment.listView.setVisibility(View.VISIBLE);
+                fragment.linLaListView.setVisibility(View.VISIBLE);
             }
         }
 

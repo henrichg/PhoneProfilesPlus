@@ -3,9 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.wifi.WifiConfiguration;
+//import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.ResultReceiver;
 
@@ -16,31 +15,32 @@ final class WifiApManager {
     //private static final int WIFI_AP_STATE_FAILED = 4;
     private final WifiManager mWifiManager;
     //private final String TAG = "Wifi Access Manager";
-    private Method wifiControlMethod = null;
-    private Method wifiApConfigurationMethod = null;
+    //private final Method wifiControlMethod = null;
+    //private final Method wifiApConfigurationMethod = null;
     //private Method wifiApState;
     private Method wifiApEnabled = null;
 
-    private ConnectivityManager mConnectivityManager;
-    private String packageName;
+    private final ConnectivityManager mConnectivityManager;
+    private final String packageName;
 
     WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (mWifiManager != null)
             wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
-        if (Build.VERSION.SDK_INT >= 26) {
-            mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            packageName = PPApplication.PACKAGE_NAME;
-        }
+        //if (Build.VERSION.SDK_INT >= 26) {
+        mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        packageName = PPApplication.PACKAGE_NAME;
+        /*}
         else {
             if (mWifiManager != null) {
                 wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
-                wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
+                wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration");
                 //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
             }
-        }
+        }*/
     }
 
+    /*
     private void setWifiApState(WifiConfiguration config, boolean enabled, boolean doNotChangeWifi) {
         try {
             if (enabled) {
@@ -60,30 +60,35 @@ final class WifiApManager {
             wifiControlMethod.invoke(mWifiManager, config, enabled);
         } catch (Exception e) {
             //Log.e("WifiApManager.setWifiApState", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
+    */
 
+    /*
     void setWifiApState(boolean enabled, boolean doNotChangeWifi) {
         WifiConfiguration wifiConfiguration = getWifiApConfiguration();
-        /*return*/ setWifiApState(wifiConfiguration, enabled, doNotChangeWifi);
+        setWifiApState(wifiConfiguration, enabled, doNotChangeWifi);
     }
+    */
 
+    /*
     // not working in Android 8+ :-/
     // https://stackoverflow.com/questions/46392277/changing-android-hotspot-settings
     private WifiConfiguration getWifiApConfiguration()
     {
         try{
             wifiApConfigurationMethod.setAccessible(true);
-            return (WifiConfiguration)wifiApConfigurationMethod.invoke(mWifiManager/*, null*/);
+            return (WifiConfiguration)wifiApConfigurationMethod.invoke(mWifiManager);
         }
         catch (Exception e)
         {
             //Log.e("WifiApManager.getWifiApConfiguration", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return null;
         }
     }
+    */
 
     /*
     public int getWifiApState() {
@@ -103,8 +108,8 @@ final class WifiApManager {
             //noinspection ConstantConditions
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
-            //Log.e("$$$ WifiAP", "WifiApManager.isWifiAPEnabled-exception="+e);
-            PPApplication.recordException(e);
+            //Log.e("WifiApManager.isWifiAPEnabled", e);
+            PPApplicationStatic.recordException(e);
             return false;
         }
 
@@ -134,7 +139,7 @@ final class WifiApManager {
             return wifiManager.isWifiApEnabled();
         } catch (Throwable e) {
             //Log.e("WifiApManager.isWifiAPEnabledA30", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
             return false;
         }
     }
@@ -148,6 +153,7 @@ final class WifiApManager {
         }
     }
 
+    @SuppressWarnings("JavaReflectionMemberAccess")
     void startTethering(boolean doNotChangeWifi) {
         if (!doNotChangeWifi) {
             if (mWifiManager != null) {
@@ -162,7 +168,6 @@ final class WifiApManager {
         }
         if (mConnectivityManager != null) {
             try {
-                //noinspection JavaReflectionMemberAccess
                 @SuppressLint("DiscouragedPrivateApi")
                 Field internalConnectivityManagerField = ConnectivityManager.class.getDeclaredField("mService");
                 internalConnectivityManagerField.setAccessible(true);
@@ -170,7 +175,7 @@ final class WifiApManager {
                 callStartTethering(internalConnectivityManagerField.get(mConnectivityManager));
             } catch (Exception e) {
                 //Log.e("WifiApManager.startTethering", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
@@ -182,14 +187,13 @@ final class WifiApManager {
                 stopTetheringMethod.invoke(mConnectivityManager, 0);
             } catch (Exception e) {
                 //Log.e("WifiApManager.stopTethering", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
     }
 
-    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess"})
+    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "rawtypes"})
     private void callStartTethering(Object internalConnectivityManager) throws ReflectiveOperationException {
-        @SuppressWarnings("rawtypes")
         Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
         ResultReceiver dummyResultReceiver = new ResultReceiver(null);
         try {
@@ -219,12 +223,12 @@ final class WifiApManager {
         }
     }
 
-    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "DiscouragedPrivateApi", "SoonBlockedPrivateApi"})
+    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "rawtypes"})
+    @SuppressLint("DiscouragedPrivateApi")
     static boolean canExploitWifiTethering(Context context) {
         try {
             if (canExploitWifiAP(context)) {
                 ConnectivityManager.class.getDeclaredField("mService");
-                //noinspection rawtypes
                 Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
                 try {
                     internalConnectivityManagerClass.getDeclaredMethod("startTethering",
@@ -254,8 +258,8 @@ final class WifiApManager {
         }
     }
 
-    @SuppressLint("PrivateApi")
     @SuppressWarnings("RedundantArrayCreation")
+    @SuppressLint("PrivateApi")
     static boolean canExploitWifiTethering30(Context context) {
         try {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -325,7 +329,7 @@ final class WifiApManager {
         }
 
         // keep this: it is required to use handlerThreadBroadcast for cal listener
-        PPApplication.startHandlerThreadBroadcast();
+        PPApplicationStatic.startHandlerThreadBroadcast();
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         __handler.post(() -> {
             MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
@@ -335,11 +339,11 @@ final class WifiApManager {
 
     // Thanks to author of MacroDroid application.
     // It is used as source of this implenetation.
-    @SuppressLint("PrivateApi")
     @SuppressWarnings("RedundantArrayCreation")
+    @SuppressLint("PrivateApi")
     static private void _startTethering30(Context context,
-                                   MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
-                                   Handler handler) {
+                                          MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
+                                          Handler handler) {
         Object myOnStartTetheringCallbackAbstractObj;
         Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
         try {
@@ -356,7 +360,7 @@ final class WifiApManager {
                 myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
             } catch (Exception e2) {
                 //Log.e("WifiApManager._startTethering30 (2)", Log.getStackTraceString(e2));
-                PPApplication.recordException(e2);
+                PPApplicationStatic.recordException(e2);
                 return;
             }
             try {
@@ -370,7 +374,7 @@ final class WifiApManager {
                 declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
             } catch (Exception e) {
                 //Log.e("WifiApManager._startTethering30 (3)", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         //}
     }
@@ -388,7 +392,7 @@ final class WifiApManager {
             }
             declaredMethod.invoke(connectivityManager, new Object[]{0});
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

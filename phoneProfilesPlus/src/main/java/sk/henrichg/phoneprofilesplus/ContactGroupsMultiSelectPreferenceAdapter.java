@@ -24,7 +24,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
     }
 
     public int getCount() {
-        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null)
             return contactGroupsCache.getLength();
         else
@@ -32,7 +32,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
     }
 
     public Object getItem(int position) {
-        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null)
             return contactGroupsCache.getContactGroup(position);
         else
@@ -54,7 +54,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
         // Create a new row view
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.contact_groups_multiselect_preference_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.listitem_contact_groups_multiselect_preference, parent, false);
 
             // Find the child views.
             textViewDisplayName = convertView.findViewById(R.id.contact_groups_multiselect_pref_dlg_item_display_name);
@@ -85,7 +85,7 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
             textViewAccountType = viewHolder.textViewAccountType;
         }
 
-        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null) {
             // Contact group to display
             ContactGroup contactGroup = contactGroupsCache.getContactGroup(position);

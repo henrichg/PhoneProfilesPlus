@@ -122,7 +122,7 @@ class Application  implements Parcelable {
                             try {
                                 shortcutId = Long.parseLong(activityShortcutIdDelay[1]);
                             } catch (Exception e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                     }
                 }
@@ -144,7 +144,7 @@ class Application  implements Parcelable {
                     try {
                         intentId = Long.parseLong(intentIdDelay[0].substring(3));
                     } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                        //PPApplicationStatic.recordException(e);
                     }
                 }
             }
@@ -170,15 +170,16 @@ class Application  implements Parcelable {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[2]);
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
                     else
-                    if (activityShortcutIdDelay.length >= 2) {
+                        //noinspection NonStrictComparisonCanBeEquality
+                        if (activityShortcutIdDelay.length >= 2) {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[1]);
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -189,30 +190,36 @@ class Application  implements Parcelable {
                         try {
                             startApplicationDelay = Integer.parseInt(activityShortcutIdDelay[1]);
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
                 }
             } else {
                 // activity not exists
-                shortcutIntent = value.substring(0, 3);
-                if (shortcutIntent.equals("(i)")) {
-                    try {
-                        startApplicationDelay = Integer.parseInt(packageNameActivity[0]);
-                    } catch (Exception e) {
-                        //PPApplication.recordException(e);
+                //Log.e("Application.getStartApplicationDelay", "packageNameActivity.length <> 2");
+                //shortcutIntent = value.substring(0, 3);
+                //Log.e("Application.getStartApplicationDelay", "shortcutIntent="+shortcutIntent);
+                //if (shortcutIntent.equals("(i)")) {
+                    String[] packageNameDelay = value.split("#");
+                    if (packageNameDelay.length >= 2) {
+                        //Log.e("Application.getStartApplicationDelay", "packageNameDelay[1]="+packageNameDelay[1]);
+                        try {
+                            startApplicationDelay = Integer.parseInt(packageNameDelay[1]);
+                        } catch (Exception e) {
+                            //PPApplicationStatic.recordException(e);
+                        }
                     }
-                }
-                else {
+                //}
+                /*else {
                     String[] packageNameDelay = value.split("#");
                     if (packageNameDelay.length >= 2) {
                         try {
                             startApplicationDelay = Integer.parseInt(packageNameDelay[1]);
                         } catch (Exception e) {
-                            //PPApplication.recordException(e);
+                            //PPApplicationStatic.recordException(e);
                         }
                     }
-                }
+                }*/
             }
             return startApplicationDelay;
         }

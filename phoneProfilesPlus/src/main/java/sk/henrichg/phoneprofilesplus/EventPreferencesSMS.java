@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 
@@ -37,9 +36,10 @@ class EventPreferencesSMS extends EventPreferences {
     private static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
     private static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
     private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
-    static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
-    static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
-    static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
+    static final String PREF_EVENT_SMS_EXTENDER = "eventSMSExtender";
+    //static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
+    //static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
+    //static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
     private static final String PREF_EVENT_SMS_FOR_SIM_CARD = "eventSMSForSimCard";
 
     static final String PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM = "eventSMSEnabledEnabledNoCheckSim";
@@ -134,16 +134,16 @@ class EventPreferencesSMS extends EventPreferences {
                 descr = descr + "</b> ";
             }
 
-            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
+            PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
+                } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
                         /*, "EventPreferencesSMS.getPreferencesDescription"*/)) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
@@ -165,7 +165,7 @@ class EventPreferencesSMS extends EventPreferences {
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
                     descr = descr + ": <b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
 
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
                         //if (Build.VERSION.SDK_INT >= 26) {
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -173,8 +173,9 @@ class EventPreferencesSMS extends EventPreferences {
                                 int phoneCount = telephonyManager.getPhoneCount();
                                 if (phoneCount > 1) {
                                     boolean simExists;
-                                    boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                                    boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                                    GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                                    boolean sim1Exists = hasSIMCardData.hasSIM1;
+                                    boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                                     simExists = sim1Exists;
                                     simExists = simExists && sim2Exists;
@@ -187,7 +188,7 @@ class EventPreferencesSMS extends EventPreferences {
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);
                             descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                         }
-                    }
+                    //}
 
                     if (this._permanentRun)
                         descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
@@ -213,7 +214,7 @@ class EventPreferencesSMS extends EventPreferences {
         if (key.equals(PREF_EVENT_SMS_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -229,7 +230,7 @@ class EventPreferencesSMS extends EventPreferences {
         if (key.equals(PREF_EVENT_SMS_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_DURATION);
             if (preference != null) {
@@ -244,12 +245,12 @@ class EventPreferencesSMS extends EventPreferences {
             } catch (Exception e) {
                 delay = 5;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false, false);
         }
 
         boolean hasFeature = false;
         boolean hasSIMCard = false;
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_SMS_FOR_SIM_CARD)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -257,8 +258,9 @@ class EventPreferencesSMS extends EventPreferences {
                     if (phoneCount > 1) {
                         hasFeature = true;
                         boolean simExists;
-                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                         simExists = sim1Exists;
                         simExists = simExists && sim2Exists;
@@ -292,29 +294,30 @@ class EventPreferencesSMS extends EventPreferences {
                     }
                 }
             }
-        }
-
+        //}
+        /*
         if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
-                    String summary = context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) +
-                            "\n\n" + context.getString(R.string.event_preferences_sms_PPPExtender_install_summary);
+                    String summary = context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary);// +
+                            //"\n\n" + context.getString(R.string.event_preferences_sms_PPPExtender_install_summary);
                     preference.setSummary(summary);
                 }
                 else {
-                    String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
+                    String extenderVersionName = PPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary = context.getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + " (" + extenderVersion + ")\n\n";
                     if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
-                        summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+                        summary = summary + context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
                     preference.setSummary(summary);
                 }
             }
         }
+        */
 
         Event event = new Event();
         event.createEventPreferences();
@@ -324,19 +327,27 @@ class EventPreferencesSMS extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_SMS_CONTACT_GROUPS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACTS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_SMS_CONTACTS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_LIST_TYPE);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !isRunnable, false);
 
         int _isAccessibilityEnabled = event._eventPreferencesSMS.isAccessibilityServiceEnabled(context, false);
         boolean isAccessibilityEnabled = _isAccessibilityEnabled == 1;
+
+        ExtenderDialogPreference extenderPreference = prefMng.findPreference(PREF_EVENT_SMS_EXTENDER);
+        if (extenderPreference != null) {
+            extenderPreference.setSummaryEDP();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
+                    !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
+        }
+        /*
         preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
 
@@ -355,8 +366,10 @@ class EventPreferencesSMS extends EventPreferences {
             }
             preference.setSummary(summary);
 
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !isAccessibilityEnabled);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true,
+                    !(isAccessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)), true);
         }
+        */
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
@@ -378,7 +391,8 @@ class EventPreferencesSMS extends EventPreferences {
             key.equals(PREF_EVENT_SMS_CONTACTS) ||
             key.equals(PREF_EVENT_SMS_CONTACT_GROUPS) ||
             key.equals(PREF_EVENT_SMS_DURATION) ||
-            key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER) ||
+            key.equals(PREF_EVENT_SMS_EXTENDER) ||
+            //key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER) ||
             key.equals(PREF_EVENT_SMS_FOR_SIM_CARD))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
@@ -394,12 +408,13 @@ class EventPreferencesSMS extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_DURATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SMS_INSTALL_EXTENDER, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_EXTENDER, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_SMS_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_FOR_SIM_CARD, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
                                                                 this._permanentRun, this._duration, this._forSIMCard);
@@ -409,11 +424,13 @@ class EventPreferencesSMS extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
-                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context, false) == 1);
+                boolean runnable = tmp.isRunnable(context) &&
+                        (tmp.isAccessibilityServiceEnabled(context, false) == 1) &&
+                        (PPApplication.accessibilityServiceForPPPExtenderConnected == 1);
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_SMS).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(runnable && permissionGranted), true);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -445,13 +462,13 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     int isAccessibilityServiceEnabled(Context context, boolean againCheckInDelay)
     {
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
             return -1;
         if ((_event.getStatus() != Event.ESTATUS_STOP) && this._enabled && isRunnable(context)) {
-            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
+            if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "EventPreferencesSMS.isAccessibilityServiceEnabled"*/))
                 return 1;
         } else
@@ -463,52 +480,58 @@ class EventPreferencesSMS extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, boolean onlyCategory, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null) {
+            if (prefMng.findPreference(PREF_EVENT_SMS_ENABLED) != null)
+            {
                 final boolean accessibilityEnabled =
-                        PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
+                        sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext()/*, PPApplication.VERSION_CODE_EXTENDER_7_0*/, true, false
                                 /*, "EventPreferencesSMS.checkPreferences"*/);
 
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
-                Preference preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
+                Preference preference = prefMng.findPreference(PREF_EVENT_SMS_EXTENDER);
                 if (preference != null)
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-                if (Build.VERSION.SDK_INT >= 26) {
-                    boolean showPreferences = false;
-                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            boolean sim1Exists;
-                            boolean sim2Exists;
-                            sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                            sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+//                preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
+//                if (preference != null)
+//                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, true, !accessibilityEnabled, true);
 
-                            showPreferences = true;
-                            preference = prefMng.findPreference("eventSMSDualSIMInfo");
-                            if (preference != null)
-                                preference.setEnabled(enabled && sim1Exists && sim2Exists);
-                            preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
-                            if (preference != null)
-                                preference.setEnabled(enabled && sim1Exists && sim2Exists);
-                        } else {
-                            preference = prefMng.findPreference("eventSMSDualSIMInfo");
-                            if (preference != null)
-                                preference.setEnabled(false);
-                            preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
-                            if (preference != null)
-                                preference.setEnabled(false);
-                        }
-                    }
-                    if (!showPreferences) {
+                //if (Build.VERSION.SDK_INT >= 26) {
+                boolean showPreferences = false;
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        boolean sim1Exists;
+                        boolean sim2Exists;
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        sim1Exists = hasSIMCardData.hasSIM1;
+                        sim2Exists = hasSIMCardData.hasSIM2;
+
+                        showPreferences = true;
                         preference = prefMng.findPreference("eventSMSDualSIMInfo");
                         if (preference != null)
-                            preference.setVisible(false);
+                            preference.setEnabled(enabled && sim1Exists && sim2Exists);
                         preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
                         if (preference != null)
-                            preference.setVisible(false);
+                            preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                    } else {
+                        preference = prefMng.findPreference("eventSMSDualSIMInfo");
+                        if (preference != null)
+                            preference.setEnabled(false);
+                        preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                        if (preference != null)
+                            preference.setEnabled(false);
                     }
                 }
+                if (!showPreferences) {
+                    preference = prefMng.findPreference("eventSMSDualSIMInfo");
+                    if (preference != null)
+                        preference.setVisible(false);
+                    preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                    if (preference != null)
+                        preference.setVisible(false);
+                }
+                //}
                 setSummary(prefMng, PREF_EVENT_SMS_ENABLED, preferences, context);
             }
         }
@@ -581,7 +604,7 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_SMS_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -663,7 +686,7 @@ class EventPreferencesSMS extends EventPreferences {
                     }*/
 
                         if (!split.isEmpty()) {
-                            ContactsCache contactsCache = PPApplication.getContactsCache();
+                            ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                             if (contactsCache == null)
                                 return;
 
@@ -727,7 +750,7 @@ class EventPreferencesSMS extends EventPreferences {
                         }*/
 
                             if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
-                                ContactsCache contactsCache = PPApplication.getContactsCache();
+                                ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
                                 if (contactsCache == null)
                                     return;
 
@@ -786,14 +809,14 @@ class EventPreferencesSMS extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventSMSContacts(context, event, null)*/
                 /* moved to Extender && Permissions.checkEventSMSBroadcast(context, event, null)*/) {
                 // compute start time
 
                 if (_startTime > 0) {
-                    if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
+                    if (/*(Build.VERSION.SDK_INT < 26) ||*/ (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
 
                         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                         long startTime = _startTime - gmtOffset;

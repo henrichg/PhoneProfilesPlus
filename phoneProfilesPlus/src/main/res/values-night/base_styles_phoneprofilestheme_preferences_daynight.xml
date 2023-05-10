@@ -9,10 +9,15 @@
         <!-- customize the color palette -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorAccent">@color/accent_color</item>
 <!--        <item name="colorAccentDisabled">@color/accent_disabled</item>-->
-        <item name="actionBarStyle">@style/Actionbar</item>
-        <item name="android:actionBarStyle">@style/Actionbar</item>
+
+        <item name="android:textColorPrimary">@color/text_view_color_primary</item>
+        <item name="android:textColorSecondary">@color/text_view_color_secondary</item>
+        <!--        <item name="android:textColorTertiary">@color/text_color_tertiary</item>-->
+
+        <item name="actionBarStyle">@style/PPPActionbar</item>
+        <item name="android:actionBarStyle">@style/PPPActionbar</item>
 
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
@@ -90,6 +95,9 @@
         <item name="android:scrollbarThumbVertical">@color/scrollbar_color</item>
         <item name="android:scrollbarThumbHorizontal">@color/scrollbar_color</item>
         <item name="android:scrollbarSize">@dimen/scrollbar_size</item>
+
+        <item name="android:lineSpacingExtra">@dimen/line_spacing_extra</item>
+
     </style>
 
 </resources>

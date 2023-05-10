@@ -42,7 +42,6 @@ public class ChannelView extends RelativeLayout {
         init(context);
     }
 
-    @SuppressWarnings("unused")
     public ChannelView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
@@ -100,7 +99,6 @@ public class ChannelView extends RelativeLayout {
      * Set a new channel to the view, the IndicatorMode.DECIMAL is used
      * @param channel Channel to assign
      */
-    @SuppressWarnings("unused")
     public void setChannel(Channel channel) {
         setChannel(channel, IndicatorMode.DECIMAL);
     }
@@ -121,7 +119,6 @@ public class ChannelView extends RelativeLayout {
         return channel;
     }
 
-    @SuppressWarnings("unused")
     public IndicatorMode getIndicatorMode() {
         return indicatorMode;
     }

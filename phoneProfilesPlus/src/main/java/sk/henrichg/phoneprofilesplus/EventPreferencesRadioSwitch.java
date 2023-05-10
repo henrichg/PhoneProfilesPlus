@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
-import android.os.Build;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
@@ -39,6 +38,16 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     private static final String PREF_EVENT_RADIO_SWITCH_GPS = "eventRadioSwitchGPS";
     private static final String PREF_EVENT_RADIO_SWITCH_NFC = "eventRadioSwitchNFC";
     private static final String PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE = "eventRadioSwitchAirplaneMode";
+
+    //static final String PREF_EVENT_RADIO_SWITCH_ENABLED_NO_CHECK_SIM = "eventRadioSwitchEnabledEnabledNoCheckSim";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI = "eventRadioSwitchEnabledEnabledWifi";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH = "eventRadioSwitchEnabledEnabledBluetooth";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF = "eventRadioSwitchEnabledEnabledSIMOnOff";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM = "eventRadioSwitchEnabledEnabledDefaultSIM";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA = "eventRadioSwitchEnabledEnabledMobileData";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_GPS = "eventRadioSwitchEnabledEnabledGPS";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_NFC = "eventRadioSwitchEnabledEnabledNFC";
+    static final String PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE = "eventRadioSwitchEnabledEnabledAirplaneMode";
 
     private static final String PREF_EVENT_RADIO_SWITCH_CATEGORY = "eventRadioSwitchCategoryRoot";
 
@@ -119,7 +128,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_radioSwitch_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context);
@@ -127,23 +136,28 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
 
                 boolean _addBullet = false;
+
                 if (this._wifi != 0) {
-                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_wifi) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._wifi], disabled, context) + "</b>";
-                    _addBullet = true;
+                    if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_WIFI, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_wifi) + ": ";
+                        String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._wifi], disabled, context) + "</b>";
+                        _addBullet = true;
+                    }
                 }
 
                 if (this._bluetooth != 0) {
-                    if (_addBullet)
-                        descr = descr +  " • ";
-                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_bluetooth) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._bluetooth], disabled, context) + "</b>";
-                    _addBullet = true;
+                    if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (_addBullet)
+                            descr = descr + " • ";
+                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_bluetooth) + ": ";
+                        String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._bluetooth], disabled, context) + "</b>";
+                        _addBullet = true;
+                    }
                 }
 
-                if (Build.VERSION.SDK_INT >= 26) {
+                //if (Build.VERSION.SDK_INT >= 26) {
                     int phoneCount = 1;
                     TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
@@ -151,8 +165,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     }
                     boolean twoSimCards = false;
                     if (phoneCount == 2) {
-                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                         twoSimCards =
                                 sim1Exists &&
@@ -161,92 +176,105 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                     if (phoneCount > 1) {
                         if (this._simOnOff != 0) {
-                            if (_addBullet)
-                                descr = descr +  " • ";
-                            String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchSIMOnOffArray);
-                            descr = descr + context.getString(R.string.event_preferences_radioSwitch_simOnOff) + ": ";
-                            descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._simOnOff], disabled, context) + "</b>";
-                            _addBullet = true;
+                            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                if (_addBullet)
+                                    descr = descr + " • ";
+                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchSIMOnOffArray);
+                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_simOnOff) + ": ";
+                                descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._simOnOff], disabled, context) + "</b>";
+                                _addBullet = true;
+                            }
                         }
                     }
 
                     if (twoSimCards) {
                         if (this._defaultSIMForCalls != 0) {
-                            if (_addBullet)
-                                descr = descr +  " • ";
-                            descr = descr + context.getString(R.string.event_preferences_radioSwitch_defaultSIMForCalls) + ": ";
-                            String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
-                            descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._defaultSIMForCalls], disabled, context) + "</b>";
-                            _addBullet = true;
+                            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                if (_addBullet)
+                                    descr = descr + " • ";
+                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_defaultSIMForCalls) + ": ";
+                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
+                                descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._defaultSIMForCalls], disabled, context) + "</b>";
+                                _addBullet = true;
+                            }
                         }
                         if (this._defaultSIMForSMS != 0) {
-                            if (_addBullet)
-                                descr = descr +  " • ";
-                            descr = descr + context.getString(R.string.event_preferences_radioSwitch_defaultSIMForSMS) + ": ";
-                            String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
-                            descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._defaultSIMForSMS], disabled, context) + "</b>";
-                            _addBullet = true;
+                            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                if (_addBullet)
+                                    descr = descr + " • ";
+                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_defaultSIMForSMS) + ": ";
+                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchDefaultSIMArray);
+                                descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._defaultSIMForSMS], disabled, context) + "</b>";
+                                _addBullet = true;
+                            }
                         }
                     }
-                }
+                //}
 
                 if (this._mobileData != 0) {
-                    if (_addBullet)
-                        descr = descr +  " • ";
-                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + ": ";
-                    int phoneCount = 1;
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (_addBullet)
+                            descr = descr + " • ";
+                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + ": ";
+                        /*int*/
+                        phoneCount = 1;
+                        //if (Build.VERSION.SDK_INT >= 26) {
+                        //TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
                             phoneCount = telephonyManager.getPhoneCount();
                         }
-                    }
-                    String[] fieldArray;
-                    String[] fieldValues;
-                    if (phoneCount > 1) {
-                        fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchMobileDataDualSIMArray);
-                        fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhMobileDataDualSIMValues);
-                    }
-                    else {
-                        fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                        fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhWithConnectionValues);
-                    }
-                    int index = -1;
-                    for (int i = 0; i < fieldValues.length; i++) {
-                        if (fieldValues[i].equals(String.valueOf(this._mobileData))) {
-                            index = i;
-                            break;
+                        //}
+                        String[] fieldArray;
+                        String[] fieldValues;
+                        if (phoneCount > 1) {
+                            fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchMobileDataDualSIMArray);
+                            fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhMobileDataDualSIMValues);
+                        } else {
+                            fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
+                            fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhWithConnectionValues);
                         }
+                        int index = -1;
+                        for (int i = 0; i < fieldValues.length; i++) {
+                            if (fieldValues[i].equals(String.valueOf(this._mobileData))) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index != -1)
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(fieldArray[index], disabled, context) + "</b>";
+                        _addBullet = true;
                     }
-                    if (index != -1)
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(fieldArray[index], disabled, context) + "</b>";
-                    _addBullet = true;
                 }
                 if (this._gps != 0) {
-                    if (_addBullet)
-                        descr = descr +  " • ";
-                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_gps) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._gps], disabled, context) + "</b>";
-                    _addBullet = true;
-
+                    if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_BLUETOOTH, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (_addBullet)
+                            descr = descr + " • ";
+                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_gps) + ": ";
+                        String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._gps], disabled, context) + "</b>";
+                        _addBullet = true;
+                    }
                 }
 
                 if (this._nfc != 0) {
-                    if (_addBullet)
-                        descr = descr +  " • ";
-                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_nfc) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._nfc], disabled, context) + "</b>";
-                    _addBullet = true;
+                    if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_NFC, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (_addBullet)
+                            descr = descr + " • ";
+                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_nfc) + ": ";
+                        String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._nfc], disabled, context) + "</b>";
+                        _addBullet = true;
+                    }
                 }
 
                 if (this._airplaneMode != 0) {
-                    if (_addBullet)
-                        descr = descr +  " • ";
-                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_airplaneMode) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._airplaneMode], disabled, context) + "</b>";
+                    if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_AIRPLANE_MODE, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (_addBullet)
+                            descr = descr + " • ";
+                        descr = descr + context.getString(R.string.event_preferences_radioSwitch_airplaneMode) + ": ";
+                        String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                        descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[this._airplaneMode], disabled, context) + "</b>";
+                    }
                 }
             }
         }
@@ -263,9 +291,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         if (key.equals(PREF_EVENT_RADIO_SWITCH_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
+
+        PreferenceAllowed defaultSIMPreferenceAllowed = null;
+        PreferenceAllowed mobileDataPreferenceAllowed = null;
+        PreferenceAllowed swithSIMOnOffPreferenceAllowed = null;
 
         if (key.equals(PREF_EVENT_RADIO_SWITCH_WIFI) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_BLUETOOTH) ||
@@ -277,6 +309,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
             key.equals(PREF_EVENT_RADIO_SWITCH_NFC) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE))
         {
+
             boolean hasHardware = true;
             if (key.equals(PREF_EVENT_RADIO_SWITCH_WIFI) && (!PPApplication.HAS_FEATURE_WIFI)) {
                 Preference preference = prefMng.findPreference(key);
@@ -323,37 +356,94 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 hasHardware = false;
             }
             if (key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA)) {
-                PPListPreference listPreference = prefMng.findPreference(key);
-                if (listPreference != null) {
-                    int phoneCount = 1;
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                        if (telephonyManager != null) {
-                            phoneCount = telephonyManager.getPhoneCount();
+                if (PPApplication.HAS_FEATURE_TELEPHONY) {
+                    mobileDataPreferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, context);
+                    if (mobileDataPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        PPListPreference listPreference = prefMng.findPreference(key);
+                        if (listPreference != null) {
+                            int phoneCount = 1;
+                            //if (Build.VERSION.SDK_INT >= 26) {
+                            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null) {
+                                phoneCount = telephonyManager.getPhoneCount();
+                            }
+                            //}
+                            String[] fieldArray;
+                            String[] fieldValues;
+                            if (phoneCount > 1) {
+                                fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchMobileDataDualSIMArray);
+                                fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhMobileDataDualSIMValues);
+                            } else {
+                                fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
+                                fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhWithConnectionValues);
+                            }
+                            int index = -1;
+                            for (int i = 0; i < fieldValues.length; i++) {
+                                if (fieldValues[i].equals(value)) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            CharSequence summary = (index >= 0) ? fieldArray[index] : null;
+                            listPreference.setSummary(summary);
+                        }
+                    } else {
+                        Preference preference = prefMng.findPreference(key);
+                        if (preference != null) {
+                            if (mobileDataPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                        ": " + mobileDataPreferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                            }
                         }
                     }
-                    String[] fieldArray;
-                    String[] fieldValues;
-                    if (phoneCount > 1) {
-                        fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchMobileDataDualSIMArray);
-                        fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhMobileDataDualSIMValues);
+                }
+                else {
+                    Preference preference = prefMng.findPreference(key);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
-                    else {
-                        fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                        fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhWithConnectionValues);
-                    }
-                    int index = -1;
-                    for (int i = 0; i < fieldValues.length; i++) {
-                        if (fieldValues[i].equals(value)) {
-                            index = i;
-                            break;
-                        }
-                    }
-                    CharSequence summary = (index >= 0) ? fieldArray[index] : null;
-                    listPreference.setSummary(summary);
                 }
                 hasHardware = false; // do not use default change of summary
             }
+            if (key.equals(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS) ||
+                    key.equals(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS)) {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    defaultSIMPreferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, context);
+                    if (defaultSIMPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + defaultSIMPreferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        hasHardware = false;
+                    }
+                }
+            }
+            if (key.equals(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF)) {
+                Preference preference = prefMng.findPreference(key);
+                if (PPApplication.HAS_FEATURE_TELEPHONY) {
+                    if (preference != null) {
+                        swithSIMOnOffPreferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, context);
+                        if (swithSIMOnOffPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) {
+                            preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                    ": " + swithSIMOnOffPreferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                            hasHardware = false;
+                        }
+                    }
+                } else {
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                    hasHardware = false;
+                }
+            }
+
             if (hasHardware) {
                 PPListPreference listPreference = prefMng.findPreference(key);
                 if (listPreference != null) {
@@ -371,56 +461,97 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         boolean enabled = preferences.getBoolean(PREF_EVENT_RADIO_SWITCH_ENABLED, false);
         PPListPreference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null) {
+            boolean __enabled = enabled;
             if (!PPApplication.HAS_FEATURE_WIFI)
-                enabled = false;
+                __enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
         if (preference != null) {
+            boolean __enabled = enabled;
             if (!PPApplication.HAS_FEATURE_BLUETOOTH)
-                enabled = false;
+                __enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
         if (preference != null) {
+            boolean __enabled = enabled;
+            if (!PPApplication.HAS_FEATURE_TELEPHONY)
+                __enabled = false;
+            else {
+                if (swithSIMOnOffPreferenceAllowed == null)
+                    swithSIMOnOffPreferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_SIM_ON_OFF, context);
+                if (swithSIMOnOffPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    __enabled = false;
+            }
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS);
         if (preference != null) {
+            boolean __enabled = enabled;
+            if (!PPApplication.HAS_FEATURE_TELEPHONY)
+                __enabled = false;
+            else {
+                if (defaultSIMPreferenceAllowed == null)
+                    defaultSIMPreferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, context);
+                if (defaultSIMPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    __enabled = false;
+            }
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS);
         if (preference != null) {
+            boolean __enabled = enabled;
+            if (!PPApplication.HAS_FEATURE_TELEPHONY)
+                __enabled = false;
+            else {
+                if (defaultSIMPreferenceAllowed == null)
+                    defaultSIMPreferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_DEFAULT_SIM, context);
+                if (defaultSIMPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    __enabled = false;
+            }
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
         if (preference != null) {
+            boolean __enabled = enabled;
+            if (!PPApplication.HAS_FEATURE_TELEPHONY)
+                __enabled = false;
+            else {
+                if (mobileDataPreferenceAllowed == null)
+                    mobileDataPreferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED_MOBILE_DATA, context);
+                if (mobileDataPreferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                    __enabled = false;
+            }
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
         if (preference != null) {
+            boolean __enabled = enabled;
             if (!PPApplication.HAS_FEATURE_LOCATION_GPS)
-                enabled = false;
+                __enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
         if (preference != null) {
+            boolean __enabled = enabled;
             if (!PPApplication.HAS_FEATURE_NFC)
-                enabled = false;
+                __enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, __enabled, index > 0, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
         if (preference != null) {
+            //boolean __enabled = enabled;
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, false, true, !isRunnable, false);
         }
     }
 
@@ -479,7 +610,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
                     this._wifi, this._bluetooth, this._simOnOff, this._defaultSIMForCalls, this._defaultSIMForSMS,
@@ -493,7 +624,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_RADIO_SWITCH).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -516,11 +647,11 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        if (Build.VERSION.SDK_INT < 26)
+        /*if (Build.VERSION.SDK_INT < 26)
             runnable = runnable &&
                     ((_wifi != 0) || (_bluetooth != 0) || (_mobileData != 0) || (_gps != 0) ||
                      (_nfc != 0) || (_airplaneMode != 0));
-        else {
+        else {*/
             boolean ok = false;
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
@@ -528,8 +659,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (phoneCount > 1) {
                     boolean twoSimCards = false;
                     if (phoneCount == 2) {
-                        boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                        boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                         twoSimCards =
                                 sim1Exists &&
@@ -551,7 +683,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 runnable = runnable &&
                         ((_wifi != 0) || (_bluetooth != 0) || (_mobileData != 0) || (_gps != 0) ||
                          (_nfc != 0) || (_airplaneMode != 0));
-        }
+        //}
 
         return runnable;
     }
@@ -561,8 +693,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
-            if (prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED) != null) {
-                boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED) != null)
+            {
+                boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 
                 Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
                 if (preference != null)
@@ -571,96 +704,70 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (preference != null)
                     preference.setEnabled(enabled && PPApplication.HAS_FEATURE_BLUETOOTH);
 
+                int phoneCount = 1;
+                boolean hasSIM1 = false;
+                boolean hasSIM2 = false;
+                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    phoneCount = telephonyManager.getPhoneCount();
+                    GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                    hasSIM1 = hasSIMCardData.hasSIM1;
+                    hasSIM2 = hasSIMCardData.hasSIM2;
+                }
+
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS);
                 if (preference != null) {
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        int phoneCount = 1;
-                        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                        if (telephonyManager != null) {
-                            phoneCount = telephonyManager.getPhoneCount();
-                        }
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         if (phoneCount > 1) {
                             if (phoneCount == 2) {
-                                boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                                boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
-
-                                boolean twoSimCards =
-                                        sim1Exists &&
-                                                sim2Exists;
-                                preference.setVisible(twoSimCards);
+                                boolean twoSimCards = hasSIM1 && hasSIM2;
+                                preference.setEnabled(twoSimCards);
                                 if (twoSimCards)
-                                    preference.setEnabled(enabled);
+                                    preference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY);
                             }
                         } else
-                            preference.setVisible(false);
-                    } else
-                        preference.setVisible(false);
+                            preference.setEnabled(false);
+                    //} else
+                    //    preference.setVisible(false);
                 }
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS);
                 if (preference != null) {
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        int phoneCount = 1;
-                        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                        if (telephonyManager != null) {
-                            phoneCount = telephonyManager.getPhoneCount();
-                        }
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         if (phoneCount > 1) {
                             if (phoneCount == 2) {
-                                boolean sim1Exists = GlobalUtils.hasSIMCard(context, 1);
-                                boolean sim2Exists = GlobalUtils.hasSIMCard(context, 2);
-
-                                boolean twoSimCards =
-                                        sim1Exists &&
-                                                sim2Exists;
-                                preference.setVisible(twoSimCards);
+                                boolean twoSimCards = hasSIM1 && hasSIM2;
+                                preference.setEnabled(twoSimCards);
                                 if (twoSimCards)
-                                    preference.setEnabled(enabled);
+                                    preference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY);
                             }
                         } else
-                            preference.setVisible(false);
-                    } else
-                        preference.setVisible(false);
+                            preference.setEnabled(false);
+                    //} else
+                    //    preference.setVisible(false);
                 }
 
-                preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
-                if (preference != null)
-                    preference.setEnabled(enabled);
-                if (Build.VERSION.SDK_INT >= 26) {
-                    int phoneCount = 1;
-                    TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        phoneCount = telephonyManager.getPhoneCount();
-                    }
-                    PPListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
-                    if (phoneCount > 1) {
-                        if (listPreference != null) {
-                            String value = listPreference.getValue();
+                PPListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
+                if (listPreference != null) {
+                    if (hasSIM1 || hasSIM2) {
+                        String value = listPreference.getValue();
+                        if (phoneCount > 1) {
                             listPreference.setEntries(R.array.eventRadioSwitchMobileDataDualSIMArray);
                             listPreference.setEntryValues(R.array.eventRadioSwitchhMobileDataDualSIMValues);
-                            listPreference.setValue(value);
-                            setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, preferences, context);
-                        }
-                    } else {
-                        if (listPreference != null) {
-                            String value = listPreference.getValue();
+                        } else {
                             listPreference.setEntries(R.array.eventRadioSwitchWithConnectionArray);
                             listPreference.setEntryValues(R.array.eventRadioSwitchhWithConnectionValues);
                             if (value.equals("5") || value.equals("6"))
                                 value = "3";
-                            listPreference.setValue(value);
-                            setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, preferences, context);
                         }
+                        listPreference.setValue(value);
+                        setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, preferences, context);
                     }
+                    listPreference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY && (hasSIM1 || hasSIM2));
                 }
-                PPListPreference listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
+                listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
                 if (listPreference != null) {
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        listPreference.setEnabled(enabled);
-                        int phoneCount = 1;
-                        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                        if (telephonyManager != null) {
-                            phoneCount = telephonyManager.getPhoneCount();
-                        }
+                    if (hasSIM1 || hasSIM2) {
+                        //TODO tu tiez men pole v list preferences na dual a nedual, ako pri mobilnych datatch
                         if (phoneCount <= 1) {
                             String value = listPreference.getValue();
                             if (value.equals("3") || value.equals("5"))
@@ -670,8 +777,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             listPreference.setValue(value);
                             setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF, preferences, context);
                         }
-                    } else
-                        listPreference.setVisible(false);
+                    }
+                    listPreference.setEnabled(enabled && PPApplication.HAS_FEATURE_TELEPHONY && (hasSIM1 || hasSIM2));
                 }
 
                 preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
@@ -710,7 +817,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 eventsHandler.radioSwitchPassed = true;
                 boolean tested = false;
 
@@ -734,13 +841,14 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 } catch (Exception e) {
                                     // java.lang.NullPointerException: missing IConnectivityManager
                                     // Dual SIM?? Bug in Android ???
-                                    PPApplication.recordException(e);
+                                    PPApplicationStatic.recordException(e);
                                 }
                                 if (connManager != null) {
                                     //noinspection deprecation
                                     NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                                    //noinspection deprecation
                                     connected = activeNetwork != null && activeNetwork.isConnected();
-//                                    PPApplication.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
+//                                    PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "wi-fi connected="+connected);
 
                                     tested = true;
 
@@ -757,8 +865,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                     break;
                                                 }
                                             } catch (Exception e) {
-                                                //                                            Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                                PPApplication.recordException(e);
+                                                // Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
+                                                PPApplicationStatic.recordException(e);
                                             }
                                         }
                                     }
@@ -832,13 +940,14 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         } catch (Exception e) {
                             // java.lang.NullPointerException: missing IConnectivityManager
                             // Dual SIM?? Bug in Android ???
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                         if (connManager != null) {
                             //noinspection deprecation
                             NetworkInfo activeNetwork = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                            //noinspection deprecation
                             connected = activeNetwork != null && activeNetwork.isConnected();
-//                            PPApplication.logE("EventPreferencesRadioSwitch.doHandleEvent", "mobile data connected="+connected);
+//                            PPApplicationStatic.logE("EventPreferencesRadioSwitch.doHandleEvent", "mobile data connected="+connected);
 
                             if ((_mobileData == 3) || (_mobileData == 4))
                                 tested = true;
@@ -857,8 +966,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                             break;
                                         }
                                     } catch (Exception e) {
-//                                    Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                        PPApplication.recordException(e);
+//                                    Log.e("EventPreferencesRadioSwitch.doHandleEvent", Log.getStackTraceString(e));
+                                        PPApplicationStatic.recordException(e);
                                     }
                                 }
                             }
@@ -879,7 +988,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                     else
                     if ((_mobileData == 5) || (_mobileData == 6)) {
-                        if (Build.VERSION.SDK_INT >= 26) {
+                        //if (Build.VERSION.SDK_INT >= 26) {
                             tested = true;
                             int phoneCount = 1;
                             TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -888,8 +997,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                             boolean twoSimCards = false;
                             if (phoneCount == 2) {
-                                boolean sim1Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 1);
-                                boolean sim2Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 2);
+                                GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
+                                boolean sim1Exists = hasSIMCardData.hasSIM1;
+                                boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                                 twoSimCards = sim1Exists &&
                                                 sim2Exists;
@@ -915,7 +1025,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                             else
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
-                        }
+                        //}
                     }
                 }
 
@@ -962,8 +1072,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
                 }
 
-                if ((_defaultSIMForCalls != 0) || (_defaultSIMForSMS != 0)) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                if (((_defaultSIMForCalls != 0) || (_defaultSIMForSMS != 0)) && PPApplication.HAS_FEATURE_TELEPHONY) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         int phoneCount = 1;
                         TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
@@ -971,8 +1081,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         }
                         boolean twoSimCards = false;
                         if (phoneCount == 2) {
-                            boolean sim1Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 1);
-                            boolean sim2Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 2);
+                            GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
+                            boolean sim1Exists = hasSIMCardData.hasSIM1;
+                            boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                             twoSimCards = sim1Exists &&
                                     sim2Exists;
@@ -1003,26 +1114,27 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             else
                                 eventsHandler.radioSwitchPassed = false;
                         }
-                    }
+                    //}
                 }
 
-                if (_simOnOff != 0) {
-                    if (Build.VERSION.SDK_INT >= 26) {
+                if ((_simOnOff != 0) && PPApplication.HAS_FEATURE_TELEPHONY) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         tested = true;
-                        boolean sim0Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 0);
-                        boolean sim1Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 1);
-                        boolean sim2Exists = GlobalUtils.hasSIMCard(eventsHandler.context, 2);
+                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(eventsHandler.context);
+                        //boolean sim0Exists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
+                        boolean sim1Exists = hasSIMCardData.hasSIM1;
+                        boolean sim2Exists = hasSIMCardData.hasSIM2;
 
                         switch (_simOnOff) {
                             case 1:
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                        (sim0Exists ||
+                                        (/*sim0Exists ||*/
                                          sim1Exists ||
                                          sim2Exists);
                                 break;
                             case 2:
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
-                                        ((!sim0Exists) ||
+                                        (/*(!sim0Exists) ||*/
                                          (!sim1Exists) ||
                                          (!sim2Exists));
                                 break;
@@ -1043,7 +1155,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                         (!sim2Exists);
                                 break;
                         }
-                    }
+                    //}
                 }
 
                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && tested;

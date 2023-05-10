@@ -155,13 +155,6 @@
     <string name="array_pref_show">Show</string>
     <string name="array_pref_no_run">Do not run</string>
     <string name="array_pref_run">Run</string>
-    <string name="profile_list_item_menu_activate">Activate</string>
-    <string name="profile_list_item_menu_duplicate">Duplicate</string>
-    <string name="profile_list_item_menu_delete">Delete</string>
-    <string name="event_list_item_menu_run">Enable run</string>
-    <string name="event_list_item_menu_stop">Stop event</string>
-    <string name="event_list_item_menu_duplicate">Duplicate</string>
-    <string name="event_list_item_menu_delete">Delete</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Show preferences indicator</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">Launch from home screen</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Launch from widget</string>
@@ -311,8 +304,6 @@
     <string name="altype_dataImport">restore settings</string>
     <string name="array_event_pref_calendarSearchField_location">Location</string>
     <string name="profile_preferences_vibrationOnTouch">Vibration on touch</string>
-    <string name="phone_profiles_pref_notificationShowInStatusBar">Show in status bar</string>
-    <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Show in status bar and lockscreen</string>
     <string name="menu_activity_log_reload">Reload</string>
     <string name="event_preferences_atEndDo">More actions</string>
     <string name="array_pref_atEndDo_none">None</string>
@@ -362,7 +353,6 @@
     <string name="event_preferences_volumeNotificationsAccessSettings_summary">To enable Notification sensor, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
     <string name="array_pref_zenModeArray_alarms">Alarms only</string>
     <string name="profile_preferences_zenMode_alarms_summary">Interrupt only with alarms</string>
-    <string name="phone_profiles_pref_applicationShortcutEmblem">Add emblem to shortcut</string>
     <string name="permission_group_name_write_settings">Modify system settings</string>
     <string name="permission_group_name_storage">Storage</string>
     <string name="permission_group_name_phone">Phone</string>
@@ -427,7 +417,6 @@
     <string name="event_type_applications">Applications</string>
     <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
     <string name="event_preferences_applications_applications">Applications</string>
-    <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT required to change adaptive level.</string>
     <string name="important_info_profile_activation_text1">Profiles can be activated in one of two modes:</string>
     <string name="important_info_profile_activation_text2">Manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profiles are indicated with \"[M]\" in front of the profile name.</string>
@@ -579,7 +568,6 @@
     <string name="info_notification_event_start_order">Events run in \"Start order\". You can modify the start order in Editor in events view \"Start order\". You simply drag events up/down by the \"order handler\".</string>
     <string name="info_notification_event_start_order_handler_icon">Order handler:</string>
     <string name="info_notification_activate_profile_from_tasker">You can activate a profile through Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
-    <string name="phone_profiles_pref_notificationHideInLockscreen">Hide in lockscreen</string>
     <string name="phone_profiles_pref_deleteOldActivityLogs">Delete old Activity logs (days)</string>
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Background opaqueness</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Background lightness</string>
@@ -588,7 +576,6 @@
     <string name="info_notification_manage_events_from_tasker">You can manage events through Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">restart events:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">enable event run:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">pause event:</string>
     <string name="info_notification_manage_events_from_tasker_stop_event">stop event:</string>
     <string name="phone_profiles_pref_category_eventRun">Run event</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Use \"Priority\" event parameter</string>
@@ -711,7 +698,6 @@
     <string name="about_application_privacy_policy">Privacy Policy:</string>
     <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will activate when no event is running.</string>
     <string name="altype_applicationStartOnBoot">start on boot</string>
-    <string name="profile_preferences_hideStatusBarIcon">Hide status bar icon</string>
     <string name="profile_preferences_lockDevice">Lock device</string>
     <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
     <string name="array_pref_lockDevice_screenOff">Use quick screen off</string>
@@ -813,7 +799,6 @@
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">To enable \"Applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">To enable \"Ignore for applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
-    <string name="event_preferences_applications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
     <string name="about_application_extender_source_code">Source code - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Default profile</string>
@@ -882,14 +867,12 @@
     <string name="notification_channel_notify_event_start">Start event notification</string>
     <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
-    <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
+    <string name="important_info_accessibility_service_new_version_2">Click here to install latest version of PhoneProfilesPlusExtender.</string>
     <string name="array_pref_no_force_stop">Do not force stop</string>
     <string name="array_pref_force_stop">Force stop</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
-    <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
-    <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">To enable \"Force stop applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="shortcut_activate_profile">Activate profile:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
@@ -955,7 +938,6 @@
     <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
     <string name="permission_group_name_draw_overlays_miui">Display pop-up window</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">You have not enabled \"Display pop-up window\". Never ask again?</string>
-    <string name="stop_events_alert_title">Stop events</string>
     <string name="stop_events_alert_message">Are you sure?</string>
     <string name="array_event_pref_incall_ended">Incoming call ended</string>
     <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
@@ -1019,8 +1001,6 @@
     <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
     <string name="permission_not_granted">Not granted</string>
     <string name="permission_granted">Granted</string>
-    <string name="menu_dark_theme_on">Switch on dark theme</string>
-    <string name="menu_dark_theme_off">Switch off dark theme</string>
     <string name="important_info_email_body_device">Device:</string>
     <string name="important_info_email_body_android_version">Android version:</string>
     <string name="important_info_email_body_problems">Problems:</string>
@@ -1043,10 +1023,8 @@
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Large</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Small</string>
-    <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
-    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
     <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
     <string name="default_profile_name_battery_ok">OK battery</string>
@@ -1074,7 +1052,6 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Notification access enabled</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
-
     <string name="intent_editor_title">Intent editor</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent name:</string>
@@ -1102,7 +1079,6 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
     <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
@@ -1300,7 +1276,6 @@
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
     <string name="application_is_starting_toast">is starting…</string>
     <string name="application_is_started_toast">is started</string>
-    <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <string name="duration_end_acronym">de</string>
     <string name="phone_profiles_pref_notificationStatusBarCategory">Status bar</string>
     <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notification panel</string>
@@ -1329,7 +1304,6 @@
     <string name="event_type_device_boot">Device boot</string>
     <string name="event_preferences_category_eventDeviceBootParameters">Device boot sensor</string>
     <string name="phone_profiles_pref_notificationSystemSettingsAll_summary">Configuration for all notification categories</string>
-    <string name="phone_profiles_pref_notificationSystemSettingsAll_A7_summary">Configuration for all notifications</string>
     <string name="event_preferences_alarm_clock_info">Internally supported Alarm clock applications</string>
     <string name="event_preferences_alarm_clock_applications">Alarm clock applications</string>
     <string name="gui_items_help">Help with GUI items</string>
@@ -1362,22 +1336,10 @@
     <string name="colorChooser_pref_dialog_customIconColor">Custom icon color</string>
     <string name="colorChooser_pref_dialog_customColor">Custom color</string>
     <string name="array_pref_wifiAPModeArray_on_keepWifi">On (do not disable Wi-Fi)</string>
-    <string name="array_pref_wifiAPModeArray_toggle_keepWifi">Toggle (do not disable Wi-Fi)</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIgnoreHotspot">Ignore Wi-Fi hotspot</string>
     <string name="profile_preferences_deviceWiFiAPInfo_2_summary">Option \"On (do not disable Wi-Fi)\" must be supported by system</string>
     <string name="profile_preferences_deviceWiFiInfo_summary">Options \"On (ignore hotspot)\", \"Toggle (ignore hotspot)\" must be supported by system</string>
     <string name="profile_preferences_volumeZenModeMInfo_summary">\"Priority\" type is similar to system \"Do not disturb\". Will be used all options configured in system Settings for \"Do not disturb\"</string>
-    <string name="menu_import_from_pp">Import data from PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_title">Import data from PhoneProfiles</string>
-    <string name="import_profiles_from_pp_alert_error">Error during import from PhoneProfiles process</string>
-    <string name="import_profiles_from_pp_alert_error_database_bug">Error importing the database.</string>
-    <string name="import_profiles_from_pp_alert_error_appSettings_bug">Error importing the application settings.</string>
-    <string name="altype_dataImport_fromPP">import data from PhoneProfiles</string>
-    <string name="toast_import_from_pp_ok">Data from PhoneProfiles imported</string>
-    <string name="export_pp_data_dialog_profiles_chb">Import profiles</string>
-    <string name="export_pp_data_dialog_delete_configured_profiles_chb">Delete configured profiles</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">Import application preferences</string>
-    <string name="export_pp_data_dialog_start_pp">If PhoneProfiles is not running, please start it.</string>
     <string name="export_data_email_subject">Exported settings</string>
     <string name="backup_settings_alert_title">Backup settings</string>
     <string name="dialog_backup_settings_alert_text">Copy settings into directory?</string>
@@ -1403,9 +1365,6 @@
     <string name="event_preferences_orientation_light_level_bad_value">Bad value</string>
     <string name="profile_activation_activation_error_title">Activated profile:</string>
     <string name="profile_activation_activation_error">Error during profile activation</string>
-    <string name="profile_activation_activation_error_change_wifi_ap">Error during profile activation. Change of Wi-Fi hotspot state failed.</string>
-    <string name="profile_activation_activation_error_change_wifi">Error during profile activation. Change of Wi-Fi state failed.</string>
-    <string name="profile_activation_activation_error_close_all_applications">Error during profile activation. Close all applications failed.</string>
     <string name="menu_check_github_releases">Check app. releases</string>
     <string name="check_github_releases_go_to_github">Go to GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Download the latest version of PhoneProfilesPlus.apk from its GitHub repository, then click on notification about the downloaded apk and install it.</string>
@@ -1476,8 +1435,6 @@
     <string name="normal_github_release">New app. release</string>
     <string name="normal_github_release_notification">Click this notification to download the new PhoneProfilesPlus release from its GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
     <string name="accessibility_service_enabled">Enabled</string>
     <string name="accessibility_service_disabled">Disabled</string>
     <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
@@ -2001,29 +1958,23 @@
     <string name="array_pref_vpn_connected">Connected</string>
     <string name="array_pref_vpn_disconnected">Disconnected</string>
     <string name="vpn_not_set_when_is_in_state_pref_dlg">Do not set when VPN is already in state</string>
-
     <string name="altype_profileError_cameraFlash">profile - error on set camera flash</string>
-
     <string name="check_releases_droidify_application">Droid-ify installation site:</string>
     <string name="menu_check_releases_droidify">Check in Droid-ify</string>
     <string name="check_releases_go_to_droidify">Go to Droid-ify</string>
     <string name="check_releases_open_droidify">Open Droid-ify</string>
-
     <string name="profile_context_item_copy_name">Copy name</string>
-
     <string name="export_settings_delete_location_data_text1">Note: Location data will also be included in the exported settings. If you share the backup with other people, select the parameters that should not be exported.</string>
     <string name="export_settings_delete_location_data_text2">What not export?</string>
     <string name="export_settings_delete_location_data_geofences">Locations for Location sensor</string>
     <string name="export_settings_delete_location_data_wifi_ssids">Wi-Fi SSIDs for Wi-Fi sensor</string>
     <string name="export_settings_delete_location_data_bluetooth_names">Bluetooth names for Bluetooth sensor</string>
     <string name="export_settings_delete_location_data_mobile_cells">Mobile cells for Mobile cell sensor</string>
-
     <string name="profile_preferences_category_vibrationIntensity">Vibration intensity</string>
     <string name="profile_preferences_vibrationIntensityRinging">Incomming call</string>
     <string name="profile_preferences_vibrationIntensityNotificatiions">Notifications</string>
     <string name="profile_preferences_vibrationIntensityTouchInteraction">Touch interaction</string>
     <string name="profile_preferences_vibrationIntensityAll">Vibration intensity</string>
-
     <string name="important_info_profile_install_pppps">Some profile preferences need the PPPPutSettings helper application to put setting parameter into the system database. ROOT is not required. These preferences are marked with (S).</string>
     <string name="important_info_profile_pppps_howTo_1">Profile parameters marked with (S) need helper application PPPPutSettings.</string>
     <string name="important_info_profile_pppps_howTo_2">This application is in GitHub Releases. Click here to download and install it.</string>
@@ -2036,18 +1987,114 @@
     <string name="preferences_not_installed_PPPPutSettings_title">PPPPutSettings is not installed!</string>
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
-
     <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
     <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
-
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
-
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
     <string name="phone_profiles_pref_applicationCompactGrid_info_summary">With this type of grid, profile names will not be displayed, but more profiles can fit in one row.</string>
-
     <string name="check_releases_go_to_galaxy_store">Go to Galaxy Store</string>
     <string name="check_releases_web_galaxy_store_install_restriction">Sorry, it is not possible to install PhoneProfilesPlus from this website. The Galaxy Store limits support to Galaxy devices only.</string>
+
+    <string name="array_pref_locationModeArray_toggleOffHighAccuracy">Toggle Location (Off &lt;-&gt; High accuracy)</string>
+    <string name="array_pref_locationModeArray_toggleBatterySavingHighAccuracy">Toggle Location (Battery saving &lt;-&gt; High accuracy)</string>
+
+    <string name="widget_label_one_row_profile_list">Single row profile list</string>
+    <string name="one_row_profile_list_widget_description">Displays a list of profiles without their names in one line.</string>
+    <string name="phone_profiles_pref_category_widget_one_row_profile_list">Widget: Single row profile list</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage">Number of profiles per page</string>
+    <string name="phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness">Arrows and marker of the activated profile lightness</string>
+
+    <string name="profile_preferences_volumeMediaOnePlusInfo_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.</string>
+    <string name="profile_preferences_volumeMediaOnePlusInfo_33_summary">In OnePlus devices, change of media volume not working, when PhoneProfilesPlus is in background.\nFor manual profile activation you must configure also \"Accessibility prompts volume\".</string>
+    <string name="profile_preferences_volumeAlarmInfo_summary">Note: Not all Clock applications use the system alarm volume because they use their own volume configured in their settings.</string>
+
+    <string name="connect_to_ssid_dialog_help">In this dialog is displayed list of configured Wi-Fi SSIDs.\nClick here to view Wi-Fi settings screen. It contains a parameter for configuring Wi-Fi networks.</string>
+
+    <string name="pppps_pref_dialog_title">PPPPutSettings</string>
+    <string name="pppps_pref_dialog_install_button">Install\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_launch_button">Launch\nPPPPutSettings</string>
+    <string name="pppps_pref_dialog_close_button">Close</string>
+    <string name="pppps_pref_dialog_launchPPPPS_title">Launch PPPPutSettings</string>
+    <string name="pppps_pref_dialog_pppps_not_installed">PPPPutSettings is not installed.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_not_installed_summary">Not installed</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_install_summary">For parameters marked with \"(S)\" to work properly, click here to install PPPPutSettings.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_new_version_summary">New version of PPPPutSettings is required. Click here to upgrade it.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_upgrade_summary">Click here for install/upgrade, launch of PPPPutSettings.</string>
+    <string name="pppps_pref_dialog_PPPPutSettings_modify_system_settings">Please grant permission \"Modify system settings\" in PPPPutSettings. Is required for properly working PPPPutSettings.</string>
+    <string name="pppps_pref_dialog_install_pppps_installed_version">Installed version:</string>
+    <string name="pppps_pref_dialog_install_pppps_latest_version">Latest version:</string>
+    <string name="important_info_pppps_new_version_notification">Please install the new version of PPPPutSettings. More information about installation is in \"Important information\", section \"News\". Click here, to show it.</string>
+    <string name="important_info_pppps_new_version">Please install the new version of PPPPutSettings. More information about installation is in parameters for which is PPPPutSettings required.</string>
+    <string name="important_info_pppps_new_version_2">Click here to install latest version of PPPPutSettings.</string>
+    <string name="latest_pppps_release">New PPPPutSettings version</string>
+    <string name="latest_pppps_release_notification">Click this notification to install new PPPPutSettings release.</string>
+
+    <string name="pppextender_pref_dialog_title">PhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_install_button">Install\nPhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_launch_button">Launch\nPhoneProfilesPlusExtender</string>
+    <string name="pppextender_pref_dialog_accessibility_settings_button">Enable/disable\nAccessibility settings</string>
+    <string name="pppextender_pref_dialog_close_button">Close</string>
+    <string name="pppextender_pref_dialog_PPPExtender_upgrade_summary">Click here for install/upgrade, enable/disable Accessibility settings, launch PhoneProfilesPlusExtender.</string>
+    <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
+    <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
+    <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
+
+    <string name="phone_profiles_pref_application_samsung_edge_info">PhoneProfilesPlus edge panel may not work on some Samsung devices, such as tablets, Z fold devices. Or better, when there is no button to install panels from the Galaxy Store in Settings/Display/Edge panels/Panels.</string>
+
+    <string name="phone_profiles_pref_applicationWidgetFillBackground">Fill whole space with background</string>
+
+    <string name="profile_list_item_menu_activate">Activate profile</string>
+    <string name="profile_list_item_menu_duplicate">Duplicate profile</string>
+    <string name="profile_list_item_menu_delete">Delete profile</string>
+    <string name="event_list_item_menu_run">Enable event run</string>
+    <string name="event_list_item_menu_stop">Stop event</string>
+    <string name="event_list_item_menu_duplicate">Duplicate event</string>
+    <string name="event_list_item_menu_delete">Delete event</string>
+
+    <string name="phone_profiles_pref_applicationWidgetBackgroundCategory">Background</string>
+    <string name="phone_profiles_pref_applicationWidgetProfileNameCategory">Profile name</string>
+    <string name="phone_profiles_pref_applicationWidgetProfileIconCategory">Profile icon</string>
+    <string name="phone_profiles_pref_applicationWidgetTextCategory">Text</string>
+    <string name="phone_profiles_pref_applicationWidgetIconsCategory">Icons</string>
+
+    <string name="phone_profiles_pref_category_profile_list_notification">Profile list notification</string>
+    <string name="phone_profiles_pref_notificationProfileListIconsCategory">Notification panel - icons</string>
+    <string name="phone_profiles_pref_notificationProfileListDisplayNotification">Display notification</string>
+    <string name="notification_channel_profile_list">Profile list</string>
+    <string name="notification_channel_profile_list_description">Shows list of profile icons with marked activated profile.</string>
+
+    <string name="permission_why_profile_run_applications">for run applications from background</string>
+    <string name="permission_why_profile_interactive_preferences">for display preference screen from background</string>
+    <string name="permission_why_profile_close_all_applications">for close all applications from background</string>
+    <string name="permission_why_profile_ppp_put_settings">for send request into PPPPutSettings from background</string>
+
+    <string name="notifications_preferences_notification_type">Notification type</string>
+
+    <string name="delete_mobile_cell_alert_message_warning">WARNING: Deleted mobile cell may be used also in another events.</string>
+    <string name="delete_selected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used also in another events.</string>
+    <string name="mobile_cells_item_delete_all_unselected">Delete all unselected</string>
+    <string name="delete_unselected_mobile_cells_alert_message">Delete all unselected mobile cells?</string>
+    <string name="delete_unselected_mobile_cells_alert_message_warning">WARNING: Deleted mobile cells may be used in another events.</string>
+
+    <string name="profile_preferences_deviceWallpaperFolderInfo_summary">Do not configure folder which is synchronized to cloud, for example Pictures, Camera.</string>
+    <string name="permission_why_profile_ringtones_dual_sim">for change ringtone, notification, alarm sound in dual SIM phone</string>
+
+    <string name="phone_profiles_pref_notificationProfileIconColor_info_summary">Click here to go to the preference, where this parameter can be changed.</string>
+    <string name="menu_generate_predefined_profiles">Generate predefined profiles</string>
+    <string name="menu_generate_predefined_events">Generate predefined events</string>
+
+    <string name="application_is_stopping_toast">is stopping…</string>
+
+    <string name="event_preferences_applications_AccessibilitySettings_subTitle_A13">Note: If is not possible to enable Accessibility settings, please launch PhoneProfilesPlusExtender and enable it from there.</string>
+
+    <string name="install_pppps_text5">When the dialog \"Unsafe app blocked\" from Google Play Protect appears during installation, click at bottom, text \"More details\" and in it at bottom, text \"Install anyway\".</string>
+
+    <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
+    <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
+    <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2096,6 +2143,12 @@
     <string name="extender_menu_choose_language">Choose language</string>
     <string name="extender_menu_choose_language_system_language">[ System ]</string>
     <string name="extender_application_translations">Translations:</string>
+    <string name="extender_email_chooser">Send e-mail using</string>
+    <string name="extender_accessibility_service_disabled_app_info_1">If is not possible to enable Accessibility service, maybe are not allowed restricted settings for PhoneProfilesPlusExtender.</string>
+    <string name="extender_accessibility_service_disabled_app_info_2">Click \"App info\" button to allow it.</string>
+    <string name="extender_accessibility_service_disabled_app_info_3">In \"App info\" screen, click menu at top and in it \"Allow restricted settings\".</string>
+    <string name="extender_accessibility_service_disabled_app_info_4">\"Allow restricted settings\" is not displayed, when restricted settings are allowed.</string>
+    <string name="extender_accessibility_service_app_info_button">App info</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2120,5 +2173,12 @@
     <string name="pppputsettings_acra_notification_title">Sorry, PPPPutSettings crashed</string>
     <string name="pppputsettings_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="pppputsettings_notification_channel_crash_report">Crash report</string>
+    <string name="pppputsettings_notification_channel_exclamation">Exclamation</string>
+    <string name="pppputsettings_not_granted_write_settings_title">\"Modify system settings\" not granted</string>
+    <string name="pppputsettings_not_granted_write_settings_text">\"Modify system settings\" is not granted for PPPPutSettings. Click this notification to grant it.</string>
+    <string name="pppputsettings_modify_system_settings_granted">Granted</string>
+    <string name="pppputsettings_modify_system_settings_not_granted">Not granted</string>
+    <string name="pppputsettings_email_chooser">Send e-mail using</string>
+
 </resources>
 

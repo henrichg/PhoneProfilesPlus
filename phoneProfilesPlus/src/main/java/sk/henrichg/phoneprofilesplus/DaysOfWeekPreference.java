@@ -81,9 +81,8 @@ public class DaysOfWeekPreference extends DialogPreference {
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void setSummaryDOWMDP() {
-        String summary = "";
+        String summary;// = "";
 
         boolean allIsConfigured = false;
         boolean[] daySet = new boolean[7];
@@ -105,31 +104,39 @@ public class DaysOfWeekPreference extends DialogPreference {
                 allIsConfigured = allIsConfigured && daySet[i];
         }
         String[] shortNamesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
+
+        StringBuilder _value = new StringBuilder();
         for ( int i = 1; i < 8; i++ ) {
             int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
             if (value.contains(String.valueOf(_dayOfWeek)))
-                summary = summary + shortNamesOfDay[_dayOfWeek+1] + " ";
+                //summary = summary + shortNamesOfDay[_dayOfWeek+1] + " ";
+                _value.append(shortNamesOfDay[_dayOfWeek+1]).append(" ");
         }
+        summary = _value.toString();
 
         setSummary(summary);
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void getValue() {
         // fill with days of week separated with |
         value = "";
+        StringBuilder _value = new StringBuilder();
         if (daysOfWeekList != null)
         {
             for (DayOfWeek dayOfWeek : daysOfWeekList)
             {
                 if (dayOfWeek.checked)
                 {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + dayOfWeek.value;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + dayOfWeek.value;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(dayOfWeek.value);
                 }
             }
         }
+        value = _value.toString();
     }
 
     void persistValue() {

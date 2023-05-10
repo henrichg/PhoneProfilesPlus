@@ -35,6 +35,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 
         this.context = context;
 
+        //noinspection resource
         final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];
         for (int i = 0; i < ta.length(); i++) {
@@ -44,7 +45,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 
         this.defaultColor = 0xff1ea0df;
 
-        setWidgetLayoutResource(R.layout.preference_restart_events_icon_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_restart_events_icon_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
 
         setPositiveButtonText(null);
     }
@@ -168,7 +169,6 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        //noinspection IfStatementWithIdenticalBranches
         if (applicationTheme.equals("white")) {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));

@@ -42,7 +42,8 @@ class ContactsCache {
 
                 String[] projection = new String[]{
                         ContactsContract.RawContacts.CONTACT_ID,
-                        ContactsContract.RawContacts.ACCOUNT_TYPE
+                        ContactsContract.RawContacts.ACCOUNT_TYPE,
+                        ContactsContract.RawContacts.ACCOUNT_NAME
                 };
                 Cursor rawCursor = context.getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI, projection, null /*selection*/, null, ContactsContract.RawContacts.CONTACT_ID + " ASC");
                 if (rawCursor != null) {
@@ -51,6 +52,7 @@ class ContactsCache {
                         String rawAccountType = rawCursor.getString(1);
                         //rawAccountType = removeLeadingChar(rawAccountType, '\'');
                         //rawAccountType = removeTrailingChar(rawAccountType, '\'');
+                        String rawAccountName = rawCursor.getString(2);
 
                         if (contactId != _contactId) {
                             // contactId cahnged
@@ -84,8 +86,8 @@ class ContactsCache {
                             //if (hasPhone > 0) {
                                 projection = new String[]{
                                         ContactsContract.CommonDataKinds.Phone._ID,
-                                        ContactsContract.CommonDataKinds.Phone.NUMBER,
-                                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
+                                        ContactsContract.CommonDataKinds.Phone.NUMBER//,
+                                        //ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
                                 };
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection,
                                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + contactId + " AND " +
@@ -94,7 +96,7 @@ class ContactsCache {
                                 if (phones != null) {
                                     if (phones.getCount() > 0) {
                                         while (phones.moveToNext()) {
-                                            String accountType = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
+                                            //String accountType = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
                                             //accountType = removeLeadingChar(accountType, '\'');
                                             //accountType = removeTrailingChar(accountType, '\'');
 
@@ -112,7 +114,8 @@ class ContactsCache {
                                             } catch (Exception e) {
                                                 aContact.photoId = 0;
                                             }
-                                            aContact.accountType = accountType;
+                                            aContact.accountType = rawAccountType; //accountType;
+                                            aContact.accountName = rawAccountName;
                                             //_oneContactIdList.add(aContact);
                                             _contactList.add(aContact);
                                             //}
@@ -125,6 +128,7 @@ class ContactsCache {
                                         aContact.phoneId = 0;
                                         aContact.phoneNumber = "";
                                         aContact.accountType = rawAccountType;
+                                        aContact.accountName = rawAccountName;
                                         try {
                                             aContact.photoId = Long.parseLong(photoId);
                                         } catch (Exception e) {
@@ -167,7 +171,7 @@ class ContactsCache {
             }
         } catch (SecurityException e) {
             //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -179,7 +183,7 @@ class ContactsCache {
             cached = false;
         } catch (Exception e) {
             //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -311,7 +315,7 @@ class ContactsCache {
             }
         } catch (SecurityException e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -319,7 +323,7 @@ class ContactsCache {
             cached = false;
         } catch (Exception e) {
             Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
@@ -440,16 +444,16 @@ class ContactsCache {
                 cached = true;
             }
         } catch (SecurityException e) {
-            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
+            //PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();
 
             cached = false;
         } catch (Exception e) {
-            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            //Log.e("ContactsCache.getContactListX", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
 
             _contactList.clear();
             //_contactListWithoutNumber.clear();

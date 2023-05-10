@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -45,6 +44,7 @@ class AddEventAdapter extends BaseAdapter {
         profileStartNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedStartProfilesArray);
         profileEndNamesArray = c.getResources().getStringArray(R.array.addEventPredefinedEndProfilesArray);
 
+        //noinspection resource
         TypedArray profileStartIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedStartProfileIconsArray);
         profileStartIconsArray = new int[profileStartIconsTypedArray.length()];
         for (int i = 0; i < profileStartIconsTypedArray.length(); i++) {
@@ -52,6 +52,7 @@ class AddEventAdapter extends BaseAdapter {
         }
         profileStartIconsTypedArray.recycle();
 
+        //noinspection resource
         TypedArray profileEndIconsTypedArray = c.getResources().obtainTypedArray(R.array.addEventPredefinedEndProfileIconsArray);
         profileEndIconsArray = new int[profileEndIconsTypedArray.length()];
         for (int i = 0; i < profileEndIconsTypedArray.length(); i++) {
@@ -100,9 +101,9 @@ class AddEventAdapter extends BaseAdapter {
         {
             //LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (applicationEditorPrefIndicator)
-                vi = LayoutInflater.from(context).inflate(R.layout.add_event_list_item, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
             else
-                vi = LayoutInflater.from(context).inflate(R.layout.add_event_list_item_no_indicator, parent, false);
+                vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
             holder = new ViewHolder();
             holder.radioButton = vi.findViewById(R.id.event_pref_dlg_item_radio_button);
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);
@@ -258,7 +259,7 @@ class AddEventAdapter extends BaseAdapter {
                 String profileName = profileStartNamesArray[position];
                 if (position > 0) {
                     profileName = "(*) " + profileName;
-                    holder.profileStartName.setTextColor(Color.RED);
+                    holder.profileStartName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
                 }
                 else
                     holder.profileStartName.setTextColor(defaultColor);
@@ -362,7 +363,7 @@ class AddEventAdapter extends BaseAdapter {
                                 profileName = "(*) [M] " + profileName;
                             else
                                 profileName = "(*) " + profileName;
-                            holder.profileEndName.setTextColor(Color.RED);
+                            holder.profileEndName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
                         } else
                             holder.profileEndName.setTextColor(defaultColor);
                     //}

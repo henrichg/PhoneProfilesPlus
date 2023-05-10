@@ -17,7 +17,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
         //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.event_status_popup_window_text7);
-        textView.setText(fragment.getString(R.string.popup_window_events_status_show_info) + "\u00A0\u21D2");
+        textView.setText(fragment.getString(R.string.popup_window_events_status_show_info) + "\u00A0»»");
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
             if (fragment.getActivity() != null) {
@@ -42,7 +42,8 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             checkBox.setOnCheckedChangeListener((compoundButton, isChecked) -> {
                 //noinspection ConstantConditions
                 if (fragment != null) {
-                    if (!fragment.runStopEvent(_event))
+                    boolean ok = EventStatic.runStopEvent(fragment.activityDataWrapper, _event, (EditorActivity) fragment.getActivity());
+                    if (!ok)
                         checkBox.setChecked(false);
                 }
             });

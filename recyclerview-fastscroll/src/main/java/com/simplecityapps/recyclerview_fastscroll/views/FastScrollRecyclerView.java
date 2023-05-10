@@ -37,13 +37,13 @@ import com.simplecityapps.recyclerview_fastscroll.R;
 import com.simplecityapps.recyclerview_fastscroll.interfaces.OnFastScrollStateChangeListener;
 import com.simplecityapps.recyclerview_fastscroll.utils.Utils;
 
+@SuppressWarnings({"unchecked", "rawtypes", "resource", "UnusedAssignment", "unused"})
 public class FastScrollRecyclerView extends RecyclerView implements RecyclerView.OnItemTouchListener {
 
     private static final String TAG = "FastScrollRecyclerView";
 
     private final FastScroller mScrollbar;
 
-    @SuppressWarnings("UnusedAssignment")
     private boolean mFastScrollEnabled = true;
 
     /**
@@ -176,7 +176,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      *
      * @param yOffset the offset from the top of the recycler view to start tracking.
      */
-    protected int getAvailableScrollHeight(int adapterHeight, @SuppressWarnings("SameParameterValue") int yOffset) {
+    protected int getAvailableScrollHeight(int adapterHeight,
+                                           @SuppressWarnings("SameParameterValue") int yOffset) {
         int visibleHeight = getHeight();
         int scrollHeight = yOffset + adapterHeight;
         if (getClipToPadding()) scrollHeight += getPaddingTop() + getPaddingBottom();
@@ -320,10 +321,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         return sectionedAdapter.getSectionName(posInt);
     }
 
-    @SuppressWarnings("unchecked")
     private int findMeasureAdapterFirstVisiblePosition(int passedHeight) {
         if (getAdapter() instanceof MeasurableAdapter) {
-            @SuppressWarnings("rawtypes")
             MeasurableAdapter measurableAdapter = (MeasurableAdapter) getAdapter();
             for (int i = 0; i < getAdapter().getItemCount(); i++) {
                 int top = calculateScrollDistanceToPosition(i);
@@ -348,10 +347,8 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
 
     }
 
-    @SuppressWarnings("unchecked")
     private float findItemPosition(float touchFraction) {
         if (getAdapter() instanceof MeasurableAdapter) {
-            @SuppressWarnings("rawtypes")
             MeasurableAdapter measurer = (MeasurableAdapter) getAdapter();
             int viewTop = (int) (touchFraction * calculateAdapterHeight());
 
@@ -420,7 +417,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
     /**
      * Returns the current scroll state of the apps rows.
      */
-    @SuppressWarnings("unchecked")
     private void getCurScrollState(ScrollPositionState stateOut) {
         stateOut.rowIndex = -1;
         stateOut.rowTopOffset = -1;
@@ -447,7 +443,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         if (layoutManager != null) {
             if (getAdapter() instanceof MeasurableAdapter) {
                 stateOut.rowTopOffset = layoutManager.getDecoratedTop(child);
-                //noinspection rawtypes
                 stateOut.rowHeight = ((MeasurableAdapter) getAdapter()).getViewTypeHeight(this, findViewHolderForAdapterPosition(stateOut.rowIndex), getAdapter().getItemViewType(stateOut.rowIndex));
             } else {
                 stateOut.rowTopOffset = layoutManager.getDecoratedTop(child);
@@ -469,7 +464,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      *                     corresponding view
      * @return The total height of all views above {@code adapterIndex} in pixels
      */
-    @SuppressWarnings("unchecked")
     private int calculateScrollDistanceToPosition(int adapterIndex) {
         if (!(getAdapter() instanceof MeasurableAdapter)) {
             throw new IllegalStateException("calculateScrollDistanceToPosition() should only be called where the RecyclerView.Adapter is an instance of MeasurableAdapter");
@@ -480,7 +474,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         }
 
         int totalHeight = 0;
-        //noinspection rawtypes
         MeasurableAdapter measurer = (MeasurableAdapter) getAdapter();
 
         for (int i = 0; i < adapterIndex; i++) {
@@ -506,47 +499,38 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         return calculateScrollDistanceToPosition(getAdapter().getItemCount());
     }
 
-    @SuppressWarnings("unused")
     public void showScrollbar() {
         mScrollbar.show();
     }
 
-    @SuppressWarnings("unused")
     public void setThumbColor(@ColorInt int color) {
         mScrollbar.setThumbColor(color);
     }
 
-    @SuppressWarnings("unused")
     public void setTrackColor(@ColorInt int color) {
         mScrollbar.setTrackColor(color);
     }
 
-    @SuppressWarnings("unused")
     public void setPopupBgColor(@ColorInt int color) {
         mScrollbar.setPopupBgColor(color);
     }
 
-    @SuppressWarnings("unused")
     public void setPopupTextColor(@ColorInt int color) {
         mScrollbar.setPopupTextColor(color);
     }
 
-    @SuppressWarnings("unused")
     public void setPopupTextSize(int textSize) {
         mScrollbar.setPopupTextSize(textSize);
     }
 
-    @SuppressWarnings("unused")
     public void setPopUpTypeface(Typeface typeface) {
         mScrollbar.setPopupTypeface(typeface);
     }
 
-    @SuppressWarnings("unused")
     public void setAutoHideDelay(int hideDelay) {
         mScrollbar.setAutoHideDelay(hideDelay);
     }
 
-    @SuppressWarnings("unused")
     public void setAutoHideEnabled(boolean autoHideEnabled) {
         mScrollbar.setAutoHideEnabled(autoHideEnabled);
     }
@@ -560,7 +544,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
         setOnFastScrollStateChangeListener(stateChangeListener);
     }
 
-    @SuppressWarnings("unused")
     public void setThumbInactiveColor(@ColorInt int color) {
         mScrollbar.setThumbInactiveColor(color);
     }
@@ -588,7 +571,6 @@ public class FastScrollRecyclerView extends RecyclerView implements RecyclerView
      * meaning the popup moves adjacent to the FastScroll thumb, or {@link FastScroller.PopupPosition#CENTER},
      * meaning the popup is static and centered within the RecyclerView.
      */
-    @SuppressWarnings("unused")
     public void setPopupPosition(@FastScroller.PopupPosition int popupPosition) {
         mScrollbar.setPopupPosition(popupPosition);
     }

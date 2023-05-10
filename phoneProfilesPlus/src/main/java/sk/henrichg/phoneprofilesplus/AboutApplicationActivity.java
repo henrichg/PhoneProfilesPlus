@@ -63,7 +63,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
             if (DebugVersion.enabled)
                 message = message + " - debug";
         } catch (Exception e) {
@@ -88,7 +88,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_translations);
-        str2 = str1 + "\n" + PPApplication.CROWDIN_URL + "\u00A0\u21D2";
+        str2 = str1 + "\n" + PPApplication.CROWDIN_URL + "\u00A0»»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -107,7 +107,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -124,7 +124,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
-        str2 = str1 + "\n" + PPApplication.PRIVACY_POLICY_URL + "\u00A0\u21D2";
+        str2 = str1 + "\n" + PPApplication.PRIVACY_POLICY_URL + "\u00A0»»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         /*ClickableSpan*/ clickableSpan = new ClickableSpan() {
@@ -142,7 +142,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -153,7 +153,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_releases);
         str1 = getString(R.string.about_application_releases);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPP_RELEASES_URL + "\u00A0\u21D2";
+        str2 = str1 + "\n" + PPApplication.GITHUB_PPP_RELEASES_URL + "\u00A0»»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -171,7 +171,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -182,7 +182,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_source_code);
         str1 = getString(R.string.about_application_source_code);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPP_URL + "\u00A0\u21D2";
+        str2 = str1 + "\n" + PPApplication.GITHUB_PPP_URL + "\u00A0»»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -200,7 +200,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -211,7 +211,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_extender_source_code);
         str1 = getString(R.string.about_application_extender_source_code);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPPE_URL + "\u00A0\u21D2";
+        str2 = str1 + "\n" + PPApplication.GITHUB_PPPE_URL + "\u00A0»»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -229,7 +229,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -240,7 +240,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_pppps_source_code);
         str1 = getString(R.string.about_application_pppps_source_code);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPPPS_URL + "\u00A0\u21D2";
+        str2 = str1 + "\n" + PPApplication.GITHUB_PPPPS_URL + "\u00A0»»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -258,7 +258,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -269,7 +269,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_xda_developers_community);
         str1 = getString(R.string.about_application_xda_developers_community);
-        str2 = str1 + "\n" + PPApplication.XDA_DEVELOPERS_PPP_URL + "\u00A0\u21D2";
+        str2 = str1 + "\n" + PPApplication.XDA_DEVELOPERS_PPP_URL + "\u00A0»»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -287,7 +287,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -299,7 +299,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         /*
         text = findViewById(R.id.about_application_google_plus_community);
         str1 = getString(R.string.about_application_google_plus_community);
-        str2 = str1 + "\nhttps://plus.google.com/communities/100282006628784777672" + " \u21D2";
+        str2 = str1 + "\nhttps://plus.google.com/communities/100282006628784777672" + " »»";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -361,7 +361,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                                     Uri.parse("http://play.google.com/store/apps/details?id=" + PPApplication.PACKAGE_NAME));
                             startActivity(Intent.createChooser(i, getString(R.string.google_play_chooser)));
                         } catch (Exception ee) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     }
                 }
@@ -462,7 +462,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
                         final String bodyText, /*final boolean boldLink,*/ final Context context) {
         String strNoLink = text + " " + linkText;
-        String str2 = strNoLink + "\nhenrich.gron@gmail.com" + "\u00A0\u21D2";
+        String str2 = strNoLink + "\nhenrich.gron@gmail.com" + "\u00A0»»";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, strNoLink.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -481,9 +481,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 String packageVersion = "";
                 try {
                     PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                    packageVersion = " - v" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")";
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
                 if (subjectText.isEmpty())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
@@ -494,7 +494,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 try {
                     context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             }
         };
@@ -511,18 +511,18 @@ public class AboutApplicationActivity extends AppCompatActivity {
         String body;
         //switch (bodyType) {
         //    case EMAIL_BODY_SUPPORT:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+                //if (Build.VERSION.SDK_INT >= 25)
                     body = context.getString(R.string.important_info_email_body_device) + " " +
                             Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
                             " (" + Build.MODEL + ")" + " \n";
-                else {
+                /*else {
                     String manufacturer = Build.MANUFACTURER;
                     String model = Build.MODEL;
                     if (model.startsWith(manufacturer))
                         body = context.getString(R.string.important_info_email_body_device) + " " + model + " \n";
                     else
                         body = context.getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
-                }
+                }*/
                 body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
                 body = body + context.getString(R.string.important_info_email_body_problems) + " \n";
                 body = body + context.getString(R.string.important_info_email_body_questions) + " \n";

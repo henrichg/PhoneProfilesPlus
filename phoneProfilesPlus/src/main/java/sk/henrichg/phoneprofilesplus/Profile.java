@@ -924,9 +924,9 @@ public class Profile {
         profileIconNotifyColorId.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data_notify_color);
     }
 
-    static final int PARAMETER_TYPE_WIFI = 1;
-    static final int PARAMETER_TYPE_WIFIAP = 2;
-    static final int PARAMETER_CLOSE_ALL_APPLICATION = 3;
+//    static final int PARAMETER_TYPE_WIFI = 1;
+//    static final int PARAMETER_TYPE_WIFIAP = 2;
+//    static final int PARAMETER_CLOSE_ALL_APPLICATION = 3;
 
     // Empty constructor
     Profile(){
@@ -1160,111 +1160,111 @@ public class Profile {
 
     // constructor
     Profile(String name,
-                   String icon,
-                   Boolean checked,
-                   int porder,
-                   int volumeRingerMode,
-                   String volumeRingtone,
-                   String volumeNotification,
-                   String volumeMedia,
-                   String volumeAlarm,
-                   String volumeSystem,
-                   String volumeVoice,
-                   int soundRingtoneChange,
-                   String soundRingtone,
-                   int soundNotificationChange,
-                   String soundNotification,
-                   int soundAlarmChange,
-                   String soundAlarm,
-                   int deviceAirplaneMode,
-                   int deviceWiFi,
-                   int deviceBluetooth,
-                   int deviceScreenTimeout,
-                   String deviceBrightness,
-                   int deviceWallpaperChange,
-                   String deviceWallpaper,
-                   int deviceMobileData,
-                   int deviceMobileDataPrefs,
-                   int deviceGPS,
-                   int deviceRunApplicationChange,
-                   String deviceRunApplicationPackageName,
-                   int deviceAutoSync,
-                   boolean showInActivator,
-                   int deviceAutoRotate,
-                   int deviceLocationServicePrefs,
-                   int volumeSpeakerPhone,
-                   int deviceNFC,
-                   int duration,
-                   int afterDurationDo,
-                   int volumeZenMode,
-                   int deviceKeyguard,
-                   int vibrationOnTouch,
-                   int deviceWiFiAP,
-                   int devicePowerSaveMode,
-                   boolean askForDuration,
-                   int deviceNetworkType,
-                   int notificationLed,
-                   int vibrateWhenRinging,
-                   int deviceWallpaperFor,
-                   boolean hideStatusBarIcon,
-                   int lockDevice,
-                   String deviceConnectToSSID,
-                   int applicationDisableWifiScanning,
-                   int applicationDisableBluetoothScanning,
-                   String durationNotificationSound,
-                   boolean durationNotificationVibrate,
-                   int deviceWiFiAPPrefs,
-                   int applicationDisableLocationScanning,
-                   int applicationDisableMobileCellScanning,
-                   int applicationDisableOrientationScanning,
-                   int headsUpNotifications,
-                   int deviceForceStopApplicationChange,
-                   String deviceForceStopApplicationPackageName,
-                   long activationByUserCount,
-                   int deviceNetworkTypePrefs,
-                   int deviceCloseAllApplications,
-                   int screenDarkMode,
-                   int dtmfToneWhenDialing,
-                   int soundOnTouch,
-                   String volumeDTMF,
-                   String volumeAccessibility,
-                   String volumeBluetoothSCO,
-                   long afterDurationProfile,
-                   int alwaysOnDisplay,
-                   int screenOnPermanent,
-                   boolean volumeMuteSound,
-                   int deviceLocationMode,
-                   int applicationDisableNotificationScanning,
-                   String generateNotification,
-                   int cameraFlash,
-                   int deviceNetworkTypeSIM1,
-                   int deviceNetworkTypeSIM2,
-                   int deviceMobileDataSIM1,
-                   int deviceMobileDataSIM2,
-                   String deviceDefaultSIMCards,
-                   int deviceOnOffSIM1,
-                   int deviceOnOffSIM2,
-                   int soundRingtoneChangeSIM1,
-                   String soundRingtoneSIM1,
-                   int soundRingtoneChangeSIM2,
-                   String soundRingtoneSIM2,
-                   int soundNotificationChangeSIM1,
-                   String soundNotificationSIM1,
-                   int soundNotificationChangeSIM2,
-                   String soundNotificationSIM2,
-                   int soundSameRingtoneForBothSIMCards,
-                   String deviceLiveWallpaper,
-                   int vibrateNotifications,
-                   String deviceWallpaperFolder,
-                   int applicationDisableGlobalEventsRun,
-                   int deviceVPNSettingsPrefs,
-                   int endOfActivationType,
-                   int endOfActivationTime,
-                   int applicationDisablePeriodicScanning,
-                   String deviceVPN,
-                   String vibrationIntensityRinging,
-                   String vibrationIntensityNotifications,
-                   String vibrationIntensityTouchInteraction
+            String icon,
+            @SuppressWarnings("SameParameterValue") Boolean checked,
+            int porder,
+            int volumeRingerMode,
+            String volumeRingtone,
+            String volumeNotification,
+            String volumeMedia,
+            String volumeAlarm,
+            String volumeSystem,
+            String volumeVoice,
+            int soundRingtoneChange,
+            String soundRingtone,
+            int soundNotificationChange,
+            String soundNotification,
+            int soundAlarmChange,
+            String soundAlarm,
+            int deviceAirplaneMode,
+            int deviceWiFi,
+            int deviceBluetooth,
+            int deviceScreenTimeout,
+            String deviceBrightness,
+            int deviceWallpaperChange,
+            String deviceWallpaper,
+            int deviceMobileData,
+            int deviceMobileDataPrefs,
+            int deviceGPS,
+            int deviceRunApplicationChange,
+            String deviceRunApplicationPackageName,
+            int deviceAutoSync,
+            boolean showInActivator,
+            int deviceAutoRotate,
+            int deviceLocationServicePrefs,
+            int volumeSpeakerPhone,
+            int deviceNFC,
+            int duration,
+            int afterDurationDo,
+            int volumeZenMode,
+            int deviceKeyguard,
+            int vibrationOnTouch,
+            int deviceWiFiAP,
+            int devicePowerSaveMode,
+            boolean askForDuration,
+            int deviceNetworkType,
+            int notificationLed,
+            int vibrateWhenRinging,
+            int deviceWallpaperFor,
+            boolean hideStatusBarIcon,
+            int lockDevice,
+            String deviceConnectToSSID,
+            int applicationDisableWifiScanning,
+            int applicationDisableBluetoothScanning,
+            String durationNotificationSound,
+            boolean durationNotificationVibrate,
+            int deviceWiFiAPPrefs,
+            int applicationDisableLocationScanning,
+            int applicationDisableMobileCellScanning,
+            int applicationDisableOrientationScanning,
+            int headsUpNotifications,
+            int deviceForceStopApplicationChange,
+            String deviceForceStopApplicationPackageName,
+            long activationByUserCount,
+            int deviceNetworkTypePrefs,
+            int deviceCloseAllApplications,
+            int screenDarkMode,
+            int dtmfToneWhenDialing,
+            int soundOnTouch,
+            String volumeDTMF,
+            String volumeAccessibility,
+            String volumeBluetoothSCO,
+            long afterDurationProfile,
+            int alwaysOnDisplay,
+            int screenOnPermanent,
+            boolean volumeMuteSound,
+            int deviceLocationMode,
+            int applicationDisableNotificationScanning,
+            String generateNotification,
+            int cameraFlash,
+            int deviceNetworkTypeSIM1,
+            int deviceNetworkTypeSIM2,
+            int deviceMobileDataSIM1,
+            int deviceMobileDataSIM2,
+            String deviceDefaultSIMCards,
+            int deviceOnOffSIM1,
+            int deviceOnOffSIM2,
+            int soundRingtoneChangeSIM1,
+            String soundRingtoneSIM1,
+            int soundRingtoneChangeSIM2,
+            String soundRingtoneSIM2,
+            int soundNotificationChangeSIM1,
+            String soundNotificationSIM1,
+            int soundNotificationChangeSIM2,
+            String soundNotificationSIM2,
+            int soundSameRingtoneForBothSIMCards,
+            String deviceLiveWallpaper,
+            int vibrateNotifications,
+            String deviceWallpaperFolder,
+            int applicationDisableGlobalEventsRun,
+            int deviceVPNSettingsPrefs,
+            int endOfActivationType,
+            int endOfActivationTime,
+            int applicationDisablePeriodicScanning,
+            String deviceVPN,
+            String vibrationIntensityRinging,
+            String vibrationIntensityNotifications,
+            String vibrationIntensityTouchInteraction
     )
     {
         this._name = name;
@@ -2264,17 +2264,21 @@ public class Profile {
         return value == 1;
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
-    void setVolumeRingtoneValue(int value) {
+    void setVolumeRingtoneValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
             String[] splits = _volumeRingtone.split("\\|");
             splits[0] = String.valueOf(value);
             _volumeRingtone = "";
+            StringBuilder _volume = new StringBuilder();
             for (String split : splits) {
-                if (!_volumeRingtone.isEmpty())
-                    _volumeRingtone = _volumeRingtone + "|";
-                _volumeRingtone = _volumeRingtone + split;
+                //if (!_volumeRingtone.isEmpty())
+                //    _volumeRingtone = _volumeRingtone + "|";
+                //_volumeRingtone = _volumeRingtone + split;
+                if (_volume.length() > 0)
+                    _volume.append("|");
+                _volume.append(split);
             }
+            _volumeRingtone = _volume.toString();
         } catch (Exception ignore) {
         }
     }
@@ -2315,18 +2319,21 @@ public class Profile {
         return value == 1;
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
-    void setVolumeNotificationValue(int value) {
-
+    void setVolumeNotificationValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
             String[] splits = _volumeNotification.split("\\|");
             splits[0] = String.valueOf(value);
             _volumeNotification = "";
+            StringBuilder _volume = new StringBuilder();
             for (String split : splits) {
-                if (!_volumeNotification.isEmpty())
-                    _volumeNotification = _volumeNotification + "|";
-                _volumeNotification = _volumeNotification + split;
+                //if (!_volumeNotification.isEmpty())
+                //    _volumeNotification = _volumeNotification + "|";
+                //_volumeNotification = _volumeNotification + split;
+                if (_volume.length() > 0)
+                    _volume.append("|");
+                _volume.append(split);
             }
+            _volumeNotification = _volume.toString();
         } catch (Exception ignore) {
         }
     }
@@ -2766,10 +2773,10 @@ public class Profile {
 
     void generateIconBitmap(Context context, boolean monochrome, int monochromeValue, boolean useMonochromeValueForCustomIcon)
     {
+        releaseIconBitmap();
+
         if (!getIsIconResourceID())
         {
-            releaseIconBitmap();
-
             int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             //Log.d("---- generateIconBitmap","resampleBitmapUri");
@@ -2985,8 +2992,8 @@ public class Profile {
         if (!eventName.isEmpty())
             profileName = profileName + " " + eventName;
         String durationString = "";
+        boolean showEndTime = false;
         if (_askForDuration) {
-            boolean showEndTime = false;
             if (_checked) {
                 long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                 if (endDurationTime > 0) {
@@ -3001,7 +3008,6 @@ public class Profile {
         else
         if (_endOfActivationType == 0) {
             if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
-                boolean showEndTime = false;
                 if (_checked) {
                     long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
                     if (endDurationTime > 0) {
@@ -3018,7 +3024,6 @@ public class Profile {
         else
         if (_endOfActivationType == 1) {
             if (_afterDurationDo != AFTER_DURATION_DO_NOTHING) {
-                boolean showEndTime = false;
                 if (_checked) {
                     // saved was configured ond of activation time
                     // (look at ProfileDurationAlarmBroadcastReceiver.setAlarm())
@@ -3041,7 +3046,7 @@ public class Profile {
                     }
                 }
                 if (!showEndTime) {
-                    if (!_checked)
+                    //if (!_checked)
                         durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
                 }
             }
@@ -3055,7 +3060,7 @@ public class Profile {
         }
         if (!durationString.isEmpty()) {
             if (durationInNextLine) {
-                if (_checked)
+                if (showEndTime /*_checked*/)
                     profileName = durationString + "\n" + profileName;
                 else
                     profileName = profileName + "\n" + durationString;
@@ -3065,7 +3070,7 @@ public class Profile {
         }
         Spannable sbt = new SpannableString(profileName);
         if (!durationString.isEmpty()) {
-            if (durationInNextLine && _checked)
+            if (durationInNextLine && showEndTime/*_checked*/)
                 sbt.setSpan(new RelativeSizeSpan(0.8f), 0, durationString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             else
                 sbt.setSpan(new RelativeSizeSpan(0.8f), startSpan, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -3196,7 +3201,7 @@ public class Profile {
         if ((this._deviceForceStopApplicationChange != 0) ||
             (this._lockDevice != 0)) {
 
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
             if (this._deviceForceStopApplicationChange != 0) {
                 if (extenderVersion == 0)
@@ -3224,7 +3229,7 @@ public class Profile {
             }
             if (accessibilityEnabled == -98) {
                 // Extender is in right version
-                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
+                if (sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, againCheckInDelay, true
                         /*, "Profile.isAccessibilityServiceEnabled (profile=" + _name + ")"*/))
                     // accessibility enabled
                     accessibilityEnabled = 1;
@@ -3249,17 +3254,22 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityRinging);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
+    @SuppressWarnings("unused")
     void setVibrationIntensityRingingValue(int value) {
         try {
             String[] splits = _vibrationIntensityRinging.split("\\|");
             splits[0] = String.valueOf(value);
             _vibrationIntensityRinging = "";
+            StringBuilder _value = new StringBuilder();
             for (String split : splits) {
-                if (!_vibrationIntensityRinging.isEmpty())
-                    _vibrationIntensityRinging = _vibrationIntensityRinging + "|";
-                _vibrationIntensityRinging = _vibrationIntensityRinging + split;
+                //if (!_vibrationIntensityRinging.isEmpty())
+                //    _vibrationIntensityRinging = _vibrationIntensityRinging + "|";
+                //_vibrationIntensityRinging = _vibrationIntensityRinging + split;
+                if (_value.length() > 0)
+                    _value.append("|");
+                _value.append(split);
             }
+            _vibrationIntensityRinging = _value.toString();
         } catch (Exception ignore) {
         }
     }
@@ -3273,17 +3283,22 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityNotifications);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
+    @SuppressWarnings("unused")
     void setVibrationIntensityNotificationsValue(int value) {
         try {
             String[] splits = _vibrationIntensityNotifications.split("\\|");
             splits[0] = String.valueOf(value);
             _vibrationIntensityNotifications = "";
+            StringBuilder _value = new StringBuilder();
             for (String split : splits) {
-                if (!_vibrationIntensityNotifications.isEmpty())
-                    _vibrationIntensityNotifications = _vibrationIntensityNotifications + "|";
-                _vibrationIntensityNotifications = _vibrationIntensityNotifications + split;
+                //if (!_vibrationIntensityNotifications.isEmpty())
+                //    _vibrationIntensityNotifications = _vibrationIntensityNotifications + "|";
+                //_vibrationIntensityNotifications = _vibrationIntensityNotifications + split;
+                if (_value.length() > 0)
+                    _value.append("|");
+                _value.append(split);
             }
+            _vibrationIntensityNotifications = _value.toString();
         } catch (Exception ignore) {
         }
     }
@@ -3297,17 +3312,22 @@ public class Profile {
         return ProfileStatic.getVibrationIntensityChange(_vibrationIntensityTouchInteraction);
     }
 
-    @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue", "unused"})
+    @SuppressWarnings("unused")
     void setVibrationIntensityTouchInteractionValue(int value) {
         try {
             String[] splits = _vibrationIntensityTouchInteraction.split("\\|");
             splits[0] = String.valueOf(value);
             _vibrationIntensityTouchInteraction = "";
+            StringBuilder _value = new StringBuilder();
             for (String split : splits) {
-                if (!_vibrationIntensityTouchInteraction.isEmpty())
-                    _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + "|";
-                _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + split;
+                //if (!_vibrationIntensityTouchInteraction.isEmpty())
+                //    _vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + "|";
+                //_vibrationIntensityTouchInteraction = _vibrationIntensityTouchInteraction + split;
+                if (_value.length() > 0)
+                    _value.append("|");
+                _value.append(split);
             }
+            _vibrationIntensityTouchInteraction = _value.toString();
         } catch (Exception ignore) {
         }
     }

@@ -52,10 +52,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_profile_list_item, parent, false);
+                        .inflate(R.layout.listitem_editor_profile, parent, false);
             else
                 view = LayoutInflater.from(parent.getContext()).
-                        inflate(R.layout.editor_profile_list_item_no_indicator, parent, false);
+                        inflate(R.layout.listitem_editor_profile_no_indicator, parent, false);
         }
         else
         /*if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
@@ -71,10 +71,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         {
             if (ApplicationPreferences.applicationEditorPrefIndicator)
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_profile_list_item_no_order_handler, parent, false);
+                        .inflate(R.layout.listitem_editor_profile_no_order_handler, parent, false);
             else
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.editor_profile_list_item_no_indicator_no_order_handler, parent, false);
+                        .inflate(R.layout.listitem_editor_profile_no_indicator_no_order_handler, parent, false);
         }
 
         return new EditorProfileListViewHolder(view, fragment, fragment.getActivity(), filterType);
@@ -363,12 +363,16 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             }
         }
 
-//        PPApplication.logE("[PPP_NOTIFICATION] EditorProfileListAdapter.onItemMove", "call of updateGUI");
-        PPApplication.updateGUI(true, false, activityDataWrapper.context);
-
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }
+
+    @Override
+    public void clearView() {
+//        PPApplicationStatic.logE("[PPP_NOTIFICATION] EditorProfileListAdapter.onItemMove", "call of updateGUI");
+        PPApplication.updateGUI(true, false, activityDataWrapper.context);
+    }
+
 
     void showTargetHelps(final Activity activity, /*final EditorProfileListFragment fragment,*/ final View listItemView) {
         /*if (Build.VERSION.SDK_INT <= 19)
@@ -399,7 +403,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
+            int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+            int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             //boolean tintTarget = !appTheme.equals("white");
@@ -437,7 +442,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -445,7 +451,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -453,7 +460,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -461,7 +469,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -475,7 +484,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -483,7 +493,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -491,7 +502,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -505,7 +517,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                                     .transparentTarget(true)
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -513,7 +526,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -521,7 +535,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_edit_menu), activity.getString(R.string.editor_activity_targetHelps_profileMenu_title), activity.getString(R.string.editor_activity_targetHelps_profileMenu_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -542,7 +557,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                             TapTarget.forView(listItemView.findViewById(R.id.profile_list_drag_handle), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_title), activity.getString(R.string.editor_activity_targetHelps_profileOrderHandler_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -561,7 +577,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                         TapTarget.forView(listItemView.findViewById(R.id.profile_list_item_show_in_activator), activity.getString(R.string.editor_activity_targetHelps_showInActivator_title), activity.getString(R.string.editor_activity_targetHelps_showInActivator_description))
                                 .outerCircleColor(outerCircleColor)
                                 .targetCircleColor(targetCircleColor)
-                                .textColor(textColor)
+                                .titleTextColor(titleTextColor)
+                                .descriptionTextColor(descriptionTextColor)
                                 .textTypeface(Typeface.DEFAULT_BOLD)
                                 .tintTarget(true)
                                 .drawShadow(true)

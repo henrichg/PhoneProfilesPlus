@@ -32,10 +32,11 @@
 
         <CheckBox
             android:id="@+id/backup_settings_alert_dialog_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="-5dp"
+            android:buttonTint="@color/checkbox_radiobutton_color"
             android:text="@string/dialog_backup_settings_alert_checkBox" />
 
         <TextView

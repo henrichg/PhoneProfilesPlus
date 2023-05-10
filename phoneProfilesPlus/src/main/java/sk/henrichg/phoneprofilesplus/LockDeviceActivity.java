@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Gravity;
@@ -9,26 +12,53 @@ import android.view.View;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-public class LockDeviceActivity extends AppCompatActivity {
+public class LockDeviceActivity extends AppCompatActivity
+                    implements FinishLockDeviceActivityListener
+{
 
     private View view = null;
     private boolean displayed = false;
 
-    @SuppressLint({"WrongConstant", "InflateParams", "SuspiciousIndentation"})
+    static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
+
+        private final FinishLockDeviceActivityListener listener;
+
+        public FinishActivityBroadcastReceiver(FinishLockDeviceActivityListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            listener.finishActivityFromListener();
+        }
+    }
+    private LockDeviceActivity.FinishActivityBroadcastReceiver finishActivityBroadcastReceiver;
+
+    @SuppressLint({"WrongConstant", "InflateParams"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] LockDeviceActivity.onCreate", "xxx");
 
         boolean canWriteSettings;// = true;
         //if (android.os.Build.VERSION.SDK_INT >= 23)
             canWriteSettings = Settings.System.canWrite(getApplicationContext());
 
         if (/*(PhoneProfilesService.getInstance() != null) &&*/ canWriteSettings) {
-            PPApplication.lockDeviceActivity = this;
+            //PPApplication.lockDeviceActivity = this;
+
+            finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
+            LocalBroadcastManager.getInstance(this).registerReceiver(finishActivityBroadcastReceiver,
+                        new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));
+            //finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
+            //registerReceiver(finishActivityBroadcastReceiver, new IntentFilter(
+            //        PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));
+
+            PPApplication.lockDeviceActivityDisplayed = true;
 
             /*
             View decorView = getWindow().getDecorView();
@@ -44,9 +74,9 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             WindowManager.LayoutParams params = new WindowManager.LayoutParams();
             params.flags = 1808;
-            if (android.os.Build.VERSION.SDK_INT < 26)
-                params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
-            else
+            //if (android.os.Build.VERSION.SDK_INT < 26)
+            //    params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            //else
                 params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             params.gravity = Gravity.TOP;
             params.width = -1;
@@ -89,14 +119,14 @@ public class LockDeviceActivity extends AppCompatActivity {
                                     PPApplication.commandWait(command, "LockDeviceActivity.onCreate");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //Log.e("LockDeviceActivity.onCreate", Log.getStackTraceString(e));
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                         });
                     }
                 } else*/
-                    Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
                 LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
             //}
@@ -105,6 +135,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         }
         else
             finish();
+
     }
 
     @Override
@@ -127,7 +158,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                     if (windowManager != null)
                         windowManager.removeViewImmediate(view);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
 
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
@@ -148,8 +179,8 @@ public class LockDeviceActivity extends AppCompatActivity {
                                     PPApplication.commandWait(command, "LockDeviceActivity.onDestroy");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
+                                    //Log.e("LockDeviceActivity.onDestroy", Log.getStackTraceString(e));
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                         });
@@ -172,7 +203,14 @@ public class LockDeviceActivity extends AppCompatActivity {
             //dataWrapper.invalidateDataWrapper();
         }
 
-        PPApplication.lockDeviceActivity = null;
+        //PPApplication.lockDeviceActivity = null;
+        PPApplication.lockDeviceActivityDisplayed = false;
+
+        if (finishActivityBroadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(finishActivityBroadcastReceiver);
+            //unregisterReceiver(finishActivityBroadcastReceiver);
+            //finishActivityBroadcastReceiver = null;
+        }
     }
 
     @Override
@@ -180,6 +218,11 @@ public class LockDeviceActivity extends AppCompatActivity {
     {
         super.finish();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void finishActivityFromListener() {
+        finish();
     }
 
 }

@@ -62,12 +62,14 @@
             android:id="@+id/vpnPrefDialogEnableVPNEnableRB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/checkbox_radiobutton_color"
             android:textSize="16sp"
             android:text="@string/vpn_profile_pref_dlg_enable_vpn"/>
         <RadioButton
             android:id="@+id/vpnPrefDialogEnableVPNDisableRB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/checkbox_radiobutton_color"
             android:textSize="16sp"
             android:text="@string/vpn_profile_pref_dlg_disable_vpn"/>
     </RadioGroup>

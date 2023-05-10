@@ -32,6 +32,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
         _context = context;
 
+        //noinspection resource
         TypedArray locationGeofenceType = context.obtainStyledAttributes(attrs,
                 R.styleable.PPContactsMultiSelectDialogPreference, 0, 0);
         withoutNumbers = locationGeofenceType.getBoolean(R.styleable.PPContactsMultiSelectDialogPreference_withoutNumbers, false);
@@ -53,8 +54,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP();
     }
 
-    @SuppressWarnings("SameParameterValue")
-    void refreshListView(final boolean notForUnselect) {
+    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
         if (fragment != null)
             fragment.refreshListView(notForUnselect);
     }
@@ -62,7 +62,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        ContactsCache contactsCache = PPApplication.getContactsCache();
+        ContactsCache contactsCache = PPApplicationStatic.getContactsCache();
         if (contactsCache == null)
             return;
 
@@ -70,7 +70,13 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             List<Contact>  localContactList = contactsCache.getList(/*withoutNumbers*/);
             if (localContactList != null) {
                 contactList = new ArrayList<>();
-                contactList.addAll(localContactList);
+                if (!withoutNumbers) {
+                    for (Contact contact : localContactList) {
+                        if (contact.phoneId != 0)
+                            contactList.add(contact);
+                    }
+                } else
+                    contactList.addAll(localContactList);
                 String[] splits = value.split("\\|");
                 for (Contact contact : contactList) {
                     if (withoutNumbers || (contact.phoneId != 0)) {
@@ -89,7 +95,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                         contact.checked = true;
                                 }
                             } catch (Exception e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                         }
                     }
@@ -160,22 +166,26 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         setSummary(getSummary(value, withoutNumbers, _context));
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void getValue() {
         // fill with strings of contacts separated with |
         value = "";
+        StringBuilder _value = new StringBuilder();
         if (contactList != null)
         {
             for (Contact contact : contactList)
             {
                 if (contact.checked)
                 {
-                    if (!value.isEmpty())
-                        value = value + "|";
-                    value = value + contact.contactId + "#" + contact.phoneId;
+                    //if (!value.isEmpty())
+                    //    value = value + "|";
+                    //value = value + contact.contactId + "#" + contact.phoneId;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(contact.contactId).append("#").append(contact.phoneId);
                 }
             }
         }
+        value = _value.toString();
     }
 
     void persistValue() {

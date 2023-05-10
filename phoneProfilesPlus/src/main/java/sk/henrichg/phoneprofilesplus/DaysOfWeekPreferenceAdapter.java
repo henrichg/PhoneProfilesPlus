@@ -52,7 +52,7 @@ class DaysOfWeekPreferenceAdapter extends BaseAdapter
         // Create a new row view
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.days_of_week_preference_list_item, parent, false);
+            convertView = inflater.inflate(R.layout.listitem_days_of_week_preference, parent, false);
 
             // Find the child views.
             textViewDisplayName = convertView.findViewById(R.id.days_of_week_pref_dlg_item_display_name);

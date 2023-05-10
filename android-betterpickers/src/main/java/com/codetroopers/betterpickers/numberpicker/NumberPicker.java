@@ -28,6 +28,8 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
+@SuppressWarnings({"RegExpRedundantEscape", "BigDecimalLegacyMethod", "ManualArrayCopy", "resource", "StatementWithEmptyBody"})
+@SuppressLint("CustomViewStyleable")
 public class NumberPicker extends LinearLayout implements Button.OnClickListener/*,
                                                             Button.OnLongClickListener*/ {
 
@@ -89,10 +91,10 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         // Init defaults
         mTextColor = ContextCompat.getColorStateList(context, R.color.dialog_text_color_holo_dark);
                 //getResources().getColorStateList(R.color.dialog_text_color_holo_dark);
-        mKeyBackgroundResId = R.drawable.key_background_dark;
-        mButtonBackgroundResId = R.drawable.button_background_dark;
-        mBackspaceDrawableSrcResId = R.drawable.ic_backspace_dark_bp;
-        mClearDrawableSrcResId = R.drawable.ic_clear_dark_bp;
+        mKeyBackgroundResId = R.drawable.key_background;
+        mButtonBackgroundResId = R.drawable.button_background;
+        mBackspaceDrawableSrcResId = R.drawable.ic_backspace_bp;
+        mClearDrawableSrcResId = R.drawable.ic_clear_bp;
         mDividerColor = ContextCompat.getColor(context, R.color.default_divider_color_dark);
                 //getResources().getColor(R.color.default_divider_color_dark);
     }
@@ -109,7 +111,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public void setTheme(int themeResId) {
         mTheme = themeResId;
         if (mTheme != -1) {
-            @SuppressLint("CustomViewStyleable")
             TypedArray a = getContext().obtainStyledAttributes(themeResId, R.styleable.BetterPickersDialogFragment);
 
             mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);
@@ -297,7 +298,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             addClickedNumber(val);
         } else if (v == mBackspace) {
             if (mInputPointer >= 0) {
-                //noinspection ManualArrayCopy
                 for (int i = 0; i < mInputPointer; i++) {
                     mInput[i] = mInput[i + 1];
                 }
@@ -372,7 +372,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     // Update the number displayed in the picker:
     protected void updateNumber() {
         String numberString = getEnteredNumberString();
-        //noinspection RegExpRedundantEscape
         numberString = numberString.replaceAll("\\-", "");
         String[] split = numberString.split("\\.");
         if (split.length >= 2) {
@@ -403,7 +402,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         if (mInputPointer < mInputSize - 1) {
             // For 0 we need to check if we have a value of zero or not
             if (!(mInput[0] == 0 && mInput[1] == -1 && !containsDecimal() && val != CLICKED_DECIMAL)) {
-                //noinspection ManualArrayCopy
                 for (int i = mInputPointer; i >= 0; i--) {
                     mInput[i + 1] = mInput[i];
                 }
@@ -454,20 +452,21 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
     private String getEnteredNumberString() {
-        String value = "";
+        //String value = "";
+        StringBuilder value = new StringBuilder();
         for (int i = mInputPointer; i >= 0; i--) {
-            //noinspection StatementWithEmptyBody
             if (mInput[i] == -1) {
                 // Don't add
             } else if (mInput[i] == CLICKED_DECIMAL) {
-                //noinspection StringConcatenationInLoop
-                value += ".";
+                //value += ".";
+                value.append(".");
             } else {
-                //noinspection StringConcatenationInLoop
-                value += mInput[i];
+                //value += mInput[i];
+                value.append(mInput[i]);
             }
         }
-        return value;
+        //return value;
+        return value.toString();
     }
 
     /**
@@ -476,23 +475,26 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
      * @return a double representing the entered number
      */
     public BigDecimal getEnteredNumber() {
-        String value = "0";
+        //String value = "0";
+        StringBuilder value = new StringBuilder("0");
         for (int i = mInputPointer; i >= 0; i--) {
             if (mInput[i] == -1) {
                 break;
             } else if (mInput[i] == CLICKED_DECIMAL) {
-                //noinspection StringConcatenationInLoop
-                value += ".";
+                //value += ".";
+                value.append(".");
             } else {
-                //noinspection StringConcatenationInLoop
-                value += mInput[i];
+                //value += mInput[i];
+                value.append(mInput[i]);
             }
         }
         if (mSign == SIGN_NEGATIVE) {
-            value = "-" + value;
+            //value = "-" + value;
+            value.insert(0, "-");
         }
 
-        return new BigDecimal(value);
+        //return new BigDecimal(value);
+        return new BigDecimal(value.toString());
     }
 
     private void updateLeftRightButtons() {
@@ -532,8 +534,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
      *
      * @return an String representation of the number with no decimal
      */
+    @SuppressWarnings("deprecation")
     public BigInteger getNumber() {
-        //noinspection BigDecimalLegacyMethod
         BigDecimal bigDecimal = getEnteredNumber().setScale(0, BigDecimal.ROUND_FLOOR);
         return bigDecimal.toBigIntegerExact();
     }
@@ -628,7 +630,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
 
-    @SuppressWarnings("unused")
     private static class SavedState extends BaseSavedState {
 
         int mInputPointer;

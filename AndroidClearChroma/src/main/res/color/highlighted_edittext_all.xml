@@ -2,10 +2,10 @@
 <!--suppress AndroidDomInspection -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-        android:color="@color/accent"/>
+        android:color="@color/accent_color"/>
     <item android:state_selected="true"
-        android:color="@color/accent"/>
+        android:color="@color/accent_color"/>
     <item android:state_focused="true"
-        android:color="@color/accent"/>
-    <item android:color="@color/accent"/>
+        android:color="@color/accent_color"/>
+    <item android:color="@color/accent_color"/>
 </selector>

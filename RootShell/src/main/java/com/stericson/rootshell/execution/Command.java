@@ -32,6 +32,7 @@ import com.stericson.rootshell.RootShell;
 
 import java.io.IOException;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "EmptyMethod", "SameParameterValue", "unused"})
 public class Command {
 
     //directly modified by JavaCommand
@@ -117,12 +118,10 @@ public class Command {
         totalOutputProcessed++;
     }
 
-    @SuppressWarnings({"unused", "EmptyMethod"})
     public void commandTerminated(int id, String reason) {
         //pass
     }
 
-    @SuppressWarnings({"unused", "EmptyMethod"})
     public void commandCompleted(int id, int exitCode) {
         //pass
     }
@@ -146,7 +145,6 @@ public class Command {
         }
     }
 
-    @SuppressWarnings("unused")
     private void createHandler(boolean handlerEnabled) {
 
         this.handlerEnabled = handlerEnabled;
@@ -159,7 +157,6 @@ public class Command {
         }
     }
 
-    @SuppressWarnings("unused")
     public final void finish()
     {
         RootShell.log("Command finished at users request!");
@@ -187,18 +184,23 @@ public class Command {
                 //export CLASSPATH=/data/user/0/ch.masshardt.emailnotification/files/anbuild.dex ; app_process /system/bin
                 //if (Build.VERSION.SDK_INT > 22) {
                     //dalvikvm command is not working in Android Marshmallow
-                    //noinspection StringConcatenationInsideStringBufferAppend
-                    sb.append(
-                            "export CLASSPATH=" + filePath + "/anbuild.dex;"
-                                    + " app_process /system/bin "
-                                    + aCommand);
+                    //sb.append(
+                    //        "export CLASSPATH=" + filePath + "/anbuild.dex;"
+                    //                + " app_process /system/bin "
+                    //                + aCommand);
+                    sb.append("export CLASSPATH=").append(filePath).append("/anbuild.dex;")
+                            .append(" app_process /system/bin ").append(aCommand);
                 /*} else {
-                    //noinspection StringConcatenationInsideStringBufferAppend
-                    sb.append(
-                            "dalvikvm -cp " + filePath + "/anbuild.dex"
-                                    + " com.android.internal.util.WithFramework"
-                                    + " com.stericson.roottools.containers.RootClass "
-                                    + aCommand);
+                    //sb.append(
+                    //        "dalvikvm -cp " + filePath + "/anbuild.dex"
+                    //                + " com.android.internal.util.WithFramework"
+                    //                + " com.stericson.roottools.containers.RootClass "
+                    //                + aCommand);
+                    sb.append("dalvikvm -cp ").append(filePath).append("/anbuild.dex")
+                                    .append(" com.android.internal.util.WithFramework")
+                                    .append(" com.stericson.roottools.containers.RootClass ")
+                                    .append(aCommand);
+
                 }*/
 
                 sb.append('\n');
@@ -214,17 +216,14 @@ public class Command {
         return sb.toString();
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public final boolean isExecuting() {
         return executing;
     }
 
-    @SuppressWarnings("unused")
     public final boolean isHandlerEnabled() {
         return handlerEnabled;
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public final boolean isFinished() {
         return finished;
     }
@@ -247,14 +246,13 @@ public class Command {
         executing = true;
     }
 
-    @SuppressWarnings("unused")
     public final void terminate()
     {
         RootShell.log("Terminating command at users request!");
         terminated("Terminated at users request!");
     }
 
-    protected final void terminate(@SuppressWarnings("SameParameterValue") String reason) {
+    protected final void terminate(String reason) {
         try {
             Shell.closeAll();
             RootShell.log("Terminating all shells.");
@@ -327,6 +325,7 @@ public class Command {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private class CommandHandler extends Handler {
 
         static final String ACTION = "action";
@@ -339,7 +338,6 @@ public class Command {
 
         static final int COMMAND_TERMINATED = 0x03;
 
-        @SuppressWarnings({"deprecation", "unused"})
         CommandHandler(Looper looper) {
         }
 

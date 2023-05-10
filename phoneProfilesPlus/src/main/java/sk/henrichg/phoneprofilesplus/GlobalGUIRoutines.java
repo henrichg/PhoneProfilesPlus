@@ -12,7 +12,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -359,11 +358,11 @@ class GlobalGUIRoutines {
     static void switchNightMode(final Context appContext, boolean useMainLooperHandler) {
         if (useMainLooperHandler) {
             new Handler(getMainLooper()).post(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
+//                PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.switchNightMode");
                 try {
                     switchNightMode(appContext);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
         }
@@ -380,7 +379,7 @@ class GlobalGUIRoutines {
         {
             new Handler(activity.getMainLooper()).post(() -> {
                 try {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
+//                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=GlobalGUIRoutines.reloadActivity");
                     Context context = activity.getApplicationContext();
 
                     Intent intent = activity.getIntent();
@@ -392,7 +391,7 @@ class GlobalGUIRoutines {
                     context.startActivity(intent);
                     //activity.overridePendingTransition(0, 0);
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                 }
             });
         }
@@ -402,7 +401,7 @@ class GlobalGUIRoutines {
 
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
                                          boolean bold, boolean addArrows,
-                                         boolean underline, boolean errorColor)
+                                         boolean underline, boolean errorColor, boolean forceErrorColor)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
@@ -438,7 +437,7 @@ class GlobalGUIRoutines {
                     if (span instanceof CharacterStyle)
                         sbt.removeSpan(span);
                 }*/
-                if (bold || underline) {
+                if (bold || underline || forceErrorColor) {
                     if (bold) {
                         sbt.setSpan(new StyleSpan(Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         //sbt.setSpan(new RelativeSizeSpan(1.05f), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -452,8 +451,12 @@ class GlobalGUIRoutines {
                         else
                             sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
+//                    if (forceErrorColor) {
+//                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "errorColor="+errorColor);
+//                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "enabled="+enabled);
+//                    }
                     if (errorColor && enabled)
-                        sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.altype_error)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 preference.setTitle(sbt);
             }
@@ -492,16 +495,16 @@ class GlobalGUIRoutines {
     }
     */
 
-    static int dpToPx(int dp)
+    static int dpToPx(float dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    static int dip(int dp) {
+    static int dip(float dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
     }
 
-    static int sip(int sp) {
+    static int sip(float sp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics()));
     }
 
@@ -794,14 +797,13 @@ class GlobalGUIRoutines {
         if (ApplicationPreferences.applicationTheme(context, true).equals("white")/*!nightModeOn*/) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace_light));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear_light));
         } else {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display_Dark);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit_Dark);
-            timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
-            timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
         }
+        timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(context, R.drawable.ic_backspace));
+        timeDurationPicker.setClearIcon(ContextCompat.getDrawable(context, R.drawable.ic_clear));
+
         //timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(context));
         timeDurationPicker.setDurationDisplayBackgroundColor(ContextCompat.getColor(context, R.color.activityBackgroundColor));
         //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(context));
@@ -848,6 +850,7 @@ class GlobalGUIRoutines {
                 };*/
                 int[] attrsToResolve = { colorAttr };
                 // now resolve them
+                //noinspection resource
                 TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
                 /*int color = ta.getColor(0, 0);
                 int onPrimary = ta.getColor(1, 0);
@@ -913,7 +916,7 @@ class GlobalGUIRoutines {
                 activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -922,43 +925,8 @@ class GlobalGUIRoutines {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
         } catch (Exception e) {
             // FC in API 26 (A8) - Google bug: java.lang.IllegalStateException: Only fullscreen activities can request orientation
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
-    }
-
-    static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
-
-        private int mSelectedIndex = -1;
-        private final Activity activity;
-
-        HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
-            super(activity, textViewResourceId, objects);
-            this.activity = activity;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
-            View itemView =  super.getDropDownView(position, convertView, parent);
-
-            TextView itemText = itemView.findViewById(android.R.id.text1);
-            if (itemText != null) {
-                if (position == mSelectedIndex) {
-                    //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
-                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent));
-                } else {
-                    //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
-                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.activityNormalTextColor));
-                }
-            }
-
-            return itemView;
-        }
-
-        void setSelection(int position) {
-            mSelectedIndex =  position;
-            notifyDataSetChanged();
-        }
-
     }
 
     static boolean areSystemAnimationsEnabled(Context context) {
@@ -1066,7 +1034,7 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 };
                 if (forActivator) {
@@ -1081,7 +1049,7 @@ class GlobalGUIRoutines {
                             // close Activator
                             activity.finish();
                         } catch (Exception e) {
-                            PPApplication.recordException(e);
+                            PPApplicationStatic.recordException(e);
                         }
                     };
                 }
@@ -1110,7 +1078,7 @@ class GlobalGUIRoutines {
                         if (forActivator)
                             activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                 };
             }
@@ -1143,6 +1111,42 @@ class GlobalGUIRoutines {
             if (!activity.isFinishing())
                 dialog.show();
         }
+    }
+
+
+    static class HighlightedSpinnerAdapter extends ArrayAdapter<String> {
+
+        private int mSelectedIndex = -1;
+        private final Activity activity;
+
+        HighlightedSpinnerAdapter(Activity activity, int textViewResourceId, String[] objects) {
+            super(activity, textViewResourceId, objects);
+            this.activity = activity;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
+            View itemView =  super.getDropDownView(position, convertView, parent);
+
+            TextView itemText = itemView.findViewById(android.R.id.text1);
+            if (itemText != null) {
+                if (position == mSelectedIndex) {
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.accent_color));
+                } else {
+                    //itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(activity));
+                    itemText.setTextColor(ContextCompat.getColor(activity, R.color.activitySecondaryTextColor));
+                }
+            }
+
+            return itemView;
+        }
+
+        void setSelection(int position) {
+            mSelectedIndex =  position;
+            notifyDataSetChanged();
+        }
+
     }
 
 }

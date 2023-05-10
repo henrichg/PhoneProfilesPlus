@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 /**
  * @author drakeet
  */
+@SuppressWarnings("unused")
 public interface BadTokenListener {
 
-  @SuppressWarnings("unused")
   void onBadTokenCaught(@NonNull Toast toast);
 
 }

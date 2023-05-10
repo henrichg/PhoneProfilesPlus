@@ -28,6 +28,7 @@
             android:id="@+id/volumePrefDialogNoChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/checkbox_radiobutton_color"
             android:textSize="16sp"
             android:text="@string/volume_pref_dialog_no_change_chb" />
 

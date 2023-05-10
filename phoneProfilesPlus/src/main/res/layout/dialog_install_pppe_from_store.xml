@@ -55,6 +55,16 @@
                 android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
 
+            <TextView
+                android:id="@+id/install_ppp_pppe_from_github_dialog_github_releases"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text="@string/empty_string"
+                android:textSize="16sp" />
+
         </LinearLayout>
 
     </ScrollView>

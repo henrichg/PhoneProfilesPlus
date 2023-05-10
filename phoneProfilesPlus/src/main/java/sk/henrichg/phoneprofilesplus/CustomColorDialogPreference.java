@@ -46,6 +46,7 @@ public class CustomColorDialogPreference extends DialogPreference {
 
         prefContext = context;
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ChromaPreference);
 
@@ -83,8 +84,7 @@ public class CustomColorDialogPreference extends DialogPreference {
 
         Paint paintImage = new Paint();
         paintImage.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        //noinspection IntegerDivisionInFloatingPointContext
-        canvas.drawBitmap(bitmap, -(bitmap.getWidth() - widthLight)/2 , -(bitmap.getHeight() - heightLight)/2, paintImage);
+        canvas.drawBitmap(bitmap, -(bitmap.getWidth() - widthLight)/2f , -(bitmap.getHeight() - heightLight)/2f, paintImage);
 
         return output;
     }
@@ -141,7 +141,7 @@ public class CustomColorDialogPreference extends DialogPreference {
             //setSummary(summaryPreference);
         } catch (Exception e) {
             //Log.e("CustomColorDialogPreference.setColorInWidget", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

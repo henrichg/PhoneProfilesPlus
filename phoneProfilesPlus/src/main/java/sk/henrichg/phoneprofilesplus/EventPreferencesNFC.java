@@ -77,7 +77,7 @@ class EventPreferencesNFC extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_nfc_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context);
@@ -85,20 +85,25 @@ class EventPreferencesNFC extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
-                String selectedNfcTags = "";
+                String selectedNfcTags;// = "";
+                StringBuilder value = new StringBuilder();
                 String[] splits = this._nfcTags.split("\\|");
                 for (String _tag : splits) {
                     if (_tag.isEmpty()) {
-                        //noinspection StringConcatenationInLoop
-                        selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        //selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_not_selected));
                     } else if (splits.length == 1) {
-                        selectedNfcTags = selectedNfcTags + _tag;
+                        //selectedNfcTags = selectedNfcTags + _tag;
+                        value.append(_tag);
                     } else {
-                        selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedNfcTags = selectedNfcTags + " " + splits.length;
+                        //selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        //selectedNfcTags = selectedNfcTags + " " + splits.length;
+                        value.append(context.getString(R.string.applications_multiselect_summary_text_selected));
+                        value.append(" ").append(splits.length);
                         break;
                     }
                 }
+                selectedNfcTags = value.toString();
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedNfcTags, disabled, context) + "</b> • ";
                 if (this._permanentRun)
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
@@ -119,14 +124,14 @@ class EventPreferencesNFC extends EventPreferences {
         if (key.equals(PREF_EVENT_NFC_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
             if (preference != null) {
@@ -141,7 +146,7 @@ class EventPreferencesNFC extends EventPreferences {
             } catch (Exception e) {
                 delay = 5;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false, false);
         }
 
         Event event = new Event();
@@ -152,7 +157,7 @@ class EventPreferencesNFC extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NFC_NFC_TAGS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
     }
 
@@ -184,7 +189,7 @@ class EventPreferencesNFC extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NFC_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_NFC_DURATION, preferences, context);
 
-        if (Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed
+        if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
@@ -197,7 +202,7 @@ class EventPreferencesNFC extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesNFC tmp = new EventPreferencesNFC(this._event, this._enabled, this._nfcTags, this._permanentRun, this._duration);
             if (preferences != null)
@@ -209,7 +214,7 @@ class EventPreferencesNFC extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_NFC_TAG).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -243,7 +248,7 @@ class EventPreferencesNFC extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_NFC_ENABLED) != null) {
-                boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
+                boolean enabled = EventStatic.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                 Preference nfcTagsPreference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
                 Preference permanentRunPreference = prefMng.findPreference(PREF_EVENT_NFC_PERMANENT_RUN);
                 Preference durationPreference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
@@ -331,7 +336,7 @@ class EventPreferencesNFC extends EventPreferences {
                 }
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
         //PPApplication.cancelWork(WorkerWithoutData.ELAPSED_ALARMS_NFC_EVENT_SENSOR_TAG_WORK+"_" + (int) _event._id);
     }
@@ -402,7 +407,7 @@ class EventPreferencesNFC extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 // compute start time
 
                 if (_startTime > 0) {

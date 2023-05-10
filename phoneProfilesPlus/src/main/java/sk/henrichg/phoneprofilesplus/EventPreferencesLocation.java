@@ -3,19 +3,15 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
+import androidx.core.content.ContextCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-
-//import android.preference.CheckBoxPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
 
 class EventPreferencesLocation extends EventPreferences {
 
@@ -76,7 +72,7 @@ class EventPreferencesLocation extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_location_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, DatabaseHandler.ETYPE_LOCATION, context);
@@ -94,25 +90,33 @@ class EventPreferencesLocation extends EventPreferences {
                     descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                 }
 
-                String selectedLocations = "";
+                String selectedLocations;// = "";
+                StringBuilder value = new StringBuilder();
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                    selectedLocations = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                    //selectedLocations = context.getString(R.string.profile_preferences_device_not_allowed) +
+                    //        ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                    value.append(context.getString(R.string.profile_preferences_device_not_allowed)).
+                            append(": ").
+                            append(context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                 } else {
                     String[] splits = this._geofences.split("\\|");
                     for (String _geofence : splits) {
                         if (_geofence.isEmpty()) {
-                            //noinspection StringConcatenationInLoop
-                            selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                            //selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                            value.append(context.getString(R.string.applications_multiselect_summary_text_not_selected));
                         } else if (splits.length == 1) {
-                            selectedLocations = selectedLocations + getGeofenceName(Long.parseLong(_geofence), context);
+                            //selectedLocations = selectedLocations + getGeofenceName(Long.parseLong(_geofence), context);
+                            value.append(getGeofenceName(Long.parseLong(_geofence), context));
                         } else {
-                            selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
-                            selectedLocations = selectedLocations + " " + splits.length;
+                            //selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
+                            //selectedLocations = selectedLocations + " " + splits.length;
+                            value.append(context.getString(R.string.applications_multiselect_summary_text_selected));
+                            value.append(" ").append(splits.length);
                             break;
                         }
                     }
                 }
+                selectedLocations = value.toString();
                 descr = descr + context.getString(R.string.event_preferences_locations_location) + ": <b>" + getColorForChangedPreferenceValue(selectedLocations, disabled, context) + "</b>";
                 if (this._whenOutside)
                     descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context) + "</b>";
@@ -131,7 +135,7 @@ class EventPreferencesLocation extends EventPreferences {
         if (key.equals(PREF_EVENT_LOCATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -145,7 +149,7 @@ class EventPreferencesLocation extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
-                        titleColor = Color.RED; //0xFFffb000;
+                        titleColor = ContextCompat.getColor(context, R.color.altype_error);
                     }
                     else {
                         summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
@@ -194,7 +198,7 @@ class EventPreferencesLocation extends EventPreferences {
         if (key.equals(PREF_EVENT_LOCATION_WHEN_OUTSIDE)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -206,7 +210,7 @@ class EventPreferencesLocation extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_LOCATION_GEOFENCES, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
     }
 
@@ -242,7 +246,7 @@ class EventPreferencesLocation extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesLocation tmp = new EventPreferencesLocation(this._event, this._enabled, this._geofences, this._whenOutside);
             if (preferences != null)
@@ -254,7 +258,7 @@ class EventPreferencesLocation extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_LOCATION_SCANNER).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -328,7 +332,7 @@ class EventPreferencesLocation extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            if ((EventStatic.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning) {

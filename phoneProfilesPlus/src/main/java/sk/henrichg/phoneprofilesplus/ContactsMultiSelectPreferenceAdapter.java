@@ -26,7 +26,7 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
     @NonNull
     @Override
     public ContactsMultiSelectDialogPreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contacts_multiselect_preference_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_contacts_multiselect_preference, parent, false);
         return new ContactsMultiSelectDialogPreferenceViewHolder(view, context);
     }
 
@@ -39,6 +39,7 @@ class ContactsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<Contacts
         holder.bindContact(contact);
     }
 
+    @SuppressWarnings("unused")
     @NonNull
     @Override
     public String getSectionName(int position) {

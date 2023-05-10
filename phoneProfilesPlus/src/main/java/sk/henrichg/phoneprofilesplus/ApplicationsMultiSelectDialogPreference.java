@@ -50,6 +50,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         applicationList = new ArrayList<>();
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPApplicationsMultiSelectDialogPreference);
 
@@ -62,8 +63,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         setWidgetLayoutResource(R.layout.preference_widget_applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        if (PPApplication.getApplicationsCache() == null)
-            PPApplication.createApplicationsCache(false);
+        if (PPApplicationStatic.getApplicationsCache() == null)
+            PPApplicationStatic.createApplicationsCache(false);
 
         //applicationsCache = EditorActivity.getApplicationsCache();
     }
@@ -97,8 +98,8 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         applicationList.clear();
 
         // change checked state by value
-        if (PPApplication.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(true);
+        if (PPApplicationStatic.getApplicationsCache() != null) {
+            List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
                 String[] splits = value.split("\\|");
                 for (Application application : cachedApplicationList) {
@@ -162,7 +163,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                         ": " + _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             } else if (systemSettings.equals("accessibility_2.0")) {
                 // PPPExtender
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
                 int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_LATEST;
                 if (extenderVersion == 0) {
                     ok = false;
@@ -172,7 +173,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
+                } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
                         /*, "ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory (accessibility_2.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -184,7 +185,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                 }
             } else if (systemSettings.equals("accessibility_5.0")) {
                 // PPPExtender
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
+                int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
                 int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_LATEST;
                 if (extenderVersion == 0) {
                     ok = false;
@@ -194,7 +195,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
+                } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, false, true
                         /*, "ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory (accessibility_5.0)"*/)) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
@@ -230,10 +231,10 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                                 if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
                             } catch (PackageManager.NameNotFoundException e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                             catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         } else {
                             Intent intent = new Intent();
@@ -261,22 +262,26 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         setSummary(getSummaryAMSDP());
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private String getValue() {
-        String _value = "";
+        //String _value = "";
+        StringBuilder _value = new StringBuilder();
         if (applicationList != null)
         {
             for (Application application : applicationList)
             {
                 if (application.checked)
                 {
-                    if (!_value.isEmpty())
-                        _value = _value + "|";
-                    _value = _value + application.packageName + "/" + application.activityName;
+                    //if (!_value.isEmpty())
+                    //    _value = _value + "|";
+                    //_value = _value + application.packageName + "/" + application.activityName;
+                    if (_value.length() > 0)
+                        _value.append("|");
+                    _value.append(application.packageName).append("/").append(application.activityName);
                 }
             }
         }
-        return _value;
+        //return _value;
+        return _value.toString();
     }
 
     void persistValue() {
@@ -302,7 +307,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
     }
 
     private void setIcons() {
-        PackageManager packageManager = _context.getPackageManager();
+        PackageManager packageManager = _context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
         String[] splits = value.split("\\|");

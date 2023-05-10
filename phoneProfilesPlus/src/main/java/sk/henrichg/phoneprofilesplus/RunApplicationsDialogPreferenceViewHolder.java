@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -51,8 +51,8 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
         this.application = application;
 
         if (this.application.type != Application.TYPE_INTENT) {
-            if (PPApplication.getApplicationsCache() != null)
-                imageViewIcon.setImageBitmap(PPApplication.getApplicationsCache().getApplicationIcon(application, false));
+            if (PPApplicationStatic.getApplicationsCache() != null)
+                imageViewIcon.setImageBitmap(PPApplicationStatic.getApplicationsCache().getApplicationIcon(application, false));
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
@@ -107,7 +107,7 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
                     sbt.removeSpan(span);
             }
             if (errorColor) {
-                sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(context, R.color.altype_error)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             textView.setText(sbt);
         }

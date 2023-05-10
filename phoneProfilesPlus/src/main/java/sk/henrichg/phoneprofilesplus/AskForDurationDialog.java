@@ -82,8 +82,22 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         //mInteractive = true/*interactive*/;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + " - " +
+
+        // custom dialog title
+        LayoutInflater layoutInflater = LayoutInflater.from(activity);
+        @SuppressLint("InflateParams")
+        View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
+        TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
+        titleText.setText(activity.getString(R.string.profile_string_0) + ": " + profile._name);
+        TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
+        subtitleText.setText(activity.getString(R.string.profile_preferences_duration));
+        dialogBuilder.setCustomTitle(titleView);
+
+        /*
+        dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + "\n" +
                                mActivity.getString(R.string.profile_string_0) + ": " + profile._name);
+        */
+
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
@@ -116,13 +130,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                         if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                            if (PhoneProfilesService.getInstance() != null) {
-                                PhoneProfilesService.getInstance().playNotificationSound(
-                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                        ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate/*,
-                                        false*/);
-                                //PPApplication.sleep(500);
-                            }
+                            PhoneProfilesServiceStatic.playNotificationSound(
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                    false, mDataWrapper.context);
+                            //PPApplication.sleep(500);
                         }
                     }
 
@@ -152,12 +164,11 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            PhoneProfilesService.getInstance().playNotificationSound(
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
-                                    ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate);
-                            //PPApplication.sleep(500);
-                        }
+                        PhoneProfilesServiceStatic.playNotificationSound(
+                                ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
+                                ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
+                                false, mDataWrapper.context);
+                        //PPApplication.sleep(500);
                     }
                 }
 
@@ -277,9 +288,9 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 mActivity,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         afterDoSpinner.setBackgroundTintList(ContextCompat.getColorStateList(mActivity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
         /*switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
@@ -550,7 +561,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             profileLabel.setEnabled(true);
             profileView.setEnabled(true);
             //profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(mActivity));
-            profileName.setTextColor(ContextCompat.getColor(mActivity, R.color.accent));
+            profileName.setTextColor(ContextCompat.getColor(mActivity, R.color.accent_color));
             profileIcon.setColorFilter(null);
             if (profileIndicators != null)
                 profileIndicators.setColorFilter(null);

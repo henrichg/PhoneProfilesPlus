@@ -41,22 +41,26 @@
 
     </item>
 
-    <item android:id="@+id/menu_settings"
+    <item android:id="@+id/menu_settings_submenu"
         android:title="@string/menu_settings"
         android:orderInCategory="210"
         app:showAsAction="never" >
+        <menu>
+            <item android:id="@+id/menu_settings"
+                android:title="@string/menu_settings"
+                android:orderInCategory="100"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_appliction_theme"
+                android:title="@string/phone_profiles_pref_applicationTheme"
+                android:orderInCategory="110"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_choose_language"
+                android:title="@string/menu_choose_language"
+                android:orderInCategory="120"
+                app:showAsAction="never"
+                tools:ignore="AlwaysShowAction"/>
+        </menu>
     </item>
-
-    <item android:id="@+id/menu_dark_theme"
-          android:title="@string/menu_dark_theme_on"
-          android:orderInCategory="212"
-          app:showAsAction="never" />
-
-    <item android:id="@+id/menu_choose_language"
-        android:title="@string/menu_choose_language"
-        android:orderInCategory="220"
-        app:showAsAction="never"
-        tools:ignore="AlwaysShowAction"/>
 
     <item android:id="@+id/menu_import_export"
         android:title="@string/menu_import_export"
@@ -89,10 +93,6 @@
                 <item android:id="@+id/menu_export_and_email"
                     android:title="@string/menu_export_and_email"
                     android:orderInCategory="110"
-                    app:showAsAction="never" />
-                <item android:id="@+id/menu_import_from_pp"
-                    android:title="@string/menu_import_from_pp"
-                    android:orderInCategory="120"
                     app:showAsAction="never" />
             </group>
         </menu>
@@ -165,35 +165,6 @@
         android:title="@string/menu_about_application"
         android:orderInCategory="256"
         app:showAsAction="never" />
-
-    <item android:id="@+id/menu_debug"
-        android:title="Debug"
-        android:orderInCategory="260"
-        app:showAsAction="never"
-        tools:ignore="HardcodedText">
-        <menu>
-            <item android:id="@+id/menu_test_crash"
-                android:title="Test fatal exception"
-                android:orderInCategory="100"
-                app:showAsAction="never"
-                tools:ignore="HardcodedText" />
-            <item android:id="@+id/menu_test_nonFatal"
-                android:title="Test non-fatal exception"
-                android:orderInCategory="101"
-                app:showAsAction="never"
-                tools:ignore="HardcodedText" />
-            <item android:id="@+id/menu_show_sound_mode"
-                android:title="Show sound mode"
-                android:orderInCategory="102"
-                app:showAsAction="never"
-                tools:ignore="HardcodedText" />
-            <item android:id="@+id/menu_show_log_file"
-                android:title="Show log/crash file"
-                android:orderInCategory="103"
-                app:showAsAction="never"
-                tools:ignore="HardcodedText" />
-        </menu>
-    </item>
 
     <item android:id="@+id/menu_exit"
         android:title="@string/menu_exit"

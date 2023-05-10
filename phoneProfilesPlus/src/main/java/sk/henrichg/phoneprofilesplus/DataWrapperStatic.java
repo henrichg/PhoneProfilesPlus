@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.TargetApi;
+import android.annotation.NonNull;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +8,11 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Icon;
-import android.os.Build;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataWrapperStatic {
+class DataWrapperStatic {
 
     static Profile getNonInitializedProfile(String name, String icon, int order)
     {
@@ -176,19 +176,19 @@ public class DataWrapperStatic {
     {
         if (afterDuration)
             //return ApplicationPreferences.prefEventsBlocked;
-            return Event.getEventsBlocked(context);
+            return EventStatic.getEventsBlocked(context);
         else {
             //if (!ApplicationPreferences.prefEventsBlocked)
-            if (!Event.getEventsBlocked(context))
+            if (!EventStatic.getEventsBlocked(context))
                 return false;
             else
-                return !Event.getForceRunEventRunning(context);
+                return !EventStatic.getForceRunEventRunning(context);
         }
     }
 
     static private Spannable _getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper)
+            boolean durationInNextLine, DataWrapper dataWrapper, Context context)
     {
         if (profile == null)
             return new SpannableString("");
@@ -197,9 +197,9 @@ public class DataWrapperStatic {
         String manualIndicators = "";
         if (addEventName)
         {
-            if (Event.getGlobalEventsRunning()) {
-                if (Event.getEventsBlocked(dataWrapper.context)) {
-                    if (Event.getForceRunEventRunning(dataWrapper.context))
+            if (EventStatic.getGlobalEventsRunning(context)) {
+                if (EventStatic.getEventsBlocked(context)) {
+                    if (EventStatic.getForceRunEventRunning(context))
                         manualIndicators = "[»]";
                     else
                         manualIndicators = "[M]";
@@ -208,7 +208,7 @@ public class DataWrapperStatic {
             else
                 manualIndicators = "[M]";
 
-            String _eventName = getLastStartedEventName(dataWrapper, profile);
+            String _eventName = getLastStartedEventName(dataWrapper, profile, context);
             if (!_eventName.equals("?"))
                 eventName = "[\u00A0" + _eventName + "\u00A0]";
 
@@ -216,13 +216,13 @@ public class DataWrapperStatic {
                 eventName = manualIndicators + " " + eventName;
         }
 
-        if (!PPApplication.getApplicationStarted(true, false))
+        if (!PPApplicationStatic.getApplicationStarted(true, false))
             eventName = eventName + " ";
 
         Spannable sName;
         if (addDuration) {
             if (!addEventName || manualIndicators.equals("[M]"))
-                sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, dataWrapper.context);
+                sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, context);
             else {
                 String name = profile._name;
                 if (!eventName.isEmpty())
@@ -254,19 +254,19 @@ public class DataWrapperStatic {
 
     static Spannable getProfileNameWithManualIndicator(
             Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper) {
-        if (dataWrapper != null) {
-            return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
-        }
-        else {
-            return _getProfileNameWithManualIndicator(profile, false, indicators, addDuration, multiLine, durationInNextLine, null);
-        }
+            boolean durationInNextLine, @NonNull DataWrapper dataWrapper) {
+        Context context = dataWrapper.context;
+        LocaleHelper.setApplicationLocale(context);
+        return _getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper, context);
     }
 
-    @SuppressWarnings("SameParameterValue")
     static String getProfileNameWithManualIndicatorAsString(
-            Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-            boolean durationInNextLine, DataWrapper dataWrapper) {
+            Profile profile, boolean addEventName,
+            @SuppressWarnings("SameParameterValue") String indicators,
+            boolean addDuration,
+            @SuppressWarnings("SameParameterValue") boolean multiLine,
+            @SuppressWarnings("SameParameterValue") boolean durationInNextLine,
+            @NonNull DataWrapper dataWrapper) {
         Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, durationInNextLine, dataWrapper);
         Spannable sbt = new SpannableString(sProfileName);
         Object[] spansToRemove = sbt.getSpans(0, sProfileName.length(), Object.class);
@@ -277,9 +277,9 @@ public class DataWrapperStatic {
         return sbt.toString();
     }
 
-    static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
+    static private String getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile, Context context)
     {
-        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false, false))
+        if (EventStatic.getGlobalEventsRunning(context) && PPApplicationStatic.getApplicationStarted(false, false))
         {
             synchronized (dataWrapper.eventTimelines) {
                 if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
@@ -290,7 +290,7 @@ public class DataWrapperStatic {
                         Event event = dataWrapper.getEventById(event_id);
                         if (event != null) {
                             //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
-                            if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._ignoreManualActivation)) {
+                            if ((!EventStatic.getEventsBlocked(context)) || (event._ignoreManualActivation)) {
                                 //Profile profile;
                                 //profile = dataWrapper.getActivatedProfile(false, false);
                                 //if ((profile != null) && (event._fkProfileStart == profile._id))
@@ -305,20 +305,20 @@ public class DataWrapperStatic {
                     } else {
                         long profileId = ApplicationPreferences.applicationDefaultProfile;
                         //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                        if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                        if ((!EventStatic.getEventsBlocked(context)) &&
                                 (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                                 (profileId == forProfile._id)) {
                             //Profile profile;
                             //profile = dataWrapper.getActivatedProfile(false, false);
                             //if ((profile != null) && (profile._id == profileId))
-                            return dataWrapper.context.getString(R.string.event_name_background_profile);
+                            return context.getString(R.string.event_name_background_profile);
                             //else
                             //    return "?";
                         } else
                             return "?";
                     }
                 } else {
-                    String eventName = DatabaseHandler.getInstance(dataWrapper.context).getLastStartedEventName();
+                    String eventName = DatabaseHandler.getInstance(context).getLastStartedEventName();
                     if (!eventName.equals("?")) {
                         return eventName;
                     }
@@ -350,13 +350,13 @@ public class DataWrapperStatic {
                     else {
                         long profileId = ApplicationPreferences.applicationDefaultProfile;
                         //if ((!ApplicationPreferences.prefEventsBlocked) &&
-                        if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                        if ((!EventStatic.getEventsBlocked(context)) &&
                                 (profileId != Profile.PROFILE_NO_ACTIVATE) &&
                                 (profileId == forProfile._id)) {
                             //Profile profile;
                             //profile = dataWrapper.getActivatedProfileFromDB(false, false);
                             //if ((profile != null) && (profile._id == profileId))
-                            return dataWrapper.context.getString(R.string.event_name_background_profile);
+                            return context.getString(R.string.event_name_background_profile);
                             //else
                             //    return "?";
                         } else
@@ -372,7 +372,7 @@ public class DataWrapperStatic {
     static String _getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
     {
 
-        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
+        if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(false))
         {
             if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
                 List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
@@ -483,7 +483,7 @@ public class DataWrapperStatic {
 */
 
 
-    @TargetApi(Build.VERSION_CODES.N_MR1)
+    //@TargetApi(Build.VERSION_CODES.N_MR1)
     static private ShortcutInfo createShortcutInfo(Profile profile, boolean restartEvents, Context context) {
         boolean isIconResourceID;
         String iconIdentifier;
@@ -605,31 +605,34 @@ public class DataWrapperStatic {
                 .build();
     }
 
-    static void setDynamicLauncherShortcuts(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 25) {
+    static void setDynamicLauncherShortcuts(final Context appContext) {
+        //if (android.os.Build.VERSION.SDK_INT >= 25) {
             try {
-                ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+                //final Context appContext = context;
+                LocaleHelper.setApplicationLocale(appContext);
+
+                ShortcutManager shortcutManager = appContext.getSystemService(ShortcutManager.class);
 
                 if (shortcutManager != null) {
                     final int limit = 4;
 
                     //List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(true);
-                    List<Profile> countedProfiles = DatabaseHandler.getInstance(context).getProfilesInQuickTilesForDynamicShortcuts();
-                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(context).getProfilesForDynamicShortcuts(/*false*/);
+                    List<Profile> countedProfiles = DatabaseHandler.getInstance(appContext).getProfilesInQuickTilesForDynamicShortcuts();
+                    List<Profile> notCountedProfiles = DatabaseHandler.getInstance(appContext).getProfilesForDynamicShortcuts(/*false*/);
 
                     ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
                     //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
-                    Profile _profile = getNonInitializedProfile(context.getString(R.string.menu_restart_events),
+                    Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
                             "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
-                    _profile.generateIconBitmap(context, false, 0, false);
+                    _profile.generateIconBitmap(appContext, false, 0, false);
                     // first profile is restart events
-                    shortcuts.add(createShortcutInfo(_profile, true, context));
+                    shortcuts.add(createShortcutInfo(_profile, true, appContext));
 
                     int shortcutsCount = 0;
                     for (Profile profile : countedProfiles) {
-                        profile.generateIconBitmap(context, false, 0, false);
-                        shortcuts.add(createShortcutInfo(profile, false, context));
+                        profile.generateIconBitmap(appContext, false, 0, false);
+                        shortcuts.add(createShortcutInfo(profile, false, appContext));
                         ++shortcutsCount;
                         if (shortcutsCount == limit)
                             break;
@@ -638,15 +641,15 @@ public class DataWrapperStatic {
                     //int shortcutsCount = countedProfiles.size();
                     if (shortcutsCount < limit) {
                         for (Profile profile : notCountedProfiles) {
-                            profile.generateIconBitmap(context, false, 0, false);
-                            shortcuts.add(createShortcutInfo(profile, false, context));
+                            profile.generateIconBitmap(appContext, false, 0, false);
+                            shortcuts.add(createShortcutInfo(profile, false, appContext));
                             ++shortcutsCount;
                             if (shortcutsCount == limit)
                                 break;
                         }
                     }
 
-//                    PPApplication.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
+//                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
                     shortcutManager.removeAllDynamicShortcuts();
                     if (shortcuts.size() > 0)
@@ -663,9 +666,9 @@ public class DataWrapperStatic {
 //                - Generated, when device is rooted?
 
                 //Log.e("DataWrapper.setDynamicLauncherShortcuts", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
-        }
+        //}
     }
 
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
@@ -674,7 +677,7 @@ public class DataWrapperStatic {
         if ((profile == null) && (event == null))
             return false;
 
-        if (!PPApplication.getApplicationStarted(true, false))
+        if (!PPApplicationStatic.getApplicationStarted(true, false))
             return false;
 
         if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {
@@ -685,7 +688,7 @@ public class DataWrapperStatic {
                         PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
                         PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return false;
@@ -698,7 +701,7 @@ public class DataWrapperStatic {
                         PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id,
                         PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id);
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
 
             return false;
@@ -770,9 +773,9 @@ public class DataWrapperStatic {
 
         intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
 
-        PPApplication.createGrantPermissionNotificationChannel(context);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+        PPApplicationStatic.createGrantPermissionNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification
@@ -794,9 +797,11 @@ public class DataWrapperStatic {
             // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
             // mNotificationManager.cancel(notificationID);
             mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
+        } catch (SecurityException en) {
+            Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
-            //Log.e("EditorActivity.displayNotGrantedPermissionsNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
         }
 
         return true;

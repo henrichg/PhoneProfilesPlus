@@ -22,6 +22,7 @@ public class DurationDialogPreference extends DialogPreference {
     public DurationDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        //noinspection resource
         TypedArray durationDialogType = context.obtainStyledAttributes(attrs,
                 R.styleable.PPDurationDialogPreference, 0, 0);
 

@@ -40,8 +40,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         setSummaryCMSDP();
     }
 
-    @SuppressWarnings("SameParameterValue")
-    void refreshListView(final boolean notForUnselect) {
+    void refreshListView(@SuppressWarnings("SameParameterValue") final boolean notForUnselect) {
         if (fragment != null)
             fragment.refreshListView(notForUnselect);
     }
@@ -49,7 +48,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     void getValueCMSDP()
     {
         // change checked state by value
-        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null) {
             synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();
@@ -63,7 +62,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
                                 if (contactGroup.groupId == groupId)
                                     contactGroup.checked = true;
                             } catch (Exception e) {
-                                //PPApplication.recordException(e);
+                                //PPApplicationStatic.recordException(e);
                             }
                         }
                     }
@@ -121,25 +120,29 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         setSummary(getSummary(value, _context));
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     private void getValue() {
         // fill with strings of contact groups separated with |
         value = "";
-        ContactGroupsCache contactGroupsCache = PPApplication.getContactGroupsCache();
+        StringBuilder _value = new StringBuilder();
+        ContactGroupsCache contactGroupsCache = PPApplicationStatic.getContactGroupsCache();
         if (contactGroupsCache != null) {
             synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();
                 if (contactGroupList != null) {
                     for (ContactGroup contactGroup : contactGroupList) {
                         if (contactGroup.checked) {
-                            if (!value.isEmpty())
-                                value = value + "|";
-                            value = value + contactGroup.groupId;
+                            //if (!value.isEmpty())
+                            //    value = value + "|";
+                            //value = value + contactGroup.groupId;
+                            if (_value.length() > 0)
+                                _value.append("|");
+                            _value.append(contactGroup.groupId);
                         }
                     }
                 }
             }
         }
+        value = _value.toString();
     }
 
     void persistValue() {

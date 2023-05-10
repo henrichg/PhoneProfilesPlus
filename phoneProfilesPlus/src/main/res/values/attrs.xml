@@ -79,6 +79,13 @@
         <attr name="vibrationIntensityType" format="string" />
         <attr name="viNoChange" format="integer" />
     </declare-styleable>
+    <declare-styleable name="PPExtenderDialogPreference">
+        <attr name="installSummary" format="string" />
+        <attr name="launchSummary" format="string" />
+        <attr name="enableExtenderSummaryDisabled" format="string" />
+        <attr name="enbaleExtenderPreferenceNameToTest" format="string" />
+        <attr name="enbaleExtenderPreferenceValueToTest" format="string" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
     <!--    <attr name="activityBackgroundColor" format="reference" />-->

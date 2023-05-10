@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply from: '../dependencies.gradle'
 
 android {
+    namespace 'com.simplecityapps.recyclerview_fastscroll'
+
     compileSdkVersion ppVersions.compileSdk
     buildToolsVersion ppVersions.buildTools
 
@@ -22,8 +24,6 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
-    namespace 'com.simplecityapps.recyclerview_fastscroll'
-
 }
 
 dependencies {
@@ -31,9 +31,7 @@ dependencies {
 
     implementation "androidx.recyclerview:recyclerview:$ppVersions.recyclerView"
 
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 }
 

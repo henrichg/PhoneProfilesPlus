@@ -27,7 +27,7 @@ public class CmdNfc {
             return enable ? adapter.enable() : adapter.disable(true);
         } catch (Throwable e) {
             Log.e("CmdNfc.setNFC", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            //PPApplicationStatic.recordException(e);
             return false;
         }
     }

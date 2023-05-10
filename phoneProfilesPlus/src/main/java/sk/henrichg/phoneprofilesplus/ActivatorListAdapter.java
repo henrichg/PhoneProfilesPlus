@@ -173,9 +173,9 @@ class ActivatorListAdapter extends BaseAdapter
                 //boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
                 boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 if (applicationActivatorPrefIndicator)
-                    vi = inflater.inflate(R.layout.activator_list_item, parent, false);
+                    vi = inflater.inflate(R.layout.listitem_activator, parent, false);
                 else
-                    vi = inflater.inflate(R.layout.activator_list_item_no_indicator, parent, false);
+                    vi = inflater.inflate(R.layout.listitem_activator_no_indicator, parent, false);
                 //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);
@@ -184,7 +184,7 @@ class ActivatorListAdapter extends BaseAdapter
             }
             else
             {
-                vi = inflater.inflate(R.layout.activator_grid_item, parent, false);
+                vi = inflater.inflate(R.layout.listitem_activator_grid, parent, false);
                 //holder.listItemRoot = vi.findViewById(R.id.act_prof_list_item_root);
                 holder.profileName = vi.findViewById(R.id.act_prof_list_item_profile_name);
                 holder.profileIcon = vi.findViewById(R.id.act_prof_list_item_profile_icon);
@@ -216,15 +216,14 @@ class ActivatorListAdapter extends BaseAdapter
             } else*/
             {
                 if (applicationActivatorGridLayout) {
-                    //Typeface typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
-                    //holder.profileName.setTypeface(typeface, Typeface.NORMAL);
-                    holder.profileName.setTypeface(null, Typeface.NORMAL);
-                    holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+                    Typeface typeface = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
+                    holder.profileName.setTypeface(typeface, Typeface.NORMAL);
+                    //holder.profileName.setTypeface(null, Typeface.NORMAL);
+                    holder.profileName.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
                 } else {
                     holder.profileName.setTypeface(null, Typeface.BOLD);
                     holder.profileName.setTextSize(15);
                 }
-                //noinspection ConstantConditions
                 //holder.profileName.setTextColor(GlobalGUIRoutines.getThemeNormalTextColor(fragment.getActivity()));
 
                 //noinspection ConstantConditions
@@ -301,21 +300,23 @@ class ActivatorListAdapter extends BaseAdapter
         boolean startTargetHelpsFinished = ApplicationPreferences.prefActivatorActivityStartTargetHelpsFinished &&
                                             ApplicationPreferences.prefActivatorFragmentStartTargetHelpsFinished;
         if (!startTargetHelpsFinished) {
+            /*
             final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
                     //ActivatorTargetHelpsActivity.activatorActivity = null;
                 }
             }, 500);
+            */
 
             return;
         }
@@ -344,7 +345,8 @@ class ActivatorListAdapter extends BaseAdapter
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
+            int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+            int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             //boolean tintTarget = !appTheme.equals("white");
@@ -354,7 +356,8 @@ class ActivatorListAdapter extends BaseAdapter
                             .transparentTarget(true)
                             .outerCircleColor(outerCircleColor)
                             .targetCircleColor(targetCircleColor)
-                            .textColor(textColor)
+                            .titleTextColor(titleTextColor)
+                            .descriptionTextColor(descriptionTextColor)
                             .textTypeface(Typeface.DEFAULT_BOLD)
                             .tintTarget(true)
                             .drawShadow(true)
@@ -376,14 +379,14 @@ class ActivatorListAdapter extends BaseAdapter
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (1)");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (1)");
 
                         if (ActivatorTargetHelpsActivity.activity != null) {
                             //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                             try {
                                 ActivatorTargetHelpsActivity.activity.finish();
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                             ActivatorTargetHelpsActivity.activity = null;
                             //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -421,14 +424,14 @@ class ActivatorListAdapter extends BaseAdapter
 
                     final Handler handler = new Handler(activity.getMainLooper());
                     handler.postDelayed(() -> {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (2)");
+//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (2)");
 
                         if (ActivatorTargetHelpsActivity.activity != null) {
                             //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                             try {
                                 ActivatorTargetHelpsActivity.activity.finish();
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                             ActivatorTargetHelpsActivity.activity = null;
                             //ActivatorTargetHelpsActivity.activatorActivity = null;
@@ -450,14 +453,14 @@ class ActivatorListAdapter extends BaseAdapter
         else {
             final Handler handler = new Handler(activity.getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorListAdapter.showTargetHelps (3)");
 
                 if (ActivatorTargetHelpsActivity.activity != null) {
                     //Log.d("ActivatorListAdapter.showTargetHelps", "finish activity");
                     try {
                         ActivatorTargetHelpsActivity.activity.finish();
                     } catch (Exception e) {
-                        PPApplication.recordException(e);
+                        PPApplicationStatic.recordException(e);
                     }
                     ActivatorTargetHelpsActivity.activity = null;
                     //ActivatorTargetHelpsActivity.activatorActivity = null;

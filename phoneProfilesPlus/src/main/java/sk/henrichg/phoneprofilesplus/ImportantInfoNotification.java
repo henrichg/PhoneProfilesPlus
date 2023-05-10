@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -20,8 +21,7 @@ class ImportantInfoNotification {
     static void showInfoNotification(Context context) {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            int show = 0;
-            int packageVersionCode = PPApplication.getVersionCode(pInfo);
+            int packageVersionCode = PPApplicationStatic.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
 
             // do not show notification, version code is not saved
@@ -31,40 +31,49 @@ class ImportantInfoNotification {
                 return;
             }
 
-            if (packageVersionCode > savedVersionCode) {
-                show = canShowNotification(packageVersionCode, savedVersionCode, context);
-            }
-            else {
-                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
-                if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
-                    show = 2;
+            boolean showInfo = false;
+            if (packageVersionCode > savedVersionCode)
+                showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
 
-                //setShowInfoNotificationOnStartVersion(context, packageVersionCode);
-            }
-            setShowInfoNotificationOnStart(context, show != 0, packageVersionCode);
+            boolean showExtender = false;
+            int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+            if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
+                showExtender = true;
+
+            boolean showPPPPS = false;
+            int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
+            if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
+                showPPPPS = true;
+
+            setShowInfoNotificationOnStart(context, (showInfo || showExtender || showPPPPS), packageVersionCode);
 
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
 
-                if (show == 1)
+                if (showInfo)
                     showNotification(context, false/*savedVersionCode == 0*/,
                             context.getString(R.string.info_notification_title),
-                            context.getString(R.string.info_notification_text));
-                else
-                if (show == 2)
+                            context.getString(R.string.info_notification_text),
+                            PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
+                if (showExtender)
                     showNotification(context, false/*savedVersionCode == 0*/,
                             context.getString(R.string.info_notification_title),
-                            context.getString(R.string.important_info_accessibility_service_new_version_notification));
+                            context.getString(R.string.important_info_accessibility_service_new_version_notification),
+                            PPApplication.IMPORTANT_INFO_NOTIFICATION_EXTENDER_TAG);
+                if (showPPPPS)
+                    showNotification(context, false/*savedVersionCode == 0*/,
+                            context.getString(R.string.info_notification_title),
+                            context.getString(R.string.important_info_pppps_new_version_notification),
+                            PPApplication.IMPORTANT_INFO_NOTIFICATION_PPPPS_TAG);
 
                 //setShowInfoNotificationOnStart(context, false, packageVersionCode);
             }
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
-    static private int canShowNotification(int packageVersionCode, int savedVersionCode, Context context) {
+    static private boolean canShowInfoNotification(int packageVersionCode, int savedVersionCode) {
         boolean news = false;
-        boolean newExtender = false;
 
         boolean newsLatest = (packageVersionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
         //boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -74,8 +83,6 @@ class ImportantInfoNotification {
         //boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
 
         boolean afterInstall = savedVersionCode == 0;
-
-        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
         if (newsLatest) {
             // change to false for not show notification
@@ -126,28 +133,18 @@ class ImportantInfoNotification {
             //}
         }*/
 
-        if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
-            newExtender = true;
-        }
-
         if (afterInstall)
             news = true;
 
-        if (newExtender)
-            return 2;
-        else
-        if (news)
-            return 1;
-        else
-            return 0;
+        return news;
     }
 
     static private void showNotification(Context context,
                                          @SuppressWarnings("SameParameterValue") boolean firstInstallation,
-                                         String title, String text) {
-        PPApplication.createExclamationNotificationChannel(context);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                                         String title, String text, String notificationTag) {
+        PPApplicationStatic.createExclamationNotificationChannel(context);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
@@ -167,11 +164,13 @@ class ImportantInfoNotification {
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
             mNotificationManager.notify(
-                    PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG,
+                    notificationTag,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());
+        } catch (SecurityException en) {
+            Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(en));
         } catch (Exception e) {
             //Log.e("ImportantInfoNotification.showNotification", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -182,8 +181,14 @@ class ImportantInfoNotification {
             notificationManager.cancel(
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG,
                     PPApplication.IMPORTANT_INFO_NOTIFICATION_ID);
+            notificationManager.cancel(
+                    PPApplication.IMPORTANT_INFO_NOTIFICATION_EXTENDER_TAG,
+                    PPApplication.IMPORTANT_INFO_NOTIFICATION_ID);
+            notificationManager.cancel(
+                    PPApplication.IMPORTANT_INFO_NOTIFICATION_PPPPS_TAG,
+                    PPApplication.IMPORTANT_INFO_NOTIFICATION_ID);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

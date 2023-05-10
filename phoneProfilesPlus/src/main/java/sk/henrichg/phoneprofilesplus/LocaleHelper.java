@@ -10,7 +10,7 @@ import androidx.core.os.LocaleListCompat;
 
 import java.util.Locale;
 
-public class LocaleHelper {
+class LocaleHelper {
 
     private static final String SELECTED_LANGUAGE = "Locale.Helper.Selected.Language";
     private static final String SELECTED_COUNTRY = "Locale.Helper.Selected.Country";
@@ -55,6 +55,7 @@ public class LocaleHelper {
             country = systemLocales.get(0).getCountry();
             script = systemLocales.get(0).getScript();
         }*/
+
         return setLocale(context, language, country, script, false);
     }
 
@@ -136,25 +137,46 @@ public class LocaleHelper {
     }
 
     static void setApplicationLocale(Context context) {
-//        String language;
-//        String country;
-//        String script;
+        String language;
+        String country;
+        String script;
+        LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
+        if (getIsSetSystemLanguage(context)) {
+            try {
+                //noinspection ConstantConditions
+                language = systemLocales.get(0).getLanguage();
+                //noinspection ConstantConditions
+                country = systemLocales.get(0).getCountry();
+                //noinspection ConstantConditions
+                script = systemLocales.get(0).getScript();
+            } catch (Exception e) {
+                language = "en";
+                country = "";
+                script = "";
+            }
+        } else {
+            try {
+                //noinspection ConstantConditions
+                language = getPersistedData(context, SELECTED_LANGUAGE, systemLocales.get(0).getLanguage());
+                //noinspection ConstantConditions
+                country = getPersistedData(context, SELECTED_COUNTRY, systemLocales.get(0).getCountry());
+                //noinspection ConstantConditions
+                script = getPersistedData(context, SELECTED_SCRIPT, systemLocales.get(0).getScript());
+            } catch (Exception e) {
+                language = "en";
+                country = "";
+                script = "";
+            }
+        }
 
-        //LocaleListCompat systemLocales = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration());
-        Locale locale = context.getResources().getConfiguration().getLocales().get(0);
-//        try {
-//            //noinspection ConstantConditions
-//            language = locale.getLanguage();
-//            //noinspection ConstantConditions
-//            country = locale.getCountry();
-//            //noinspection ConstantConditions
-//            script = locale.getScript();
-//        } catch (Exception e) {
-//            Log.e("LocaleHelper.setApplicationLocale", Log.getStackTraceString(e));
-//            language = "en";
-//            country = "";
-//            script = "";
-//        }
+        Locale locale = null;
+
+        if (country.isEmpty() && script.isEmpty())
+            locale = new Locale(language);
+        if (!country.isEmpty())
+            locale = new Locale(language, country);
+        if (script.equals("Latn"))
+            locale = new Locale.Builder().setLanguage("sr").setScript("Latn").build();
 
 //        Log.e("LocaleHelper.setApplicationLocale", "language="+language);
 //        Log.e("LocaleHelper.setApplicationLocale", "country="+country);
@@ -164,6 +186,7 @@ public class LocaleHelper {
         Configuration config = resources.getConfiguration();
         config.setLocale(locale);
         config.setLayoutDirection(locale);
+        //noinspection deprecation
         resources.updateConfiguration(config, resources.getDisplayMetrics());
 
         PPApplication.collator = GlobalUtils.getCollator();

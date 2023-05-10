@@ -88,7 +88,7 @@ class EventPreferencesAccessories extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_accessories_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context);
@@ -101,17 +101,20 @@ class EventPreferencesAccessories extends EventPreferences {
                     String[] splits = this._accessoryType.split("\\|");
                     List<String> accessoryTypeValues = Arrays.asList(context.getResources().getStringArray(R.array.eventAccessoryTypeValues));
                     String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
-                    selectedAccessory = "";
+                    //selectedAccessory = "";
+                    StringBuilder value = new StringBuilder();
                     for (String s : splits) {
                         int idx = accessoryTypeValues.indexOf(s);
                         if (idx != -1) {
-                            if (!selectedAccessory.isEmpty())
-                                //noinspection StringConcatenationInLoop
-                                selectedAccessory = selectedAccessory + ", ";
-                            //noinspection StringConcatenationInLoop
-                            selectedAccessory = selectedAccessory + accessoryTypeNames[idx];
+                            //if (!selectedAccessory.isEmpty())
+                            //    selectedAccessory = selectedAccessory + ", ";
+                            //selectedAccessory = selectedAccessory + accessoryTypeNames[idx];
+                            if (value.length() > 0)
+                                value.append(", ");
+                            value.append(accessoryTypeNames[idx]);
                         }
                     }
+                    selectedAccessory = value.toString();
                 }
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedAccessory, disabled, context) + "</b>";
             }
@@ -129,7 +132,7 @@ class EventPreferencesAccessories extends EventPreferences {
         if (key.equals(PREF_EVENT_ACCESSORIES_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -149,7 +152,7 @@ class EventPreferencesAccessories extends EventPreferences {
                     }
                 }
                 boolean bold = accessoryType.length() > 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, true, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, true, false, false);
             }
         }
     }
@@ -170,24 +173,28 @@ class EventPreferencesAccessories extends EventPreferences {
         if (key.equals(PREF_EVENT_ACCESSORIES_TYPE))
         {
             Set<String> set = preferences.getStringSet(key, null);
-            String accessoryType = "";
+            String accessoryType; // = "";
             if (set != null) {
                 String[] accessoryTypeValues = context.getResources().getStringArray(R.array.eventAccessoryTypeValues);
                 String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
+                StringBuilder value = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(accessoryTypeValues).indexOf(s);
                         if (pos != -1) {
-                            if (!accessoryType.isEmpty())
-                                //noinspection StringConcatenationInLoop
-                                accessoryType = accessoryType + ", ";
-                            //noinspection StringConcatenationInLoop
-                            accessoryType = accessoryType + accessoryTypeNames[pos];
+                            //if (!accessoryType.isEmpty())
+                            //    accessoryType = accessoryType + ", ";
+                            //accessoryType = accessoryType + accessoryTypeNames[pos];
+                            if (value.length() > 0)
+                                value.append(", ");
+                            value.append(accessoryTypeNames[pos]);
                         }
                     }
                 }
-                if (accessoryType.isEmpty())
+                if (value.length() == 0)
                     accessoryType = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                else
+                    accessoryType = value.toString();
             }
             else
                 accessoryType = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -202,7 +209,7 @@ class EventPreferencesAccessories extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesAccessories tmp = new EventPreferencesAccessories(this._event, this._enabled, this._accessoryType);
             if (preferences != null)
@@ -214,7 +221,7 @@ class EventPreferencesAccessories extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_ACCESSORIES).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -273,7 +280,7 @@ class EventPreferencesAccessories extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!this._accessoryType.isEmpty()) {
                     String[] splits = this._accessoryType.split("\\|");
                     for (String split : splits) {

@@ -120,7 +120,6 @@ class EventPreferencesBattery extends EventPreferences {
         this._powerSaveMode = preferences.getBoolean(PREF_EVENT_BATTERY_POWER_SAVE_MODE, false);
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
         String descr = "";
 
@@ -128,7 +127,7 @@ class EventPreferencesBattery extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_battery_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context);
@@ -150,15 +149,20 @@ class EventPreferencesBattery extends EventPreferences {
                         String[] splits = this._plugged.split("\\|");
                         List<String> pluggedValues = Arrays.asList(context.getResources().getStringArray(R.array.eventBatteryPluggedValues));
                         String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
-                        selectedPlugged = "";
+                        //selectedPlugged = "";
+                        StringBuilder value = new StringBuilder();
                         for (String s : splits) {
                             int idx = pluggedValues.indexOf(s);
                             if (idx != -1) {
-                                if (!selectedPlugged.isEmpty())
-                                    selectedPlugged = selectedPlugged + ", ";
-                                selectedPlugged = selectedPlugged + pluggedNames[idx];
+                                //if (!selectedPlugged.isEmpty())
+                                //    selectedPlugged = selectedPlugged + ", ";
+                                //selectedPlugged = selectedPlugged + pluggedNames[idx];
+                                if (value.length() > 0)
+                                    value.append(", ");
+                                value.append(pluggedNames[idx]);
                             }
                         }
+                        selectedPlugged = value.toString();
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + "</b>";
                 }
@@ -177,7 +181,7 @@ class EventPreferencesBattery extends EventPreferences {
         if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
 
@@ -193,7 +197,7 @@ class EventPreferencesBattery extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_PLUGGED)) {
@@ -211,18 +215,17 @@ class EventPreferencesBattery extends EventPreferences {
                     }
                 }
                 boolean bold = plugged.length() > 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false, false);
             }
         }
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (preferences == null)
@@ -250,15 +253,20 @@ class EventPreferencesBattery extends EventPreferences {
             if (set != null) {
                 String[] pluggedValues = context.getResources().getStringArray(R.array.eventBatteryPluggedValues);
                 String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
+                StringBuilder _plugged = new StringBuilder();
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         int pos = Arrays.asList(pluggedValues).indexOf(s);
                         if (pos != -1) {
-                            if (!plugged.isEmpty())
-                                plugged = plugged + ", ";
-                            plugged = plugged + pluggedNames[pos];
+                            //if (!plugged.isEmpty())
+                            //    plugged = plugged + ", ";
+                            //plugged = plugged + pluggedNames[pos];
+                            if (_plugged.length() > 0)
+                                _plugged.append(", ");
+                            _plugged.append(pluggedNames[pos]);
                         }
                     }
+                    plugged = _plugged.toString();
                 }
                 if (plugged.isEmpty())
                     plugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -281,7 +289,7 @@ class EventPreferencesBattery extends EventPreferences {
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBattery tmp = new EventPreferencesBattery(this._event, this._enabled, this._levelLow, this._levelHight, this._charging, this._powerSaveMode, this._plugged);
             if (preferences != null)
@@ -293,7 +301,7 @@ class EventPreferencesBattery extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_BATTERY).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 if (enabled)
                     preference.setSummary(StringFormatUtils.fromHtml(tmp.getPreferencesDescription(false, false, !preference.isEnabled(), context), false, false, false, 0, 0, true));
                 else
@@ -435,7 +443,7 @@ class EventPreferencesBattery extends EventPreferences {
     void doHandleEvent(EventsHandler eventsHandler/*, String sensorType, boolean forRestartEvents*/) {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
-            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (EventStatic.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(eventsHandler.context);
 
                 boolean isCharging = false;
@@ -467,7 +475,7 @@ class EventPreferencesBattery extends EventPreferences {
                         eventsHandler.notAllowedBattery = true;
 
                 } catch (Exception e) {
-                    PPApplication.recordException(e);
+                    PPApplicationStatic.recordException(e);
                     eventsHandler.notAllowedBattery = true;
                 }
 
@@ -500,7 +508,7 @@ class EventPreferencesBattery extends EventPreferences {
                                         break;
                                     }
                                 } catch (Exception e) {
-                                    //PPApplication.recordException(e);
+                                    //PPApplicationStatic.recordException(e);
                                 }
                             }
                             eventsHandler.batteryPassed = eventsHandler.batteryPassed && passed;
@@ -518,9 +526,9 @@ class EventPreferencesBattery extends EventPreferences {
             } else
                 eventsHandler.notAllowedBattery = true;
 
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "event="+_event._name);
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.batteryPassed="+eventsHandler.batteryPassed);
-//            PPApplication.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.notAllowedBattery="+eventsHandler.notAllowedBattery);
+//            PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "event="+_event._name);
+//            PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.batteryPassed="+eventsHandler.batteryPassed);
+//            PPApplicationStatic.logE("[IN_EVENTS_HANDLER] EventPreferencesBattery.doHandleEvent", "eventsHandler.notAllowedBattery="+eventsHandler.notAllowedBattery);
 
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {

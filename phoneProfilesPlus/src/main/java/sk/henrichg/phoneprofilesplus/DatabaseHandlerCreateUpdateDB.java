@@ -976,8 +976,8 @@ class DatabaseHandlerCreateUpdateDB {
                                 values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
                             }
                         } catch (Exception e) {
-                            //Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
+                            //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
+                            PPApplicationStatic.recordException(e);
                             values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
                         }
                         if (wallpaperChange == 1) {
@@ -997,8 +997,8 @@ class DatabaseHandlerCreateUpdateDB {
 
             } catch (Exception e) {
                 //Error in between database transaction
-                PPApplication.recordException(e);
-                //Log.e("DatabaseHandler.changePictureFilePathToUri", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+                //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
             } finally {
                 if (database == null)
                     db.endTransaction();
@@ -1007,7 +1007,7 @@ class DatabaseHandlerCreateUpdateDB {
 
             //db.close();
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 
@@ -2307,7 +2307,7 @@ class DatabaseHandlerCreateUpdateDB {
                         long id = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID));
                         int wifiAP = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_WIFI_AP));
 
-                        if ((wifiAP == 3) && (android.os.Build.VERSION.SDK_INT >= 26)) // Toggle is not supported for wifi AP in Android 8+
+                        if ((wifiAP == 3) /*&& (android.os.Build.VERSION.SDK_INT >= 26)*/) // Toggle is not supported for wifi AP in Android 8+
                             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES +
                                     " SET " + DatabaseHandler.KEY_DEVICE_WIFI_AP + "=0" + " " +
                                     "WHERE " + DatabaseHandler.KEY_ID + "=" + id);
@@ -2417,25 +2417,29 @@ class DatabaseHandlerCreateUpdateDB {
                 if (cursor.moveToFirst()) {
                     do {
                         String calendarSearchString = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING));
-
-                        String searchStringNew = "";
+                        //String searchStringNew = "";
+                        StringBuilder str = new StringBuilder();
                         String[] searchStringSplits = calendarSearchString.split("\\|");
                         for (String split : searchStringSplits) {
                             if (!split.isEmpty()) {
-                                String searchPattern = split;
-                                if (searchPattern.startsWith("!")) {
-                                    searchPattern = "\\" + searchPattern;
-                                }
-                                if (!searchStringNew.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    searchStringNew = searchStringNew + "|";
-                                //noinspection StringConcatenationInLoop
-                                searchStringNew = searchStringNew + searchPattern;
+                                //String searchPattern = split;
+                                //if (searchPattern.startsWith("!")) {
+                                //    searchPattern = "\\" + searchPattern;
+                                //}
+                                //if (!searchStringNew.isEmpty())
+                                //    searchStringNew = searchStringNew + "|";
+                                //searchStringNew = searchStringNew + searchPattern;
+                                if (str.length() > 0)
+                                    str.append("|");
+                                if (split.startsWith("!"))
+                                    str.append("\\");
+                                str.append(split);
                             }
                         }
 
                         ContentValues values = new ContentValues();
-                        values.put(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING, searchStringNew);
+                        //values.put(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING, searchStringNew);
+                        values.put(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING, str.toString());
 
                         db.update(DatabaseHandler.TABLE_EVENTS, values, DatabaseHandler.KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ID))});
                     } while (cursor.moveToNext());
@@ -2942,7 +2946,7 @@ class DatabaseHandlerCreateUpdateDB {
                         int lightMin = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ORIENTATION_LIGHT_MIN));
                         int lightMax = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_ORIENTATION_LIGHT_MAX));
 
-                        PPApplication.startHandlerThreadOrientationScanner();
+                        PPApplicationStatic.startHandlerThreadOrientationScanner();
                         if (PPApplication.handlerThreadOrientationScanner.maxLightDistance > 1.0f) {
                             lightMin = (int) Math.round(lightMin / 10000.0 * PPApplication.handlerThreadOrientationScanner.maxLightDistance);
                             lightMax = (int) Math.round(lightMax / 10000.0 * PPApplication.handlerThreadOrientationScanner.maxLightDistance);
@@ -3015,7 +3019,7 @@ class DatabaseHandlerCreateUpdateDB {
                     cursor.close();
                 }
             } catch (Exception ignored) {
-                //Log.e("DatabaseHandler.updateDb", Log.getStackTraceString(e));
+                //Log.e("DatabaseHandlerCreateUpdateDB.updateDb", Log.getStackTraceString(e));
             }
         }
 
@@ -3047,7 +3051,7 @@ class DatabaseHandlerCreateUpdateDB {
                     cursor.close();
                 }
             } catch (Exception ignored) {
-                //Log.e("DatabaseHandler.updateDb", Log.getStackTraceString(e));
+                //Log.e("DatabaseHandlerCreateUpdateDB.updateDb", Log.getStackTraceString(e));
             }
         }
 

@@ -12,9 +12,9 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] InterruptionFilterChangedBroadcastReceiver.onReceive","xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] InterruptionFilterChangedBroadcastReceiver.onReceive","xxx");
 
-        /*if (PPApplication.logEnabled()) {
+        /*if (PPApplicationStatic.logEnabled()) {
             NotificationManager _mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             if (_mNotificationManager != null) {
                 int interruptionFilter = _mNotificationManager.getCurrentInterruptionFilter();
@@ -159,7 +159,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
             //}
             //}
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            PPApplicationStatic.recordException(e);
         }
     }
 

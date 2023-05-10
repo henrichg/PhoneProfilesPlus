@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -828,6 +829,21 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_WIREGUARD:
                         s = getString(R.string.permission_why_profile_wireguard);
                         break;
+                    case Permissions.PERMISSION_PROFILE_RUN_APPLICATIONS:
+                        s = getString(R.string.permission_why_profile_run_applications);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES:
+                        s = getString(R.string.permission_why_profile_interactive_preferences);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS:
+                        s = getString(R.string.permission_why_profile_close_all_applications);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_PPP_PUT_SETTINGS:
+                        s = getString(R.string.permission_why_profile_ppp_put_settings);
+                        break;
+                    case Permissions.PERMISSION_PROFILE_RINGTONES_DUAL_SIM:
+                        s = getString(R.string.permission_why_profile_ringtones_dual_sim);
+                        break;
                 }
             }
         }
@@ -844,7 +860,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             String notificationTag;
             NotificationCompat.Builder mBuilder;
 
-            PPApplication.createGrantPermissionNotificationChannel(context);
+            PPApplicationStatic.createGrantPermissionNotificationChannel(context);
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -873,8 +889,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                    nText = context.getString(R.string.permissions_notification_text) + ": " +
 //                            context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
 //                }
-                mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
@@ -916,8 +932,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     nText = nText + "\"" + event._name + "\" ";
                 nText = nText + context.getString(R.string.permissions_for_event_big_text_notification);
                 //}
-                mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification
@@ -951,8 +967,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         nText = nText + "\"" + profile._name + "\" ";
                     nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
                 }
-                mBuilder = new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
                         .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification
@@ -1004,9 +1020,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
                 // mNotificationManager.cancel(notificationID);
                 mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
+            } catch (SecurityException en) {
+                Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(en));
             } catch (Exception e) {
                 //Log.e("GrantPermissionActivity.showNotification", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
+                PPApplicationStatic.recordException(e);
             }
         }
         finish();
@@ -1440,7 +1458,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.saveAllPermissions(context, permissionsChanged);
 
             if (permissionsChanged) {
-//                PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.onActivityResult", "call of updateGUI");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] GrantPermissionActivity.onActivityResult", "call of updateGUI");
                 PPApplication.updateGUI(true, false, context);
 
                 if (finishActivity) {
@@ -1700,9 +1718,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
         }
 
-        PPApplication.registerContentObservers(context);
-        PPApplication.registerCallbacks(context);
-        PPApplication.registerPhoneCallsListener(true, context);
+        PPApplicationStatic.registerContentObservers(context);
+        PPApplicationStatic.registerCallbacks(context);
+        PPApplicationStatic.registerPhoneCallsListener(true, context);
 
 
         /*
@@ -1787,8 +1805,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");*/
 
-            PPApplication.restartWifiScanner(context);
-            PPApplication.restartBluetoothScanner(context);
+            PPApplicationStatic.restartWifiScanner(context);
+            PPApplicationStatic.restartBluetoothScanner(context);
 
             //dataWrapper.restartEvents(false, true/*, false*/, false);
             dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
@@ -1827,7 +1845,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         ((Build.VERSION.SDK_INT >= 29) && permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION))
                     ) {
                         // for screenOn=true -> used only for geofence scanner - start scan with GPS On
-                        PPApplication.restartAllScanners(context, false);
+                        PPApplicationStatic.restartAllScanners(context, false);
                         break;
                     }
                 }
@@ -1837,7 +1855,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            PPApplication.restartLocationScanner(context);
+            PPApplicationStatic.restartLocationScanner(context);
 
             setResult(Activity.RESULT_OK);
             finish();
@@ -1938,7 +1956,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.clearMergedPermissions(context);*/
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
-//        PPApplication.logE("[PPP_NOTIFICATION] GrantPermissionActivity.finishGrant", "call of updateGUI");
+//        PPApplicationStatic.logE("[PPP_NOTIFICATION] GrantPermissionActivity.finishGrant", "call of updateGUI");
             PPApplication.updateGUI(true, false, getApplicationContext());
         //}
     }

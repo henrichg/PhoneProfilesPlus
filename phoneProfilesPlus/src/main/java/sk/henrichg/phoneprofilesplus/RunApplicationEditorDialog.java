@@ -143,9 +143,9 @@ class RunApplicationEditorDialog
         filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 activity,
-                R.layout.highlighted_spinner,
+                R.layout.spinner_highlighted,
                 activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
-        spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_highlighted_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
 /*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
@@ -225,10 +225,10 @@ class RunApplicationEditorDialog
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        if (PPApplication.getApplicationsCache() == null)
-            PPApplication.createApplicationsCache(false);
+        if (PPApplicationStatic.getApplicationsCache() == null)
+            PPApplicationStatic.createApplicationsCache(false);
 
-        cachedApplicationList = PPApplication.getApplicationsCache().getApplicationList(false);
+        cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(false);
 
         fillApplicationList();
         updateSelectedAppViews();
@@ -341,7 +341,7 @@ class RunApplicationEditorDialog
         if (selectedPosition != -1) {
             selectedApplication = getSelectedApplication();
             if (selectedApplication != null) {
-                applicationIcon = PPApplication.getApplicationsCache().getApplicationIcon(selectedApplication, false);
+                applicationIcon = PPApplicationStatic.getApplicationsCache().getApplicationIcon(selectedApplication, false);
             }
         }
         if (selectedApplication != null) {

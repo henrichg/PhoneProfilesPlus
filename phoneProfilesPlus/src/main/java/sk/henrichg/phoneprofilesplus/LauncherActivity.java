@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,7 +20,7 @@ public class LauncherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] LauncherActivity.onCreate", "xxx");
+//        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] LauncherActivity.onCreate", "xxx");
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
 //        if (showNotStartedToast()) {
@@ -65,7 +66,7 @@ public class LauncherActivity extends AppCompatActivity {
             if (startupSource == 0) {
                 // activity was not started from notification, widget
 
-//                PPApplication.logE("[PPP_NOTIFICATION] LauncherActivity.onStart", "call of updateGUI");
+//                PPApplicationStatic.logE("[PPP_NOTIFICATION] LauncherActivity.onStart", "call of updateGUI");
                 PPApplication.updateGUI(true, false, getApplicationContext());
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }
@@ -138,7 +139,7 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
 //    private boolean showNotStartedToast() {
-//        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+//        boolean applicationStarted = PPApplicationStatic.getApplicationStarted(true);
 //        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
 //        if (!applicationStarted) {
 //            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
@@ -162,16 +163,22 @@ public class LauncherActivity extends AppCompatActivity {
 //        return false;
 //    }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean startPPServiceWhenNotStarted() {
-        // this is for list widget header
+        if (PPApplicationStatic.getApplicationStopping(getApplicationContext())) {
+            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_stopping_toast);
+            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            return true;
+        }
 
         boolean serviceStarted = GlobalUtils.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+//        PPApplicationStatic.logE("LauncherActivity.startPPServiceWhenNotStarted", "serviceStarted="+serviceStarted);
         if (!serviceStarted) {
             AutostartPermissionNotification.showNotification(getApplicationContext(), true);
 
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            PPApplicationStatic.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -179,14 +186,14 @@ public class LauncherActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//            PPApplication.logE("[START_PP_SERVICE] LauncherActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplication.startPPService(this, serviceIntent);
-            return true;
-        } else {
+//            PPApplicationStatic.logE("[START_PP_SERVICE] LauncherActivity.startPPServiceWhenNotStarted", "(1)");
+            PPApplicationStatic.startPPService(this, serviceIntent);
+            //return true;
+        } /*else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
-                return true;
+                //return true;
             }
-        }
+        }*/
 
         return false;
     }

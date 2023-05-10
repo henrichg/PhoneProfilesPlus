@@ -1,22 +1,14 @@
-Nejde dat appcompat 1.5.1, lebo je konflikt s SmoothBottomBar.
-Pouziva staru verziu: androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0@aar
-A appcompat 1.5.1 vyzaduje androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1@aar
-
-Kua fix. Bude treba toto nahlasit v issues SmoothBottomBar.
-
-Vid: dependencies_grpah_6.0.1.txt
-
--------------------------
-
-Ked nejde git push, skus v terminaly AS:
-git config credential.helper store
-
 --------------------------------
 Hadanie warningov v kode:
 Toto hladaj:
 @SuppressLint
 @SuppressWarnings
 //noinspection
+
+------------------
+
+Ked nejde git push, skus v terminaly AS:
+git config credential.helper store
 
 --------------------------------
 
@@ -555,54 +547,6 @@ Vid: https://stackoverflow.com/questions/28386553/check-if-a-vpn-connection-is-a
 
 -------------------
 
-Broadcasty pre alarmy:
-
-setExactAndAllowWhileIdle():
-PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES
-x                PPApplication.checkCriticalPPPReleasesBroadcastReceiver = new CheckCriticalPPPReleasesBroadcastReceiver();
-PPApplication.ACTION_CHECK_GITHUB_RELEASES
-x                PPApplication.checkPPPReleasesBroadcastReceiver = new CheckPPPReleasesBroadcastReceiver();
-PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES
-x                PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = new CheckRequiredExtenderReleasesBroadcastReceiver();
-PPApplication.ACTION_DONATION
-x                PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER
-x                PPApplication.eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER
-x                PPApplication.eventDelayEndBroadcastReceiver = new EventDelayEndBroadcastReceiver();
-PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER
-x                    PPApplication.calendarEventExistsCheckBroadcastReceiver = new CalendarEventExistsCheckBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER
-x                    PPApplication.eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
-PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.missedCallEventEndBroadcastReceiver = new MissedCallEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.deviceBootEventEndBroadcastReceiver = new DeviceBootEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.notificationEventEndBroadcastReceiver = new NotificationEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.periodicEventEndBroadcastReceiver = new PeriodicEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER
-x                    PPApplication.smsEventEndBroadcastReceiver = new SMSEventEndBroadcastReceiver();
-PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER
-x                    PPApplication.eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
-PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER
-x                        PPApplication.locationScannerSwitchGPSBroadcastReceiver = new LocationScannerSwitchGPSBroadcastReceiver();
-PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER
-x                PPApplication.profileDurationAlarmBroadcastReceiver = new ProfileDurationAlarmBroadcastReceiver();
-PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER
-x                PPApplication.runApplicationWithDelayBroadcastReceiver = new RunApplicationWithDelayBroadcastReceiver();
-PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER
-x                PPApplication.startEventNotificationBroadcastReceiver = new StartEventNotificationBroadcastReceiver();
-TwilightScanner.ACTION_UPDATE_TWILIGHT_STATE
-x
-
--------------------
-
 Pamat:
 
 - Toto je volane z EditorActivity.onCreate() ->
@@ -696,119 +640,152 @@ zvonenia a feedback
    Pri starte PPP skopiruj parameter PREF_PROFILE_VIBRATE_NOTIFICATIONS do noveho pre notifikacnu intenzitu.
    Ale len pre nie-Samsung zariadenia.
 
-------------------------------
+------------
 
-PPPPutSettings:
+Treba pravo SYSTEM_ALERT_WINDOW pre (od API 29) - HOTOVO:
+- doExecuteForRunApplications()
+- PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS
+- PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS
+- profile._deviceLocationServicePrefs
+- profile._deviceWiFiAPPrefs
+- profile._deviceVPNSettingsPrefs
+- profile._deviceWallpaperChange
+- profile._deviceVPN
+- profile._deviceCloseAllApplications
+- Permissions.grantPlayRingtoneNotificationPermissions()
+- ActivateProfileHelper.putSettingsParameter() - cize zavolanie PPPPS
 
-vsetko je hotove, vypada to tak.
-Uz len retazce vyries.
-
-----
-
-Co pyta ROOT:
-    <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
-    - service - cize len root
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    - service - cize len root
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
-    - service - cize len root
-    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
-    - service - cize len root
-    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
-    listPreference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
-    - service - cize len root
-    <string name="array_pref_lockDevice_root">(R) Use root (device must be rooted)</string>
-    - java command - cize len root
-
-
-!!! TIETO musis aj v Crowdin pre vsetky jazyky upravit na "(S)(R)":
-    <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
-    - setNotificationLed - notification_light_pulse - nastavuje ale nic nerobi na S21, ale je tma, ze je to experiment
-    <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
-    - setAlwaysOnDisplay - aod_mode - funguje aj na S21
-
-
-    preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
-    - setVibrateWhenRinging - Settings.System.VIBRATE_WHEN_RINGING, pre Xiaomi: vibrate_in_normal, vibrate_in_silent
-    - tu mam aj Settings.System.putInt() a len ak to spadne, tak root, ano ale ten Settings.System.putInt()
-      podla mna aj tak spadne. Vyskusaj.
-    vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
-    - setVibrateNotification - pre Pixel: vibrate_on, pre vsetky: notification_vibration_intensity
-    - toto je len pre API 28, cize asi len emulator, ten nie je rootnuty
-
-    Skus najst parametre pre Xiaomi, teraz PPP pise, ze nie je podporovane - No ako pozeram Redmi Note 9,
-    tak sa to ani neda nastavit v jeho Settings, takze nic
-    A pozri sa na OnePLus
-    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
-    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
-    - setTones - pre Samsung: notification_sound; Pre Huawei: message; ine ie je povolene
-
-    Ze by pre Huawei na toto trebalo G1? Nie, nepomoze. Nechaj to len cez root.
-    - java.lang.IllegalArgumentException: You shouldn't not change private system settings.
-    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
-    ringtonePreference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
-    - setTones - pre Samsung: notification_sound_2; Pre Huawei: messageSub1; ine ie je povolene
-
-    Toto je zvlastne, neviem to najst teraz v Note 9. Hm, hm.
-    listPreference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
-    - setTones - len pre Xiaomi: ringtone_sound_use_uniform
-
-------------------------
-
-- Added: "Vibration feedback" and "Vibration intensity" profile parameter.
-- Added: Settings.System parameters support without root.
-- Added: Compact version of grid version of List widget.
-- Change: Updates for detection of not used mobile cells.
-- Change: Remove all not used non-named mobile cells.
-- Change: Changed background color to gray.
-- Change: Permanent display of scrollbars in lists.
-- Change: Added title divider for all screens and dialogs.
-- Change: Added dialog for export settings for configuration by user, which location data do not export.
-- Change: Added edit button to Samsung edge panel for change its settings.
-- Change: Bold profile name in all lists.
-- Change: Bold style of profile name in widget header.
-- Change: Bold profile name in event list.
-- Change: Changed selector for selected profile icon in profile icon preference dialog.
-- Change: removed divider for preference category.
-- Change: Choose language - added info about link to crowdin.
-- Change: Display in Wi-Fi SSID, Bluetooth name item list, its edit menu also for configured scanned items, but allow in it only "Copy name".
-- Change: Click to item in Wi-Fi, Bluetooth, NFC tag preference list change its check state.
-- Change: Removed long click to item for Wi-Fi SSID, Bluetooth name, NFC tag preferences.
-- Change: Disable scanners when are not used in events.
-- Change: New Extender version set as required.
-- Change: Added Droid-ify support.
-- Change: Added support for web version of Galaxy Store into "Check app. releases".
-- Change: Replaced old weird solution of Important info launch support from ImportantInfoPreference to more better solution.
-- Change: removed Important info News notification.
-- Change: error log to Activity log, for camera flash.
-- Change: Better call of orientation sensor listener and events handler from it.
-- Change: Call of EventsHandle form mobile data and Wi-Fi callback less frequently.
-- Change: Pixel devices: set notifications vibrate, when is off, do not set "vibrate_on".
-- Change: Do not allow set notifications vibrate also for Xiaomi, OnePlus devices.
-- Change: Change "Accessibility settings" summary, when "Lock device" parameter is changed.
-- Change: Better check for night mode.
-- Fix: Fixed not working send crash report mail via GMal in Android 13. Required is: ACRA 5.9.7 and compiledSDK=33.
-- Fix: Fixed change of language for all GUI.
-- Fix: Rescan for Wi-Fi, Bluetooth, Mobile cells sensors from dialogs.
-- Fix: Radio sensor and mobile data connection status during Wi-Fi hotspot enabled.
-- Fix: Brightness with 0% not working, because is set sys. value to 0 (Pixel 6). Force change to 1 working.
-- Fix: "Mobile data preference" for Huawei and OnePlus devices.
-- Fix: Block execution of interactive profile parameters at PPP start or restart by system.
-- Fix: Fixed bad working Orientation sensor for "Ignore for applications" parameter.
-- Fix: Fixed detection of light/dark theme in internal GUI.
-- Fix: Fixed "Ask for duration" dialog layout in One UI 5.
-- Fix: Fixed not displayed subtitle for profile and event preferences screen on orientation change.
-- Other fixes.
-- Updated translations.
+Toto neviem, mozno treba, mozno nie: netreba
+- CustomACRAEmailSender.send()
 
 ----------
 
-Retazce, kde daj medzeru za a pred hranatu zatvorku:
-    <string name="applications_editor_dialog_not_selected">[not selected]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="application_editor_intent_action_none">[None]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="application_editor_intent_action_custom">[Custom]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="extender_menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
-    <string name="pppputsettings_menu_choose_language_system_language">[System]</string> - tu sprav s   (vid WifiSSIDPreferenceAdapter)
+Zapnutie wifi - ale podla mna to vyzaduje root.
+- svc wifi enable
 
+----------
+
+Farba notifikacie:
+
+PPP - mam, a u vsetkych:
+- setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
+
+Zostava len ACRA notifikacia. Nema to implemntovane, ale do issue uz autor dal, ze asi implementuje.
+
+-----------------------
+
+Tasker:
+
+ACTION_ENABLE_RUN_FOR_EVENT
+- Toto funguje len pre nebeziacu udalost.
+- Spravi pause udalosti. Preco? Toto povoli beh udalosti ak nie je povoleny? Pozri, ale nezda sa mi to.
+  Ano povoli, nastavi Event._status = ESTATUS_PAUSE. To iste robi EditorEventListFragment.runStopEvent().
+- Potom spravi restart udalsoti.
+
+ACTION_PAUSE_EVENT:
+- Toto funguje len na beziacu udalost.
+- Spravi pause udalosti. Ale sa znova spusti ak ma vsetky senzory passed. Cize nefunkcne.
+- Toto by som teda vyhodil. Musis aj z Important info.
+HOTOVO - nahradim toto tym senzorom na klik, co budem robit. Len to nezastavi konkretnu udalost,
+  ale vsetky, co budu mat ten senzor.
+
+ACTION_STOP_EVENT:
+- Toto funguje len na nestopnute udalosti.
+- Spravi stop udalosti. Preco? Toto zakaze beh udalosti ak nie je zakazany? Pozri, ale nezda sa mi to.
+  Ano zakaze, nastavi Event._status = ESTATUS_STOP. To iste robi EditorEventListFragment.runStopEvent().
+- Potom spravi restart udalsoti.
+
+Co treba spravit je, ze EditorEventListFragment.runStopEvent() by mal byt staicky, aby sa dal volat aj z
+ActionForExternalApplicationActivity, lebo treba aj receivery a workery reregistrovat.
+HOTOVO
+
+---------------------
+
+- Added new widget: "One row profile list".
+- Added new notification: "Profile list".
+
+- Change: Minimal supported Android version: 8.0.
+- Change: Initial support for Android 14.
+
+- Change: Changes in some GUI layouts
+- Change: "Settings" menu as submenu and in it "Settings", "Application theme", "Choose language".
+- Change: Added "Toggle ..." values for profile parameter "Location mode".
+- Change: Info preference for List widget "Compact grid". Changed from exclamation to info icon.
+- Change: Editor title: "Profiles", "Events" moved from filter to title.
+- Change: Added info preferences about "Profile icon and preferences indicator color type" into "Notification panel - profile icon" and "Notificaiton panel - preferences indicator" categories.
+- Change: Do not log "Restart events" when restart events is not called.
+- Change: Force rounded corners in widgets for MIUI13 (Android 12).
+- Change: Do not change media volume when is music active.
+- Change: Added info preference into profile preferences about Media volume not working in background for OnePlus devices.
+- Change: Added help in "Connect to SSID" profile parameter dialog, about what is displayed in this dialog.
+- Change: Added info for "Alarm volume" into profile preferences.
+- Change: Added preferences for PPPPutSettings (install, upgrade, launch) into profile preferences.
+- Change: Replaced 3 Extender preferences with one special preference for PhonePProfilesPlusExtender (install, upgrade, set accesiibility, launch) in profile and event preferences.
+- Change: Added check for new PPPPS releases.
+- Change: Force hide header and bottom bar in Editor in landscape orientation.
+- Change: Added info preferences about Edge panel not working in tablets, Z Folds.
+- Change: Added Icon and One row widget parameter "Fill whole space with background".
+- Change: Better accessibilty in GUI.
+- Change: Popup menus in Editor lists changed to single list dialogs.
+- Change: Decreased memory consumption.
+- Change: Added "Delete all unselected" into item menu for "Mobile cells" preference.
+- Change: Change of set/get ringtone in dual SIM.
+- Change: Changes in Wi-Fi and Bluetooth scanning.
+- Change: Added support of dual SIM tones for OnePlus.
+- Change: Added info preference for "Folder of image" in "Change wallpaper" profile preference.
+- Change: Dual SIM - change ringtone, notification tone - added "why" string for not granted Phone permission.
+- Change: Speaker On/Off - added check of Android version.
+- Change: Speed-up of check of sim cars in dual SIM support.
+- Change: Added custom ACRA e-mail sender for Extender and PPPPutSettings.
+- Change: Disable Profile List notification from lockscreen.
+- Change: Changes about generation of predefined profile and events.
+- Change: Maybe fixed displayed wrong alarm clock time in quick tile.
+- Change: Added note about enable accessibility service in Android 13+.
+- Change: Changes in Extender about restricted settings for Android 13+.
+- Change: Workaround for ongoing notification, which can be clear in Android 14+.
+- Change: Generated notification form profile - start PPP launcher instead of Editor.
+- Change: Generated notification form profile - redraw it when update GUI is called.
+- Change: Generated notification form profile - redraw it after profile parameter changed.
+- Change: Added info about "Unsafe app blocked" dialog into dialog for installation of PPPPS.
+- Change: Display only contacts with phone numbers in "Call sensor", "SMS/MMS sensor".
+- Change: Added display of account name for Contacts preferences dialog.
+- Change: Do not call not used Workers.
+- Change: Removed support for PhoneProfiles.
+- Change: Removed support of pause event from Tasker.
+- Change: Removed old, not more used support for profile activation from Tasker.
+- Change: Refresh dynamic shortcuts after delete of quick tile.
+
+- Change: Changed required versions of Extender and PPPPS.
+- Change: Added licenses for modules.
+- Change: Removed Google Play relevant informations from README.md.
+- Change: Added into README.md how ot install PPP from PC.
+- Change: Added PPPE and PPPPS GitHub url into README.md.
+
+- Change: Fixes in some GUI layouts
+- Change: Fixed not working language change in some GUI elements.
+- Change: Fixed bad display of duration in multiline when duration ends.
+- Change: Fixed "Generate notification" dialog enable/disable state of its views.
+- Change: Fixed detection of ringing and notification merge state.
+- Change: Fixed play notification even when system sound node is silent.
+- Change: Fixed detection of missed calls notification in "Notification sensor" for new MIUI.
+- Change: Fixes for Bluetooth LE scanning.
+- Change: Fixes for "Custom wallpaper from folder".
+- Change: Fixed background color for EditText Copy/Paste popup.
+- Change: Fixed test of dual SIM support.
+- Change: Fixed "Radio switch" sensor when device has not hardware.
+- Change: Fixed ACRA custom e-mail sender not working in Android 10+.
+- Change: Fixed mobile cells registration channel parameters.
+- Change: Fixed not working send e-mails with attachments in Android 14, in devices with only GMail installed.
+- Change: Fixed bad animation when Editor is started form Activator (Android 14).
+
+- Fix: Fixed bug for get delay start of Intent in "Run applications, shortcuts, intents".
+- Fix: bad working order handle in Editor profile list.
+- Fix: Maybe fixed not working update of Samsung edge panel.
+- Fix: Fixed not displayed header on Editor list scroll when item count is close to list height.
+- Fix: Fixed not working start of activities from background.
+- Fix: Maybe fixed bad working tap target in Activator.
+- Fix: Do not redraw profile list notification, when is disabled.
+- Fix: Small fixes in generating profile icon and indicators.
+- Fix: Maybe fixed BT disconnect in BT sensor.
+- Fix: Fixed check for sensor types in EventsHandler.
+- Fix: Fixed not displayed notification about Autostart not enabled.

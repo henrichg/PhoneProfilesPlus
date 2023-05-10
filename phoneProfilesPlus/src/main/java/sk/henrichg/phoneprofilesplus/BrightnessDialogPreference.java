@@ -42,6 +42,7 @@ public class BrightnessDialogPreference extends DialogPreference {
 
         _context = context;
 
+        //noinspection resource
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.PPBrightnessDialogPreference);
 

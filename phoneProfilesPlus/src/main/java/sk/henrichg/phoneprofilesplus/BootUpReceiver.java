@@ -11,7 +11,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] BootUpReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] BootUpReceiver.onReceive", "xxx");
 
         //PPApplication.cancelAllWorks(true);
 
@@ -33,15 +33,15 @@ public class BootUpReceiver extends BroadcastReceiver {
         }
         if (okAction) {
 
-            PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
+            PPApplicationStatic.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
             // moved to doForFirstStart - better when PPSerivice is restarted by system
             //PPApplication.setBlockProfileEventActions(true);
 
-            if (PPApplication.logEnabled()) {
-                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot);
-                PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents);
-                PPApplication.logE("BootUpReceiver.onReceive", "globalEventsRunning=" + Event.getGlobalEventsRunning());
+            if (PPApplicationStatic.logEnabled()) {
+                PPApplicationStatic.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot);
+                PPApplicationStatic.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents);
+                PPApplicationStatic.logE("BootUpReceiver.onReceive", "globalEventsRunning=" + EventStatic.getGlobalEventsRunning(context));
             }
 
             //PPApplication.setApplicationStarted(context, false);
@@ -53,7 +53,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             //        context.getApplicationContext()) {
             //__handler2.post(() -> {
             Runnable runnable = () -> {
-//                    PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
+//                    PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
 
                 //Context appContext= appContextWeakRef.get();
                 //if (appContext != null) {
@@ -66,14 +66,14 @@ public class BootUpReceiver extends BroadcastReceiver {
                         }
 
                         if (ApplicationPreferences.applicationStartOnBoot) {
-                            PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
+                            //PPApplicationStatic.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
 
                             PPApplication.deviceBoot = true;
 
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, "");
+                            PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, "");
 
                             boolean serviceStarted = GlobalUtils.isServiceRunning(appContext, PhoneProfilesService.class, false);
-                            PPApplication.logE("BootUpReceiver.onReceive", "serviceStarted=" + serviceStarted);
+                            PPApplicationStatic.logE("BootUpReceiver.onReceive", "serviceStarted=" + serviceStarted);
 
                             //PPApplication.sleep(3000);
                             if (!serviceStarted) {
@@ -81,9 +81,9 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                                 //AutostartPermissionNotification.showNotification(appContext, false);
 
-                                PPApplication.logE("BootUpReceiver.onReceive", "start service");
+                                PPApplicationStatic.logE("BootUpReceiver.onReceive", "start service");
                                 // service is not started, start it
-                                PPApplication.setApplicationStarted(appContext, true);
+                                PPApplicationStatic.setApplicationStarted(appContext, true);
                                 Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
                                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -91,8 +91,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, true);
                                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//                                PPApplication.logE("[START_PP_SERVICE] BootUpReceiver.onReceive", "xxx");
-                                PPApplication.startPPService(appContext, serviceIntent);
+//                                PPApplicationStatic.logE("[START_PP_SERVICE] BootUpReceiver.onReceive", "xxx");
+                                PPApplicationStatic.startPPService(appContext, serviceIntent);
                             } else {
                                 // start events handler
 
@@ -110,16 +110,16 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 PPApplication.restartMobileCellsScanner(appContext);
                                 */
 
-                                if (Event.getGlobalEventsRunning()) {
+                                if (EventStatic.getGlobalEventsRunning(appContext)) {
 
-//                                    PPApplication.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "sensorType=SENSOR_TYPE_BOOT_COMPLETED");
+//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BootUpReceiver.onReceive", "sensorType=SENSOR_TYPE_BOOT_COMPLETED");
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BOOT_COMPLETED);
                                 }
                             }
                         } else {
-                            if (PPApplication.logEnabled()) {
-                                PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
+                            if (PPApplicationStatic.logEnabled()) {
+                                PPApplicationStatic.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
                             }
                             PPApplication.deviceBoot = false;
 
@@ -130,12 +130,12 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 }
                             }
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                            PPApplication.exitApp(false, appContext, dataWrapper, null, false, true);
+                            PPApplicationStatic.exitApp(false, appContext, dataWrapper, null, false, true);
                         }
 
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplicationStatic.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -146,7 +146,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                     }
                 //}
             }; //);
-            PPApplication.createBasicExecutorPool();
+            PPApplicationStatic.createBasicExecutorPool();
             PPApplication.basicExecutorPool.submit(runnable);
 
         }

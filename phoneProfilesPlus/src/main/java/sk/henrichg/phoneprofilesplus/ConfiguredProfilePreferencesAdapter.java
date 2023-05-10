@@ -63,7 +63,7 @@ class ConfiguredProfilePreferencesAdapter extends BaseAdapter
         View vi = convertView;
         if (convertView == null)
         {
-            vi = inflater.inflate(R.layout.configured_profile_preferences_list_item, parent, false);
+            vi = inflater.inflate(R.layout.listitem_configured_profile_preferences, parent, false);
             holder = new ViewHolder();
             holder.preferenceIcon = vi.findViewById(R.id.configured_profile_preferences_preference_icon);
             holder.preferenceIcon2 = vi.findViewById(R.id.configured_profile_preferences_preference_icon2);

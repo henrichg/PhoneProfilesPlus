@@ -148,9 +148,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         //if (profile_id != Profile.SHARED_PROFILE_ID) {
         // no menu for shared profile
 
-        //noinspection Convert2MethodRef
-        onNextLayout(toolbar, () -> showTargetHelps());
-        //}
+        onNextLayout(toolbar, this::showTargetHelps);
 
         /*final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
@@ -416,9 +414,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             final String profileName = profile._name;
             Handler handler = new Handler(getMainLooper());
             handler.postDelayed(() -> {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
+//                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
                 //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
-                toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
+                //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
+                toolbar.setTitle(getString(R.string.profile_string_0) + ": " + profileName);
             }, 200);
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -618,20 +617,20 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
-                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, "");
+                PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, "");
 
                 // add profile into DB
                 DatabaseHandler.getInstance(getApplicationContext()).addProfile(profile, false);
                 profile_id = profile._id;
 
             } else if (profile_id > 0) {
-                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, "");
+                PPApplicationStatic.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, "");
 
                 DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
 
                 // restart Events
-                PPApplication.setBlockProfileEventActions(true);
-                if (Event.getGlobalEventsRunning()) {
+                PPApplicationStatic.setBlockProfileEventActions(true);
+                if (EventStatic.getGlobalEventsRunning(this)) {
                     if (!DataWrapperStatic.getIsManualProfileActivation(false, getApplicationContext())) {
                         //dataWrapper.restartEvents(false, true, true, true, true);
                         dataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
@@ -682,7 +681,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
 //                if (appTheme.equals("dark"))
 //                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
+            int titleTextColor = R.color.tabTargetHelpTitleTextColor;
+            int descriptionTextColor = R.color.tabTargetHelpDescriptionTextColor;
 //                if (appTheme.equals("dark"))
 //                    textColor = R.color.tabTargetHelpTextColor_dark;
             //boolean tintTarget = !applicationTheme.equals("white");
@@ -721,7 +721,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     );
                     ++id;
                 } catch (Exception e) {
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
 
                 sequence.targets(targets);
@@ -734,7 +734,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                             TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
                                     .outerCircleColor(outerCircleColor)
                                     .targetCircleColor(targetCircleColor)
-                                    .textColor(textColor)
+                                    .titleTextColor(titleTextColor)
+                                    .descriptionTextColor(descriptionTextColor)
                                     .textTypeface(Typeface.DEFAULT_BOLD)
                                     .tintTarget(true)
                                     .drawShadow(true)
@@ -742,7 +743,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     );
                     ++id;
                 } catch (Exception e) {
-                    //PPApplication.recordException(e);
+                    //PPApplicationStatic.recordException(e);
                 }
 
                 sequence.targets(targets);

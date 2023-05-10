@@ -69,7 +69,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         super.onBindDialogView(view);
 
         WifiSSIDPreference.forceRegister = true;
-        PPApplication.forceRegisterReceiversForWifiScanner(prefContext);
+        PPApplicationStatic.forceRegisterReceiversForWifiScanner(prefContext);
 
         progressLinearLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
         dataRelativeLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_rella_data);
@@ -156,7 +156,9 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             if (getActivity() != null)
                 if (!getActivity().isFinishing()) {
                     mSelectorDialog = new SingleSelectListDialog(
-                            R.string.pref_dlg_change_selection_title,
+                            false,
+                            getString(R.string.pref_dlg_change_selection_title),
+                            null,
                             R.array.wifiSSIDChangeSelectionArray,
                             SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
                             (dialog, which) -> {
@@ -174,6 +176,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 }
                                 refreshListView(false, "");
                             },
+                            null,
                             false,
                             getActivity());
 
@@ -217,7 +220,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             rescanAsyncTask.cancel(true);
 
         WifiSSIDPreference.forceRegister = false;
-        PPApplication.reregisterReceiversForWifiScanner(prefContext);
+        PPApplicationStatic.reregisterReceiversForWifiScanner(prefContext);
 
         preference.fragment = null;
     }
@@ -241,7 +244,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                                 getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                                 ok = true;
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                PPApplicationStatic.recordException(e);
                             }
                         }
                         if (!ok) {
@@ -338,24 +341,30 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                 if (!SSIDName.getText().toString().isEmpty()) {
                     String[] splits = preference.value.split("\\|");
                     preference.value = "";
+                    StringBuilder value = new StringBuilder();
                     boolean found = false;
                     for (String _ssid : splits) {
                         if (!_ssid.isEmpty()) {
                             if (!_ssid.equals(ssid)) {
-                                if (!preference.value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    preference.value = preference.value + "|";
-                                //noinspection StringConcatenationInLoop
-                                preference.value = preference.value + _ssid;
+                                //if (!preference.value.isEmpty())
+                                //    preference.value = preference.value + "|";
+                                //preference.value = preference.value + _ssid;
+                                if (value.length() > 0)
+                                    value.append("|");
+                                value.append(_ssid);
                             } else
                                 found = true;
                         }
                     }
                     if (found) {
-                        if (!preference.value.isEmpty())
-                            preference.value = preference.value + "|";
-                        preference.value = preference.value + SSIDName.getText().toString();
+                        //if (!preference.value.isEmpty())
+                        //    preference.value = preference.value + "|";
+                        //preference.value = preference.value + SSIDName.getText().toString();
+                        if (value.length() > 0)
+                            value.append("|");
+                        value.append(SSIDName.getText().toString());
                     }
+                    preference.value = value.toString();
                     for (WifiSSIDData customSSID : preference.customSSIDList) {
                         if (customSSID.ssid.equals(ssid)) {
                             customSSID.ssid = SSIDName.getText().toString();

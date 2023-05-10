@@ -63,7 +63,7 @@ class RingtonePreferenceAdapter extends BaseAdapter {
 
         View vi = convertView;
         if (convertView == null) {
-            vi = LayoutInflater.from(context).inflate(R.layout.ringtone_preference_list_item, parent, false);
+            vi = LayoutInflater.from(context).inflate(R.layout.listitem_ringtone_preference, parent, false);
 
             holder = new ViewHolder();
             holder.ringtoneLabel = vi.findViewById(R.id.ringtone_pref_dlg_item_label);

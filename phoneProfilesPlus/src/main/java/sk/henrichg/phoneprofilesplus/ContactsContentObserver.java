@@ -30,16 +30,16 @@ class ContactsContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "uri=" + uri);
+//        if (PPApplicationStatic.logEnabled()) {
+//            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "uri=" + uri);
 //
-//            PPApplication.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Contacts.CONTENT_URI=" + ContactsContract.Contacts.CONTENT_URI);
-//            PPApplication.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.CommonDataKinds.Phone.CONTENT_URI=" + ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-//            PPApplication.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Groups.CONTENT_SUMMARY_URI=" + ContactsContract.Groups.CONTENT_SUMMARY_URI);
-//            PPApplication.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
+//            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Contacts.CONTENT_URI=" + ContactsContract.Contacts.CONTENT_URI);
+//            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.CommonDataKinds.Phone.CONTENT_URI=" + ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+//            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Groups.CONTENT_SUMMARY_URI=" + ContactsContract.Groups.CONTENT_SUMMARY_URI);
+//            PPApplicationStatic.logE("[IN_OBSERVER] ContactsContentObserver.onChange", "ContactsContract.Data.CONTENT_URI=" + ContactsContract.Data.CONTENT_URI);
 //        }
 
-        if (PPApplication.getApplicationStarted(true, true)) {
+        if (PPApplicationStatic.getApplicationStarted(true, true)) {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
             if (workManager != null) {
                 boolean running = false;
@@ -78,7 +78,7 @@ class ContactsContentObserver extends ContentObserver {
                                     //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                     .build();
                 }
-//                PPApplication.logE("[WORKER_CALL] ContactsContentObserver.onChange", "xxx");
+//                PPApplicationStatic.logE("[WORKER_CALL] ContactsContentObserver.onChange", "xxx");
                 workManager.enqueueUniqueWork(ContactsContentObserverWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
             }
         }

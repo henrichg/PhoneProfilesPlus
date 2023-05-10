@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_samsung_edge_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/widget_samsung_edge_item_profile_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="6dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_profile_default" 
+        android:contentDescription="@string/profile_preferences_profileIcon"/>
+
+    <TextView
+        android:id="@+id/widget_samsung_edge_item_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_gravity="center_vertical"
+        android:text="@string/profile_name_default"
+        android:textSize="15dp"
+        android:textColor="#ffffffff"
+        android:fontFamily="sans-serif-condensed"
+        tools:ignore="SpUsage" />
+
+</LinearLayout>
+

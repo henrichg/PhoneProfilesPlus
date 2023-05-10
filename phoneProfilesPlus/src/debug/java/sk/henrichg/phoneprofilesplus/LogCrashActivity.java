@@ -50,7 +50,7 @@ public class LogCrashActivity extends AppCompatActivity {
         progressLinearLayout = findViewById(R.id.log_crah_activity_linla_progress);
 
         listView = findViewById(R.id.log_crah_activity_list);
-        logCrashAdapter = new ArrayAdapter<>(this, R.layout.log_crash_list_item, R.id.log_crash_list_item_text);
+        logCrashAdapter = new ArrayAdapter<>(this, R.layout.listitem_log_crash, R.id.log_crash_list_item_text);
         listView.setAdapter(logCrashAdapter);
 
         Button goToBtn = findViewById(R.id.log_crash_list_go_to_bottom);
@@ -121,7 +121,7 @@ public class LogCrashActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("EmptyMethod")
+    /*
     @Override
     protected void onDestroy()
     {
@@ -130,6 +130,7 @@ public class LogCrashActivity extends AppCompatActivity {
         //if (cursor != null)
         //    cursor.close();
     }
+    */
 
     void refreshListView(boolean showLog)
     {
@@ -171,7 +172,7 @@ public class LogCrashActivity extends AppCompatActivity {
                 if (_showLog)
                     logFile = new File(sd, PPApplication.LOG_FILENAME);
                 else
-                    logFile = new File(sd, TopExceptionHandler.CRASH_FILENAME);
+                    logFile = new File(sd, CustomACRAReportingAdministrator.CRASH_FILENAME);
                 if (logFile.exists()) {
                     try {
                         BufferedReader br = new BufferedReader(new FileReader(logFile));
