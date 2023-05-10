@@ -701,140 +701,91 @@ HOTOVO
 
 ---------------------
 
-- Change: Added into TopExceptionHandler also DeadSystemRuntimeException as ignored.
-- Change: Increased size of text in popup windows.
+- Added new widget: "One row profile list".
+- Added new notification: "Profile list".
+
+- Change: Minimal supported Android version: 8.0.
+- Change: Initial support for Android 14.
+
+- Change: Changes in some GUI layouts
 - Change: "Settings" menu as submenu and in it "Settings", "Application theme", "Choose language".
 - Change: Added "Toggle ..." values for profile parameter "Location mode".
-- Change: Fixed bottom padding in popup windows.
-- Change: Better align of event status popup window.
-- Change: Fixed not working language change in List widget and Samsung Edge panel.
-- Change: Fixed not working language change in some GUI elements.
-- Change: Fixed bad display of duration in multiline when duration ends.
 - Change: Info preference for List widget "Compact grid". Changed from exclamation to info icon.
-- Change: Fixed "Generate notification" dialog enable/disable state of its views.
-- Change: Used condensed font for Activator grid, List widget grid, Samsung Edge panel.
-- Fix: Fixed bug for get delay start of Intent in "Run applications, shortcuts, intents".
-- Change: Size of profile name in List widget grid layout.
-- Change: Space between profile icon and name in SamsungEdge panel.
-- Change: Profile name in header of Samsung Edge panel in bold.
-- Change: Height of list widget grid item.
-- Change: Small padding change in header and items of Samsung Edge panel.
 - Change: Editor title: "Profiles", "Events" moved from filter to title.
-- Change: Better color for list item selector.
-- Change: Removed bold style for some texts in Important info.
-- Change: Replaced link arrow char with better double arrows.
 - Change: Added info preferences about "Profile icon and preferences indicator color type" into "Notification panel - profile icon" and "Notificaiton panel - preferences indicator" categories.
-- Added new widget: "One row profile list".
-- Change: Small changes in "Run applications, shortcuts, intents" editor dialog layout.
 - Change: Do not log "Restart events" when restart events is not called.
-- Change: Better display of "Start only when the following profile is active" in Editor event list.
-- Change: Added padding between body and icon in preference item.
-- Change: Added title and info icon for info preferences about scanning intervals.
 - Change: Force rounded corners in widgets for MIUI13 (Android 12).
 - Change: Do not change media volume when is music active.
-- Change: Set activated profile name size in Samsung Edge panel to 15dp.
 - Change: Added info preference into profile preferences about Media volume not working in background for OnePlus devices.
 - Change: Added help in "Connect to SSID" profile parameter dialog, about what is displayed in this dialog.
 - Change: Added info for "Alarm volume" into profile preferences.
 - Change: Added preferences for PPPPutSettings (install, upgrade, launch) into profile preferences.
 - Change: Replaced 3 Extender preferences with one special preference for PhonePProfilesPlusExtender (install, upgrade, set accesiibility, launch) in profile and event preferences.
-- Change: Changed summary for Extender and PPPPS preferences.
-- Change: Changed layout for Extender and PPPPS preferences.
 - Change: Added check for new PPPPS releases.
-- Fixed bad working order handle in Editor profile list.
-- Change: Small change in layout of install dialogs for PPP, Extender, PPPPS.
-- Change: Changed strings for Extender and PPPPS preferences.
-- Change: Title for "Disable events run" alert dialog was set the same as in menu item.
-- Fix: Maybe fixed not working update of Samsung edge panel.
 - Change: Force hide header and bottom bar in Editor in landscape orientation.
 - Change: Added info preferences about Edge panel not working in tablets, Z Folds.
-- Add: New icon and one row widget parameter "Fill whole space with background".
-- Fix: Fixed not displayed header on Editor list scroll when item count is close to list height.
-- Change: Small changes in Samsung edge panel.
-- Change: Small changes for check PPP releases notification and dialog title text.
-- Change: Small changes in location editor and NFC tag write activity.
-- Change: Added arrow into Editor sub menu titles.
-- Change: Fixed margin of some activities for tablets.
-- Change: Better contrast in buttons, menus, popup windows, spinner drop-down, ... in white theme.
-- Change: Contrast of colors for better accessibility.
-- Change: Increased line spacing for better accessibility.
-- Change: Fixed detection of ringing and notification merge state.
-- Change: Fixed play notification even when system sound node is silent.
+- Change: Added Icon and One row widget parameter "Fill whole space with background".
+- Change: Better accessibilty in GUI.
 - Change: Popup menus in Editor lists changed to single list dialogs.
-- Change: Group widgets parameters to categories.
-- Change: Changed subtitle in preference screens.
-- Added new notification: "Profile list".
-- Fix: Fixed not working start of activities from background.
-- Change: Maybe fixed bad background color of application icons in application cache and appropriate preferences.
-- Change: Added buttons divider into duration and number picker dialogs.
-- Fix: Maybe fixed bad working tap target in Activator.
-- Change: Added higher padding at end of order handle in Editor.
-- Change: Text color in Non-selected items in Spinner dropdown changed to secondary color.
 - Change: Decreased memory consumption.
-- Change: Minimal supported Android version: 8.0.
 - Change: Added "Delete all unselected" into item menu for "Mobile cells" preference.
-- Change: Fixed detection of missed calls notification in "Notification sensor" for new MIUI.
-- Change: Changed text color for popup window title.
-- Change: Changed color for down-arrow in submenus.
-- Change: Removed Google Play relevant informations from README.md.
-- Change: Swap title and subtitle in profile and event preferences.
-- Change: Fixes for Bluetooth LE scanning.
-- Change: Fixes for "Custom wallpaper from folder".
-- Change: Added single choice dialog subtitle support.
-- Change: Title/subtitle text size for profile/event preferences.
 - Change: Change of set/get ringtone in dual SIM.
 - Change: Changes in Wi-Fi and Bluetooth scanning.
 - Change: Added support of dual SIM tones for OnePlus.
-- Change: Fixed background color for EditText Copy/Paste popup.
 - Change: Added info preference for "Folder of image" in "Change wallpaper" profile preference.
 - Change: Dual SIM - change ringtone, notification tone - added "why" string for not granted Phone permission.
-- Change: Fixed test of dual SIM support.
-- Fix: Do not redraw profile list notification, when is disabled.
-- Fix: Small fixes in generating profile icon and indicators.
-- Fix: Maybe fixed BT disconnect in BT sensor.
-- Change: Added check for call, sms, roaming sensor in DatabaseHandler.disableNotAllowedPreferences.
-- Change: Changed required versions of Extender and PPPPS.
-- Changed: Small change of text appearance in Editor title.
-- Added licenses.
-- Fix: Fixed check for sensor types in EventsHandler.
 - Change: Speaker On/Off - added check of Android version.
-- Change: Disabled fading of scrollbars in preference screens.
-- Change: Fixed "Radio switch" sensor when device has not hardware.
-- Change: Speed-up of hasSIMCard().
-- Change: Fixed ACRA custom e-mail sender not working in Android 10+.
+- Change: Speed-up of check of sim cars in dual SIM support.
 - Change: Added custom ACRA e-mail sender for Extender and PPPPutSettings.
-- Change: Parameter "Profile icon and preferences indicator color type" in PPP notification parameters. Added click function for info preference type.
 - Change: Disable Profile List notification from lockscreen.
-- Change: Fixed profile list notification color when is not activated profile.
 - Change: Changes about generation of predefined profile and events.
-- Change: Fixed usage of background lightness in one row, profile list widgets.
 - Change: Maybe fixed displayed wrong alarm clock time in quick tile.
-- Change: Added notification color into ACRA notification configuration.
-- Change: Avoid generating exception Context.startForegroundService() did not then call Service.startForeground()
 - Change: Added note about enable accessibility service in Android 13+.
 - Change: Changes in Extender about restricted settings for Android 13+.
 - Change: Workaround for ongoing notification, which can be clear in Android 14+.
-- Change: Fixed mobile cells registration channel parameters.
-- Change: Small icon in profile list notification, is changed to static PPP icon.
-- Change: Small icon in generated notification form profile. Added is profile icon color support.
 - Change: Generated notification form profile - start PPP launcher instead of Editor.
 - Change: Generated notification form profile - redraw it when update GUI is called.
-- Change: Generated notification form profile, redraw it after profile parameter changed.
-- Change: Added into README.md how ot install PPP from PC.
-- Change: Added PPPE and PPPPS GitHub url into README.md.
-- Change: Fixed not working send e-mails with attachments in Android 14, in devices with only GMail installed.
+- Change: Generated notification form profile - redraw it after profile parameter changed.
 - Change: Added info about "Unsafe app blocked" dialog into dialog for installation of PPPPS.
-- Change: Generate notification of error, during profile activation.
-- Change: Added filter for some exceptions in ACRA (as in TopExceptionHandler).
 - Change: Display only contacts with phone numbers in "Call sensor", "SMS/MMS sensor".
 - Change: Added display of account name for Contacts preferences dialog.
 - Change: Do not call not used Workers.
-- Fix: Fixed not displayed notification about Autostart not enabled.
 - Change: Removed support for PhoneProfiles.
-- Change: Small changes in PPP app and profile list notifications.
-- Change: Small changes in PPP app notifications for Galaxy devices.
-- Change: Fixed bad animation when Editor is started form Activator (Android 14).
 - Change: Removed support of pause event from Tasker.
 - Change: Removed old, not more used support for profile activation from Tasker.
 - Change: Refresh dynamic shortcuts after delete of quick tile.
-- Change: Changes in Extender and PPPPutSettings installation dialog.
+
+- Change: Changed required versions of Extender and PPPPS.
+- Change: Added licenses for modules.
+- Change: Removed Google Play relevant informations from README.md.
+- Change: Added into README.md how ot install PPP from PC.
+- Change: Added PPPE and PPPPS GitHub url into README.md.
+
+- Change: Fixes in some GUI layouts
+- Change: Fixed not working language change in some GUI elements.
+- Change: Fixed bad display of duration in multiline when duration ends.
+- Change: Fixed "Generate notification" dialog enable/disable state of its views.
+- Change: Fixed detection of ringing and notification merge state.
+- Change: Fixed play notification even when system sound node is silent.
+- Change: Fixed detection of missed calls notification in "Notification sensor" for new MIUI.
+- Change: Fixes for Bluetooth LE scanning.
+- Change: Fixes for "Custom wallpaper from folder".
+- Change: Fixed background color for EditText Copy/Paste popup.
+- Change: Fixed test of dual SIM support.
+- Change: Fixed "Radio switch" sensor when device has not hardware.
+- Change: Fixed ACRA custom e-mail sender not working in Android 10+.
+- Change: Fixed mobile cells registration channel parameters.
+- Change: Fixed not working send e-mails with attachments in Android 14, in devices with only GMail installed.
+- Change: Fixed bad animation when Editor is started form Activator (Android 14).
+
+- Fix: Fixed bug for get delay start of Intent in "Run applications, shortcuts, intents".
+- Fix: bad working order handle in Editor profile list.
+- Fix: Maybe fixed not working update of Samsung edge panel.
+- Fix: Fixed not displayed header on Editor list scroll when item count is close to list height.
+- Fix: Fixed not working start of activities from background.
+- Fix: Maybe fixed bad working tap target in Activator.
+- Fix: Do not redraw profile list notification, when is disabled.
+- Fix: Small fixes in generating profile icon and indicators.
+- Fix: Maybe fixed BT disconnect in BT sensor.
+- Fix: Fixed check for sensor types in EventsHandler.
+- Fix: Fixed not displayed notification about Autostart not enabled.
