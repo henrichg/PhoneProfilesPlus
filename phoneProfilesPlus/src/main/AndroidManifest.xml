@@ -219,10 +219,10 @@
 <!--                android:value="true" />-->
 <!--        </service>-->
 
-        <!-- this is for Galaxy Apps -->
-        <meta-data
-            android:name="com.samsung.android.cocktail.mode"
-            android:value="edge_single_plus" />
+        <!-- this is for Galaxy Apps - !!! do not use it, because will no be posible to upgrade app in Glaxy Store -->
+<!--        <meta-data-->
+<!--            android:name="com.samsung.android.cocktail.mode"-->
+<!--            android:value="edge_single_plus" />-->
 
         <activity
             android:name=".LauncherActivity"

@@ -70,12 +70,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
     private static final String PRF_NOT_INSTALLED_PPPPS = "prf_pref_notInstammedPPPPS";
 
-    private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategoryRoot";
+    private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT = "prf_pref_forceStopApplicationsCategoryRoot";
     private static final String PREF_FORCE_STOP_APPLICATIONS_EXTENDER = "prf_pref_deviceForceStopApplicationExtender";
     //private static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
     //private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
     //private static final String PREF_INSTALL_SILENT_TONE = "prf_pref_soundInstallSilentTone";
-    private static final String PREF_LOCK_DEVICE_CATEGORY = "prf_pref_lockDeviceCategoryRoot";
+    private static final String PREF_LOCK_DEVICE_CATEGORY_ROOT = "prf_pref_lockDeviceCategoryRoot";
     private static final String PREF_LOCK_DEVICE_EXTENDER = "prf_pref_lockDeviceExtender";
     //private static final String PREF_LOCK_DEVICE_INSTALL_EXTENDER = "prf_pref_lockDeviceInstallExtender";
     //private static final String PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS = "prf_pref_lockDeviceAccessibilitySettings";
@@ -86,7 +86,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_ALWAYS_ON_DISPLAY_INFO = "prf_pref_alwaysOnDisplayInfo";
     private static final String PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceRadiosDualSIMSupportCategoryRoot";
     private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
-    private static final String PREF_DEVICE_WALLPAPER_CATEGORY = "prf_pref_deviceWallpaperCategoryRoot";
+    private static final String PREF_DEVICE_WALLPAPER_CATEGORY_ROOT = "prf_pref_deviceWallpaperCategoryRoot";
     private static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS = "prf_pref_deviceRunApplicationMIUIPermissions";
     private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
     private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
@@ -4323,12 +4323,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return;
         }
 
-        if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {
+        if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT)) {
             if (setCategorySummaryForceStopApplications(context, cattegorySummaryData))
                 return;
         }
 
-        if (key.equals(PREF_LOCK_DEVICE_CATEGORY)) {
+        if (key.equals(PREF_LOCK_DEVICE_CATEGORY_ROOT)) {
             if (setCategorySummaryLockDevice(context, cattegorySummaryData))
                 return;
         }
@@ -4350,7 +4350,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 return;
         }
 
-        if (key.equals(PREF_DEVICE_WALLPAPER_CATEGORY)) {
+        if (key.equals(PREF_DEVICE_WALLPAPER_CATEGORY_ROOT)) {
             if (setCategorySummaryDeviceWallpaper(context, cattegorySummaryData))
                 return;
         }
@@ -6084,11 +6084,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary("prf_pref_ledAccessoriesCategoryRoot", context);
         setCategorySummary("prf_pref_othersCategoryRoot", context);
         setCategorySummary("prf_pref_applicationCategoryRoot", context);
-        setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY, context);
-        setCategorySummary(PREF_LOCK_DEVICE_CATEGORY, context);
+        setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY_ROOT, context);
+        setCategorySummary(PREF_LOCK_DEVICE_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
-        setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY, context);
+        setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY_ROOT, context);
 
     }
 
