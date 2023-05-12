@@ -84,6 +84,9 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null)
+                bitmapResult.recycle();
         }
         else
         if ((indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
@@ -186,6 +189,9 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null)
+                bitmapResult.recycle();
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_DYNAMIC_COLORS) {
@@ -240,6 +246,9 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null)
+                bitmapResult.recycle();
         }
         else
         if ((indicatorsType == DataWrapper.IT_FOR_WIDGET) ||
@@ -321,6 +330,9 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null)
+                bitmapResult.recycle();
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS) {
@@ -375,7 +387,12 @@ class ProfilePreferencesIndicator {
             // add icon into profile preferences indicator
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+
+            if (bitmapResult != null)
+                bitmapResult.recycle();
         }
+
+        preferenceBitmap.recycle();
     }
 
     void fillArrays(Profile profile, boolean fillStrings, //boolean monochrome,
