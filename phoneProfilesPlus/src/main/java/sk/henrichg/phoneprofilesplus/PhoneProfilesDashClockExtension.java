@@ -123,7 +123,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
                         // intent
                         //Intent intent = new Intent(this, LauncherActivity.class);
-                        Intent intent = LauncherActivity.getLaucherIntent(this, PPApplication.STARTUP_SOURCE_WIDGET);
+                        Intent intent = GlobalGUIRoutines.getIntentForStartupSource(this, PPApplication.STARTUP_SOURCE_WIDGET);
                         // clear all opened activities
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);

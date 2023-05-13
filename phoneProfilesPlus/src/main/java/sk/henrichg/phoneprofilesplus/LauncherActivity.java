@@ -14,7 +14,7 @@ public class LauncherActivity extends AppCompatActivity {
     private boolean activityStarted = false;
     private int startupSource;
 
-    private static final int REQUEST_CODE_IMPORTANT_INFO = 1620;
+    //private static final int REQUEST_CODE_IMPORTANT_INFO = 1620;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,42 +79,12 @@ public class LauncherActivity extends AppCompatActivity {
         }
     }
 
-    static Intent getLaucherIntent(Context context, int startupSource) {
-        Intent intentLaunch;
-
-        switch (startupSource) {
-            case PPApplication.STARTUP_SOURCE_NOTIFICATION:
-                if (ApplicationPreferences.applicationNotificationLauncher.equals("activator"))
-                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
-                else
-                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
-                break;
-            case PPApplication.STARTUP_SOURCE_WIDGET:
-                if (ApplicationPreferences.applicationWidgetLauncher.equals("activator"))
-                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
-                else
-                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
-                break;
-            case PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER:
-                intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
-                //startupSource = PPApplication.STARTUP_SOURCE_WIDGET;
-                break;
-            default:
-                if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
-                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
-                else
-                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
-                break;
-        }
-        return intentLaunch;
-    }
-
     private void endOnStart()
     {
         //  application is already started - is in PhoneProfilesService
         //PPApplication.setApplicationStarted(getBaseContext(), true);
 
-        Intent intentLaunch = getLaucherIntent(getApplicationContext(), startupSource);
+        Intent intentLaunch = GlobalGUIRoutines.getIntentForStartupSource(getApplicationContext(), startupSource);
 
         if (startupSource == PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER) {
             startupSource = PPApplication.STARTUP_SOURCE_WIDGET;
@@ -207,6 +177,7 @@ public class LauncherActivity extends AppCompatActivity {
         return false;
     }
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -217,5 +188,6 @@ public class LauncherActivity extends AppCompatActivity {
             endOnStart();
         }
     }
+    */
 
 }

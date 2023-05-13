@@ -224,6 +224,7 @@
 <!--            android:name="com.samsung.android.cocktail.mode"-->
 <!--            android:value="edge_single_plus" />-->
 
+<!--
         <activity
             android:name=".LauncherActivity"
             android:label="@string/title_activity_phone_profiles"
@@ -251,6 +252,43 @@
             android:label="@string/title_activity_editor"
             android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting">
         </activity>
+-->
+
+<!--
+        <activity
+            android:name=".ActivatorActivity"
+            android:label="@string/launcher_label_activator"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
+            android:theme="@style/ActivatorTheme_dayNight"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+-->
+        <activity
+            android:name=".EditorActivity"
+            android:label="@string/title_activity_phone_profiles"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.editor"
+            android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting"
+            tools:ignore="IntentFilterExportedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ActivatorActivity"
+            android:label="@string/title_activity_activator"
+            android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
+            android:theme="@style/ActivatorTheme_dayNight">
+        </activity>
+
         <activity
             android:name=".ProfilesPrefsActivity"
             android:label="@string/title_activity_profile_preferences">

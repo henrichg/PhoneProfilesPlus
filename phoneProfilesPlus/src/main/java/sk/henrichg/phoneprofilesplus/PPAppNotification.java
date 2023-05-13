@@ -57,7 +57,7 @@ public class PPAppNotification {
             launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
         } else {
             //launcherIntent = new Intent(appContext, LauncherActivity.class);
-            launcherIntent = LauncherActivity.getLaucherIntent(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+            launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
             // clear all opened activities
             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
             // setup startupSource

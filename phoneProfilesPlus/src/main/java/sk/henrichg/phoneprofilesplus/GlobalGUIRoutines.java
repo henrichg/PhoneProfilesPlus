@@ -1160,4 +1160,34 @@ class GlobalGUIRoutines {
 
     }
 
+    static Intent getIntentForStartupSource(Context context, int startupSource) {
+        Intent intentLaunch;
+
+        switch (startupSource) {
+            case PPApplication.STARTUP_SOURCE_NOTIFICATION:
+                if (ApplicationPreferences.applicationNotificationLauncher.equals("activator"))
+                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                else
+                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                break;
+            case PPApplication.STARTUP_SOURCE_WIDGET:
+                if (ApplicationPreferences.applicationWidgetLauncher.equals("activator"))
+                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                else
+                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                break;
+            case PPApplication.STARTUP_SOURCE_EDITOR_WIDGET_HEADER:
+                intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                //startupSource = PPApplication.STARTUP_SOURCE_WIDGET;
+                break;
+            default:
+                if (ApplicationPreferences.applicationHomeLauncher.equals("activator"))
+                    intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
+                else
+                    intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
+                break;
+        }
+        return intentLaunch;
+    }
+
 }
