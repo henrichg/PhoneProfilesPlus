@@ -100,13 +100,18 @@ class AutoStartPermissionHelper  {
     /***
      * One plus
      */
+//    private final String BRAND_ONE_PLUS = "oneplus";
+//    private final String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+//    private final String PACKAGE_ONE_PLUS_FALLBACK = "com.oplus.securitypermission";
+//    private final String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+//    private final String PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
+//    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK = "com.oplus.securitypermission.startup.StartupAppListActivity";
+//    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A = "com.oneplus.security.startupapp.StartupAppListActivity";
     private final String BRAND_ONE_PLUS = "oneplus";
-    private final String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
-    private final String PACKAGE_ONE_PLUS_FALLBACK = "com.oplus.securitypermission";
-    private final String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
-    private final String PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
-    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK = "com.oplus.securitypermission.startup.StartupAppListActivity";
-    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A = "com.oneplus.security.startupapp.StartupAppListActivity";
+    private final String  PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+    private final String  PACKAGE_ONE_PLUS_COMPONENT =
+            "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+    private final String  PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
 
     private final List<String> PACKAGES_TO_CHECK_FOR_PERMISSION = Arrays.asList(
             PACKAGE_ASUS_MAIN,
@@ -120,8 +125,9 @@ class AutoStartPermissionHelper  {
             PACKAGE_NOKIA_MAIN,
             PACKAGE_HUAWEI_MAIN,
 //            PACKAGE_SAMSUNG_MAIN,
-            PACKAGE_ONE_PLUS_MAIN,
-            PACKAGE_ONE_PLUS_FALLBACK);
+            PACKAGE_ONE_PLUS_MAIN
+//            PACKAGE_ONE_PLUS_FALLBACK
+    );
 
     boolean getAutoStartPermission(Context context) {
 
@@ -384,6 +390,7 @@ class AutoStartPermissionHelper  {
         return true;
     }
 
+/*
     private boolean autoStartOnePlus(Context context) {
         boolean ok;
         if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN) || isPackageExists(context, PACKAGE_ONE_PLUS_FALLBACK)) {
@@ -414,6 +421,51 @@ class AutoStartPermissionHelper  {
                             ok = false;
                         }
                     }
+                }
+            }
+        } else {
+            ok = false;
+        }
+
+        if (!ok) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                try {
+                    context.startActivity(intent);
+                    ok = true;
+                } catch (Exception ex) {
+                    Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(ex));
+                    //ex.printStackTrace();
+                    //ok = false;
+                }
+            } catch (Exception e) {
+                Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(e));
+                //e.printStackTrace();
+                //ok = false;
+            }
+        }
+
+        return ok;
+    }
+*/
+    private boolean autoStartOnePlus(Context context) {
+        boolean ok;
+        if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN)) {
+            try {
+                startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT);
+                ok = true;
+            } catch (Exception e) {
+                Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(e));
+                //e.printStackTrace();
+                try {
+                    startAction(context, PACKAGE_ONE_PLUS_ACTION);
+                    ok = true;
+                } catch (Exception exxx) {
+                    Log.e("AutoStartPermissionHelper.autoStartOnePlus", Log.getStackTraceString(exxx));
+                    //exxx.printStackTrace();
+                    ok = false;
                 }
             }
         } else {
