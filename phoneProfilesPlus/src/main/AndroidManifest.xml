@@ -270,7 +270,7 @@
 -->
         <activity
             android:name=".ActivatorActivity"
-            android:label="@string/title_activity_activator"
+            android:label="@string/title_activity_phone_profiles"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
             android:theme="@style/ActivatorTheme_dayNight"
@@ -284,7 +284,7 @@
 
         <activity
             android:name=".EditorActivity"
-            android:label="@string/title_activity_phone_profiles"
+            android:label="@string/title_activity_editor"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.editor"
             android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting">
         </activity>
