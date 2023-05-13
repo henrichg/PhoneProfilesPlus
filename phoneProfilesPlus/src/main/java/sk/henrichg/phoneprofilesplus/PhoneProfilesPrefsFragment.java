@@ -25,6 +25,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.Preference;
@@ -37,6 +40,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
@@ -2018,6 +2022,70 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
+
+        preference = prefMng.findPreference("applicationCreateEditorShortcut");
+        if (preference != null) {
+            Context appContext = getActivity().getApplicationContext();
+            if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
+                List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
+                boolean exists = false;
+                for (ShortcutInfoCompat shortcut : shortcuts) {
+                    if (shortcut.getId().equals("ppp_editor")) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    preference.setVisible(true);
+                    preference.setOnPreferenceClickListener(preference120 -> {
+                        Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "click to applicationCreateEditorShortcut");
+
+                    /*
+                    Intent shortcutIntent = new Intent(getActivity().getApplicationContext(), EditorActivity.class);
+                    shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                    shortcutIntent.setAction(Intent.ACTION_MAIN);
+                    shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    Intent addIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
+                    addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+                    addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.editor_launcher_label));
+                    addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                            Intent.ShortcutIconResource.fromContext(getActivity().getApplicationContext(), R.mipmap.ic_launcher));
+                    addIntent.putExtra("duplicate", false);
+                    getActivity().getApplicationContext().sendBroadcast(addIntent);
+                     */
+
+                        Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
+                        shortcutIntent.setAction(Intent.ACTION_MAIN);
+
+                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, "ppp_editor");
+                        shortcutBuilderCompat.setIntent(shortcutIntent);
+                        shortcutBuilderCompat.setShortLabel(getString(R.string.editor_launcher_label));
+                        shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));
+                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_launcher));
+
+                        try {
+                            ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
+                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, null);
+
+                            //Intent intent = ShortcutManagerCompat.createShortcutResultIntent(appContext, shortcutInfo);
+                            //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
+                        } catch (Exception e) {
+                            // show dialog about this crash
+                            // for Microsft laucher it is:
+                            // java.lang.IllegalArgumentException ... already exists but disabled
+                        }
+
+                        return false;
+                    });
+                }
+                else
+                    preference.setVisible(false);
+            } else
+                preference.setVisible(false);
+        }
+
     }
 
     private void doOnActivityCreatedBatterySaver(String key) {
@@ -2385,7 +2453,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_ALERT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_CLOSE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_HOME_LAUNCHER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_LANGUAGE);
@@ -3965,8 +4033,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary +" • ";*/
             summary = summary + getString(R.string.phone_profiles_pref_applicationTheme);
             if (!summary.isEmpty()) summary = summary +" • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationHomeLauncher);
-            if (!summary.isEmpty()) summary = summary +" • ";
+//            summary = summary + getString(R.string.phone_profiles_pref_applicationHomeLauncher);
+//            if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLauncher);
             if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationLauncher);

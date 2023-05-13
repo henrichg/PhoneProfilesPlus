@@ -156,7 +156,6 @@
     <string name="array_pref_no_run">Do not run</string>
     <string name="array_pref_run">Run</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Show preferences indicator</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Launch from home screen</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Launch from widget</string>
     <string name="phone_profiles_pref_notificationLauncher">Launch from notification</string>
     <string name="array_pref_launcher_activator">Activator</string>
@@ -2075,6 +2074,10 @@
     <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
     <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
     <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
+
+    <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortctu to Editor in home laucher</string>
+    <string name="editor_launcher_label">Editor: PhoneProfielsPlus</string>
 
     <!-- **************************************************************************************** -->
 

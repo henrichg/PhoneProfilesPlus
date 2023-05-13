@@ -711,7 +711,7 @@ class PPApplicationStatic {
             //ApplicationPreferences.applicationEditorSaveEditorState(context);
             ApplicationPreferences.notificationPrefIndicator(context);
             ApplicationPreferences.notificationPrefIndicatorLightness(context);
-            ApplicationPreferences.applicationHomeLauncher(context);
+            //ApplicationPreferences.applicationHomeLauncher(context);
             ApplicationPreferences.applicationWidgetLauncher(context);
             ApplicationPreferences.applicationNotificationLauncher(context);
             ApplicationPreferences.applicationEventWifiScanInterval(context);

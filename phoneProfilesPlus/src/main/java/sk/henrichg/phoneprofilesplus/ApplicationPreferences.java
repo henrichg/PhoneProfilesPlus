@@ -93,7 +93,7 @@ class ApplicationPreferences {
     //static volatile boolean applicationEditorSaveEditorState;
     static volatile boolean notificationPrefIndicator;
     static volatile String notificationPrefIndicatorLightness;
-    static volatile String applicationHomeLauncher;
+    //static volatile String applicationHomeLauncher;
     static volatile String applicationWidgetLauncher;
     static volatile String applicationNotificationLauncher;
     static volatile int applicationEventWifiScanInterval;
@@ -398,7 +398,7 @@ class ApplicationPreferences {
     //static final String PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE = "applicationEditorSaveEditorState";
     static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
     static final String PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS = "notificationPrefIndicatorLightness";
-    static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
+    //static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
     static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
     static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER = "applicationNotificationLauncher";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL = "applicationEventWifiScanInterval";
@@ -949,10 +949,10 @@ class ApplicationPreferences {
         notificationPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS, PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS_DEFAULT_VALUE);
     }
 
-    static final String PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE = "activator";
-    static void applicationHomeLauncher(Context context) {
-        applicationHomeLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_HOME_LAUNCHER, PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE);
-    }
+//    static final String PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE = "activator";
+//    static void applicationHomeLauncher(Context context) {
+//        applicationHomeLauncher = getSharedPreferences(context).getString(PREF_APPLICATION_HOME_LAUNCHER, PREF_APPLICATION_HOME_LAUNCHER_DEFAULT_VALUE);
+//    }
 
     static final String PREF_APPLICATION_WIDGET_LAUNCHER_DEFAULT_VALUE = "activator";
     static void applicationWidgetLauncher(Context context) {
