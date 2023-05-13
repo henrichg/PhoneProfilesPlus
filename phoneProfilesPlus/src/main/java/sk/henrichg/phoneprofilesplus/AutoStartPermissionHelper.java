@@ -100,18 +100,18 @@ class AutoStartPermissionHelper  {
     /***
      * One plus
      */
-//    private final String BRAND_ONE_PLUS = "oneplus";
-//    private final String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
-//    private final String PACKAGE_ONE_PLUS_FALLBACK = "com.oplus.securitypermission";
-//    private final String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
-//    private final String PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
-//    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK = "com.oplus.securitypermission.startup.StartupAppListActivity";
-//    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A = "com.oneplus.security.startupapp.StartupAppListActivity";
     private final String BRAND_ONE_PLUS = "oneplus";
-    private final String  PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
-    private final String  PACKAGE_ONE_PLUS_COMPONENT =
-            "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
-    private final String  PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
+    private final String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+    private final String PACKAGE_ONE_PLUS_FALLBACK = "com.oplus.securitypermission";
+    private final String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+    private final String PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
+    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK = "com.oplus.securitypermission.startup.StartupAppListActivity";
+    private final String PACKAGE_ONE_PLUS_COMPONENT_FALLBACK_A = "com.oneplus.security.startupapp.StartupAppListActivity";
+//    private final String BRAND_ONE_PLUS = "oneplus";
+//    private final String  PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
+//    private final String  PACKAGE_ONE_PLUS_COMPONENT =
+//            "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+//    private final String  PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
 
     private final List<String> PACKAGES_TO_CHECK_FOR_PERMISSION = Arrays.asList(
             PACKAGE_ASUS_MAIN,
@@ -126,7 +126,7 @@ class AutoStartPermissionHelper  {
             PACKAGE_HUAWEI_MAIN,
 //            PACKAGE_SAMSUNG_MAIN,
             PACKAGE_ONE_PLUS_MAIN
-//            PACKAGE_ONE_PLUS_FALLBACK
+//            PACKAGE_ONE_PLUS_FALLBACK  commented because not working :-(
     );
 
     boolean getAutoStartPermission(Context context) {
@@ -390,7 +390,6 @@ class AutoStartPermissionHelper  {
         return true;
     }
 
-/*
     private boolean autoStartOnePlus(Context context) {
         boolean ok;
         if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN) || isPackageExists(context, PACKAGE_ONE_PLUS_FALLBACK)) {
@@ -449,7 +448,8 @@ class AutoStartPermissionHelper  {
 
         return ok;
     }
-*/
+
+/*
     private boolean autoStartOnePlus(Context context) {
         boolean ok;
         if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN)) {
@@ -494,7 +494,7 @@ class AutoStartPermissionHelper  {
 
         return ok;
     }
-
+*/
     private void startIntent(Context context, String packageName, String componentName) {
         try {
             Intent intent = new Intent();
