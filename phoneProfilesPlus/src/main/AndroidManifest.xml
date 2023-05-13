@@ -269,10 +269,11 @@
         </activity>
 -->
         <activity
-            android:name=".EditorActivity"
-            android:label="@string/title_activity_phone_profiles"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.editor"
-            android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting"
+            android:name=".ActivatorActivity"
+            android:label="@string/title_activity_activator"
+            android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.activator"
+            android:theme="@style/ActivatorTheme_dayNight"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -282,11 +283,10 @@
         </activity>
 
         <activity
-            android:name=".ActivatorActivity"
-            android:label="@string/title_activity_activator"
-            android:excludeFromRecents="true"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/ActivatorTheme_dayNight">
+            android:name=".EditorActivity"
+            android:label="@string/title_activity_phone_profiles"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.editor"
+            android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting">
         </activity>
 
         <activity
