@@ -51,7 +51,7 @@ public class CheckLatestPPPPSReleasesActivity extends AppCompatActivity
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, false, false, false, false, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
 //            PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "do installExtender");

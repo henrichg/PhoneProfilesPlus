@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="Theme.PhoneProfilesTheme_Editor_Starting" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">#FF484848</item>
+        <item name="postSplashScreenTheme">@style/Theme.PhoneProfilesTheme_withToolbar_dayNight</item>
+        <item name="windowSplashScreenAnimationDuration">200</item>
+    </style>
+
     <style name="Theme.PhoneProfilesTheme_withToolbar_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_withToolbar_dayNight">
         <item name="listViewItemBackground">@drawable/listview_item_background</item>
         <item name="popupMenuItemBackground">@drawable/popup_menu_item_background_selector</item>

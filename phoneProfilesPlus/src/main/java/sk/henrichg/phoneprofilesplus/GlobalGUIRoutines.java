@@ -103,20 +103,20 @@ class GlobalGUIRoutines {
 */
 
     static void setTheme(Activity activity, boolean forPopup,
-                                boolean withToolbar/*, boolean withDrawerLayout*/,
-                                boolean forActivator, boolean forDialog,
+                                boolean withToolbar,
+                                boolean forEditor, boolean forActivator, boolean forDialog,
                                 boolean forLocationEditor, boolean forPreference)
     {
         int theme = getTheme(forPopup, withToolbar,
-                /*withDrawerLayout,*/ forActivator,
+                forEditor, forActivator,
                 forDialog, forLocationEditor, forPreference,
                 activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
-    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/
-                        boolean forActivator, boolean forDialog,
+    static int getTheme(boolean forPopup, boolean withToolbar,
+                        boolean forEditor, boolean forActivator, boolean forDialog,
                         boolean forLocationEditor, boolean forPreferences,
                         Context context) {
         switch (ApplicationPreferences.applicationTheme(context, false)) {
@@ -289,13 +289,12 @@ class GlobalGUIRoutines {
         else
         if (forPopup) {
             if (PPApplication.deviceIsOnePlus) {
-                if (Build.VERSION.SDK_INT >= 33){
+                if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight;
                     else
                         return R.style.PopupTheme_dayNight;
-                }
-                else {
+                } else {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight_noRipple;
                     else
@@ -306,6 +305,18 @@ class GlobalGUIRoutines {
                     return R.style.PopupTheme_withToolbar_dayNight;
                 else
                     return R.style.PopupTheme_dayNight;
+            }
+        }
+        else
+        if (forEditor) {
+            if (PPApplication.deviceIsOnePlus) {
+                if (Build.VERSION.SDK_INT >= 33) {
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting;
+                } else {
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple;
+                }
+            } else {
+                return R.style.Theme_PhoneProfilesTheme_Editor_Starting;
             }
         } else {
             if (PPApplication.deviceIsOnePlus) {

@@ -29,7 +29,7 @@ public class GrantNotificationPermissionAtFirstStartActivity extends AppCompatAc
         super.onStart();
 
         if (activityStarted) {
-            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
             if (!Permissions.grantNotificationsPermission(this)) {
                 if (!isFinishing())
                     finish();

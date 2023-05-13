@@ -249,7 +249,7 @@
         <activity
             android:name=".EditorActivity"
             android:label="@string/title_activity_editor"
-            android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_dayNight">
+            android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting">
         </activity>
         <activity
             android:name=".ProfilesPrefsActivity"

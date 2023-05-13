@@ -95,7 +95,7 @@ public class ActivatorActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false, false, false);
+        GlobalGUIRoutines.setTheme(this, true, true, false, true, false, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
     //-----------------------------------------------------------------------------------
