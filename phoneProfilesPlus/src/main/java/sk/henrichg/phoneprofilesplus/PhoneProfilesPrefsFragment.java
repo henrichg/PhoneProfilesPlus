@@ -2040,22 +2040,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setOnPreferenceClickListener(preference120 -> {
                         Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "click to applicationCreateEditorShortcut");
 
-                    /*
-                    Intent shortcutIntent = new Intent(getActivity().getApplicationContext(), EditorActivity.class);
-                    shortcutIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                    shortcutIntent.setAction(Intent.ACTION_MAIN);
-                    shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    Intent addIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-                    addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-                    addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.editor_launcher_label));
-                    addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                            Intent.ShortcutIconResource.fromContext(getActivity().getApplicationContext(), R.mipmap.ic_launcher));
-                    addIntent.putExtra("duplicate", false);
-                    getActivity().getApplicationContext().sendBroadcast(addIntent);
-                     */
-
                         Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
                         shortcutIntent.setAction(Intent.ACTION_MAIN);
 
@@ -2063,13 +2047,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         shortcutBuilderCompat.setIntent(shortcutIntent);
                         shortcutBuilderCompat.setShortLabel(getString(R.string.editor_launcher_label));
                         shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));
-                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_launcher));
+                        shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
 
                         try {
                             ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
                             ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, null);
-
-                            //Intent intent = ShortcutManagerCompat.createShortcutResultIntent(appContext, shortcutInfo);
                             //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
                         } catch (Exception e) {
                             // show dialog about this crash
