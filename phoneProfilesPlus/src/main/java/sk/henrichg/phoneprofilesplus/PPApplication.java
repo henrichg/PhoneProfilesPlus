@@ -209,7 +209,6 @@ public class PPApplication extends Application
                                                 +"|ShutdownBroadcastReceiver"
                                                 +"|DatabaseHandler.onUpgrade"
                                                 //+"|IgnoreBatteryOptimizationNotification"
-                                                //+"|LauncherActivity.startPPServiceWhenNotStarted"
                                                 //+"|PPApplication.updateGUI"
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
@@ -258,7 +257,6 @@ public class PPApplication extends Application
                                                 //+"|LocationScanner.updateTransitionsByLastKnownLocation"
                                                 //+"|ActivateProfileHelper.changeWallpaperFromFolder"
                                                 //+"|AutostartPermissionNotification"
-                                                //+"|LauncherActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

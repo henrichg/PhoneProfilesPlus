@@ -737,8 +737,6 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //} else
                 //    remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events_click, View.GONE);
 
-                // intent for start LauncherActivity on widget click
-                //Intent intent = new Intent(context, LauncherActivity.class);
                 Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

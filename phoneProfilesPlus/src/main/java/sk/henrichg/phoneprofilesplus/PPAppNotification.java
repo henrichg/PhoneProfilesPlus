@@ -51,12 +51,10 @@ public class PPAppNotification {
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._showNotification", "call of createPPPAppNotificationChannel()");
         PPApplicationStatic.createPPPAppNotificationChannel(appContext);
 
-        // intent to LauncherActivity, for click on notification
         Intent launcherIntent;
         if (Build.VERSION.SDK_INT < 31) {
             launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
         } else {
-            //launcherIntent = new Intent(appContext, LauncherActivity.class);
             launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(appContext, PPApplication.STARTUP_SOURCE_NOTIFICATION);
             // clear all opened activities
             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
@@ -764,7 +762,6 @@ public class PPAppNotification {
         if ((notificationShowButtonExit) && useDecorator) {
             // add action button to stop application
 
-            // intent to LauncherActivity, for click on notification
             Intent exitAppIntent = new Intent(appContext, ExitApplicationActivity.class);
             // clear all opened activities
             exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -28,8 +28,6 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
 //                        long start = System.currentTimeMillis();
 //                        PPApplicationStatic.logE("[IN_EXECUTOR]  ***** StartLauncherFromNotificationReceiver", "--------------- START");
 
-                            // intent to LauncherActivity, for click on notification
-                            //Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
                             Intent launcherIntent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_NOTIFICATION);
                             // clear all opened activities
                             launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
@@ -56,42 +54,6 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     }
                     else
                         PPApplication.delayedGuiExecutor.submit(runnable);
-
-                    /*
-                    final Context appContext = context.getApplicationContext();
-                    //Handler _handler = new Handler(appContext.getMainLooper());
-                    PPApplication.startHandlerThreadBroadcast();
-                    final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    //PPApplication.PPHandlerThreadRunnable r = new PPApplication.PPHandlerThreadRunnable(
-                    //        context.getApplicationContext()) {
-                    Runnable r = () -> {
-//                            PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
-
-                        //Context appContext= appContextWeakRef.get();
-                        //if (appContext != null) {
-                            // intent to LauncherActivity, for click on notification
-                            Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
-                            // clear all opened activities
-                            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            // setup startupSource
-                            launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-                            appContext.startActivity(launcherIntent);
-                        //}
-                    };
-                    if ((Build.VERSION.SDK_INT >= 29) &&
-                            ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
-                        if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-                            if (Build.VERSION.SDK_INT >= 30)
-                                __handler.postDelayed(r, 500);
-                            else
-                                __handler.postDelayed(r, 1000);
-                        }
-                        else
-                            __handler.postDelayed(r, 500);
-                    }
-                    else
-                        __handler.post(r);
-                    */
                 }
             }
         }

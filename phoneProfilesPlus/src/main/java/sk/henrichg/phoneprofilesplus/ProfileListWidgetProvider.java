@@ -755,8 +755,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, EditorActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             */
-        // intent for start LauncherActivity on widget click
-        //Intent intent = new Intent(context, LauncherActivity.class);
         Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
         // clear all opened activities
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -809,26 +807,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             else
                 widget.setPendingIntentTemplate(R.id.widget_profile_grid, clickPI);
         }
-        /*}
-        else
-        {
-            Intent intent = new Intent(context, LauncherActivity.class);
-            // clear all opened activities
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 300, intent,
-                                                        PendingIntent.FLAG_UPDATE_CURRENT);
-            widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
-
-            //if (Event.getGlobalEventsRunning()) {
-                //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
-                Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
-                PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-                widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events, pIntentRE);
-            //}
-            //else
-            //    widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
-        }*/
 
         return widget;
     }

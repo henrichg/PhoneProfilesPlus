@@ -727,8 +727,6 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 if (!applicationWidgetIconHideProfileName)
                     remoteViews.setTextViewText(R.id.icon_widget_name, profileName);
 
-                // intent for start LauncherActivity on widget click
-                //Intent intent = new Intent(context, LauncherActivity.class);
                 Intent intent = GlobalGUIRoutines.getIntentForStartupSource(context, PPApplication.STARTUP_SOURCE_WIDGET);
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
