@@ -4747,6 +4747,7 @@ class ActivateProfileHelper {
         if (profile.getDeviceBrightnessChange()) {
             if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
                 try {
+                    //noinspection IfStatementWithIdenticalBranches
                     if (profile.getDeviceBrightnessAutomatic()) {
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -5991,27 +5992,25 @@ class ActivateProfileHelper {
                             //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                         }
                     }
-                } /*else {
+                }/* else {
                     // dual sim temporary removed, Samsung, Xiaomi, Huawei do not have option for this in Settings
 
                     // dual sim is supported by TelephonyManager from API 26
 
                     // Get the value of the "TRANSACTION_setDataEnabled" field.
-                    Object serviceManager = PPApplication.getServiceManager("phone");
-                    int transactionCode = -1;
-                    if (serviceManager != null) {
-                        if (Build.VERSION.SDK_INT >= 28)
-                            transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
-                        else
-                            transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
-                    }
+                    //Object serviceManager = PPApplication.getServiceManager("phone");
+                    int transactionCode;
+                    if (Build.VERSION.SDK_INT >= 28)
+                        transactionCode = PPApplication.rootMutex.transactionCode_setUserDataEnabled;
+                    else
+                        transactionCode = PPApplication.rootMutex.transactionCode_setDataEnabled;
 
                     int state = enable ? 1 : 0;
 
                     if (transactionCode != -1) {
 //                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode=" + transactionCode);
 
-                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(appContext);
                         if (mSubscriptionManager != null) {
 //                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
@@ -6031,14 +6030,15 @@ class ActivateProfileHelper {
 //                                    PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionInfo=" + subscriptionInfo);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                        if (simCard == (slotIndex+1)) {
+                                        // disable mobile data for all  SIM cards
+                                        //if (simCard == (slotIndex+1)) {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
 //                                            PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionId=" + subscriptionId);
                                             synchronized (PPApplication.rootMutex) {
-                                                String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, state);
+                                                String command1 = RootUtils.getServiceCommand("phone", transactionCode, subscriptionId, state);
 //                                                PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "command1=" + command1);
                                                 if (command1 != null) {
-                                                    Command command = new Command(0, false, command1);
+                                                    Command command = new Command(0, command1);
 //                                                    {
 //                                                        @Override
 //                                                        public void commandOutput(int id, String line) {
@@ -6048,7 +6048,7 @@ class ActivateProfileHelper {
 //                                                    };
                                                     try {
                                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                        PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
+                                                        RootUtils.commandWait(command, "ActivateProfileHelper.setMobileData");
                                                     } catch (Exception e) {
                                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                         //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
@@ -6056,7 +6056,7 @@ class ActivateProfileHelper {
                                                     }
                                                 }
                                             }
-                                        }
+                                        //}
                                     }
 //                                    else
 //                                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
