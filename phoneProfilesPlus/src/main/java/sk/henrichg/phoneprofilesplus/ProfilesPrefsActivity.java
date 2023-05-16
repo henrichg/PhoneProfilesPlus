@@ -365,8 +365,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._cameraFlash,
                         origProfile._deviceNetworkTypeSIM1,
                         origProfile._deviceNetworkTypeSIM2,
-                        origProfile._deviceMobileDataSIM1,
-                        origProfile._deviceMobileDataSIM2,
+                        //origProfile._deviceMobileDataSIM1,
+                        //origProfile._deviceMobileDataSIM2,
                         origProfile._deviceDefaultSIMCards,
                         origProfile._deviceOnOffSIM1,
                         origProfile._deviceOnOffSIM2,
@@ -552,8 +552,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, ""));
             profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, ""));
             profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, ""));
-            profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, ""));
-            profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, ""));
+            //profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, ""));
+            //profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, ""));
             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "");
             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, ""));
             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, ""));

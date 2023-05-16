@@ -319,6 +319,7 @@ class ActivateProfileHelper {
                 }
             }
         }
+/*
         //if (Build.VERSION.SDK_INT >= 26) {
             //final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
@@ -406,7 +407,7 @@ class ActivateProfileHelper {
                 }
             }
         //}
-
+*/
         // setup WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
@@ -5957,7 +5958,8 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setMobileData(Context context, boolean enable, int simCard)
+    private static void setMobileData(Context context, boolean enable,
+                                      @SuppressWarnings("SameParameterValue") int simCard)
     {
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "simCard="+simCard);
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "enable="+enable);
@@ -6149,8 +6151,8 @@ class ActivateProfileHelper {
             int transactionCode = -1;
             switch (preference) {
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
+                //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
+                //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
                     if (Build.VERSION.SDK_INT >= 28)
                         transactionCode = PPApplication.rootMutex.transactionCode_setUserDataEnabled;
                     else

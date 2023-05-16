@@ -1082,6 +1082,7 @@ class ProfilePreferencesIndicator {
                 }
             }
             //if (Build.VERSION.SDK_INT >= 26) {
+                /*
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
@@ -1148,6 +1149,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
+                */
             //}
 
             // mobile data preferences
@@ -1420,7 +1422,7 @@ class ProfilePreferencesIndicator {
                 }
             }
             //if (Build.VERSION.SDK_INT >= 26) {
-                //final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {

@@ -999,7 +999,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                     }
-
+                    /*
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, preferences, true, context);
@@ -1018,6 +1018,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED) ||
                                  (preferenceAllowedSIM2.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS)));
                     }
+                    */
 
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
                     if (preference != null) {
@@ -1217,12 +1218,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null)
                         preference.setVisible(false);
 
-                    preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
-                    if (preference != null)
-                        preference.setVisible(false);
-                    preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
-                    if (preference != null)
-                        preference.setVisible(false);
+                    //preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
+                    //if (preference != null)
+                    //    preference.setVisible(false);
+                    //preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
+                    //if (preference != null)
+                    //    preference.setVisible(false);
 
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
                     if (preference != null)
@@ -1270,12 +1271,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setVisible(false);
 
+                /*
                 preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
                 if (preference != null)
                     preference.setVisible(false);
                 preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
                 if (preference != null)
                     preference.setVisible(false);
+                 */
 
                 preference = findPreference(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
                 if (preference != null)
@@ -2939,6 +2942,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
 
+            /*
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, R.string.profile_preferences_deviceMobileData_21_SIM1, context);
             if (!title.isEmpty()) {
                 cattegorySummaryData.bold = true;
@@ -2953,6 +2957,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
+            */
 
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, context);
             if (!title.isEmpty()) {
@@ -2972,8 +2977,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Profile profile = new Profile();
             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
-            profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
-            profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
+            //profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
+            //profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
             profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
             profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
@@ -3956,6 +3961,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 + "</b>";
                     }
 
+                    /*
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, R.string.profile_preferences_deviceMobileData_21_SIM1, context);
                     if (!title.isEmpty()) {
                         cattegorySummaryData.bold = true;
@@ -3986,6 +3992,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_deviceRadiosDualSIMSupportCategoryRoot", context)
                                 + "</b>";
                     }
+                    */
 
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, context);
                     //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
@@ -4050,8 +4057,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     Profile profile = new Profile();
                     profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
-                    profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
-                    profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
+                    //profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
+                    //profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
                     profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
                     profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
                     profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
@@ -5739,9 +5746,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         //if (Build.VERSION.SDK_INT >= 26) {
-
             if (phoneCount > 1) {
 
+                /*
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
@@ -5784,6 +5791,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     }
                 }
+                */
                 if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
                         key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)) {
                     PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(key, null, preferences, true, context);
@@ -6048,8 +6056,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_CAMERA_FLASH);
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1);
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2);
-        setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
-        setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
+        //setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
+        //setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
         setSummary(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
         setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1);
         setSummary(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2);

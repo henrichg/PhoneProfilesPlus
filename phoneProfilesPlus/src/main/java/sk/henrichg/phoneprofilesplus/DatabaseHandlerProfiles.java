@@ -105,8 +105,8 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_CAMERA_FLASH, profile._cameraFlash);
                 values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
                 values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2, profile._deviceNetworkTypeSIM2);
-                values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
-                values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
+                //values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
+                //values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
                 values.put(DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
                 values.put(DatabaseHandler.KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
                 values.put(DatabaseHandler.KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);
@@ -247,8 +247,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_CAMERA_FLASH,
                                 DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1,
                                 DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2,
-                                DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1,
-                                DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2,
+                                //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1,
+                                //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2,
                                 DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS,
                                 DatabaseHandler.KEY_DEVICE_ONOFF_SIM1,
                                 DatabaseHandler.KEY_DEVICE_ONOFF_SIM2,
@@ -361,8 +361,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CAMERA_FLASH)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM1)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM2)),
@@ -497,8 +497,8 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_CAMERA_FLASH + "," +
                         DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "," +
                         DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "," +
-                        DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
-                        DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
+                        //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
+                        //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
                         DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "," +
                         DatabaseHandler.KEY_DEVICE_ONOFF_SIM1 + "," +
                         DatabaseHandler.KEY_DEVICE_ONOFF_SIM2 + "," +
@@ -615,8 +615,8 @@ class DatabaseHandlerProfiles {
                         profile._cameraFlash = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CAMERA_FLASH));
                         profile._deviceNetworkTypeSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1));
                         profile._deviceNetworkTypeSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2));
-                        profile._deviceMobileDataSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1));
-                        profile._deviceMobileDataSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2));
+                        //profile._deviceMobileDataSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1));
+                        //profile._deviceMobileDataSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2));
                         profile._deviceDefaultSIMCards = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS));
                         profile._deviceOnOffSIM1 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM1));
                         profile._deviceOnOffSIM2 = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM2));
@@ -751,8 +751,8 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_CAMERA_FLASH, profile._cameraFlash);
                 values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
                 values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2, profile._deviceNetworkTypeSIM2);
-                values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
-                values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
+                //values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
+                //values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
                 values.put(DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
                 values.put(DatabaseHandler.KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
                 values.put(DatabaseHandler.KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);
@@ -1103,8 +1103,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_CAMERA_FLASH,
                                 DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1,
                                 DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2,
-                                DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1,
-                                DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2,
+                                //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1,
+                                //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2,
                                 DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS,
                                 DatabaseHandler.KEY_DEVICE_ONOFF_SIM1,
                                 DatabaseHandler.KEY_DEVICE_ONOFF_SIM2,
@@ -1219,8 +1219,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_CAMERA_FLASH)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1)),
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1)),
+                                //cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM1)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_ONOFF_SIM2)),

@@ -2551,8 +2551,8 @@ class DatabaseHandlerCreateUpdateDB {
                                 0,
                                 0,
                                 0,
-                                0,
-                                0,
+                                //0,
+                                //0,
                                 "0|0|0",
                                 0,
                                 0,
@@ -2657,8 +2657,8 @@ class DatabaseHandlerCreateUpdateDB {
                             values.put(DatabaseHandler.KEY_CAMERA_FLASH, profile._cameraFlash);
                             values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1, profile._deviceNetworkTypeSIM1);
                             values.put(DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2, profile._deviceNetworkTypeSIM2);
-                            values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
-                            values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
+                            //values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
+                            //values.put(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
                             values.put(DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
                             values.put(DatabaseHandler.KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
                             values.put(DatabaseHandler.KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);

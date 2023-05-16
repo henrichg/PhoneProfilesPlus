@@ -97,8 +97,8 @@ public class Profile {
     int _cameraFlash;
     int _deviceNetworkTypeSIM1;
     int _deviceNetworkTypeSIM2;
-    int _deviceMobileDataSIM1;
-    int _deviceMobileDataSIM2;
+    //int _deviceMobileDataSIM1;
+    //int _deviceMobileDataSIM2;
     String _deviceDefaultSIMCards;
     int _deviceOnOffSIM1;
     int _deviceOnOffSIM2;
@@ -212,8 +212,8 @@ public class Profile {
     static final String PREF_PROFILE_CAMERA_FLASH = "prf_pref_cameraFlash";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 = "prf_pref_deviceNetworkTypeSIM1";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 = "prf_pref_deviceNetworkTypeSIM2";
-    static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1 = "prf_pref_deviceMobileDataSIM1";
-    static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2 = "prf_pref_deviceMobileDataSIM2";
+    //static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1 = "prf_pref_deviceMobileDataSIM1";
+    //static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2 = "prf_pref_deviceMobileDataSIM2";
     static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS = "prf_pref_deviceDefaultSIMCards";
     static final String PREF_PROFILE_DEVICE_ONOFF_SIM1 = "prf_pref_deviceOnOffSIM1";
     static final String PREF_PROFILE_DEVICE_ONOFF_SIM2 = "prf_pref_deviceOnOffSIM2";
@@ -325,8 +325,8 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_CAMERA_FLASH, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0");
-        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0");
-        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0");
+        //defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0");
+        //defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_ONOFF_SIM1, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_ONOFF_SIM2, "0");
@@ -1018,8 +1018,8 @@ public class Profile {
                    int cameraFlash,
                    int deviceNetworkTypeSIM1,
                    int deviceNetworkTypeSIM2,
-                   int deviceMobileDataSIM1,
-                   int deviceMobileDataSIM2,
+                   //int deviceMobileDataSIM1,
+                   //int deviceMobileDataSIM2,
                    String deviceDefaultSIMCards,
                    int deviceOnOffSIM1,
                    int deviceOnOffSIM2,
@@ -1126,8 +1126,8 @@ public class Profile {
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = deviceNetworkTypeSIM2;
-        this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
-        this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
+        //this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
+        //this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
         this._deviceDefaultSIMCards = deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = deviceOnOffSIM1;
         this._deviceOnOffSIM2 = deviceOnOffSIM2;
@@ -1239,8 +1239,8 @@ public class Profile {
             int cameraFlash,
             int deviceNetworkTypeSIM1,
             int deviceNetworkTypeSIM2,
-            int deviceMobileDataSIM1,
-            int deviceMobileDataSIM2,
+            //int deviceMobileDataSIM1,
+            //int deviceMobileDataSIM2,
             String deviceDefaultSIMCards,
             int deviceOnOffSIM1,
             int deviceOnOffSIM2,
@@ -1346,8 +1346,8 @@ public class Profile {
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = deviceNetworkTypeSIM2;
-        this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
-        this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
+        //this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
+        //this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
         this._deviceDefaultSIMCards = deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = deviceOnOffSIM1;
         this._deviceOnOffSIM2 = deviceOnOffSIM2;
@@ -1460,8 +1460,8 @@ public class Profile {
         this._cameraFlash = profile._cameraFlash;
         this._deviceNetworkTypeSIM1 = profile._deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = profile._deviceNetworkTypeSIM2;
-        this._deviceMobileDataSIM1 = profile._deviceMobileDataSIM1;
-        this._deviceMobileDataSIM2 = profile._deviceMobileDataSIM2;
+        //this._deviceMobileDataSIM1 = profile._deviceMobileDataSIM1;
+        //this._deviceMobileDataSIM2 = profile._deviceMobileDataSIM2;
         this._deviceDefaultSIMCards = profile._deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = profile._deviceOnOffSIM1;
         this._deviceOnOffSIM2 = profile._deviceOnOffSIM2;
@@ -1750,6 +1750,7 @@ public class Profile {
                     this._deviceNetworkTypeSIM1 = withProfile._deviceNetworkTypeSIM1;
                 if (withProfile._deviceNetworkTypeSIM2 != 0)
                     this._deviceNetworkTypeSIM2 = withProfile._deviceNetworkTypeSIM2;
+                /*
                 if (withProfile._deviceMobileDataSIM1 != 0) {
                     if (withProfile._deviceMobileDataSIM1 != 3) // toggle
                         this._deviceMobileDataSIM1 = withProfile._deviceMobileDataSIM1;
@@ -1770,6 +1771,7 @@ public class Profile {
                             this._deviceMobileDataSIM2 = 1;
                     }
                 }
+                */
                 if (!withProfile._deviceDefaultSIMCards.equals("0|0|0"))
                     this._deviceDefaultSIMCards = withProfile._deviceDefaultSIMCards;
                 if (withProfile._deviceOnOffSIM1 != 0) {
@@ -2114,12 +2116,12 @@ public class Profile {
             if (this._deviceNetworkTypeSIM2 != withProfile._deviceNetworkTypeSIM2) {
                 return false;
             }
-            if (this._deviceMobileDataSIM1 != withProfile._deviceMobileDataSIM1) {
-                return false;
-            }
-            if (this._deviceMobileDataSIM2 != withProfile._deviceMobileDataSIM2) {
-                return false;
-            }
+            //if (this._deviceMobileDataSIM1 != withProfile._deviceMobileDataSIM1) {
+            //    return false;
+            //}
+            //if (this._deviceMobileDataSIM2 != withProfile._deviceMobileDataSIM2) {
+            //    return false;
+            //}
             if (!this._deviceDefaultSIMCards.equals(withProfile._deviceDefaultSIMCards)) {
                 return false;
             }
@@ -3164,8 +3166,8 @@ public class Profile {
         editor.putString(PREF_PROFILE_CAMERA_FLASH, Integer.toString(this._cameraFlash));
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(this._deviceNetworkTypeSIM1));
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, Integer.toString(this._deviceNetworkTypeSIM2));
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(this._deviceMobileDataSIM1));
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(this._deviceMobileDataSIM2));
+        //editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(this._deviceMobileDataSIM1));
+        //editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(this._deviceMobileDataSIM2));
         editor.putString(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, this._deviceDefaultSIMCards);
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(this._deviceOnOffSIM1));
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(this._deviceOnOffSIM2));

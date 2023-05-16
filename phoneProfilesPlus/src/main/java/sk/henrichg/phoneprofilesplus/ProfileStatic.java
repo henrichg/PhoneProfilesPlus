@@ -748,8 +748,8 @@ class ProfileStatic {
                     profile._cameraFlash,
                     profile._deviceNetworkTypeSIM1,
                     profile._deviceNetworkTypeSIM2,
-                    profile._deviceMobileDataSIM1,
-                    profile._deviceMobileDataSIM2,
+                    //profile._deviceMobileDataSIM1,
+                    //profile._deviceMobileDataSIM2,
                     profile._deviceDefaultSIMCards,
                     profile._deviceOnOffSIM1,
                     profile._deviceOnOffSIM2,
@@ -896,10 +896,10 @@ class ProfileStatic {
                 mappedProfile._deviceNetworkTypeSIM1 = 0;
             if (profile._deviceNetworkTypeSIM2 == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceNetworkTypeSIM2 = 0;
-            if (profile._deviceMobileDataSIM1 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileDataSIM1 = 0;
-            if (profile._deviceMobileDataSIM2 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileDataSIM2 = 0;
+            //if (profile._deviceMobileDataSIM1 == SHARED_PROFILE_VALUE)
+            //    mappedProfile._deviceMobileDataSIM1 = 0;
+            //if (profile._deviceMobileDataSIM2 == SHARED_PROFILE_VALUE)
+            //    mappedProfile._deviceMobileDataSIM2 = 0;
             // !!! do not add other profile aprameters. Shared profile is never used !!!
 
             mappedProfile._iconBitmap = profile._iconBitmap;
@@ -942,10 +942,10 @@ class ProfileStatic {
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
-                    break;
+                //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
+                //case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
+                //    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
+                //    break;
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
                     break;
@@ -1069,7 +1069,7 @@ class ProfileStatic {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed, profile, sharedPreferences, fromUIThread);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
+            //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, profile, context);

@@ -768,7 +768,7 @@ class Permissions {
             }
             boolean grantedReadPhoneState = true;
             if ((profile._deviceMobileData != 0) ||
-                    (profile._deviceMobileDataSIM1 != 0) || (profile._deviceMobileDataSIM2 != 0) ||
+                    //(profile._deviceMobileDataSIM1 != 0) || (profile._deviceMobileDataSIM2 != 0) ||
                     (profile._deviceNetworkType != 0) ||
                     (profile._deviceNetworkTypeSIM1 != 0) || (profile._deviceNetworkTypeSIM2 != 0) ||
                     (!profile._deviceDefaultSIMCards.equals("0|0|0")) ||

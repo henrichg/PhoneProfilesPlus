@@ -157,8 +157,8 @@ class DatabaseHandlerOthers {
                         DatabaseHandler.KEY_CAMERA_FLASH + "," +
                         DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM1 + "," +
                         DatabaseHandler.KEY_DEVICE_NETWORK_TYPE_SIM2 + "," +
-                        DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
-                        DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
+                        //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
+                        //DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
                         DatabaseHandler.KEY_DEVICE_DEFAULT_SIM_CARDS + "," +
                         DatabaseHandler.KEY_DEVICE_ONOFF_SIM1 + "," +
                         DatabaseHandler.KEY_DEVICE_ONOFF_SIM2 + "," +
@@ -278,6 +278,7 @@ class DatabaseHandlerOthers {
                                 }
                             }
 
+                            /*
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_SIM1)) != 0) {
                                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, sharedPreferences, false, instance.context);
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
@@ -308,6 +309,7 @@ class DatabaseHandlerOthers {
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_ID)))});
                                 }
                             }
+                            */
 
                             if (profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_MOBILE_DATA_PREFS)) != 0) {
                                 PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, sharedPreferences, true, instance.context);
