@@ -752,17 +752,17 @@ class ActivateProfileHelper {
                         break;
                     case 2:
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
-                        GlobalUtils.sleep(200);
+                        //GlobalUtils.sleep(200);
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
                         break;
                     case 3:
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
-                        GlobalUtils.sleep(200);
+                        //GlobalUtils.sleep(200);
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
                         break;
                     case 4:
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
-                        GlobalUtils.sleep(200);
+                        //GlobalUtils.sleep(200);
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
                         break;
                     case 5:
@@ -774,7 +774,7 @@ class ActivateProfileHelper {
                         else {
                             locationMode = Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
                             setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
-                            GlobalUtils.sleep(200);
+                            //GlobalUtils.sleep(200);
                         }
                         setLocationMode(appContext, locationMode);
                         break;
@@ -787,10 +787,12 @@ class ActivateProfileHelper {
                         else
                             locationMode = Settings.Secure.LOCATION_MODE_HIGH_ACCURACY;
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_OFF);
-                        GlobalUtils.sleep(200);
+                        //GlobalUtils.sleep(200);
                         setLocationMode(appContext, locationMode);
                         break;
                 }
+                int locationMode = getLocationMode(appContext);
+                Log.e("ActivateProfileHelper.doExecuteForRadios", "actual locationMode="+locationMode);
             }
         }
 
