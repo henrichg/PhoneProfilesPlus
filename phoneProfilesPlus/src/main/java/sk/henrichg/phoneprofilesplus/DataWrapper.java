@@ -2192,7 +2192,7 @@ public class DataWrapper {
                         boolean serviceStarted = GlobalUtils.isServiceRunning(context, PhoneProfilesService.class, false);
                         if (!serviceStarted) {
 
-                            AutostartPermissionNotification.showNotification(context, true);
+                            //AutostartPermissionNotification.showNotification(context, true);
 
                             PPApplicationStatic.setApplicationStarted(context, true);
                             Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
