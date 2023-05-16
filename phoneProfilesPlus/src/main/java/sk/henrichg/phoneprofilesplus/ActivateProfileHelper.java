@@ -791,8 +791,8 @@ class ActivateProfileHelper {
                         setLocationMode(appContext, locationMode);
                         break;
                 }
-                int locationMode = getLocationMode(appContext);
-                Log.e("ActivateProfileHelper.doExecuteForRadios", "actual locationMode="+locationMode);
+//                int locationMode = getLocationMode(appContext);
+//                Log.e("ActivateProfileHelper.doExecuteForRadios", "actual locationMode="+locationMode);
             }
         }
 
