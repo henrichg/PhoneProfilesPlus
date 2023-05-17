@@ -346,6 +346,7 @@ public class EditorProfileListFragment extends Fragment
 
                         listView.setAdapter(profileListAdapter);
                     }
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     profileListAdapter.notifyDataSetChanged(false);
                 }
             }
@@ -378,6 +379,7 @@ public class EditorProfileListFragment extends Fragment
                     scrollToProfile = null;
                 }
 
+                fragment.listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 profileListAdapter.notifyDataSetChanged(false);
 
                 if (profilePos != ListView.INVALID_POSITION)
@@ -520,6 +522,7 @@ public class EditorProfileListFragment extends Fragment
                     Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                             applicationEditorPrefIndicator);
                     fragment.updateHeader(profile);
+                    fragment.listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     fragment.profileListAdapter.notifyDataSetChanged(false);
                     //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
                     //    fragment.setProfileSelection(profile);
@@ -699,6 +702,7 @@ public class EditorProfileListFragment extends Fragment
         profileListAdapter.deleteItemNoNotify(profile);
         DatabaseHandler.getInstance(activityDataWrapper.context).deleteProfile(profile);
 
+        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         profileListAdapter.notifyDataSetChanged();
 
         if (!EventStatic.getGlobalEventsRunning(activityDataWrapper.context)) {
@@ -863,6 +867,7 @@ public class EditorProfileListFragment extends Fragment
                         DatabaseHandler.getInstance(activityDataWrapper.context).deleteAllProfiles();
                         DatabaseHandler.getInstance(activityDataWrapper.context).unlinkAllEvents();
 
+                        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                         profileListAdapter.notifyDataSetChanged();
 
                         //Profile profile = databaseHandler.getActivatedProfile();
@@ -1079,6 +1084,8 @@ public class EditorProfileListFragment extends Fragment
                     refreshIcons = true;
                 }
             }*/
+            if (listView != null)
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
             profileListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (setPosition || newProfile) {

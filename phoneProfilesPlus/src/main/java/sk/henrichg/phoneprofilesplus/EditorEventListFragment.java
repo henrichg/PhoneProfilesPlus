@@ -582,6 +582,7 @@ public class EditorEventListFragment extends Fragment
                     Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true, applicationEditorPrefIndicator);
                     fragment.updateHeader(profile);
 
+                    fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     fragment.eventListAdapter.notifyDataSetChanged(false);
 
                     if (defaultEventsGenerated) {
@@ -944,6 +945,7 @@ public class EditorEventListFragment extends Fragment
         //activityDataWrapper.restartEvents(false, true, true, true, true);
         activityDataWrapper.restartEventsWithRescan(true, false, true, false, true, false);
 
+        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         eventListAdapter.notifyDataSetChanged();
 
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
@@ -1113,6 +1115,7 @@ public class EditorEventListFragment extends Fragment
                             }
                         }
 
+                        listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                         eventListAdapter.clear();
                         // this is in eventListAdapter.clear()
                         //eventListAdapter.notifyDataSetChanged();
@@ -1257,6 +1260,8 @@ public class EditorEventListFragment extends Fragment
                     refreshIcons = true;
                 }
             }*/
+            if (listView != null)
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
             eventListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (setPosition || newEvent) {
@@ -1337,6 +1342,7 @@ public class EditorEventListFragment extends Fragment
 
                         listView.setAdapter(eventListAdapter);
                     }
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     eventListAdapter.notifyDataSetChanged();
                 }
             }
@@ -1375,6 +1381,7 @@ public class EditorEventListFragment extends Fragment
                         scrollToEvent = null;
                     }
 
+                    listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     eventListAdapter.notifyDataSetChanged();
 
                     if (eventPos != ListView.INVALID_POSITION) {

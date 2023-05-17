@@ -200,6 +200,7 @@ class RunApplicationEditorDialog
                 listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 listView.setAdapter(null);
                 listView.setAdapter(listAdapter);
+                listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                 listAdapter.notifyDataSetChanged();
                 //listView.setAdapter(listAdapter);
 

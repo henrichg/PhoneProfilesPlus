@@ -306,6 +306,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                     _profile._checked = true;
             }
         }
+        fragment.listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
         notifyDataSetChanged();
     }
 
