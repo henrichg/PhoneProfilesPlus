@@ -167,7 +167,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     static final boolean rootToolsDebug = false;
@@ -250,7 +250,7 @@ public class PPApplication extends Application
                                                 //+"|[WIFI]"
                                                 //+"|[VOLUMES]"
                                                 //+"|[PPP_NOTIFICATION]"
-                                                //+"|[DUAL_SIM]"
+                                                +"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
 
                                                 //+"|EventPreferencesOrientation"

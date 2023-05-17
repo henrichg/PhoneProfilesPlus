@@ -297,16 +297,16 @@ class ActivateProfileHelper {
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
-                        if (!_isMobileData) {
+                        //if (!_isMobileData) {
                             _isMobileData = true;
                             _setMobileData = true;
-                        }
+                        //}
                         break;
                     case 2:
-                        if (_isMobileData) {
+                        //if (_isMobileData) {
                             _isMobileData = false;
                             _setMobileData = true;
-                        }
+                        //}
                         break;
                     case 3:
                         _isMobileData = !_isMobileData;
@@ -5881,7 +5881,7 @@ class ActivateProfileHelper {
                         //int dataState = adapter.getDataState();
                         //enabled = dataState == TelephonyManager.DATA_CONNECTED;
                         enabled = adapter.getDataEnabled(0);
-//                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
+                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
                     }
                 }
             }
