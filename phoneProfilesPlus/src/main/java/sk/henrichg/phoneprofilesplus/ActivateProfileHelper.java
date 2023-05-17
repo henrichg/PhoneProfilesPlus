@@ -297,16 +297,16 @@ class ActivateProfileHelper {
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
                     case 1:
-                        //if (!_isMobileData) {
+                        if (!_isMobileData) {
                             _isMobileData = true;
                             _setMobileData = true;
-                        //}
+                        }
                         break;
                     case 2:
-                        //if (_isMobileData) {
+                        if (_isMobileData) {
                             _isMobileData = false;
                             _setMobileData = true;
-                        //}
+                        }
                         break;
                     case 3:
                         _isMobileData = !_isMobileData;
@@ -5752,64 +5752,6 @@ class ActivateProfileHelper {
     {
         Context appContext = context.getApplicationContext();
 
-        /*
-        if (android.os.Build.VERSION.SDK_INT < 21)
-        {
-            ConnectivityManager connectivityManager = null;
-            try {
-                connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            } catch (Exception ignored) {
-                // java.lang.NullPointerException: missing IConnectivityManager
-                // Dual SIM?? Bug in Android ???
-            }
-            if (connectivityManager != null) {
-                try {
-                    final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
-                    final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
-                    getMobileDataEnabledMethod.setAccessible(true);
-                    return (Boolean) getMobileDataEnabledMethod.invoke(connectivityManager);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
-                return false;
-        }
-        else*/
-        /*if (android.os.Build.VERSION.SDK_INT < 22)
-        {
-            Method getDataEnabledMethod;
-            Class<?> telephonyManagerClass;
-            Object ITelephonyStub;
-            Class<?> ITelephonyClass;
-
-            TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-            if (telephonyManager != null) {
-                try {
-                    telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                    Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
-                    getITelephonyMethod.setAccessible(true);
-                    ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
-                    if (ITelephonyStub != null) {
-                        ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
-
-                        getDataEnabledMethod = ITelephonyClass.getDeclaredMethod("getDataEnabled");
-
-                        getDataEnabledMethod.setAccessible(true);
-
-                        return (Boolean) getDataEnabledMethod.invoke(ITelephonyStub);
-                    }
-                    else
-                        return false;
-
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            else
-                return false;
-        }
-        else*/
         /*if (android.os.Build.VERSION.SDK_INT < 28)
         {
             TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -5874,13 +5816,25 @@ class ActivateProfileHelper {
                         if (!ok) {
                             //int dataState = adapter.getDataState();
                             //enabled = dataState == TelephonyManager.DATA_CONNECTED;
-                            enabled = adapter.getDataEnabled(0);
+                            //enabled = adapter.getDataEnabled(0);
+
+                            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null)
+                                //noinspection deprecation
+                                enabled = telephonyManager.getDataEnabled();
                         }
                     }
                     else {
                         //int dataState = adapter.getDataState();
                         //enabled = dataState == TelephonyManager.DATA_CONNECTED;
-                        enabled = adapter.getDataEnabled(0);
+
+                        //enabled = adapter.getDataEnabled(0);
+                        //PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
+
+                        final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                        if (telephonyManager != null)
+                            //noinspection deprecation
+                            enabled = telephonyManager.getDataEnabled();
                         PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
                     }
                 }
