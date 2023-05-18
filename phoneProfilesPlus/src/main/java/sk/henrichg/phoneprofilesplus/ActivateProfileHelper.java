@@ -5835,7 +5835,7 @@ class ActivateProfileHelper {
                         if (telephonyManager != null)
                             //noinspection deprecation
                             enabled = telephonyManager.getDataEnabled();
-                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
+//                        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
                     }
                 }
             }
