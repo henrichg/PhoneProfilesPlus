@@ -1824,13 +1824,15 @@ class PreferenceAllowed {
         String preferenceKey = Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY;
 
         //if (android.os.Build.VERSION.SDK_INT >= 26) {
-            if (ActivateProfileHelper.isPPPPutSettingsInstalled(appContext) > 0) {
+            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 if (profile != null) {
-                    if (profile._alwaysOnDisplay != 0)
+                    if (profile._headsUpNotifications != 0)
                         preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
+                }
+                else
                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-            } else
+            }
+            else
             if (RootUtils.isRooted(fromUIThread)) {
                 // device is rooted
 
@@ -1862,11 +1864,13 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
             } else {
-                if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
-                    preferenceAllowed.notAllowedPPPPS = true;
-                }
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
+                if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
+                    //return preferenceAllowed;
+                    //preferenceAllowed.notAllowedRoot = true;
+                    preferenceAllowed.notAllowedG1 = true;
+                }
             }
         /*}
         else {

@@ -44,7 +44,6 @@ import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.provider.DocumentsContract;
 import android.provider.Settings;
-import android.provider.Settings.Global;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -3187,7 +3186,7 @@ class ActivateProfileHelper {
                         //if (android.os.Build.VERSION.SDK_INT >= 21) {
                         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                             try {
-                                Global.putInt(appContext.getContentResolver(), "heads_up_notifications_enabled", value);
+                                Settings.Global.putInt(appContext.getContentResolver(), "heads_up_notifications_enabled", value);
                                 G1OK = true;
                             } catch (Exception ee) {
                                 Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(ee));
@@ -3256,13 +3255,25 @@ class ActivateProfileHelper {
 
                     if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                        if (isPPPPutSettingsInstalled(appContext) > 0)
-                            putSettingsParameter(context, "system", "aod_mode", String.valueOf(value));
-                        else {
+                        //if (isPPPPutSettingsInstalled(appContext) > 0)
+                        //    putSettingsParameter(context, "system", "aod_mode", String.valueOf(value));
+                        //else
+                        boolean G1OK = false;
+                        //if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                            try {
+                                Settings.Secure.putInt(appContext.getContentResolver(), "doze_always_on", value);
+                                G1OK = true;
+                            } catch (Exception ee) {
+                                Log.e("ActivateProfileHelper.setAlwaysOnDisplay", Log.getStackTraceString(ee));
+                            }
+                        }
+                        if (!G1OK) {
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (RootUtils.isRooted(false) && RootUtils.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
-                                    String command1 = "settings put system " + "aod_mode" + " " + value;
+                                    //String command1 = "settings put system " + "aod_mode" + " " + value;
+                                    String command1 = "settings put secure " + "doze_always_on" + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, /*false,*/ command1); //, command2);
@@ -5698,7 +5709,7 @@ class ActivateProfileHelper {
     static boolean isAirplaneMode(Context context)
     {
         //if (android.os.Build.VERSION.SDK_INT >= 17)
-            return Settings.Global.getInt(context.getApplicationContext().getContentResolver(), Global.AIRPLANE_MODE_ON, 0) != 0;
+            return Settings.Global.getInt(context.getApplicationContext().getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
         //else
         //    return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     }
@@ -6630,7 +6641,7 @@ class ActivateProfileHelper {
                                     if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                                         try {
                                             //if (android.os.Build.VERSION.SDK_INT >= 21)
-                                            Global.putInt(appContext.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
+                                            Settings.Global.putInt(appContext.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
                                             G1OK = true;
                                         } catch (Exception ee) {
                                             Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(ee));
