@@ -680,7 +680,7 @@ class DataWrapperStatic {
         if (!PPApplicationStatic.getApplicationStarted(true, false))
             return false;
 
-        if ((profile != null) && (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {
+        if ((profile != null) && (!ProfileStatic.isRedTextNotificationRequired(profile, againCheckAccessibilityInDelay, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {
@@ -693,7 +693,7 @@ class DataWrapperStatic {
 
             return false;
         }
-        if ((event != null) && (!EventsPrefsFragment.isRedTextNotificationRequired(event, againCheckAccessibilityInDelay, context))) {
+        if ((event != null) && (!EventStatic.isRedTextNotificationRequired(event, againCheckAccessibilityInDelay, context))) {
             // clear notification
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             try {

@@ -459,7 +459,7 @@ class EventStatic {
 
             dataWrapper.getEventTimelineList(true);
             if (event.getStatusFromDB(dataWrapper.context) == Event.ESTATUS_STOP) {
-                if (!EventsPrefsFragment.isRedTextNotificationRequired(event, false, dataWrapper.context)) {
+                if (!EventStatic.isRedTextNotificationRequired(event, false, dataWrapper.context)) {
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
@@ -657,6 +657,21 @@ class EventStatic {
             }
         }
         return true;
+    }
+
+    static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
+        Context appContext = context.getApplicationContext();
+        boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
+        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
+        /*if (Build.VERSION.SDK_INT >= 29) {
+            if (!Settings.canDrawOverlays(context))
+                grantedAllPermissions = false;
+        }*/
+        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
+
+        boolean eventIsRunnable = event.isRunnable(appContext, false);
+
+        return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }
 
 }

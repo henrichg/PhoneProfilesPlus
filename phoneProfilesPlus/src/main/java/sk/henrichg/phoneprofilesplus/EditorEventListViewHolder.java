@@ -145,7 +145,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //TypedArray themeArray = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.textColorSecondary});
             //ColorStateList textColorSecondary = themeArray.getColorStateList(0);
 
-            if (EventsPrefsFragment.isRedTextNotificationRequired(event, false, context)) {
+            if (EventStatic.isRedTextNotificationRequired(event, false, context)) {
                 //if (!isRunnable)
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //else

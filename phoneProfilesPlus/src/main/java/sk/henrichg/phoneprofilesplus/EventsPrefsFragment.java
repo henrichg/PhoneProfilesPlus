@@ -1485,21 +1485,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
     */
 
-    static boolean isRedTextNotificationRequired(Event event, boolean againCheckInDelay, Context context) {
-        Context appContext = context.getApplicationContext();
-        boolean enabledSomeSensor = event.isEnabledSomeSensor(appContext);
-        boolean grantedAllPermissions = Permissions.checkEventPermissions(appContext, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0;
-        /*if (Build.VERSION.SDK_INT >= 29) {
-            if (!Settings.canDrawOverlays(context))
-                grantedAllPermissions = false;
-        }*/
-        boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false, againCheckInDelay) == 1;
-
-        boolean eventIsRunnable = event.isRunnable(appContext, false);
-
-        return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
-    }
-
     private void setRedTextToPreferences() {
         if (nestedFragment)
             return;

@@ -2972,9 +2972,8 @@ public class Profile {
     {
         if (_iconBitmap != null)
         {
-            if (!_iconBitmap.isRecycled()) {
+            //if (!_iconBitmap.isRecycled())
                 _iconBitmap.recycle();
-            }
             _iconBitmap = null;
         }
     }
@@ -2983,7 +2982,7 @@ public class Profile {
     {
         if (_preferencesIndicator != null)
         {
-            if (!_preferencesIndicator.isRecycled())
+            //if (!_preferencesIndicator.isRecycled())
                 _preferencesIndicator.recycle();
             _preferencesIndicator = null;
         }

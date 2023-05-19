@@ -758,3 +758,117 @@ HOTOVO
 - Fix: Maybe fixed bad working tap target in Activator.
 - Fix: Maybe fixed BT disconnect in BT sensor.
 - Fix: Fixed not displayed notification about Autostart not enabled.
+
+-------------------
+
+Otvorenie Editora - otvori profily:
+- EditorProfileListFragment.onAttach
+- EditorProfileListFragment.onCreate
+- EditorProfileListFragment.onCreateView
+- EditorProfileListFragment.onViewCreated
+
+
+Prepnutie na udalosti:
+1. Vytvori fragment udalosti:
+- EditorEventListFragment.onAttach
+- EditorEventListFragment.onCreate
+- EditorEventListFragment.onCreateView
+- EditorEventListFragment.onViewCreated
+2. Zmaze fragment profilov:
+- EditorProfileListFragment.onDestroy
+- EditorProfileListFragment.onDetach
+
+Spat na profily:
+1. Vytvori fragment profilov:
+- EditorProfileListFragment.onAttach
+- EditorProfileListFragment.onCreate
+- EditorProfileListFragment.onCreateView
+- EditorProfileListFragment.onViewCreated
+2. Zmaze fragment udalosti:
+- EditorEventListFragment.onDestroy
+- EditorEventListFragment.onDetach
+
+Cize to vypada, ze prepinanie funguje ako potrebujem. Pekne zmaze ak activityDataWrapper.
+
+Zavretie Editora cez swipe gesturu:
+- EditorProfileListFragment.onDestroy
+- EditorProfileListFragment.onDetach
+
+Cize to vypada, ze zavretie editora cez swipe funguje ako potrebujem. Pekne zmaze ak activityDataWrapper.
+
+!!!
+Zavretie Editora cez home tlacitko:
+- Nezavola sa vobec nic, cize activityDataWrapper zostava v pamati. Dokonca cely fragment.
+  Netusim, ci toto tak ma byt, ci to Android tak zamysla, ze ide len o schovanie aktivity a ze teda ma zostat zachovana. Asi ano.
+!!!
+
+Znovuotvorenie Editora z ikony shortcutu na Editor - po schovani tl. Home:
+Neudeje sa nic, cize co je v pamati, to sa pouzije, nedochadza k duplikacii alokovania.
+
+Znovuotvorenie Editora z Recents - po schovani tl. Home:
+Neudeje sa nic, cize co je v pamati, to sa pouzije, nedochadza k duplikacii alokovania.
+
+Znovuotvorenie Editora z Recents - po back gesture:
+Vytvori sa Editor nanovo, cize ako sa ma, kedze back gestura ho zmazala.
+- EditorProfileListFragment.onAttach
+- EditorProfileListFragment.onCreate
+- EditorProfileListFragment.onCreateView
+- EditorProfileListFragment.onViewCreated
+
+---
+
+A teraz, co sa stane, ked zobrazim a ukoncim preference:
+Ked otvorim parametre profilu, nic sa vo fragmente neszavola, cize activityDataWrapper a cely fragment aj s datami by mali byt alokovane.
+Ked zavriem paramaetr profilu, je to to iste.
+Takze ak nenechavaju parametre profilu daco v pmamati, tak neviem.
+
+Vytvorenie proofile preferences:
+- ProfilesPrefsFragment.onCreate
+- ProfilesPrefsFragment.onActivityCreated
+- ProfilesPrefsFragment.onResume
+
+Zatvorenie profile preferences - back gestura
+- ProfilesPrefsFragment.onDestoy
+
+Otvorenie Screen preference:
+Vytvori dalsi fragment - nested, cize uz su v pamati 2 fragmenty
+- ProfilesPrefsFragment.onCreate
+- ProfilesPrefsFragment.onActivityCreated
+- ProfilesPrefsFragment.onResume
+
+Zatvorenie Screen preference:
+Zavrie nested fragment:
+- ProfilesPrefsFragment.onDestoy
+
+Zmena parametra a staceni Save:
+Zavrie oba fragmenty.
+- ProfilesPrefsFragment.onDestoy
+- ProfilesPrefsFragment.onDestoy
+
+Aj toto vypada, ze funguje ako ma.
+
+---
+
+Prehod inde, mimo tento class, aby nezostal v pamati:
+ProfilesPrefsFragment.isRedTextNotificationRequired() - do ProfileStatic
+EventsPrefsFragment..isRedTextNotificationRequired() - do EventStatic
+HOTOVO
+
+---
+
+staticke premenne:
+boolean EditorActivity.savedInstanceStateChanged
+-> to je na to, ked sa zavola onDestroy pri zmene orientacie, aby sa applicationcache nezmazala
+boolena EditorActivity.doImport
+-> to je na to, aby sa nerobil refresh gui pocas importu dat (restore settings)
+
+Obe su boolean.
+Su volane len v EditorActivity. Takze by nemali drzat Editor v pamamti.
+
+
+Takze co zerie pamat, ze GC ju neuvolni?
+Kua fix!
+
+
+
+

@@ -766,16 +766,20 @@ public class EditorActivity extends AppCompatActivity
         }
         if ((importAsyncTask != null) && importAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             importAsyncTask.cancel(true);
+            importAsyncTask = null;
             doImport = false;
         }
         if ((exportAsyncTask != null) && exportAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             exportAsyncTask.cancel(true);
+            exportAsyncTask = null;
         }
         if ((backupAsyncTask != null) && backupAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             backupAsyncTask.cancel(true);
+            backupAsyncTask = null;
         }
         if ((restoreAsyncTask != null) && restoreAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING)){
             restoreAsyncTask.cancel(true);
+            restoreAsyncTask = null;
         }
 
         if (!savedInstanceStateChanged) {

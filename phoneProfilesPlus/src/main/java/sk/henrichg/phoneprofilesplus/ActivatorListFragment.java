@@ -371,6 +371,9 @@ public class ActivatorListFragment extends Fragment {
                     // set copy local event timeline list into activity profilesDataWrapper
                     fragment.activityDataWrapper.copyEventTimelineList(this.dataWrapper);
 
+                    this.dataWrapper.clearProfileList();
+                    this.dataWrapper.clearEventTimelineList();
+
                     synchronized (fragment.activityDataWrapper.profileList) {
                         if (fragment.activityDataWrapper.profileList.size() == 0) {
                             fragment.textViewNoData.setVisibility(View.VISIBLE);
@@ -571,7 +574,7 @@ public class ActivatorListFragment extends Fragment {
                 activityDataWrapper.restartEventsWithAlert(getActivity());
             }
             else
-            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
+            if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }

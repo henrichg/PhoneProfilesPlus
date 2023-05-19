@@ -132,9 +132,7 @@ public class EditorProfileListFragment extends Fragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-//        Log.e("EditorProfileListFragment.onCreate", "xxxx");
 
         // this is really important in order to save the state across screen
         // configuration changes for example
@@ -156,7 +154,6 @@ public class EditorProfileListFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_editor_profile_list, container, false);
-
         return rootView;
     }
 
@@ -327,9 +324,9 @@ public class EditorProfileListFragment extends Fragment
                     }
                     else {
                         if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                            EditorProfileListFragment.sortAlphabetically(activityDataWrapper.profileList);
+                            sortAlphabetically(activityDataWrapper.profileList);
                         else
-                            EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
+                            sortByPOrder(activityDataWrapper.profileList);
                         // update activity for activated profile
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator);
@@ -354,9 +351,9 @@ public class EditorProfileListFragment extends Fragment
         else {
             synchronized (activityDataWrapper.profileList) {
                 if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                    EditorProfileListFragment.sortAlphabetically(activityDataWrapper.profileList);
+                    sortAlphabetically(activityDataWrapper.profileList);
                 else
-                    EditorProfileListFragment.sortByPOrder(activityDataWrapper.profileList);
+                    sortByPOrder(activityDataWrapper.profileList);
                 // update activity for activated profile
                 Profile profile = activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
@@ -462,11 +459,12 @@ public class EditorProfileListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
 
+            EditorProfileListFragment fragment = this.fragmentWeakRef.get();
+
             if (_generatePredefinedProfiles) {
                 if (_dataWrapper.profileList.size() == 0) {
                     // no profiles in DB, generate default profiles
                     // PPApplication.restoreFinished = Google auto-backup finished
-                    EditorProfileListFragment fragment = this.fragmentWeakRef.get();
                     if ((fragment != null) && (fragment.getActivity() != null)) {
                         _dataWrapper.fillPredefinedProfileList(true, applicationEditorPrefIndicator, fragment.getActivity());
                         defaultProfilesGenerated = true;
@@ -474,11 +472,13 @@ public class EditorProfileListFragment extends Fragment
                 }
             }
 
-            // sort list
-            if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-                EditorProfileListFragment.sortAlphabetically(_dataWrapper.profileList);
-            else
-                EditorProfileListFragment.sortByPOrder(_dataWrapper.profileList);
+            if ((fragment != null) && (fragment.getActivity() != null)) {
+                // sort list
+                if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
+                    fragment.sortAlphabetically(_dataWrapper.profileList);
+                else
+                    fragment.sortByPOrder(_dataWrapper.profileList);
+            }
 
             return null;
         }
@@ -501,6 +501,7 @@ public class EditorProfileListFragment extends Fragment
                     //_dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                     // set local profile list into activity dataWrapper
                     fragment.activityDataWrapper.copyProfileList(_dataWrapper);
+
                     _dataWrapper.clearProfileList();
 
                     synchronized (fragment.activityDataWrapper.profileList) {
@@ -594,7 +595,6 @@ public class EditorProfileListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
-//        Log.e("EditorProfileListFragment.onDestroy", "xxxx");
 
         if (isAsyncTaskRunning()) {
             //Log.e("EditorProfileListFragment.onDestroy", "AsyncTask not finished");
@@ -974,7 +974,7 @@ public class EditorProfileListFragment extends Fragment
         if (!newDisplayedText.equals(oldDisplayedText))
             activatedProfileHeader.setVisibility(View.VISIBLE);
 
-        new UpdateHeaderAsyncTask(this).execute();
+        new SetVisibleRedTextInHeaderAsyncTask(this).execute();
     }
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)
@@ -1003,7 +1003,7 @@ public class EditorProfileListFragment extends Fragment
 
     void activateProfile(Profile profile/*, boolean interactive*/)
     {
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
+        if (!ProfileStatic.isRedTextNotificationRequired(profile, true, activityDataWrapper.context)) {
             PPApplication.showToastForProfileActivation = true;
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
@@ -1119,7 +1119,7 @@ public class EditorProfileListFragment extends Fragment
     }
     */
 
-    private static void sortAlphabetically(List<Profile> profileList)
+    private void sortAlphabetically(List<Profile> profileList)
     {
         class AlphabeticallyComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
@@ -1132,7 +1132,7 @@ public class EditorProfileListFragment extends Fragment
         profileList.sort(new AlphabeticallyComparator());
     }
 
-    private static void sortByPOrder(List<Profile> profileList)
+    private void sortByPOrder(List<Profile> profileList)
     {
         class ByPOrderComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
@@ -1288,7 +1288,7 @@ public class EditorProfileListFragment extends Fragment
 
         final Profile profile = (Profile) view.getTag();
 
-        if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
+        if (!ProfileStatic.isRedTextNotificationRequired(profile, false, activityDataWrapper.context)) {
 
             int value;
             if (profile._showInActivator)
@@ -1800,14 +1800,14 @@ public class EditorProfileListFragment extends Fragment
 
     }
 
-    private static class UpdateHeaderAsyncTask extends AsyncTask<Void, Integer, Void> {
+    private static class SetVisibleRedTextInHeaderAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         boolean redTextVisible = false;
         DataWrapper _dataWrapper;
 
         private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
 
-        public UpdateHeaderAsyncTask(final EditorProfileListFragment fragment) {
+        public SetVisibleRedTextInHeaderAsyncTask(final EditorProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
         }
 
@@ -1820,9 +1820,11 @@ public class EditorProfileListFragment extends Fragment
                     _dataWrapper.copyProfileList(fragment.activityDataWrapper);
 
                     for (Profile profile : _dataWrapper.profileList) {
-                        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, false, _dataWrapper.context))
+                        if (ProfileStatic.isRedTextNotificationRequired(profile, false, _dataWrapper.context))
                             redTextVisible = true;
                     }
+
+                    _dataWrapper.clearProfileList();
                 }
             }
 

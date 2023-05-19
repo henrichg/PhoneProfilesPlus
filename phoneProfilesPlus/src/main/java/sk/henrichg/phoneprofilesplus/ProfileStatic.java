@@ -1202,4 +1202,59 @@ class ProfileStatic {
             return preferenceValue;
     }
 
+    static boolean isRedTextNotificationRequired(Profile profile, boolean againCheckAccessibilityInDelay, Context context) {
+        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        /*if (Build.VERSION.SDK_INT >= 29) {
+            if (!Settings.canDrawOverlays(context))
+                grantedAllPermissions = false;
+        }*/
+        // test only root or G1 parameters, because key is not set but profile is
+        PreferenceAllowed preferenceAllowed = ProfileStatic.isProfilePreferenceAllowed("-", profile, null, true, context);
+        boolean grantedRoot = true;
+        //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+        if (preferenceAllowed.notAllowedRoot) {
+            if (!ApplicationPreferences.applicationNeverAskForGrantRoot)
+                //if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED))
+                grantedRoot = false;
+        }
+        //preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, false, true, true, context);
+        boolean grantedG1Permission = true;
+        if (preferenceAllowed.notAllowedG1) {
+            //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+            grantedG1Permission = false;
+        }
+
+        boolean installedPPPPS = true;
+        if (preferenceAllowed.notAllowedPPPPS) {
+            installedPPPPS = false;
+        }
+
+        boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
+
+        boolean accessibilityNotRequired = true;
+        if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
+            accessibilityNotRequired = false;
+        boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext(), againCheckAccessibilityInDelay) == 1);
+
+        boolean defaultAssistantNotRequired = true;
+        if ((profile != null) && (profile._deviceAirplaneMode >= 4))
+            defaultAssistantNotRequired = false;
+        boolean defaultAssistantEnabled = defaultAssistantNotRequired || (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context.getApplicationContext()));
+
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+            return (!grantedAllPermissions) ||
+                    (!enabledNotificationAccess) ||
+                    (!accessibilityEnabled) ||
+                    (!defaultAssistantEnabled)  ||
+                    (!installedPPPPS);
+        else
+            return (!grantedAllPermissions) ||
+                    (!grantedRoot) ||
+                    (!grantedG1Permission) ||
+                    (!enabledNotificationAccess) ||
+                    (!accessibilityEnabled) ||
+                    (!defaultAssistantEnabled)  ||
+                    (!installedPPPPS);
+    }
+
 }

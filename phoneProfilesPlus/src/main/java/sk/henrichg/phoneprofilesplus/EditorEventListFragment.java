@@ -157,7 +157,6 @@ public class EditorEventListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-//        Log.e("EditorEventListFragment.onCreate", "xxxx");
 
         // this is really important in order to save the state across screen
         // configuration changes for example
@@ -188,7 +187,6 @@ public class EditorEventListFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_editor_event_list, container, false);
-
         return rootView;
     }
 
@@ -509,11 +507,12 @@ public class EditorEventListFragment extends Fragment
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
 
+            final EditorEventListFragment fragment = this.fragmentWeakRef.get();
+
             if (_generatePredefinedProfiles) {
                 if ((_dataWrapper.eventList.size() == 0)) {
                     // no events in DB, generate default events
                     // PPApplication.restoreFinished = Google auto-backup finished
-                    final EditorEventListFragment fragment = this.fragmentWeakRef.get();
                     if ((fragment != null) && (fragment.getActivity() != null)) {
                         _dataWrapper.generatePredefinedEventList(fragment.getActivity());
                         defaultEventsGenerated = true;
@@ -522,10 +521,12 @@ public class EditorEventListFragment extends Fragment
             }
 
             _dataWrapper.getEventTimelineList(true);
-            if (_filterType == FILTER_TYPE_START_ORDER)
-                EditorEventListFragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
-            else
-                EditorEventListFragment.sortList(_dataWrapper.eventList, _orderType, _dataWrapper);
+            if ((fragment != null) && (fragment.getActivity() != null)) {
+                if (_filterType == FILTER_TYPE_START_ORDER)
+                    fragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
+                else
+                    fragment.sortList(_dataWrapper.eventList, _orderType, _dataWrapper);
+            }
 
             return null;
         }
@@ -553,7 +554,6 @@ public class EditorEventListFragment extends Fragment
                     //_dataWrapper.fillEventList();
                     // set local event list into activity dataWrapper
                     fragment.activityDataWrapper.copyEventList(_dataWrapper);
-
 
                     synchronized (fragment.activityDataWrapper.eventList) {
                         if (fragment.activityDataWrapper.eventList.size() == 0)
@@ -609,8 +609,10 @@ public class EditorEventListFragment extends Fragment
     }
 
     void stopRunningAsyncTask() {
-        if (loadAsyncTask != null)
+        if (loadAsyncTask != null) {
             loadAsyncTask.cancel(true);
+            loadAsyncTask = null;
+        }
         if (activityDataWrapper != null) {
             synchronized (activityDataWrapper.eventList) {
                 activityDataWrapper.invalidateDataWrapper();
@@ -622,7 +624,6 @@ public class EditorEventListFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
-//        Log.e("EditorEventListFragment.onDestroy", "xxxx");
 
         if (isAsyncTaskRunning()) {
             //Log.e("EditorEventListFragment.onDestroy", "AsyncTask not finished");
@@ -1324,9 +1325,9 @@ public class EditorEventListFragment extends Fragment
                     }
                     else {
                         if (filterType == FILTER_TYPE_START_ORDER)
-                            EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
+                            sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
                         else
-                            EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                            sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
                         synchronized (activityDataWrapper.profileList) {
                             Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
                                     ApplicationPreferences.applicationEditorPrefIndicator);
@@ -1358,9 +1359,9 @@ public class EditorEventListFragment extends Fragment
                     listView.getRecycledViewPool().clear();  // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
                     if (filterType == FILTER_TYPE_START_ORDER)
-                        EditorEventListFragment.sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
+                        sortList(activityDataWrapper.eventList, ORDER_TYPE_START_ORDER, activityDataWrapper);
                     else
-                        EditorEventListFragment.sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
+                        sortList(activityDataWrapper.eventList, orderType, activityDataWrapper);
                     synchronized (activityDataWrapper.profileList) {
                         Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator);
@@ -1402,7 +1403,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    private static void sortList(List<Event> eventList, int orderType, DataWrapper _dataWrapper)
+    private void sortList(List<Event> eventList, int orderType, DataWrapper _dataWrapper)
     {
         final DataWrapper dataWrapper = _dataWrapper;
 
@@ -2321,7 +2322,7 @@ public class EditorEventListFragment extends Fragment
                     _dataWrapper.copyEventList(fragment.activityDataWrapper);
 
                     for (Event event : _dataWrapper.eventList) {
-                        if (EventsPrefsFragment.isRedTextNotificationRequired(event, false, _dataWrapper.context))
+                        if (EventStatic.isRedTextNotificationRequired(event, false, _dataWrapper.context))
                             redTextVisible = true;
                     }
                 }
