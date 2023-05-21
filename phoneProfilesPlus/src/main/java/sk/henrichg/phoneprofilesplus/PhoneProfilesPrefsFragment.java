@@ -2042,6 +2042,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
                         shortcutIntent.setAction(Intent.ACTION_MAIN);
+                        shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                         ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, "ppp_editor");
                         shortcutBuilderCompat.setIntent(shortcutIntent);
