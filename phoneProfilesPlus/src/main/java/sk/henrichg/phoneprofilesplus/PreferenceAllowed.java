@@ -1080,6 +1080,7 @@ class PreferenceAllowed {
             boolean fromUIThread, Context context) {
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
+        _preferenceAllowed.copyFrom(preferenceAllowed);
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
@@ -1144,6 +1145,7 @@ class PreferenceAllowed {
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
+        _preferenceAllowed.copyFrom(preferenceAllowed);
 //        Log.e("PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS", "_preferenceAllowed.allowed="+_preferenceAllowed.allowed);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
@@ -1209,6 +1211,7 @@ class PreferenceAllowed {
 
         PreferenceAllowed _preferenceAllowed = new PreferenceAllowed();
         PreferenceAllowed.isProfileCategoryAllowed_PREF_PROFILE_VIBRATION_INTENSITY(_preferenceAllowed, context);
+        _preferenceAllowed.copyFrom(preferenceAllowed);
         if (_preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {

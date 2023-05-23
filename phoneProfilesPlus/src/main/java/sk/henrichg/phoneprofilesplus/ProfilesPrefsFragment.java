@@ -570,14 +570,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceCategory.removePreference(preference);
             }
         }*/
-        //if (Build.VERSION.SDK_INT != 23) {
+        /*if (Build.VERSION.SDK_INT != 23) {
             Preference preference = prefMng.findPreference("prf_pref_volumeVibrateWhenRingingRootInfo");
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-        //}
+        }*/
         if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
             PPListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (listPreference != null)
@@ -586,6 +586,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 listPreference.setDialogTitle("(S)(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
+            }
+        } else {
+            PPPPSDialogPreference ppppsPreference = prefMng.findPreference("prf_pref_soundProfilePPPPS");
+            if (ppppsPreference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(ppppsPreference);
             }
         }
 
@@ -610,12 +617,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
                     if (preferenceCategory != null)
                         preferenceCategory.removePreference(vibrateNotificationsPreference);
-                }
-                PPPPSDialogPreference ppppsPreference = prefMng.findPreference("prf_pref_soundProfilePPPPS");
-                if (ppppsPreference != null) {
-                    PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
-                    if (preferenceCategory != null)
-                        preferenceCategory.removePreference(ppppsPreference);
                 }
             }
         }
@@ -691,7 +692,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //Preference preference;
 
-        preference = prefMng.findPreference(Profile.PREF_PROFILE_ASK_FOR_DURATION);
+        Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_ASK_FOR_DURATION);
         if (preference != null) {
             preference.setTitle("[M] " + getString(R.string.profile_preferences_askForDuration));
         }
@@ -6298,10 +6299,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setValue(Profile.NO_CHANGE_VALUE_STR);
                     preference.setEnabled(enabled);
                 }
-                PPPPSDialogPreference ppppsPreference = prefMng.findPreference("prf_pref_soundProfilePPPPS");
-                if (ppppsPreference != null) {
-                    ppppsPreference.setEnabled(enabled);
-                }
+//                PPPPSDialogPreference ppppsPreference = prefMng.findPreference("prf_pref_soundProfilePPPPS");
+//                if (ppppsPreference != null) {
+//                    ppppsPreference.setEnabled(enabled);
+//                }
             }
         }
 
