@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package sk.henrichg.phoneprofilesplus;
 
-/**
+import android.graphics.Rect;
+
+/*
  * A class that contains utility methods related to numbers.
  *
+ * Pending API council approval
  */
-@SuppressWarnings("unused")
-class MathUtils {
+@SuppressWarnings({"ManualMinMaxCalculation", "unused"})
+public final class PPMathUtils {
     private static final float DEG_TO_RAD = 3.1415926f / 180.0f;
     private static final float RAD_TO_DEG = 180.0f / 3.1415926f;
 
-    private MathUtils() {
+    private PPMathUtils() {
     }
 
     public static float abs(float v) {
@@ -32,15 +36,15 @@ class MathUtils {
     }
 
     public static int constrain(int amount, int low, int high) {
-        return amount < low ? low : (Math.min(amount, high));
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
     public static long constrain(long amount, long low, long high) {
-        return amount < low ? low : (Math.min(amount, high));
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
     public static float constrain(float amount, float low, float high) {
-        return amount < low ? low : (Math.min(amount, high));
+        return amount < low ? low : (amount > high ? high : amount);
     }
 
     public static float log(float a) {
@@ -60,35 +64,35 @@ class MathUtils {
     }
 
     public static float max(float a, float b) {
-        return Math.max(a, b);
+        return a > b ? a : b;
     }
 
     public static float max(int a, int b) {
-        return Math.max(a, b);
+        return a > b ? a : b;
     }
 
     public static float max(float a, float b, float c) {
-        return a > b ? (Math.max(a, c)) : (Math.max(b, c));
+        return a > b ? (a > c ? a : c) : (b > c ? b : c);
     }
 
     public static float max(int a, int b, int c) {
-        return a > b ? (Math.max(a, c)) : (Math.max(b, c));
+        return a > b ? (a > c ? a : c) : (b > c ? b : c);
     }
 
     public static float min(float a, float b) {
-        return Math.min(a, b);
+        return a < b ? a : b;
     }
 
     public static float min(int a, int b) {
-        return Math.min(a, b);
+        return a < b ? a : b;
     }
 
     public static float min(float a, float b, float c) {
-        return a < b ? (Math.min(a, c)) : (Math.min(b, c));
+        return a < b ? (a < c ? a : c) : (b < c ? b : c);
     }
 
     public static float min(int a, int b, int c) {
-        return a < b ? (Math.min(a, c)) : (Math.min(b, c));
+        return a < b ? (a < c ? a : c) : (b < c ? b : c);
     }
 
     public static float dist(float x1, float y1, float x2, float y2) {
@@ -156,6 +160,30 @@ class MathUtils {
         return start + (stop - start) * amount;
     }
 
+    public static float lerp(int start, int stop, float amount) {
+        return lerp((float) start, (float) stop, amount);
+    }
+
+    /**
+     * Returns the interpolation scalar (s) that satisfies the equation: {@code value = }{@link
+     * #lerp}{@code (a, b, s)}
+     *
+     * <p>If {@code a == b}, then this function will return 0.
+     */
+    public static float lerpInv(float a, float b, float value) {
+        return a != b ? ((value - a) / (b - a)) : 0.0f;
+    }
+
+    /** Returns the single argument constrained between [0.0, 1.0]. */
+    public static float saturate(float value) {
+        return constrain(value, 0.0f, 1.0f);
+    }
+
+    /** Returns the saturated (constrained between [0, 1]) result of {@link #lerpInv}. */
+    public static float lerpInvSat(float a, float b, float value) {
+        return saturate(lerpInv(a, b, value));
+    }
+
     /**
      * Returns an interpolated angle in degrees between a set of start and end
      * angles.
@@ -186,6 +214,47 @@ class MathUtils {
     }
 
     /**
+     * Calculates a value in [rangeMin, rangeMax] that maps value in [valueMin, valueMax] to
+     * returnVal in [rangeMin, rangeMax].
+     * <p>
+     * Always returns a constrained value in the range [rangeMin, rangeMax], even if value is
+     * outside [valueMin, valueMax].
+     * <p>
+     * Eg:
+     *    constrainedMap(0f, 100f, 0f, 1f, 0.5f) = 50f
+     *    constrainedMap(20f, 200f, 10f, 20f, 20f) = 200f
+     *    constrainedMap(20f, 200f, 10f, 20f, 50f) = 200f
+     *    constrainedMap(10f, 50f, 10f, 20f, 5f) = 10f
+     *
+     * @param rangeMin minimum of the range that should be returned.
+     * @param rangeMax maximum of the range that should be returned.
+     * @param valueMin minimum of range to map {@code value} to.
+     * @param valueMax maximum of range to map {@code value} to.
+     * @param value to map to the range [{@code valueMin}, {@code valueMax}]. Note, can be outside
+     *              this range, resulting in a clamped value.
+     * @return the mapped value, constrained to [{@code rangeMin}, {@code rangeMax}.
+     */
+    public static float constrainedMap(
+            float rangeMin, float rangeMax, float valueMin, float valueMax, float value) {
+        return lerp(rangeMin, rangeMax, lerpInvSat(valueMin, valueMax, value));
+    }
+
+    /**
+     * Perform Hermite interpolation between two values.
+     * Eg:
+     *   smoothStep(0, 0.5f, 0.5f) = 1f
+     *   smoothStep(0, 0.5f, 0.25f) = 0.5f
+     *
+     * @param start Left edge.
+     * @param end Right edge.
+     * @param x A value between {@code start} and {@code end}.
+     * @return A number between 0 and 1 representing where {@code x} is in the interpolation.
+     */
+    public static float smoothStep(float start, float end, float x) {
+        return constrain((x - start) / (end - start), 0f, 1f);
+    }
+
+    /**
      * Returns the sum of the two parameters, or throws an exception if the resulting sum would
      * cause an overflow or underflow.
      * @throws IllegalArgumentException when overflow or underflow would occur.
@@ -194,13 +263,28 @@ class MathUtils {
         if (b == 0) {
             return a;
         }
+
         if (b > 0 && a <= (Integer.MAX_VALUE - b)) {
             return a + b;
         }
+
         if (b < 0 && a >= (Integer.MIN_VALUE - b)) {
             return a + b;
         }
         throw new IllegalArgumentException("Addition overflow: " + a + " + " + b);
     }
 
+    /**
+     * Resize a {@link Rect} so one size would be {@param largestSide}.
+     *
+     * @param outToResize Rectangle that will be resized.
+     * @param largestSide Size of the largest side.
+     */
+    public static void fitRect(Rect outToResize, int largestSide) {
+        if (outToResize.isEmpty()) {
+            return;
+        }
+        float maxSize = Math.max(outToResize.width(), outToResize.height());
+        outToResize.scale(largestSide / maxSize);
+    }
 }

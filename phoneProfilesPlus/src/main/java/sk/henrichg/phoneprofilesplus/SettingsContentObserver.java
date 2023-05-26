@@ -6,6 +6,7 @@ import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Settings;
 
 import androidx.work.Data;
@@ -318,9 +319,14 @@ class SettingsContentObserver  extends ContentObserver {
             // TODO this is for log brightness values to log file
             //  use only for check brightness values 0%, 50%, 100% by user,
             //  when in his device brightness not working good
-//            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
-//            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
-//            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
+            PowerManager pm = context.getSystemService(PowerManager.class);
+            PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
+            PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
+            PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
+
+            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
+            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
+            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
         }
 
         /////////////

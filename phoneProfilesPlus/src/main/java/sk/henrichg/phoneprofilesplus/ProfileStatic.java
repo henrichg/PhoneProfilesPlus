@@ -181,35 +181,35 @@ class ProfileStatic {
     /*
         private static float convertLinearToGamma(float val, float min, float max) {
             // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
-            final float normalizedVal = MathUtils.norm(min, max, val) * 12;
+            final float normalizedVal = PPMathUtils.norm(min, max, val) * 12;
             final float ret;
             if (normalizedVal <= 1f) {
-                ret = MathUtils.sqrt(normalizedVal) * _R;
+                ret = PPMathUtils.sqrt(normalizedVal) * _R;
             } else {
-                ret = _A * MathUtils.log(normalizedVal - _B) + _C;
+                ret = _A * PPMathUtils.log(normalizedVal - _B) + _C;
             }
             //int spaceMax = GAMMA_SPACE_MAX_256;
             //if (PPApplication.romIsOnePlus)
             //    spaceMax = GAMMA_SPACE_MAX_1024;
-            //return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret));
-            return MathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret);
+            //return Math.round(PPMathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret));
+            return PPMathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret);
         }
 
         private static float convertGammaToLinear(float val, float min, float max) {
             //int spaceMax = GAMMA_SPACE_MAX_256;
             //if (PPApplication.romIsOnePlus)
             //    spaceMax = GAMMA_SPACE_MAX_1024;
-            final float normalizedVal = MathUtils.norm(0, GAMMA_SPACE_MAX_256, val);
+            final float normalizedVal = PPMathUtils.norm(0, GAMMA_SPACE_MAX_256, val);
             final float ret;
             if (normalizedVal <= _R) {
-                ret = MathUtils.sq(normalizedVal / _R);
+                ret = PPMathUtils.sq(normalizedVal / _R);
             } else {
-                ret = MathUtils.exp((normalizedVal - _C) / _A) + _B;
+                ret = PPMathUtils.exp((normalizedVal - _C) / _A) + _B;
             }
             // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
             // in order to derive the correct setting value.
-            //return Math.round(MathUtils.lerp(min, max, ret / 12));
-            return MathUtils.lerp(min, max, ret / 12);
+            //return Math.round(PPMathUtils.lerp(min, max, ret / 12));
+            return PPMathUtils.lerp(min, max, ret / 12);
         }
 
         private static float getPercentage(float value, float min, float max) {
@@ -266,7 +266,19 @@ class ProfileStatic {
         if (systemValue > maximumValue)
             systemValue = maximumValue;*/
 
+        //int systemValue = BrightnessLookup.convertGammaToLinear(percentage, 0, 255);
+        /*
+        int value = Math.round(percentage / 100f * maxValue);
+        float _systemValue = PPMathUtils.min(
+                BrightnessLookup.convertGammaToLinearFloat(value, minValue, maxValue),
+                maxValue);
+        Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 1="+_systemValue);
+        //_systemValue = _systemValue * (maxValue / 2f);
+        //Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 2="+_systemValue);
+        */
+
         int systemValue = BrightnessLookup.lookup(percentage, false);
+
         if (PPApplication.deviceIsOnePlus) {
             if (Build.VERSION.SDK_INT < 31)
                 systemValue = systemValue * 4; // convert from 256 to 1024
