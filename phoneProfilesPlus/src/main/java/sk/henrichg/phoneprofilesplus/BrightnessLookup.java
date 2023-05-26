@@ -84,7 +84,7 @@ class BrightnessLookup {
     private static final int FLICKER_THRESHOLD = 24;
 
     static int lookup(int query, boolean isByte) {
-        int[][] _table = PPApplication.deviceIsXiaomi ? tableXiaomi : table;
+        int[][] _table = (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ? tableXiaomi : table;
 
         int low = 0;
         int mid = 0;
@@ -109,7 +109,7 @@ class BrightnessLookup {
     }
 
     private static int crawl(int query, int index, boolean isByte, boolean increasing) {
-        int[][] _table = PPApplication.deviceIsXiaomi ? tableXiaomi : table;
+        int[][] _table = (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ? tableXiaomi : table;
 
         int i = index;
         int num = _table.length;

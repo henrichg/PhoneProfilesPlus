@@ -168,132 +168,6 @@ class ProfileStatic {
         */
 //    }
 
-    ////// from AOSP and changed for PPP
-//    private static final int GAMMA_SPACE_MAX_256 = 1023;
-    //private static final int GAMMA_SPACE_MAX_1024 = 4095;
-
-    // Hybrid Log Gamma constant values
-//    private static final float _R = 0.5f;
-//    private static final float _A = 0.17883277f;
-//    private static final float _B = 0.28466892f;
-//    private static final float _C = 0.55991073f;
-
-    /*
-        private static float convertLinearToGamma(float val, float min, float max) {
-            // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
-            final float normalizedVal = PPMathUtils.norm(min, max, val) * 12;
-            final float ret;
-            if (normalizedVal <= 1f) {
-                ret = PPMathUtils.sqrt(normalizedVal) * _R;
-            } else {
-                ret = _A * PPMathUtils.log(normalizedVal - _B) + _C;
-            }
-            //int spaceMax = GAMMA_SPACE_MAX_256;
-            //if (PPApplication.romIsOnePlus)
-            //    spaceMax = GAMMA_SPACE_MAX_1024;
-            //return Math.round(PPMathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret));
-            return PPMathUtils.lerp(0, GAMMA_SPACE_MAX_256, ret);
-        }
-
-        private static float convertGammaToLinear(float val, float min, float max) {
-            //int spaceMax = GAMMA_SPACE_MAX_256;
-            //if (PPApplication.romIsOnePlus)
-            //    spaceMax = GAMMA_SPACE_MAX_1024;
-            final float normalizedVal = PPMathUtils.norm(0, GAMMA_SPACE_MAX_256, val);
-            final float ret;
-            if (normalizedVal <= _R) {
-                ret = PPMathUtils.sq(normalizedVal / _R);
-            } else {
-                ret = PPMathUtils.exp((normalizedVal - _C) / _A) + _B;
-            }
-            // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
-            // in order to derive the correct setting value.
-            //return Math.round(PPMathUtils.lerp(min, max, ret / 12));
-            return PPMathUtils.lerp(min, max, ret / 12);
-        }
-
-        private static float getPercentage(float value, float min, float max) {
-            if (value > max) {
-                return 1.0f;
-            }
-            if (value < min) {
-                return 0.0f;
-            }
-            //return ((float)value - min) / (max - min);
-            return (value - min) / (max - min);
-        }
-    */
-
-    // used only in convertBrightnessToPercents(), is only for manual brightness
-    private static int getBrightnessPercentageWithLookup(int settingsValue/*, int minValue, int maxValue*/) {
-        /*final float value;
-        float _settingsValue = settingsValue;
-        if (PPApplication.romIsOnePlus)
-            _settingsValue = settingsValue / 4; // convert from 1024 to 256
-
-        value = convertLinearToGamma(_settingsValue, minValue, maxValue);
-        //int spaceMax = GAMMA_SPACE_MAX_256;
-        //if (PPApplication.romIsOnePlus)
-        //    spaceMax = GAMMA_SPACE_MAX_1024;
-        int percentage = Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX_256) * 100);*/
-
-        int _settingsValue = settingsValue;
-        if (PPApplication.deviceIsOnePlus) {
-            if (Build.VERSION.SDK_INT < 31)
-                _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
-            else
-                _settingsValue = Math.round(settingsValue / 32f); // convert from 8192 to 256
-        }
-        else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
-        return BrightnessLookup.lookup(_settingsValue, true);
-    }
-
-    private static int getBrightnessManualValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
-        //int spaceMax = GAMMA_SPACE_MAX_256;
-        //if (PPApplication.romIsOnePlus)
-        //    spaceMax = GAMMA_SPACE_MAX_1024;
-        //int value = Math.round((GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1));
-        /*float value = (GAMMA_SPACE_MAX_256+1) / 100f * (float)(percentage + 1);
-        float systemValue = convertGammaToLinear(value, minValue, maxValue);
-        if (PPApplication.romIsOnePlus)
-            systemValue = systemValue * 4; // convert from 256 to 1024
-
-        int maximumValue = 255;
-        if (PPApplication.romIsOnePlus)
-            maximumValue = 1023;
-        if (systemValue > maximumValue)
-            systemValue = maximumValue;*/
-
-        //int systemValue = BrightnessLookup.convertGammaToLinear(percentage, 0, 255);
-        /*
-        int value = Math.round(percentage / 100f * maxValue);
-        float _systemValue = PPMathUtils.min(
-                BrightnessLookup.convertGammaToLinearFloat(value, minValue, maxValue),
-                maxValue);
-        Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 1="+_systemValue);
-        //_systemValue = _systemValue * (maxValue / 2f);
-        //Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 2="+_systemValue);
-        */
-
-        int systemValue = BrightnessLookup.lookup(percentage, false);
-
-        if (PPApplication.deviceIsOnePlus) {
-            if (Build.VERSION.SDK_INT < 31)
-                systemValue = systemValue * 4; // convert from 256 to 1024
-
-            // for OnePlus widh Android 12+ is max value 255
-            //else
-            //    systemValue = systemValue;
-        }
-        else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
-            systemValue = systemValue * 16; // convert from 256 to 4096
-
-        return Math.round(systemValue);
-    }
-
     /*
     private static int getBrightnessAdaptiveValueWithLookup(int percentage) {
         //int spaceMax = GAMMA_SPACE_MAX_256;
@@ -326,7 +200,20 @@ class ProfileStatic {
     }
     */
 
-    ///////////////
+    // used only in convertBrightnessToPercents(), is only for manual brightness
+    private static int getBrightnessPercentageWithLookup(int settingsValue/*, int minValue, int maxValue*/) {
+        int _settingsValue = settingsValue;
+        if (PPApplication.deviceIsOnePlus) {
+            if (Build.VERSION.SDK_INT < 31)
+                _settingsValue = Math.round(settingsValue / 4f); // convert from 1024 to 256
+            else
+                _settingsValue = Math.round(settingsValue / 32f); // convert from 8192 to 256
+        }
+        else
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            _settingsValue = Math.round(settingsValue / 16f); // convert from 4096 to 256
+        return BrightnessLookup.lookup(_settingsValue, true);
+    }
 
     // tbis is called only from DatabaseHandlerCreateUpdateDB.updateDB for oldVersion < 1165
     // Used is only for manual brightness.
@@ -378,6 +265,34 @@ class ProfileStatic {
         return percentage;
     }
 
+    ////////////////
+
+    private static int getBrightnessManualValueWithLookup(int percentage/*, int minValue, int maxValue*/) {
+        //int systemValue = BrightnessLookup.convertGammaToLinear(percentage, 0, 255);
+        /*
+        int value = Math.round(percentage / 100f * maxValue);
+        float _systemValue = PPMathUtils.min(
+                BrightnessLookup.convertGammaToLinearFloat(value, minValue, maxValue),
+                maxValue);
+        Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 1="+_systemValue);
+        //_systemValue = _systemValue * (maxValue / 2f);
+        //Log.e("ProfileStatic.getBrightnessManualValueWithLookup", "systemValue 2="+_systemValue);
+        */
+
+        // systemValue is in range 0..255
+        int systemValue = BrightnessLookup.lookup(percentage, false);
+
+        if (PPApplication.deviceIsOnePlus) {
+            if (Build.VERSION.SDK_INT < 31)
+                systemValue = systemValue * 4; // convert from 256 to 1024
+        }
+        else
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)
+            systemValue = systemValue * 16; // convert from 256 to 4096
+
+        return Math.round(systemValue);
+    }
+
     static int convertPercentsToBrightnessManualValue(int percentage, Context context)
     {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -391,7 +306,7 @@ class ProfileStatic {
         if (PPApplication.deviceIsOnePlus && (Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 31))
             maximumValue = 1023;
         else
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI /*&& (Build.VERSION.SDK_INT >= 28)*/)
             maximumValue = 4095;
         //}
 
