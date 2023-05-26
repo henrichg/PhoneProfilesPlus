@@ -319,13 +319,13 @@ class SettingsContentObserver  extends ContentObserver {
             // TODO this is for log brightness values to log file
             //  use only for check brightness values 0%, 50%, 100% by user,
             //  when in his device brightness not working good
-            PowerManager pm = context.getSystemService(PowerManager.class);
-            PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
-            PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
-            PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
+            //PowerManager pm = context.getSystemService(PowerManager.class);
+            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
+            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
+            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
 
-            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
-            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
+            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
+            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
             //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
         }
 
