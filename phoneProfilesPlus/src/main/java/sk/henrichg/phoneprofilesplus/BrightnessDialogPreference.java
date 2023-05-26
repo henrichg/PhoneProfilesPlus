@@ -101,11 +101,11 @@ public class BrightnessDialogPreference extends DialogPreference {
         String[] splits = sValue.split("\\|");
         try {
             value = Integer.parseInt(splits[0]);
-            if (value == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
+            /*if (value == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
                 // brightness is not set, change it to default adaptive brightness value
                 int halfValue = maximumValue / 2;
                 value = Math.round(SettingsContentObserver.savedAdaptiveBrightness * halfValue + halfValue);
-            }
+            }*/
             if ((value < 0) || (value > maximumValue)) {
                 value = 50;
             }

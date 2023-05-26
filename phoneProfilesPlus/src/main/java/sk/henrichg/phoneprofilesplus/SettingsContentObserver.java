@@ -34,7 +34,7 @@ class SettingsContentObserver  extends ContentObserver {
     private static volatile int previousScreenTimeout = 0;
 
     static volatile int savedBrightness;
-    static volatile float savedAdaptiveBrightness;
+    //static volatile float savedAdaptiveBrightness;
     static volatile int savedBrightnessMode;
 
     private final Context context;
@@ -59,7 +59,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
         savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-        savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+        //savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
     }
 
     /*
@@ -314,7 +314,7 @@ class SettingsContentObserver  extends ContentObserver {
         if (!ActivateProfileHelper.brightnessDialogInternalChange) {
             savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
             savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-            savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+            //savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
             // TODO this is for log brightness values to log file
             //  use only for check brightness values 0%, 50%, 100% by user,
@@ -326,7 +326,7 @@ class SettingsContentObserver  extends ContentObserver {
 
             PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
             PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
-            PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
+            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
         }
 
         /////////////
