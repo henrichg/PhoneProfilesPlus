@@ -2076,10 +2076,10 @@
     <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
 
     <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
-    <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home laucher</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home launcher</string>
     <string name="editor_launcher_label">Editor</string>
     <string name="important_info_shortcut_to_editor_text1">Shortcut to Editor</string>
-    <string name="important_info_shortcut_to_editor_text2">Parameter \"Application Settings\"/\"Launch from home screen\" is replaced with \"Shortcut to Editor\". This parameter generates a shortcut to the Editor in the home launcher. This shortcut can be used to open the Editor directly.</string>
+    <string name="important_info_shortcut_to_editor_text2">Parameter \"Application interface\"/\"Launch from home screen\" is replaced with \"Shortcut to Editor\". This parameter generates a shortcut to the Editor in the home launcher. This shortcut can be used to open the Editor directly.</string>
 
     <!-- **************************************************************************************** -->
 
