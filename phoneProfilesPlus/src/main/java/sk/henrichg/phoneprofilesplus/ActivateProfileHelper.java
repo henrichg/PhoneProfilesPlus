@@ -1630,6 +1630,17 @@ class ActivateProfileHelper {
                                 Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
                                 Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
                             }
+                            else
+                            if (PPApplication.deviceIsOnePlus) {
+                                switch (lValue) {
+                                    case 1:
+                                        Settings.System.putInt(appContext.getContentResolver(), "ring_vibration_intensity", 2);
+                                        break;
+                                    case 0:
+                                        Settings.System.putInt(appContext.getContentResolver(), "ring_vibration_intensity", 0);
+                                        break;
+                                }
+                            }
                         } catch (Exception ee) {
                             // java.lang.IllegalArgumentException: You cannot change private secure settings.
                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
@@ -1640,6 +1651,18 @@ class ActivateProfileHelper {
                                     putSettingsParameter(context, "system", Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                     putSettingsParameter(context, "system", "vibrate_in_normal", String.valueOf(lValue));
                                     putSettingsParameter(context, "system", "vibrate_in_silent", String.valueOf(lValue));
+                                }
+                                else
+                                if (PPApplication.deviceIsOnePlus) {
+                                    putSettingsParameter(context, "system", Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
+                                    switch (lValue) {
+                                        case 1:
+                                            putSettingsParameter(context, "system", "ring_vibration_intensity", "2");
+                                            break;
+                                        case 0:
+                                            putSettingsParameter(context, "system", "ring_vibration_intensity", "0");
+                                            break;
+                                    }
                                 } else {
                                     putSettingsParameter(context, "system", Settings.System.VIBRATE_WHEN_RINGING, String.valueOf(lValue));
                                 }
@@ -1654,6 +1677,20 @@ class ActivateProfileHelper {
                                             String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
                                             String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
                                             command = new Command(0, /*false,*/ command1, command2, command3);
+                                        }
+                                        else
+                                        if (PPApplication.deviceIsOnePlus) {
+                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                            String command2 = "";
+                                            switch (lValue) {
+                                                case 1:
+                                                    command2 = "settings put system " + "ring_vibration_intensity" + " " + "2";
+                                                    break;
+                                                case 0:
+                                                    command2 = "settings put system " + "ring_vibration_intensity" + " " + "0";
+                                                    break;
+                                            }
+                                            command = new Command(0, /*false,*/ command1, command2);
                                         } else {
                                             command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                             //if (PPApplication.isSELinuxEnforcing())

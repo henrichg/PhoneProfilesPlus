@@ -578,7 +578,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }*/
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+        if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) || PPApplication.deviceIsOnePlus) {
             PPListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (listPreference != null)
             {
@@ -2075,7 +2075,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             default:
                                 if (!value.equals(defaultValueS)) {
                                     if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
-                                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                                            ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                                                    PPApplication.deviceIsOnePlus))
                                         title = "(S)(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
                                     else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
                                         title = "(S)(R) " + getString(R.string.profile_preferences_vibrateNotifications);
