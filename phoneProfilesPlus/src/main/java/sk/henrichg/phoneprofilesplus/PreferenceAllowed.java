@@ -904,7 +904,7 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING;
 
-        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+        if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) || PPApplication.deviceIsOnePlus) {
             if (ActivateProfileHelper.isPPPPutSettingsInstalled(context) > 0) {
                 if (profile != null) {
                     if (profile._vibrateWhenRinging != 0)
