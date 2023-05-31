@@ -180,6 +180,7 @@
                 android:textSize="15dp"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
+                android:textColor="@color/activityNormalTextColor"
                 android:maxLines="1"
                 android:focusable="true"
                 tools:ignore="SpUsage"/>
