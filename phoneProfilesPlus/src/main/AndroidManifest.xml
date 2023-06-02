@@ -242,7 +242,6 @@
             android:name=".EditorActivity"
             android:label="@string/title_activity_editor"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.editor"
-            android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting"
             tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -250,6 +249,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+<!--        android:theme="@style/Theme.PhoneProfilesTheme_Editor_Starting"-->
 
         <activity
             android:name=".ProfilesPrefsActivity"

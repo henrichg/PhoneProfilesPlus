@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.PhoneProfilesTheme_Editor_Starting_Light" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">#FFFFFF</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">#FF484848</item>
+        <item name="postSplashScreenTheme">@style/Theme.PhoneProfilesTheme_withToolbar_dayNight</item>
+        <item name="windowSplashScreenAnimationDuration">200</item>
+    </style>
+
+</resources>

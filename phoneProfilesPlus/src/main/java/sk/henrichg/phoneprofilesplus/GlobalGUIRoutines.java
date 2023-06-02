@@ -119,120 +119,10 @@ class GlobalGUIRoutines {
                         boolean forEditor, boolean forActivator, boolean forDialog,
                         boolean forLocationEditor, boolean forPreferences,
                         Context context) {
-        switch (ApplicationPreferences.applicationTheme(context, false)) {
-            /*case "color":
-                if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_color;
-                    else
-                        return R.style.PopupTheme_color;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_color;
-                }*/
-            case "white":
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_white;
-                    else
-                        return R.style.PopupTheme_white;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_white;
-                }*/
-                break;
-            case "dark":
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_dark;
-                    else
-                        return R.style.PopupTheme_dark;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_dark;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_dark;
-                }
-                */
-                break;
-            /*case "dlight":
-                if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_dlight;
-                    else
-                        return R.style.PopupTheme_dlight;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dlight;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_dlight;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_dlight;
-                }*/
-            case "night_mode":
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_dayNight;
-                    else
-                        return R.style.PopupTheme_dayNight;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
-                        //else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_dayNight;
-                }*/
-                break;
-            default:
-                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_white;
-                    else
-                        return R.style.PopupTheme_white;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
-                        //else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_white;
-                }*/
-                /*if (forPopup) {
-                    if (withToolbar)
-                        return R.style.PopupTheme_withToolbar_color;
-                    else
-                        return R.style.PopupTheme_color;
-                } else {
-                    if (withToolbar) {
-                        //if (withDrawerLayout)
-                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
-                        //else
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
-                    } else
-                        return R.style.Theme_PhoneProfilesTheme_color;
-                }*/
-        }
+        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+//        if (forEditor)
+//            Log.e("GlobalGUIRoutines.getTheme", "applicationTheme="+applicationTheme);
+
         if (forActivator) {
             if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
@@ -311,12 +201,36 @@ class GlobalGUIRoutines {
         if (forEditor) {
             if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33) {
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting;
+                    if (applicationTheme.equals("dark"))
+                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Dark;
+                    else
+                    if (applicationTheme.equals("white"))
+                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
+                    else
+                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
                 } else {
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple;
+                    if (applicationTheme.equals("dark"))
+                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Dark;
+                    else
+                    if (applicationTheme.equals("white"))
+                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
+                    else
+                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
                 }
             } else {
-                return R.style.Theme_PhoneProfilesTheme_Editor_Starting;
+                if (applicationTheme.equals("dark")) {
+//                    Log.e("GlobalGUIRoutines.getTheme", "Theme_PhoneProfilesTheme_Editor_Starting_Dark");
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Dark;
+                }
+                else
+                if (applicationTheme.equals("white")) {
+//                    Log.e("GlobalGUIRoutines.getTheme", "Theme_PhoneProfilesTheme_Editor_Starting_Light");
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
+                }
+                else {
+//                    Log.e("GlobalGUIRoutines.getTheme", "Theme_PhoneProfilesTheme_Editor_Starting_Light");
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
+                }
             }
         } else {
             if (PPApplication.deviceIsOnePlus) {
