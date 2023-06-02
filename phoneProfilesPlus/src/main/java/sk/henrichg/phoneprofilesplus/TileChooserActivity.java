@@ -18,11 +18,12 @@ public class TileChooserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GlobalGUIRoutines.setTheme(this, true, false, false, false, true, false, false);
+
         super.onCreate(savedInstanceState);
 
 //        PPApplicationStatic.logE("[BACKGROUND_ACTIVITY] TileChooserActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, true, false, false, false, true, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
