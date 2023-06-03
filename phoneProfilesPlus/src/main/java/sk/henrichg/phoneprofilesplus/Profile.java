@@ -2783,6 +2783,7 @@ public class Profile {
         return value == 1;
     }
 
+    @SuppressWarnings("SameReturnValue")
     boolean getGenerateNotificationSharedProfile()
     {
         /*int value;

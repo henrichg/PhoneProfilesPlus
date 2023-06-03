@@ -659,7 +659,7 @@ public class ProfileListNotification {
 
         int decoratorColor = ContextCompat.getColor(appContext, R.color.notification_color);
 
-        notificationBuilder.setSmallIcon(R.drawable.ic_app_notification_icon);
+        notificationBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
 
 /*
         if (activatedProfile == null) {

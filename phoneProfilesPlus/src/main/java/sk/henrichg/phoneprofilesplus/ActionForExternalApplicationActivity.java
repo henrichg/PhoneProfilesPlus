@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.IconCompat;
 
 public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
