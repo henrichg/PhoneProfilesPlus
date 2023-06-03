@@ -381,7 +381,7 @@ class GlobalGUIRoutines {
 //                        Log.e("GlobalGUIRoutines.setPreferenceTitleStyleX", "enabled="+enabled);
 //                    }
                     if (errorColor && enabled)
-                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.altype_error)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        sbt.setSpan(new ForegroundColorSpan(ContextCompat.getColor(preference.getContext(), R.color.error_color)), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 preference.setTitle(sbt);
             }

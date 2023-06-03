@@ -84,7 +84,7 @@
             android:layout_marginTop="5dp"
             android:layout_below="@id/editor_profiles_activated_profile_header_subgroup"
             android:text="@string/profile_preferences_red_texts_in_header"
-            android:textColor="@color/altype_error"
+            android:textColor="@color/error_color"
             android:visibility="gone" />
 
     </RelativeLayout>

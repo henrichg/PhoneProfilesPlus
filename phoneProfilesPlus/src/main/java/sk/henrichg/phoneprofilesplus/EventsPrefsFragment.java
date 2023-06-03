@@ -1503,7 +1503,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         int predefinedEventIndex = activity.predefinedEventIndex;
         final Event event = activity.getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
 
-        int errorColor = ContextCompat.getColor(context, R.color.altype_error);
+        int errorColor = ContextCompat.getColor(context, R.color.error_color);
 
         if (event != null) {
             int order = 1;

@@ -85,7 +85,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         if (ProfileStatic.isRedTextNotificationRequired(profile, false, context)){
             profileName.setTypeface(null, Typeface.BOLD);
             //profileName.setTextSize(15);
-            profileName.setTextColor(ContextCompat.getColor(context, R.color.altype_error));
+            profileName.setTextColor(ContextCompat.getColor(context, R.color.error_color));
         }
         else {
             profileName.setTypeface(null, Typeface.BOLD);

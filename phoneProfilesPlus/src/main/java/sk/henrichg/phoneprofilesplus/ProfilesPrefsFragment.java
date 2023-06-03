@@ -6444,7 +6444,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String rootScreen = "rootScreen";
 
-        int errorColor = ContextCompat.getColor(context, R.color.altype_error);
+        int errorColor = ContextCompat.getColor(context, R.color.error_color);
 
         boolean hidePreferences = false;
         long profile_id = activity.profile_id;
