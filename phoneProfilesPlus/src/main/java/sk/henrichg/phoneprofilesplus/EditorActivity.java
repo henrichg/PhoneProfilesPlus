@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -24,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
@@ -1819,8 +1821,25 @@ public class EditorActivity extends AppCompatActivity
                         profile.generateIconBitmap(getApplicationContext(), false, 0, false);
                         profile.generatePreferencesIndicator(getApplicationContext(), false, 0, DataWrapper.IT_FOR_EDITOR, 0f);
 
-                        // redraw generated notification
-                        ActivateProfileHelper.generateNotifiction(getApplicationContext(), profile);
+
+                        boolean isShown = false;
+                        NotificationManager mNotificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                        if (mNotificationManager != null) {
+                            StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
+                            for (StatusBarNotification notification : notifications) {
+                                String tag = notification.getTag();
+                                if ((tag != null) && tag.contains(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG)) {
+                                    if (notification.getId() == PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id) {
+                                        isShown = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (isShown) {
+                            // redraw generated notification
+                            ActivateProfileHelper.generateNotifiction(getApplicationContext(), profile);
+                        }
 
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode);
