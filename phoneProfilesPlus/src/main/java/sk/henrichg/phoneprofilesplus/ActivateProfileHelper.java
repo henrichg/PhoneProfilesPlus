@@ -7494,38 +7494,44 @@ class ActivateProfileHelper {
                     .setAutoCancel(true) // clear notification after click
                     .setOnlyAlertOnce(true);
 
+            boolean replaceWithPPPIcon = profile.getGenerateNotificationReplaceWithPPPIcon();
+            boolean showLargeIcon = profile.getGenerateNotificationShowLargeIcon();
+
             switch (profile.getGenerateNotificationIconType()) {
                 case 0:
-                    mBuilder.setSmallIcon(R.drawable.ic_information_notify);
+                    if (replaceWithPPPIcon)
+                        mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
+                    else
+                        mBuilder.setSmallIcon(R.drawable.ic_information_notify);
                     mBuilder.setColor(ContextCompat.getColor(appContext, R.color.information_color));
+                    if (showLargeIcon)
+                        mBuilder.setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification));
                     break;
                 case 1:
-                    mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
+                    if (replaceWithPPPIcon)
+                        mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
+                    else
+                        mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
                     mBuilder.setColor(ContextCompat.getColor(appContext, R.color.error_color));
-                    break;
-                case 3:
-                    mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
-                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.notification_color));
+                    if (showLargeIcon)
+                        mBuilder.setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification));
                     break;
                 default:
-                    // not supported colorful ststus bar icon
+                    // not supported colorful status bar icon
                     boolean isIconResourceID = profile.getIsIconResourceID();
-                    Bitmap  iconBitmap = profile._iconBitmap;
+                    profile.generateIconBitmap(appContext, false, 0, false);
+                    Bitmap iconBitmap = profile._iconBitmap;
                     String iconIdentifier = profile.getIconIdentifier();
 
                     int decoratorColor = ContextCompat.getColor(appContext, R.color.notification_color);
 
                     if (isIconResourceID) {
                         int iconSmallResource;
+                        //noinspection IfStatementWithIdenticalBranches
                         if (iconBitmap != null) {
-                            /*
-                            if (notificationProfileListStatusBarStyle.equals("0")) {
-                                // colorful icon
-
-                                notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
-                            } else*/ {
-                                // native icon
-
+                            if (replaceWithPPPIcon)
+                                mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
+                            else {
                                 iconSmallResource = R.drawable.ic_profile_default_notify;
                                 try {
                                     if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -7539,25 +7545,16 @@ class ActivateProfileHelper {
                                 }
                                 mBuilder.setSmallIcon(iconSmallResource);
                             }
+
+                            if (showLargeIcon) {
+                                Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                                if (bitmap != null)
+                                    iconBitmap = bitmap;
+                            }
                         } else {
-                            /*
-                            if (notificationProfileListStatusBarStyle.equals("0")) {
-                                // colorful icon
-
-                                iconSmallResource = R.drawable.ic_profile_default_notify_color;
-                                try {
-                                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                                        Object idx = Profile.profileIconNotifyColorId.get(iconIdentifier);
-                                        if (idx != null)
-                                            iconSmallResource = (int) idx;
-                                    }
-                                } catch (Exception e) {
-                                    PPApplicationStatic.recordException(e);
-//                                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
-                                }
-                            } else*/ {
-                                // native icon
-
+                            if (replaceWithPPPIcon)
+                                mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
+                            else {
                                 iconSmallResource = R.drawable.ic_profile_default_notify;
                                 try {
                                     if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -7569,8 +7566,18 @@ class ActivateProfileHelper {
                                     PPApplicationStatic.recordException(e);
 //                                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._addProfileIconToNotification", Log.getStackTraceString(e));
                                 }
+                                mBuilder.setSmallIcon(iconSmallResource);
                             }
-                            mBuilder.setSmallIcon(iconSmallResource);
+
+                            if (showLargeIcon) {
+                                int iconLargeResource = ProfileStatic.getIconResource(iconIdentifier);
+                                iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
+                                if (iconBitmap != null) {
+                                    Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                                    if (bitmap != null)
+                                        iconBitmap = bitmap;
+                                }
+                            }
                         }
 
                         if (profile.getUseCustomColorForIcon())
@@ -7581,21 +7588,25 @@ class ActivateProfileHelper {
                             }
                         }
                     } else {
-                        if (iconBitmap != null) {
-                            /*if (notificationProfileListStatusBarStyle.equals("2")) {
-                                Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
-                                notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
-                                //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
-                            } else*/ {
+                        if (replaceWithPPPIcon)
+                            mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
+                        else {
+                            if (iconBitmap != null) {
                                 mBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
-                            }
-                        } else {
-                            int iconSmallResource;
-                            /*if (notificationProfileListStatusBarStyle.equals("0"))
-                                iconSmallResource = R.drawable.ic_profile_default;
-                            else*/
+                            } else {
+                                int iconSmallResource;
                                 iconSmallResource = R.drawable.ic_profile_default_notify;
-                            mBuilder.setSmallIcon(iconSmallResource);
+                                mBuilder.setSmallIcon(iconSmallResource);
+                            }
+                        }
+
+                        if (showLargeIcon) {
+                            Bitmap bitmap = profile.increaseProfileIconBrightnessForContext(appContext, iconBitmap);
+                            if (bitmap != null)
+                                iconBitmap = bitmap;
+                            if (iconBitmap == null) {
+                                iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);
+                            }
                         }
 
                         if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -7612,6 +7623,10 @@ class ActivateProfileHelper {
                                 } catch (Exception ignored) {}
                             }
                         }
+                    }
+
+                    if (showLargeIcon) {
+                        mBuilder.setLargeIcon(iconBitmap);
                     }
 
                     mBuilder.setColor(decoratorColor);

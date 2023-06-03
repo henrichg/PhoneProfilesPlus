@@ -459,6 +459,30 @@ class ProfileStatic {
         return value;
     }
 
+    static boolean getGenerateNotificationShowLargeIcon(String _generateNotification)
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
+    static boolean getGenerateNotificationReplaceWithPPPIcon(String _generateNotification)
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[5]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
     static String getGenerateNotificationTitle(String _generateNotification)
     {
         String value;

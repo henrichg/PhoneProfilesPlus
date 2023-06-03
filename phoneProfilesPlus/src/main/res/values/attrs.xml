@@ -67,6 +67,8 @@
         <attr name="gnIconType" format="integer" />
         <attr name="gnNotificationTitle" format="string" />
         <attr name="gnNotificationBody" format="string" />
+        <attr name="gnShowLargeIcon" format="integer" />
+        <attr name="gnReplaceWithPPPIcon" format="integer" />
     </declare-styleable>
     <declare-styleable name="OpaquenessLightingPference">
         <attr name="showLighting" format="boolean" />

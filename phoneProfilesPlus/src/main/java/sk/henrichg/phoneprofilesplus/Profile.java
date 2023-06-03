@@ -2759,7 +2759,7 @@ public class Profile {
         return value;
     }
 
-    boolean getGenerateNotificationSharedProfile()
+    boolean getGenerateNotificationShowLargeIcon()
     {
         int value;
         try {
@@ -2769,6 +2769,31 @@ public class Profile {
             value = 0;
         }
         return value == 1;
+    }
+
+    boolean getGenerateNotificationReplaceWithPPPIcon()
+    {
+        int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[5]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
+    boolean getGenerateNotificationSharedProfile()
+    {
+        /*int value;
+        try {
+            String[] splits = _generateNotification.split("\\|");
+            value = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;*/
+        return false;
     }
 
     //----------------------------------

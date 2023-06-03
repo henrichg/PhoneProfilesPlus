@@ -3595,6 +3595,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             //boolean generate = Profile.getGenerateNotificationChange(value);
             int iconType = ProfileStatic.getGenerateNotificationIconType(value);
+            boolean replaceWithPPPIcon = ProfileStatic.getGenerateNotificationReplaceWithPPPIcon(value);
+            boolean showLargeIcon = ProfileStatic.getGenerateNotificationShowLargeIcon(value);
             String notificationTitle = ProfileStatic.getGenerateNotificationTitle(value);
             String notificationBody = ProfileStatic.getGenerateNotificationBody(value);
 
@@ -3606,6 +3608,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summaryString = summaryString + getString(R.string.preference_profile_generate_notification_exclamation_icon) + "; ";
             else
                 summaryString = summaryString + getString(R.string.preference_profile_generate_notification_profile_icon) + "; ";
+
+            if (replaceWithPPPIcon)
+                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_replace_with_ppp_icon) + "; ";
+            if (showLargeIcon)
+                summaryString = summaryString + getString(R.string.preference_profile_generate_notification_show_large_icon) + "; ";
 
             if (notificationBody.isEmpty())
                 summaryString = summaryString + notificationTitle;
