@@ -13,6 +13,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
@@ -344,8 +345,9 @@ class PPApplicationStatic {
 
                         PPApplicationStatic.createExclamationNotificationChannel(appContext);
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                                .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                                .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                                 .setContentTitle(title) // title for notification
                                 .setContentText(text) // message for notification
                                 .setAutoCancel(true); // clear notification after click

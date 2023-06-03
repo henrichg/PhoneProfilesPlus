@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -190,8 +191,9 @@ public class MobileCellsRegistrationService extends Service
 
         //PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
@@ -260,8 +262,9 @@ public class MobileCellsRegistrationService extends Service
 
         PPApplicationStatic.createInformationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))

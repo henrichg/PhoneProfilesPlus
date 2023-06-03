@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.PowerManager;
 import android.util.Log;
 
@@ -259,8 +260,9 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 //                            appContext.getString(R.string.donation_description);
 //                }
                 mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                        .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))

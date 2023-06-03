@@ -22,6 +22,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.hardware.camera2.CameraAccessException;
@@ -4619,8 +4620,9 @@ class ActivateProfileHelper {
 
         PPApplicationStatic.createInformationNotificationChannel(appContext);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
@@ -5599,8 +5601,9 @@ class ActivateProfileHelper {
 
         PPApplicationStatic.createKeepScreenOnNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification
                 .setAutoCancel(true); // clear notification after click
@@ -7485,7 +7488,6 @@ class ActivateProfileHelper {
 //            }
             nTitle = nTitle + " (" + profile._name + ")";
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
-                    .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
@@ -7495,9 +7497,15 @@ class ActivateProfileHelper {
             switch (profile.getGenerateNotificationIconType()) {
                 case 0:
                     mBuilder.setSmallIcon(R.drawable.ic_information_notify);
+                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.information_color));
                     break;
                 case 1:
                     mBuilder.setSmallIcon(R.drawable.ic_exclamation_notify);
+                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.error_color));
+                    break;
+                case 3:
+                    mBuilder.setSmallIcon(R.drawable.ic_ppp_notification);
+                    mBuilder.setColor(ContextCompat.getColor(appContext, R.color.notification_color));
                     break;
                 default:
                     // not supported colorful ststus bar icon

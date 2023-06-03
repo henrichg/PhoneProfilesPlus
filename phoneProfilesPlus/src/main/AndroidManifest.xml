@@ -224,6 +224,7 @@
 <!--            android:name="com.samsung.android.cocktail.mode"-->
 <!--            android:value="edge_single_plus" />-->
 
+        <!-- !!! android:theme must be set here -->
         <activity
             android:name=".ActivatorActivity"
             android:label="@string/title_activity_phone_profiles"

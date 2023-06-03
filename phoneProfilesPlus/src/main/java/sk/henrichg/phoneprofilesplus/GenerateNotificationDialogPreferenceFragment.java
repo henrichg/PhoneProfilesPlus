@@ -29,6 +29,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
     // Layout widgets
     private AlertDialog mDialog;
     private CheckBox generateChBtn = null;
+    private RadioButton pppIconRBtn = null;
     private RadioButton informationIconRBtn = null;
     private RadioButton exclamationIconRBtn = null;
     private RadioButton profileIconRBtn = null;
@@ -61,6 +62,9 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
             else
             if (profileIconRBtn.isChecked())
                 preference.iconType = 2;
+            else
+            if (pppIconRBtn.isChecked())
+                preference.iconType = 3;
             else
                 preference.iconType = 0;
             preference.notificationTitle = notificationTitleEdtText.getText().toString();
@@ -95,6 +99,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
             informationIconRBtn.setChecked(preference.iconType == 0);
             exclamationIconRBtn.setChecked(preference.iconType == 1);
             profileIconRBtn.setChecked(preference.iconType == 2);
+            pppIconRBtn.setChecked(preference.iconType == 3);
             notificationTitleEdtText.setText(preference.notificationTitle);
             notificationBodyEdtText.setText(preference.notificationBody);
 
@@ -102,6 +107,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
         });
 
         generateChBtn = layout.findViewById(R.id.generateNotificationPrefDialogGenerate);
+        pppIconRBtn = layout.findViewById(R.id.generateNotificationPrefDialogPPPIcon);
         informationIconRBtn = layout.findViewById(R.id.generateNotificationPrefDialogInformationIcon);
         exclamationIconRBtn = layout.findViewById(R.id.generateNotificationPrefDialogExclamationIcon);
         profileIconRBtn = layout.findViewById(R.id.generateNotificationPrefDialogProfileIcon);
@@ -144,6 +150,7 @@ public class GenerateNotificationDialogPreferenceFragment extends PreferenceDial
 
     private void enableViews() {
         boolean checked = generateChBtn.isChecked();
+        pppIconRBtn.setEnabled(checked);
         informationIconRBtn.setEnabled(checked);
         exclamationIconRBtn.setEnabled(checked);
         profileIconRBtn.setEnabled(checked);

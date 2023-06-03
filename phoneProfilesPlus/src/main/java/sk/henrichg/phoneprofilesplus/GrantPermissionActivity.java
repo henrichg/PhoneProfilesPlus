@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -890,8 +891,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                            context.getString(R.string.permissions_for_play_ringtone_notification_big_text_notification);
 //                }
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
@@ -933,8 +935,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 nText = nText + context.getString(R.string.permissions_for_event_big_text_notification);
                 //}
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification
                         .setAutoCancel(true); // clear notification after click
@@ -968,8 +971,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
                 }
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText) // message for notification
                         .setAutoCancel(true); // clear notification after click

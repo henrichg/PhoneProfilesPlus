@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -144,8 +145,9 @@ class ImportantInfoNotification {
                                          String title, String text, String notificationTag) {
         PPApplicationStatic.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click

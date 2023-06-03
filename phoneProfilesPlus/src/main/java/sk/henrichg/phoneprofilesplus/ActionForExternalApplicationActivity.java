@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.IconCompat;
 
 public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
@@ -377,8 +379,9 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     private void showNotification(String title, String text) {
         PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext());
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click

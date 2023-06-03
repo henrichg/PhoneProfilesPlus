@@ -58,6 +58,13 @@
                 android:orientation="vertical"
                 android:layout_marginBottom="10dp">
                 <RadioButton
+                    android:id="@+id/generateNotificationPrefDialogPPPIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/checkbox_radiobutton_color"
+                    android:textSize="16sp"
+                    android:text="@string/generate_notification_pref_dialog_ppp_icon_rb"/>
+                <RadioButton
                     android:id="@+id/generateNotificationPrefDialogInformationIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

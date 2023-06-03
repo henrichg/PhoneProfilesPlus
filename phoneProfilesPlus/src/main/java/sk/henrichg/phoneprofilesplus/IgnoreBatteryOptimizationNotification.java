@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -97,8 +98,9 @@ class IgnoreBatteryOptimizationNotification {
     static private void showNotification(Context context, String title, String text) {
         PPApplicationStatic.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
                 .setContentTitle(title) // title for notification
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
@@ -158,8 +159,9 @@ public class MainWorker extends Worker {
 
                                     PPApplicationStatic.createExclamationNotificationChannel(getApplicationContext());
                                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                                            .setColor(ContextCompat.getColor(appContext, R.color.notification_color))
-                                            .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                                            .setColor(ContextCompat.getColor(appContext, R.color.error_color))
+                                            .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                                            .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_exclamation_notification))
                                             .setContentTitle(nTitle) // title for notification
                                             .setContentText(nText) // message for notification
                                             .setAutoCancel(true); // clear notification after click

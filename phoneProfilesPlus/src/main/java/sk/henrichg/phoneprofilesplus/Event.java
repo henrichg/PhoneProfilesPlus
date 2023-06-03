@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.util.Log;
@@ -2932,8 +2933,9 @@ class Event {
 //                }
                 PPApplicationStatic.createNotifyEventStartNotificationChannel(context);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
-                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification_color))
-                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                        .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
+                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_information_notification))
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
