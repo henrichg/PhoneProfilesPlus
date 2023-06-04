@@ -14,7 +14,7 @@
     <color name="activityTitleTextColor">#FF000000</color>
     <color name="dialogTitleTextColor">#FF212121</color>
 
-    <color name="rippleRectangeleItemBackgroundColor">#FFBFBFBF</color>
+    <color name="rippleRectangeleItemBackgroundColor">#FFDFDFDF</color>
     <color name="rippleOvalItemBackgroundColor">#FFAFAFAF</color>
 
     <!--    <color name="activityPreferenceTitleTextColor">#FF171717</color>-->

@@ -123,11 +123,24 @@ class GlobalGUIRoutines {
 //        if (forEditor)
 //            Log.e("GlobalGUIRoutines.getTheme", "applicationTheme="+applicationTheme);
 
+        int miuiVersion = -1;
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+//            Log.e("GlobalGUIRoutines.getTheme", "Build.VERSION.INCREMENTAL="+Build.VERSION.INCREMENTAL);
+            String[] splits = Build.VERSION.INCREMENTAL.split("\\.");
+//            Log.e("GlobalGUIRoutines.getTheme", "splits[0]="+splits[0]);
+            miuiVersion = Integer.parseInt(splits[0].substring(1));
+//            Log.e("GlobalGUIRoutines.getTheme", "miuiVersion="+miuiVersion);
+        }
+
         if (forActivator) {
             if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33)
                     return R.style.ActivatorTheme_dayNight;
                 else
+                    return R.style.ActivatorTheme_dayNight_noRipple;
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
                     return R.style.ActivatorTheme_dayNight_noRipple;
             }
             else {
@@ -146,6 +159,10 @@ class GlobalGUIRoutines {
                 else
                     return R.style.DialogTheme_dayNight_noRipple;
             }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                return R.style.DialogTheme_dayNight_noRipple;
+            }
             else {
                 if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy &&
                         (Build.VERSION.SDK_INT >= 33))
@@ -163,6 +180,10 @@ class GlobalGUIRoutines {
                     return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
             }
             else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight_noRipple;
+            }
+            else
                 return R.style.Theme_PhoneProfilesTheme_locationeditor_dayNight;
         }
         else
@@ -172,6 +193,10 @@ class GlobalGUIRoutines {
                     return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
                 else
                     return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                return R.style.Theme_PhoneProfilesTheme_preferences_dayNight_noRipple;
             }
             else
                 return R.style.Theme_PhoneProfilesTheme_preferences_dayNight;
@@ -190,7 +215,15 @@ class GlobalGUIRoutines {
                     else
                         return R.style.PopupTheme_dayNight_noRipple;
                 }
-            } else {
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                if (withToolbar)
+                    return R.style.PopupTheme_withToolbar_dayNight_noRipple;
+                else
+                    return R.style.PopupTheme_dayNight_noRipple;
+            }
+            else {
                 if (withToolbar)
                     return R.style.PopupTheme_withToolbar_dayNight;
                 else
@@ -217,7 +250,18 @@ class GlobalGUIRoutines {
                     else
                         return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
                 }
-            } else {
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                if (applicationTheme.equals("dark"))
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Dark;
+                else
+                if (applicationTheme.equals("white"))
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
+                else
+                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
+            }
+            else {
                 if (applicationTheme.equals("dark")) {
 //                    Log.e("GlobalGUIRoutines.getTheme", "Theme_PhoneProfilesTheme_Editor_Starting_Dark");
                     return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Dark;
@@ -245,7 +289,15 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
                 }
-            } else {
+            }
+            else
+            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
+                if (withToolbar) {
+                    return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight_noRipple;
+                } else
+                    return R.style.Theme_PhoneProfilesTheme_dayNight_noRipple;
+            }
+            else {
                 if (withToolbar) {
                     return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
                 } else

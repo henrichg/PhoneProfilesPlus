@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:ignore="UnusedResources">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_pressed="true"
         android:drawable="@drawable/listview_item_background" />
