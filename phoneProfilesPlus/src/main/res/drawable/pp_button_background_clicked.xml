@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <!-- Drop Shadow Stack -->
-    <!-- alpha 00 is for disabling shadow over popup -->
-<!--    <item>-->
-<!--        <shape>-->
-
-<!--            <solid android:color="#00AAAAAA" />-->
-
-<!--            <corners android:radius="@dimen/button_corner_radius" />-->
-<!--        </shape>-->
-<!--    </item>-->
     <item>
         <shape>
             <padding
