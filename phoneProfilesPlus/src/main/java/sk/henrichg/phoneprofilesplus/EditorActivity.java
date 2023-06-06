@@ -52,7 +52,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.ShareCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import androidx.core.splashscreen.SplashScreen;
+//import androidx.core.splashscreen.SplashScreen;
 import androidx.core.view.MenuCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
@@ -245,17 +245,6 @@ public class EditorActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, true, true, false, false, false, false);
-        /*SplashScreen splashScreen = */SplashScreen.installSplashScreen(this);
-        /*splashScreen.setOnExitAnimationListener(new SplashScreen.OnExitAnimationListener() {
-            @Override
-            public void onSplashScreenExit(@NonNull SplashScreenViewProvider splashScreenViewProvider) {
-                try {
-                    GlobalGUIRoutines.setTheme(EditorActivity.this, false, true, true, false, false, false, false);
-                } catch (Exception e) {
-                    Log.e("EditorActivity.onSplashScreenExit", Log.getStackTraceString(e));
-                }
-            }
-        });*/
 
         super.onCreate(savedInstanceState);
 //        Log.e("EditorActivity.onCreate", "xxxx");

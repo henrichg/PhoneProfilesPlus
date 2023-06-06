@@ -119,7 +119,8 @@ class GlobalGUIRoutines {
                         boolean forEditor, boolean forActivator, boolean forDialog,
                         boolean forLocationEditor, boolean forPreferences,
                         Context context) {
-        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+        // !!! this must be called
+        /*String applicationTheme =*/ ApplicationPreferences.applicationTheme(context, true);
 //        if (forEditor)
 //            Log.e("GlobalGUIRoutines.getTheme", "applicationTheme="+applicationTheme);
 
@@ -230,53 +231,7 @@ class GlobalGUIRoutines {
                     return R.style.PopupTheme_dayNight;
             }
         }
-        else
-        if (forEditor) {
-            if (PPApplication.deviceIsOnePlus) {
-                if (Build.VERSION.SDK_INT >= 33) {
-                    if (applicationTheme.equals("dark"))
-                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Dark;
-                    else
-                    if (applicationTheme.equals("white"))
-                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
-                    else
-                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
-                } else {
-                    if (applicationTheme.equals("dark"))
-                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Dark;
-                    else
-                    if (applicationTheme.equals("white"))
-                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
-                    else
-                        return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
-                }
-            }
-            else
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && miuiVersion >= 14) {
-                if (applicationTheme.equals("dark"))
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Dark;
-                else
-                if (applicationTheme.equals("white"))
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
-                else
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_noRipple_Light;
-            }
-            else {
-                if (applicationTheme.equals("dark")) {
-//                    Log.e("GlobalGUIRoutines.getTheme", "Theme_PhoneProfilesTheme_Editor_Starting_Dark");
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Dark;
-                }
-                else
-                if (applicationTheme.equals("white")) {
-//                    Log.e("GlobalGUIRoutines.getTheme", "Theme_PhoneProfilesTheme_Editor_Starting_Light");
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
-                }
-                else {
-//                    Log.e("GlobalGUIRoutines.getTheme", "Theme_PhoneProfilesTheme_Editor_Starting_Light");
-                    return R.style.Theme_PhoneProfilesTheme_Editor_Starting_Light;
-                }
-            }
-        } else {
+        else {
             if (PPApplication.deviceIsOnePlus) {
                 if (Build.VERSION.SDK_INT >= 33) {
                     if (withToolbar) {
