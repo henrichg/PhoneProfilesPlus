@@ -54,54 +54,6 @@ class GlobalGUIRoutines {
     static final String OPAQUENESS_LIGHTNESS_87 = "87";
     static final String OPAQUENESS_LIGHTNESS_100 = "100";
 
-    /*
-    // https://stackoverflow.com/questions/40221711/android-context-getresources-updateconfiguration-deprecated
-    // but my solution working also in Android 8.1
-    public static void setLanguage(Context context)//, boolean restart)
-    {
-        //if (android.os.Build.VERSION.SDK_INT < 24) {
-
-            String lang = ApplicationPreferences.applicationLanguage(context);
-
-            Locale appLocale;
-
-            if (!lang.equals("system")) {
-                String[] langSplit = lang.split("-");
-                if (langSplit.length == 1)
-                    appLocale = new Locale(lang);
-                else {
-                    if ((langSplit[0].equals("sr")) && (langSplit[1].equals("Latn")))
-                        appLocale = new Locale.Builder().setLanguage("sr").setScript("Latn").build();
-                    else
-                        appLocale = new Locale(langSplit[0], langSplit[1]);
-                }
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-                else
-                    appLocale = Resources.getSystem().getConfiguration().locale;
-            }
-
-            Locale.setDefault(appLocale);
-            Configuration appConfig = new Configuration();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                appConfig.setLocale(appLocale);
-            else
-                appConfig.locale = appLocale;
-
-            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            //    Context context  = context.createConfigurationContext(appConfig);
-            //else
-            context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
-        //}
-
-        // collator for application locale sorting
-        collator = getCollator(context);
-
-        PPApplication.createNotificationChannels(context);
-    }
-*/
-
     static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar,
                                 /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
