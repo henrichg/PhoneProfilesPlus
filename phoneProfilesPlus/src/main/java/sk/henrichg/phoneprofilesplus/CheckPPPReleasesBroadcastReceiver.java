@@ -225,7 +225,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         }
 
         // show notification for check new release
-        PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
+        PPApplicationStatic.createNewReleaseNotificationChannel(appContext, false);
 
         NotificationCompat.Builder mBuilder;
         Intent _intent;

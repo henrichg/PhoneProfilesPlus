@@ -4618,7 +4618,7 @@ class ActivateProfileHelper {
     private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId, String notificationTag) {
         Context appContext = context.getApplicationContext();
 
-        PPApplicationStatic.createInformationNotificationChannel(appContext);
+        PPApplicationStatic.createInformationNotificationChannel(appContext, false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(appContext, R.color.error_color))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
@@ -5599,7 +5599,7 @@ class ActivateProfileHelper {
                 " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
                 "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
 
-        PPApplicationStatic.createKeepScreenOnNotificationChannel(context);
+        PPApplicationStatic.createKeepScreenOnNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
@@ -7464,7 +7464,7 @@ class ActivateProfileHelper {
 
     static void generateNotifiction(Context appContext, Profile profile)  {
         if (profile.getGenerateNotificationGenerate()) {
-            PPApplicationStatic.createGeneratedByProfileNotificationChannel(appContext);
+            PPApplicationStatic.createGeneratedByProfileNotificationChannel(appContext, false);
 
             NotificationCompat.Builder mBuilder;
 

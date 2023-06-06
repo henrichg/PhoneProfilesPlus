@@ -246,7 +246,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 PPApplicationStatic.setDonationNotificationCount(appContext, donationNotificationCount + 1);
 
                 // show notification about "Please donate me."
-                PPApplicationStatic.createDonationNotificationChannel(appContext);
+                PPApplicationStatic.createDonationNotificationChannel(appContext, false);
 
                 NotificationCompat.Builder mBuilder;
                 Intent _intent;

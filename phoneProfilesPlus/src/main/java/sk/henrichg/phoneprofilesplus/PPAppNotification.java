@@ -49,7 +49,7 @@ public class PPAppNotification {
         }
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPAppNotification._showNotification", "call of createPPPAppNotificationChannel()");
-        PPApplicationStatic.createPPPAppNotificationChannel(appContext);
+        PPApplicationStatic.createPPPAppNotificationChannel(appContext, false);
 
         Intent launcherIntent;
         if (Build.VERSION.SDK_INT < 31) {

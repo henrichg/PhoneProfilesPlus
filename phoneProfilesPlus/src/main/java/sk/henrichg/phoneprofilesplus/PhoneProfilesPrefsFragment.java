@@ -1203,7 +1203,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setOnPreferenceClickListener(preference112 -> {
                     boolean ok = false;
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                    PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+                    PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                     intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.PROFILE_NOTIFICATION_CHANNEL);
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
@@ -1247,7 +1247,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setOnPreferenceClickListener(preference112 -> {
                     boolean ok = false;
 //                    PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - activated porofile notification preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                    PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+                    PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                     intent.putExtra(Settings.EXTRA_CHANNEL_ID, PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL);
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
@@ -1291,7 +1291,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference113 -> {
                 boolean ok = false;
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+                PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext(), false);
 
                 Intent intent = new Intent();
                 if (Build.VERSION.SDK_INT > 26) {
@@ -1344,7 +1344,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference113 -> {
                 boolean ok = false;
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsFragment.onActivityCreated - all notifications preference", "call of PPApplication.createPPPAppNotificationChannel()");
-                PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext());
+                PPApplicationStatic.createPPPAppNotificationChannel(getActivity().getApplicationContext(), false);
 
                 Intent intent = new Intent();
                 if (Build.VERSION.SDK_INT > 26) {

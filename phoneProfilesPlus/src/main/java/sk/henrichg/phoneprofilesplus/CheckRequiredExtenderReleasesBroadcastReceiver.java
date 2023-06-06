@@ -163,7 +163,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
             removeNotification(appContext);
 
             // show notification for check new release
-            PPApplicationStatic.createNewReleaseNotificationChannel(appContext);
+            PPApplicationStatic.createNewReleaseNotificationChannel(appContext, false);
 
             NotificationCompat.Builder mBuilder;
             Intent _intent;

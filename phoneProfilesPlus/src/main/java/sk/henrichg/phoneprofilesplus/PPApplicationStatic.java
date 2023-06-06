@@ -343,7 +343,7 @@ class PPApplicationStatic {
                     if (!text.isEmpty()) {
                         text = appContext.getString(R.string.profile_activation_activation_error) + ": " + text + ".";
 
-                        PPApplicationStatic.createExclamationNotificationChannel(appContext);
+                        PPApplicationStatic.createExclamationNotificationChannel(appContext, false);
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                                 .setColor(ContextCompat.getColor(appContext, R.color.error_color))
                                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
@@ -1218,11 +1218,11 @@ class PPApplicationStatic {
 
     // notification channels -------------------------
 
-    static void createPPPAppNotificationChannel(/*Profile profile, */Context context) {
+    static void createPPPAppNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.PROFILE_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.PROFILE_NOTIFICATION_CHANNEL) != null))
                     return;// true;
 
                 // The user-visible name of the channel.
@@ -1263,11 +1263,11 @@ class PPApplicationStatic {
             recordException(e);
         }
     }
-    static void createMobileCellsRegistrationNotificationChannel(Context context) {
+    static void createMobileCellsRegistrationNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL_SILENT) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1294,11 +1294,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createInformationNotificationChannel(Context context) {
+    static void createInformationNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.INFORMATION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.INFORMATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1325,11 +1325,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createExclamationNotificationChannel(Context context) {
+    static void createExclamationNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1354,11 +1354,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createGrantPermissionNotificationChannel(Context context) {
+    static void createGrantPermissionNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1386,11 +1386,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createNotifyEventStartNotificationChannel(Context context) {
+    static void createNotifyEventStartNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1417,11 +1417,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createMobileCellsNewCellNotificationChannel(Context context) {
+    static void createMobileCellsNewCellNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1449,17 +1449,17 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createDonationNotificationChannel(Context context) {
+    static void createDonationNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.DONATION_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.DONATION_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_donation);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
+                String description = context.getString(R.string.notification_channel_donation_description);
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1480,11 +1480,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createNewReleaseNotificationChannel(Context context) {
+    static void createNewReleaseNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1511,42 +1511,11 @@ class PPApplicationStatic {
         //}
     }
 
-    /*
-    static void createCrashReportNotificationChannel(Context context) {
+    static void createGeneratedByProfileNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL) != null)
-                    return;
-
-                // The user-visible name of the channel.
-                CharSequence name = context.getString(R.string.notification_channel_crash_report);
-                // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
-
-                NotificationChannel channel = new NotificationChannel(CRASH_REPORT_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
-
-                // Configure the notification channel.
-                channel.setDescription(description);
-                channel.enableLights(true);
-                channel.enableVibration(true);
-                //channel.setSound(null, null);
-                channel.setShowBadge(true);
-                channel.setBypassDnd(true);
-
-                notificationManager.createNotificationChannel(channel);
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-        //}
-    }
-    */
-
-    static void createGeneratedByProfileNotificationChannel(Context context) {
-        //if (Build.VERSION.SDK_INT >= 26) {
-            try {
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1573,11 +1542,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createKeepScreenOnNotificationChannel(Context context) {
+    static void createKeepScreenOnNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1606,11 +1575,11 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createProfileListNotificationChannel(Context context) {
+    static void createProfileListNotificationChannel(Context context, boolean forceChange) {
         //if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL) != null)
+                if ((!forceChange) && (notificationManager.getNotificationChannel(PPApplication.PROFILE_LIST_NOTIFICATION_CHANNEL) != null))
                     return;
 
                 // The user-visible name of the channel.
@@ -1639,20 +1608,21 @@ class PPApplicationStatic {
         //}
     }
 
-    static void createNotificationChannels(Context appContext) {
-        createDonationNotificationChannel(appContext);
-        createExclamationNotificationChannel(appContext);
-        createGeneratedByProfileNotificationChannel(appContext);
-        createGrantPermissionNotificationChannel(appContext);
-        createInformationNotificationChannel(appContext);
-        createKeepScreenOnNotificationChannel(appContext);
-        createMobileCellsNewCellNotificationChannel(appContext);
-        createMobileCellsRegistrationNotificationChannel(appContext);
+    static void createNotificationChannels(Context appContext,
+                                           @SuppressWarnings("SameParameterValue") boolean forceChange) {
+        createDonationNotificationChannel(appContext, forceChange);
+        createExclamationNotificationChannel(appContext, forceChange);
+        createGeneratedByProfileNotificationChannel(appContext, forceChange);
+        createGrantPermissionNotificationChannel(appContext, forceChange);
+        createInformationNotificationChannel(appContext, forceChange);
+        createKeepScreenOnNotificationChannel(appContext, forceChange);
+        createMobileCellsNewCellNotificationChannel(appContext, forceChange);
+        createMobileCellsRegistrationNotificationChannel(appContext, forceChange);
         deleteOldMobileCellsRegistrationNotificationChannel(appContext);
-        createNewReleaseNotificationChannel(appContext);
-        createNotifyEventStartNotificationChannel(appContext);
-        createPPPAppNotificationChannel(appContext);
-        createProfileListNotificationChannel(appContext);
+        createNewReleaseNotificationChannel(appContext, forceChange);
+        createNotifyEventStartNotificationChannel(appContext, forceChange);
+        createPPPAppNotificationChannel(appContext, forceChange);
+        createProfileListNotificationChannel(appContext, forceChange);
 
         //createCrashReportNotificationChannel(appContext);
     }

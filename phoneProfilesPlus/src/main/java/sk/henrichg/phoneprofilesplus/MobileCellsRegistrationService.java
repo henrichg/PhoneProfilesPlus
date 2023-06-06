@@ -53,7 +53,7 @@ public class MobileCellsRegistrationService extends Service
 
         context = this;
 
-        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(getApplicationContext(), false);
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
     }
@@ -84,7 +84,7 @@ public class MobileCellsRegistrationService extends Service
                 context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
             }
 
-            PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+            PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(getApplicationContext(), false);
 
             countDownTimer = new CountDownTimer(remainingDuration * 1000L, 1000) {
 
@@ -235,7 +235,7 @@ public class MobileCellsRegistrationService extends Service
     }
 
     private void stopRegistration() {
-        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(this);
+        PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(getApplicationContext(), false);
         showNotification(0);
         GlobalUtils.sleep(500);
 
@@ -260,7 +260,7 @@ public class MobileCellsRegistrationService extends Service
 //            text = text+" ("+getString(R.string.ppp_app_name)+")";
 //        }
 
-        PPApplicationStatic.createInformationNotificationChannel(this);
+        PPApplicationStatic.createInformationNotificationChannel(getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.information_color))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon

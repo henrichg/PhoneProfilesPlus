@@ -2931,7 +2931,7 @@ class Event {
 //                    nTitle = context.getString(R.string.ppp_app_name);
 //                    nText = context.getString(R.string.start_event_notification_title) + ": " + nText;
 //                }
-                PPApplicationStatic.createNotifyEventStartNotificationChannel(context);
+                PPApplicationStatic.createNotifyEventStartNotificationChannel(context.getApplicationContext(), false);
                 mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.information_color))
                         .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon

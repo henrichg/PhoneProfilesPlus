@@ -496,7 +496,7 @@ class LocationScanner
     private void showNotification() {
         String nText = context.getString(R.string.location_scanner_location_not_working_notification_text);
 
-        PPApplicationStatic.createExclamationNotificationChannel(context);
+        PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
                 .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon

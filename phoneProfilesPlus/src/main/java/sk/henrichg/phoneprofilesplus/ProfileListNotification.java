@@ -118,7 +118,7 @@ public class ProfileListNotification {
             return;
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "call of createProfileListNotificationChannel()");
-        PPApplicationStatic.createProfileListNotificationChannel(appContext);
+        PPApplicationStatic.createProfileListNotificationChannel(appContext, false);
 
         NotificationCompat.Builder notificationBuilder;
 

@@ -672,7 +672,7 @@ class MobileCellsListener extends PhoneStateListener {
 
                     // show notification about new cell non-configured in events
 
-                    PPApplicationStatic.createMobileCellsNewCellNotificationChannel(context);
+                    PPApplicationStatic.createMobileCellsNewCellNotificationChannel(context.getApplicationContext(), false);
 
                     boolean isShown = false;
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

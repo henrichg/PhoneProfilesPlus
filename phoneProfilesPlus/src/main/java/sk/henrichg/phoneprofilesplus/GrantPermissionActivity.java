@@ -861,7 +861,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             String notificationTag;
             NotificationCompat.Builder mBuilder;
 
-            PPApplicationStatic.createGrantPermissionNotificationChannel(context);
+            PPApplicationStatic.createGrantPermissionNotificationChannel(context, false);
 
             Intent intent = new Intent(context, GrantPermissionActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
