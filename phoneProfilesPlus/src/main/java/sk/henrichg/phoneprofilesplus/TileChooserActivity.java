@@ -18,7 +18,7 @@ public class TileChooserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, true, false, false, false, true, false, false);
+        GlobalGUIRoutines.setTheme(this, true, false, false, true, false, false);
 
         super.onCreate(savedInstanceState);
 

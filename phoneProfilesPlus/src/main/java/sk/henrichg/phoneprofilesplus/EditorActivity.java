@@ -244,7 +244,7 @@ public class EditorActivity extends AppCompatActivity
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, true, true, false, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, true, false, false, false, false);
 
         super.onCreate(savedInstanceState);
 //        Log.e("EditorActivity.onCreate", "xxxx");

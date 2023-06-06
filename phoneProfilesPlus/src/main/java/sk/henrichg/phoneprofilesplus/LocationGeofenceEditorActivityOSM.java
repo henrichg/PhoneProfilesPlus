@@ -117,7 +117,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true, false);
+        GlobalGUIRoutines.setTheme(this, false, false, false, false, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);

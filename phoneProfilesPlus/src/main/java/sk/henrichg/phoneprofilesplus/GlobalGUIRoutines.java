@@ -104,11 +104,11 @@ class GlobalGUIRoutines {
 
     static void setTheme(Activity activity, boolean forPopup,
                                 boolean withToolbar,
-                                boolean forEditor, boolean forActivator, boolean forDialog,
+                                /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
                                 boolean forLocationEditor, boolean forPreference)
     {
         int theme = getTheme(forPopup, withToolbar,
-                forEditor, forActivator,
+                /*forEditor,*/ forActivator,
                 forDialog, forLocationEditor, forPreference,
                 activity);
         if (theme != 0)
@@ -116,7 +116,7 @@ class GlobalGUIRoutines {
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar,
-                        boolean forEditor, boolean forActivator, boolean forDialog,
+                        /*boolean forEditor,*/ boolean forActivator, boolean forDialog,
                         boolean forLocationEditor, boolean forPreferences,
                         Context context) {
         // !!! this must be called

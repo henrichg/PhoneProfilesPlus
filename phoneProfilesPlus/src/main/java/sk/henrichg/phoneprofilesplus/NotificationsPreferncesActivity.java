@@ -29,7 +29,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
         super.onStart();
 
         if (activityStarted) {
-            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false, false);
+            GlobalGUIRoutines.setTheme(this, true, true, false, false, false, false);
 
             SingleSelectListDialog dialog = new SingleSelectListDialog(
                     false,
