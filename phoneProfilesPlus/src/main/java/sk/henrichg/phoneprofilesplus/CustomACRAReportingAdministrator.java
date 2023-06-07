@@ -5,6 +5,7 @@ import android.app.RemoteServiceException;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.DeadSystemException;
+import android.os.DeadSystemRuntimeException;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
@@ -143,7 +144,8 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 return false;
         }
 
-        if (_exception instanceof DeadSystemException) {
+        if ((_exception instanceof DeadSystemException) ||
+                (_exception instanceof DeadSystemRuntimeException)){
 //            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
             return false;
         }
