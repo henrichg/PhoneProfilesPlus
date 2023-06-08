@@ -2084,6 +2084,8 @@
 
     <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
 
+    <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

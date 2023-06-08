@@ -2,9 +2,12 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -21,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +53,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
     private SharedPreferences applicationPreferences;
+
+    ShortcutAddedReceiver shortcutAddedReceiver;
 
     //boolean scrollToSet = false;
     private boolean nestedFragment = false;
@@ -100,6 +106,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOTIFICATION_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsProfileList";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
+
+    private static final String ACTION_SHORTCUT_TO_EDITOR_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_EDITOR_ADDED";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -739,8 +747,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference15.getTitle(),
                                 getString(R.string.setting_screen_not_found_alert),
                                 getString(android.R.string.ok),
-                                null,
                                 null, null,
+                                null,
                                 null,
                                 null,
                                 null,
@@ -2027,6 +2035,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             Context appContext = getActivity().getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
+
+                if (shortcutAddedReceiver == null) {
+                    shortcutAddedReceiver = new ShortcutAddedReceiver();
+                    IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
+                    getActivity().registerReceiver(shortcutAddedReceiver, shortcutAddedFilter);
+                }
+
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
@@ -2038,8 +2053,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!exists) {
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
-                        Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "click to applicationCreateEditorShortcut");
-
                         Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
                         shortcutIntent.setAction(Intent.ACTION_MAIN);
                         shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -2051,8 +2064,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         shortcutBuilderCompat.setIcon(IconCompat.createWithResource(appContext, R.mipmap.ic_editor));
 
                         try {
+                            Intent pinnedShortcutCallbackIntent = new Intent(ACTION_SHORTCUT_TO_EDITOR_ADDED);
+                            PendingIntent successCallback = PendingIntent.getBroadcast(appContext, 10, pinnedShortcutCallbackIntent,  0);
+
                             ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
-                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, null);
+                            ShortcutManagerCompat.requestPinShortcut(appContext, shortcutInfo, successCallback.getIntentSender());
                             //fragment.getActivity().setResult(Activity.RESULT_OK, intent);
                         } catch (Exception e) {
                             // show dialog about this crash
@@ -2138,6 +2154,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onDestroy()
     {
         super.onDestroy();
+
+        if (shortcutAddedReceiver != null) {
+            if (getActivity() != null)
+                getActivity().unregisterReceiver(shortcutAddedReceiver);
+            shortcutAddedReceiver = null;
+        }
 
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
@@ -4622,4 +4644,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             return preferenceValue;
     }
 
+    private static class ShortcutAddedReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            PPApplication.showToast(context.getApplicationContext(),
+                    context.getString(R.string.shortcut_to_editor_created_toast), Toast.LENGTH_SHORT);
+        }
+    }
 }
