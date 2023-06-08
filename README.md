@@ -12,7 +12,7 @@ PhoneProfilesPlus (aka PPP)
 ### Sources of PhoneProfilesPlus:
 
 - __[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
-- [Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)
+&nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
 
 Use keyword "PhoneProfilesPlus" for search this application in these stores:
 
