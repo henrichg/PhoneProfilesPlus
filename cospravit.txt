@@ -761,114 +761,33 @@ HOTOVO
 
 -------------------
 
-Otvorenie Editora - otvori profily:
-- EditorProfileListFragment.onAttach
-- EditorProfileListFragment.onCreate
-- EditorProfileListFragment.onCreateView
-- EditorProfileListFragment.onViewCreated
+Android 14 beta 3:
+Uz nejde nainstalovat PPPPutSettings. Ani z PC. Pici, kua aj s Google!!!!
 
+adb install ./PPPPutSettings_1.0.5.apk
+Performing Streamed Install
+adb: failed to install ./PPPPutSettings_1.0.5.apk: Failure [INSTALL_FAILED_DEPRECATED_SDK_VERSION:
+App package must target at least SDK version 23, but found 22]
 
-Prepnutie na udalosti:
-1. Vytvori fragment udalosti:
-- EditorEventListFragment.onAttach
-- EditorEventListFragment.onCreate
-- EditorEventListFragment.onCreateView
-- EditorEventListFragment.onViewCreated
-2. Zmaze fragment profilov:
-- EditorProfileListFragment.onDestroy
-- EditorProfileListFragment.onDetach
-
-Spat na profily:
-1. Vytvori fragment profilov:
-- EditorProfileListFragment.onAttach
-- EditorProfileListFragment.onCreate
-- EditorProfileListFragment.onCreateView
-- EditorProfileListFragment.onViewCreated
-2. Zmaze fragment udalosti:
-- EditorEventListFragment.onDestroy
-- EditorEventListFragment.onDetach
-
-Cize to vypada, ze prepinanie funguje ako potrebujem. Pekne zmaze ak activityDataWrapper.
-
-Zavretie Editora cez swipe gesturu:
-- EditorProfileListFragment.onDestroy
-- EditorProfileListFragment.onDetach
-
-Cize to vypada, ze zavretie editora cez swipe funguje ako potrebujem. Pekne zmaze ak activityDataWrapper.
-
-!!!
-Zavretie Editora cez home tlacitko:
-- Nezavola sa vobec nic, cize activityDataWrapper zostava v pamati. Dokonca cely fragment.
-  Netusim, ci toto tak ma byt, ci to Android tak zamysla, ze ide len o schovanie aktivity a ze teda ma zostat zachovana. Asi ano.
-!!!
-
-Znovuotvorenie Editora z ikony shortcutu na Editor - po schovani tl. Home:
-Neudeje sa nic, cize co je v pamati, to sa pouzije, nedochadza k duplikacii alokovania.
-
-Znovuotvorenie Editora z Recents - po schovani tl. Home:
-Neudeje sa nic, cize co je v pamati, to sa pouzije, nedochadza k duplikacii alokovania.
-
-Znovuotvorenie Editora z Recents - po back gesture:
-Vytvori sa Editor nanovo, cize ako sa ma, kedze back gestura ho zmazala.
-- EditorProfileListFragment.onAttach
-- EditorProfileListFragment.onCreate
-- EditorProfileListFragment.onCreateView
-- EditorProfileListFragment.onViewCreated
+Nejde ani debug verzia.
+adb install ./PPPPutSettings-debug.apk
+Performing Streamed Install
+adb: failed to install ./PPPPutSettings-debug.apk: Failure [INSTALL_FAILED_DEPRECATED_SDK_VERSION:
+App package must target at least SDK version 23, but found 22]
 
 ---
+HURA!!!
+Ide z PC, ale treba tento prikaz pouzit:
+adb install --bypass-low-target-sdk-block ./PPPPutSettings.apk
+A moze byt aj release verzia.
 
-A teraz, co sa stane, ked zobrazim a ukoncim preference:
-Ked otvorim parametre profilu, nic sa vo fragmente neszavola, cize activityDataWrapper a cely fragment aj s datami by mali byt alokovane.
-Ked zavriem paramaetr profilu, je to to iste.
-Takze ak nenechavaju parametre profilu daco v pmamati, tak neviem.
+Vid:
+https://developer.android.com/about/versions/14/behavior-changes-all#minimum-target-api-level
 
-Vytvorenie proofile preferences:
-- ProfilesPrefsFragment.onCreate
-- ProfilesPrefsFragment.onActivityCreated
-- ProfilesPrefsFragment.onResume
-
-Zatvorenie profile preferences - back gestura
-- ProfilesPrefsFragment.onDestoy
-
-Otvorenie Screen preference:
-Vytvori dalsi fragment - nested, cize uz su v pamati 2 fragmenty
-- ProfilesPrefsFragment.onCreate
-- ProfilesPrefsFragment.onActivityCreated
-- ProfilesPrefsFragment.onResume
-
-Zatvorenie Screen preference:
-Zavrie nested fragment:
-- ProfilesPrefsFragment.onDestoy
-
-Zmena parametra a staceni Save:
-Zavrie oba fragmenty.
-- ProfilesPrefsFragment.onDestoy
-- ProfilesPrefsFragment.onDestoy
-
-Aj toto vypada, ze funguje ako ma.
-
+Takze zatial to vypada, ze PPPPutSettings sa bude dat nainstalovat len z PC.
+Urcite ale pesie ako nutbost mat root. Proste to bude ako G1 v PPP.
 ---
 
-Prehod inde, mimo tento class, aby nezostal v pamati:
-ProfilesPrefsFragment.isRedTextNotificationRequired() - do ProfileStatic
-EventsPrefsFragment..isRedTextNotificationRequired() - do EventStatic
-HOTOVO
+Uvidime, ci to pojde v dalsej bete.
 
----
-
-staticke premenne:
-boolean EditorActivity.savedInstanceStateChanged
--> to je na to, ked sa zavola onDestroy pri zmene orientacie, aby sa applicationcache nezmazala
-boolena EditorActivity.doImport
--> to je na to, aby sa nerobil refresh gui pocas importu dat (restore settings)
-
-Obe su boolean.
-Su volane len v EditorActivity. Takze by nemali drzat Editor v pamamti.
-
-
-Takze co zerie pamat, ze GC ju neuvolni?
-Kua fix!
-
-
-
-
+-------------------
