@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Редактор</string>
     <string name="menu_settings">Налаштування</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -150,7 +151,6 @@
     <string name="array_pref_no_run">Не запускати</string>
     <string name="array_pref_run">Запустити</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Показувати індикатор налаштувань</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Запуск з домашнього екрана</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Запуск з віджета</string>
     <string name="phone_profiles_pref_notificationLauncher">Запуск зі сповіщення</string>
     <string name="array_pref_launcher_activator">Активатор</string>
@@ -1465,8 +1465,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Тип мобільної мережі для SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Тип мобільної мережі для SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED аксесуари</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Інтернет через SIM 1</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Інтернет через SIM 2</string>
     <string name="array_pref_radioSwitch_connected">З\'єднано</string>
     <string name="array_pref_radioSwitch_disconnected">Від’єднано</string>
     <string name="event_preference_sensor_radioSwitch_summary">Цей датчик призначено для запуску події перемиканням радіомодулів (увімк./вимкн.) та їх станом (з\'єднано/від\'єднано). Параметри: Wi-Fi, Bluetooth, Мобільний інтернет, GPS, NFC, режим польоту.</string>
@@ -1825,8 +1823,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Компактний</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Нормальний</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Великий</string>
-    <string name="autostart_permission_notification_title">Налаштування дозволу на автозапуск</string>
-    <string name="autostart_permission_notification_text">Натисніть тут, щоб увімкнути автозапуск для PhoneProfilesPlus. Це потрібно для запуску застосунку під час завантаження пристрою.</string>
     <string name="profile_preferences_applicationEnableScanning">Увімкнути сканування</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Увімкнути сканування Wi-Fi</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Увімкнути сканування Bluetooth</string>
@@ -1974,7 +1970,7 @@
     <string name="preference_not_allowed_reason_not_installed_ppps">не встановлено PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Початковий код - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) LED Сповіщення</string>
-    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Завжди на екрані</string>
+    <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Завжди на екрані</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Налаштування панелі Samsung edge</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Компактна сітка</string>
@@ -2061,4 +2057,14 @@
     <string name="altype_profileError_wifi">профіль - помилка при налаштуванні Wi-Fi</string>
     <string name="altype_profileError_wifiAP">профіль - помилка при налаштуванні точки доступу Wi-Fi</string>
     <string name="altype_profileError_closeAllApplications">профіль - помилка закриття всіх додатків</string>
+    <string name="phone_profiles_pref_createEditorShortcut">Ярлик редактора</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Натисніть, щоб створити ярлик редактора</string>
+    <string name="editor_launcher_label">Редактор</string>
+    <string name="important_info_shortcut_to_editor_text1">Ярлик редактора</string>
+    <string name="important_info_shortcut_to_editor_text2">\"Інтерфейс застосунку\"/\"Запустити з домашнього екрана\" замінено на \"Ярлик редактора\". Ним створюється посилання на редактор на домашньому екрані, щоб запустити редактор напряму.</string>
+    <string name="generate_notification_pref_dialog_large_icon_chb">Show large icon</string>
+    <string name="preference_profile_generate_notification_show_large_icon">show large icon</string>
+    <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Replace with PhoneProfilesPlus icon</string>
+    <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
+    <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
 </resources>

@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Düzenleyici</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -150,7 +151,6 @@
     <string name="array_pref_no_run">Çalışmasın</string>
     <string name="array_pref_run">Çalıştır</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Ayarlar göstergesini göster</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Ana ekrandan başlat</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Widget\'tan başlat</string>
     <string name="phone_profiles_pref_notificationLauncher">Bildirimden başlat</string>
     <string name="array_pref_launcher_activator">Muharrik</string>
@@ -1465,8 +1465,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) SIM 1 için şebeke ağ türü</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) SIM 2 için şebeke ağ türü</string>
     <string name="profile_preferences_category_led_accessories">LED aksesuarları</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) SIM 1 için şebeke ağı</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) SIM 2 için şebeke ağı</string>
     <string name="array_pref_radioSwitch_connected">Bağlandı</string>
     <string name="array_pref_radioSwitch_disconnected">Bağlantı kesildi</string>
     <string name="event_preference_sensor_radioSwitch_summary">Bu Şart, Durumun radyoların (açık/kapalı) geçişi yaparken başlatılması içindir. Değerler: Wi-Fi, Bluetooth, Şebeke interneti GPS, NFC, Uçak modu.</string>
@@ -1825,8 +1823,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Küçük</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Vasat</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Büyük</string>
-    <string name="autostart_permission_notification_title">Otomatik başlatma izin ayarı</string>
-    <string name="autostart_permission_notification_text">PhoneProfilesPlus için otomatik başlatma iznini faaliyete getirmek için lütfen buraya dokunun. Cihaz açılırken başlatmak için gereklidir.</string>
     <string name="profile_preferences_applicationEnableScanning">Taramayı aç</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Wi-Fi taramasını aç</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Bluetooth taramayı aç</string>
@@ -1974,7 +1970,7 @@
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPAyarlarıYap\'ı kurulmadı</string>
     <string name="about_application_pppps_source_code">Kaynak kod - PPPAyarlarıYap:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Bildirim ışığı</string>
-    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Ekran Her Zaman Açık</string>
+    <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Ekran Her Zaman Açık</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">(S), (G1), (R), (I) ayarlarının türleri hakkında malumatı görmek için buraya dokunun.</string>
     <string name="samsung_edge_panel_settings_description">Samsung kenar paneli ayarları</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Küçük ızgara</string>
@@ -2061,4 +2057,14 @@
     <string name="altype_profileError_wifi">Tercih - Wi-Fi ayarlamada hata</string>
     <string name="altype_profileError_wifiAP">Tercih - Wi-Fi hotspot ayarlamada hata</string>
     <string name="altype_profileError_closeAllApplications">Tercih - bütün uygulamaları kapatmada hata</string>
+    <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home launcher</string>
+    <string name="editor_launcher_label">Editor</string>
+    <string name="important_info_shortcut_to_editor_text1">Shortcut to Editor</string>
+    <string name="important_info_shortcut_to_editor_text2">Parameter \"Application interface\"/\"Launch from home screen\" is replaced with \"Shortcut to Editor\". This parameter generates a shortcut to the Editor in the home launcher. This shortcut can be used to open the Editor directly.</string>
+    <string name="generate_notification_pref_dialog_large_icon_chb">Show large icon</string>
+    <string name="preference_profile_generate_notification_show_large_icon">show large icon</string>
+    <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Replace with PhoneProfilesPlus icon</string>
+    <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
+    <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
 </resources>

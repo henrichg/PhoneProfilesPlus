@@ -762,7 +762,7 @@ HOTOVO
 -------------------
 
 Android 14 beta 3:
-Uz nejde nainstalovat PPPPutSettings. Ani z PC. Pici, kua aj s Google!!!!
+Uz nejde nainstalovat PPPPutSettings.
 
 adb install ./PPPPutSettings_1.0.5.apk
 Performing Streamed Install

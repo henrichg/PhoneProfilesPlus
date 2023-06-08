@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Urejevalnik</string>
     <string name="menu_settings">Nastavitve</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -150,7 +151,6 @@
     <string name="array_pref_no_run">Ne zaženi</string>
     <string name="array_pref_run">Zaženi</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Prikaz nastavitev</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Zaženi iz domačega zaslona</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Zaženi iz widgeta</string>
     <string name="phone_profiles_pref_notificationLauncher">Zaženi iz obvestila</string>
     <string name="array_pref_launcher_activator">Aktivator</string>
@@ -1465,8 +1465,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED accessories</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile data for SIM 1</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile data for SIM 2</string>
     <string name="array_pref_radioSwitch_connected">Connected</string>
     <string name="array_pref_radioSwitch_disconnected">Disconnected</string>
     <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off) and by its connected/disconnected state. Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
@@ -1825,8 +1823,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Compact</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Normal</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Large</string>
-    <string name="autostart_permission_notification_title">Auto start permission configuration</string>
-    <string name="autostart_permission_notification_text">Please click here to enable auto start permission for PhoneProfilesPlus. It is required for starting it, when the device boots.</string>
     <string name="profile_preferences_applicationEnableScanning">Enable scanning</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Enable Wi-Fi scanning</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Enable Bluetooth scanning</string>
@@ -1974,7 +1970,7 @@
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Notification LED</string>
-    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-On display</string>
+    <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-On display</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
@@ -2061,4 +2057,14 @@
     <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
     <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
     <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
+    <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home launcher</string>
+    <string name="editor_launcher_label">Editor</string>
+    <string name="important_info_shortcut_to_editor_text1">Shortcut to Editor</string>
+    <string name="important_info_shortcut_to_editor_text2">Parameter \"Application interface\"/\"Launch from home screen\" is replaced with \"Shortcut to Editor\". This parameter generates a shortcut to the Editor in the home launcher. This shortcut can be used to open the Editor directly.</string>
+    <string name="generate_notification_pref_dialog_large_icon_chb">Show large icon</string>
+    <string name="preference_profile_generate_notification_show_large_icon">show large icon</string>
+    <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Replace with PhoneProfilesPlus icon</string>
+    <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
+    <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
 </resources>

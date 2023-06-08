@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Éditeur</string>
     <string name="menu_settings">Paramètres</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -30,7 +31,7 @@
     <string name="brightness_pref_dialog_no_change_chb">Ne pas changer</string>
     <string name="brightness_pref_dialog_automatic_chb">Automatique</string>
     <string name="volume_pref_dialog_no_change_chb">Ne pas changer</string>
-    <string name="phone_profiles_pref_category_activator">Sélection</string>
+    <string name="phone_profiles_pref_category_activator">Activateur</string>
     <string name="phone_profiles_pref_category_editor">Éditeur</string>
     <string name="phone_profiles_pref_category_gui">Interface d\'application</string>
     <string name="phone_profiles_pref_category_activation">Activation du profil</string>
@@ -133,7 +134,7 @@
     <string name="alert_button_yes">Oui</string>
     <string name="alert_button_no">Non</string>
     <string name="profile_preferences_deviceAutoRotation">Rotation d\'écran</string>
-    <string name="title_activity_activator">Sélection</string>
+    <string name="title_activity_activator">Activateur</string>
     <string name="title_activity_editor">Éditeur</string>
     <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
@@ -150,10 +151,9 @@
     <string name="array_pref_no_run">Ne fonctionne pas</string>
     <string name="array_pref_run">Exécutez</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Afficher l\'indicateur de préférences</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Lancement depuis l\'écran d\'accueil</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Lancement depuis le widget</string>
     <string name="phone_profiles_pref_notificationLauncher">Lancement depuis la notification</string>
-    <string name="array_pref_launcher_activator">Sélection</string>
+    <string name="array_pref_launcher_activator">Activateur</string>
     <string name="array_pref_launcher_editor">Éditeur</string>
     <string name="profile_preferences_deviceLocationServicePrefs">(I) Préférences d\'emplacement </string>
     <string name="event_type_battery">Batterie</string>
@@ -167,7 +167,7 @@
     <string name="event_preferences_category_eventTimeParameters">Capteur temps</string>
     <string name="event_preferences_category_eventBatteryParameters">Capteur batterie</string>
     <string name="contacts_multiselect_summary_text_selected">Sélectionné</string>
-    <string name="contacts_multiselect_summary_text_not_selected">désélectionné</string>
+    <string name="contacts_multiselect_summary_text_not_selected">Non séléctionné</string>
     <string name="event_preferences_category_eventCallParameters">Capteur appel téléphonique</string>
     <string name="event_preferences_call_contacts">Contacts</string>
     <string name="event_preferences_call_event">Événement \"Appel\"</string>
@@ -211,7 +211,7 @@
     <string name="default_event_name_low_battery">Batterie faible</string>
     <string name="default_profile_name_battery_low">Batterie faible</string>
     <string name="calendars_multiselect_summary_text_selected">Sélectionné</string>
-    <string name="calendars_multiselect_summary_text_not_selected">désélectionné</string>
+    <string name="calendars_multiselect_summary_text_not_selected">Non séléctionné</string>
     <string name="event_preferences_category_eventCalendarParameters">Capteur calendrier</string>
     <string name="event_preferences_calendar_calendars">Calendriers</string>
     <string name="event_type_calendar">Calendrier</string>
@@ -340,7 +340,7 @@
     <string name="event_preferences_duration">Durée</string>
     <string name="pref_event_duration">Durée</string>
     <string name="applications_multiselect_summary_text_selected">Sélectionné</string>
-    <string name="applications_multiselect_summary_text_not_selected">Non sélectionné</string>
+    <string name="applications_multiselect_summary_text_not_selected">Aucune sélection</string>
     <string name="event_type_notifications">Notifications</string>
     <string name="event_preferences_category_eventNotificationsParameters">Capteur notification</string>
     <string name="event_preferences_notifications_applications">Applications</string>
@@ -361,7 +361,7 @@
     <string name="toast_permissions_granted">Les permissions sont déjà octroyées</string>
     <string name="toast_permissions_not_granted">Les autorisations ne sont pas accordées</string>
     <string name="permissions_for_wallpaper_text1">La sélection de fond d\'écran nécessite certaines autorisations.</string>
-    <string name="permissions_for_wallpaper_text2">S\'il vous plaît leur validez les boîtes de dialogues qui suivent. Vous pourrez alors sélectionner un fond d\'écran de la Galerie.</string>
+    <string name="permissions_for_wallpaper_text2">Veuillez les accorder dans la boîte de dialogue suivante. Vous pourrez ensuite sélectionner un fond d\'écran dans la galerie.</string>
     <string name="permissions_for_custom_profile_icon_text1">Sélectionner l\'icône de profil personnalisé requiert certaines autorisations.</string>
     <string name="permissions_for_custom_profile_icon_text2">S\'il vous plaît leur validez les boîtes de dialogue suivantes. Ensuite vous pourrez choisir l\'icône dans la Galerie.</string>
     <string name="permissions_for_export_app_data_text1">Sauvegarder les paramètres de l’application nécessite certaines autorisations.</string>
@@ -436,7 +436,7 @@
     <string name="event_type_locations">Emplacement</string>
     <string name="event_preferences_category_eventLocationsParameters">Capteur emplacement</string>
     <string name="event_preferences_locations_location">Emplacement</string>
-    <string name="event_preferences_locations_location_not_selected">Non sélectionné</string>
+    <string name="event_preferences_locations_location_not_selected">Aucune sélection</string>
     <string name="event_preferences_locations_cant_delete_location_title">Effacer l\'emplacement</string>
     <string name="event_preferences_locations_cant_delete_location_text">Impossible de supprimer, la localisation est utilisé dans un évènement.</string>
     <string name="location_editor_title">Éditeur de localisation</string>
@@ -1465,8 +1465,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Type de réseau mobile pour la carte SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Type de réseau mobile pour la carte SIM 2</string>
     <string name="profile_preferences_category_led_accessories">Accessoires LED</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Données mobiles pour SIM 1</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Données mobiles pour SIM 2</string>
     <string name="array_pref_radioSwitch_connected">Connecté</string>
     <string name="array_pref_radioSwitch_disconnected">Déconnecté</string>
     <string name="event_preference_sensor_radioSwitch_summary">Ce capteur va démarrer un événement en basculant les radios (allumé/éteint) et donc en changeant leur état, connecté ou déconnecté. Paramètres : Wi-Fi, Bluetooth, données mobiles, GPS, NFC, mode avion.</string>
@@ -1825,8 +1823,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Compact</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Normale</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Gros</string>
-    <string name="autostart_permission_notification_title">Configuration de l\'autorisation de démarrage automatique</string>
-    <string name="autostart_permission_notification_text">Veuillez cliquer ici pour activer l\'autorisation de démarrage automatique pour PhoneProfilesPlus. Elle est nécessaire pour lancer l\'application lorsque l\'appareil démarre.</string>
     <string name="profile_preferences_applicationEnableScanning">Activer l\'analyse</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Activer l\'analyse Wi-Fi</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Activer l\'analyse Bluetooth</string>
@@ -1921,10 +1917,10 @@
     <string name="preference_not_allowed_reason_not_two_sim_cards">il n\'y a pas deux cartes SIM d\'insérées</string>
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOff">Couleur d\'arrière-plan - Mode sombre désactivé</string>
     <string name="phone_profiles_pref_applicationWidgetColorBNightModeOn">Couleur d\'arrière-plan - Mode sombre activé</string>
-    <string name="phone_profiles_pref_applicationTheme_nightMode">Pour le mode sombre</string>
-    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Changer les couleurs pour le mode sombre</string>
-    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Si activé, les couleurs du widget seront définies pour le mode sombre du système (comme dans le lanceur de Pixels)</string>
-    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">Si activé, les couleurs du widget seront définies pour le mode sombre du système.</string>
+    <string name="phone_profiles_pref_applicationTheme_nightMode">Par mode sombre</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Changer les couleurs en mode sombre</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Si activé, les couleurs du widget seront définies par le mode sombre du système (comme dans le lanceur Pixel)</string>
+    <string name="phone_profiles_pref_applicationSamsungEdgeChangeColorsByNightMode_summary">Si activé, les couleurs du widget seront définies par le mode sombre du système.</string>
     <string name="profile_preferences_deviceVPN">VPN</string>
     <string name="vpn_profile_pref_dlg_application_name_label">Application VPN :</string>
     <string name="vpn_profile_pref_dlg_enable_vpn">Activer le VPN</string>
@@ -1974,7 +1970,7 @@
     <string name="preference_not_allowed_reason_not_installed_ppps">PPPPutSettings n\'est pas installé</string>
     <string name="about_application_pppps_source_code">Code source - PPPPutSettings :</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) LED de notification</string>
-    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Affichage permanent</string>
+    <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Affichage permanent</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Cliquez ici pour afficher des informations sur les types de préférences: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Paramètres du panneau de bord Samsung</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Grille compacte</string>
@@ -2061,4 +2057,14 @@
     <string name="altype_profileError_wifi">profil - erreur lors de la configuration du Wi-Fi</string>
     <string name="altype_profileError_wifiAP">profil - erreur lors de la configuration du point d\'accès Wi-Fi</string>
     <string name="altype_profileError_closeAllApplications">profil - erreur lors de la fermeture de toutes les applications</string>
+    <string name="phone_profiles_pref_createEditorShortcut">Raccourci vers l\'éditeur</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Cliquez ici pour créer un raccourci vers l\'éditeur dans le lanceur d\'applications</string>
+    <string name="editor_launcher_label">Éditeur</string>
+    <string name="important_info_shortcut_to_editor_text1">Raccourci vers l\'éditeur</string>
+    <string name="important_info_shortcut_to_editor_text2">Le paramètre \"Interface de l\'application\"/\"Lancer depuis l\'écran d\'accueil\" est remplacé par \"Raccourci vers l\'éditeur\". Ce paramètre génère un raccourci vers l\'éditeur dans le lanceur d\'accueil. Ce raccourci peut être utilisé pour ouvrir directement l\'Éditeur.</string>
+    <string name="generate_notification_pref_dialog_large_icon_chb">Show large icon</string>
+    <string name="preference_profile_generate_notification_show_large_icon">show large icon</string>
+    <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Replace with PhoneProfilesPlus icon</string>
+    <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
+    <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
 </resources>

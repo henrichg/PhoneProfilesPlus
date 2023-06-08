@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">Editor</string>
     <string name="menu_settings">Nastavenia</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -150,7 +151,6 @@
     <string name="array_pref_no_run">Nespúšťať</string>
     <string name="array_pref_run">Spúšťať</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">Zobraziť Indikátor parametrov</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">Spustiť z domácej obrazovky</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">Spustiť z miniaplikácie</string>
     <string name="phone_profiles_pref_notificationLauncher">Spustiť z notifikácií</string>
     <string name="array_pref_launcher_activator">Aktivátor</string>
@@ -1465,8 +1465,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Typ mobilnej siete pre SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Typ mobilnej siete pre SIM 2</string>
     <string name="profile_preferences_category_led_accessories">LED príslušenstvo</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobilné dáta pre SIM 1</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobilné dáta pre SIM 2</string>
     <string name="array_pref_radioSwitch_connected">Pripojené</string>
     <string name="array_pref_radioSwitch_disconnected">Odpojené</string>
     <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pre štart udalosti podľa prepínania rádií (zapnúť/vypnúť) a podľa ich stavu pripojené/odpojené. Parametre: Wi-Fi, Bluetooth, Mobilné dáta, GPS, NFC, Režim lietadlo.</string>
@@ -1825,8 +1823,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">Kompaktná</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">Normálna</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">Veľká</string>
-    <string name="autostart_permission_notification_title">Konfigurácia povolenia automatického spustenie</string>
-    <string name="autostart_permission_notification_text">Kliknutím sem povolíte automatické spustenie pre PhoneProfilesPlus. Vyžaduje sa na jeho spustenie pri štarte zariadenia.</string>
     <string name="profile_preferences_applicationEnableScanning">Povoliť skenovanie</string>
     <string name="profile_preferences_applicationEnableWifiScanning">Povoliť skenovanie Wi-Fi</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">Povoliť skenovanie Bluetooth</string>
@@ -1974,7 +1970,7 @@
     <string name="preference_not_allowed_reason_not_installed_ppps">nie je nainštalované PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Zdrojový kód - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) Notifikačná dióda</string>
-    <string name="profile_preferences_alwaysOnDisplay">(S)(R) Always-on displej</string>
+    <string name="profile_preferences_alwaysOnDisplay">(G1)(R) Always-on displej</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">Kliknite sem pre zobrazenie informácií o typoch parametrov: (S), (G1), (R), (I).</string>
     <string name="samsung_edge_panel_settings_description">Nastavenia pre Samsung bočný panel</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Kompaktná mriežka</string>
@@ -2061,4 +2057,14 @@
     <string name="altype_profileError_wifi">profil - chyba pri nastavovaní Wi-Fi</string>
     <string name="altype_profileError_wifiAP">profil - chyba pri nastavovaní Wi-Fi hotspotu</string>
     <string name="altype_profileError_closeAllApplications">profil - chyba pri zatváraní všetkých aplikácií</string>
+    <string name="phone_profiles_pref_createEditorShortcut">Odkaz na Editor</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Kliknite sem na vytvorenie odkazu na Editor v domovskom spúšťači</string>
+    <string name="editor_launcher_label">Editor</string>
+    <string name="important_info_shortcut_to_editor_text1">Odkaz na Editor</string>
+    <string name="important_info_shortcut_to_editor_text2">Parameter \"Prostredie aplikácie\"/\"Spustiť z domovskej obrazovky\" je nahradený parametrom \"Odkaz na Editor\". Tento parameter generuje odkaz na Editor v domovskom spúšťači. Tento odkaz môžete použiť na priame otvorenie Editora.</string>
+    <string name="generate_notification_pref_dialog_large_icon_chb">Zobraziť veľkú ikonu</string>
+    <string name="preference_profile_generate_notification_show_large_icon">zobraziť veľkú ikonu</string>
+    <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Nahradiť ikonou PhoneProfilesPlus</string>
+    <string name="preference_profile_generate_notification_replace_with_ppp_icon">nahradiť ikonou PhoneProfilesPlus</string>
+    <string name="notification_channel_donation_description">Zobrazuje notifikáciu so žiadosťou o peňažný dar pre autora.</string>
 </resources>

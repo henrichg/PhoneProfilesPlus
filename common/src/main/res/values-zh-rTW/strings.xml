@@ -3,6 +3,7 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
+    <string name="empty_string" translatable="false"></string>
     <string name="menu_edit_profiles">編輯器</string>
     <string name="menu_settings">設置</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
@@ -150,7 +151,6 @@
     <string name="array_pref_no_run">不執行</string>
     <string name="array_pref_run">執行</string>
     <string name="phone_profiles_pref_notificationPrefIndicator">顯示偏好設定指示器</string>
-    <string name="phone_profiles_pref_applicationHomeLauncher">從主畫面中啟動</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">從部件啟動</string>
     <string name="phone_profiles_pref_notificationLauncher">從通知啟動</string>
     <string name="array_pref_launcher_activator">啟用清單</string>
@@ -1465,8 +1465,6 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) SIM 1 行動網路類型</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) SIM 2 行動網路類型</string>
     <string name="profile_preferences_category_led_accessories">LED 燈</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) SIM 1 行動數據</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) SIM 2 行動數據</string>
     <string name="array_pref_radioSwitch_connected">已連接</string>
     <string name="array_pref_radioSwitch_disconnected">已中斷</string>
     <string name="event_preference_sensor_radioSwitch_summary">此感測器將透過切換無線電(開/關) 來啟動事件，包含連接/中斷狀態。參數: Wi-Fi、藍牙、行動數據、GPS、NFC、飛航模式。</string>
@@ -1825,8 +1823,6 @@
     <string name="array_pref_oneRowWidget_layoutHeight_compact">緊湊</string>
     <string name="array_pref_oneRowWidget_layoutHeight_normal">正常</string>
     <string name="array_pref_oneRowWidget_layoutHeight_large">大</string>
-    <string name="autostart_permission_notification_title">自動啟動權限設置</string>
-    <string name="autostart_permission_notification_text">請按此處為 PhoneProfilesPlus 啟用自動啟動權限。當裝置開機時，需要啟動它。</string>
     <string name="profile_preferences_applicationEnableScanning">啟用掃描</string>
     <string name="profile_preferences_applicationEnableWifiScanning">啟用 Wi-Fi 掃描</string>
     <string name="profile_preferences_applicationEnableBluetoothScanning">啟用藍牙掃描</string>
@@ -1974,7 +1970,7 @@
     <string name="preference_not_allowed_reason_not_installed_ppps">not installed PPPPutSettings</string>
     <string name="about_application_pppps_source_code">Source code - PPPPutSettings:</string>
     <string name="profile_preferences_notificationLed_23">(S)(R) 通知閃爍</string>
-    <string name="profile_preferences_alwaysOnDisplay">(S)(R) 一律顯示</string>
+    <string name="profile_preferences_alwaysOnDisplay">(G1)(R) 一律顯示</string>
     <string name="profile_preferences_preferenceTypesInfo_summary">按此處顯示有關偏好設置類型的資訊: (S)、(G1)、(R)、(I)。</string>
     <string name="samsung_edge_panel_settings_description">Samsung edge panel settings</string>
     <string name="phone_profiles_pref_applicationCompactGrid">Compact grid</string>
@@ -2061,4 +2057,14 @@
     <string name="altype_profileError_wifi">profile - error on set Wi-Fi</string>
     <string name="altype_profileError_wifiAP">profile - error on set Wi-Fi hotspot</string>
     <string name="altype_profileError_closeAllApplications">profile - error on close all applications</string>
+    <string name="phone_profiles_pref_createEditorShortcut">Shortcut to Editor</string>
+    <string name="phone_profiles_pref_createEditorShortcut_summary">Click here, to create shortcut to Editor in home launcher</string>
+    <string name="editor_launcher_label">Editor</string>
+    <string name="important_info_shortcut_to_editor_text1">Shortcut to Editor</string>
+    <string name="important_info_shortcut_to_editor_text2">Parameter \"Application interface\"/\"Launch from home screen\" is replaced with \"Shortcut to Editor\". This parameter generates a shortcut to the Editor in the home launcher. This shortcut can be used to open the Editor directly.</string>
+    <string name="generate_notification_pref_dialog_large_icon_chb">Show large icon</string>
+    <string name="preference_profile_generate_notification_show_large_icon">show large icon</string>
+    <string name="generate_notification_pref_dialog_replace_with_ppp_icon_chb">Replace with PhoneProfilesPlus icon</string>
+    <string name="preference_profile_generate_notification_replace_with_ppp_icon">replace with PhoneProfilesPlus icon</string>
+    <string name="notification_channel_donation_description">Shows notification asking for a monetary donation to the author.</string>
 </resources>
