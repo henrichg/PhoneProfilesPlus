@@ -2036,12 +2036,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             Context appContext = getActivity().getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
 
-                if (shortcutAddedReceiver == null) {
-                    shortcutAddedReceiver = new ShortcutAddedReceiver();
-                    IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
-                    getActivity().registerReceiver(shortcutAddedReceiver, shortcutAddedFilter);
-                }
-
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
@@ -2051,6 +2045,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
                 if (!exists) {
+                    if (shortcutAddedReceiver == null) {
+                        shortcutAddedReceiver = new ShortcutAddedReceiver();
+                        IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
+                        getActivity().registerReceiver(shortcutAddedReceiver, shortcutAddedFilter);
+                    }
+
                     preference.setVisible(true);
                     preference.setOnPreferenceClickListener(preference120 -> {
                         Intent shortcutIntent = new Intent(appContext, EditorActivity.class);
