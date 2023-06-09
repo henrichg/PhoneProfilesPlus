@@ -43,7 +43,7 @@
             android:id="@+id/contacts_multiselect_pref_dlg_item_display_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/empty_string"
+            android:text=""
             android:textSize="16sp"
             android:textStyle="bold"/>
 
@@ -51,14 +51,14 @@
             android:id="@+id/contacts_multiselect_pref_dlg_item_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/empty_string"
+            android:text=""
             android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/contacts_multiselect_pref_dlg_item_account_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/empty_string"
+            android:text=""
             android:textSize="14sp"
             android:textStyle="italic"/>
 

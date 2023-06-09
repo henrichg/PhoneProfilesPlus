@@ -20,7 +20,7 @@
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:installSummary="@string/event_preferences_applications_PPPExtender_install_summary"
         app:enableExtenderSummaryDisabled="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
         app:key="eventApplicationExtender"

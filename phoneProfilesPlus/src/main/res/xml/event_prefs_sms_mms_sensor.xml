@@ -19,13 +19,13 @@
             app:layout="@layout/mp_preference_material_widget" />  -->
     <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
         app:key="eventSMSContactGroups"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_sms_contact_groups"
         app:dependency="eventSMSEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
         app:key="eventSMSContacts"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_sms_contacts"
         app:dependency="eventSMSEnabled"
         app:layout="@layout/mp_preference_material_widget"
@@ -75,7 +75,7 @@
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:installSummary="@string/event_preferences_sms_PPPExtender_install_summary"
         app:launchSummary="@string/event_preferences_sms_LaunchExtender_summary"
         app:enableExtenderSummaryDisabled="@string/event_preferences_sms_AccessibilitySettingsForExtender_summary"

@@ -7,7 +7,7 @@
     <Preference
         app:key="prf_pref_soundDualSIMSupportInfo"
         app:title="@string/profile_preferences_deviceDualSIMSupport_summary"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
@@ -94,7 +94,7 @@
 
     <sk.henrichg.phoneprofilesplus.PPPPSDialogPreference
         app:title="@string/pppps_pref_dialog_title"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:key="prf_pref_soundDualSIMSupportPPPPS"
         app:layout="@layout/mp_preference_material_widget" />
 

@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:text="@string/empty_string"
+                    android:text=""
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:ellipsize="end"

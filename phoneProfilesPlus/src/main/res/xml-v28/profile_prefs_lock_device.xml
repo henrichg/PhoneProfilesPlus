@@ -15,7 +15,7 @@
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:installSummary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
         app:enableExtenderSummaryDisabled="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
         app:enbaleExtenderPreferenceNameToTest="prf_pref_lockDevice"

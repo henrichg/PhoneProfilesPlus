@@ -233,7 +233,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:visibility="invisible"
-                android:text="@string/empty_string"
+                android:text=""
                 android:ellipsize="end"
                 android:maxLines="1"/>
 

@@ -385,7 +385,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                         }
                     }
                     else
-                        prefSummary = context.getString(R.string.empty_string);
+                        prefSummary = "";
                 }
                 else {
                     String activityName = Application.getActivityName(splits[0]);

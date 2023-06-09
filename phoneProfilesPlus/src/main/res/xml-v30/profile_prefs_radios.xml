@@ -15,7 +15,7 @@
         app:key="prf_pref_deviceAirplaneModeRadiosInfo"
         app:title="@string/profile_preferences_deviceAirplaneModeRadiosInfo"
         app:summary="@string/profile_preferences__deviceAirplaneModeRadiosInfo_summary"
-        app:infoText="@string/empty_string"
+        app:infoText=""
         app:widgetLayout="@layout/preference_widget_info_preference_clickable"
         app:layout="@layout/mp_preference_material_widget" />
 

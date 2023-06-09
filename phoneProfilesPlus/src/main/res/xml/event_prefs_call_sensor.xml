@@ -20,13 +20,13 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
         app:key="eventCallContactGroups"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_call_contact_groups"
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
         app:key="eventCallContacts"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_call_contacts"
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget"
@@ -69,7 +69,7 @@
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:installSummary="@string/event_preferences_call_PPPExtender_install_summary"
         app:launchSummary="@string/event_preferences_call_LaunchExtender_summary"
         app:enableExtenderSummaryDisabled="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"

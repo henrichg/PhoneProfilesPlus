@@ -132,9 +132,9 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
                 checkBox.setChecked(contactGroup.checked);
             }
             else {
-                textViewDisplayName.setText(context.getString(R.string.empty_string));
+                textViewDisplayName.setText("");
                 checkBox.setChecked(false);
-                textViewAccountType.setText(context.getString(R.string.empty_string));
+                textViewAccountType.setText("");
             }
         }
 

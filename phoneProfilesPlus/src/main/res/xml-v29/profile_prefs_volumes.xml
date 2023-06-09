@@ -26,7 +26,7 @@
         <Preference
             app:key="prf_pref_volumeSoundMode_info"
             app:title="@string/profile_preferences_configureSoundMode_info"
-            app:summary="@string/empty_string"
+            app:summary=""
             app:layout="@layout/mp_preference_material_widget" />
 
         <Preference

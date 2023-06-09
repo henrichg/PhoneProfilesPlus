@@ -52,13 +52,13 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
         app:key="eventNotificationContactGroups"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_notifications_contact_groups"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ContactsMultiSelectDialogPreference
         app:key="eventNotificationContacts"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_notifications_contacts"
         app:dependency="eventNotificationEnabled"
         app:layout="@layout/mp_preference_material_widget"

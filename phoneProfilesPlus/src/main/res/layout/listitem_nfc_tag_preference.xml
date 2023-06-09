@@ -59,7 +59,7 @@
                 android:id="@+id/nfc_tag_pref_dlg_item_tagName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <!--<TextView

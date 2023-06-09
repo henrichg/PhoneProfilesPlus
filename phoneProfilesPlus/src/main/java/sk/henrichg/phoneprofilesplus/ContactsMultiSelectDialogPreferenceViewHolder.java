@@ -63,7 +63,7 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
         }
         else {
             textViewPhoneNumber.setVisibility(View.GONE);
-            textViewPhoneNumber.setText(R.string.empty_string);
+            textViewPhoneNumber.setText("");
         }
 
         boolean found = false;

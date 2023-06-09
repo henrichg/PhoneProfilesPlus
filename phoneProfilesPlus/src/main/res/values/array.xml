@@ -578,12 +578,18 @@
         <item>@string/default_profile_name_battery_low</item>
     </string-array>
     <string-array name="addEventPredefinedEndProfilesArray">
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
-        <item>@string/empty_string</item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
+        <!--suppress CheckTagEmptyBody -->
+        <item></item>
         <item>@string/default_profile_name_battery_ok</item>
     </string-array>
     <string-array name="addEventPredefinedStartProfileIconsArray">

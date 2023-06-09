@@ -1304,7 +1304,7 @@ class PPApplicationStatic {
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_information);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
+                String description = "";
 
                 // !!! For OnePlus must be in IMPORTANCE_DEFAULT !!!
                 // because in IMPORTANCE_LOW is not displayed icon in status bar. By me bug in OnePlus
@@ -1335,7 +1335,7 @@ class PPApplicationStatic {
                 // The user-visible name of the channel.
                 CharSequence name = context.getString(R.string.notification_channel_exclamation);
                 // The user-visible description of the channel.
-                String description = context.getString(R.string.empty_string);
+                String description = "";
 
                 NotificationChannel channel = new NotificationChannel(PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_HIGH);
 

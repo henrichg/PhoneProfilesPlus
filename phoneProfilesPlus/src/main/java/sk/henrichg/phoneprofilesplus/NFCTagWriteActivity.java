@@ -59,7 +59,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager.onActivityCreate();
 
             writableTextView = findViewById(R.id.write_nfc_tag_writable);
-            writableTextView.setText(R.string.empty_string);
+            writableTextView.setText("");
 
             nfcManager.setOnTagReadListener(tagData -> {
 //                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagRead", "xxx");

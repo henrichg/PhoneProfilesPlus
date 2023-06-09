@@ -38,7 +38,7 @@
                 android:id="@+id/ppppsPrefDialog_pppps_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textSize="16sp" />
             <Button
                 android:id="@+id/ppppsPrefDialog_pppps_install_button"
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textSize="16sp" />
             <Button
                 android:id="@+id/ppppsPrefDialog_pppps_launch_button"

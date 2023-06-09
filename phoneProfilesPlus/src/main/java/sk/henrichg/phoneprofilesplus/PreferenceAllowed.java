@@ -69,7 +69,7 @@ class PreferenceAllowed {
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_phone_permission);
             case PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT: return context.getString(R.string.preference_not_allowed_reason_not_set_as_assistant);
             case PREFERENCE_NOT_ALLOWED_NOT_INSTALLED_PPPPS: return context.getString(R.string.preference_not_allowed_reason_not_installed_ppps);
-            default: return context.getString(R.string.empty_string);
+            default: return "";
         }
     }
 

@@ -3666,10 +3666,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
                 else
-                    preference.setSummary(R.string.empty_string);
+                    preference.setSummary("");
             }
             else
-                preference.setSummary(R.string.empty_string);
+                preference.setSummary("");
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("periodicScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
@@ -3679,10 +3679,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ApplicationPreferences.applicationEventLocationDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
                 else
-                    preference.setSummary(R.string.empty_string);
+                    preference.setSummary("");
             }
             else
-                preference.setSummary(R.string.empty_string);
+                preference.setSummary("");
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("locationScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
@@ -3692,10 +3692,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
                 else
-                    preference.setSummary(R.string.empty_string);
+                    preference.setSummary("");
             }
             else
-                preference.setSummary(R.string.empty_string);
+                preference.setSummary("");
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("wifiScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
@@ -3705,10 +3705,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
                 else
-                    preference.setSummary(R.string.empty_string);
+                    preference.setSummary("");
             }
             else
-                preference.setSummary(R.string.empty_string);
+                preference.setSummary("");
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("bluetoothScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
@@ -3717,10 +3717,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
                 else
-                    preference.setSummary(R.string.empty_string);
+                    preference.setSummary("");
             }
             else
-                preference.setSummary(R.string.empty_string);
+                preference.setSummary("");
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("mobileCellsScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
@@ -3730,10 +3730,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
                 else
-                    preference.setSummary(R.string.empty_string);
+                    preference.setSummary("");
             }
             else
-                preference.setSummary(R.string.empty_string);
+                preference.setSummary("");
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("orientationScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
@@ -3742,10 +3742,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
                     preference.setSummary(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile);
                 else
-                    preference.setSummary(R.string.empty_string);
+                    preference.setSummary("");
             }
             else
-                preference.setSummary(R.string.empty_string);
+                preference.setSummary("");
             PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("notififcationScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }

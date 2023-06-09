@@ -76,7 +76,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/run_applications_pref_dlg_item_icon"
-            android:text="@string/empty_string"
+            android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
             android:ellipsize="end"

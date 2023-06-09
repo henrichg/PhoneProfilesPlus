@@ -287,7 +287,7 @@
         <activity
             android:name=".BackgroundActivateProfileActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
@@ -300,7 +300,7 @@
         <activity
             android:name=".ActionForExternalApplicationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
             android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
@@ -317,7 +317,7 @@
         <activity
             android:name=".RestartEventsFromGUIActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -336,7 +336,7 @@
         <activity
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
@@ -346,7 +346,7 @@
         <activity
             android:name=".LaunchShortcutActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -367,7 +367,7 @@
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity"
             tools:ignore="IntentFilterExportedReceiver">
@@ -385,7 +385,7 @@
         </activity>
         <activity
             android:name=".ActivatorTargetHelpsActivity"
-            android:label="@string/empty_string"
+            android:label=""
             android:excludeFromRecents="true"
             android:theme="@style/EmptyTargetHelpsActivity">
         </activity>
@@ -399,7 +399,7 @@
         <activity
             android:name=".ExitApplicationActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -411,14 +411,14 @@
         <activity
             android:name=".NotUsedMobileCellsDetectedActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".CheckPPPReleasesActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -433,7 +433,7 @@
         <activity
             android:name=".CheckCriticalPPPReleasesDisableActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -449,7 +449,7 @@
         <activity
             android:name=".TileChooserLongClickActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:theme="@style/EmptyAppCompatActivity"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
@@ -461,14 +461,14 @@
         <activity
             android:name=".CheckRequiredExtenderReleasesActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
             android:name=".AutostartPermissionActivity"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -476,7 +476,7 @@
             android:name=".LaunchWidgetIconConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -484,7 +484,7 @@
             android:name=".LaunchWidgetOneRowConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -492,7 +492,7 @@
             android:name=".LaunchWidgetListConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
@@ -500,26 +500,26 @@
             android:name=".LaunchSamsungEdgeConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
 <!--        <activity-->
 <!--            android:name=".GrantNotificationPermissionAtFirstStartActivity"-->
 <!--            android:excludeFromRecents="true"-->
-<!--            android:label="@string/empty_string"-->
+<!--            android:label=""-->
 <!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
 <!--            android:theme="@style/EmptyAppCompatActivity">-->
 <!--        </activity>-->
         <activity
             android:name=".LogCrashActivity"
-            android:label="@string/empty_string">
+            android:label="">
         </activity>
         <activity
             android:name=".LaunchWidgetOneRowProfileListConfigurationActivity"
             android:exported="true"
             android:excludeFromRecents="true"
-            android:label="@string/empty_string"
+            android:label=""
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>

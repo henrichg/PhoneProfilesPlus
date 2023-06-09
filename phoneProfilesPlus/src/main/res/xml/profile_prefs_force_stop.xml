@@ -7,7 +7,7 @@
     <Preference
         app:key="prf_pref_forceStopApplicationsInfo"
         app:title="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
@@ -27,7 +27,7 @@
 
     <sk.henrichg.phoneprofilesplus.ExtenderDialogPreference
         app:title="@string/pppextender_pref_dialog_title"
-        app:summary="@string/empty_string"
+        app:summary=""
         app:installSummary="@string/profile_preferences_deviceForceStopApplications_PPPExtender_install_summary"
         app:enableExtenderSummaryDisabled="@string/profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary"
         app:key="prf_pref_deviceForceStopApplicationExtender"

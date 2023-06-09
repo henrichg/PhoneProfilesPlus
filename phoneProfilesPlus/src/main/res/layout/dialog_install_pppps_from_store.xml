@@ -38,7 +38,7 @@
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="22dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textSize="16sp"
                 android:scrollbars="vertical" />
 
@@ -62,7 +62,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="22dp"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textSize="16sp" />
 
         </LinearLayout>

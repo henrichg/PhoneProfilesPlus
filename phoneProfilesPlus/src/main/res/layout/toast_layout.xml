@@ -24,6 +24,6 @@
         android:layout_marginEnd="5dp"
         android:textSize="14sp"
         android:textColor="@color/toastTextColor"
-        android:text="@string/empty_string" />
+        android:text="" />
 
 </LinearLayout>

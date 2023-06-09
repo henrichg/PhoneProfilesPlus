@@ -200,7 +200,7 @@ class ActivatorListAdapter extends BaseAdapter
 
         if ((applicationActivatorGridLayout) &&
                 (profile._porder == ActivatorListFragment.PORDER_FOR_EMPTY_SPACE)) {
-            holder.profileName.setText(R.string.empty_string);
+            holder.profileName.setText("");
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
         }
         else {

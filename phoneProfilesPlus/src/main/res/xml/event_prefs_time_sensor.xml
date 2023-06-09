@@ -11,7 +11,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.DaysOfWeekPreference
         app:key="eventTimeDays"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_time_timeDays"
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />

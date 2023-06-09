@@ -11,7 +11,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.CalendarsMultiSelectDialogPreference
         app:key="eventCalendarCalendars"
-        app:defaultValue="@string/empty_string"
+        app:defaultValue=""
         app:title="@string/event_preferences_calendar_calendars"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />

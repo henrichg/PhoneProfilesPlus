@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_gravity="center_vertical"
-                android:text="@string/empty_string"
+                android:text=""
                 android:textSize="16sp"
                 android:ellipsize="end"
                 android:maxLines="1"/>

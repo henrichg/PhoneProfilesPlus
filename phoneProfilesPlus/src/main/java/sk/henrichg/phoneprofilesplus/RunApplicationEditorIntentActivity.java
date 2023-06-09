@@ -167,7 +167,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentActionSpinner.getAdapter()).setSelection(position);
 
                 if (position == 0) {
-                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
                 }
                 else
@@ -175,7 +175,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     intentActionEdit.setEnabled(true);
                 }
                 else {
-                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setText("");
                     intentActionEdit.setEnabled(false);
                 }
             }
@@ -409,7 +409,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
 
             if ((ppIntent._action == null) || ppIntent._action.isEmpty()) {
                 intentActionSpinner.setSelection(0);
-                intentActionEdit.setText(R.string.empty_string);
+                intentActionEdit.setText("");
             } else {
                 boolean custom = true;
                 for (String action : actionsArray) {
@@ -426,7 +426,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                     if (position == -1)
                         position = 0;
                     intentActionSpinner.setSelection(position);
-                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setText("");
                 }
             }
             intentActionEdit.setEnabled(false);
