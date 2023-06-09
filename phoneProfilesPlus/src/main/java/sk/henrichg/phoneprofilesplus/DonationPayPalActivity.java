@@ -25,7 +25,7 @@ public class DonationPayPalActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(R.string.donation_activity_title);
+            getSupportActionBar().setTitle(R.string.ppp_app_name);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
