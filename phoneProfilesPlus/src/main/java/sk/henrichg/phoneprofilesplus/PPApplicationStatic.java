@@ -2308,64 +2308,75 @@ class PPApplicationStatic {
 
     static void showDoNotKillMyAppDialog(final Activity activity) {
 /*
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... voids) {
-                try {
-                    return ((JSONObject) new JSONTokener(
-                            InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
-                    ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", activity.getString(R.string.app_name));
-                } catch (Exception e) {
-                    // This vendor is not in the DontKillMyApp list
-                    Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
-                }
-                return null;
-            }
+        if (activity != null) {
 
-            @Override
-            protected void onPostExecute(String result) {
-                try {
-                    if (result != null) {
-                        String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
-                        String html = "<html>" + head + "<body>" + result + "</body></html>";
-
-                        WebView wv = new WebView(activity);
-                        WebSettings settings = wv.getSettings();
-                        WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
-                        settings.setLayoutAlgorithm(layoutAlgorithm);
-                        wv.loadData(html, "text/html; charset=utf-8", "UTF-8");
-                        wv.setWebViewClient(new WebViewClient() {
-                            @Override
-                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                                view.loadUrl(url);
-                                return true;
-                            }
-                        });
-
-                        new AlertDialog.Builder(activity)
-                                .setTitle("How to make my app work")
-                                .setView(wv).setPositiveButton(android.R.string.ok, null).show();
-
+            new AsyncTask<Void, Void, String>() {
+                @Override
+                protected String doInBackground(Void... voids) {
+                    try {
+                        return ((JSONObject) new JSONTokener(
+                                InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/" + Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-") + ".json").openStream())).nextValue()
+                        ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", activity.getString(R.string.app_name));
+                    } catch (Exception e) {
+                        // This vendor is not in the DontKillMyApp list
+                        Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
                     }
-                    else {
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(String result) {
+                    try {
+                        if (result != null) {
+                            String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
+                            String html = "<html>" + head + "<body>" + result + "</body></html>";
+
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+
+                            LayoutInflater inflater = activity.getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.dialog_do_not_kill_my_app, null);
+                            dialogBuilder.setView(layout);
+
+                            //WebView wv = new WebView(activity);
+                            WebView webView = layout.findViewById(R.id.do_not_kill_my_app_dialog_webView);
+                            WebSettings settings = webView.getSettings();
+                            WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
+                            settings.setLayoutAlgorithm(layoutAlgorithm);
+                            webView.loadData(html, "text/html; charset=utf-8", "UTF-8");
+                            webView.setWebViewClient(new WebViewClient() {
+                                @Override
+                                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                    view.loadUrl(url);
+                                    return true;
+                                }
+                            });
+
+                            dialogBuilder.show();
+
+                        } else {
+                            String url = "https://dontkillmyapp.com/";
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url));
+                            try {
+                                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
                         String url = "https://dontkillmyapp.com/";
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         try {
                             activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                        } catch (Exception ignored) {}
+                        } catch (Exception ignored) {
+                        }
                     }
-                } catch (Exception e) {
-                    Log.e("PPApplication.showDoNotKillMyAppDialog", Log.getStackTraceString(e));
-                    String url = "https://dontkillmyapp.com/";
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    } catch (Exception ignored) {}
                 }
-            }
-        }.execute();
+            }.execute();
+        }
 */
 
         if (activity != null) {
