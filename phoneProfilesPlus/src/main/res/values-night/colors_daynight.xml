@@ -35,9 +35,9 @@
     <color name="smoothBottomBarIconTint">#FFFFFFFF</color>
     <color name="smoothBottomBarTextColor">#FFE0E0E0</color>
 
-    <color name="dialog_divider">#25ffffff</color>
-    <color name="popup_window_divider">#25ffffff</color>
-    <color name="scrollbar_color">#25ffffff</color>
+    <color name="dialog_divider">#30ffffff</color>
+    <color name="popup_window_divider">#30ffffff</color>
+    <color name="scrollbar_color">#30ffffff</color>
 
     <!--    <color name="editorFilterTitleColor">#FFFFFFFF</color>-->
     <color name="editorFilterBackgroundColor">#FF272727</color>
