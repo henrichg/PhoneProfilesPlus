@@ -2084,6 +2084,13 @@
 
     <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
 
+    <string name="install_pppps_text6">For Android 14+ is not possible to install PPPPutSettings directly in device.</string>
+    <string name="install_pppps_text7">Click button</string>
+    <string name="install_pppps_text7a">to show web page, how to install PPPPutSettings from computer.</string>
+    <string name="install_pppps_text8">Is better to open \"How to install\" in computer in his Internet browser. It is in PPPPutSettings GitHub README.md, marked as</string>
+    <string name="install_pppps_text9" translatable="false">\"How to install\"</string>
+    <string name="install_pppps_alert_button_how_to_install">How to install</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
