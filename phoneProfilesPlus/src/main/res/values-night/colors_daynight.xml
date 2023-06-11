@@ -40,7 +40,7 @@
     <color name="scrollbar_color">#30ffffff</color>
 
     <!--    <color name="editorFilterTitleColor">#FFFFFFFF</color>-->
-    <color name="editorFilterBackgroundColor">#FF272727</color>
+<!--    <color name="editorFilterBackgroundColor">#FF303030</color>-->
 
     <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
     <color name="tabTargetHelpTargetCircleColor">#1B1B1B</color>
@@ -72,6 +72,8 @@
     <color name="toastBackgroundColor">#FF3a3a3a</color>
     <color name="toastTextColor">#FFFFFFFF</color>
     <color name="toastBorderColor">#FF707070</color>
+
+    <color name="dokiHeaderBackgroundColor">#FF303030</color>
 
     <color name="dialogBorderColor">#FF3f3f3f</color>
     <color name="buttonBorderColor">#FF656565</color>
