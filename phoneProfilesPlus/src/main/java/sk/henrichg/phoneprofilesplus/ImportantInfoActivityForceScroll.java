@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +50,11 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_important_info_force_scroll_container, fragment, "ImportantInfoActivityForceScrollFragment")
                 .commitAllowingStateLoss();
+
+        Button closeButton = findViewById(R.id.activity_important_info_force_scroll_close);
+        closeButton.setOnClickListener(v -> {
+            finish();
+        });
 
     }
 

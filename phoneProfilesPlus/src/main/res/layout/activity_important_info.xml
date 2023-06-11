@@ -41,11 +41,13 @@
     <!--    android:minHeight="?attr/actionBarSize"-->
     <!--    app:tabPaddingTop="10dp"-->
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/activity_important_info_frLa1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_important_info_tab_layout">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/activity_important_info_tab_layout"
+        android:layout_above="@id/activity_important_info_liLa2">
 
         <View
             android:id="@+id/activity_important_info_divider"
@@ -67,8 +69,42 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/activity_important_info_pager"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="match_parent" />
 
-    </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/activity_important_info_liLa2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:id="@+id/activity_important_info_button_divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/dialog_divider" />
+
+        <Button
+            android:id="@+id/activity_important_info_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:minHeight="40dp"
+            android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
+            android:background="@drawable/pp_button_background_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/donation_activity_close"
+            style="?android:attr/borderlessButtonStyle"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
+
