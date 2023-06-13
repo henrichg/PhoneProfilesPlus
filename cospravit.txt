@@ -761,33 +761,71 @@ HOTOVO
 
 -------------------
 
-Android 14 beta 3:
-Uz nejde nainstalovat PPPPutSettings.
+Staticke premenne, ktore su class typu, pozri preco ich je treba:
 
-adb install ./PPPPutSettings_1.0.5.apk
-Performing Streamed Install
-adb: failed to install ./PPPPutSettings_1.0.5.apk: Failure [INSTALL_FAILED_DEPRECATED_SDK_VERSION:
-App package must target at least SDK version 23, but found 22]
+ActivatorTargetHelpsActivity
+    public static volatile ActivatorTargetHelpsActivity activity;
 
-Nejde ani debug verzia.
-adb install ./PPPPutSettings-debug.apk
-Performing Streamed Install
-adb: failed to install ./PPPPutSettings-debug.apk: Failure [INSTALL_FAILED_DEPRECATED_SDK_VERSION:
-App package must target at least SDK version 23, but found 22]
+AutoStartPermissionHelper
+    private static volatile AutoStartPermissionHelper instance = null;
 
----
-HURA!!!
-Ide z PC, ale treba tento prikaz pouzit:
-adb install --bypass-low-target-sdk-block ./PPPPutSettings.apk
-A moze byt aj release verzia.
+BluetoothConnectedDevices
+    private static volatile BluetoothHeadset bluetoothHeadset = null;
+    private static volatile BluetoothHealth bluetoothHealth = null;
+    private static volatile BluetoothA2dp bluetoothA2dp = null;
+    private static volatile BluetoothProfile.ServiceListener profileListener = null;
 
-Vid:
-https://developer.android.com/about/versions/14/behavior-changes-all#minimum-target-api-level
+BluetoothConnectionBroadcastReceiver
+    private static volatile List<BluetoothDeviceData> connectedDevices = null;
 
-Takze zatial to vypada, ze PPPPutSettings sa bude dat nainstalovat len z PC.
-Urcite ale pesie ako nutbost mat root. Proste to bude ako G1 v PPP.
----
+BluetoothScanner
+    static volatile List<BluetoothDeviceData> tmpBluetoothScanResults = null;
 
-Uvidime, ci to pojde v dalsej bete.
+BluetoothScanWorker
+    static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
 
--------------------
+DatabaseHandler
+    private static volatile DatabaseHandler instance;
+
+GrantPermissionActivity
+    static private volatile ArrayList<Permissions.PermissionType> permissionsForRecheck;
+
+PhoneCallsListener
+    private static volatile AudioManager audioManager = null;
+
+PhoneProfilesDashClockExtension
+    private static volatile PhoneProfilesDashClockExtension instance;
+
+PhoneProfilesService
+    private static volatile PhoneProfilesService instance = null;
+// tieto tu mam naco?
+    static volatile AudioManager audioManager = null;
+    static volatile MediaPlayer ringingMediaPlayer = null;
+    static volatile MediaPlayer notificationMediaPlayer = null;
+    static volatile  Timer notificationPlayTimer = null;
+
+PPApplication
+// tu ich mam velmi vela, aj receivery, scenery atd., ale tu predpoladam, ze mozu byt, ved PPApplication je v pamati len raz,
+// netvoria sa viacere instancie.
+// Ak by sa sa PhoneProfilesService stale vytvaral (system ho killol a znova sa vytvoril), zostane PPApplication v pamati alebo
+// sa tiz nanovo vytvara? Hm, hm.
+
+
+PPNotificationListenerService
+    private static volatile PPNotificationListenerService instance;
+
+ProfileListNotification
+    static volatile ArrowsBroadcastReceiver arrowsBroadcastReceiver = null;
+
+RingtonePreference
+    private static volatile MediaPlayer mediaPlayer = null;
+    private static volatile Timer playTimer = null;
+
+VolumeDialogPreference
+    static volatile MediaPlayer mediaPlayer = null;
+
+WifiScanWorker
+    public static volatile WifiManager wifi = null;
+    private static volatile WifiManager.WifiLock wifiLock = null;
+
+
