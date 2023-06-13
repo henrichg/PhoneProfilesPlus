@@ -118,7 +118,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //noinspection deprecation
         setRetainInstance(true);
 
-        nestedFragment = !(this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
+        nestedFragment = !(this instanceof PhoneProfilesPrefsRoot);
 
         initPreferenceFragment(/*savedInstanceState*/);
         //prefMng = getPreferenceManager();
