@@ -53,7 +53,7 @@
         app:key="prf_pref_forceStopApplicationsCategoryRoot"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsForceStopApplications" />
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsForceStopApplications" />
 
     <sk.henrichg.phoneprofilesplus.GenerateNotificationDialogPreference
         app:defaultValue="0|0||"

@@ -74,7 +74,7 @@
         app:key="prf_pref_deviceRadiosDualSIMSupportCategoryRoot"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsRadiosDualSIMSupport" />
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsRadiosDualSIMSupport" />
 
     <Preference
         app:key="prf_pref_deviceWiFiInfo"

@@ -38,7 +38,7 @@
             app:key="prf_pref_activationDurationCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsActivationDuration" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivationDuration" />
 
     </PreferenceCategory>
 
@@ -66,70 +66,70 @@
             app:key="prf_pref_soundProfileCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsSoundProfiles" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsSoundProfiles" />
 
         <Preference
             app:title="@string/profile_preferences_category_volumes"
             app:key="prf_pref_volumeCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsVolumes"  />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsVolumes"  />
 
         <Preference
             app:title="@string/profile_preferences_category_sounds"
             app:key="prf_pref_soundsCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsSounds" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsSounds" />
 
         <Preference
             app:title="@string/profile_preferences_category_touchEffects"
             app:key="prf_pref_touchEffectsCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsTouchEffects" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsTouchEffects" />
 
         <Preference
             app:title="@string/profile_preferences_category_vibrationIntensity"
             app:key="prf_pref_vibrationIntensityCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsVibrationIntensity" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsVibrationIntensity" />
 
         <Preference
             app:title="@string/profile_preferences_category_radios"
             app:key="prf_pref_radiosCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsRadios" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsRadios" />
 
         <Preference
             app:title="@string/profile_preferences_category_screen"
             app:key="prf_pref_screenCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsScreen" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsScreen" />
 
         <Preference
             app:title="@string/profile_preferences_category_led_accessories"
             app:key="prf_pref_ledAccessoriesCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLedAccessories" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsLedAccessories" />
 
         <Preference
             app:title="@string/profile_preferences_category_application"
             app:key="prf_pref_applicationCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsApplication" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsApplication" />
 
         <Preference
             app:title="@string/profile_preferences_category_others"
             app:key="prf_pref_othersCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsOthers" />
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsOthers" />
         
     </PreferenceCategory>
 

@@ -101,7 +101,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //noinspection deprecation
         setRetainInstance(true);
 
-        nestedFragment = !(this instanceof ProfilesPrefsActivity.ProfilesPrefsRoot);
+        nestedFragment = !(this instanceof ProfilesPrefsRoot);
 
         initPreferenceFragment(/*savedInstanceState*/);
     }

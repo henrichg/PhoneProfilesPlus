@@ -56,7 +56,7 @@
         app:key="prf_pref_deviceWallpaperCategoryRoot"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsWallpaper" />
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsWallpaper" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_deviceKeyguard"
@@ -72,7 +72,7 @@
         app:key="prf_pref_lockDeviceCategoryRoot"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsLockDevice" />
 
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/profile_preferences_headsUpNotifications"
