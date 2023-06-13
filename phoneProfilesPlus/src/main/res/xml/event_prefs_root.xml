@@ -63,7 +63,7 @@
             app:key="eventStartOthersCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsStartOfEventsOthers" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsStartOfEventsOthers" />
         
     </PreferenceCategory>
 
@@ -101,7 +101,7 @@
             app:key="eventEndOthersCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsEndOfEventsOthers" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsEndOfEventsOthers" />
         
     </PreferenceCategory>
 
@@ -123,7 +123,7 @@
             app:key="eventTimeCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsTimeParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsTimeParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventPeriodicParameters"
@@ -131,7 +131,7 @@
             app:key="eventPeriodicCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsPeriodicParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsPeriodicParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventCalendarParameters"
@@ -139,7 +139,7 @@
             app:key="eventCalendarCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsCalendarParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCalendarParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventBatteryParameters"
@@ -147,7 +147,7 @@
             app:key="eventBatteryCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsBatteryParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsBatteryParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventCallParameters"
@@ -155,7 +155,7 @@
             app:key="eventCallCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsCallParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsCallParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventSMSParameters"
@@ -163,7 +163,7 @@
             app:key="eventSMSCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsSMSParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsSMSParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventRoamingParameters"
@@ -171,7 +171,7 @@
             app:key="eventRoamingCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsRoamingParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsRoamingParameters" />
 
         <Preference
             app:key="eventRadioSwitchCategoryRoot"
@@ -179,7 +179,7 @@
             app:summary="@string/event_preference_sensor_radioSwitch_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsRadioSwitchParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsRadioSwitchParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventVPNParameters"
@@ -187,7 +187,7 @@
             app:key="eventVPNCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsVPNParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsVPNParameters" />
 
         <Preference
             app:key="eventLocationCategoryRoot"
@@ -195,7 +195,7 @@
             app:summary="@string/event_preference_sensor_location_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsLocationParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsLocationParameters" />
 
         <Preference
             app:key="eventWifiCategoryRoot"
@@ -203,7 +203,7 @@
             app:summary="@string/event_preference_sensor_wifi_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsWifiParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsWifiParameters" />
 
         <Preference
             app:key="eventBluetoothCategoryRoot"
@@ -211,7 +211,7 @@
             app:summary="@string/event_preference_sensor_bluetooth_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsBluetoothParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsBluetoothParameters" />
 
         <Preference
             app:key="eventMobileCellsCategoryRoot"
@@ -219,7 +219,7 @@
             app:summary="@string/event_preference_sensor_mobile_cells_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsMobileCellsParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsMobileCellsParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventPeripheralParameters"
@@ -227,7 +227,7 @@
             app:key="eventAccessoriesCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsAccessoriesParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsAccessoriesParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventScreenParameters"
@@ -235,7 +235,7 @@
             app:key="eventScreenCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsScreenParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsScreenParameters" />
 
         <Preference
             app:key="eventNotificationCategoryRoot"
@@ -243,7 +243,7 @@
             app:summary="@string/event_preference_sensor_notification_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsNotificationsParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsNotificationsParameters" />
 
         <Preference
             app:key="eventSoundProfileCategoryRoot"
@@ -251,7 +251,7 @@
             app:summary="@string/event_preference_sensor_soundProfile_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsSoundProfileParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsSoundProfileParameters" />
 
         <Preference
             app:key="eventVolumesCategoryRoot"
@@ -259,7 +259,7 @@
             app:summary="@string/event_preference_sensor_volumes_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsVolumesParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsVolumesParameters" />
 
         <Preference
             app:key="eventApplicationCategoryRoot"
@@ -267,7 +267,7 @@
             app:summary="@string/event_preference_sensor_application_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsApplicationsParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsApplicationsParameters" />
 
         <Preference
             app:key="eventOrientationCategoryRoot"
@@ -275,7 +275,7 @@
             app:summary="@string/event_preference_sensor_orientation_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsOrientationParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsOrientationParameters" />
 
         <Preference
             app:key="eventNFCCategoryRoot"
@@ -283,7 +283,7 @@
             app:summary="@string/event_preference_sensor_nfc_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsNFCParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsNFCParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventAlarmClockParameters"
@@ -291,7 +291,7 @@
             app:key="eventAlarmClockCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsAlarmClockParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsAlarmClockParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventDeviceBootParameters"
@@ -299,7 +299,7 @@
             app:key="eventDeviceBootCategoryRoot"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsDeviceBootParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsDeviceBootParameters" />
 
         <Preference
             app:key="eventActivatedProfileCategoryRoot"
@@ -307,7 +307,7 @@
             app:summary="@string/event_preference_sensor_activated_profile_summary"
             app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsActivatedProfileParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivatedProfileParameters" />
 
     </PreferenceCategory>
     

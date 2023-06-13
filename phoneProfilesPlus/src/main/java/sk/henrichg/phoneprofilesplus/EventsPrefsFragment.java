@@ -80,7 +80,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         //noinspection deprecation
         setRetainInstance(true);
 
-        nestedFragment = !(this instanceof EventsPrefsActivity.EventsPrefsRoot);
+        nestedFragment = !(this instanceof EventsPrefsRoot);
 
         initPreferenceFragment(/*savedInstanceState*/);
     }
