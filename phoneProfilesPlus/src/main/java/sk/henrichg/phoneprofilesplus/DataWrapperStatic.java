@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.NonNull;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.provider.Settings;
+import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -732,12 +734,31 @@ class DataWrapperStatic {
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        boolean alreadyExists = false;
+
         if (profile != null) {
-            nTitle = context.getString(R.string.profile_preferences_red_texts_title);
-            nText = context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                    "\"" + profile._name + "\" " +
-                    context.getString(R.string.preferences_red_texts_text_2) + " " +
-                    context.getString(R.string.preferences_red_texts_text_click);
+            notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
+            notificationTag = PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id;
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    String tag = notification.getTag();
+                    if ((tag != null) && tag.contains(notificationTag)) {
+                        if (notification.getId() == notificationID) {
+                            alreadyExists = true;
+                        }
+                    }
+                }
+            }
+
+            if (!alreadyExists) {
+                nTitle = context.getString(R.string.profile_preferences_red_texts_title);
+                nText = context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+                        "\"" + profile._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
 //            if (android.os.Build.VERSION.SDK_INT < 24) {
 //                nTitle = context.getString(R.string.ppp_app_name);
 //                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
@@ -747,17 +768,33 @@ class DataWrapperStatic {
 //                        context.getString(R.string.preferences_red_texts_text_click);
 //            }
 
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
-            notificationTag = PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id;
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            }
         }
 
         if (event != null) {
-            nTitle = context.getString(R.string.event_preferences_red_texts_title);
-            nText = context.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                    "\"" + event._name + "\" " +
-                    context.getString(R.string.preferences_red_texts_text_2) + " " +
-                    context.getString(R.string.preferences_red_texts_text_click);
+            notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
+            notificationTag = PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id;
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+                for (StatusBarNotification notification : notifications) {
+                    String tag = notification.getTag();
+                    if ((tag != null) && tag.contains(notificationTag)) {
+                        if (notification.getId() == notificationID) {
+                            alreadyExists = true;
+                        }
+                    }
+                }
+            }
+
+            if (!alreadyExists) {
+                nTitle = context.getString(R.string.event_preferences_red_texts_title);
+                nText = context.getString(R.string.event_preferences_red_texts_text_1) + " " +
+                        "\"" + event._name + "\" " +
+                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+                        context.getString(R.string.preferences_red_texts_text_click);
 //            if (android.os.Build.VERSION.SDK_INT < 24) {
 //                nTitle = context.getString(R.string.ppp_app_name);
 //                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
@@ -767,43 +804,44 @@ class DataWrapperStatic {
 //                        context.getString(R.string.preferences_red_texts_text_click);
 //            }
 
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;
-            notificationTag = PPApplication.DISPLAY_PREFERENCES_EVENT_ERROR_NOTIFICATION_TAG+"_"+event._id;
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+            }
         }
 
-        intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
+        if (!alreadyExists) {
+            intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
 
-        PPApplicationStatic.createGrantPermissionNotificationChannel(context.getApplicationContext(), false);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
-                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
-                .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText) // message for notification
-                .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+            PPApplicationStatic.createGrantPermissionNotificationChannel(context.getApplicationContext(), false);
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
+                    .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))
+                    .setSmallIcon(R.drawable.ic_ppp_notification/*ic_exclamation_notify*/) // notification icon
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getApplicationContext().getResources(), R.drawable.ic_exclamation_notification))
+                    .setContentTitle(nTitle) // title for notification
+                    .setContentText(nText) // message for notification
+                    .setAutoCancel(true); // clear notification after click
+            mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
-        PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
+            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(pi);
 
-        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
-        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        mBuilder.setOnlyAlertOnce(true);
+            mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            mBuilder.setOnlyAlertOnce(true);
 
-        mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
+            mBuilder.setGroup(PPApplication.PROFILE_ACTIVATION_ERRORS_NOTIFICATION_GROUP);
 
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
-        try {
-            // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
-            // mNotificationManager.cancel(notificationID);
-            mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
-        } catch (SecurityException en) {
-            Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
-        } catch (Exception e) {
-            //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
-            PPApplicationStatic.recordException(e);
+            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+            try {
+                // do not cancel, mBuilder.setOnlyAlertOnce(true); will not be working
+                // mNotificationManager.cancel(notificationID);
+                mNotificationManager.notify(notificationTag, notificationID, mBuilder.build());
+            } catch (SecurityException en) {
+                Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(en));
+            } catch (Exception e) {
+                //Log.e("DataWrapperStatic.displayPreferencesErrorNotification", Log.getStackTraceString(e));
+                PPApplicationStatic.recordException(e);
+            }
         }
 
         return true;
