@@ -2892,12 +2892,6 @@ class PPApplicationStatic {
 
     // get PPP version from relases.md ----------------------------------------------
 
-    static class PPPReleaseData {
-        String versionNameInReleases = "";
-        int versionCodeInReleases = 0;
-        boolean critical = true;
-    }
-
     static PPPReleaseData getReleaseData(String contents, boolean forceDoData, Context appContext) {
         // this must be added when you tests debug branch
 //        if (DebugVersion.enabled)

@@ -460,7 +460,7 @@ public class EditorActivity extends AppCompatActivity
                 /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                 /*getString(R.string.editor_drawer_title_profiles) + " - " + */getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator)
         };
-        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted_filter,
                 filterItems);
@@ -497,7 +497,7 @@ public class EditorActivity extends AppCompatActivity
                 if (filterSpinner.getAdapter() != null) {
                     //if (filterSpinner.getAdapter().getCount() <= position)
                     //    position = 0;
-                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+                    ((HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
                 }
 
                 selectFilterItem(editorSelectedView, position, true/*, true*/);
@@ -1449,7 +1449,7 @@ public class EditorActivity extends AppCompatActivity
                             /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
                             /*activity.getString(R.string.editor_drawer_title_profiles) + " - " + */activity.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                     };
-                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                    HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
                             activity,
                             R.layout.spinner_highlighted_filter,
                             filterItems);
@@ -1479,7 +1479,7 @@ public class EditorActivity extends AppCompatActivity
                             /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_paused),
                             /*activity.getString(R.string.editor_drawer_title_events) + " - " + */activity.getString(R.string.editor_drawer_list_item_events_stopped)
                     };
-                    GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                    HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
                             activity,
                             R.layout.spinner_highlighted_filter,
                             filterItems);
@@ -3018,7 +3018,7 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (changeFilter) {
                                 fragment.scrollToProfile = profile;
-                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                         .setSelection(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
                                 editorActivity.selectFilterItem(0, ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }
@@ -3193,7 +3193,7 @@ public class EditorActivity extends AppCompatActivity
                             }
                             if (changeFilter) {
                                 fragment.scrollToEvent = event;
-                                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
+                                ((HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter())
                                         .setSelection(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
                                 editorActivity.selectFilterItem(1, ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE, false/*, true*/);
                             }

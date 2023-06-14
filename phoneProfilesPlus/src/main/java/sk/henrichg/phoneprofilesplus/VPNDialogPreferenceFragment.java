@@ -56,7 +56,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
         vpnApplicationSpinner = layout.findViewById(R.id.vpnPrefDialogVPNApplication);
 
-        GlobalGUIRoutines.HighlightedSpinnerAdapter vpnApplicationSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter vpnApplicationSpinnerAdapter = new HighlightedSpinnerAdapter(
                 (ProfilesPrefsActivity) preference._context,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.vpnApplicationArray));
@@ -214,7 +214,7 @@ public class VPNDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ((GlobalGUIRoutines.HighlightedSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
+        ((HighlightedSpinnerAdapter)vpnApplicationSpinner.getAdapter()).setSelection(position);
 
         String[] vpnApplicationValues = preference._context.getResources().getStringArray(R.array.vpnApplicationValues);
         preference.vpnApplication = Integer.parseInt(vpnApplicationValues[position]);

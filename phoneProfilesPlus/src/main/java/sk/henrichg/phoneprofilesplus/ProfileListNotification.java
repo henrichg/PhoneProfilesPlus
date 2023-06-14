@@ -6,7 +6,6 @@ import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -29,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ProfileListNotification {
 
-    static volatile ArrowsBroadcastReceiver arrowsBroadcastReceiver = null;
+    private static volatile ProfileListNotificationArrowsBroadcastReceiver arrowsBroadcastReceiver = null;
 
     private static final int[] profileIconId = {
             R.id.notification_profile_list_profile_icon_1, R.id.notification_profile_list_profile_icon_2,
@@ -64,18 +63,18 @@ public class ProfileListNotification {
             R.id.notification_profile_list_profile_icon_15_root
     };
 
-    private static int displayedPage = 0;
-    private static int profileCount = 0;
+    static volatile int displayedPage = 0;
+    static volatile int profileCount = 0;
 
     private static final int MAX_PROFILE_COUNT = 15;
 
     //static final String ACTION_REFRESH_PROFILELISTNOTIFICATION = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_PROFILELISTNOTIFICATION";
-    private static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_LEFT_ARROW_CLICK";
-    private static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_RIGHT_ARROW_CLICK";
+    static final String ACTION_LEFT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_LEFT_ARROW_CLICK";
+    static final String ACTION_RIGHT_ARROW_CLICK = PPApplication.PACKAGE_NAME + ".ACTION_NOTIFICATION_RIGHT_ARROW_CLICK";
     private static final int PROFILE_ID_ACTIVATE_PROFILE_ID = 1000;
 
 
-    static private void _showNotification(final Context context/*, boolean forFirstStart*/)
+    static void _showNotification(final Context context/*, boolean forFirstStart*/)
     {
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "start");
 
@@ -204,13 +203,15 @@ public class ProfileListNotification {
 
         dataWrapper.setProfileList(newProfileList);
 
-        profileCount = 0;
+        int _profileCount = 0;
         for (Profile profile : dataWrapper.profileList) {
-            if (profile._showInActivator)
-                profileCount++;
+            if (profile._showInActivator) {
+                _profileCount++;
+            }
         }
-        if (profileCount > MAX_PROFILE_COUNT)
-            profileCount = MAX_PROFILE_COUNT;
+        if (_profileCount > MAX_PROFILE_COUNT)
+            _profileCount = MAX_PROFILE_COUNT;
+        profileCount = _profileCount;
 
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] ProfileListNotification._showNotification", "profileCount="+profileCount);
 
@@ -934,7 +935,7 @@ public class ProfileListNotification {
 
     static void enable(boolean clear, Context appContext) {
         if (arrowsBroadcastReceiver == null) {
-            arrowsBroadcastReceiver = new ArrowsBroadcastReceiver();
+            arrowsBroadcastReceiver = new ProfileListNotificationArrowsBroadcastReceiver();
             IntentFilter intentFilter5 = new IntentFilter();
             intentFilter5.addAction(ACTION_RIGHT_ARROW_CLICK);
             intentFilter5.addAction(ACTION_LEFT_ARROW_CLICK);
@@ -965,34 +966,6 @@ public class ProfileListNotification {
                 arrowsBroadcastReceiver = null;
             } catch (Exception e) {
                 arrowsBroadcastReceiver = null;
-            }
-        }
-    }
-
-
-    public static class ArrowsBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-//            PPApplicationStatic.logE("[PPP_NOTIFICATION] ArrowsBroadcastReceiver.onReceive", "xxx");
-            String action = intent.getAction();
-            if (action != null) {
-//                PPApplicationStatic.logE("[PPP_NOTIFICATION] ArrowsBroadcastReceiver.onReceive", "action="+action);
-
-                if (action.equalsIgnoreCase(ACTION_RIGHT_ARROW_CLICK)) {
-                    if ((displayedPage < profileCount / ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage) &&
-                            (profileCount > ApplicationPreferences.applicationWidgetOneRowProfileListNumberOfProfilesPerPage)) {
-                        ++displayedPage;
-                        _showNotification(context/*, false*/);
-                    }
-                }
-                else
-                if (action.equalsIgnoreCase(ACTION_LEFT_ARROW_CLICK)) {
-                    if (displayedPage > 0) {
-                        --displayedPage;
-                        _showNotification(context/*, false*/);
-                    }
-                }
             }
         }
     }

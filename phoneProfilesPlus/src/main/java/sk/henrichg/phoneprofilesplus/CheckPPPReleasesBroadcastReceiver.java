@@ -299,7 +299,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
                         //String contents = response;
 
-                        PPApplicationStatic.PPPReleaseData pppReleaseData =
+                        PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, true, appContext);
 
                         showNotification = pppReleaseData != null;

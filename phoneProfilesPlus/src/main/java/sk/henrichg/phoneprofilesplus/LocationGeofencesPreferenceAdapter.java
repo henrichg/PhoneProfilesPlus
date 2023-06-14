@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 
 class LocationGeofencesPreferenceAdapter extends CursorAdapter {
@@ -54,7 +52,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         else
             view = inflater.inflate(R.layout.listitem_location_preference_no_chb, parent, false);
 
-        ViewHolder rowData  = new ViewHolder();
+        LocationGeofencesPreferenceViewHolder rowData  = new LocationGeofencesPreferenceViewHolder();
 
         if (preferenceFragment.preference.onlyEdit == 0)
             rowData.checkBox = view.findViewById(R.id.location_pref_dlg_item_checkBox);
@@ -73,7 +71,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        ViewHolder rowData = (ViewHolder) view.getTag();
+        LocationGeofencesPreferenceViewHolder rowData = (LocationGeofencesPreferenceViewHolder) view.getTag();
 
         // must be set, without this not working long click
         if (preferenceFragment.preference.onlyEdit == 0) {
@@ -86,7 +84,8 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         getView(rowData, cursor/*, false*/);
     }
 
-    private void getView(final ViewHolder rowData, /*Context context,*/ Cursor cursor/*, boolean newView*/) {
+    private void getView(final LocationGeofencesPreferenceViewHolder rowData, /*Context context,*/
+                         Cursor cursor/*, boolean newView*/) {
         boolean checked = cursor.getInt(KEY_G_CHECKED) == 1;
         long id = cursor.getLong(KEY_G_ID);
 
@@ -120,13 +119,6 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
         final ImageView itemEditMenu = rowData.itemEditMenu;
         rowData.itemEditMenu.setOnClickListener(v -> preferenceFragment.showEditMenu(itemEditMenu));
 
-    }
-
-    public static class ViewHolder {
-        CheckBox checkBox;
-        TextView name;
-        AppCompatImageButton itemEditMenu;
-        long geofenceId;
     }
 
     public void reload(DataWrapper dataWrapper) {

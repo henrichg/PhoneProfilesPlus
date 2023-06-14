@@ -2363,7 +2363,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
             profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0"));
         }
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileVibrateWhenRinging(context, profile, permissions);
         //if ((Build.VERSION.SDK_INT >= 28) && (Build.VERSION.SDK_INT < 33)) {
         //    Permissions.checkProfileVibrateNotifications(context, profile, permissions);
@@ -2571,7 +2571,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Profile profile = new Profile();
         profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -2662,7 +2662,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            ArrayList<PermissionType> permissions = new ArrayList<>();
             Permissions.checkProfileRingtones(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -2680,7 +2680,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
         profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
         profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileRingtones(context, profile, permissions);
         cattegorySummaryData.permissionGranted = cattegorySummaryData.permissionGranted && (permissions.size() == 0);
 
@@ -2753,7 +2753,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, "0"));
         profile._vibrationOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
         profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileSoundOnTouch(context, profile, permissions);
         Permissions.checkProfileVibrationOnTouch(context, profile, permissions);
         Permissions.checkProfileDtmfToneWhenDialing(context, profile, permissions);
@@ -2858,7 +2858,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             Profile profile = new Profile();
             profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
-            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            ArrayList<PermissionType> permissions = new ArrayList<>();
             Permissions.checkProfileMicrophone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -2984,7 +2984,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
-            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            ArrayList<PermissionType> permissions = new ArrayList<>();
             Permissions.checkProfileRadioPreferences(context, profile, permissions);
             //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
@@ -3249,7 +3249,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
         profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileRadioPreferences(context, profile, permissions);
         //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
         cattegorySummaryData.permissionGranted = cattegorySummaryData.permissionGranted && (permissions.size() == 0);
@@ -3453,7 +3453,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         profile._deviceAutoRotate = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, "0"));
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
         profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileScreenTimeout(context, profile, permissions);
         Permissions.checkProfileScreenOnPermanent(context, profile, permissions);
         Permissions.checkProfileScreenBrightness(context, profile, permissions);
@@ -3505,7 +3505,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         Profile profile = new Profile();
         profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, "0"));
         profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileNotificationLed(context, profile, permissions);
         Permissions.checkProfileCameraFlash(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
@@ -3752,7 +3752,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Profile profile = new Profile();
         profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileLockDevice(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -4071,7 +4071,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
                     profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
                     profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     Permissions.checkProfileRadioPreferences(context, profile, permissions);
                     //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                     cattegorySummaryData.permissionGranted = permissions.size() == 0;
@@ -4172,7 +4172,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
                             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
                             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            ArrayList<PermissionType> permissions = new ArrayList<>();
                             Permissions.checkProfileRingtones(context, profile, permissions);
                             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -4189,7 +4189,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
                         profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
                         profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        ArrayList<PermissionType> permissions = new ArrayList<>();
                         Permissions.checkProfileRingtones(context, profile, permissions);
                         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -4247,7 +4247,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Profile profile = new Profile();
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
-        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileImageWallpaper(context, profile, permissions);
         Permissions.checkProfileWallpaperFolder(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
@@ -4432,7 +4432,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 Profile profile = new Profile();
                 profile._icon = value.toString();
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                ArrayList<PermissionType> permissions = new ArrayList<>();
                 Permissions.checkProfileCustomProfileIcon(context, profile, false, permissions);
                 boolean permissionGranted = permissions.size() == 0;
 
@@ -4689,7 +4689,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 listPreference.setSummary(summary);
 
                 Profile profile = new Profile();
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                ArrayList<PermissionType> permissions = new ArrayList<>();
                 profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "0"));
                 Permissions.checkProfileScreenTimeout(context, profile, permissions);
                 boolean _permissionGranted = permissions.size() == 0;
@@ -4707,7 +4707,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 listPreference.setSummary(summary);
 
                 Profile profile = new Profile();
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                ArrayList<PermissionType> permissions = new ArrayList<>();
                 profile._deviceAutoRotate = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, "0"));
                 Permissions.checkProfileAutoRotation(context, profile, permissions);
                 boolean _permissionGranted = permissions.size() == 0;
@@ -4786,7 +4786,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
                             key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH)) {
                         Profile profile = new Profile();
-                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        ArrayList<PermissionType> permissions = new ArrayList<>();
                         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
                         profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
                         profile._vibrationOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
@@ -4895,7 +4895,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     listPreference.setSummary(summary);
 
                     Profile profile = new Profile();
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, "0"));
                     Permissions.checkProfileNotificationLed(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
@@ -4936,7 +4936,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (key.equals(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT) ||
                             key.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)) {
                         Profile profile = new Profile();
-                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        ArrayList<PermissionType> permissions = new ArrayList<>();
                         profile._screenOnPermanent = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, "0"));
                         profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
                         Permissions.checkProfileScreenOnPermanent(context, profile, permissions);
@@ -4985,7 +4985,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean change = BrightnessDialogPreference.changeEnabled(sValue);
 
                 Profile profile = new Profile();
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                ArrayList<PermissionType> permissions = new ArrayList<>();
                 profile._deviceBrightness = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
                 Permissions.checkProfileScreenBrightness(context, profile, permissions);
                 boolean _permissionGranted = permissions.size() == 0;
@@ -5181,7 +5181,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 listPreference.setSummary(changeSummary);
 
                 Profile profile = new Profile();
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                ArrayList<PermissionType> permissions = new ArrayList<>();
                 profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
                 Permissions.checkProfileLockDevice(context, profile, permissions);
                 boolean _permissionGranted = permissions.size() == 0;
@@ -5294,7 +5294,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     listPreference.setSummary(summary);
 
                     Profile profile = new Profile();
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
                     Permissions.checkProfileCameraFlash(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
@@ -5356,7 +5356,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 listPreference.setSummary(summary);
 
                 Profile profile = new Profile();
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                ArrayList<PermissionType> permissions = new ArrayList<>();
                 profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
                 profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
                 profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
@@ -5444,7 +5444,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             boolean _permissionGranted;
                             Profile profile = new Profile();
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            ArrayList<PermissionType> permissions = new ArrayList<>();
                             profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
                             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
                             Permissions.checkProfileRingtones(context, profile, permissions);
@@ -5550,7 +5550,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             boolean _permissionGranted;
                             Profile profile = new Profile();
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            ArrayList<PermissionType> permissions = new ArrayList<>();
                             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
                             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
                             Permissions.checkProfileRingtones(context, profile, permissions);
@@ -5617,7 +5617,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
                             key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                         Profile profile = new Profile();
-                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        ArrayList<PermissionType> permissions = new ArrayList<>();
                         profile._deviceWiFiAP = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "0"));
                         profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, "0"));
                         profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
@@ -5662,7 +5662,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         listPreference.setSummary(summary);
 
                         Profile profile = new Profile();
-                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        ArrayList<PermissionType> permissions = new ArrayList<>();
                         profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
                         Permissions.checkProfileMicrophone(context, profile, permissions);
                         boolean _permissionGranted = permissions.size() == 0;
@@ -5711,7 +5711,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
 
                     Profile profile = new Profile();
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
                     Permissions.checkProfileRadioPreferences(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
@@ -5744,7 +5744,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     boolean bold = !sValue.startsWith("0");
 
                     Profile profile = new Profile();
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     profile._deviceVPN = preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN, "0|0|||0");
                     Permissions.checkProfileWireGuard(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
@@ -5831,7 +5831,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             boolean _permissionGranted;
                             Profile profile = new Profile();
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            ArrayList<PermissionType> permissions = new ArrayList<>();
                             profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
                             profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
                             Permissions.checkProfileRadioPreferences(context, profile, permissions);
@@ -5871,7 +5871,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             boolean _permissionGranted;
                             Profile profile = new Profile();
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            ArrayList<PermissionType> permissions = new ArrayList<>();
                             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
                             Permissions.checkProfileRadioPreferences(context, profile, permissions);
                             _permissionGranted = permissions.size() == 0;
@@ -5911,7 +5911,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             boolean _permissionGranted;
                             Profile profile = new Profile();
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            ArrayList<PermissionType> permissions = new ArrayList<>();
                             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
                             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
                             Permissions.checkProfileRadioPreferences(context, profile, permissions);

@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
@@ -429,26 +427,6 @@ class LocationScanner
                     }
                 }
             }
-        }
-    }
-
-    static class LocationScannerListener implements LocationListener {
-
-        public void onLocationChanged(Location location) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onLocationChanged", "xxx");
-            doLocationChanged(location, false);
-        }
-
-        public void onProviderDisabled(String provider) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderDisabled", "xxx");
-        }
-
-        public void onProviderEnabled(String provider) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onProviderEnabled", "xxx");
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-//            PPApplicationStatic.logE("[IN_LISTENER] LocationScanner.LocationScannerListener.onStatusChanged", "xxx");
         }
     }
 

@@ -439,11 +439,6 @@ class GlobalUtils {
         return TelephonyManager.CALL_STATE_IDLE;
     }
 
-    static class HasSIMCardData {
-        boolean hasSIM1;
-        boolean hasSIM2;
-    }
-
     static HasSIMCardData hasSIMCard(Context appContext) {
         //PPApplicationStatic.logE("GlobalUtils.hasSIMCard", "xxxx");
 

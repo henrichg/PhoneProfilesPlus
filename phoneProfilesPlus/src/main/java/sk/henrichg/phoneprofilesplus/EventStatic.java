@@ -110,7 +110,7 @@ class EventStatic {
         //if (checked)
         //    return preferenceAllowed;
 
-        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
 
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED) ||
                 preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM))

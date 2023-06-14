@@ -141,7 +141,7 @@ class RunApplicationEditorDialog
         });
 
         filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
-        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
                 activity,
                 R.layout.spinner_highlighted,
                 activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
@@ -188,7 +188,7 @@ class RunApplicationEditorDialog
 
             @SuppressLint("NotifyDataSetChanged")
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
 
                 selectedFilter = Integer.parseInt(filterValues[position]);
                 if (selectedFilter == 2)

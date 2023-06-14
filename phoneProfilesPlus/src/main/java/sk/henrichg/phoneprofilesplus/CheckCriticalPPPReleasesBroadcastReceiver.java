@@ -190,7 +190,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         //if (DebugVersion.enabled)
                         //    forceDoData = true;
 
-                        PPApplicationStatic.PPPReleaseData pppReleaseData =
+                        PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, forceDoData, appContext);
 
                         showNotification = pppReleaseData != null;

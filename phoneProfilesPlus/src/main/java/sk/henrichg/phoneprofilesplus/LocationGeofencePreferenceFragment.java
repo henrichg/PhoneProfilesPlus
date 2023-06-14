@@ -65,8 +65,8 @@ public class LocationGeofencePreferenceFragment extends PreferenceDialogFragment
         geofencesListView.setAdapter(listAdapter);
 
         geofencesListView.setOnItemClickListener((parent, v, position, id) -> {
-            LocationGeofencesPreferenceAdapter.ViewHolder viewHolder =
-                    (LocationGeofencesPreferenceAdapter.ViewHolder) v.getTag();
+            LocationGeofencesPreferenceViewHolder viewHolder =
+                    (LocationGeofencesPreferenceViewHolder) v.getTag();
 
             /*
             if (listAdapter.selectedRB != null){

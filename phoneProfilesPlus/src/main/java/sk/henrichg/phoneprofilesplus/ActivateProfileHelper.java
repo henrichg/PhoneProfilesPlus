@@ -2246,7 +2246,7 @@ class ActivateProfileHelper {
                 }
             }
 
-            GlobalUtils.HasSIMCardData hasSIMCardData = null;
+            HasSIMCardData hasSIMCardData = null;
             if ((profile._soundRingtoneChangeSIM1 == 1) ||
                     (profile._soundRingtoneChangeSIM2 == 1) ||
                     (profile._soundNotificationChangeSIM1 == 1) ||
@@ -5983,7 +5983,7 @@ class ActivateProfileHelper {
 
         //Context appContext = context.getApplicationContext();
 
-        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
             boolean sim1Exists = hasSIMCardData.hasSIM1;
@@ -6204,7 +6204,7 @@ class ActivateProfileHelper {
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "simCard="+simCard);
 //        PPApplicationStatic.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "networkType="+networkType);
 
-        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
             boolean sim1Exists = hasSIMCardData.hasSIM1;
@@ -6990,7 +6990,7 @@ class ActivateProfileHelper {
 //                PPApplicationStatic.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
                 //if (Build.VERSION.SDK_INT >= 26) {
 //                    if (simCard != -1) {
-                        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+                        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
                         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
                         if (simCard == 1) {
                             boolean sim1Exists = hasSIMCardData.hasSIM1;
@@ -7153,7 +7153,7 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
-        GlobalUtils.HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
+        HasSIMCardData hasSIMCardData = GlobalUtils.hasSIMCard(context);
         boolean simExists = hasSIMCardData.hasSIM1 || hasSIMCardData.hasSIM2;
         if (simCard == 1) {
             boolean sim1Exists = hasSIMCardData.hasSIM1;

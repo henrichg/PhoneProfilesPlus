@@ -276,7 +276,7 @@ class StringFormatUtils {
         }
     }
 
-    static class LiTagHandler implements Html.TagHandler {
+    private static class LiTagHandler implements Html.TagHandler {
 
         @Override
         public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {

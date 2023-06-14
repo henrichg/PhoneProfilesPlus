@@ -286,7 +286,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mTextViewRange.setText(sMin + " - " + sMax);
 
         afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
-        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
                 mActivity,
                 R.layout.spinner_highlighted,
                 mActivity.getResources().getStringArray(R.array.afterProfileDurationDoArray));
@@ -316,7 +316,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         afterDoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)afterDoSpinner.getAdapter()).setSelection(position);
                 mAfterDo = Integer.parseInt(afterDoValues[position]);
 
                 updateProfileView();

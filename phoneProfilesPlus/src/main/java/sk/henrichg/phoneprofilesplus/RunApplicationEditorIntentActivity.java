@@ -122,7 +122,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
         intentIntentTypeSpinner = findViewById(R.id.application_editor_intent_intent_type_spinner);
-        GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentIntentTypeArray));
@@ -133,7 +133,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentIntentTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentIntentTypeSpinner.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -153,7 +153,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentMimeType.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentActionArray));
@@ -164,7 +164,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentActionSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentActionSpinner.getAdapter()).setSelection(position);
 
                 if (position == 0) {
                     intentActionEdit.setText("");
@@ -282,7 +282,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue1.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -293,7 +293,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner1.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner1.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -306,7 +306,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue2.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -317,7 +317,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner2.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner2.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -330,7 +330,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue3.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -341,7 +341,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner3.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner3.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -354,7 +354,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue4.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -365,7 +365,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner4.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner4.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -378,7 +378,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraKeyValue5.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.highlighted_spinner_all));
 
         intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
-        spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        spinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.spinner_highlighted,
                 getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
@@ -389,7 +389,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
         intentExtraSpinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)intentExtraSpinner5.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)intentExtraSpinner5.getAdapter()).setSelection(position);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {

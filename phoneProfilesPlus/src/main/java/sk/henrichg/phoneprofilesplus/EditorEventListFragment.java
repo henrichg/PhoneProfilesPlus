@@ -415,7 +415,7 @@ public class EditorEventListFragment extends Fragment
                 getString(R.string.editor_drawer_order_priority)
         };
 
-        GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+        HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
                 getActivity(),
                 R.layout.spinner_highlighted_order,
                 orderItems);
@@ -429,7 +429,7 @@ public class EditorEventListFragment extends Fragment
                 if (orderSpinner.getAdapter() != null) {
                     //if (orderSpinner.getAdapter().getCount() <= position)
                     //    position = 0;
-                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) orderSpinner.getAdapter()).setSelection(position);
+                    ((HighlightedSpinnerAdapter) orderSpinner.getAdapter()).setSelection(position);
                 }
                 if (position != orderSelectedItem)
                     changeEventOrder(position, false);

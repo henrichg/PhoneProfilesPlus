@@ -104,7 +104,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
         operatorSpinner = view.findViewById(R.id.volumePrefDialogVolumesSensorOperator);
 
         if (preference.forVolumesSensor == 1) {
-            GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+            HighlightedSpinnerAdapter voiceSpinnerAdapter = new HighlightedSpinnerAdapter(
                     (EventsPrefsActivity) context,
                     R.layout.spinner_highlighted,
                     getResources().getStringArray(R.array.volumesSensorOperatorArray));
@@ -403,7 +403,7 @@ public class VolumeDialogPreferenceFragment extends PreferenceDialogFragmentComp
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (preference.forVolumesSensor == 1) {
-            ((GlobalGUIRoutines.HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
+            ((HighlightedSpinnerAdapter)operatorSpinner.getAdapter()).setSelection(position);
 
             preference.sensorOperator = Integer.parseInt(preference.operatorValues[position]);
 

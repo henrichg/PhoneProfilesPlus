@@ -104,7 +104,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                             //String contents = response;
 
-                            PPApplicationStatic.PPPReleaseData pppReleaseData =
+                            PPPReleaseData pppReleaseData =
                                     PPApplicationStatic.getReleaseData(response, true, appContext);
 
                             updateReleasedVersion = pppReleaseData != null;

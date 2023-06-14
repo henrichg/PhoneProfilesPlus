@@ -31,8 +31,8 @@ import java.util.List;
 public class GrantPermissionActivity extends AppCompatActivity {
 
     private int grantType;
-    private ArrayList<Permissions.PermissionType> permissions;
-    static private volatile ArrayList<Permissions.PermissionType> permissionsForRecheck;
+    private ArrayList<PermissionType> permissions;
+    static private volatile ArrayList<PermissionType> permissionsForRecheck;
     private boolean mergedProfile;
     private boolean forceGrant;
     //private boolean mergedNotification;
@@ -288,7 +288,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (permissions != null) {
             whyPermissionType = new boolean[20][100];
 
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                     showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
                     whyPermissionType[0][permissionType.type] = true;
@@ -655,7 +655,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             showRequestDrawOverlays = false;
 
             if (permissions != null) {
-                for (Permissions.PermissionType permissionType : permissions) {
+                for (PermissionType permissionType : permissions) {
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         showRequestWriteSettings = true;
                     }
@@ -1055,7 +1055,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
 
                 Context context = getApplicationContext();
-                for (Permissions.PermissionType permissionType : this.permissions) {
+                for (PermissionType permissionType : this.permissions) {
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         if (!Settings.System.canWrite(context)) {
                             allGranted = false;
@@ -1474,7 +1474,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (!finishActivity) {
                 boolean granted = false;
                 if (permissions != null) {
-                    for (Permissions.PermissionType permissionType : permissions) {
+                    for (PermissionType permissionType : permissions) {
                         if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
@@ -1521,7 +1521,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (iteration == 1) {
             boolean writeSettingsFound = false;
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                     //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
@@ -1583,7 +1583,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (iteration == 3) {
             boolean drawOverlaysFound = false;
             //boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                     //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
@@ -1629,7 +1629,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else {
             boolean grantBackgroundLocation = false;
             List<String> permList = new ArrayList<>();
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                     grantBackgroundLocation = true;
                 }
@@ -1672,7 +1672,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             else {
                 Context context = getApplicationContext();
                 boolean allGranted = true;
-                for (Permissions.PermissionType permissionType : permissions) {
+                for (PermissionType permissionType : permissions) {
                     if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                         if (!Settings.System.canWrite(context)) {
                             allGranted = false;
@@ -1705,7 +1705,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private void removePermission(final String permission) {
         if (permissions != null) {
-            for (Permissions.PermissionType permissionType : permissions) {
+            for (PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(permission)) {
                     permissions.remove(permissionType);
                     break;
@@ -1842,7 +1842,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             finish();
             Permissions.removeEventNotification(context);
             if (permissions != null) {
-                for (Permissions.PermissionType permissionType : permissions) {
+                for (PermissionType permissionType : permissions) {
 
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION) ||
                         permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
