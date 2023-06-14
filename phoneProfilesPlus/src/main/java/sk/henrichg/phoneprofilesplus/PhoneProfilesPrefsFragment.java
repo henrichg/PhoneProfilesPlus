@@ -308,34 +308,31 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 return;
 
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar_no_subtitle);
-            if (nestedFragment) {
-                toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
-                preferenceSubTitle.setVisibility(View.VISIBLE);
-
-                Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
-                if (triangle != null) {
-                    triangle.setTint(ContextCompat.getColor(getActivity(), R.color.activityNormalTextColor));
-                    SpannableString headerTitle = new SpannableString("    " +
-                            fragment.getPreferenceScreen().getTitle());
-                    triangle.setBounds(0,
-                            GlobalGUIRoutines.sip(1),
-                            GlobalGUIRoutines.sip(11),
-                            GlobalGUIRoutines.sip(10));
-                    headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    preferenceSubTitle.setText(headerTitle);
-                } else
-                    preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
-
-                //toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
-                //toolbar.setSubtitle(getString(R.string.title_activity_phone_profiles_preferences));
-            }
-            else {
-                toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
-                preferenceSubTitle.setVisibility(View.GONE);
-                //toolbar.setSubtitle(null);
-            }
-
+            toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
         }, 200);
+
+        // subtitle
+        if (nestedFragment) {
+            preferenceSubTitle.setVisibility(View.VISIBLE);
+
+            Drawable triangle = ContextCompat.getDrawable(getActivity(), R.drawable.ic_submenu_triangle);
+            if (triangle != null) {
+                triangle.setTint(ContextCompat.getColor(getActivity(), R.color.activityNormalTextColor));
+                SpannableString headerTitle = new SpannableString("    " +
+                        fragment.getPreferenceScreen().getTitle());
+                triangle.setBounds(0,
+                        GlobalGUIRoutines.sip(1),
+                        GlobalGUIRoutines.sip(11),
+                        GlobalGUIRoutines.sip(10));
+                headerTitle.setSpan(new ImageSpan(triangle, ImageSpan.ALIGN_BASELINE), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                preferenceSubTitle.setText(headerTitle);
+            } else
+                preferenceSubTitle.setText(fragment.getPreferenceScreen().getTitle());
+        }
+        else {
+            preferenceSubTitle.setVisibility(View.GONE);
+            //toolbar.setSubtitle(null);
+        }
 
         setDivider(null); // this remove dividers for categories
 
