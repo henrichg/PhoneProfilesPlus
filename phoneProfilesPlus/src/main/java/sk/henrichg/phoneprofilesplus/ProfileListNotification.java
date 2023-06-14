@@ -386,16 +386,17 @@ public class ProfileListNotification {
             }
         }
         //if (Event.getGlobalEventsRunning() && PPApplicationStatic.getApplicationStarted(true)) {
+
         // left arrow
         if (displayedPage > 0)
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, VISIBLE);
         else
             contentView.setViewVisibility(R.id.notification_profile_list_scroll_left_arrow, View.GONE);
-
         Intent intentLeftArrow = new Intent();
         intentLeftArrow.setAction(ACTION_LEFT_ARROW_CLICK);
         PendingIntent pIntentLeftArrow = PendingIntent.getBroadcast(appContext, 2, intentLeftArrow, PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.notification_profile_list_scroll_left_arrow, pIntentLeftArrow);
+
         // right arrow
         if ((displayedPage < profileCount / notificationProfileListNumberOfProfilesPerPage) &&
                 (profileCount > notificationProfileListNumberOfProfilesPerPage))
