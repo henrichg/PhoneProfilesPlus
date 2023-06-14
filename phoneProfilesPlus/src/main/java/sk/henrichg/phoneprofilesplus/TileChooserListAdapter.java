@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 class TileChooserListAdapter extends BaseAdapter {
 
@@ -49,16 +47,8 @@ class TileChooserListAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
-        RadioButton radioButton;
-        ImageView profileIcon;
-        TextView profileName;
-        ImageView profileIndicator;
-        //int position;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        TileChooserListViewHolder holder;
         
         View vi = convertView;
 
@@ -72,7 +62,7 @@ class TileChooserListAdapter extends BaseAdapter {
                 vi = inflater.inflate(R.layout.listitem_tile_chooser, parent, false);
             else
                 vi = inflater.inflate(R.layout.listitem_tile_chooser_no_indicator, parent, false);
-            holder = new ViewHolder();
+            holder = new TileChooserListViewHolder();
             holder.radioButton = vi.findViewById(R.id.tile_chooser_list_item_radiobtn);
             holder.profileName = vi.findViewById(R.id.tile_chooser_list_item_profile_name);
             holder.profileIcon = vi.findViewById(R.id.tile_chooser_list_item_profile_icon);
@@ -82,7 +72,7 @@ class TileChooserListAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (ViewHolder)vi.getTag();
+            holder = (TileChooserListViewHolder)vi.getTag();
         }
 
 

@@ -52,9 +52,7 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
                 .commitAllowingStateLoss();
 
         Button closeButton = findViewById(R.id.activity_important_info_force_scroll_close);
-        closeButton.setOnClickListener(v -> {
-            finish();
-        });
+        closeButton.setOnClickListener(v -> finish());
 
     }
 

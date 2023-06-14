@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.database.Cursor;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -35,12 +34,12 @@ public class RingtonePreference extends DialogPreference {
     //String oldRingtoneUri;
 
     final String ringtoneType;
-    private final boolean showSilent;
-    private final boolean showDefault;
-    private final int simCard;
+    final boolean showSilent;
+    final boolean showDefault;
+    final int simCard;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
-    RefreshListViewAsyncTask asyncTask = null;
+    RingtonePreferenceRefreshListViewAsyncTask asyncTask = null;
 
     private final Context prefContext;
 
@@ -100,7 +99,7 @@ public class RingtonePreference extends DialogPreference {
     void refreshListView() {
         if ((fragment != null) && (fragment.getDialog() != null) && fragment.getDialog().isShowing()) {
             if (Permissions.checkRingtonePreference(prefContext)) {
-                asyncTask = new RefreshListViewAsyncTask(this, prefContext);
+                asyncTask = new RingtonePreferenceRefreshListViewAsyncTask(this, prefContext);
                 asyncTask.execute();
             }
         }
@@ -460,7 +459,8 @@ public class RingtonePreference extends DialogPreference {
         }
     }
 
-    static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+/*
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         //Ringtone defaultRingtone;
         private final Map<String, String> _toneList = new LinkedHashMap<>();
@@ -474,26 +474,6 @@ public class RingtonePreference extends DialogPreference {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
 
-        /*
-        @Override
-        protected void onPreExecute()
-        {
-            super.onPreExecute();
-
-            RingtonePreference preference = preferenceWeakRef.get();
-            if (preference != null) {
-                if (preference.toneList.size() > 0) {
-                    if (preference.fragment != null)
-                        preference.fragment.hideProgress();
-                }
-            }
-
-            //RingtonePreference preference = preferenceWeakRef.get();
-            //if ((preference != null) && (preference.fragment != null))
-            //    preference.fragment.showProgress();
-        }
-        */
-
         @Override
         protected Void doInBackground(Void... params) {
             RingtonePreference preference = preferenceWeakRef.get();
@@ -503,19 +483,19 @@ public class RingtonePreference extends DialogPreference {
                 RingtoneManager manager = new RingtoneManager(prefContext);
 
                 Uri uri;// = null;
-                        /*switch (ringtoneType) {
-                            case "ringtone":
-                                uri = Settings.System.DEFAULT_RINGTONE_URI;
-                                break;
-                            case "notification":
-                                uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                                break;
-                            case "alarm":
-                                uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
-                                break;
-                        }
+                //switch (ringtoneType) {
+                //    case "ringtone":
+                //        uri = Settings.System.DEFAULT_RINGTONE_URI;
+                //        break;
+                //    case "notification":
+                //        uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                //        break;
+                //    case "alarm":
+                //        uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                //        break;
+                //}
 
-                        defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);*/
+                //defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);
 
                 if (preference.showSilent) {
                     _toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
@@ -576,11 +556,9 @@ public class RingtonePreference extends DialogPreference {
                     try {
                         Cursor cursor = manager.getCursor();
 
-                                /*
-                                profile._soundRingtone=content://settings/system/ringtone
-                                profile._soundNotification=content://settings/system/notification_sound
-                                profile._soundAlarm=content://settings/system/alarm_alert
-                                */
+                        //profile._soundRingtone=content://settings/system/ringtone
+                        //profile._soundNotification=content://settings/system/notification_sound
+                        //profile._soundAlarm=content://settings/system/alarm_alert
 
                         while (cursor.moveToNext()) {
                             String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
@@ -618,12 +596,12 @@ public class RingtonePreference extends DialogPreference {
                 preference.toneList.clear();
                 preference.toneList.putAll(_toneList);
 
-                        /*if (defaultRingtone == null) {
-                            // ringtone not found
-                            //View positive = getButton(DialogInterface.BUTTON_POSITIVE);
-                            //positive.setEnabled(false);
-                            setPositiveButtonText(null);
-                        }*/
+                //if (defaultRingtone == null) {
+                //    // ringtone not found
+                //    //View positive = getButton(DialogInterface.BUTTON_POSITIVE);
+                //    //positive.setEnabled(false);
+                //    setPositiveButtonText(null);
+                //}
 
                 if (preference.fragment != null)
                     preference.fragment.updateListView(true);
@@ -631,6 +609,7 @@ public class RingtonePreference extends DialogPreference {
         }
 
     }
+*/
 
     private static class SetRingtoneAsyncTask extends AsyncTask<Void, Integer, Void> {
 

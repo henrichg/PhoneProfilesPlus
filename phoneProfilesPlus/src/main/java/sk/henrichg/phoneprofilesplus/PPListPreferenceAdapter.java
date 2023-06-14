@@ -34,7 +34,7 @@ class PPListPreferenceAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView entry;
         RadioButton radioButton;
         //int position;

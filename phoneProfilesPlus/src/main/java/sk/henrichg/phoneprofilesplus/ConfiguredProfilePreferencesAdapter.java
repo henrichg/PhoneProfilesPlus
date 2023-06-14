@@ -46,7 +46,7 @@ class ConfiguredProfilePreferencesAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView preferenceIcon;
         ImageView preferenceIcon2;
         TextView preferenceString;

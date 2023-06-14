@@ -59,7 +59,7 @@ class ChooseLanguageDialog
         help = layout.findViewById(R.id.choose_language_dlg_help);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
-            ChooseLanguageAdapter.ViewHolder viewHolder = (ChooseLanguageAdapter.ViewHolder) item.getTag();
+            ChooseLanguageViewHolder viewHolder = (ChooseLanguageViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
             doOnItemSelected(position);

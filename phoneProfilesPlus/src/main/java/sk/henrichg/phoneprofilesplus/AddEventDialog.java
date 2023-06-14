@@ -59,7 +59,7 @@ class AddEventDialog
         help = layout.findViewById(R.id.event_pref_dlg_help);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
-            AddEventAdapter.ViewHolder viewHolder = (AddEventAdapter.ViewHolder) item.getTag();
+            AddEventViewHolder viewHolder = (AddEventViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
             Handler handler = new Handler(activity.getMainLooper());

@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemPropertiesProto;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -146,17 +145,15 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"<br>";
             dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "<br>";
             dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "<br><br>";
-            dialogText = dialogText + "<b>" + activity.getString(R.string.install_pppps_text5) + "</b><br><br>";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
         } else {
             dialogText = dialogText + activity.getString(R.string.install_pppps_text6) + "<br><br>";
             dialogText = dialogText + activity.getString(R.string.install_pppps_text7) + " \"" + activity.getString(R.string.install_pppps_alert_button_how_to_install) + "\" ";
             dialogText = dialogText + activity.getString(R.string.install_pppps_text7a) + "<br>";
             dialogText = dialogText + activity.getString(R.string.install_pppps_text8) + " ";
             dialogText = dialogText + activity.getString(R.string.install_pppps_text9) + ".<br><br>";
-            dialogText = dialogText + "<b>" + activity.getString(R.string.install_pppps_text5) + "</b><br><br>";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
         }
+        dialogText = dialogText + "<b>" + activity.getString(R.string.install_pppps_text5) + "</b><br><br>";
+        dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
         dialogText = dialogText.replace("\n", "<br>");
         text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));

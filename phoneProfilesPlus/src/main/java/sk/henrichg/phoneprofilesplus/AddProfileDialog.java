@@ -54,7 +54,7 @@ class AddProfileDialog
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
-            AddProfileAdapter.ViewHolder viewHolder = (AddProfileAdapter.ViewHolder) item.getTag();
+            AddProfileViewHolder viewHolder = (AddProfileViewHolder) item.getTag();
             if (viewHolder != null)
                 viewHolder.radioButton.setChecked(true);
             Handler handler = new Handler(activity.getMainLooper());

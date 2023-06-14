@@ -77,7 +77,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             if (getActivity() != null) {
-                ShortcutCreatorListAdapter.ViewHolder viewHolder = (ShortcutCreatorListAdapter.ViewHolder) item.getTag();
+                ShortcutCreatorListViewHolder viewHolder = (ShortcutCreatorListViewHolder) item.getTag();
                 if (viewHolder != null)
                     viewHolder.radioButton.setChecked(true);
                 Handler handler = new Handler(getActivity().getMainLooper());

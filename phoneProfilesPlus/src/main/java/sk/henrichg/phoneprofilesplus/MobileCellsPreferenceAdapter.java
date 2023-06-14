@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 
 class MobileCellsPreferenceAdapter extends BaseAdapter
@@ -43,14 +41,6 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
-        TextView cellId;
-        TextView lastConnectedTime;
-        CheckBox checkBox;
-        AppCompatImageButton itemEditMenu;
-        //int position;
-    }
-
     @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)
     {
@@ -61,20 +51,20 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
         // Make sure your adapter calls notifyDataSetChanged() when its content changes. [in ListView(2131689809, class android.widget.ListView)
         // with Adapter(class sk.henrichg.phoneprofilesplus.MobileCellsPreferenceAdapter)]
 
-        ViewHolder holder;
+        MobileCellsPreferenceViewHolder holder;
         
         View vi = convertView;
         if (convertView == null)
         {
             vi = inflater.inflate(R.layout.listitem_mobile_cells_preference, parent, false);
-            holder = new ViewHolder();
+            holder = new MobileCellsPreferenceViewHolder();
             holder.cellId = vi.findViewById(R.id.mobile_cells_pref_dlg_item_label);
             holder.lastConnectedTime = vi.findViewById(R.id.mobile_cells_pref_dlg_item_lastConnectedTime);
             holder.checkBox = vi.findViewById(R.id.mobile_cells_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.mobile_cells_pref_dlg_item_edit_menu);
             vi.setTag(holder);
         } else {
-            holder = (ViewHolder) vi.getTag();
+            holder = (MobileCellsPreferenceViewHolder) vi.getTag();
         }
 
         // must be set, without this not working long click

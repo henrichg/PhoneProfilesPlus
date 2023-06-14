@@ -5,9 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,17 +44,9 @@ class RingtonePreferenceAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
-        TextView ringtoneLabel;
-        TextView ringtonePath;
-        RadioButton radioBtn;
-        ImageView ringtoneTypeImage;
-        //int position;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewHolder holder;
+        RingtonePreferenceViewHolder holder;
 
         String ringtone = (new ArrayList<>(toneList.keySet())).get(position);
         String ringtoneTitle = (new ArrayList<>(toneList.values())).get(position);
@@ -65,7 +55,7 @@ class RingtonePreferenceAdapter extends BaseAdapter {
         if (convertView == null) {
             vi = LayoutInflater.from(context).inflate(R.layout.listitem_ringtone_preference, parent, false);
 
-            holder = new ViewHolder();
+            holder = new RingtonePreferenceViewHolder();
             holder.ringtoneLabel = vi.findViewById(R.id.ringtone_pref_dlg_item_label);
             holder.ringtonePath = vi.findViewById(R.id.ringtone_pref_dlg_item_path);
             holder.radioBtn = vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
@@ -74,7 +64,7 @@ class RingtonePreferenceAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (ViewHolder)vi.getTag();
+            holder = (RingtonePreferenceViewHolder)vi.getTag();
         }
 
         holder.radioBtn.setTag(ringtone);

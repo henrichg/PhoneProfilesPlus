@@ -118,8 +118,8 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         SSIDListView.setOnItemClickListener((parent, item, position, id) -> {
             String ssid = preference.SSIDList.get(position).ssid;
-            WifiSSIDPreferenceAdapter.ViewHolder viewHolder =
-                    (WifiSSIDPreferenceAdapter.ViewHolder) item.getTag();
+            WifiSSIDPreferenceViewHolder viewHolder =
+                    (WifiSSIDPreferenceViewHolder) item.getTag();
             viewHolder.checkBox.setChecked(!preference.isSSIDSelected(ssid));
             if (viewHolder.checkBox.isChecked())
                 preference.addSSID(ssid);
@@ -424,7 +424,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         //}
     }
 
-    static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         final boolean forRescan;
         final String scrollToSSID;

@@ -80,9 +80,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
         });
 
         Button closeButton = findViewById(R.id.activity_important_info_close);
-        closeButton.setOnClickListener(v -> {
-            finish();
-        });
+        closeButton.setOnClickListener(v -> finish());
 
         Intent intent = getIntent();
         boolean firstInstallation = intent.getBooleanExtra(ImportantInfoNotification.EXTRA_FIRST_INSTALLATION, false);

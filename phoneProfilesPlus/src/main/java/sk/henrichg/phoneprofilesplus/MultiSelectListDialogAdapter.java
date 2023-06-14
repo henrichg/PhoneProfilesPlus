@@ -36,7 +36,7 @@ class MultiSelectListDialogAdapter extends BaseAdapter
         return position;
     }
     
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView label;
         CheckBox checkBox;
         //int position;

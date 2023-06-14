@@ -54,7 +54,7 @@ class OpaquenessLightingPreferenceAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         ImageView icon;
         TextView label;
         RadioButton radioBtn;

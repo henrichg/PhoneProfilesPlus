@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
@@ -75,23 +73,9 @@ class AddEventAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
-        RadioButton radioButton;
-        TextView eventName;
-        TextView eventPreferencesDescription;
-        //RelativeLayout profilesRoot;
-        ImageView profileStartIcon;
-        TextView profileStartName;
-        ImageView profileStartIndicator;
-        ImageView profileEndIcon;
-        TextView profileEndName;
-        ImageView profileEndIndicator;
-        //int position;
-    }
-
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewHolder holder;
+        AddEventViewHolder holder;
 
         View vi = convertView;
 
@@ -104,7 +88,7 @@ class AddEventAdapter extends BaseAdapter {
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event, parent, false);
             else
                 vi = LayoutInflater.from(context).inflate(R.layout.listitem_add_event_no_indicator, parent, false);
-            holder = new ViewHolder();
+            holder = new AddEventViewHolder();
             holder.radioButton = vi.findViewById(R.id.event_pref_dlg_item_radio_button);
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);
             holder.profileStartName = vi.findViewById(R.id.event_pref_dlg_item_profile_start_name);
@@ -125,7 +109,7 @@ class AddEventAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (ViewHolder)vi.getTag();
+            holder = (AddEventViewHolder)vi.getTag();
         }
 
 

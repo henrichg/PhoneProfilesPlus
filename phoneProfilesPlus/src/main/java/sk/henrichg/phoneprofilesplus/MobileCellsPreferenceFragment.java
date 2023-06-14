@@ -133,8 +133,8 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
         cellsListView.setOnItemClickListener((parent, item, position, id) -> {
             int cellId = preference.filteredCellsList.get(position).cellId;
-            MobileCellsPreferenceAdapter.ViewHolder viewHolder =
-                    (MobileCellsPreferenceAdapter.ViewHolder) item.getTag();
+            MobileCellsPreferenceViewHolder viewHolder =
+                    (MobileCellsPreferenceViewHolder) item.getTag();
             viewHolder.checkBox.setChecked(!preference.isCellSelected(cellId));
             if (viewHolder.checkBox.isChecked())
                 preference.addCellId(cellId);

@@ -72,7 +72,7 @@ public class TileChooserListFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             if (getActivity() != null) {
-                TileChooserListAdapter.ViewHolder viewHolder = (TileChooserListAdapter.ViewHolder) item.getTag();
+                TileChooserListViewHolder viewHolder = (TileChooserListViewHolder) item.getTag();
                 if (viewHolder != null)
                     viewHolder.radioButton.setChecked(true);
                 Handler handler = new Handler(getActivity().getMainLooper());

@@ -123,8 +123,8 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
         bluetoothListView.setOnItemClickListener((parent, item, position, id) -> {
             String ssid = preference.bluetoothList.get(position).name;
-            BluetoothNamePreferenceAdapter.ViewHolder viewHolder =
-                    (BluetoothNamePreferenceAdapter.ViewHolder) item.getTag();
+            BluetoothNamePreferenceViewHolder viewHolder =
+                    (BluetoothNamePreferenceViewHolder) item.getTag();
             viewHolder.checkBox.setChecked(!preference.isBluetoothNameSelected(ssid));
             if (viewHolder.checkBox.isChecked())
                 preference.addBluetoothName(ssid);

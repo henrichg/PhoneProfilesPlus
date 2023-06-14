@@ -148,7 +148,7 @@ class ActivatorListAdapter extends BaseAdapter
         notifyDataSetChanged();
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
           //ViewGroup listItemRoot;
           ImageView profileIcon;
           TextView profileName;

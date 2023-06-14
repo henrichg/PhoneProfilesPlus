@@ -37,7 +37,7 @@ class NotUsedMobileCellsDetectedAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder {
+    private static class ViewHolder {
         TextView eventNameTextView;
         CheckBox checkBox;
         //int position;

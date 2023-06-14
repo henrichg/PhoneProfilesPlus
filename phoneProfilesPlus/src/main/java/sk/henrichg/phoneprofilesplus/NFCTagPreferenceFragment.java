@@ -104,8 +104,8 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
         nfcTagListView.setOnItemClickListener((parent, item, position, id) -> {
             String ssid = preference.nfcTagList.get(position)._name;
-            NFCTagPreferenceAdapter.ViewHolder viewHolder =
-                    (NFCTagPreferenceAdapter.ViewHolder) item.getTag();
+            NFCTagPreferenceViewHolder viewHolder =
+                    (NFCTagPreferenceViewHolder) item.getTag();
             viewHolder.checkBox.setChecked(!preference.isNfcTagSelected(ssid));
             if (viewHolder.checkBox.isChecked())
                 preference.addNfcTag(ssid);
