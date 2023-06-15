@@ -35,7 +35,6 @@ public class MobileCellsRegistrationService extends Service
     private CountDownTimer countDownTimer = null;
 
     static volatile boolean serviceStarted = false;
-    static volatile boolean forceStart;
     private Context context;
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
@@ -71,7 +70,7 @@ public class MobileCellsRegistrationService extends Service
         if (remainingDuration > 0) {
             serviceStarted = true;
 
-            forceStart = true;
+            PPApplication.mobileCellsRegistraitonForceStart = true;
             PPApplicationStatic.forceStartMobileCellsScanner(this);
 
             //MobileCellsScanner.autoRegistrationService = this;
@@ -107,7 +106,7 @@ public class MobileCellsRegistrationService extends Service
                 public void onFinish() {
                     //Log.d("MobileCellsRegistrationService", "Timer finished");
 
-                    if (serviceStarted && (MobileCellsScanner.enabledAutoRegistration))
+                    if (serviceStarted && (PPApplication.mobileCellsScannerEnabledAutoRegistration))
                         stopRegistration();
                 }
             };
@@ -154,7 +153,7 @@ public class MobileCellsRegistrationService extends Service
 
             //MobileCellsScanner.autoRegistrationService = null;
 
-            forceStart = false;
+            PPApplication.mobileCellsRegistraitonForceStart = false;
             PPApplicationStatic.restartMobileCellsScanner(this);
 
             showResultNotification();
@@ -306,9 +305,9 @@ public class MobileCellsRegistrationService extends Service
 
     static void getMobileCellsAutoRegistration(Context context) {
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
-        MobileCellsScanner.durationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
-        MobileCellsScanner.cellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
-        MobileCellsScanner.enabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+        PPApplication.mobileCellsScannerDurationForAutoRegistration = preferences.getInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+        PPApplication.mobileCellsScannerCellsNameForAutoRegistration = preferences.getString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
+        PPApplication.mobileCellsScannerEnabledAutoRegistration = preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
         MobileCellsScanner.getAllEvents(preferences, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
     }
 
@@ -319,15 +318,15 @@ public class MobileCellsRegistrationService extends Service
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
             setMobileCellsAutoRegistrationRemainingDuration(context, 0);
-            MobileCellsScanner.durationForAutoRegistration = 0;
-            MobileCellsScanner.cellsNameForAutoRegistration = "";
-            MobileCellsScanner.enabledAutoRegistration = false;
+            PPApplication.mobileCellsScannerDurationForAutoRegistration = 0;
+            PPApplication.mobileCellsScannerCellsNameForAutoRegistration = "";
+            PPApplication.mobileCellsScannerEnabledAutoRegistration = false;
             MobileCellsScanner.clearEventList();
         }
         else {
-            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, MobileCellsScanner.durationForAutoRegistration);
-            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, MobileCellsScanner.cellsNameForAutoRegistration);
-            editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, MobileCellsScanner.enabledAutoRegistration);
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PPApplication.mobileCellsScannerDurationForAutoRegistration);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PPApplication.mobileCellsScannerCellsNameForAutoRegistration);
+            editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PPApplication.mobileCellsScannerEnabledAutoRegistration);
         }
         MobileCellsScanner.saveAllEvents(editor, PREF_MOBILE_CELLS_AUTOREGISTRATION_EVENT_LIST);
         editor.apply();

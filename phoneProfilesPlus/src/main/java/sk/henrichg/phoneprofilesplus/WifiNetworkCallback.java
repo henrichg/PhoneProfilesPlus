@@ -15,8 +15,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     //private final Context context;
 
-    static volatile boolean connected = false;
-
     WifiNetworkCallback(/*Context context*/) {
         //this.context = context.getApplicationContext();
     }
@@ -24,14 +22,14 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onLost(Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
-        connected = false;
+        PPApplication.wifiNetworkconnected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
-        connected = false;
+        PPApplication.wifiNetworkconnected = false;
         doConnection();
     }
 
@@ -44,7 +42,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     @Override
     public void onAvailable(Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
-        connected = true;
+        PPApplication.wifiNetworkconnected = true;
         doConnection();
     }
 
@@ -210,7 +208,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             // connect to SSID is started
 //                PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "connectToSSIDStarted");
 
-            if (connected) {
+            if (PPApplication.wifiNetworkconnected) {
                 //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                 //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                 //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||

@@ -49,7 +49,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(Object defaultValue) {
-        value = Integer.toString(MobileCellsScanner.durationForAutoRegistration);
+        value = Integer.toString(PPApplication.mobileCellsScannerDurationForAutoRegistration);
         setSummaryDDP(0);
     }
 
@@ -57,7 +57,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference {
     {
         String summary = "";
         boolean started = false;
-        if (MobileCellsScanner.enabledAutoRegistration) {
+        if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
             if (millisUntilFinished > 0) {
                 summary = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_started);
                 String time = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);

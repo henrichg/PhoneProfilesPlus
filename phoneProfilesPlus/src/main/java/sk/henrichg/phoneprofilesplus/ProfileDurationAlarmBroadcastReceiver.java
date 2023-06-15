@@ -360,7 +360,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         // alarm is from activated profile
 
                         if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
-                            PhoneProfilesServiceStatic.playNotificationSound(
+                            PlayRingingNotification.playNotificationSound(
                                     profile._durationNotificationSound,
                                     profile._durationNotificationVibrate,
                                     false, appContext);

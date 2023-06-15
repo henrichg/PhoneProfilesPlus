@@ -2982,7 +2982,7 @@ class Event {
             }
 
             //if (playSound)
-            PhoneProfilesServiceStatic.playNotificationSound(
+            PlayRingingNotification.playNotificationSound(
                     notificationSoundStart,
                     notificationVibrateStart,
                     playAlsoInSilentMode, context);
@@ -3003,7 +3003,7 @@ class Event {
         if (!notificationSoundEnd.isEmpty() || notificationVibrateEnd) {
 
             //if (playSound)
-            PhoneProfilesServiceStatic.playNotificationSound(
+            PlayRingingNotification.playNotificationSound(
                     notificationSoundEnd,
                     notificationVibrateEnd,
                     playAlsoInSilentMode, context);

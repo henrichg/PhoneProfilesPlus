@@ -11,9 +11,6 @@ import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesVolumes extends EventPreferences {
 
-    static boolean internalChange = false;
-    static boolean mediaVolumeChangeed = false;
-
     String _volumeRingtone;
     String _volumeNotification;
     String _volumeMedia;

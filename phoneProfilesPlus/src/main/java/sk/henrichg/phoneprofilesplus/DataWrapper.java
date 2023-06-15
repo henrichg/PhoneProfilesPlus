@@ -1666,7 +1666,7 @@ public class DataWrapper {
                                         (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                                         (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                                        PhoneProfilesServiceStatic.playNotificationSound(
+                                        PlayRingingNotification.playNotificationSound(
                                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                             false, _dataWrapper.context);
@@ -2206,7 +2206,7 @@ public class DataWrapper {
                             PPApplicationStatic.startPPService(context, serviceIntent);
                         } else {
                             if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                                PhoneProfilesServiceStatic.playNotificationSound(
+                                PlayRingingNotification.playNotificationSound(
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                         ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                 false, context);
@@ -2263,7 +2263,7 @@ public class DataWrapper {
             }
 
             if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                PhoneProfilesServiceStatic.playNotificationSound(
+                PlayRingingNotification.playNotificationSound(
                         ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                         ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                         false, context);

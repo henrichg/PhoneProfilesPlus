@@ -356,7 +356,7 @@ class EventPreferencesLocation extends EventPreferences {
                         if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
                             boolean transitionsUpdated;
                             synchronized (PPApplication.locationScannerMutex) {
-                                transitionsUpdated = LocationScanner.mTransitionsUpdated;
+                                transitionsUpdated = PPApplication.locationScannerTransitionsUpdated;
                             }
                             if (transitionsUpdated) {
                                 String[] splits = _geofences.split("\\|");

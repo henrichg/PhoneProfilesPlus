@@ -58,7 +58,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / LocationScanner.INTERVAL_DIVIDE_VALUE; // interval is in minutes
         int delay = interval + 10; // interval from settings + 10 seconds;
 
-        if (!LocationScanner.useGPS)
+        if (!PPApplication.locationScannerUseGPS)
             delay = 30 * 60;  // 30 minutes with GPS OFF
 
         if (!PPApplicationStatic.isIgnoreBatteryOptimizationEnabled(context)) {
@@ -171,7 +171,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                     synchronized (PPApplication.locationScannerMutex) {
                         if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
 
-                            if (LocationScanner.mUpdatesStarted) {
+                            if (PPApplication.locationScannerUpdatesStarted) {
 //                              if (LocationScanner.useGPS) {
 //                                  if (PPApplication.googlePlayServiceAvailable) {
 //                                      locationScanner.flushLocations();
@@ -186,10 +186,10 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                                 if (ApplicationPreferences.applicationEventLocationUseGPS &&
                                         (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
                                     // force useGPS
-                                    LocationScanner.useGPS = true;
+                                    PPApplication.locationScannerUseGPS = true;
                                 else {
-                                    boolean useGPS = LocationScanner.useGPS;
-                                    LocationScanner.useGPS = !useGPS;
+                                    boolean useGPS = PPApplication.locationScannerUseGPS;
+                                    PPApplication.locationScannerUseGPS = !useGPS;
                                 }
 
                                 // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()

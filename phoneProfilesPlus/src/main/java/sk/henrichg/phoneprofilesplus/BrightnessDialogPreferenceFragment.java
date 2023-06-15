@@ -40,7 +40,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
         preference = (BrightnessDialogPreference) getPreference();
         preference.fragment = this;
 
-        ActivateProfileHelper.brightnessDialogInternalChange = true;
+        PPApplication.brightnessDialogInternalChange = true;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.dialog_brightness_preference, null, false);
@@ -93,8 +93,8 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
 
     private void setSavedBrightness() {
         if (Permissions.checkScreenBrightness(context, null)) {
-            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, SettingsContentObserver.savedBrightnessMode);
-            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, SettingsContentObserver.savedBrightness);
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, PPApplication.savedBrightnessMode);
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, PPApplication.savedBrightness);
             //setAdaptiveBrightness(SettingsContentObserver.savedAdaptiveBrightness);
         }
     }
@@ -108,7 +108,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
             preference.resetSummary();
         }
 
-        ActivateProfileHelper.brightnessDialogInternalChange = false;
+        PPApplication.brightnessDialogInternalChange = false;
 
         savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
         setSavedBrightness();

@@ -35,7 +35,7 @@ public class WifiScanWorker extends Worker {
     static final String WORK_TAG_SHORT  = "WifiScanJobShort";
     static final String WORK_TAG_START_SCAN = "startWifiScanWork";
 
-    public static volatile WifiManager wifi = null;
+    static volatile WifiManager wifi = null;
     private static volatile WifiManager.WifiLock wifiLock = null;
 
     private static final String PREF_EVENT_WIFI_SCAN_REQUEST = "eventWifiScanRequest";

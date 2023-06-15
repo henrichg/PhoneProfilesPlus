@@ -40,8 +40,6 @@ public class MobileCellsPreference extends DialogPreference {
 
     private final Context prefContext;
 
-    static volatile boolean forceStart;
-
     public MobileCellsPreference(Context prefContext, AttributeSet attrs) {
         super(prefContext, attrs);
         

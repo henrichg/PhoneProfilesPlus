@@ -130,7 +130,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                         if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                            PhoneProfilesServiceStatic.playNotificationSound(
+                            PlayRingingNotification.playNotificationSound(
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                     ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                     false, mDataWrapper.context);
@@ -164,7 +164,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                         (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                     if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
-                        PhoneProfilesServiceStatic.playNotificationSound(
+                        PlayRingingNotification.playNotificationSound(
                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationSound,
                                 ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate,
                                 false, mDataWrapper.context);

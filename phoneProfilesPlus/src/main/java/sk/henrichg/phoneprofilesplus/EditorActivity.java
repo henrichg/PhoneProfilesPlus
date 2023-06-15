@@ -108,7 +108,7 @@ public class EditorActivity extends AppCompatActivity
     @SuppressWarnings("rawtypes")
     private AsyncTask restoreAsyncTask = null;
 
-    static volatile boolean doImport = false;
+    private static volatile boolean doImport = false;
     private AlertDialog importProgressDialog = null;
     private AlertDialog exportProgressDialog = null;
     private AlertDialog backupProgressDialog = null;

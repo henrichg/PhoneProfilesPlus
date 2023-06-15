@@ -313,7 +313,7 @@ public class PhoneCallsListener extends PhoneStateListener {
     @SuppressWarnings("UnusedReturnValue")
     private static boolean setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
         synchronized (PPApplication.notUnlinkVolumesMutex) {
-            if (!RingerModeChangeReceiver.notUnlinkVolumes) {
+            if (!PPApplication.ringerModeNotUnlinkVolumes) {
                 boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
                 if (unlinkEnabled) {
                     int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
@@ -413,7 +413,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PhoneProfilesServiceStatic.stopSimulatingRingingCall(true, context.getApplicationContext());
+        PlayRingingNotification.stopSimulatingRingingCall(true, context.getApplicationContext());
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -486,7 +486,7 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null)
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PhoneProfilesServiceStatic.stopSimulatingRingingCall(false, context.getApplicationContext());
+        PlayRingingNotification.stopSimulatingRingingCall(false, context.getApplicationContext());
 
         // audio mode is set to MODE_IN_CALL by system
 

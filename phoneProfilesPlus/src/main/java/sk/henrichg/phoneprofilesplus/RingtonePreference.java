@@ -160,7 +160,7 @@ public class RingtonePreference extends DialogPreference {
                         if (oldMediaVolume > -1)
                             ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true, false);
                         if (oldMediaMuted) {
-                            EventPreferencesVolumes.internalChange = true;
+                            PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                             PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
@@ -217,8 +217,8 @@ public class RingtonePreference extends DialogPreference {
                             mediaPlayer.setDataSource(appContext, _ringtoneUri);
                         }
 
-                        EventPreferencesVolumes.internalChange = true;
-                        RingerModeChangeReceiver.internalChange = true;
+                        PPApplication.volumesInternalChange = true;
+                        PPApplication.ringerModeInternalChange = true;
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
                                 .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -269,7 +269,7 @@ public class RingtonePreference extends DialogPreference {
                         int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
                         if (oldMediaMuted) {
-                            EventPreferencesVolumes.internalChange = true;
+                            PPApplication.volumesInternalChange = true;
                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                         }
                         ActivateProfileHelper.setMediaVolume(appContext, audioManager, mediaVolume, true, false);
@@ -301,7 +301,7 @@ public class RingtonePreference extends DialogPreference {
                                         if (oldMediaVolume > -1)
                                             ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume, true, false);
                                         if (oldMediaMuted) {
-                                            EventPreferencesVolumes.internalChange = true;
+                                            PPApplication.volumesInternalChange = true;
                                             audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                         }
                                     }

@@ -69,7 +69,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        BluetoothNamePreference.forceRegister = true;
+        PPApplication.bluetoothForceRegister = true;
         PPApplicationStatic.forceRegisterReceiversForBluetoothScanner(prefContext);
 
         progressLinearLayout = view.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
@@ -232,7 +232,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             rescanAsyncTask.cancel(true);
         }
 
-        BluetoothNamePreference.forceRegister = false;
+        PPApplication.bluetoothForceRegister = false;
         PPApplicationStatic.reregisterReceiversForBluetoothScanner(prefContext);
 
         preference.fragment = null;

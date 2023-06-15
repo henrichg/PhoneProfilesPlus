@@ -7,16 +7,13 @@ import android.media.AudioManager;
 
 public class RingerModeChangeReceiver extends BroadcastReceiver {
 
-    public static volatile boolean internalChange = false;
-    public static volatile boolean notUnlinkVolumes = false;
-
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplicationStatic.logE("[IN_BROADCAST] RingerModeChangeReceiver.onReceive", "xxx");
 
-        if (!internalChange) {
+        if (!PPApplication.ringerModeInternalChange) {
             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                notUnlinkVolumes = true;
+                PPApplication.ringerModeNotUnlinkVolumes = true;
             }
             final AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
             setRingerMode(context.getApplicationContext(), audioManager/*, "PringerModeChangeReceiver.onReceive"*/);

@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -17,7 +16,6 @@ public class VolumeDialogPreference extends DialogPreference {
     private final Context _context;
 
     final AudioManager audioManager;
-    static volatile MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
     final int forVolumesSensor;

@@ -32,10 +32,6 @@ class SettingsContentObserver  extends ContentObserver {
     //private int defaultRingerMode = 0;
     private static volatile int previousScreenTimeout = 0;
 
-    static volatile int savedBrightness;
-    //static volatile float savedAdaptiveBrightness;
-    static volatile int savedBrightnessMode;
-
     private final Context context;
 
     SettingsContentObserver(Context c, Handler handler) {
@@ -56,8 +52,8 @@ class SettingsContentObserver  extends ContentObserver {
             //previousVolumeAccessibilityPrompt = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
         }
 
-        savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-        savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+        PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+        PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
         //savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
     }
 
@@ -78,34 +74,34 @@ class SettingsContentObserver  extends ContentObserver {
             int delta = previousVolume - currentVolume;
 
             if (delta > 0) {
-                if (!RingerModeChangeReceiver.internalChange) {
+                if (!PPApplication.ringerModeInternalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                        PhoneProfilesService.ringingVolume = currentVolume;
+                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                         //PhoneProfilesService.notificationVolume = currentVolume;
                     }
                 }
             } else if (delta < 0) {
-                if (!RingerModeChangeReceiver.internalChange) {
+                if (!PPApplication.ringerModeInternalChange) {
                     if (volumeStream == AudioManager.STREAM_RING) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                        PhoneProfilesService.ringingVolume = currentVolume;
+                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = currentVolume;
                     }
                     if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = true;
+                            PPApplication.ringerModeNotUnlinkVolumes = true;
                         }
                         ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                         //PhoneProfilesService.notificationVolume = currentVolume;
@@ -211,7 +207,7 @@ class SettingsContentObserver  extends ContentObserver {
             //////////////
         }
         if (volumeChange) {
-            if (!EventPreferencesVolumes.internalChange) {
+            if (!PPApplication.volumesInternalChange) {
 
                 if (PPApplicationStatic.getApplicationStarted(true, true)) {
                     // application is started
@@ -302,7 +298,7 @@ class SettingsContentObserver  extends ContentObserver {
         ////// screen timeout change
         int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, -1);
         if (screenTimeout != -1) {
-            if (!ActivateProfileHelper.disableScreenTimeoutInternalChange) {
+            if (!PPApplication.disableScreenTimeoutInternalChange) {
                 if (previousScreenTimeout != screenTimeout) {
                     ActivateProfileHelper.setActivatedProfileScreenTimeoutWhenScreenOff(context, 0);
                 }
@@ -310,10 +306,10 @@ class SettingsContentObserver  extends ContentObserver {
             previousScreenTimeout = screenTimeout;
         }
 
-        if (!ActivateProfileHelper.brightnessDialogInternalChange) {
-            savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-            savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-            //savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+        if (!PPApplication.brightnessDialogInternalChange) {
+            PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+            PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+            //PPApplication.savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
             // TODO this is for log brightness values to log file
             //  use only for check brightness values 0%, 50%, 100% by user,

@@ -68,7 +68,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
 
-        WifiSSIDPreference.forceRegister = true;
+        PPApplication.wifiSSIDForceRegister = true;
         PPApplicationStatic.forceRegisterReceiversForWifiScanner(prefContext);
 
         progressLinearLayout = view.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
@@ -219,7 +219,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         if ((rescanAsyncTask != null) && rescanAsyncTask.getStatus().equals(AsyncTask.Status.RUNNING))
             rescanAsyncTask.cancel(true);
 
-        WifiSSIDPreference.forceRegister = false;
+        PPApplication.wifiSSIDForceRegister = false;
         PPApplicationStatic.reregisterReceiversForWifiScanner(prefContext);
 
         preference.fragment = null;

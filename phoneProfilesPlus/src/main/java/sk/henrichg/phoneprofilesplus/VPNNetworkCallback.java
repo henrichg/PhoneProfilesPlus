@@ -9,8 +9,6 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private final Context context;
 
-    static volatile boolean connected = false;
-
     VPNNetworkCallback(Context context) {
         this.context = context.getApplicationContext();
     }
@@ -19,14 +17,14 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     public void onLost(Network network) {
         //record vpn disconnect event
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onLost", "xxx");
-        connected = false;
+        PPApplication.vpnNetworkConnected = false;
         doConnection();
     }
 
     @Override
     public void onUnavailable() {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onUnavailable", "xxx");
-        connected = false;
+        PPApplication.vpnNetworkConnected = false;
         doConnection();
     }
 
@@ -40,7 +38,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     public void onAvailable(Network network) {
         //record vpn connect event
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onAvailable", "xxx");
-        connected = true;
+        PPApplication.vpnNetworkConnected = true;
         doConnection();
     }
 

@@ -30,8 +30,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(WifiManager.WIFI_STATE_CHANGED_ACTION)) {
                 // WifiStateChangedBroadcastReceiver
 
-                if (WifiScanWorker.wifi == null)
-                    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                //if (WifiScanWorker.wifi == null)
+                //    WifiScanWorker.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
                 final int wifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE, 0);
 

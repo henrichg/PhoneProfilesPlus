@@ -76,9 +76,6 @@ import java.util.concurrent.TimeUnit;
 
 class ActivateProfileHelper {
 
-    static volatile boolean disableScreenTimeoutInternalChange = false;
-    static volatile boolean brightnessDialogInternalChange = false;
-
     // bluetooth calls volume stream
     static final int STREAM_BLUETOOTH_SCO = 6;
     // stream for TTS - from API 24
@@ -1090,7 +1087,7 @@ class ActivateProfileHelper {
                             else
                                 newNotificationVolume = oldNotificationVolume + 1;
 
-                            EventPreferencesVolumes.internalChange = true;
+                            PPApplication.volumesInternalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                             GlobalUtils.sleep(2000);
@@ -1103,7 +1100,7 @@ class ActivateProfileHelper {
                             merged = newRingVolume == newNotificationVolume;
                         } else
                             merged = false;
-                        EventPreferencesVolumes.internalChange = true;
+                        PPApplication.volumesInternalChange = true;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                         PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
@@ -1195,7 +1192,7 @@ class ActivateProfileHelper {
                     if (profile.getVolumeRingtoneChange()) {
                         if (forProfileActivation) {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             setRingerVolume(appContext, profile.getVolumeRingtoneValue());
                         }
@@ -1205,7 +1202,7 @@ class ActivateProfileHelper {
                     if (profile.getVolumeNotificationChange()) {
                         if (forProfileActivation) {
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             setNotificationVolume(appContext, profile.getVolumeNotificationValue());
                         }
@@ -1244,7 +1241,7 @@ class ActivateProfileHelper {
                         if (!dtmfMuted) {
                             if (profile.getVolumeDTMFChange()) {
                                 synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                    RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                    PPApplication.ringerModeNotUnlinkVolumes = false;
                                 }
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
@@ -1258,7 +1255,7 @@ class ActivateProfileHelper {
                         if (!systemMuted) {
                             if (profile.getVolumeSystemChange()) {
                                 synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                    RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                    PPApplication.ringerModeNotUnlinkVolumes = false;
                                 }
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
@@ -1289,7 +1286,7 @@ class ActivateProfileHelper {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                        PhoneProfilesService.ringingVolume = volume;
+                                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                         //PhoneProfilesService.notificationVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                         //EventPreferencesVolumes.internalChange = true;
@@ -1311,7 +1308,7 @@ class ActivateProfileHelper {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                        PhoneProfilesService.ringingVolume = volume;
+                                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                         if (!profile.getVolumeNotificationChange())
                                             setNotificationVolume(appContext, volume);
@@ -1339,7 +1336,7 @@ class ActivateProfileHelper {
                                     try {
                                         //EventPreferencesVolumes.internalChange = true;
                                         audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                        PhoneProfilesService.ringingVolume = volume;
+                                        PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                         //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                         //correctVolume0(audioManager);
                                         if (!profile.getVolumeNotificationChange())
@@ -1389,7 +1386,7 @@ class ActivateProfileHelper {
                                 try {
                                     //EventPreferencesVolumes.internalChange = true;
                                     audioManager.setStreamVolume(AudioManager.STREAM_RING /* 2 */, volume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-                                    PhoneProfilesService.ringingVolume = volume;
+                                    PlayRingingNotification.simulatingRingingCallActualRingingVolume = volume;
                                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                     //correctVolume0(audioManager);
                                 } catch (Exception e) {
@@ -1459,7 +1456,7 @@ class ActivateProfileHelper {
 //            Log.e("ActivateProfileHelper.setMediaVolume", "audioManager.setStreamVolume");
 
             if (setMediaVolumeChanged)
-                EventPreferencesVolumes.mediaVolumeChangeed = true;
+                PPApplication.volumesMediaVolumeChangeed = true;
         } catch (SecurityException e) {
             //PPApplicationStatic.recordException(e);
 
@@ -1474,7 +1471,7 @@ class ActivateProfileHelper {
                     G1OK = true;
 
                     if (setMediaVolumeChanged)
-                        EventPreferencesVolumes.mediaVolumeChangeed = true;
+                        PPApplication.volumesMediaVolumeChangeed = true;
                 }
                 catch (Exception e2) {
                     Log.e("ActivateProfileHelper.setMediaVolume", Log.getStackTraceString(e2));
@@ -1494,7 +1491,7 @@ class ActivateProfileHelper {
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC /* 3 */, value, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                             if (setMediaVolumeChanged)
-                                EventPreferencesVolumes.mediaVolumeChangeed = true;
+                                PPApplication.volumesMediaVolumeChangeed = true;
                         } catch (Exception ee) {
                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //PPApplicationStatic.recordException(e);;
@@ -3072,7 +3069,7 @@ class ActivateProfileHelper {
                         // because may be changed by another profile or from outside of PPP
                         GlobalUtils.sleep(500);
 
-                        RingerModeChangeReceiver.internalChange = true;
+                        PPApplication.ringerModeInternalChange = true;
 
                         if (canChangeZenMode(appContext)) {
                             changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
@@ -3100,7 +3097,7 @@ class ActivateProfileHelper {
                         }
                     } else {
 
-                        RingerModeChangeReceiver.internalChange = true;
+                        PPApplication.ringerModeInternalChange = true;
 
                         int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
@@ -3568,7 +3565,7 @@ class ActivateProfileHelper {
             switch (ringerMode) {
                 case Profile.RINGERMODE_RING:
                     synchronized (PPApplication.notUnlinkVolumesMutex) {
-                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        PPApplication.ringerModeNotUnlinkVolumes = false;
                     }
                     //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
@@ -3585,7 +3582,7 @@ class ActivateProfileHelper {
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     synchronized (PPApplication.notUnlinkVolumesMutex) {
-                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        PPApplication.ringerModeNotUnlinkVolumes = false;
                     }
                     //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
@@ -3602,7 +3599,7 @@ class ActivateProfileHelper {
                     break;
                 case Profile.RINGERMODE_VIBRATE:
                     synchronized (PPApplication.notUnlinkVolumesMutex) {
-                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        PPApplication.ringerModeNotUnlinkVolumes = false;
                     }
                     //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
@@ -3624,7 +3621,7 @@ class ActivateProfileHelper {
                     if ((PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) ||
                             (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            PPApplication.ringerModeNotUnlinkVolumes = false;
                         }
                         //PPNotificationListenerService.requestInterruptionFilter(appContext, ZENMODE_ALL);
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALL);
@@ -3634,7 +3631,7 @@ class ActivateProfileHelper {
                     }
                     else {
                         synchronized (PPApplication.notUnlinkVolumesMutex) {
-                            RingerModeChangeReceiver.notUnlinkVolumes = false;
+                            PPApplication.ringerModeNotUnlinkVolumes = false;
                         }
                         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                         setVibrateSettings(false, audioManager);
@@ -3651,7 +3648,7 @@ class ActivateProfileHelper {
                     switch (zenMode) {
                         case Profile.ZENMODE_ALL:
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
@@ -3667,7 +3664,7 @@ class ActivateProfileHelper {
                             break;
                         case Profile.ZENMODE_PRIORITY:
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
@@ -3684,7 +3681,7 @@ class ActivateProfileHelper {
                             break;
                         case Profile.ZENMODE_NONE:
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
@@ -3698,7 +3695,7 @@ class ActivateProfileHelper {
                             // this is as Sound mode = Vibrate
 
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             setVibrateSettings(true, audioManager);
@@ -3715,7 +3712,7 @@ class ActivateProfileHelper {
                             break;
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             /*if (Build.VERSION.SDK_INT <= 25) {
                                 audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
@@ -3768,7 +3765,7 @@ class ActivateProfileHelper {
                             break;
                         case Profile.ZENMODE_ALARMS:
                             synchronized (PPApplication.notUnlinkVolumesMutex) {
-                                RingerModeChangeReceiver.notUnlinkVolumes = false;
+                                PPApplication.ringerModeNotUnlinkVolumes = false;
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             setVibrateSettings(false, audioManager);
@@ -5216,7 +5213,8 @@ class ActivateProfileHelper {
     static void setScreenTimeout(int screenTimeout, boolean forceSet, Context context) {
         Context appContext = context.getApplicationContext();
 
-        disableScreenTimeoutInternalChange = true;
+        PPApplication.disableScreenTimeoutInternalChange = true;
+
         //Log.d("ActivateProfileHelper.setScreenTimeout", "current="+Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0));
         switch (screenTimeout) {
             case 1:

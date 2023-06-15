@@ -92,7 +92,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
 
-        MobileCellsPreference.forceStart = true;
+        PPApplication.mobileCellsForceStart = true;
         PPApplicationStatic.forceStartMobileCellsScanner(prefContext);
 
         cellFilter = view.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
@@ -407,7 +407,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
             refreshListViewBroadcastReceiver = null;
         }
 
-        MobileCellsPreference.forceStart = false;
+        PPApplication.mobileCellsForceStart = false;
         PPApplicationStatic.restartMobileCellsScanner(prefContext);
 
         preference.fragment = null;

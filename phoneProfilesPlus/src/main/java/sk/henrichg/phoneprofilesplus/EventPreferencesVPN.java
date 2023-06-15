@@ -206,10 +206,10 @@ class EventPreferencesVPN extends EventPreferences {
 
                 if (!eventsHandler.notAllowedVPN) {
                     if (_connectionStatus == 0)
-                        eventsHandler.vpnPassed = VPNNetworkCallback.connected;
+                        eventsHandler.vpnPassed = PPApplication.vpnNetworkConnected;
                     else
                     if (_connectionStatus == 1)
-                        eventsHandler.vpnPassed = !VPNNetworkCallback.connected;
+                        eventsHandler.vpnPassed = !PPApplication.vpnNetworkConnected;
                     else
                         eventsHandler.vpnPassed = false;
 

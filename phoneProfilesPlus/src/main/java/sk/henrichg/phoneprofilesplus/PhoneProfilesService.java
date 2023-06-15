@@ -14,7 +14,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -30,7 +29,6 @@ import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 public class PhoneProfilesService extends Service
@@ -137,28 +135,6 @@ public class PhoneProfilesService extends Service
 
     static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
     static final int START_FOR_EXTERNAL_APP_EVENT = 2;
-
-    //------------------------
-
-    static volatile AudioManager audioManager = null;
-    static volatile boolean ringingCallIsSimulating = false;
-    //private boolean notificationToneIsSimulating = false;
-    static volatile int ringingVolume = 0;
-    static volatile int ringingMuted = 0;
-    //public static int notificationVolume = 0;
-    static volatile int oldVolumeForRingingSimulation = -1;
-    static volatile MediaPlayer ringingMediaPlayer = null;
-    //static volatile MediaPlayer notificationMediaPlayer = null;
-    //static volatile int mediaRingingVolume = 0;
-    //static volatile int mediaNotificationVolume = 0;
-    //static volatile int usedRingingStream = AudioManager.STREAM_MUSIC;
-    //static volatile int usedNotificationStream = AudioManager.STREAM_MUSIC;
-
-    static volatile MediaPlayer notificationMediaPlayer = null;
-    static volatile  boolean notificationIsPlayed = false;
-    //private int oldNotificationVolume = 0;
-    static volatile  Timer notificationPlayTimer = null;
-    static volatile  int oldVolumeForPlayNotificationSound = -1;
 
     //--------------------------
 
@@ -320,7 +296,7 @@ public class PhoneProfilesService extends Service
         //if (PPApplication.keyguardManager != null)
         //    PPApplication.keyguardLock = PPApplication.keyguardManager.newKeyguardLock("phoneProfilesPlus.keyguardLock");
 
-        ringingMediaPlayer = null;
+        //ringingMediaPlayer = null;
         //notificationMediaPlayer = null;
 
         //willBeDoRestartEvents = false;
@@ -377,9 +353,9 @@ public class PhoneProfilesService extends Service
             //PPApplicationStatic.recordException(e);
         }
 
-        PhoneProfilesServiceStatic.stopSimulatingRingingCall(/*true*/true, getApplicationContext());
+        PlayRingingNotification.stopSimulatingRingingCall(/*true*/true, getApplicationContext());
         //PhoneProfilesServiceStatic.stopSimulatingNotificationTone(true);
-        PhoneProfilesServiceStatic.stopPlayNotificationSound(false, appContext);
+        PlayRingingNotification.stopPlayNotificationSound(false, appContext);
 
         GlobalUtils.reenableKeyguard(getApplicationContext());
 
@@ -1541,7 +1517,7 @@ public class PhoneProfilesService extends Service
             // block any profile and event actions for package replaced
             PPApplicationStatic.setBlockProfileEventActions(true);
 
-            if (MobileCellsScanner.enabledAutoRegistration) {
+            if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
                 MobileCellsScanner.stopAutoRegistration(appContext, true);
                 int count = 0;
                 while (MobileCellsRegistrationService.serviceStarted && (count < 50)) {

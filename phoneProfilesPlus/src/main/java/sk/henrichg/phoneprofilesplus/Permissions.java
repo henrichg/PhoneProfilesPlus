@@ -164,8 +164,6 @@ class Permissions {
     private static final String PREF_WRITE_STORAGE_PERMISSION = "writeStoragePermission";
     //private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
 
-    static volatile boolean grantRootChanged = false;
-
     static boolean hasPermission(Context context, String permission) {
         return context.checkPermission(permission, PPApplication.pid, PPApplication.uid) == PackageManager.PERMISSION_GRANTED;
     }
@@ -2950,7 +2948,7 @@ class Permissions {
                 null,
                 activity.getString(R.string.alert_message_enable_event_check_box),
                 (dialog1, which) -> {
-                    grantRootChanged = true;
+                    PPApplication.grantRootChanged = true;
                     if (profilesFragment == null) {
                         // always ask for grant root, when grant is invocked from PPP Settings
                         SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
@@ -3042,7 +3040,7 @@ class Permissions {
                 },
                 (dialog2, which) -> {
                     if (profilesFragment != null) {
-                        grantRootChanged = true;
+                        PPApplication.grantRootChanged = true;
                         profilesFragment.setRedTextToPreferences();
                     }
                 },

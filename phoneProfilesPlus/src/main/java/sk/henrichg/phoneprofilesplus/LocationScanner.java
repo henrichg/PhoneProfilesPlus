@@ -26,11 +26,6 @@ class LocationScanner
     final Context context;
     //private final DataWrapper dataWrapper;
 
-    static volatile boolean useGPS = true; // must be static
-    static volatile boolean mUpdatesStarted = false; // must be static
-
-    static volatile boolean mTransitionsUpdated = false;
-
     static final int INTERVAL_DIVIDE_VALUE = 6;
     static final int INTERVAL_DIVIDE_VALUE_FOR_GPS = 3;
 
@@ -50,7 +45,7 @@ class LocationScanner
                     if (mLocationManager == null)
                         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
                     if (resetUseGPS)
-                        useGPS = true;
+                        PPApplication.locationScannerUseGPS = true;
 
                     final Context appContext = context.getApplicationContext();
                     //PPApplication.startHandlerThreadPPScanners(/*"LocationScanner.onConnected"*/);
@@ -159,7 +154,7 @@ class LocationScanner
                 }
             }
 
-            mTransitionsUpdated = true;
+            PPApplication.locationScannerTransitionsUpdated = true;
         }
     }
 
@@ -167,7 +162,7 @@ class LocationScanner
         synchronized (PPApplication.locationScannerMutex) {
             // clear all geofence transitions
             DatabaseHandler.getInstance(context).clearAllGeofenceTransitions();
-            mTransitionsUpdated = false;
+            PPApplication.locationScannerTransitionsUpdated = false;
         }
     }
 
@@ -177,7 +172,7 @@ class LocationScanner
         String provider;
 
         boolean isPowerSaveMode = GlobalUtils.isPowerSaveMode(context);
-        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
+        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!PPApplication.locationScannerUseGPS)) {
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
             provider = LocationManager.GPS_PROVIDER;
@@ -261,7 +256,7 @@ class LocationScanner
 
         String provider = "";
 
-        if ((!mUpdatesStarted) /*|| mUpdateTransitionsByLastKnownLocationIsRunning*/) {
+        if ((!PPApplication.locationScannerUpdatesStarted) /*|| mUpdateTransitionsByLastKnownLocationIsRunning*/) {
             synchronized (PPApplication.locationScannerMutex) {
                 try {
                     if (Permissions.checkLocation(context)) {
@@ -306,14 +301,14 @@ class LocationScanner
 
                                         mListenerEnabled = true;
 
-                                        mUpdatesStarted = true;
+                                        PPApplication.locationScannerUpdatesStarted = true;
                                     }
                                     else
                                         PPApplicationStatic.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
 
                                 } catch (SecurityException securityException) {
                                     // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                                    mUpdatesStarted = false;
+                                    PPApplication.locationScannerUpdatesStarted = false;
                                     return "";
                                 }
                             }
@@ -323,7 +318,7 @@ class LocationScanner
                         }
                     }
                 } catch (Exception e) {
-                    mUpdatesStarted = false;
+                    PPApplication.locationScannerUpdatesStarted = false;
                 }
             }
         }
@@ -350,7 +345,7 @@ class LocationScanner
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
 
-        if (mUpdatesStarted) {
+        if (PPApplication.locationScannerUpdatesStarted) {
             synchronized (PPApplication.locationScannerMutex) {
                 if (mListenerEnabled) {
                     try {
@@ -359,7 +354,7 @@ class LocationScanner
                         if (mLocationManager != null)
                             mLocationManager.removeUpdates(mLocationListener);
                         mListenerEnabled = false;
-                        mUpdatesStarted = false;
+                        PPApplication.locationScannerUpdatesStarted = false;
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
@@ -373,7 +368,7 @@ class LocationScanner
             try {
                 Location location;
                 if (provider.isEmpty()) {
-                    if (useGPS)
+                    if (PPApplication.locationScannerUseGPS)
                         location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     else
                         location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -449,7 +444,7 @@ class LocationScanner
                         GlobalUtils.sleep(1000);
 
                         // force useGPS
-                        LocationScanner.useGPS = true;
+                        PPApplication.locationScannerUseGPS = true;
 
                         // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
                         String provider = PPApplication.locationScanner.startLocationUpdates();

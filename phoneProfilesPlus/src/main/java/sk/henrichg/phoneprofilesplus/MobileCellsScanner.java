@@ -27,15 +27,6 @@ class MobileCellsScanner {
     MobileCellsListener mobileCellsListenerSIM1 = null;
     MobileCellsListener mobileCellsListenerSIM2 = null;
 
-    //static volatile String lastRunningEventsNotOutside = "";
-    static volatile String lastPausedEvents = "";
-
-    //static volatile boolean forceStart = false;
-
-    static volatile boolean enabledAutoRegistration = false;
-    static volatile int durationForAutoRegistration = 0;
-    static volatile String cellsNameForAutoRegistration = "";
-
     // must be this, because of Collections.synchronizedList
     @SuppressWarnings("Convert2Diamond")
     static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
@@ -276,7 +267,7 @@ class MobileCellsScanner {
             return;
 
         if (!forConnect) {
-            enabledAutoRegistration = true;
+            PPApplication.mobileCellsScannerEnabledAutoRegistration = true;
             // save to shared preferences
             MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
         }
@@ -284,7 +275,7 @@ class MobileCellsScanner {
             // read from shared preferences
             MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
 
-        if (enabledAutoRegistration) {
+        if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
 //            PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.startAutoRegistration", "******** ### *******  start registration service");
             try {
                 // start registration service

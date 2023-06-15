@@ -708,7 +708,7 @@ class EventsHandler {
             //if (!notified) {
                 // notify default profile
                 if (!defaultProfileNotificationSound.isEmpty() || defaultProfileNotificationVibrate) {
-                    PhoneProfilesServiceStatic.playNotificationSound(
+                    PlayRingingNotification.playNotificationSound(
                             defaultProfileNotificationSound,
                             defaultProfileNotificationVibrate,
                             false, context);

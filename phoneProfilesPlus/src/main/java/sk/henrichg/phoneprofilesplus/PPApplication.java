@@ -941,6 +941,37 @@ public class PPApplication extends Application
     static volatile String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     static volatile boolean connectToSSIDStarted = false;
 
+    static volatile boolean disableScreenTimeoutInternalChange = false;
+    static volatile boolean brightnessDialogInternalChange = false;
+
+    static volatile boolean grantRootChanged = false;
+
+    static volatile boolean ringerModeInternalChange = false;
+    static volatile boolean ringerModeNotUnlinkVolumes = false;
+
+    static volatile boolean volumesInternalChange = false;
+    static volatile boolean volumesMediaVolumeChangeed = false;
+
+    static volatile boolean bluetoothForceRegister = false;
+    static volatile boolean mobileCellsForceStart = false;
+    static volatile boolean wifiSSIDForceRegister = false;
+    static volatile boolean mobileCellsRegistraitonForceStart = false;
+
+    static volatile boolean vpnNetworkConnected = false;
+    static volatile boolean wifiNetworkconnected = false;
+
+    static volatile int savedBrightness;
+    static volatile int savedBrightnessMode;
+
+    static volatile boolean locationScannerUseGPS = true;
+    static volatile boolean locationScannerUpdatesStarted = false;
+    static volatile boolean locationScannerTransitionsUpdated = false;
+
+    static volatile String mobileCellsScannerLastPausedEvents = "";
+    static volatile boolean mobileCellsScannerEnabledAutoRegistration = false;
+    static volatile int mobileCellsScannerDurationForAutoRegistration = 0;
+    static volatile String mobileCellsScannerCellsNameForAutoRegistration = "";
+
     @Override
     public void onCreate()
     {

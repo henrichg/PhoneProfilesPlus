@@ -23,6 +23,7 @@ class BluetoothScanner {
     //static boolean bluetoothEnabledForScan;
     static volatile List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static volatile boolean bluetoothDiscoveryStarted = false;
+    static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
 
     BluetoothLEScanner bluetoothLEScanner = null;
 
@@ -483,7 +484,7 @@ class BluetoothScanner {
 
                             ScanSettings.Builder builder = new ScanSettings.Builder();
 
-                            BluetoothScanWorker.tmpScanLEResults = null;
+                            BluetoothScanner.tmpScanLEResults = null;
 
                             int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
                             if (forceScan == BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
@@ -553,8 +554,8 @@ class BluetoothScanner {
 
             List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
-            if (BluetoothScanWorker.tmpScanLEResults != null) {
-                for (BluetoothDeviceData device : BluetoothScanWorker.tmpScanLEResults) {
+            if (BluetoothScanner.tmpScanLEResults != null) {
+                for (BluetoothDeviceData device : BluetoothScanner.tmpScanLEResults) {
                     scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
                 }
                 //tmpScanLEResults = null;

@@ -62,7 +62,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             String value = mCellsName.getText().toString();
             if (!value.isEmpty()) {
                 if (Permissions.grantMobileCellsRegistrationDialogPermissions(prefContext)) {
-                    if (MobileCellsScanner.enabledAutoRegistration) {
+                    if (PPApplication.mobileCellsScannerEnabledAutoRegistration) {
                         if (!MobileCellsScanner.isEventAdded(preference.event_id))
                             MobileCellsScanner.addEvent(preference.event_id);
                         else
@@ -262,10 +262,10 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
         if ((mDialog != null) && mDialog.isShowing()) {
             boolean started = false;
             if ((preference.cellName == null) || preference.cellName.isEmpty())
-                mCellsName.setText(MobileCellsScanner.cellsNameForAutoRegistration);
+                mCellsName.setText(PPApplication.mobileCellsScannerCellsNameForAutoRegistration);
             else
                 mCellsName.setText(preference.cellName);
-            if (MobileCellsScanner.enabledAutoRegistration && !forceStop) {
+            if (PPApplication.mobileCellsScannerEnabledAutoRegistration && !forceStop) {
                 mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_started);
                 if (millisUntilFinished > 0) {
                     mRemainingTime.setVisibility(View.VISIBLE);
@@ -338,8 +338,8 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
             if (!cellName.isEmpty()) {
                 //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
                 MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, iValue);
-                MobileCellsScanner.durationForAutoRegistration = iValue;
-                MobileCellsScanner.cellsNameForAutoRegistration = cellName;
+                PPApplication.mobileCellsScannerDurationForAutoRegistration = iValue;
+                PPApplication.mobileCellsScannerCellsNameForAutoRegistration = cellName;
                 MobileCellsScanner.startAutoRegistration(prefContext.getApplicationContext(), false);
             }
 

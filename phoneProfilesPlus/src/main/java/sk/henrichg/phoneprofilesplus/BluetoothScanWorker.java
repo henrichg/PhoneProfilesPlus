@@ -32,9 +32,7 @@ public class BluetoothScanWorker extends Worker {
     static final String WORK_TAG  = "BluetoothScanJob";
     static final String WORK_TAG_SHORT  = "BluetoothScanJobShort";
 
-    public static volatile BluetoothAdapter bluetooth = null;
-
-    static volatile List<BluetoothDeviceData> tmpScanLEResults = null;
+    static volatile BluetoothAdapter bluetooth = null;
 
     private static final String PREF_EVENT_BLUETOOTH_SCAN_REQUEST = "eventBluetoothScanRequest";
     private static final String PREF_EVENT_BLUETOOTH_WAIT_FOR_RESULTS = "eventBluetoothWaitForResults";
@@ -888,18 +886,18 @@ public class BluetoothScanWorker extends Worker {
 
     static void addLEScanResult(BluetoothDeviceData device) {
         synchronized (PPApplication.bluetoothLEScanMutex) {
-            if (tmpScanLEResults == null)
-                tmpScanLEResults = new ArrayList<>();
+            if (BluetoothScanner.tmpScanLEResults == null)
+                BluetoothScanner.tmpScanLEResults = new ArrayList<>();
 
             boolean found = false;
-            for (BluetoothDeviceData _device : tmpScanLEResults) {
+            for (BluetoothDeviceData _device : BluetoothScanner.tmpScanLEResults) {
                 if (_device.address.equals(device.address)) {
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                for (BluetoothDeviceData _device : tmpScanLEResults) {
+                for (BluetoothDeviceData _device : BluetoothScanner.tmpScanLEResults) {
                     if (_device.getName().equalsIgnoreCase(device.getName())) {
                         found = true;
                         break;
@@ -907,8 +905,8 @@ public class BluetoothScanWorker extends Worker {
                 }
             }
             if (!found) {
-                if (tmpScanLEResults != null) // maybe set to null by startLEScan() or finishLEScan()
-                    tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0, false, true));
+                if (BluetoothScanner.tmpScanLEResults != null) // maybe set to null by startLEScan() or finishLEScan()
+                    BluetoothScanner.tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0, false, true));
             }
         }
     }

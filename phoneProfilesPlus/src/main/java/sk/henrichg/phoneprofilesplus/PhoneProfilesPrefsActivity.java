@@ -400,7 +400,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
             // for startActivityForResult
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
-            Permissions.grantRootChanged = false;
+            PPApplication.grantRootChanged = false;
 
             //if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
             //    Intent resultValue = new Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
@@ -409,7 +409,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, returnIntent);
         }
         else {
-            Permissions.grantRootChanged = false;
+            PPApplication.grantRootChanged = false;
             setResult(RESULT_CANCELED);//, returnIntent);
         }
 
@@ -503,7 +503,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 //        PPApplicationStatic.logE("[PPP_NOTIFICATION] PhoneProfilesPrefsActivity.doPreferenceChanges", "call of updateGUI");
         PPApplication.updateGUI(true, false, getApplicationContext());
 
-        if (Permissions.grantRootChanged) {
+        if (PPApplication.grantRootChanged) {
             invalidateEditor = true;
         }
 
