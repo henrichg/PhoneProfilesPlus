@@ -676,6 +676,7 @@ class DataWrapperStatic {
 
     static final String EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION = "from_red_text_preferences_notification";
 
+    // return == true -> is error in profile/event, notification was displayed
     static boolean displayPreferencesErrorNotification(Profile profile, Event event, boolean againCheckAccessibilityInDelay, Context context) {
         if ((profile == null) && (event == null))
             return false;
@@ -718,22 +719,6 @@ class DataWrapperStatic {
 
         Intent intent = null;
 
-        if (profile != null) {
-            intent = new Intent(context, ProfilesPrefsActivity.class);
-            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-            intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-        }
-        if (event != null) {
-            intent = new Intent(context, EventsPrefsActivity.class);
-            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-            intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
-            intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
-            intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-        }
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
         boolean alreadyExists = false;
 
         if (profile != null) {
@@ -759,14 +744,11 @@ class DataWrapperStatic {
                         "\"" + profile._name + "\" " +
                         context.getString(R.string.preferences_red_texts_text_2) + " " +
                         context.getString(R.string.preferences_red_texts_text_click);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = context.getString(R.string.ppp_app_name);
-//                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
-//                        context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-//                        "\"" + profile._name + "\" " +
-//                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-//                        context.getString(R.string.preferences_red_texts_text_click);
-//            }
+
+                intent = new Intent(context, ProfilesPrefsActivity.class);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                intent.putExtra(EditorActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             }
@@ -795,20 +777,20 @@ class DataWrapperStatic {
                         "\"" + event._name + "\" " +
                         context.getString(R.string.preferences_red_texts_text_2) + " " +
                         context.getString(R.string.preferences_red_texts_text_click);
-//            if (android.os.Build.VERSION.SDK_INT < 24) {
-//                nTitle = context.getString(R.string.ppp_app_name);
-//                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
-//                        context.getString(R.string.event_preferences_red_texts_text_1) + " " +
-//                        "\"" + event._name + "\" " +
-//                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-//                        context.getString(R.string.preferences_red_texts_text_click);
-//            }
+
+                intent = new Intent(context, EventsPrefsActivity.class);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
+                intent.putExtra(EditorActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_EDIT);
+                intent.putExtra(EditorActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             }
         }
 
         if (!alreadyExists) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
             intent.putExtra(EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, true);
 
             PPApplicationStatic.createGrantPermissionNotificationChannel(context.getApplicationContext(), false);
