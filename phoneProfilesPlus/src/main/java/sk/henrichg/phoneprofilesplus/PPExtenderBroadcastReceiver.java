@@ -56,6 +56,8 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
         if ((intent == null) || (intent.getAction() == null))
             return;
 
+//        PPApplicationStatic.logE("[IN_BROADCAST] PPExtenderBroadcastReceiver.onReceive", intent.getAction());
+
         final Context appContext = context.getApplicationContext();
 
         switch (intent.getAction()) {
@@ -404,6 +406,10 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                             //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
 //                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_PHONE_CALL");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "callEventType="+callEventType);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "eventTime="+eventTime);
+//                                Log.e("PPExtenderBroadcastReceiver.onReceive", "slotIndex="+slotIndex);
                                 eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime, slotIndex);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
                             //}

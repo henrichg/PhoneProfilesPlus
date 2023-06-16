@@ -110,22 +110,24 @@ class ContactGroupsMultiSelectPreferenceAdapter extends BaseAdapter
                     }
                 } catch (Exception ignored) {}
                 if (!found) {
-                    if (contactGroup.accountType.equals("com.osp.app.signin"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_samsung_account);
-                    if (contactGroup.accountType.equals("com.google"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_google_account);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.sim"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.sim2"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
-                    if (contactGroup.accountType.equals("vnd.sec.contact.phone"))
-                        contactGroup.accountType = context.getString(R.string.contact_account_type_phone_application);
-                    if (contactGroup.accountType.equals("org.thoughtcrime.securesms"))
-                        contactGroup.accountType = "Signal";
-                    if (contactGroup.accountType.equals("com.google.android.apps.tachyon"))
-                        contactGroup.accountType = "Duo";
-                    if (contactGroup.accountType.equals("com.whatsapp"))
-                        contactGroup.accountType = "WhatsApp";
+                    if (contactGroup.accountType != null) {
+                        if (contactGroup.accountType.equals("com.osp.app.signin"))
+                            contactGroup.accountType = context.getString(R.string.contact_account_type_samsung_account);
+                        if (contactGroup.accountType.equals("com.google"))
+                            contactGroup.accountType = context.getString(R.string.contact_account_type_google_account);
+                        if (contactGroup.accountType.equals("vnd.sec.contact.sim"))
+                            contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
+                        if (contactGroup.accountType.equals("vnd.sec.contact.sim2"))
+                            contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
+                        if (contactGroup.accountType.equals("vnd.sec.contact.phone"))
+                            contactGroup.accountType = context.getString(R.string.contact_account_type_phone_application);
+                        if (contactGroup.accountType.equals("org.thoughtcrime.securesms"))
+                            contactGroup.accountType = "Signal";
+                        if (contactGroup.accountType.equals("com.google.android.apps.tachyon"))
+                            contactGroup.accountType = "Duo";
+                        if (contactGroup.accountType.equals("com.whatsapp"))
+                            contactGroup.accountType = "WhatsApp";
+                    }
                 }
                 textViewAccountType.setText(contactGroup.accountType);
 
