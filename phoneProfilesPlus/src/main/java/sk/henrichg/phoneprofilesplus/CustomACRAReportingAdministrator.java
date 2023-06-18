@@ -158,15 +158,6 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                 return false;
             }
 
-//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4.1)");
-
-            if (Build.VERSION.SDK_INT >= 33) {
-                if (_exception instanceof DeadSystemRuntimeException) {
-//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
-                    return false;
-                }
-            }
-
 //            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(5)");
 
             if (_exception.getClass().getSimpleName().equals("CannotDeliverBroadcastException") &&
@@ -179,6 +170,13 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
             }
 
 //            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(6)");
+
+            if (Build.VERSION.SDK_INT >= 33) {
+                if (_exception instanceof DeadSystemRuntimeException) {
+//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
+                    return false;
+                }
+            }
 
 /*
             // this is only for debuging, how is handled ignored exceptions
