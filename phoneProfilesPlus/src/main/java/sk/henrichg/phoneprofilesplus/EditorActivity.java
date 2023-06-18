@@ -3943,12 +3943,12 @@ public class EditorActivity extends AppCompatActivity
                             pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
                             if (pickedDir == null) {
                                 // error for create directory
-                                ok = 0;
+                                ok = -10;
                             }
                         }
                     } else {
                         // pickedDir is not writable
-                        ok = 0;
+                        ok = -11;
                     }
 
                     if (ok == 1) {
@@ -3960,16 +3960,16 @@ public class EditorActivity extends AppCompatActivity
                                 ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
                         } else {
                             // cannot copy backup files, pickedDir is not writable
-                            ok = 0;
+                            ok = -12;
                         }
                     }
 
                 } else {
                     // pickedDir is null
-                    ok = 0;
+                    ok = -13;
                 }
             } else {
-                ok = 0;
+                ok = -14;
             }
             return ok;
         }
@@ -3989,11 +3989,12 @@ public class EditorActivity extends AppCompatActivity
                     GlobalGUIRoutines.unlockScreenOrientation(activity);
                 }
 
-                if (result == 0) {
+                if (result <= 0) {
                     if (!activity.isFinishing()) {
                         PPAlertDialog dialog = new PPAlertDialog(
                                 activity.getString(R.string.backup_settings_alert_title),
-                                activity.getString(R.string.backup_settings_error_on_backup),
+                                activity.getString(R.string.backup_settings_error_on_backup) +
+                                        " (error code " + result + ")",
                                 activity.getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -4022,7 +4023,7 @@ public class EditorActivity extends AppCompatActivity
                 // delete old file
                 if (!oldFile.delete()) {
                     // cannot delete existed file
-                    return 0;
+                    return -1;
                 }
             }
             // copy file
@@ -4046,16 +4047,16 @@ public class EditorActivity extends AppCompatActivity
                     }
                     else {
                         // cannot open fileName stream
-                        return 0;
+                        return -2;
                     }
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    return 0;
+                    return -3;
                 }
             }
             else {
                 // cannot create fileName
-                return 0;
+                return -4;
             }
             return 1;
         }
@@ -4136,14 +4137,14 @@ public class EditorActivity extends AppCompatActivity
                                 if (importFile.exists()) {
                                     // delete old file
                                     if (!importFile.delete())
-                                        ok = 0;
+                                        ok = -10;
                                 }
                                 if (ok == 1) {
                                     importFile = new File(applicationDir, DatabaseHandler.EXPORT_DBFILENAME);
                                     if (importFile.exists()) {
                                         // delete old file
                                         if (!importFile.delete())
-                                            ok = 0;
+                                            ok = -11;
                                     }
                                 }
 
@@ -4155,37 +4156,36 @@ public class EditorActivity extends AppCompatActivity
                                     if (!destinationDir.endsWith("/"))
                                         destinationDir = destinationDir + "/";
                                     if (!zipManager.unzip(zipFile.getAbsolutePath(), destinationDir))
-                                        ok = 0;
+                                        ok = -12;
                                 }
                             }
 
                         } else {
                             // pickedDir is not writable
-                            ok = 0;
+                            ok = -13;
                         }
                     } else {
                         // pickedDir is null
-                        ok = 0;
+                        ok = -14;
                     }
                 } else {
                     if (pickedDir != null) {
                         if (pickedDir.canRead()) {
                             File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
-
                             ok = copyFromBackupDirectory(pickedDir, applicationDir, PPApplication.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
                             if (ok == 1)
                                 ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
                         } else {
-                            // pickedDir is not writable
-                            ok = 0;
+                            // pickedDir is not readable
+                            ok = -10;
                         }
                     } else {
                         // pickedDir is null
-                        ok = 0;
+                        ok = -11;
                     }
                 }
             } else {
-                ok = 0;
+                ok = -20;
             }
 
             return ok;
@@ -4206,16 +4206,18 @@ public class EditorActivity extends AppCompatActivity
                     GlobalGUIRoutines.unlockScreenOrientation(activity);
                 }
 
-                if (result == 0) {
+                if (result <= 0) {
                     if (!activity.isFinishing()) {
                         CharSequence title;
                         CharSequence message;
                         if (share) {
                             title = activity.getString(R.string.restore_shared_settings_alert_title);
-                            message = activity.getString(R.string.restore_shared_settings_error_on_backup);
+                            message = activity.getString(R.string.restore_shared_settings_error_on_backup) +
+                                    " (error code " + result + ")";
                         } else {
                             title = activity.getString(R.string.restore_settings_alert_title);
-                            message = activity.getString(R.string.restore_settings_error_on_backup);
+                            message = activity.getString(R.string.restore_settings_error_on_backup) +
+                                    " (error code " + result + ")";
                         }
                         PPAlertDialog dialog = new PPAlertDialog(
                                 title,
@@ -4248,17 +4250,21 @@ public class EditorActivity extends AppCompatActivity
         }
 
         private int copyFromBackupDirectory(DocumentFile pickedDir, File applicationDir, String fileName, Context context) {
+//            Log.e("EditorActivity.copyFromBackupDirectory", "applicationDir="+applicationDir);
+//            Log.e("EditorActivity.copyFromBackupDirectory", "fileName="+fileName);
+
             File importFile = new File(applicationDir, fileName);
             if (importFile.exists()) {
                 // delete old file
                 if (!importFile.delete()) {
                     // cannot delete existed file
-                    return 0;
+                    return -1;
                 }
             }
             // copy file
             DocumentFile inputFile = pickedDir.findFile(fileName);
             if (inputFile != null) {
+//                Log.e("EditorActivity.copyFromBackupDirectory", "inputFile="+inputFile.getUri().getPath());
                 try {
                     FileOutputStream outStream = new FileOutputStream(importFile);
                     InputStream inStream = context.getContentResolver().openInputStream(inputFile.getUri());
@@ -4276,16 +4282,19 @@ public class EditorActivity extends AppCompatActivity
                     }
                     else {
                         // cannot open fileName stream
-                        return 0;
+//                        Log.e("EditorActivity.copyFromBackupDirectory", "cannot open fileName stream");
+                        return -2;
                     }
                 } catch (Exception e) {
+//                    Log.e("EditorActivity.copyFromBackupDirectory", Log.getStackTraceString(e));
                     PPApplicationStatic.recordException(e);
-                    return 0;
+                    return -3;
                 }
             }
             else {
-                // cannot create fileName
-                return 0;
+                // fileName not found
+//                Log.e("EditorActivity.copyFromBackupDirectory", "cannot create fileName");
+                return -4;
             }
             return 1;
         }
@@ -4298,7 +4307,7 @@ public class EditorActivity extends AppCompatActivity
                 for (File f : oldZipFiles) {
                     if (f.getName().startsWith(PPApplication.SHARED_EXPORT_FILENAME)) {
                         if (!f.delete())
-                            return 0;
+                            return -1;
                     }
                 }
             }
@@ -4323,16 +4332,16 @@ public class EditorActivity extends AppCompatActivity
                     }
                     else {
                         // cannot open fileName stream
-                        return 0;
+                        return -2;
                     }
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
-                    return 0;
+                    return -3;
                 }
             }
             else {
                 // cannot create fileName
-                return 0;
+                return -4;
             }
             return 1;
         }
