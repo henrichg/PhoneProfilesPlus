@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.RemoteServiceException;
 import android.content.Context;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.os.DeadSystemException;
 import android.os.DeadSystemRuntimeException;
 import android.provider.Settings;
@@ -87,6 +88,8 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
         if (_exception == null)
             return true;
 
+//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(2)");
+
         try {
             if (PPApplication.crashIntoFile) {
                 Runnable runnable = () -> {
@@ -139,16 +142,30 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
             //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
         }
 
+//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(3)");
+
         if (_exception instanceof TimeoutException) {
             if ((_thread != null) && _thread.getName().equals("FinalizerWatchdogDaemon"))
                 return false;
         }
 
-        if ((_exception instanceof DeadSystemException) ||
-                (_exception instanceof DeadSystemRuntimeException)){
+//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4)");
+
+        if (_exception instanceof DeadSystemException){
 //            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
             return false;
         }
+
+//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4.1)");
+
+        if (Build.VERSION.SDK_INT >= 33) {
+            if (_exception instanceof DeadSystemRuntimeException) {
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
+                return false;
+            }
+        }
+
+//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(5)");
 
         if (_exception.getClass().getSimpleName().equals("CannotDeliverBroadcastException") &&
                 (_exception instanceof RemoteServiceException)) {
@@ -158,6 +175,8 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
 //            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "CannotDeliverBroadcastException");
             return false;
         }
+
+//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(6)");
 
 /*
         // this is only for debuging, how is handled ignored exceptions
