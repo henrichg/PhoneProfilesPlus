@@ -144,55 +144,60 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
 
 //        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(3)");
 
-        if (_exception instanceof TimeoutException) {
-            if ((_thread != null) && _thread.getName().equals("FinalizerWatchdogDaemon"))
-                return false;
-        }
+        try {
 
-//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4)");
+            if (_exception instanceof TimeoutException) {
+                if ((_thread != null) && _thread.getName().equals("FinalizerWatchdogDaemon"))
+                    return false;
+            }
 
-        if (_exception instanceof DeadSystemException){
-//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
-            return false;
-        }
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4)");
 
-//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4.1)");
-
-        if (Build.VERSION.SDK_INT >= 33) {
-            if (_exception instanceof DeadSystemRuntimeException) {
-//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
+            if (_exception instanceof DeadSystemException) {
+//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
                 return false;
             }
-        }
 
-//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(5)");
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(4.1)");
 
-        if (_exception.getClass().getSimpleName().equals("CannotDeliverBroadcastException") &&
-                (_exception instanceof RemoteServiceException)) {
-            // ignore but not exist exception
-            // android.app.RemoteServiceException$CannotDeliverBroadcastException: can't deliver broadcast
-            // https://stackoverflow.com/questions/72902856/cannotdeliverbroadcastexception-only-on-pixel-devices-running-android-12
+            if (Build.VERSION.SDK_INT >= 33) {
+                if (_exception instanceof DeadSystemRuntimeException) {
+//                Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "DeadSystemException");
+                    return false;
+                }
+            }
+
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(5)");
+
+            if (_exception.getClass().getSimpleName().equals("CannotDeliverBroadcastException") &&
+                    (_exception instanceof RemoteServiceException)) {
+                // ignore but not exist exception
+                // android.app.RemoteServiceException$CannotDeliverBroadcastException: can't deliver broadcast
+                // https://stackoverflow.com/questions/72902856/cannotdeliverbroadcastexception-only-on-pixel-devices-running-android-12
 //            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "CannotDeliverBroadcastException");
-            return false;
-        }
+                return false;
+            }
 
-//        Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(6)");
+//            Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "(6)");
 
 /*
-        // this is only for debuging, how is handled ignored exceptions
-        if (_exception instanceof java.lang.RuntimeException) {
-            if (_exception.getMessage() != null) {
-                if (_exception.getMessage().equals("Test Crash")) {
-//                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test Crash");
-                    return false;
-                }
-                if (_exception.getMessage().equals("Test non-fatal exception")) {
-//                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test non-fatal exception");
-                    return false;
+            // this is only for debuging, how is handled ignored exceptions
+            if (_exception instanceof java.lang.RuntimeException) {
+                if (_exception.getMessage() != null) {
+                    if (_exception.getMessage().equals("Test Crash")) {
+    //                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test Crash");
+                        return false;
+                    }
+                    if (_exception.getMessage().equals("Test non-fatal exception")) {
+    //                    Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", "RuntimeException: Test non-fatal exception");
+                        return false;
+                    }
                 }
             }
-        }
 */
+        } catch (Exception ee) {
+            //Log.e("CustomACRAReportingAdministrator.shouldStartCollecting", Log.getStackTraceString(ee));
+        }
 
         return true;
     }
