@@ -380,7 +380,8 @@ public class ActivatorListFragment extends Fragment {
 
                             // no profile in list, start Editor
 
-                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
+//                            Log.e("ActivatorListFragment.LoadProfileListAsyncTask", "start Editor");
+                            /*Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
                             fragment.getActivity().startActivity(intent);
@@ -390,6 +391,7 @@ public class ActivatorListFragment extends Fragment {
                             } catch (Exception e) {
                                 PPApplicationStatic.recordException(e);
                             }
+                            */
 
                             return;
                         }
