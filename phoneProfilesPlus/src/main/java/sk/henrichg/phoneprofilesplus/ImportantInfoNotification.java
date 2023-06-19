@@ -25,7 +25,7 @@ class ImportantInfoNotification {
             int packageVersionCode = PPApplicationStatic.getVersionCode(pInfo);
             int savedVersionCode = getShowInfoNotificationOnStartVersion(context);
 
-            // do not show notification, version code is not saved
+            // show notification for display Quick giude, when version code is not saved
             // typically it is for new users
             if (savedVersionCode == 0) {
                 setShowInfoNotificationOnStart(context, false, packageVersionCode);
