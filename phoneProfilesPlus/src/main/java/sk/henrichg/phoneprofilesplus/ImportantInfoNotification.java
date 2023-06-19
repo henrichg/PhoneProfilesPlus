@@ -29,6 +29,11 @@ class ImportantInfoNotification {
             // typically it is for new users
             if (savedVersionCode == 0) {
                 setShowInfoNotificationOnStart(context, false, packageVersionCode);
+
+                showNotification(context, false, true,
+                        context.getString(R.string.info_notification_title),
+                        context.getString(R.string.info_notification_text),
+                        PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
                 return;
             }
 
@@ -51,17 +56,17 @@ class ImportantInfoNotification {
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
 
                 if (showInfo)
-                    showNotification(context, false/*savedVersionCode == 0*/,
+                    showNotification(context, false, false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.info_notification_text),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
                 if (showExtender)
-                    showNotification(context, false/*savedVersionCode == 0*/,
+                    showNotification(context, false, false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.important_info_accessibility_service_new_version_notification),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_EXTENDER_TAG);
                 if (showPPPPS)
-                    showNotification(context, false/*savedVersionCode == 0*/,
+                    showNotification(context, false, false,
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.important_info_pppps_new_version_notification),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_PPPPS_TAG);
@@ -142,6 +147,7 @@ class ImportantInfoNotification {
 
     static private void showNotification(Context context,
                                          @SuppressWarnings("SameParameterValue") boolean firstInstallation,
+                                         boolean showQuickGuide,
                                          String title, String text, String notificationTag) {
         PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
@@ -155,6 +161,7 @@ class ImportantInfoNotification {
         Intent intent = new Intent(context, ImportantInfoActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRA_FIRST_INSTALLATION, firstInstallation);
+        intent.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, showQuickGuide);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
