@@ -43,5 +43,5 @@ ext.ppVersions = [
         recyclerView      : '1.3.0', //''1.2.1',
 
         autoservice       : '1.1.1',
-        acra              : '5.10.0'
+        acra              : '5.10.1'
 ]

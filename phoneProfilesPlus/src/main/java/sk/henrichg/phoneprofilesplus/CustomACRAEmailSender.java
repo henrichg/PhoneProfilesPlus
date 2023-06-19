@@ -82,6 +82,17 @@ public class CustomACRAEmailSender implements ReportSender {
 
                     Uri report = createAttachmentFromString(context, mailConfig.getReportFileName(), reportText);
                     if (report != null) {
+                        /*try {
+                            ContentResolver contentResolver = context.getContentResolver();
+                            context.grantUriPermission(PPApplication.PACKAGE_NAME, report, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                            contentResolver.takePersistableUriPermission(report, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        } catch (Exception e) {
+                            // java.lang.SecurityException: UID 10157 does not have permission to
+                            // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
+                            // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
+                            //Log.e("ActivateProfileHelper.setTones (1)", Log.getStackTraceString(e));
+                            //PPApplicationStatic.recordException(e);
+                        }*/
                         attachments.add(report);
                     }
 
@@ -111,6 +122,7 @@ public class CustomACRAEmailSender implements ReportSender {
                             chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[0]));
                             chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(chooser);
+//                            Log.e("CustomACRAEmailSender.send", "mail sent");
                         } catch (Exception e) {
                             Log.e("CustomACRAEmailSender.send", Log.getStackTraceString(e));
                         }
