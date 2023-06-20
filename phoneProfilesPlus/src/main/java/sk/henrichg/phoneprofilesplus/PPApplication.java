@@ -382,7 +382,7 @@ public class PPApplication extends Application
     static final int STARTUP_SOURCE_ACTIVATOR = 5;
     static final int STARTUP_SOURCE_EVENT = 6;
     static final int STARTUP_SOURCE_EDITOR = 8;
-    static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
+    //static final int STARTUP_SOURCE_ACTIVATOR_START = 9;
     //static final int STARTUP_SOURCE_LAUNCHER_START = 10;
     static final int STARTUP_SOURCE_LAUNCHER = 11;
     static final int STARTUP_SOURCE_EVENT_MANUAL = 12;

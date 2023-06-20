@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import static android.view.View.GONE;
 
 import android.animation.LayoutTransition;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -384,16 +383,16 @@ public class ActivatorListFragment extends Fragment {
                             /*Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
-                            fragment.getActivity().startActivity(intent);
+                            fragment.getActivity().startActivity(intent);*/
 
-                            try {
-                                fragment.getActivity().finish();
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
+                            if (((ActivatorActivity)fragment.getActivity()).firstStartOfPPP) {
+                                try {
+                                    fragment.getActivity().finish();
+                                } catch (Exception e) {
+                                    PPApplicationStatic.recordException(e);
+                                }
+                                return;
                             }
-                            */
-
-                            return;
                         }
 //                    else {
 //                        if (someErrorProfiles) {

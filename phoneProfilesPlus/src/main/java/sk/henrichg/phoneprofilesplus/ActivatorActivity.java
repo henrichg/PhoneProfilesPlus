@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -39,6 +41,7 @@ public class ActivatorActivity extends AppCompatActivity
 {
 
     private boolean activityStarted = false;
+    boolean firstStartOfPPP = false;
 
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
@@ -96,6 +99,8 @@ public class ActivatorActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, true, true, true, false, false, false);
 
         super.onCreate(savedInstanceState);
+
+        firstStartOfPPP = PPApplicationStatic.getSavedVersionCode(getApplicationContext()) == 0;
 
         //GlobalGUIRoutines.setLanguage(this);
 
@@ -216,7 +221,12 @@ public class ActivatorActivity extends AppCompatActivity
 
             refreshGUI(/*true,*/ false);
 
+            // this is for API 33+
             Permissions.grantNotificationsPermission(this);
+
+            if (Build.VERSION.SDK_INT < 33)
+                showPrivacyPolicy();
+
         }
         else {
             if (!isFinishing())
@@ -225,6 +235,19 @@ public class ActivatorActivity extends AppCompatActivity
 
         //-----------------------------------------------------------------------------------------
 
+    }
+
+    private void showPrivacyPolicy() {
+        if (firstStartOfPPP) {
+            String url = PPApplication.PRIVACY_POLICY_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(i, getString(R.string.privacy_policy_web_browser_chooser)));
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        }
     }
 
     @Override
@@ -242,6 +265,8 @@ public class ActivatorActivity extends AppCompatActivity
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
                 sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
+
+                showPrivacyPolicy();
             }
         }
     }

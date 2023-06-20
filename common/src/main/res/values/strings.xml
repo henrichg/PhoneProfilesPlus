@@ -2091,6 +2091,8 @@
     <string name="install_pppps_text9" translatable="false">\"How to install\"</string>
     <string name="install_pppps_alert_button_how_to_install">How to install</string>
 
+    <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
