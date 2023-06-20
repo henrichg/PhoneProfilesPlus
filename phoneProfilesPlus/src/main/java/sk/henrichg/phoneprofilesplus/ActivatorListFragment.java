@@ -6,6 +6,7 @@ import android.animation.LayoutTransition;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -385,13 +386,16 @@ public class ActivatorListFragment extends Fragment {
                             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
                             fragment.getActivity().startActivity(intent);*/
 
-                            if (((ActivatorActivity)fragment.getActivity()).firstStartOfPPP) {
-                                try {
-                                    fragment.getActivity().finish();
-                                } catch (Exception e) {
-                                    PPApplicationStatic.recordException(e);
+                            if (Build.VERSION.SDK_INT < 33) {
+                                // Activator must be displayed for grant notification permission
+                                if (((ActivatorActivity) fragment.getActivity()).firstStartOfPPP) {
+                                    try {
+                                        fragment.getActivity().finish();
+                                    } catch (Exception e) {
+                                        PPApplicationStatic.recordException(e);
+                                    }
+                                    return;
                                 }
-                                return;
                             }
                         }
 //                    else {

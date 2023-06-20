@@ -3260,6 +3260,7 @@ class Permissions {
                                     try {
                                         activity.startActivityForResult(intent, NOTIFICATIONS_PERMISSION_REQUEST_CODE);
                                         ok = true;
+                                        //dialog1.dismiss();
                                     } catch (Exception e) {
                                         PPApplicationStatic.recordException(e);
                                     }
