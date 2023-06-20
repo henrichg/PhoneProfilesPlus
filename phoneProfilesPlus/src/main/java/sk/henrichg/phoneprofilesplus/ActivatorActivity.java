@@ -9,11 +9,9 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -226,8 +224,7 @@ public class ActivatorActivity extends AppCompatActivity
             // this is for API 33+
             Permissions.grantNotificationsPermission(this);
 
-            //if (Build.VERSION.SDK_INT < 33)
-                showPrivacyPolicy();
+            showPrivacyPolicy();
 
         }
         else {
@@ -240,15 +237,17 @@ public class ActivatorActivity extends AppCompatActivity
     }
 
     private void showPrivacyPolicy() {
-        if (firstStartOfPPP && (!privacyPolicyDisplayed)) {
-            String url = PPApplication.PRIVACY_POLICY_URL;
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(i, getString(R.string.privacy_policy_web_browser_chooser)));
-                privacyPolicyDisplayed = true;
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            if (firstStartOfPPP && (!privacyPolicyDisplayed)) {
+                String url = PPApplication.PRIVACY_POLICY_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.privacy_policy_web_browser_chooser)));
+                    privacyPolicyDisplayed = true;
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
             }
         }
     }
