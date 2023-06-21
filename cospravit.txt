@@ -761,12 +761,3 @@ HOTOVO
 
 -------------------
 
-Takto otvorim url na webe:
-                    String url = PPApplication.GITHUB_PPP_RELEASES_URL;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    try {
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }

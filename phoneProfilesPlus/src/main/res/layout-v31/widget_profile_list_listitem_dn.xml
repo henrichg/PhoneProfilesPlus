@@ -51,8 +51,8 @@
             android:contentDescription="@string/profile_preferences_indicator_image"
             android:scaleType="fitStart"
             android:src="@drawable/ic_profile_pref_volume_on"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingStart="@dimen/profile_name_widget_margin"
+            android:paddingEnd="@dimen/profile_name_widget_margin"
             tools:ignore="UseAppTint" />
 <!--        android:tint="?android:attr/colorPrimaryDark"-->
 

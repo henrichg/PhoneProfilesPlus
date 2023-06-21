@@ -101,8 +101,8 @@
                     android:scaleType="fitStart"
                     android:src="@drawable/ic_empty"
                     android:visibility="gone"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp" />
+                    android:paddingStart="@dimen/profile_name_widget_margin"
+                    android:paddingEnd="@dimen/profile_name_widget_margin" />
 
             </LinearLayout>
 
