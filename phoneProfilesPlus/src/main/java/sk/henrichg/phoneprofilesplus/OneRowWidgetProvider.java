@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -139,6 +140,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     //switch (nightModeFlags) {
+                    //noinspection IfStatementWithIdenticalBranches
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
@@ -457,7 +459,12 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             for (int widgetId : appWidgetIds) {
 
-                //Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+                Bundle options = appWidgetManager.getAppWidgetOptions(widgetId);
+                int maxHeight = GlobalGUIRoutines.dpToPx(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT));
+//                Log.e("OneRowWidgetProvider._onUpdate", "maxHeight="+maxHeight);
+                //int maxHeight = GlobalGUIRoutines.dpToPx(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT));
+                //Log.e("OneRowWidgetProvider._onUpdate", "maxHeight="+maxHeight);
+
                 //bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ONE_ROW);
                 //appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
 
@@ -465,9 +472,14 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                 RemoteViews remoteViews;
 
+                float configuredHeight;
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowChangeColorsByNightMode &&
                         applicationWidgetOneRowIconColor.equals("0") && applicationWidgetOneRowUseDynamicColors)) {
                     if (applicationWidgetOneRowLayoutHeight.equals("0")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height);
+//                        Log.e("OneRowWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if (maxHeight < configuredHeight)
+                            applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
                             if (applicationWidgetOneRowFillBackground)
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill);
@@ -481,6 +493,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator);
                         }
                     } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
+//                        Log.e("OneRowWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if (maxHeight < configuredHeight)
+                            applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
                             if (applicationWidgetOneRowFillBackground)
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill);
@@ -494,6 +510,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator);
                         }
                     } else {
+                        configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
+//                        Log.e("OneRowWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if (maxHeight < configuredHeight)
+                            applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
                             if (applicationWidgetOneRowFillBackground)
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill);
@@ -509,6 +529,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     }
                 } else {
                     if (applicationWidgetOneRowLayoutHeight.equals("0")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height);
+//                        Log.e("OneRowWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if (maxHeight < configuredHeight)
+                            applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
                             if (applicationWidgetOneRowFillBackground)
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_fill_dn);
@@ -522,6 +546,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_no_indicator_dn);
                         }
                     } else if (applicationWidgetOneRowLayoutHeight.equals("1")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
+//                        Log.e("OneRowWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if (maxHeight < configuredHeight)
+                            applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
                             if (applicationWidgetOneRowFillBackground)
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_fill_dn);
@@ -535,6 +563,10 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_higher_no_indicator_dn);
                         }
                     } else {
+                        configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
+//                        Log.e("OneRowWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if (maxHeight < configuredHeight)
+                            applicationWidgetOneRowFillBackground = true;
                         if (applicationWidgetOneRowPrefIndicator) {
                             if (applicationWidgetOneRowFillBackground)
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_highest_fill_dn);
@@ -820,14 +852,16 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             int[] oldWidgetIds,
                             int[] newWidgetIds) {
     }
-
+*/
     @Override
     public void onAppWidgetOptionsChanged (Context context,
                                            AppWidgetManager appWidgetManager,
                                            int appWidgetId,
                                            Bundle newOptions) {
+        Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
-*/
+
     static void updateWidgets(Context context/*, boolean refresh*/) {
         /*String applicationWidgetOneRowIconLightness;
         String applicationWidgetOneRowIconColor;

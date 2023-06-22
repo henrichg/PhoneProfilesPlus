@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.view.View;
@@ -71,6 +72,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
         String applicationWidgetIconBackgroundColorNightModeOn;
         String applicationWidgetIconLayoutHeight;
         boolean applicationWidgetIconFillBackground;
+        boolean applicationWidgetIconFillBackgroundHeight;
+        boolean applicationWidgetIconFillBackgroundWidth;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
 
@@ -99,6 +102,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconBackgroundColorNightModeOn = ApplicationPreferences.applicationWidgetIconBackgroundColorNightModeOn;
             applicationWidgetIconLayoutHeight = ApplicationPreferences.applicationWidgetIconLayoutHeight;
             applicationWidgetIconFillBackground = ApplicationPreferences.applicationWidgetIconFillBackground;
+            applicationWidgetIconFillBackgroundHeight = applicationWidgetIconFillBackground;
+            applicationWidgetIconFillBackgroundWidth = applicationWidgetIconFillBackground;
 
             // "Rounded corners" parameter is removed, is forced to true
             if (!applicationWidgetIconRoundedCorners) {
@@ -134,6 +139,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     //switch (nightModeFlags) {
+                    //noinspection IfStatementWithIdenticalBranches
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
@@ -390,91 +396,221 @@ public class IconWidgetProvider extends AppWidgetProvider {
             // prepare view for widget update
             for (int widgetId : appWidgetIds)
             {
-                //Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+                Bundle options = appWidgetManager.getAppWidgetOptions(widgetId);
+                int maxHeight = GlobalGUIRoutines.dpToPx(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT));
+                int maxWidth = GlobalGUIRoutines.dpToPx(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH));
+//                Log.e("IconWidgetProvider._onUpdate", "maxHeight="+maxHeight);
+//                Log.e("IconWidgetProvider._onUpdate", "maxWidth="+maxWidth);
+
+                /*
+                int minHeight = GlobalGUIRoutines.dpToPx(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT));
+                int minWidth = GlobalGUIRoutines.dpToPx(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH));
+                Log.e("IconWidgetProvider._onUpdate", "minHeight="+minHeight);
+                Log.e("IconWidgetProvider._onUpdate", "minWidth="+minWidth);
+                */
+
                 //bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ICON);
                 //appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
 
                 RemoteViews remoteViews;
 
+                float configuredHeight;
                 if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetIconChangeColorsByNightMode &&
                         applicationWidgetIconColor.equals("0") && applicationWidgetIconUseDynamicColors)) {
                     if (applicationWidgetIconLayoutHeight.equals("0")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height);
+                        //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height);
+//                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if ((maxHeight < configuredHeight))
+                            applicationWidgetIconFillBackgroundHeight = true;
+                        if ((maxWidth < configuredHeight))
+                            applicationWidgetIconFillBackgroundWidth = true;
                         if (applicationWidgetIconHideProfileName) {
-                            if (applicationWidgetIconFillBackground)
+                            if (applicationWidgetIconFillBackground ||
+                                    (applicationWidgetIconFillBackgroundHeight &&
+                                            applicationWidgetIconFillBackgroundWidth))
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_no_profile_name);
+                            else
+                            if (applicationWidgetIconFillBackgroundHeight)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height_no_profile_name);
+                            else
+                            if (applicationWidgetIconFillBackgroundWidth)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width_no_profile_name);
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_no_profile_name);
                         } else {
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon);
                             } else if ((profile._endOfActivationType == 1) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon);
                             } else {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_one_line_text);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height_one_line_text);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width_one_line_text);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_one_line_text);
                             }
                         }
                     } else if (applicationWidgetIconLayoutHeight.equals("1")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_higher);
+                        //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_higher);
+//                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if ((maxHeight < configuredHeight))
+                            applicationWidgetIconFillBackgroundHeight = true;
+                        if ((maxWidth < configuredHeight))
+                            applicationWidgetIconFillBackgroundWidth = true;
                         if (applicationWidgetIconHideProfileName) {
-                            if (applicationWidgetIconFillBackground)
+                            if (applicationWidgetIconFillBackground ||
+                                    (applicationWidgetIconFillBackgroundHeight &&
+                                            applicationWidgetIconFillBackgroundWidth))
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_no_profile_name);
+                            else
+                            if (applicationWidgetIconFillBackgroundHeight)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height_no_profile_name);
+                            else
+                            if (applicationWidgetIconFillBackgroundWidth)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_no_profile_name);
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_no_profile_name);
                         } else {
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher);
                             } else if ((profile._endOfActivationType == 1) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher);
                             } else {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_one_line_text);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height_one_line_text);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_one_line_text);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_one_line_text);
                             }
                         }
                     } else {
+                        configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_highest);
+                        //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_highest);
+//                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if ((maxHeight < configuredHeight))
+                            applicationWidgetIconFillBackgroundHeight = true;
+                        if ((maxWidth < configuredHeight))
+                            applicationWidgetIconFillBackgroundWidth = true;
                         if (applicationWidgetIconHideProfileName) {
-                            if (applicationWidgetIconFillBackground)
+                            if (applicationWidgetIconFillBackground ||
+                                    (applicationWidgetIconFillBackgroundHeight &&
+                                            applicationWidgetIconFillBackgroundWidth))
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_no_profile_name);
+                            else
+                            if (applicationWidgetIconFillBackgroundHeight)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height_no_profile_name);
+                            else
+                            if (applicationWidgetIconFillBackgroundWidth)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width_no_profile_name);
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_no_profile_name);
                         } else {
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest);
                             } else if ((profile._endOfActivationType == 1) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest);
                             } else {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_one_line_text);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height_one_line_text);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width_one_line_text);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_one_line_text);
                             }
@@ -482,63 +618,156 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     }
                 } else {
                     if (applicationWidgetIconLayoutHeight.equals("0")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height);
+                        //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height);
+//                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if ((maxHeight < configuredHeight))
+                            applicationWidgetIconFillBackgroundHeight = true;
+                        if ((maxWidth < configuredHeight))
+                            applicationWidgetIconFillBackgroundWidth = true;
                         if (applicationWidgetIconHideProfileName) {
-                            if (applicationWidgetIconFillBackground)
+                            if (applicationWidgetIconFillBackground ||
+                                    (applicationWidgetIconFillBackgroundHeight &&
+                                            applicationWidgetIconFillBackgroundWidth))
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_no_profile_name_dn);
+                            else
+                            if (applicationWidgetIconFillBackgroundHeight)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height_no_profile_name_dn);
+                            else
+                            if (applicationWidgetIconFillBackgroundWidth)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width_no_profile_name_dn);
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_no_profile_name_dn);
                         } else {
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_dn);
                             } else if ((profile._endOfActivationType == 1) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_dn);
                             } else {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_one_line_text_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_height_one_line_text_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_fill_width_one_line_text_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_one_line_text_dn);
                             }
                         }
                     } else if (applicationWidgetIconLayoutHeight.equals("1")) {
+                        configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_higher);
+                        //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_higher);
+//                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if ((maxHeight < configuredHeight))
+                            applicationWidgetIconFillBackgroundHeight = true;
+                        if ((maxWidth < configuredHeight))
+                            applicationWidgetIconFillBackgroundWidth = true;
                         if (applicationWidgetIconHideProfileName) {
-                            if (applicationWidgetIconFillBackground)
+                            if (applicationWidgetIconFillBackground ||
+                                    (applicationWidgetIconFillBackgroundHeight &&
+                                            applicationWidgetIconFillBackgroundWidth))
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_no_profile_name_dn);
+                            else
+                            if (applicationWidgetIconFillBackgroundHeight)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height_no_profile_name_dn);
+                            else
+                            if (applicationWidgetIconFillBackgroundWidth)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_no_profile_name_dn);
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_no_profile_name_dn);
                         } else {
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_dn);
                             } else if ((profile._endOfActivationType == 1) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_dn);
                             } else {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_one_line_text_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height_one_line_text_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_one_line_text_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_one_line_text_dn);
                             }
                         }
                     } else {
+                        configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_highest);
+                        //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_highest);
+//                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                        if ((maxHeight < configuredHeight))
+                            applicationWidgetIconFillBackgroundHeight = true;
+                        if ((maxWidth < configuredHeight))
+                            applicationWidgetIconFillBackgroundWidth = true;
                         if (applicationWidgetIconHideProfileName) {
-                            if (applicationWidgetIconFillBackground)
+                            if (applicationWidgetIconFillBackground ||
+                                    (applicationWidgetIconFillBackgroundHeight &&
+                                            applicationWidgetIconFillBackgroundWidth))
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_no_profile_name_dn);
+                            else
+                            if (applicationWidgetIconFillBackgroundHeight)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height_no_profile_name_dn);
+                            else
+                            if (applicationWidgetIconFillBackgroundWidth)
+                                remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width_no_profile_name_dn);
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_no_profile_name_dn);
                         } else {
@@ -546,19 +775,43 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_dn);
                             } else if ((profile._endOfActivationType == 1) &&
                                     (applicationWidgetIconShowProfileDuration)) {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_dn);
                             } else {
-                                if (applicationWidgetIconFillBackground)
+                                if (applicationWidgetIconFillBackground ||
+                                        (applicationWidgetIconFillBackgroundHeight &&
+                                                applicationWidgetIconFillBackgroundWidth))
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_one_line_text_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundHeight)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_height_one_line_text_dn);
+                                else
+                                if (applicationWidgetIconFillBackgroundWidth)
+                                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_fill_width_one_line_text_dn);
                                 else
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_highest_one_line_text_dn);
                             }
@@ -788,6 +1041,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 }
             }
         }
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged (Context context,
+                                           AppWidgetManager appWidgetManager,
+                                           int appWidgetId,
+                                           Bundle newOptions) {
+        Intent intent3 = new Intent(ACTION_REFRESH_ICONWIDGET);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
     static void updateWidgets(Context context/*, boolean refresh*/) {

@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -178,6 +179,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                     //int nightModeFlags =
                     //        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     //switch (nightModeFlags) {
+                    //noinspection IfStatementWithIdenticalBranches
                     if (nightModeOn) {
                         //case Configuration.UI_MODE_NIGHT_YES:
 
@@ -446,7 +448,10 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
         for (int widgetId : appWidgetIds) {
 
-            //Bundle bundle = appWidgetManager.getAppWidgetOptions(widgetId);
+            Bundle options = appWidgetManager.getAppWidgetOptions(widgetId);
+            int maxHeight = GlobalGUIRoutines.dpToPx(options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT));
+            //Log.e("OneRowProfileListWidgetProvider._onUpdate", "maxHeight="+maxHeight);
+
             //bundle.putInt(PPApplication.BUNDLE_WIDGET_TYPE, PPApplication.WIDGET_TYPE_ONE_ROW);
             //appWidgetManager.updateAppWidgetOptions(widgetId, bundle);
 
@@ -454,19 +459,32 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
 
             RemoteViews remoteViews;
 
+            float configuredHeight;
             if (!((Build.VERSION.SDK_INT >= 31) && applicationWidgetOneRowProfileListChangeColorsByNightMode &&
                     applicationWidgetOneRowProfileListIconColor.equals("0") && applicationWidgetOneRowProfileListUseDynamicColors)) {
                 if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
+                    configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height);
+//                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                    if (maxHeight < configuredHeight)
+                        applicationWidgetOneRowProfileListFillBackground = true;
                     if (applicationWidgetOneRowProfileListFillBackground)
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill);
                     else
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list);
                 } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
+                    configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
+//                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                    if (maxHeight < configuredHeight)
+                        applicationWidgetOneRowProfileListFillBackground = true;
                     if (applicationWidgetOneRowProfileListFillBackground)
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill);
                     else
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher);
                 } else {
+                    configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
+//                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                    if (maxHeight < configuredHeight)
+                        applicationWidgetOneRowProfileListFillBackground = true;
                     if (applicationWidgetOneRowProfileListFillBackground)
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill);
                     else
@@ -474,16 +492,28 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
             } else {
                 if (applicationWidgetOneRowProfileListLayoutHeight.equals("0")) {
+                    configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height);
+//                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                    if (maxHeight < configuredHeight)
+                        applicationWidgetOneRowProfileListFillBackground = true;
                     if (applicationWidgetOneRowProfileListFillBackground)
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_fill_dn);
                     else
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_dn);
                 } else if (applicationWidgetOneRowProfileListLayoutHeight.equals("1")) {
+                    configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_higher);
+//                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                    if (maxHeight < configuredHeight)
+                        applicationWidgetOneRowProfileListFillBackground = true;
                     if (applicationWidgetOneRowProfileListFillBackground)
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_fill_dn);
                     else
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_higher_dn);
                 } else {
+                    configuredHeight = context.getResources().getDimension(R.dimen.one_row_widget_height_highest);
+//                        Log.e("OneRowProfileListWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
+                    if (maxHeight < configuredHeight)
+                        applicationWidgetOneRowProfileListFillBackground = true;
                     if (applicationWidgetOneRowProfileListFillBackground)
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_one_row_profile_list_highest_fill_dn);
                     else
@@ -753,6 +783,15 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 }
             }
         }
+    }
+
+    @Override
+    public void onAppWidgetOptionsChanged (Context context,
+                                           AppWidgetManager appWidgetManager,
+                                           int appWidgetId,
+                                           Bundle newOptions) {
+        Intent intent3 = new Intent(ACTION_REFRESH_ONEROWPROFILELISTWIDGET);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
     }
 
     static void updateWidgets(Context context/*, boolean refresh*/) {

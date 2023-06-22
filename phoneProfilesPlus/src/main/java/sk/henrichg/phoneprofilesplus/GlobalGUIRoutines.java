@@ -379,6 +379,13 @@ class GlobalGUIRoutines {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    /*
+    static int dpToPx2(float dp, Context context)
+    {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
+    */
+
     static int dip(float dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
     }
@@ -392,6 +399,14 @@ class GlobalGUIRoutines {
     {
         return (int) (px / Resources.getSystem().getDisplayMetrics().density);
     } */
+
+    /*
+    static Float getRawDimensionInDp(Resources resources, @DimenRes int dimenResId) {
+        TypedValue value = new TypedValue();
+        resources.getValue(dimenResId, value, true);
+        return TypedValue.complexToFloat(value.data);
+    }
+    */
 
     /**
      * Uses reflection to access divider private attribute and override its color
