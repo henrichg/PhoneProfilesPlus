@@ -767,7 +767,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 listPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_SIM_ON_OFF);
                 if (listPreference != null) {
                     if (hasSIM1 || hasSIM2) {
-                        //TODO tu tiez men pole v list preferences na dual a nedual, ako pri mobilnych datatch
                         if (phoneCount <= 1) {
                             String value = listPreference.getValue();
                             if (value.equals("3") || value.equals("5"))

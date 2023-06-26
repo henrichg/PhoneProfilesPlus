@@ -196,6 +196,10 @@ public class MainWorker extends Worker {
                             // answer from Extender not returned
                             PPApplicationStatic.restartAllScanners(appContext, false);
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
+
+                            PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED,
+                                    null, null, "");
+
                             dataWrapper.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;

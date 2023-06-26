@@ -333,6 +333,9 @@ public class PPApplication extends Application
     static final int ALTYPE_APPLICATION_SYSTEM_RESTART = 107;
     static final int ALTYPE_PROFILE_ADDED = 108;
     static final int ALTYPE_EVENT_ADDED = 109;
+    static final int ALTYPE_TIMEZONE_CHANGED = 110;
+    static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED = 111;
+    static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();

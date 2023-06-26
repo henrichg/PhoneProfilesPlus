@@ -15,6 +15,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.text.TextUtils;
 
+import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -69,6 +70,11 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                 // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
                 PPApplicationStatic._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
+                notificationManager.cancel(
+                        PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
+                        PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID);
+
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                 //PPApplication.startHandlerThreadBroadcast(/*"PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
                 //final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -94,6 +100,10 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 //dataWrapper2.fillProfileList(false, false);
                                 PhoneProfilesServiceStatic.registerPPPExtenderReceiver(true, dataWrapper2, appContext);
                                 PPApplicationStatic.restartAllScanners(appContext, false);
+
+                                PPApplicationStatic.addActivityLog(dataWrapper2.context, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED,
+                                        null, null, "");
+
                                 dataWrapper2.restartEventsWithDelay(false, true, false, PPApplication.ALTYPE_UNDEFINED);
                             }
 

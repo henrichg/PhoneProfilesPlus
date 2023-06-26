@@ -99,6 +99,9 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS, R.string.altype_afterEndOfActivationTime_restartEvents);
         activityTypeStrings.put(PPApplication.ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE, R.string.altype_afterEndOfActivationTime_specificProfile);
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_VPN, R.string.altype_profileError_setVPN);
+        activityTypeStrings.put(PPApplication.ALTYPE_TIMEZONE_CHANGED, R.string.altype_timezone_changed);
+        activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, R.string.altype_extender_accessibility_service_enabled);
+        activityTypeStrings.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, R.string.altype_extender_accessibility_service_not_enabled);
 
         //int otherColor = R.color.altype_other;
         /*
@@ -154,6 +157,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFI, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_WIFIAP, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_CLOSE_ALL_APPLICATIONS, color);
+        activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED, color);
         color = shiftColor(ContextCompat.getColor(context, R.color.altype_other), context);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, color);
         activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, color);
@@ -180,6 +184,8 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, color);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ADDED, color);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_ADDED, color);
+        activityTypeColors.put(PPApplication.ALTYPE_TIMEZONE_CHANGED, color);
+        activityTypeColors.put(PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED, color);
     }
 
     @Override

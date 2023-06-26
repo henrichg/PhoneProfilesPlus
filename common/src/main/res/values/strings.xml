@@ -2093,6 +2093,12 @@
 
     <string name="privacy_policy_web_browser_chooser">View PhoneProfilesPlus Privacy policy using</string>
 
+    <string name="array_pref_iconWidget_layoutHeight_moreCompact">More compact</string>
+
+    <string name="altype_timezone_changed">time zone changed</string>
+    <string name="altype_extender_accessibility_service_enabled">Extender accessibility service enbaled</string>
+    <string name="altype_extender_accessibility_service_not_enabled">Extender accessibility service not enbaled</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
