@@ -16,8 +16,8 @@
         app:summary="0"
         app:key="applicationWidgetIconLayoutHeight"
         app:defaultValue="2"
-        app:ppEntries="@array/widgetOneRowLayoutHeightArray"
-        app:ppEntryValues="@array/widgetOneRowLayoutHeightValues"
+        app:ppEntries="@array/widgetIconLayoutHeightArray"
+        app:ppEntryValues="@array/widgetIconLayoutHeightValues"
         app:layout="@layout/mp_preference_material_widget" />
 
     <PreferenceCategory

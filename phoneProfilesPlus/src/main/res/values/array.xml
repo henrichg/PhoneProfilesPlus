@@ -1423,6 +1423,18 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+    <string-array name="widgetIconLayoutHeightArray">
+        <item>@string/array_pref_iconWidget_layoutHeight_moreCompact</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_compact</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_normal</item>
+        <item>@string/array_pref_oneRowWidget_layoutHeight_large</item>
+    </string-array>
+    <string-array name="widgetIconLayoutHeightValues">
+        <item>3</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <string-array name="widgetOneRowLayoutHeightArray">
         <item>@string/array_pref_oneRowWidget_layoutHeight_compact</item>
         <item>@string/array_pref_oneRowWidget_layoutHeight_normal</item>
