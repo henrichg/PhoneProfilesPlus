@@ -2098,6 +2098,7 @@
     <string name="altype_timezone_changed">time zone changed</string>
     <string name="altype_extender_accessibility_service_enabled">Extender accessibility service enbaled</string>
     <string name="altype_extender_accessibility_service_not_enabled">Extender accessibility service not enbaled</string>
+    <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
 
     <!-- **************************************************************************************** -->
 

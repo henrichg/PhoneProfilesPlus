@@ -336,6 +336,7 @@ public class PPApplication extends Application
     static final int ALTYPE_TIMEZONE_CHANGED = 110;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_ENABLED = 111;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
+    static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
 
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();

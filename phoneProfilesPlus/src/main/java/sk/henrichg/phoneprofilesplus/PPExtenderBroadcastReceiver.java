@@ -67,25 +67,26 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                         /*, "PPExtenderBroadcastReceiver.onReceive (ACTION_PPPEXTENDER_STARTED)"*/);
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
-                // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
-                PPApplicationStatic._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
+                if (PPApplication.accessibilityServiceForPPPExtenderConnected != 1) {
+                    // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
+                    PPApplicationStatic._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
-                notificationManager.cancel(
-                        PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
-                        PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID);
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(appContext);
+                    notificationManager.cancel(
+                            PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
+                            PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID);
 
-                PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
-                //PPApplication.startHandlerThreadBroadcast(/*"PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
-                //final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
-                //        context.getApplicationContext()) {
-                //__handler0.post(() -> {
-                Runnable runnable = () -> {
+                    PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
+                    //PPApplication.startHandlerThreadBroadcast(/*"PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
+                    //final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                    //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
+                    //        context.getApplicationContext()) {
+                    //__handler0.post(() -> {
+                    Runnable runnable = () -> {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -118,16 +119,20 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    //}
-                }; //);
-                PPApplicationStatic.createEventsHandlerExecutor();
-                PPApplication.eventsHandlerExecutor.submit(runnable);
+                        //}
+                    }; //);
+                    PPApplicationStatic.createEventsHandlerExecutor();
+                    PPApplication.eventsHandlerExecutor.submit(runnable);
+                }
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
                 // cancel ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG
                 PPApplicationStatic._cancelWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, false);
 
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+
+                PPApplicationStatic.addActivityLog(appContext, PPApplication.ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND,
+                        null, null, "");
 
                 //PPApplication.startHandlerThreadBroadcast(/*"PPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
                 //final Handler __handler1 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
