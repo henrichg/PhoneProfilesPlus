@@ -39,7 +39,7 @@ __NOTE: Installation from downloaded apk is not recommended for Android 13+ for 
 __[GitHub PPP release (direct download)](https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk)__
   &nbsp;&nbsp;&nbsp;_[Number of downloads by version](https://hanadigital.github.io/grev/?user=henrichg&repo=phoneprofilesplus)_
 
-__If it is not possible to install PhoneProfilesPlus from the downloaded apk file directly on your device, you can install it from your computer.__
+__If is not possible to install PhoneProfilesPlus from the downloaded apk file directly on your device, you can install it from your computer.__
 - [Show how](docs/install_apk_from_pc.md)
 
 ### Applications required for some PhoneProfilesPlus features:
