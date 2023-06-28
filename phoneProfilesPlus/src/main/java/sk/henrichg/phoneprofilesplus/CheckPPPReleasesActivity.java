@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -337,6 +338,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             });
         }
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            TextView text2 = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_apk_installation);
+            text2.setVisibility(View.VISIBLE);
+            text2.setText(R.string.check_releases_install_from_apk_note);
+        }
+
         if (!refreshOpenedDialog) {
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setCancelable(true);
@@ -461,6 +468,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
                 text.setText(sbt);
                 text.setMovementMethod(LinkMovementMethod.getInstance());
+
+                if (Build.VERSION.SDK_INT >= 33) {
+                    TextView text2 = layout.findViewById(R.id.dialog_for_fdroid_apk_installation);
+                    text2.setVisibility(View.VISIBLE);
+                    text2.setText(R.string.check_releases_install_from_apk_note);
+                }
             }
             else
                 text.setVisibility(View.GONE);
@@ -603,6 +616,14 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
         message = message.replace("\n", "<br>");
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
+
+        if (!galaxyStoreInstalled) {
+            if (Build.VERSION.SDK_INT >= 33) {
+                TextView text2 = layout.findViewById(R.id.dialog_for_galaxy_store_apk_installation);
+                text2.setVisibility(View.VISIBLE);
+                text2.setText(R.string.check_releases_install_from_apk_note);
+            }
+        }
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
@@ -830,6 +851,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
                 text.setText(sbt);
                 text.setMovementMethod(LinkMovementMethod.getInstance());
+
+                if (Build.VERSION.SDK_INT >= 33) {
+                    TextView text2 = layout.findViewById(R.id.dialog_for_appgallery_apk_installation);
+                    text2.setVisibility(View.VISIBLE);
+                    text2.setText(R.string.check_releases_install_from_apk_note);
+                }
             } else {
                 text.setVisibility(View.GONE);
                 buttonsDivider.setVisibility(View.GONE);
@@ -969,6 +996,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
+
+            if (Build.VERSION.SDK_INT >= 33) {
+                TextView text2 = layout.findViewById(R.id.dialog_for_apkpure_apk_installation);
+                text2.setVisibility(View.VISIBLE);
+                text2.setText(R.string.check_releases_install_from_apk_note);
+            }
         } else {
             text.setVisibility(View.GONE);
             //buttonsDivider.setVisibility(View.GONE);
@@ -1102,6 +1135,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
+
+            if (Build.VERSION.SDK_INT >= 33) {
+                TextView text2 = layout.findViewById(R.id.dialog_for_droidify_apk_installation);
+                text2.setVisibility(View.VISIBLE);
+                text2.setText(R.string.check_releases_install_from_apk_note);
+            }
         } else {
             text.setVisibility(View.GONE);
             //buttonsDivider.setVisibility(View.GONE);

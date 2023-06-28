@@ -280,6 +280,12 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
+        if (Build.VERSION.SDK_INT >= 33) {
+            TextView text2 = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_apk_installation);
+            text2.setVisibility(View.VISIBLE);
+            text2.setText(R.string.check_releases_install_from_apk_note);
+        }
+
         dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {
             //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
             String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;

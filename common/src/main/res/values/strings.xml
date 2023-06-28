@@ -2100,6 +2100,8 @@
     <string name="altype_extender_accessibility_service_not_enabled">Extender accessibility service not enbaled</string>
     <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
 
+    <string name="check_releases_install_from_apk_note">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

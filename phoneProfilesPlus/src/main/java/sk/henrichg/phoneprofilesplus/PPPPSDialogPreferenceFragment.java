@@ -247,7 +247,6 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
-
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
 //            public void onShow(DialogInterface dialog) {
