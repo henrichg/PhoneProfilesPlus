@@ -312,24 +312,27 @@ class EventPreferencesNotification extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
+
+        boolean notificationccessEnabled =
+                PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(notificationccessEnabled && value.equals("true"));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(notificationccessEnabled && value.equals("true"));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(notificationccessEnabled && value.equals("true"));
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(notificationccessEnabled && value.equals("true"));
             }
         }
 
@@ -497,9 +500,9 @@ class EventPreferencesNotification extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED) != null) {
-                boolean enabled = ApplicationPreferences.applicationEventNotificationEnableScanning &&
+                boolean enabled = /*ApplicationPreferences.applicationEventNotificationEnableScanning &&*/
                         PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
-                Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
+                //Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
                 Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
                 Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
@@ -511,9 +514,9 @@ class EventPreferencesNotification extends EventPreferences {
                 Preference contactListTypePreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
                 Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
 
-                if (notififcationAccess != null) {
+                /*if (notififcationAccess != null) {
                     notififcationAccess.setEnabled(ApplicationPreferences.applicationEventNotificationEnableScanning);
-                }
+                }*/
                 if (applicationsPreference != null) {
                     applicationsPreference.setEnabled(enabled);
                     applicationsPreference.setSummaryAMSDP();
