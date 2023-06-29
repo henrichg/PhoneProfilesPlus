@@ -341,7 +341,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 33) {
             TextView text2 = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_apk_installation);
             text2.setVisibility(View.VISIBLE);
-            text2.setText(R.string.check_releases_install_from_apk_note);
+            String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                    " " + activity.getString(R.string.install_ppp_store_droidify) +
+                    activity.getString(R.string.check_releases_install_from_apk_note2);
+            text2.setText(str);
         }
 
         if (!refreshOpenedDialog) {
@@ -472,7 +475,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= 33) {
                     TextView text2 = layout.findViewById(R.id.dialog_for_fdroid_apk_installation);
                     text2.setVisibility(View.VISIBLE);
-                    text2.setText(R.string.check_releases_install_from_apk_note);
+                    String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                            " " + activity.getString(R.string.install_ppp_store_fdroid) +
+                            activity.getString(R.string.check_releases_install_from_apk_note2);
+                    text2.setText(str);
                 }
             }
             else
@@ -621,7 +627,15 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= 33) {
                 TextView text2 = layout.findViewById(R.id.dialog_for_galaxy_store_apk_installation);
                 text2.setVisibility(View.VISIBLE);
-                text2.setText(R.string.check_releases_install_from_apk_note);
+                String store;
+                if (PPApplication.deviceIsSamsung)
+                    store = activity.getString(R.string.install_ppp_store_galaxystore);
+                else
+                    store = activity.getString(R.string.install_ppp_store_droidify);
+                String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                        " " + store +
+                        activity.getString(R.string.check_releases_install_from_apk_note2);
+                text2.setText(str);
             }
         }
 
@@ -855,7 +869,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= 33) {
                     TextView text2 = layout.findViewById(R.id.dialog_for_appgallery_apk_installation);
                     text2.setVisibility(View.VISIBLE);
-                    text2.setText(R.string.check_releases_install_from_apk_note);
+                    String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                            " " + activity.getString(R.string.install_ppp_store_appgallery) +
+                            activity.getString(R.string.check_releases_install_from_apk_note2);
+                    text2.setText(str);
                 }
             } else {
                 text.setVisibility(View.GONE);
@@ -1000,7 +1017,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= 33) {
                 TextView text2 = layout.findViewById(R.id.dialog_for_apkpure_apk_installation);
                 text2.setVisibility(View.VISIBLE);
-                text2.setText(R.string.check_releases_install_from_apk_note);
+                String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                        " " + activity.getString(R.string.install_ppp_store_apkpure) +
+                        activity.getString(R.string.check_releases_install_from_apk_note2);
+                text2.setText(str);
             }
         } else {
             text.setVisibility(View.GONE);
@@ -1139,7 +1159,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= 33) {
                 TextView text2 = layout.findViewById(R.id.dialog_for_droidify_apk_installation);
                 text2.setVisibility(View.VISIBLE);
-                text2.setText(R.string.check_releases_install_from_apk_note);
+                String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                        " " + activity.getString(R.string.install_ppp_store_droidify) +
+                        activity.getString(R.string.check_releases_install_from_apk_note2);
+                text2.setText(str);
             }
         } else {
             text.setVisibility(View.GONE);

@@ -283,7 +283,10 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         if (Build.VERSION.SDK_INT >= 33) {
             TextView text2 = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_apk_installation);
             text2.setVisibility(View.VISIBLE);
-            text2.setText(R.string.check_releases_install_from_apk_note);
+            String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
+                    " " + activity.getString(R.string.install_ppp_store_droidify) +
+                    activity.getString(R.string.check_releases_install_from_apk_note2);
+            text2.setText(str);
         }
 
         dialogBuilder.setPositiveButton(activity.getString(R.string.alert_button_install), (dialog, which) -> {

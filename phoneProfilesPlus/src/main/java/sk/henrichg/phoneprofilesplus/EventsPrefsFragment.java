@@ -385,7 +385,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
         event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
 
-        //TODO
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
             //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);

@@ -2099,7 +2099,13 @@
     <string name="altype_extender_accessibility_service_not_enabled">Extender accessibility service not enbaled</string>
     <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
 
-    <string name="check_releases_install_from_apk_note">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
+    <string name="check_releases_install_from_apk_note1">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead</string>
+    <string name="check_releases_install_from_apk_note2">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
+    <string name="install_ppp_store_galaxystore">Galaxy Store</string>
+    <string name="install_ppp_store_appgallery">Huawei AppGallery</string>
+    <string name="install_ppp_store_droidify">Droid-ify</string>
+    <string name="install_ppp_store_fdroid">F-Droid</string>
+    <string name="install_ppp_store_apkpure">APKPure</string>
 
     <string name="event_preferences_volumeNotificationsAccessSettings_summary2">Please enable \"Notification access\" in \"Notification scanning\" settings. Without this, Notification scanning will not work.</string>
 
