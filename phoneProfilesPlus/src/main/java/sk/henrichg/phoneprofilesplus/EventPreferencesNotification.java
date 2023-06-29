@@ -282,15 +282,33 @@ class EventPreferencesNotification extends EventPreferences {
         if (key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary);
+                int titleColor;
+                String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary2);
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext(), true)) {
                     summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *\n\n"+
                             summary;
+                    titleColor = ContextCompat.getColor(context, R.color.error_color);
                 }
                 else {
                     summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + ".\n\n"+
                             summary;
+                    titleColor = 0;
                 }
+                CharSequence sTitle = preference.getTitle();
+                int titleLenght = 0;
+                if (sTitle != null)
+                    titleLenght = sTitle.length();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, titleLenght, Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
                 preference.setSummary(summary);
             }
         }
@@ -313,26 +331,24 @@ class EventPreferencesNotification extends EventPreferences {
             }
         }
 
-        boolean notificationccessEnabled =
-                PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (preference != null) {
-                preference.setEnabled(notificationccessEnabled && value.equals("true"));
+                preference.setEnabled(value.equals("true"));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (preference != null) {
-                preference.setEnabled(notificationccessEnabled && value.equals("true"));
+                preference.setEnabled(value.equals("true"));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (preference != null) {
-                preference.setEnabled(notificationccessEnabled && value.equals("true"));
+                preference.setEnabled(value.equals("true"));
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (preference != null) {
-                preference.setEnabled(notificationccessEnabled && value.equals("true"));
+                preference.setEnabled(value.equals("true"));
             }
         }
 
@@ -500,58 +516,58 @@ class EventPreferencesNotification extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         if (!onlyCategory) {
             if (prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED) != null) {
-                boolean enabled = /*ApplicationPreferences.applicationEventNotificationEnableScanning &&*/
-                        PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
+                //boolean enabled = /*ApplicationPreferences.applicationEventNotificationEnableScanning &&*/
+                //        PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true);
                 //Preference notififcationAccess = prefMng.findPreference(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
                 ApplicationsMultiSelectDialogPreference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
-                Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
-                Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+                //Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+                //Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
                 SwitchPreferenceCompat checkContactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS);
                 Preference contactGroupsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
                 Preference contactsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
                 SwitchPreferenceCompat checkTextPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CHECK_TEXT);
                 Preference textPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
                 Preference contactListTypePreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
-                Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
+                //Preference maximumDuration = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
 
                 /*if (notififcationAccess != null) {
                     notififcationAccess.setEnabled(ApplicationPreferences.applicationEventNotificationEnableScanning);
                 }*/
                 if (applicationsPreference != null) {
-                    applicationsPreference.setEnabled(enabled);
+                    //applicationsPreference.setEnabled(enabled);
                     applicationsPreference.setSummaryAMSDP();
                 }
-                if (ringingCallPreference != null) {
-                    ringingCallPreference.setEnabled(enabled);
-                }
-                if (missedCallPreference != null) {
-                    missedCallPreference.setEnabled(enabled);
-                }
-                if (checkContactsPreference != null) {
-                    checkContactsPreference.setEnabled(enabled);
-                }
+                //if (ringingCallPreference != null) {
+                //    ringingCallPreference.setEnabled(enabled);
+                //}
+                //if (missedCallPreference != null) {
+                //    missedCallPreference.setEnabled(enabled);
+                //}
+                //if (checkContactsPreference != null) {
+                //    checkContactsPreference.setEnabled(enabled);
+                //}
                 if (contactGroupsPreference != null) {
                     boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                    contactGroupsPreference.setEnabled(enabled && checkEnabled);
+                    contactGroupsPreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
                 if (contactsPreference != null) {
                     boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                    contactsPreference.setEnabled(enabled && checkEnabled);
+                    contactsPreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
                 if (contactListTypePreference != null) {
                     boolean checkEnabled = (checkContactsPreference != null) && (checkContactsPreference.isChecked());
-                    contactListTypePreference.setEnabled(enabled && checkEnabled);
+                    contactListTypePreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
-                if (checkTextPreference != null) {
-                    checkTextPreference.setEnabled(enabled);
-                }
+                //if (checkTextPreference != null) {
+                //    checkTextPreference.setEnabled(enabled);
+                //}
                 if (textPreference != null) {
                     boolean checkEnabled = (checkTextPreference != null) && (checkTextPreference.isChecked());
-                    textPreference.setEnabled(enabled && checkEnabled);
+                    textPreference.setEnabled(/*enabled &&*/ checkEnabled);
                 }
-                if (maximumDuration != null) {
-                    maximumDuration.setEnabled(enabled);
-                }
+                //if (maximumDuration != null) {
+                //    maximumDuration.setEnabled(enabled);
+                //}
 
                 setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
                 setSummary(prefMng, PREF_EVENT_NOTIFICATION_APP_SETTINGS, preferences, context);

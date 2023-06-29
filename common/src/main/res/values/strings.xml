@@ -347,7 +347,6 @@
     <string name="event_type_notifications">Notifications</string>
     <string name="event_preferences_category_eventNotificationsParameters">Notification sensor</string>
     <string name="event_preferences_notifications_applications">Applications</string>
-    <string name="event_preferences_volumeNotificationsAccessSettings_summary">To enable Notification sensor, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
     <string name="array_pref_zenModeArray_alarms">Alarms only</string>
     <string name="profile_preferences_zenMode_alarms_summary">Interrupt only with alarms</string>
     <string name="permission_group_name_write_settings">Modify system settings</string>
@@ -2101,6 +2100,8 @@
     <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
 
     <string name="check_releases_install_from_apk_note">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
+
+    <string name="event_preferences_volumeNotificationsAccessSettings_summary2">Please enable \"Notification access\" in \"Notification scanning\" settings. Without this, Notification scanning will not work.</string>
 
     <!-- **************************************************************************************** -->
 

@@ -385,10 +385,17 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         event.checkSensorsPreferences(prefMng, !nestedFragment, getActivity().getBaseContext());
         event.setAllSummary(prefMng, preferences, getActivity().getBaseContext());
 
+        //TODO
         Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
             //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             notificationAccessPreference.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "notificationScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                startActivityForResult(intent, RESULT_NOTIFICATION_SCANNING_APP_SETTINGS);
+                /*
                 boolean ok = false;
                 String activity1;
                 activity1 = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
@@ -424,6 +431,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                             dialog.show();
                     }
                 }
+                */
                 return false;
             });
         }

@@ -19,7 +19,7 @@
     <Preference
         app:key="eventNotificationNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
-        app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
+        app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary2"
         app:dependency="eventNotificationEnabled"
         app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
