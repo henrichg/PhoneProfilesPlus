@@ -2082,7 +2082,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setVisible(false);
         }
 
-        //TODO
         if (Build.VERSION.SDK_INT >= 33) {
             InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_NOTIFICATION_SCANNING_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
             if (infoDialogPreference != null) {
@@ -2090,10 +2089,18 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
 
                     infoDialogPreference.setInfoText(
-                        "<a href='" + InfoDialogPreference.ACTIVITY_PPP_APP_INFO_SCREEN + "'>" +
+                        "<a href='" + InfoDialogPreference.PPP_APP_INFO_SCREEN + "'>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + "&nbsp;»»</a><br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + "<br><br>" +
-                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4)
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + "<br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + "<br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + "<br><br>" +
+                        "<a href='" + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + "'>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + "&nbsp;»»</a><br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
+                        "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\".<br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
+                        "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_import) + "\"."
                     );
                     infoDialogPreference.setIsHtml(true);
 

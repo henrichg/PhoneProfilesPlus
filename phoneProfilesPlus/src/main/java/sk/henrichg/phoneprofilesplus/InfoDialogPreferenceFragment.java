@@ -166,7 +166,8 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     public void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
                               final String linkText, PPLinkMovementMethod.LinkType linkTypeText) {
         boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
-        boolean showPPPAppInfoScreen = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_PPP_APP_INFO_SCREEN);
+        boolean showPPPAppInfoScreen = linkUrl.startsWith(InfoDialogPreference.PPP_APP_INFO_SCREEN);
+        boolean showDroidifyInstallationSite = linkUrl.startsWith(InfoDialogPreference.DROIDIFY_INSTALLATION_SITE);
 
         int iiFragment;// = -1;
         // 0 = System
@@ -188,7 +189,6 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             startActivity(intentLaunch);
         }
         if (showPPPAppInfoScreen) {
-            //TODO
             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             //intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
@@ -215,7 +215,14 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
 
                 dialog2.show();
             }
-
+        }
+        if (showDroidifyInstallationSite) {
+            String url = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+            } catch (Exception ignored) {}
         }
     }
 

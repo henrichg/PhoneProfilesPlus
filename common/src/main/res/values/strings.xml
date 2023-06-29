@@ -2114,6 +2114,11 @@
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2">Click here to open \"App info\" screen for PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3">In \"App info\" screen, click menu at top and in it \"Allow restricted settings\".</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4">\"Allow restricted settings\" is not displayed, when restricted settings are allowed.</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5">However, if PhoneProfilesPlus is installed from a downloaded apk file, \"Allow restricted settings\" may not appear at all.</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6">Then you must uninstall it, and install it from supported store, for example Droid-ify.</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7">Before uninstallation of PhoneProfilesPlus, do backup of PhoneProfilesPlus settings. It is in Editor menu in</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8">Aftet istallation  of PhoneProfilesPlus from supported store, do restore of PhoneProfilesPlus settings. It is in Editor menu in</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10">Click here to open Droid-ify installation site.</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2167,6 +2172,9 @@
     <string name="extender_accessibility_service_disabled_app_info_2">Click \"App info\" button to allow it.</string>
     <string name="extender_accessibility_service_disabled_app_info_3">In \"App info\" screen, click menu at top and in it \"Allow restricted settings\".</string>
     <string name="extender_accessibility_service_disabled_app_info_4">\"Allow restricted settings\" is not displayed, when restricted settings are allowed.</string>
+    <string name="extender_accessibility_service_disabled_app_info_5">However, if PhoneProfilesPlusExtender is installed from a downloaded apk file, \"Allow restricted settings\" may not appear at all.</string>
+    <string name="extender_accessibility_service_disabled_app_info_6">Then you must uninstall it, and install it from supported store, for example Droid-ify.</string>
+    <string name="extender_accessibility_service_disabled_app_info_7">Click here to open Droid-ify installation site:</string>
     <string name="extender_accessibility_service_app_info_button">App info</string>
 
     <!-- **************************************************************************************** -->
