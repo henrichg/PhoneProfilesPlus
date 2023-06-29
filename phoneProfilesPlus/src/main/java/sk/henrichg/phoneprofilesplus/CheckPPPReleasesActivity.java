@@ -343,7 +343,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text2.setVisibility(View.VISIBLE);
             String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                     " " + activity.getString(R.string.install_ppp_store_droidify) +
-                    activity.getString(R.string.check_releases_install_from_apk_note2);
+                    activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
             text2.setText(str);
         }
 
@@ -477,7 +477,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     text2.setVisibility(View.VISIBLE);
                     String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                             " " + activity.getString(R.string.install_ppp_store_fdroid) +
-                            activity.getString(R.string.check_releases_install_from_apk_note2);
+                            activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
                     text2.setText(str);
                 }
             }
@@ -634,7 +634,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     store = activity.getString(R.string.install_ppp_store_droidify);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + store +
-                        activity.getString(R.string.check_releases_install_from_apk_note2);
+                        activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
                 text2.setText(str);
             }
         }
@@ -871,7 +871,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     text2.setVisibility(View.VISIBLE);
                     String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                             " " + activity.getString(R.string.install_ppp_store_appgallery) +
-                            activity.getString(R.string.check_releases_install_from_apk_note2);
+                            activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
                     text2.setText(str);
                 }
             } else {
@@ -1019,7 +1019,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text2.setVisibility(View.VISIBLE);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + activity.getString(R.string.install_ppp_store_apkpure) +
-                        activity.getString(R.string.check_releases_install_from_apk_note2);
+                        activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
                 text2.setText(str);
             }
         } else {
@@ -1161,7 +1161,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 text2.setVisibility(View.VISIBLE);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + activity.getString(R.string.install_ppp_store_droidify) +
-                        activity.getString(R.string.check_releases_install_from_apk_note2);
+                        activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
                 text2.setText(str);
             }
         } else {

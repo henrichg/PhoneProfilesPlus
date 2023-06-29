@@ -2100,7 +2100,8 @@
     <string name="altype_extender_accessibility_service_unbind">Extender accessibility service unbinded</string>
 
     <string name="check_releases_install_from_apk_note1">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead</string>
-    <string name="check_releases_install_from_apk_note2">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
+    <string name="check_releases_install_from_apk_note2_ppp">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
+    <string name="check_releases_install_from_apk_note2_pppe">, if in your device is not supported application store, and install PhoneProfilesPlusExtender from it.</string>
     <string name="install_ppp_store_galaxystore">Galaxy Store</string>
     <string name="install_ppp_store_appgallery">Huawei AppGallery</string>
     <string name="install_ppp_store_droidify">Droid-ify</string>

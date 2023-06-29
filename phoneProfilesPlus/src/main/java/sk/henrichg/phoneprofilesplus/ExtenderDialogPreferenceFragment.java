@@ -285,7 +285,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             text2.setVisibility(View.VISIBLE);
             String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                     " " + activity.getString(R.string.install_ppp_store_droidify) +
-                    activity.getString(R.string.check_releases_install_from_apk_note2);
+                    activity.getString(R.string.check_releases_install_from_apk_note2_pppe);
             text2.setText(str);
         }
 
