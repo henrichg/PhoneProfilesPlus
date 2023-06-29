@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -164,6 +166,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
     public void onLinkClicked(final String linkUrl, PPLinkMovementMethod.LinkType linkTypeUrl,
                               final String linkText, PPLinkMovementMethod.LinkType linkTypeText) {
         boolean showImportantInfoProfiles = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES);
+        boolean showPPPAppInfoScreen = linkUrl.startsWith(InfoDialogPreference.ACTIVITY_PPP_APP_INFO_SCREEN);
 
         int iiFragment;// = -1;
         // 0 = System
@@ -183,6 +186,36 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, iiFragment);
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, scrollTo);
             startActivity(intentLaunch);
+        }
+        if (showPPPAppInfoScreen) {
+            //TODO
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+            if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                //noinspection deprecation
+                startActivity(intent);
+            } else {
+                PPAlertDialog dialog2 = new PPAlertDialog(
+                        preference.getTitle(),
+                        getString(R.string.setting_screen_not_found_alert),
+                        getString(android.R.string.ok),
+                        null,
+                        null, null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        true, true,
+                        false, false,
+                        true,
+                        getActivity()
+                );
+
+                dialog2.show();
+            }
+
         }
     }
 

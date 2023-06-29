@@ -2110,6 +2110,11 @@
 
     <string name="event_preferences_volumeNotificationsAccessSettings_summary2">Please enable \"Notification access\" in \"Notification scanning\" settings. Without this, Notification scanning will not work.</string>
 
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_1">If is not possible to enable Notification access, maybe are not allowed restricted settings for PhoneProfilesPlus. Click here to allow it.</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2">Click here to open \"App info\" screen for PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3">In \"App info\" screen, click menu at top and in it \"Allow restricted settings\".</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4">\"Allow restricted settings\" is not displayed, when restricted settings are allowed.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

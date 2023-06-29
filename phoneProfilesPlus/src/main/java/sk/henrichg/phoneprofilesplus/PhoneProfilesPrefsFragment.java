@@ -101,9 +101,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS = 1994;
     //private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1 = "notificationProfileIconColorInfo1";
     private static final String PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2 = "notificationProfileIconColorInfo2";
-
     private static final String PREF_ALL_NOTIFICATIONS_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsAll";
     private static final String PREF_NOTIFICATION_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsProfileList";
+    private static final String PREF_NOTIFICATION_SCANNING_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "applicationEventNotificationNotificationsAccessSettingsRestrictedSettings";
 
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
@@ -2080,6 +2080,26 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setVisible(false);
             } else
                 preference.setVisible(false);
+        }
+
+        //TODO
+        if (Build.VERSION.SDK_INT >= 33) {
+            InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_NOTIFICATION_SCANNING_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS);
+            if (infoDialogPreference != null) {
+                infoDialogPreference.setOnPreferenceClickListener(preference120 -> {
+//                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
+
+                    infoDialogPreference.setInfoText(
+                        "<a href='" + InfoDialogPreference.ACTIVITY_PPP_APP_INFO_SCREEN + "'>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + "&nbsp;»»</a><br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + "<br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4)
+                    );
+                    infoDialogPreference.setIsHtml(true);
+
+                    return false;
+                });
+            }
         }
 
     }

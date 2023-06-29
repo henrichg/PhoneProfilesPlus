@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="notificationScanningCategory"
+    app:title="@string/phone_profiles_pref_category_notification_scanning">
+
+    <Preference
+        app:key="applicationEventNotificationInfo"
+        app:title="@string/phone_profiles_pref_applicationEventNotification_info"
+        app:summary=""
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationEventNotificationEnableScannig"
+        app:title="@string/phone_profiles_pref_applicationEventNotificationEnableScanning"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventNotificationNotificationsAccessSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.InfoDialogPreference
+        app:key="applicationEventNotificationNotificationsAccessSettingsRestrictedSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_1"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:infoText=""
+        app:widgetLayout="@layout/preference_widget_info_preference_clickable"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:key="applicationEventNotificationScanInPowerSaveMode"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
+            app:summary="@string/array_pref_scanInPowerSaveMode_scan"
+            app:defaultValue="1"
+            app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="applicationNotificationPowerSaveMode"
+            app:title="@string/phone_profiles_pref_applicationBatterySaver"
+            app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+            app:layout="@layout/mp_preference_material_widget"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.PPListPreference
+            app:key="applicationEventNotificationScanInTimeMultiply"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
+            app:summary="@string/array_pref_scanInPowerSaveMode_scan"
+            app:defaultValue="1"
+            app:ppEntries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:ppEntryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
+            app:key="applicationEventNotificationScanInTimeMultiplyFrom"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreference
+            app:key="applicationEventNotificationScanInTimeMultiplyTo"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <SwitchPreferenceCompat
+            app:key="applicationEventNotificationScanOnlyWhenScreenIsOn"
+            app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            app:defaultValue="false"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    
+</androidx.preference.PreferenceScreen>

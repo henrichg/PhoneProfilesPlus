@@ -14,6 +14,7 @@ public class InfoDialogPreference extends DialogPreference {
     boolean isHtml;
 
     static final String ACTIVITY_IMPORTANT_INFO_PROFILES = "@important_info_profiles";
+    static final String ACTIVITY_PPP_APP_INFO_SCREEN = "@ppp_app_info_screen";
 
     public InfoDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
