@@ -85,9 +85,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         showDialog(this, menuItemId);
 
         if (menuItemId == R.id.menu_check_in_github) {
-            final Activity activity = this;
             if (Build.VERSION.SDK_INT < 33) {
                 try {
+                    final Activity activity = this;
                     final Context appContext = getApplicationContext();
                     // Instantiate the RequestQueue.
                     RequestQueue queue = Volley.newRequestQueue(appContext);
@@ -135,9 +135,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 } catch (Exception e) {
 //            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
                 }
-            } else {
-                //TODO natvrdo z Droid-ify
-                checkInDroidIfy(activity, true);
             }
         }
 
