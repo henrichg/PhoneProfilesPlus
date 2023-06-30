@@ -41,17 +41,21 @@ class ImportantInfoNotification {
             if (packageVersionCode > savedVersionCode)
                 showInfo = canShowInfoNotification(packageVersionCode, savedVersionCode);
 
+            /*
             boolean showExtender = false;
             int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
             if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
                 showExtender = true;
+            */
 
+            /*
             boolean showPPPPS = false;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
             if ((ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST))
                 showPPPPS = true;
+            */
 
-            setShowInfoNotificationOnStart(context, (showInfo || showExtender || showPPPPS), packageVersionCode);
+            setShowInfoNotificationOnStart(context, showInfo/* || showExtender || showPPPPS*/, packageVersionCode);
 
             if (/*(savedVersionCode == 0) ||*/ getShowInfoNotificationOnStart(context, packageVersionCode)) {
 
@@ -60,6 +64,7 @@ class ImportantInfoNotification {
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.info_notification_text),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_TAG);
+                /*
                 if (showExtender)
                     showNotification(context, false, false,
                             context.getString(R.string.info_notification_title),
@@ -70,6 +75,7 @@ class ImportantInfoNotification {
                             context.getString(R.string.info_notification_title),
                             context.getString(R.string.important_info_pppps_new_version_notification),
                             PPApplication.IMPORTANT_INFO_NOTIFICATION_PPPPS_TAG);
+                 */
 
                 //setShowInfoNotificationOnStart(context, false, packageVersionCode);
             }
@@ -148,7 +154,8 @@ class ImportantInfoNotification {
     static private void showNotification(Context context,
                                          @SuppressWarnings("SameParameterValue") boolean firstInstallation,
                                          boolean showQuickGuide,
-                                         String title, String text, String notificationTag) {
+                                         String title, String text,
+                                         @SuppressWarnings("SameParameterValue") String notificationTag) {
         PPApplicationStatic.createExclamationNotificationChannel(context.getApplicationContext(), false);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context.getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.error_color))

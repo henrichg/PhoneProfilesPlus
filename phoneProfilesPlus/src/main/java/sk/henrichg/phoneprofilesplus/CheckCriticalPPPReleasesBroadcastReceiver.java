@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -177,10 +178,6 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
                     response -> {
-                        boolean showNotification;
-                        boolean critical = true;
-                        String versionNameInReleases = "";
-                        int versionCodeInReleases = 0;
 
                         //String contents = response;
 
@@ -190,108 +187,59 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         //if (DebugVersion.enabled)
                         //    forceDoData = true;
 
-                        PPPReleaseData pppReleaseData =
+                        final PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, forceDoData, appContext);
 
-                        showNotification = pppReleaseData != null;
-                        if (showNotification) {
-                            critical = pppReleaseData.critical;
-                            versionNameInReleases = pppReleaseData.versionNameInReleases;
-                            versionCodeInReleases = pppReleaseData.versionCodeInReleases;
-                        }
+                        if (pppReleaseData != null) {
+                            if (Build.VERSION.SDK_INT >= 33) {
+                                // check IzzyOnDroid repo
 
-                        try {
-                            if (showNotification) {
+                                RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
+                                String izzyRepoURL = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
+                                izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
+//                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
+                                StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
+                                        izzyRepoURL,
+                                        response1 -> {
+//                                            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest installed - xxxxxxxxxxxxxxxx");
+                                        },
+                                        error -> {
+                                            if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
+//                                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                                                try {
+                                                    boolean critical = pppReleaseData.critical;
+                                                    String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                                    int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
 
-                                // remove non-critical notification
-                                NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                                if (notificationManager != null) {
-                                    try {
-                                        notificationManager.cancel(
-                                                PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
-                                                PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID);
-                                    } catch (Exception e) {
-                                        PPApplicationStatic.recordException(e);
-                                    }
-                                }
+                                                    showNotification(appContext,
+                                                            versionNameInReleases,
+                                                            versionCodeInReleases,
+                                                            critical);
 
-                                removeNotification(appContext);
+                                                } catch (Exception e) {
+//                                              Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                                }
+                                            }
+                                        });
+                                queueIzzyRepo.add(stringRequestIzzyRepo);
+                            } else {
+//                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "yyyyyyyyyyyy");
 
-                                // show notification for check new release
-                                PPApplicationStatic.createNewReleaseNotificationChannel(appContext, false);
-
-                                NotificationCompat.Builder mBuilder;
-                                Intent _intent;
-                                _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
-                                _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
-                                _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
-                                _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
-                                _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, critical);
-
-                                String nTitle;
-                                String nText;
-                                if (critical) {
-                                    nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.critical_github_release);
-                                    nText = appContext.getString(R.string.critical_github_release_notification);
-                                }
-                                else {
-                                    nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.normal_github_release);
-                                    nText = appContext.getString(R.string.normal_github_release_notification);
-                                }
-                                mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
-                                        .setColor(ContextCompat.getColor(appContext, R.color.information_color))
-                                        .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
-                                        .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
-                                        .setContentTitle(nTitle) // title for notification
-                                        .setContentText(nText)
-                                        .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
-                                        .setAutoCancel(true); // clear notification after click
-
-                                PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                mBuilder.setContentIntent(pi);
-                                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                                //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                                mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
-                                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                                //}
-
-                                Intent disableIntent = new Intent(appContext, CheckCriticalPPPReleasesDisableActivity.class);
-                                disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);
-                                disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CRITICAL, critical);
-
-                                PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                                        //R.drawable.ic_action_exit_app,
-                                        R.drawable.ic_empty,
-                                        appContext.getString(R.string.critical_github_release_notification_disable_button),
-                                        pDisableIntent);
-                                mBuilder.addAction(actionBuilder.build());
-
-                                mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
-
-                                Notification notification = mBuilder.build();
-                                /*if (Build.VERSION.SDK_INT < 26) {
-                                    notification.vibrate = null;
-                                    notification.defaults &= ~DEFAULT_VIBRATE;
-                                }*/
-
-                                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
                                 try {
-                                    mNotificationManager.notify(
-                                            PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
-                                            PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID, notification);
-                                } catch (SecurityException en) {
-                                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(en));
+                                    boolean critical = pppReleaseData.critical;
+                                    String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                    int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+
+                                    showNotification(appContext,
+                                            versionNameInReleases,
+                                            versionCodeInReleases,
+                                            critical);
+
                                 } catch (Exception e) {
-                                    //Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
-                                    PPApplicationStatic.recordException(e);
+//                                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                 }
                             }
-
-                        } catch (Exception e) {
-//                            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                         }
-
                     },
                     error -> {
 //                        Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
@@ -300,6 +248,97 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
         } catch (Exception e) {
 //            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+        }
+
+    }
+
+    private static void showNotification(Context appContext,
+                                         String versionNameInReleases,
+                                         int versionCodeInReleases,
+                                         boolean critical) {
+
+        // remove non-critical notification
+        NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            try {
+                notificationManager.cancel(
+                        PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_TAG,
+                        PPApplication.CHECK_GITHUB_RELEASES_NOTIFICATION_ID);
+            } catch (Exception e) {
+                PPApplicationStatic.recordException(e);
+            }
+        }
+
+        removeNotification(appContext);
+
+        // show notification for check new release
+        PPApplicationStatic.createNewReleaseNotificationChannel(appContext, false);
+
+        NotificationCompat.Builder mBuilder;
+        Intent _intent;
+        _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, critical);
+
+        String nTitle;
+        String nText;
+        if (critical) {
+            nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.critical_github_release);
+            nText = appContext.getString(R.string.critical_github_release_notification);
+        }
+        else {
+            nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.normal_github_release);
+            nText = appContext.getString(R.string.normal_github_release_notification);
+        }
+        mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(appContext, R.color.information_color))
+                .setSmallIcon(R.drawable.ic_ppp_notification/*ic_information_notify*/) // notification icon
+                .setLargeIcon(BitmapFactory.decodeResource(appContext.getResources(), R.drawable.ic_information_notification))
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
+                .setAutoCancel(true); // clear notification after click
+
+        PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        //if (android.os.Build.VERSION.SDK_INT >= 21) {
+        mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+
+        Intent disableIntent = new Intent(appContext, CheckCriticalPPPReleasesDisableActivity.class);
+        disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);
+        disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CRITICAL, critical);
+
+        PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
+                //R.drawable.ic_action_exit_app,
+                R.drawable.ic_empty,
+                appContext.getString(R.string.critical_github_release_notification_disable_button),
+                pDisableIntent);
+        mBuilder.addAction(actionBuilder.build());
+
+        mBuilder.setGroup(PPApplication.CHECK_RELEASES_GROUP);
+
+        Notification notification = mBuilder.build();
+                                            /*if (Build.VERSION.SDK_INT < 26) {
+                                                notification.vibrate = null;
+                                                notification.defaults &= ~DEFAULT_VIBRATE;
+                                            }*/
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        try {
+            mNotificationManager.notify(
+                    PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
+                    PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+        } catch (SecurityException en) {
+            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.showNotification", Log.getStackTraceString(en));
+        } catch (Exception e) {
+            //Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+            PPApplicationStatic.recordException(e);
         }
 
     }

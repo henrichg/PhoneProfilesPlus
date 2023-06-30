@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.PowerManager;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -292,35 +293,62 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
                     response -> {
-                        boolean showNotification;
-                        boolean critical = true;
-                        String versionNameInReleases = "";
-                        int versionCodeInReleases = 0;
 
                         //String contents = response;
 
-                        PPPReleaseData pppReleaseData =
+                        final PPPReleaseData pppReleaseData =
                                 PPApplicationStatic.getReleaseData(response, true, appContext);
 
-                        showNotification = pppReleaseData != null;
-                        if (showNotification) {
-                            critical = pppReleaseData.critical;
-                            versionNameInReleases = pppReleaseData.versionNameInReleases;
-                            versionCodeInReleases = pppReleaseData.versionCodeInReleases;
-                        }
+                        if (pppReleaseData != null) {
+                            if (Build.VERSION.SDK_INT >= 33) {
+                                // check IzzyOnDroid repo
 
-                        try {
-                            if (showNotification) {
-                                showNotification(appContext,
-                                        versionNameInReleases,
-                                        versionCodeInReleases,
-                                        critical);
+                                RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
+                                String izzyRepoURL = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
+                                izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
+//                                Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "izzyRepoURL=" + izzyRepoURL);
+                                StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,
+                                        izzyRepoURL,
+                                        response1 -> {
+//                                            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "latest installed - xxxxxxxxxxxxxxxx");
+                                        },
+                                        error -> {
+                                            if ((error.networkResponse != null) && (error.networkResponse.statusCode == 404)) {
+//                                                Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "latest NOT installed - xxxxxxxxxxxxxxxx");
+                                                try {
+                                                    boolean critical = pppReleaseData.critical;
+                                                    String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                                    int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+
+                                                    showNotification(appContext,
+                                                            versionNameInReleases,
+                                                            versionCodeInReleases,
+                                                            critical);
+
+                                                } catch (Exception e) {
+//                                              Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
+                                                }
+                                            }
+                                        });
+                                queueIzzyRepo.add(stringRequestIzzyRepo);
+                            } else {
+//                                Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", "yyyyyyyyyyyy");
+
+                                try {
+                                    boolean critical = pppReleaseData.critical;
+                                    String versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                    int versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+
+                                    showNotification(appContext,
+                                            versionNameInReleases,
+                                            versionCodeInReleases,
+                                            critical);
+
+                                } catch (Exception e) {
+//                                    Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
+                                }
                             }
-
-                        } catch (Exception e) {
-//                            Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(e));
                         }
-
                     },
                     error -> {
 //                        Log.e("CheckPPPReleasesBroadcastReceiver._doWorkGitHub", Log.getStackTraceString(error));

@@ -93,8 +93,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= PPApplication.PPP_VERSION_CODE_FOR_IMPORTANT_INFO_NEWS);
 
-        int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
-        int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
+        //int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        //int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(context);
 
         if (newsLatest) {
             news = PPApplication.SHOW_IMPORTANT_INFO_NEWS; // news is enabled, news must be also in layout
@@ -102,7 +102,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         doOnViewCreated(view, this);
 
-        if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
+        /*if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);
@@ -111,14 +111,14 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false));
         }
-        else {
+        else*/ {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
             infoText1.setVisibility(View.GONE);
         }
 
-        if ((!firstInstallation) && (ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)) {
+        /*if ((!firstInstallation) && (ppppsVersion != 0) && (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
             infoText1.setVisibility(View.VISIBLE);
@@ -127,13 +127,12 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false));
         }
-        else {
+        else*/ {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
             infoText1.setVisibility(View.GONE);
         }
-
 
 
         TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
@@ -826,12 +825,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             helpForPPPPSTextView.setText(spannable);
             helpForPPPPSTextView.setMovementMethod(LinkMovementMethod.getInstance());
-            /*AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
-                getString(R.string.important_info_translations),
-                getString(R.string.about_application_translations2),
-                getString(R.string.about_application_translations_subject),
-                AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
-                true, activity);*/
         }
 
     }

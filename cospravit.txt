@@ -774,6 +774,13 @@ HOTOVO
 
 - !!! Co ale chyba je check verzie v Droid-ify. Sprav.
   Sice konstatnta v PPApplication je nastavena, ale este nemusi byt v Droid-ify.
+HOTOVO
+
+Najprv testni Inportant info, ze co sa na klik vlastne otvori. Predpokladma, ze Droid-ify dialog.
+TOTO SOM VYHODIL, MAM AJ BROADCAST - PROBLEM BY BOL S CHECK IZZYONDROID
+Kukni, ci sa generuje notifikacia o novej verii Extendera, mozno len ze je Important info s News.
+Notifikacia sa generuje, raz denne, ciz eako u PPP - CheckRequiredExtenderReleasesBroadcastReceiver
+HOTOVO
 
 2. PPP - Ale len pre Android 13+:
 - Na troch miestach checkujem releases.md:
@@ -795,6 +802,5 @@ HOTOVO
 
 - !!! Co ale chyba je check verzie v Droid-ify. Sprav.
   Sice releases.md je nastavene, ale este nemusi byt v Droid-ify.
-
-
+HOTOVO
 
