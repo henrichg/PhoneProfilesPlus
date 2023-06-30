@@ -85,54 +85,59 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         showDialog(this, menuItemId);
 
         if (menuItemId == R.id.menu_check_in_github) {
-            try {
-                final Context appContext = getApplicationContext();
-                final Activity activity = this;
-                // Instantiate the RequestQueue.
-                RequestQueue queue = Volley.newRequestQueue(appContext);
-                String url;
-                if (DebugVersion.enabled)
-                    url = PPApplication.PPP_RELEASES_DEBUG_URL;
-                else
-                    url = PPApplication.PPP_RELEASES_URL;
-                // Request a string response from the provided URL.
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                        url,
-                        response -> {
-                            boolean updateReleasedVersion;
-                            newVersionName = "";
-                            newVersionCode = 0;
+            final Activity activity = this;
+            if (Build.VERSION.SDK_INT < 33) {
+                try {
+                    final Context appContext = getApplicationContext();
+                    // Instantiate the RequestQueue.
+                    RequestQueue queue = Volley.newRequestQueue(appContext);
+                    String url;
+                    if (DebugVersion.enabled)
+                        url = PPApplication.PPP_RELEASES_MD_DEBUG_URL;
+                    else
+                        url = PPApplication.PPP_RELEASES_MD_URL;
+                    // Request a string response from the provided URL.
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                            url,
+                            response -> {
+                                boolean updateReleasedVersion;
+                                newVersionName = "";
+                                newVersionCode = 0;
 
-                            //String contents = response;
+                                //String contents = response;
 
-                            PPPReleaseData pppReleaseData =
-                                    PPApplicationStatic.getReleaseData(response, true, appContext);
+                                PPPReleaseData pppReleaseData =
+                                        PPApplicationStatic.getReleaseData(response, true, appContext);
 
-                            updateReleasedVersion = pppReleaseData != null;
-                            if (updateReleasedVersion) {
-                                newVersionName = pppReleaseData.versionNameInReleases;
-                                newVersionCode = pppReleaseData.versionCodeInReleases;
-                                newVersionCritical = pppReleaseData.critical;
-                            }
-
-                            try {
-                                if (updateReleasedVersion && (alertDialog != null)) {
-                                    // Dialog is opened by showDialog() called before this download
-                                    // of PPP_RELEASES_URL. Refresh views in it only.
-                                    checkInGitHub(activity, true);
+                                updateReleasedVersion = pppReleaseData != null;
+                                if (updateReleasedVersion) {
+                                    newVersionName = pppReleaseData.versionNameInReleases;
+                                    newVersionCode = pppReleaseData.versionCodeInReleases;
+                                    newVersionCritical = pppReleaseData.critical;
                                 }
-                            } catch (Exception e) {
+
+                                try {
+                                    if (updateReleasedVersion && (alertDialog != null)) {
+                                        // Dialog is opened by showDialog() called before this download
+                                        // of PPP_RELEASES_URL. Refresh views in it only.
+                                        checkInGitHub(activity, true);
+                                    }
+                                } catch (Exception e) {
 //                            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
-                            }
+                                }
 
-                        },
-                        error -> {
+                            },
+                            error -> {
 //                        Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(error));
-                        });
-                queue.add(stringRequest);
+                            });
+                    queue.add(stringRequest);
 
-            } catch (Exception e) {
+                } catch (Exception e) {
 //            Log.e("CheckPPPReleasesActivity.onStart", Log.getStackTraceString(e));
+                }
+            } else {
+                //TODO natvrdo z Droid-ify
+                checkInDroidIfy(activity, true);
             }
         }
 
@@ -187,7 +192,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
         if (store == R.id.menu_check_in_github) {
-            checkInGitHub(activity, false);
+            if (Build.VERSION.SDK_INT < 33)
+                checkInGitHub(activity, false);
+            else {
+                //TODO natvrdo z Droid-ify
+                checkInDroidIfy(activity, true);
+            }
             displayed = true;
         }
         else
@@ -197,7 +207,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
         if (store == R.id.menu_check_in_droidify) {
-            checkInDroidIfy(activity);
+            checkInDroidIfy(activity, false);
             displayed = true;
         }
 
@@ -216,16 +226,28 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //                    else if (amazonAppStoreInstalled)
 //                        checkInAmazonAppstore(activity);
                     else if (droidifyInstalled)
-                        checkInDroidIfy(activity);
+                        checkInDroidIfy(activity, false);
                     else if (fdroidInstalled)
                         checkInFDroid(activity);
-                    else
-                        checkInGitHub(activity, false);
+                    else {
+                        if (Build.VERSION.SDK_INT < 33)
+                            checkInGitHub(activity, false);
+                        else {
+                            //TODO natvrdo z Droid-ify
+                            checkInDroidIfy(activity, true);
+                        }
+                    }
                 }
-            } else
+            } else {
                 // this is for
                 // - CheckCriticalPPPReleasesBroadcastReceiver
-                checkInGitHub(activity, false);
+                if (Build.VERSION.SDK_INT < 33)
+                    checkInGitHub(activity, false);
+                else {
+                    //TODO natvrdo z Droid-ify
+                    checkInDroidIfy(activity, true);
+                }
+            }
         }
     }
 
@@ -444,8 +466,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
         if (text != null) {
             if (!fdroidInstalled) {
-                CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
-                CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + "\u00A0»»";
+                CharSequence str1 = activity.getString(R.string.check_releases_fdroid_ppp_release);
+                CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + "\u00A0»»";
                 Spannable sbt = new SpannableString(str2);
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -457,7 +479,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(@NonNull View textView) {
-                        String url = PPApplication.FDROID_APPLICATION_URL;
+                        String url = PPApplication.FDROID_PPP_RELEASES_URL;
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         try {
@@ -549,7 +571,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         dialogBuilder.setCancelable(true);
 
         final boolean _fdroidInstalled = fdroidInstalled;
-        int buttonRes = R.string.check_releases_go_to_fdroid;
+        int buttonRes = R.string.alert_button_install_store;
         if (fdroidInstalled)
             buttonRes = R.string.check_releases_open_fdroid;
         dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
@@ -565,7 +587,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 }
             }
             else {
-                String url = PPApplication.FDROID_PPP_RELEASES_URL;
+                String url = PPApplication.FDROID_APPLICATION_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -628,10 +650,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 TextView text2 = layout.findViewById(R.id.dialog_for_galaxy_store_apk_installation);
                 text2.setVisibility(View.VISIBLE);
                 String store;
-                if (PPApplication.deviceIsSamsung)
+                //if (PPApplication.deviceIsSamsung)
                     store = activity.getString(R.string.install_ppp_store_galaxystore);
-                else
-                    store = activity.getString(R.string.install_ppp_store_droidify);
+                //else
+                //    store = activity.getString(R.string.install_ppp_store_droidify);
                 String str = activity.getString(R.string.check_releases_install_from_apk_note1) +
                         " " + store +
                         activity.getString(R.string.check_releases_install_from_apk_note2_ppp);
@@ -838,8 +860,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (!appGalleryInstalled) {
                 text.setVisibility(View.VISIBLE);
                 buttonsDivider.setVisibility(View.VISIBLE);
-                CharSequence str1 = activity.getString(R.string.check_releases_appgallery_application);
-                CharSequence str2 = str1 + " " + PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL + "\u00A0»»";
+                CharSequence str1 = activity.getString(R.string.check_releases_appgallery_ppp_release);
+                CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + "\u00A0»»";
                 Spannable sbt = new SpannableString(str2);
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {
@@ -851,7 +873,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(@NonNull View textView) {
-                        String url = PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL;
+
+                        String url = PPApplication.HUAWEI_APPGALLERY_PPP_RELEASES_URL;
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         try {
@@ -887,7 +910,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         //Intent _intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
 
         final boolean _appGalleryInstalled = appGalleryInstalled;
-        int buttonRes = R.string.check_releases_go_to_appgallery;
+        int buttonRes = R.string.alert_button_install_store;
         if (appGalleryInstalled)
             buttonRes = R.string.check_releases_open_appgallery;
 
@@ -901,7 +924,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     PPApplicationStatic.recordException(e);
                 }
             } else {
-                String url = PPApplication.HUAWEI_APPGALLERY_PPP_RELEASES_URL;
+                String url = PPApplication.HUAWEI_APPGALLERY_APPLICATION_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -986,8 +1009,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setVisibility(View.VISIBLE);
             buttonsDivider.setVisibility(View.VISIBLE);
 
-            CharSequence str1 = activity.getString(R.string.check_releases_apkpure_appstore_application);
-            CharSequence str2 = str1 + " " + PPApplication.APKPURE_APPLICATION_URL + "\u00A0»»";
+            CharSequence str1 = activity.getString(R.string.check_releases_appgallery_ppp_release);
+            CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + "\u00A0»»";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -999,7 +1022,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    String url = PPApplication.APKPURE_APPLICATION_URL;
+                    String url = PPApplication.APKPURE_PPP_RELEASES_URL;
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     try {
@@ -1028,7 +1051,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
 
         final boolean _apkPureInstalled = apkPureInstalled;
-        int buttonRes = R.string.check_releases_go_to_apkpure;
+        int buttonRes = R.string.alert_button_install_store;
         if (apkPureInstalled)
             buttonRes = R.string.check_releases_open_apkpure;
         dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
@@ -1044,7 +1067,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 }
             }
             else {
-                String url = PPApplication.APKPURE_PPP_RELEASES_URL;
+                String url = PPApplication.APKPURE_APPLICATION_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
@@ -1076,7 +1099,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint("InflateParams")
-    private void checkInDroidIfy(final Activity activity) {
+    private void checkInDroidIfy(final Activity activity, boolean forGitHub) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
@@ -1110,6 +1133,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         TextView text;
         text = layout.findViewById(R.id.dialog_for_droidify_info_text);
         message = message.replace("\n", "<br>");
+
+        if (forGitHub) {
+            message = message + "<br><br>" + "GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify.";
+        }
+
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1128,8 +1156,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setVisibility(View.VISIBLE);
             buttonsDivider.setVisibility(View.VISIBLE);
 
-            CharSequence str1 = activity.getString(R.string.check_releases_droidify_application);
-            CharSequence str2 = str1 + " " + PPApplication.DROIDIFY_APPLICATION_URL + "\u00A0»»";
+            CharSequence str1 = activity.getString(R.string.check_releases_droidify_ppp_release);
+            CharSequence str2 = str1 + " " + activity.getString(R.string.check_releases_ppp_release_clik_to_show) + "\u00A0»»";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -1141,7 +1169,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(@NonNull View textView) {
-                    String url = PPApplication.DROIDIFY_APPLICATION_URL;
+                    String url = PPApplication.DROIDIFY_PPP_RELEASES_URL;
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     try {
@@ -1170,7 +1198,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
 
         final boolean _droidifyInstalled = droidifyInstalled;
-        int buttonRes = R.string.check_releases_go_to_droidify;
+        int buttonRes = R.string.alert_button_install_store;
         if (droidifyInstalled)
             buttonRes = R.string.check_releases_open_droidify;
         dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
@@ -1186,7 +1214,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 }
             }
             else {
-                String url = PPApplication.DROIDIFY_PPP_RELEASES_URL;
+                String url = PPApplication.DROIDIFY_APPLICATION_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {

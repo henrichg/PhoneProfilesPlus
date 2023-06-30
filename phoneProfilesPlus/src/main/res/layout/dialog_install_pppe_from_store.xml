@@ -42,6 +42,7 @@
                 android:textSize="16sp"
                 android:scrollbars="vertical" />
 
+<!--
             <Button
                 android:id="@+id/install_pppe_from_store_dialog_installFromGitHub"
                 android:layout_width="wrap_content"
@@ -54,9 +55,10 @@
                 android:textStyle="bold"
                 android:background="@drawable/pp_button_background_selector"
                 style="?android:attr/borderlessButtonStyle" />
-
+-->
+<!--
             <TextView
-                android:id="@+id/install_ppp_pppe_from_github_dialog_github_releases"
+                android:id="@+id/install_pppe_from_store_dialog_github_releases"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -64,7 +66,7 @@
                 android:layout_marginEnd="22dp"
                 android:text=""
                 android:textSize="16sp" />
-
+-->
         </LinearLayout>
 
     </ScrollView>

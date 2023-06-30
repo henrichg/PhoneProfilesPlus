@@ -170,9 +170,9 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             RequestQueue queue = Volley.newRequestQueue(appContext);
             String url;
             if (DebugVersion.enabled)
-                url = PPApplication.PPP_RELEASES_DEBUG_URL;
+                url = PPApplication.PPP_RELEASES_MD_DEBUG_URL;
             else
-                url = PPApplication.PPP_RELEASES_URL;
+                url = PPApplication.PPP_RELEASES_MD_URL;
             // Request a string response from the provided URL.
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,

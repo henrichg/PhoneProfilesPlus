@@ -761,3 +761,40 @@ HOTOVO
 
 -------------------
 
+Instalacia z GitHub - direct download
+
+1. Extender - Ale len pre Android 13+:
+ExtenderDialogPreferenceFragment.installPPPExtender
+- instaluje z Droid-ify, F-Droid, Galaxy Store ak to ma nainstalovane
+- instaluje direct downloadom z GithHub ak nema obchod
+  - je to installExtenderFromGitHub()
+  - Toto vyhod, a namiesto toho zobraz dialog s tym, ze nema Droid-ify nainstalovane a positive button nech otvori
+    url na instalaciu Droid-ify.
+HOTOVO
+
+- !!! Co ale chyba je check verzie v Droid-ify. Sprav.
+  Sice konstatnta v PPApplication je nastavena, ale este nemusi byt v Droid-ify.
+
+2. PPP - Ale len pre Android 13+:
+- Na troch miestach checkujem releases.md:
+  - CheckPPPReleasesActivity.onStart(), ked menu je menu_check_in_github - zavola to checkInGitHub()
+  - CheckPPPReleasesBroadcastReceiver._doWorkGitHub() - generuje notifikaciu, na klik otvori CheckPPPReleasesActivity
+    - critical_check=false -> otvori prislusny store a len ak nema ziadny, tak checkInGitHub()
+  - CheckCriticalPPPReleasesBroadcastReceiver.doWork() - generuje notifikaciu, na klik otvori CheckPPPReleasesActivity
+    - critical_check=true -> otvori checkInGitHub()
+- Ak je nastavene newVersionName a newVersionCode z relesaes.md, robi sa direct GitHub download,
+  inac sa otvori GitHub Releases.
+
+- Menu pre check releases - nechaj ale zobraz Droid-ify dialog
+- Pri checkInGitHub(): natvrdo Droid-ify ako u Extendera.
+HOTOVO
+
+- V dialogoch vymen PPP v obchode s linkom na instalaciu obchodu.
+  Do buttonu daj instalaciu obchodu do linku web na PPP v obchode.
+HOTOVO
+
+- !!! Co ale chyba je check verzie v Droid-ify. Sprav.
+  Sice releases.md je nastavene, ale este nemusi byt v Droid-ify.
+
+
+

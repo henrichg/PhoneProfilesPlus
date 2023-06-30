@@ -20,21 +20,21 @@ __Huawei AppGallery:__
 - [PPP release](https://appgallery.cloud.huawei.com/ag/n/app/C104501059?channelId=PhoneProfilesPlus+application&id=957ced9f0ca648df8f253a3d1460051e&s=79376612D7DD2C824692C162FB2F957A7AEE81EE1471CDC58034CD5106DAB009&detailType=0&v=&callType=AGDLINK&installType=0000)  
 - [Store application (download)](https://consumer.huawei.com/en/mobileservices/appgallery/)
 
-__APKPure:__
-- [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)  
-- [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
+__Droid-ify (F-Droid alternative, preferred over GitHub):__
+- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
+- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
+  &nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
 
 __F-Droid:__
 - [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 &nbsp;&nbsp;&nbsp;_[How to add IzzyOnDroid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_  
 - [Store application (download)](https://www.f-droid.org/)
 
-__Droid-ify (F-Droid alternative):__  
-- [PPP release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)  
-- [Store applicaion (download)](https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify)
-&nbsp;&nbsp;&nbsp;_IzzyOnDroid repository is included_
+__APKPure:__
+- [PPP release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)
+- [Store application (download)](https://apkpure.com/apkpure/com.apkpure.aegon)
 
-__GitHub:__
+__GitHub (better is using Droid-ify instead):__
 
 - NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead Droid-ify, if in your device is not supported application store, and install PhoneProfilesPlus from it.
 
