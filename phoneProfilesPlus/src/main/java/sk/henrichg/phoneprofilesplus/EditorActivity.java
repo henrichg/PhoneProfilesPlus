@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.LabeledIntent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -928,6 +929,49 @@ public class EditorActivity extends AppCompatActivity
                 }
             }
         }
+        //TODO
+        PackageManager packageManager = getPackageManager();
+        menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
+        if (menuItem != null) {
+            Intent intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+            if (intent != null)
+                menuItem.setTitle("» " + getString(R.string.menu_check_releases_galaxy_store));
+            else
+                menuItem.setTitle(R.string.menu_check_releases_galaxy_store);
+        }
+        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
+        if (menuItem != null) {
+            Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+            if (intent != null)
+                menuItem.setTitle("» " + getString(R.string.menu_check_releases_appgallery));
+            else
+                menuItem.setTitle(R.string.menu_check_releases_appgallery);
+        }
+        menuItem = menu.findItem(R.id.menu_check_in_droidify);
+        if (menuItem != null) {
+            Intent intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+            if (intent != null)
+                menuItem.setTitle("» " + getString(R.string.menu_check_releases_droidify));
+            else
+                menuItem.setTitle(R.string.menu_check_releases_droidify);
+        }
+        menuItem = menu.findItem(R.id.menu_check_in_fdroid);
+        if (menuItem != null) {
+            Intent intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+            if (intent != null)
+                menuItem.setTitle("» " + getString(R.string.menu_check_releases_fdroid));
+            else
+                menuItem.setTitle(R.string.menu_check_releases_fdroid);
+        }
+        menuItem = menu.findItem(R.id.menu_check_in_apkpure);
+        if (menuItem != null) {
+            Intent intent = packageManager.getLaunchIntentForPackage("com.apkpure.aegon");
+            if (intent != null)
+                menuItem.setTitle("» " + getString(R.string.menu_check_releases_apkpure));
+            else
+                menuItem.setTitle(R.string.menu_check_releases_apkpure);
+        }
+
         if (DebugVersion.enabled) {
             menuItem = menu.findItem(R.id.menu_debug);
             if (menuItem != null) {
