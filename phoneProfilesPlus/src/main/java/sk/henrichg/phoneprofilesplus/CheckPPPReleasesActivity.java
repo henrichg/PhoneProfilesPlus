@@ -153,13 +153,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         PackageManager packageManager = activity.getPackageManager();
 //        Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
 //        boolean amazonAppStoreInstalled = (intent != null);
-        Intent intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
         boolean fdroidInstalled = (intent != null);
-        intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+        intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (intent != null);
-        intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         boolean galaxyStoreInstalled = (intent != null);
-        intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
         boolean appGalleryInstalled = (intent != null);
 
         boolean displayed = false;
@@ -445,7 +445,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean fdroidInstalled = false;
         PackageManager pm = activity.getPackageManager();
         try {
-            pm.getPackageInfo("org.fdroid.fdroid", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(PPApplication.FDROID_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             fdroidInstalled = true;
         } catch (Exception ignored) {}
         if (fdroidInstalled)
@@ -575,7 +575,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (_fdroidInstalled) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
-                intent.setPackage("org.fdroid.fdroid");
+                intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
@@ -844,7 +844,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean appGalleryInstalled = false;
         PackageManager pm = activity.getPackageManager();
         try {
-            pm.getPackageInfo("com.huawei.appmarket", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             appGalleryInstalled = true;
         } catch (Exception ignored) {}
 
@@ -904,7 +904,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         dialogBuilder.setCancelable(true);
 
         //PackageManager packageManager = activity.getPackageManager();
-        //Intent _intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        //Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
 
         final boolean _appGalleryInstalled = appGalleryInstalled;
         int buttonRes = R.string.alert_button_install_store;
@@ -973,7 +973,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean fdroidInstalled = false;
         PackageManager pm = activity.getPackageManager();
         try {
-            pm.getPackageInfo("org.fdroid.fdroid", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(PPApplication.FDROID_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             fdroidInstalled = true;
         } catch (Exception ignored) {}
         if (fdroidInstalled)
@@ -996,7 +996,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean apkPureInstalled = false;
         PackageManager pm = activity.getPackageManager();
         try {
-            pm.getPackageInfo("com.apkpure.aegon", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(PPApplication.APKPURE_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             apkPureInstalled = true;
         } catch (Exception ignored) {}
 
@@ -1055,7 +1055,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (_apkPureInstalled) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
-                intent.setPackage("com.apkpure.aegon");
+                intent.setPackage(PPApplication.APKPURE_PACKAGE_NAME);
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
@@ -1115,7 +1115,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean fdroidInstalled = false;
         PackageManager pm = activity.getPackageManager();
         try {
-            pm.getPackageInfo("org.fdroid.fdroid", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(PPApplication.FDROID_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             fdroidInstalled = true;
         } catch (Exception ignored) {}
         if (fdroidInstalled)
@@ -1143,7 +1143,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         boolean droidifyInstalled = false;
         PackageManager pm = activity.getPackageManager();
         try {
-            pm.getPackageInfo("com.looker.droidify", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(PPApplication.DROIDIFY_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             droidifyInstalled = true;
         } catch (Exception ignored) {}
 
@@ -1202,7 +1202,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (_droidifyInstalled) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
-                intent.setPackage("com.looker.droidify");
+                intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {

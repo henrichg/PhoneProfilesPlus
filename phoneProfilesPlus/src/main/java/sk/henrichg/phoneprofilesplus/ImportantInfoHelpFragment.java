@@ -935,7 +935,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         PackageManager packageManager = activity.getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         boolean galaxyStoreInstalled = (_intent != null);
 
         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy && galaxyStoreInstalled) {

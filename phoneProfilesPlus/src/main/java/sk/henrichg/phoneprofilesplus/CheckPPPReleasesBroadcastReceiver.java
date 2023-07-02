@@ -163,13 +163,13 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                             //Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
                             //boolean amazonAppStoreInstalled = (intent != null);
 
-                            Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+                            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
                             boolean huaweiAppGalleryInstalled = (intent != null);
 
-                            intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+                            intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
                             boolean fdroidInstalled = (intent != null);
 
-                            intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+                            intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                             boolean droidifyInstalled = (intent != null);
 
                             getVersion = !(huaweiAppGalleryInstalled || fdroidInstalled || droidifyInstalled);

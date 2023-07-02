@@ -1806,61 +1806,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             preference = findPreference("applicationWifiControlInfo");
             if (preference != null) {
+                if (PPApplication.deviceIsSony)
+                    preference.setSummary(R.string.phone_profiles_pref_applicationWifiControlInfo_sony_summary);
                 preference.setOnPreferenceClickListener(preference118 -> {
-                    /*
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(preference118.getTitle());
-                    dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationWifiControlInfo_message);
-                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(R.string.phone_profiles_pref_applicationWifiControlInfo_showButton, (dialog, which) -> {
-                        boolean ok = false;
-                        final Intent intent = new Intent(Settings.ACTION_SETTINGS);
-                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
-                            try {
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplicationStatic.recordException(e);
-                            }
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(getActivity());
-                            dialogBuilder2.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder2.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog2 = dialogBuilder2.create();
-
-//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                @Override
-//                                public void onShow(DialogInterface dialog) {
-//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                    if (positive != null) positive.setAllCaps(false);
-//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                    if (negative != null) negative.setAllCaps(false);
-//                                }
-//                            });
-
-                            if (!getActivity().isFinishing())
-                                dialog2.show();
-                        }
-                    });
-                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-                    AlertDialog dialog = dialogBuilder.create();
-
-//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                            @Override
-//                            public void onShow(DialogInterface dialog) {
-//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                if (positive != null) positive.setAllCaps(false);
-//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                if (negative != null) negative.setAllCaps(false);
-//                            }
-//                        });
-                    */
-
+                    String message = getString(R.string.phone_profiles_pref_applicationWifiControlInfo_message);
+                    if (PPApplication.deviceIsSony)
+                        message = getString(R.string.phone_profiles_pref_applicationWifiControlInfo_sony_message);
                     PPAlertDialog dialog = new PPAlertDialog(
                             preference118.getTitle(),
-                            getString(R.string.phone_profiles_pref_applicationWifiControlInfo_message),
+                            message,
                             getString(R.string.phone_profiles_pref_applicationWifiControlInfo_showButton),
                             getString(android.R.string.cancel),
                             null, null,

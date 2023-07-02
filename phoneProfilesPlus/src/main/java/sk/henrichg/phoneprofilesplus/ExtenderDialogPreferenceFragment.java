@@ -332,7 +332,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                                         boolean finishActivity) {
         PackageManager pm = activity.getPackageManager();
         try {
-            pm.getPackageInfo("com.looker.droidify", PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(PPApplication.DROIDIFY_PACKAGE_NAME, PackageManager.GET_ACTIVITIES);
             return;
         } catch (Exception ignored) {}
 
@@ -405,11 +405,11 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         }
 
         PackageManager packageManager = activity.getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
         boolean fdroidInstalled = (_intent != null);
-        _intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (_intent != null);
-        _intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         boolean galaxyStoreInstalled = (_intent != null);
         Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "fdroidInstalled="+fdroidInstalled);
         Log.e("ExtenderDialogPreferenceFragment.installPPPExtender", "droidifyInstalled="+droidifyInstalled);
@@ -480,7 +480,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 if (droidifyInstalled) {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
-                    intent.setPackage("com.looker.droidify");
+                    intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
                         if ((_preference != null) && (_preference.fragment != null))
@@ -499,7 +499,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
                 if (fdroidInstalled) {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
                             Uri.parse("market://details?id=sk.henrichg.phoneprofilesplusextender"));
-                    intent.setPackage("org.fdroid.fdroid");
+                    intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
                     try {
                         activity.startActivity(intent);
                         if ((_preference != null) && (_preference.fragment != null))

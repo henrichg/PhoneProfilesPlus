@@ -217,7 +217,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
             }
         }
         if (showDroidifyInstallationSite) {
-            String url = "https://apt.izzysoft.de/fdroid/index/apk/com.looker.droidify";
+            String url = PPApplication.DROIDIFY_APPLICATION_URL;
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {

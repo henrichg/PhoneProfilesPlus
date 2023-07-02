@@ -270,9 +270,9 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         }
 
         PackageManager packageManager = activity.getPackageManager();
-        Intent _intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+        Intent _intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
         boolean fdroidInstalled = (_intent != null);
-        _intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+        _intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
         boolean droidifyInstalled = (_intent != null);
 
         if (Build.VERSION.SDK_INT < 34) {
@@ -298,7 +298,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
                 text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 
-                text = layout.findViewById(R.id.install_pppps_from_github_dialog_github_releases);
+                text = layout.findViewById(R.id.install_pppps_from_store_dialog_github_releases);
                 CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
                 CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + "\u00A0»»";
                 Spannable sbt = new SpannableString(str2);
@@ -340,7 +340,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     if (droidifyInstalled) {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=sk.henrichg.pppputsettings"));
-                        intent.setPackage("com.looker.droidify");
+                        intent.setPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
                             if ((_preference != null) && (_preference.fragment != null))
@@ -358,7 +358,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                     else {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("market://details?id=sk.henrichg.pppputsettings"));
-                        intent.setPackage("org.fdroid.fdroid");
+                        intent.setPackage(PPApplication.FDROID_PACKAGE_NAME);
                         try {
                             activity.startActivity(intent);
                             if ((_preference != null) && (_preference.fragment != null))

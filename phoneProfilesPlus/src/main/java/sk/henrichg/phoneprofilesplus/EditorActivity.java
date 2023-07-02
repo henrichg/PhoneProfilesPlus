@@ -933,7 +933,7 @@ public class EditorActivity extends AppCompatActivity
         PackageManager packageManager = getPackageManager();
         menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
         if (menuItem != null) {
-            Intent intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
             if (intent != null)
                 menuItem.setTitle("» " + getString(R.string.menu_check_releases_galaxy_store));
             else
@@ -941,7 +941,7 @@ public class EditorActivity extends AppCompatActivity
         }
         menuItem = menu.findItem(R.id.menu_check_in_appgallery);
         if (menuItem != null) {
-            Intent intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
             if (intent != null)
                 menuItem.setTitle("» " + getString(R.string.menu_check_releases_appgallery));
             else
@@ -949,7 +949,7 @@ public class EditorActivity extends AppCompatActivity
         }
         menuItem = menu.findItem(R.id.menu_check_in_droidify);
         if (menuItem != null) {
-            Intent intent = packageManager.getLaunchIntentForPackage("com.looker.droidify");
+            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
             if (intent != null)
                 menuItem.setTitle("» " + getString(R.string.menu_check_releases_droidify));
             else
@@ -957,7 +957,7 @@ public class EditorActivity extends AppCompatActivity
         }
         menuItem = menu.findItem(R.id.menu_check_in_fdroid);
         if (menuItem != null) {
-            Intent intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
             if (intent != null)
                 menuItem.setTitle("» " + getString(R.string.menu_check_releases_fdroid));
             else
@@ -965,7 +965,7 @@ public class EditorActivity extends AppCompatActivity
         }
         menuItem = menu.findItem(R.id.menu_check_in_apkpure);
         if (menuItem != null) {
-            Intent intent = packageManager.getLaunchIntentForPackage("com.apkpure.aegon");
+            Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
             if (intent != null)
                 menuItem.setTitle("» " + getString(R.string.menu_check_releases_apkpure));
             else
@@ -1085,14 +1085,14 @@ public class EditorActivity extends AppCompatActivity
         }*/
 
         //PackageManager packageManager = getPackageManager();
-        //Intent intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        //Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
         //boolean galaxyStoreInstalled = (intent != null);
         //menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
         //if (menuItem != null) {
         //    menuItem.setVisible(PPApplication.deviceIsSamsung && galaxyStoreInstalled);
         //}
 
-        //intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        //intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
         //boolean appGalleryInstalled = (intent != null);
         //menuItem = menu.findItem(R.id.menu_check_in_appgallery);
         //if (menuItem != null) {
