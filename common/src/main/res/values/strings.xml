@@ -2083,9 +2083,9 @@
 
     <string name="shortcut_to_editor_created_toast">Shortcut to Editor created</string>
 
-    <string name="install_pppps_text6">For Android 14+ is not possible to install PPPPutSettings directly in device.</string>
+    <string name="install_pppps_text6">For Android 14+, it is not possible to install PPPPutSettings directly on the device.</string>
     <string name="install_pppps_text7">Click button</string>
-    <string name="install_pppps_text7a">to show web page, how to install PPPPutSettings from computer.</string>
+    <string name="install_pppps_text7a">for a website view on how to install PPPPutSettings from a computer.</string>
     <string name="install_pppps_text8">Is better to open \"How to install\" in computer in his Internet browser. It is in PPPPutSettings GitHub README.md, marked as</string>
     <string name="install_pppps_text9" translatable="false">\"How to install\"</string>
     <string name="install_pppps_alert_button_how_to_install">How to install</string>
@@ -2102,11 +2102,11 @@
     <string name="check_releases_install_from_apk_note1">NOTE: Installation from downloaded apk is not recommended for Android 13+ for security reason. Use instead</string>
     <string name="check_releases_install_from_apk_note2_ppp">, if in your device is not supported application store, and install PhoneProfilesPlus from it.</string>
     <string name="check_releases_install_from_apk_note2_pppe">, if in your device is not supported application store, and install PhoneProfilesPlusExtender from it.</string>
-    <string name="install_ppp_store_galaxystore">Galaxy Store</string>
-    <string name="install_ppp_store_appgallery">Huawei AppGallery</string>
-    <string name="install_ppp_store_droidify">Droid-ify</string>
-    <string name="install_ppp_store_fdroid">F-Droid</string>
-    <string name="install_ppp_store_apkpure">APKPure</string>
+    <string name="install_ppp_store_galaxystore" translatable="false">Galaxy Store</string>
+    <string name="install_ppp_store_appgallery" translatable="false">Huawei AppGallery</string>
+    <string name="install_ppp_store_droidify" translatable="false">Droid-ify</string>
+    <string name="install_ppp_store_fdroid" translatable="false">F-Droid</string>
+    <string name="install_ppp_store_apkpure" translatable="false">APKPure</string>
 
     <string name="event_preferences_volumeNotificationsAccessSettings_summary2">Please enable \"Notification access\" in \"Notification scanning\" settings. Without this, Notification scanning will not work.</string>
 
@@ -2117,7 +2117,7 @@
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5">However, if PhoneProfilesPlus is installed from a downloaded apk file, \"Allow restricted settings\" may not appear at all.</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6">Then you must uninstall it, and install it from supported store, for example Droid-ify.</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7">Before uninstallation of PhoneProfilesPlus, do backup of PhoneProfilesPlus settings. It is in Editor menu in</string>
-    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8">Aftet istallation  of PhoneProfilesPlus from supported store, do restore of PhoneProfilesPlus settings. It is in Editor menu in</string>
+    <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8">Aftet istallation of PhoneProfilesPlus from supported store, do restore of PhoneProfilesPlus settings. It is in Editor menu in</string>
     <string name="phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10">Click here to open Droid-ify installation site.</string>
 
     <string name="install_extender_install_droidify_text">Please install Droid-ify. Is required for installation of PhoneProfilesPlusExtender. After that, do again installation of PhoneProfilesPlusExteder.</string>
@@ -2129,7 +2129,7 @@
     <string name="check_releases_ppp_release_clik_to_show">Click here to show it.</string>
 
     <string name="phone_profiles_pref_applicationWifiControlInfo_sony_summary">\"Wi-Fi control\" special access must NOT be allowed for Sony devices. Click this to show how.</string>
-    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_message">\"Wi-Fi control\" special access must NOT be allowed for Sony devices.\n\nIn device Settings dis-allow \"Apps\"/\"Special app access\"/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_applicationWifiControlInfo_sony_message">\"Wi-Fi control\" special access must NOT be allowed for Sony devices.\n\nIn device Settings disable \"Apps\"/\"Special app access\"/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
 
     <!-- **************************************************************************************** -->
 
