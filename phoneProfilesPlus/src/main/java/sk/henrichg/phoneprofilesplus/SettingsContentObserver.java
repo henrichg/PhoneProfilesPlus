@@ -117,6 +117,8 @@ class SettingsContentObserver  extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
+//        PPApplicationStatic.logE("SettingsContentObserver.onChange", "(2)");
+
         //super.onChange(selfChange);
 
 //        PPApplicationStatic.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
@@ -124,6 +126,7 @@ class SettingsContentObserver  extends ContentObserver {
 
         boolean okSetting = false;
         boolean volumeChange = false;
+        boolean brightnessChange = false;
 
         if (uri != null) {
             String sUri = uri.toString();
@@ -138,25 +141,33 @@ class SettingsContentObserver  extends ContentObserver {
                 //(sUri.contains(Settings.System.VOLUME_ACCESSIBILITY))) -- not received
             ) {
                 //PPApplicationStatic.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
-
                 okSetting = true;
                 volumeChange = true;
             }
             else
-            if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS_MODE))
+            if (sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS_MODE)) {
                 okSetting = true;
+                brightnessChange = true;
+            }
             else
-            if (sUri.contains(Settings.System.SCREEN_BRIGHTNESS))
+            if (sUri.endsWith(Settings.System.SCREEN_BRIGHTNESS)) {
                 okSetting = true;
+                brightnessChange = true;
+            }
             else
-            if (sUri.contains(Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ))
+            if (sUri.contains(Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ)) {
                 okSetting = true;
+                brightnessChange = true;
+            }
             else
             if (sUri.contains(Settings.System.SCREEN_OFF_TIMEOUT))
                 okSetting = true;
         }
-        else
+        else {
             okSetting = true;
+            volumeChange = true;
+            brightnessChange = true;
+        }
 
         if (!okSetting)
             return;
@@ -306,22 +317,28 @@ class SettingsContentObserver  extends ContentObserver {
             previousScreenTimeout = screenTimeout;
         }
 
-        if (!PPApplication.brightnessDialogInternalChange) {
-            PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-            PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-            //PPApplication.savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+        if (brightnessChange) {
+            if (!PPApplication.brightnessInternalChange) {
+                PPApplication.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+                PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                //PPApplication.savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
-            // TODO this is for log brightness values to log file
-            //  use only for check brightness values 0%, 50%, 100% by user,
-            //  when in his device brightness not working good
-            //PowerManager pm = context.getSystemService(PowerManager.class);
-            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
-            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
-            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
+                // TODO this is for log brightness values to log file
+                //  use only for check brightness values 0%, 50%, 100% by user,
+                //  when in his device brightness not working good
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessModeForDialog=" + PPApplication.savedBrightnessModeForDialog);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessForDialog=" + PPApplication.savedBrightnessForDialog);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
 
-            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessMode="+savedBrightnessMode);
-            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightness="+savedBrightness);
-            //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedAdaptiveBrightness="+savedAdaptiveBrightness);
+                //PowerManager pm = context.getSystemService(PowerManager.class);
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "minimun brightnress="+pm.getMinimumScreenBrightnessSetting());
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
+                //PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
+
+                //TODO Brightness sensor - call MainWorker with HANDLE_EVENTS_BRIGHTNRESS_WORK_TAG
+                //  not implemented yet
+
+            }
         }
 
         /////////////
@@ -329,6 +346,7 @@ class SettingsContentObserver  extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
+//        PPApplicationStatic.logE("SettingsContentObserver.onChange", "(1)");
         onChange(selfChange, null);
     }
 

@@ -63,6 +63,20 @@ class PPExecutors {
         PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
     }
 
+    static void scheduleDisableBrightnessInternalChangeExecutor() {
+//        PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "schedule");
+
+        //final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+        Runnable runnable = () -> {
+//            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "--------------- START");
+            PPApplication.brightnessInternalChange = false;
+//            PPApplicationStatic.logE("[IN_EXECUTOR]  ***** PPExecutors.scheduleDisableBrightnessInternalChangeExecutor", "--------------- END");
+            //worker.shutdown();
+        };
+        PPApplicationStatic.createNonBlockedExecutor();
+        PPApplication.disableInternalChangeExecutor.schedule(runnable, 5, TimeUnit.SECONDS);
+    }
+
 /*
     static void doRestartEventsWithDelay(final boolean alsoRescan, final boolean unblockEventsRun, final int logType, Context context) {
         if (!PPApplicationStatic.getApplicationStarted(true))

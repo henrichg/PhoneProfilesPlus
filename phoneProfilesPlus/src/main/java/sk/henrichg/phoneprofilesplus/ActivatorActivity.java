@@ -135,6 +135,7 @@ public class ActivatorActivity extends AppCompatActivity
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivatorActivity.onCreate - setContentView");
 
         if (ApplicationPreferences.applicationActivatorIncreaseBrightness) {
+            PPApplication.brightnessInternalChange = true;
             Window win = getWindow();
             WindowManager.LayoutParams layoutParams = win.getAttributes();
 //            int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
@@ -350,6 +351,9 @@ public class ActivatorActivity extends AppCompatActivity
     protected void onStop()
     {
         super.onStop();
+        PPApplication.brightnessInternalChange = false;
+        PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
+
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
 

@@ -222,14 +222,14 @@ public class PPApplication extends Application
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
 // this si for get 0, 50 100% level
-//                                                +"|SettingsContentObserver.onChange"
+                                                +"|SettingsContentObserver.onChange"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
-                                                +"|[IN_BROADCAST]"
+//                                                +"|[IN_BROADCAST]"
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
@@ -951,7 +951,10 @@ public class PPApplication extends Application
     static volatile boolean connectToSSIDStarted = false;
 
     static volatile boolean disableScreenTimeoutInternalChange = false;
-    static volatile boolean brightnessDialogInternalChange = false;
+
+    static volatile boolean brightnessInternalChange = false;
+    static volatile int savedBrightness;
+    static volatile int savedBrightnessMode;
 
     static volatile boolean grantRootChanged = false;
 
@@ -968,9 +971,6 @@ public class PPApplication extends Application
 
     static volatile boolean vpnNetworkConnected = false;
     static volatile boolean wifiNetworkconnected = false;
-
-    static volatile int savedBrightness;
-    static volatile int savedBrightnessMode;
 
     static volatile boolean locationScannerUseGPS = true;
     static volatile boolean locationScannerUpdatesStarted = false;

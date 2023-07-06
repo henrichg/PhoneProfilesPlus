@@ -90,6 +90,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                                                        PPApplicationStatic.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "adaptive brightness value=" + profile.getDeviceBrightnessAdaptiveValue(appContext));
 //                                                    }
                                                     try {
+                                                        PPApplication.brightnessInternalChange = true;
                                                         if (profile.getDeviceBrightnessAutomatic()) {
                                                             Settings.System.putInt(appContext.getContentResolver(),
                                                                     Settings.System.SCREEN_BRIGHTNESS_MODE,
@@ -117,6 +118,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                                                     Settings.System.SCREEN_BRIGHTNESS,
                                                                     profile.getDeviceBrightnessManualValue(appContext));
                                                         }
+                                                        PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
                                                     } catch (Exception ignored) {
                                                     }
 //                                                    if (PPApplicationStatic.logEnabled()) {

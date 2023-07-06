@@ -40,7 +40,7 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
         preference = (BrightnessDialogPreference) getPreference();
         preference.fragment = this;
 
-        PPApplication.brightnessDialogInternalChange = true;
+        PPApplication.brightnessInternalChange = true;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.dialog_brightness_preference, null, false);
@@ -108,10 +108,11 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
             preference.resetSummary();
         }
 
-        PPApplication.brightnessDialogInternalChange = false;
-
         savedBrightnessHandler.removeCallbacks(savedBrightnessRunnable);
         setSavedBrightness();
+
+        PPApplication.brightnessInternalChange = false;
+        PPExecutors.scheduleDisableBrightnessInternalChangeExecutor();
 
         /*
         Window win = ((Activity)context).getWindow();
