@@ -9,6 +9,8 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.VibrationAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -715,7 +717,8 @@ class PlayRingingNotification
 
     static void playNotificationSound(final String notificationSound,
                                       final boolean notificationVibrate,
-                                      final boolean playAlsoInSilentMode, Context context) {
+                                      final boolean playAlsoInSilentMode,
+                                      Context context) {
 
         Context appContext = context.getApplicationContext();
 
@@ -736,14 +739,27 @@ class PlayRingingNotification
             boolean isAudible =
                     ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
 
-            if (notificationVibrate || ((!isAudible) && (!playAlsoInSilentMode) && (!notificationSound.isEmpty()))) {
+            if (notificationVibrate || (!isAudible) && (!notificationSound.isEmpty())) {
+                // why vibrate?
+                // 1. vibration is configured by user
+                // 2. notification sound is configured by user, but sound mode is not audible
                 Vibrator vibrator = (Vibrator) appContext.getSystemService(Context.VIBRATOR_SERVICE);
                 if ((vibrator != null) && vibrator.hasVibrator()) {
                     try {
-                        //if (Build.VERSION.SDK_INT >= 26)
-                        vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
-                        //else
-                        //    vibrator.vibrate(300);
+                        if (!isAudible) {
+                            // sound mode is not audible, force vibrate = Vibration intensity is ignored??
+                            vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+                        } else {
+                            // Vibration intensity is also used??
+                            if (Build.VERSION.SDK_INT >= 33)
+                                vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+                                        VibrationAttributes.createForUsage(VibrationAttributes.USAGE_NOTIFICATION));
+                            else
+                                vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
+                                        new AudioAttributes.Builder()
+                                                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                                                .build());
+                        }
                     } catch (Exception e) {
                         PPApplicationStatic.recordException(e);
                     }
