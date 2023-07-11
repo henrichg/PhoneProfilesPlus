@@ -1072,43 +1072,53 @@ class ActivateProfileHelper {
                     boolean merged;
                     AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
                     if (audioManager != null) {
-                        //RingerModeChangeReceiver.internalChange = true;
 
-                        int ringerMode = audioManager.getRingerMode();
-                        int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                        int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                        int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                        int systemZenMode = getSystemZenMode(appContext);
+                        boolean isAudible = isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
+
+                        if (isAudible) {
+                            // change of volume change also sound mode, for this reason is not good
+                            // to change volume, if is set non-audible sound mode
+
+                            //RingerModeChangeReceiver.internalChange = true;
+
+                            int ringerMode = audioManager.getRingerMode();
+                            int maximumNotificationValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                            int oldRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                            int oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 //                        Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "oldRingVolume="+oldRingVolume);
 //                        Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "oldNotificationVolume="+oldNotificationVolume);
-                        if (oldRingVolume == oldNotificationVolume) {
-                            int newNotificationVolume;
-                            if (oldNotificationVolume == maximumNotificationValue)
-                                newNotificationVolume = oldNotificationVolume - 1;
-                            else
-                                newNotificationVolume = oldNotificationVolume + 1;
+                            if (oldRingVolume == oldNotificationVolume) {
+                                int newNotificationVolume;
+                                if (oldNotificationVolume == maximumNotificationValue)
+                                    newNotificationVolume = oldNotificationVolume - 1;
+                                else
+                                    newNotificationVolume = oldNotificationVolume + 1;
 
-                            PPApplication.volumesInternalChange = true;
-                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                PPApplication.volumesInternalChange = true;
+                                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                            GlobalUtils.sleep(2000);
+                                GlobalUtils.sleep(2000);
 
-                            int newRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                            newNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                                int newRingVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                                newNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
 //                            Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "newRingVolume="+newRingVolume);
 //                            Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "newNotificationVolume="+newNotificationVolume);
 
-                            merged = newRingVolume == newNotificationVolume;
-                        } else
-                            merged = false;
-                        PPApplication.volumesInternalChange = true;
-                        audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                merged = newRingVolume == newNotificationVolume;
+                            } else
+                                merged = false;
+                            PPApplication.volumesInternalChange = true;
+                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                        PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
+                            PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
 
-                        audioManager.setRingerMode(ringerMode);
+                            audioManager.setRingerMode(ringerMode);
 
-                        editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
-                        ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+//                            Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "merged="+merged);
+                            editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
+                            ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+                        }
                     }
                 } catch (Exception e) {
                     //PPApplicationStatic.recordException(e);

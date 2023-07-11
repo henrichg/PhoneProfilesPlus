@@ -759,48 +759,37 @@ HOTOVO
 - Fix: Maybe fixed BT disconnect in BT sensor.
 - Fix: Fixed not displayed notification about Autostart not enabled.
 
--------------------
+------------
 
-Instalacia z GitHub - direct download
+Kde testujem link-unlink volumes:
 
-1. Extender - Ale len pre Android 13+:
-ExtenderDialogPreferenceFragment.installPPPExtender
-- instaluje z Droid-ify, F-Droid, Galaxy Store ak to ma nainstalovane
-- instaluje direct downloadom z GithHub ak nema obchod
-  - je to installExtenderFromGitHub()
-  - Toto vyhod, a namiesto toho zobraz dialog s tym, ze nema Droid-ify nainstalovane a positive button nech otvori
-    url na instalaciu Droid-ify.
-HOTOVO
+ActivateProfileHelper:
+    static void setMergedRingNotificationVolumes(Context context/*, boolean force*/) {
+        synchronized (PPApplication.profileActivationMutex) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            setMergedRingNotificationVolumes(context, /*force,*/ editor);
+            editor.apply();
+        }
+    }
 
-- !!! Co ale chyba je check verzie v Droid-ify. Sprav.
-  Sice konstatnta v PPApplication je nastavena, ale este nemusi byt v Droid-ify.
-HOTOVO
+Volane to je len z PhoneProfilesService.doForFirstStart()
 
-Najprv testni Inportant info, ze co sa na klik vlastne otvori. Predpokladma, ze Droid-ify dialog.
-TOTO SOM VYHODIL, MAM AJ BROADCAST - PROBLEM BY BOL S CHECK IZZYONDROID
-Kukni, ci sa generuje notifikacia o novej verii Extendera, mozno len ze je Important info s News.
-Notifikacia sa generuje, raz denne, ciz eako u PPP - CheckRequiredExtenderReleasesBroadcastReceiver
-HOTOVO
+ActivateProfileHelper.setMergedRingNotificationVolumes(context, /*force,*/ editor);
+- toto je volane este z EditorActivity.importApplicationPreferences();
 
-2. PPP - Ale len pre Android 13+:
-- Na troch miestach checkujem releases.md:
-  - CheckPPPReleasesActivity.onStart(), ked menu je menu_check_in_github - zavola to checkInGitHub()
-  - CheckPPPReleasesBroadcastReceiver._doWorkGitHub() - generuje notifikaciu, na klik otvori CheckPPPReleasesActivity
-    - critical_check=false -> otvori prislusny store a len ak nema ziadny, tak checkInGitHub()
-  - CheckCriticalPPPReleasesBroadcastReceiver.doWork() - generuje notifikaciu, na klik otvori CheckPPPReleasesActivity
-    - critical_check=true -> otvori checkInGitHub()
-- Ak je nastavene newVersionName a newVersionCode z relesaes.md, robi sa direct GitHub download,
-  inac sa otvori GitHub Releases.
+Ako vidim, zistujem to aj v SettingsContentObserver. Ze by tam bola chyba?
+Tam to je ale uplne ze zle.
+VYHODENE
 
-- Menu pre check releases - nechaj ale zobraz Droid-ify dialog
-- Pri checkInGitHub(): natvrdo Droid-ify ako u Extendera.
-HOTOVO
+Cize vypada to, ze test nie je volany pri, po aktivacii profilu.
+Takze porozmyslaj ci to nevolat aj vtedy. Aby sa to testovalo castejsie.
 
-- V dialogoch vymen PPP v obchode s linkom na instalaciu obchodu.
-  Do buttonu daj instalaciu obchodu do linku web na PPP v obchode.
-HOTOVO
+Alebo:
+Co tak to vratit do SettingsContentObserver, ale volat odtial
+ActivateProfileHelper.setMergedRingNotificationVolumes(context)?
+Len tam mam GlobalUtils.sleep(2000).
+Spravil som na to dalsi tag v MainWorker a ten volam zo SettingsContentObserver.
 
-- !!! Co ale chyba je check verzie v Droid-ify. Sprav.
-  Sice releases.md je nastavene, ale este nemusi byt v Droid-ify.
-HOTOVO
-
+Este som opravil:
+ActivateProfileHelpersetMergedRingNotificationVolumes(Context context/*, boolean force*/).
+Len ak je system sound mode audible, tak robim detekciu. Lebo zmena volume meni aj sound mod.

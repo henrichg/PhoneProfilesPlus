@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -189,6 +188,7 @@ class SettingsContentObserver  extends ContentObserver {
                 int newVolumeNotification = volumeChangeDetect(AudioManager.STREAM_NOTIFICATION, previousVolumeNotification, notificationMuted, audioManager);
 
                 if ((newVolumeRing != -1) && (newVolumeNotification != -1)) {
+                    /* commented because this is bad, bad detection of link-unlink.
                     if (((!ringMuted) && (previousVolumeRing != newVolumeRing)) ||
                             ((!notificationMuted) && (previousVolumeNotification != newVolumeNotification))) {
                         // volumes changed
@@ -206,6 +206,7 @@ class SettingsContentObserver  extends ContentObserver {
                             }
                         }
                     }
+                    */
 
                     if (!ringMuted)
                         previousVolumeRing = newVolumeRing;
@@ -239,7 +240,7 @@ class SettingsContentObserver  extends ContentObserver {
                                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                                         .build();
                         try {
-                            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//                            if (PPApplicationStatic.getApplicationStarted(true, true)) {
                                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                                 if (workManager != null) {
 
@@ -256,7 +257,7 @@ class SettingsContentObserver  extends ContentObserver {
                                     //workManager.enqueue(worker);
                                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                                 }
-                            }
+//                            }
                         } catch (Exception e) {
                             PPApplicationStatic.recordException(e);
                         }
@@ -303,6 +304,42 @@ class SettingsContentObserver  extends ContentObserver {
 
                     }
                 }
+            }
+            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                // application is started
+
+                // !!! must be used MainWorker with delay and REPLACE, because is often called this onChange
+                // for change volumes
+
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.DETECT_MERGE_RING_NOTIFICATION_VOLUMES_WORK_TAG)
+                                .setInitialDelay(10, TimeUnit.SECONDS)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                .build();
+                try {
+//                    if (PPApplicationStatic.getApplicationStarted(true, true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
+
+//                            //if (PPApplicationStatic.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+//                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(MainWorker.DETECT_MERGE_RING_NOTIFICATION_VOLUMES_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        }
+//                    }
+                } catch (Exception e) {
+                    PPApplicationStatic.recordException(e);
+                }
+
             }
         }
 

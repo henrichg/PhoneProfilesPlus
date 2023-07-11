@@ -58,6 +58,7 @@ public class MainWorker extends Worker {
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
     static final String PROFILE_DURATION_WORK_TAG = "profileDurationWork";
     static final String DISABLE_NOT_USED_SCANNERS_WORK_TAG = "dislableNotUsedScannersWork";
+    static final String DETECT_MERGE_RING_NOTIFICATION_VOLUMES_WORK_TAG = "detectRingNotificationVolumes";
 
     final Context context;
 
@@ -100,6 +101,7 @@ public class MainWorker extends Worker {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
                         }
+
                         break;
 
                     case HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG:
@@ -228,6 +230,15 @@ public class MainWorker extends Worker {
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                         PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                         break;
+
+                    case DETECT_MERGE_RING_NOTIFICATION_VOLUMES_WORK_TAG:
+                        if (!PPApplicationStatic.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
+                        ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
+                        break;
+
                     default:
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {
                             if (!PPApplicationStatic.getApplicationStarted(true, true))
