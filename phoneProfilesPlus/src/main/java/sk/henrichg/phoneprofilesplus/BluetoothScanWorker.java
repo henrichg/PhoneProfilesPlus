@@ -205,7 +205,7 @@ public class BluetoothScanWorker extends Worker {
                                 .setInitialDelay(interval, TimeUnit.MINUTES)
                                 .addTag(BluetoothScanWorker.WORK_TAG)
                                 .build();
-                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
 
 //                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -218,13 +218,13 @@ public class BluetoothScanWorker extends Worker {
 
 //                            PPApplicationStatic.logE("[WORKER_CALL] BluetoothScanWorker._scheduleWork", "(1)");
                             workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
-                        }
+//                        }
                     } else {
                         //waitForFinish();
                         OneTimeWorkRequest workRequest = new OneTimeWorkRequest.Builder(BluetoothScanWorker.class)
                                 .addTag(BluetoothScanWorker.WORK_TAG_SHORT)
                                 .build();
-                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//                        if (PPApplicationStatic.getApplicationStarted(true, true)) {
 
 //                            //if (PPApplicationStatic.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -237,7 +237,7 @@ public class BluetoothScanWorker extends Worker {
 
 //                            PPApplicationStatic.logE("[WORKER_CALL] BluetoothScanWorker._scheduleWork", "(2)");
                             workManager.enqueueUniqueWork(BluetoothScanWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, workRequest);
-                        }
+//                        }
                     }
                 }
             }

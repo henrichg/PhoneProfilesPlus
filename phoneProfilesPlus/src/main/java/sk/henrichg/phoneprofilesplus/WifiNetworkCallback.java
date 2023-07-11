@@ -138,7 +138,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
         try {
-            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+//            if (PPApplicationStatic.getApplicationStarted(true, true)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
@@ -154,7 +154,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
                     //workManager.enqueue(worker);
                     workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                }
+//                }
             }
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
