@@ -747,10 +747,10 @@ class PlayRingingNotification
                 if ((vibrator != null) && vibrator.hasVibrator()) {
                     try {
                         if (!isAudible) {
-                            // sound mode is not audible, force vibrate = Vibration intensity is ignored??
+                            // sound mode is not audible, force vibrate = Vibration intensity is ignored
                             vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
                         } else {
-                            // Vibration intensity is also used??
+                            // Vibration intensity is also used
                             if (Build.VERSION.SDK_INT >= 33)
                                 vibrator.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE),
                                         VibrationAttributes.createForUsage(VibrationAttributes.USAGE_NOTIFICATION));
