@@ -719,6 +719,26 @@ class ProfilePreferencesIndicator {
                 }
             }
 
+            // vibration intensity
+            if (profile.getVibrationIntensityRingingChange() ||
+                    profile.getVibrationIntensityNotificationsChange() ||
+                    profile.getVibrationIntensityTouchInteractionChange()) {
+                if ((ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationIntensityAll);
+                    if (fillStrings)
+                        strings[countDrawables++] = "vibi";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_intensity;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
+
             // sound
             if ((profile._soundRingtoneChange == 1) ||
                     (profile._soundNotificationChange == 1) ||
@@ -2210,25 +2230,6 @@ class ProfilePreferencesIndicator {
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
-                }
-            }
-            // vibration intensity
-            if (profile.getVibrationIntensityRingingChange() ||
-                    profile.getVibrationIntensityNotificationsChange() ||
-                    profile.getVibrationIntensityTouchInteractionChange()) {
-                if ((ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_vibrationIntensityAll);
-                    if (fillStrings)
-                        strings[countDrawables++] = "vibi";
-                    else {
-                        disabled[countDrawables] = false;
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_intensity;
-                    }
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
                 }
             }
         }
