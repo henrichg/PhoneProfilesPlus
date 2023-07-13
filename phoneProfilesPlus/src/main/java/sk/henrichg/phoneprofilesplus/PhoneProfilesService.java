@@ -1499,6 +1499,18 @@ public class PhoneProfilesService extends Service
                     db.deleteNonNamedNotUsedCells();
                     //PPApplicationStatic.logE("PhoneProfilesService.doForPackageReplaced", "after call of deleteNonNamedNotUsedCells()");
                 }
+                if (actualVersionCode <= 6960) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
+
+                    int bluetoothLEScanDuration = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION,
+                            ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION_DEFAULT_VALUE));
+                    if (bluetoothLEScanDuration < Integer.parseInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION_DEFAULT_VALUE)) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION,
+                                ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION_DEFAULT_VALUE);
+                        editor.apply();
+                    }
+                }
 
             }
 
