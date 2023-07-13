@@ -51,11 +51,11 @@ class BluetoothConnectedDevices {
             if (profileListener == null) {
                 profileListener = new BluetoothProfile.ServiceListener() {
                     public void onServiceConnected(int profile, BluetoothProfile proxy) {
-                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
 
 //                        Log.e("BluetoothConnectedDevices.getConnectedDevices", "[1] start of onServiceConnected");
 
                         if (profile == BluetoothProfile.HEADSET) {
+                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "BluetoothProfile.HEADSET");
                             bluetoothHeadset = (BluetoothHeadset) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -78,6 +78,7 @@ class BluetoothConnectedDevices {
                             }
                         }
                         if (profile == BluetoothProfile.HEALTH) {
+                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "BluetoothProfile.HEALTH");
                             bluetoothHealth = (BluetoothHealth) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -101,6 +102,7 @@ class BluetoothConnectedDevices {
                             }
                         }
                         if (profile == BluetoothProfile.A2DP) {
+                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "BluetoothProfile.A2DP");
                             bluetoothA2dp = (BluetoothA2dp) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -223,11 +225,7 @@ class BluetoothConnectedDevices {
     }
 
     private static void callEventHandler(Context appContext) {
-//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothScanRequest="+ApplicationPreferences.prefEventBluetoothScanRequest);
-//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothLEScanRequest="+ApplicationPreferences.prefEventBluetoothLEScanRequest);
-//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothWaitForResult="+ApplicationPreferences.prefEventBluetoothWaitForResult);
-//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothLEWaitForResult="+ApplicationPreferences.prefEventBluetoothLEWaitForResult);
-//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
+        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
 
         //TODO
         if (ApplicationPreferences.prefEventBluetoothScanRequest ||

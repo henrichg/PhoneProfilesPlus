@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
@@ -60,6 +61,11 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 if (newName == null) {
                     return;
                 }
+
+                //TODO
+                //if (findBluetoothDevice(context, newName))
+                //    return;
+
                 try {
                     if ((device != null) && newName.equals(device.getName())) {
                         return;
@@ -81,7 +87,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
             //__handler.post(() -> {
             Runnable runnable = () -> {
-//                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
+                PPApplicationStatic.logE("[IN_EXECUTOR] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
 //                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "[2] start of executor");
 
                 //Context appContext= appContextWeakRef.get();
@@ -158,7 +164,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 //}
             }; //);
             PPApplicationStatic.createEventsHandlerExecutor();
-            PPApplication.eventsHandlerExecutor.submit(runnable);
+            //PPApplication.eventsHandlerExecutor.submit(runnable);
+            PPApplication.delayedEventsHandlerExecutor.schedule(runnable, 15, TimeUnit.SECONDS);
         }
 
     }
@@ -362,7 +369,22 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             }
         }
     }
+/*
+    private static boolean findBluetoothDevice(Context context, String btName) {
+        getConnectedDevices(context);
 
+        synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
+            boolean found = false;
+            for (BluetoothDeviceData _device : connectedDevices) {
+                if (_device.getName().equalsIgnoreCase(btName)) {
+                    found = true;
+                    break;
+                }
+            }
+            return found;
+        }
+    }
+*/
     static boolean isBluetoothConnected(BluetoothDeviceData deviceData, String sensorDeviceName)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
