@@ -51,7 +51,7 @@ class BluetoothConnectedDevices {
             if (profileListener == null) {
                 profileListener = new BluetoothProfile.ServiceListener() {
                     public void onServiceConnected(int profile, BluetoothProfile proxy) {
-//                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
+                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
 
 //                        Log.e("BluetoothConnectedDevices.getConnectedDevices", "[1] start of onServiceConnected");
 
@@ -191,6 +191,8 @@ class BluetoothConnectedDevices {
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDevice device : detectedDevices) {
+                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.addConnectedDevices", "device.name="+device.getName());
+                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.addConnectedDevices", "device.address="+device.getAddress());
 //                Log.e("BluetoothConnectedDevices.addConnectedDevices", "[1] device.name="+device.getName());
 //                Log.e("BluetoothConnectedDevices.addConnectedDevices", "[1] device.address="+device.getAddress());
 
