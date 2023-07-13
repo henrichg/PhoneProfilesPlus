@@ -222,7 +222,7 @@ public class PPApplication extends Application
                                                 //+"|ImportantInfoNotification"
                                                 //+"|ImportantInfoHelpFragment"
 // this si for get 0, 50 100% level
-                                                +"|SettingsContentObserver.onChange"
+//                                                +"|SettingsContentObserver.onChange"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
@@ -265,6 +265,8 @@ public class PPApplication extends Application
                                                 //+"|LocationScanner.updateTransitionsByLastKnownLocation"
                                                 //+"|ActivateProfileHelper.changeWallpaperFromFolder"
                                                 //+"|AutostartPermissionNotification"
+
+//                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

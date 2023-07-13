@@ -11,9 +11,14 @@ import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.os.Build;
 
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 class BluetoothConnectedDevices {
 
@@ -24,11 +29,22 @@ class BluetoothConnectedDevices {
     private static volatile BluetoothProfile.ServiceListener profileListener = null;
 
     @SuppressLint("MissingPermission")
-    static void getConnectedDevices(final Context context) {
+    static void getConnectedDevices(final Context context, final boolean _callEventHandler) {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
-            if (!bluetoothAdapter.isEnabled())
+            if (!bluetoothAdapter.isEnabled()) {
+
+                final Context appContext = context.getApplicationContext();
+
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, false);
+                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                if (_callEventHandler)
+                    callEventHandler(appContext);
+
+//                Log.e("BluetoothConnectedDevices.getConnectedDevices", "(xxx) END of getConnectedDevices");
+
                 return;
+            }
 
 // HandlerThread is not needed, this method is already called from it in PhoneProfilesService.doFirstStart()
 
@@ -37,6 +53,8 @@ class BluetoothConnectedDevices {
                     public void onServiceConnected(int profile, BluetoothProfile proxy) {
 //                        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "xxx");
 
+//                        Log.e("BluetoothConnectedDevices.getConnectedDevices", "[1] start of onServiceConnected");
+
                         if (profile == BluetoothProfile.HEADSET) {
                             bluetoothHeadset = (BluetoothHeadset) proxy;
 
@@ -44,12 +62,13 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothHeadset != null) {
                                 try {
-                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothHeadset.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                                    if (_callEventHandler)
+                                        callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
@@ -66,12 +85,13 @@ class BluetoothConnectedDevices {
                             if (bluetoothHealth != null) {
                                 try {
                                     @SuppressWarnings("deprecation")
-                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothHealth.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                                    if (_callEventHandler)
+                                        callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
@@ -87,12 +107,13 @@ class BluetoothConnectedDevices {
 
                             if (bluetoothA2dp != null) {
                                 try {
-                                    @SuppressLint("MissingPermission")
                                     List<BluetoothDevice> devices = bluetoothA2dp.getConnectedDevices();
                                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
                                     addConnectedDevices(devices, connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                                    if (_callEventHandler)
+                                        callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
                                     //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
@@ -118,10 +139,13 @@ class BluetoothConnectedDevices {
             }
 
             try {
-
                 bluetoothHeadset = null;
                 bluetoothHealth = null;
                 bluetoothA2dp = null;
+
+                //TODO
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(context, false);
+                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(context);
 
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
 
@@ -149,7 +173,11 @@ class BluetoothConnectedDevices {
 
                     BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                    if (_callEventHandler)
+                        callEventHandler(appContext);
                 }
+
+//                Log.e("BluetoothConnectedDevices.getConnectedDevices", "[1] END of getConnectedDevices");
 
             } catch (Exception e) {
                 //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
@@ -163,6 +191,9 @@ class BluetoothConnectedDevices {
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDevice device : detectedDevices) {
+//                Log.e("BluetoothConnectedDevices.addConnectedDevices", "[1] device.name="+device.getName());
+//                Log.e("BluetoothConnectedDevices.addConnectedDevices", "[1] device.address="+device.getAddress());
+
                 boolean found = false;
                 for (BluetoothDeviceData _device : connectedDevices) {
                     if (_device.address.equals(device.getAddress())) {
@@ -187,6 +218,54 @@ class BluetoothConnectedDevices {
                 }
             }
         //}
+    }
+
+    private static void callEventHandler(Context appContext) {
+//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothScanRequest="+ApplicationPreferences.prefEventBluetoothScanRequest);
+//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothLEScanRequest="+ApplicationPreferences.prefEventBluetoothLEScanRequest);
+//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothWaitForResult="+ApplicationPreferences.prefEventBluetoothWaitForResult);
+//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothLEWaitForResult="+ApplicationPreferences.prefEventBluetoothLEWaitForResult);
+//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
+
+        //TODO
+        if (ApplicationPreferences.prefEventBluetoothScanRequest ||
+                ApplicationPreferences.prefEventBluetoothLEScanRequest ||
+                ApplicationPreferences.prefEventBluetoothWaitForResult ||
+                ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
+                ApplicationPreferences.prefEventBluetoothEnabledForScan)
+            PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
+
+//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] enqueue MainWorker");
+
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG)
+                        //.setInputData(workData)
+                        .setInitialDelay(10, TimeUnit.SECONDS)
+                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                        .build();
+        try {
+//            if (PPApplicationStatic.getApplicationStarted(true, true)) {
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+
+                //                            //if (PPApplicationStatic.logEnabled()) {
+                //                            ListenableFuture<List<WorkInfo>> statuses;
+                //                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_VOLUMES_WORK_TAG);
+                //                            try {
+                //                                List<WorkInfo> workInfoList = statuses.get();
+                //                            } catch (Exception ignored) {
+                //                            }
+                //                            //}
+                //
+                //                            PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                //workManager.enqueue(worker);
+                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+//                }
+            }
+        } catch (Exception e) {
+            PPApplicationStatic.recordException(e);
+        }
     }
 
     /*

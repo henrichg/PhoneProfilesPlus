@@ -53,6 +53,7 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_VOLUMES_WORK_TAG = "handleEventsVolumesWork";
     static final String HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG = "handleEventsMobileDataNetworkCallbackWork";
     static final String HANDLE_EVENTS_WIFI_NETWORK_CALLBACK_WORK_TAG = "handleEventsWifiNetworkCallbackWork";
+    static final String HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG = "handleEventsBluetoothConnectionWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
@@ -104,6 +105,22 @@ public class MainWorker extends Worker {
 
                         break;
 
+                    case HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG:
+                        if (!PPApplicationStatic.getApplicationStarted(true, true))
+                            // application is not started
+                            return Result.success();
+
+                        if (EventStatic.getGlobalEventsRunning(appContext)) {
+//                            Log.e("MainWorker.doWork", "HANDLE_EVENTS_BLUETOOTH_CONNECTION_WORK_TAG");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
+
+                            PPApplicationStatic.restartBluetoothScanner(appContext);
+                        }
+
+                        break;
                     case HANDLE_EVENTS_MOBILE_DATA_NETWORK_CALLBACK_WORK_TAG:
                         if (!PPApplicationStatic.getApplicationStarted(true, true))
                             // application is not started

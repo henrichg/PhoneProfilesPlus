@@ -929,7 +929,6 @@ public class EditorActivity extends AppCompatActivity
                 }
             }
         }
-        //TODO
         PackageManager packageManager = getPackageManager();
         menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
         if (menuItem != null) {

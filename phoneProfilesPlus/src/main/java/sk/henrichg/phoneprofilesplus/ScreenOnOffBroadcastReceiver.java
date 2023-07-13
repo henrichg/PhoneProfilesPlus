@@ -138,6 +138,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
+                            BluetoothConnectedDevices.getConnectedDevices(appContext, true);
+
                             break;
                         }
                         case Intent.ACTION_SCREEN_OFF: {

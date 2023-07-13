@@ -869,8 +869,8 @@ public class PhoneProfilesService extends Service
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                 // not needed clearConnectedDevices(.., true) call it
 
-                // duration > 30 seconds because in it is 3 x 10 seconds sleep
-                BluetoothConnectedDevices.getConnectedDevices(appContext);
+//                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
+                BluetoothConnectedDevices.getConnectedDevices(appContext, false);
 
                 WifiScanWorker.setScanRequest(appContext, false);
                 WifiScanWorker.setWaitForResults(appContext, false);

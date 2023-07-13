@@ -70,28 +70,32 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     //}
                                 }
 
-                                if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
+                                //TODO
+                                if (ApplicationPreferences.prefEventBluetoothScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothLEScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothWaitForResult ||
                                         ApplicationPreferences.prefEventBluetoothLEWaitForResult ||
-                                        ApplicationPreferences.prefEventBluetoothEnabledForScan)) {
+                                        ApplicationPreferences.prefEventBluetoothEnabledForScan)
+                                    PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
+
 
                                     // start events handler
 
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                                    // start events handler
+                                // start events handler
 
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_STATE");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
+//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_STATE");
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
 
-                                    // start events handler
+                                // start events handler
 
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_CONNECTION");
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
-                                }
+//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] BluetoothStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BLUETOOTH_CONNECTION");
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
+
+                                PPApplicationStatic.restartBluetoothScanner(appContext);
 
                             }
                         }

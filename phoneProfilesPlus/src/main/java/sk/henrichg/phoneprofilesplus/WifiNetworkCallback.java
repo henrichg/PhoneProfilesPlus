@@ -221,25 +221,27 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 //            PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback._doConnection", "xxx");
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
-            if (!(ApplicationPreferences.prefEventWifiScanRequest ||
+
+            //TODO
+            if (ApplicationPreferences.prefEventWifiScanRequest ||
                     ApplicationPreferences.prefEventWifiWaitForResult ||
-                    ApplicationPreferences.prefEventWifiEnabledForScan)) {
-                // wifi is not scanned
+                    ApplicationPreferences.prefEventWifiEnabledForScan)
+                PhoneProfilesServiceStatic.cancelWifiWorker(appContext, true, false);
 
-                if ((PhoneProfilesService.getInstance() != null) && (!PPApplication.connectToSSIDStarted)) {
-                    // connect to SSID is not started
+            if ((PhoneProfilesService.getInstance() != null) && (!PPApplication.connectToSSIDStarted)) {
+                // connect to SSID is not started
 
-                    // start events handler
+                // start events handler
 
-//                                    PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+                EventsHandler eventsHandler = new EventsHandler(appContext);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-//                                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
+//                PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
-                }
-            } //else
+                PPApplicationStatic.restartWifiScanner(appContext);
+            }
             //}
         }
     }
