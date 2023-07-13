@@ -192,7 +192,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT < 33)
                 checkInGitHub(activity, false);
             else {
-                //TODO natvrdo z Droid-ify
                 checkInDroidIfy(activity, true);
             }
             displayed = true;
@@ -230,7 +229,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT < 33)
                             checkInGitHub(activity, false);
                         else {
-                            //TODO natvrdo z Droid-ify
                             checkInDroidIfy(activity, true);
                         }
                     }
@@ -241,7 +239,6 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT < 33)
                     checkInGitHub(activity, false);
                 else {
-                    //TODO natvrdo z Droid-ify
                     checkInDroidIfy(activity, true);
                 }
             }
