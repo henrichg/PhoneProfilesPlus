@@ -8,7 +8,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplicationStatic.logE("[IN_BROADCAST] LocaleChangedReceiver.onReceive", "xxx");
+//        PPApplicationStatic.logE("[IN_BROADCAST] LocaleChangedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
 

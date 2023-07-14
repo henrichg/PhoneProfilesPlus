@@ -222,7 +222,6 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
             //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
 
-            //TODO
             if (ApplicationPreferences.prefEventWifiScanRequest ||
                     ApplicationPreferences.prefEventWifiWaitForResult ||
                     ApplicationPreferences.prefEventWifiEnabledForScan)

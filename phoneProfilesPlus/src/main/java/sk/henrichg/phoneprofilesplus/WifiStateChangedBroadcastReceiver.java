@@ -118,7 +118,6 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         }
                                     }*/
 
-                                    //TODO
                                     if (ApplicationPreferences.prefEventWifiScanRequest ||
                                             ApplicationPreferences.prefEventWifiWaitForResult ||
                                             ApplicationPreferences.prefEventWifiEnabledForScan)
