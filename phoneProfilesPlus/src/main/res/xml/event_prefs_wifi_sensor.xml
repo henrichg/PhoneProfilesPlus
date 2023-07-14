@@ -32,7 +32,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_wifi_connection_type"
-        app:summary="@string/array_event_pref_wifiConnectionType_connected"
+        app:summary="@string/array_event_pref_wifiConnectionType_inFront"
         app:key="eventWiFiConnectionType"
         app:defaultValue="1"
         app:ppEntries="@array/eventWifiConnectionTypeArray"

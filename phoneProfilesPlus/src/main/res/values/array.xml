@@ -406,16 +406,16 @@
         <item>0</item>
     </string-array>
     <string-array name="eventBluetoothConnectionTypeArray">
-        <item>@string/array_event_pref_bluetoothConnectionType_connected</item>
         <item>@string/array_event_pref_bluetoothConnectionType_inFront</item>
-        <item>@string/array_event_pref_bluetoothConnectionType_notConnected</item>
+        <item>@string/array_event_pref_bluetoothConnectionType_connected</item>
         <item>@string/array_event_pref_bluetoothConnectionType_notInFront</item>
+        <item>@string/array_event_pref_bluetoothConnectionType_notConnected</item>
     </string-array>
     <string-array name="eventBluetoothConnectionTypeValues">
-        <item>0</item>
         <item>1</item>
-        <item>2</item>
+        <item>0</item>
         <item>3</item>
+        <item>2</item>
     </string-array>
     <string-array name="eventSMSContactListTypeArray">
         <item>@string/array_event_pref_contact_list_type_white_list</item>

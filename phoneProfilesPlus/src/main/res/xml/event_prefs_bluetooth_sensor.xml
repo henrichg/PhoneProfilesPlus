@@ -25,9 +25,9 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.PPListPreference
         app:title="@string/event_preferences_bluetooth_connection_type"
-        app:summary="@string/array_event_pref_bluetoothConnectionType_connected"
+        app:summary="@string/array_event_pref_bluetoothConnectionType_inFront"
         app:key="eventBluetoothConnectionType"
-        app:defaultValue="0"
+        app:defaultValue="1"
         app:ppEntries="@array/eventBluetoothConnectionTypeArray"
         app:ppEntryValues="@array/eventBluetoothConnectionTypeValues"
         app:dependency="eventBluetoothEnabled"
