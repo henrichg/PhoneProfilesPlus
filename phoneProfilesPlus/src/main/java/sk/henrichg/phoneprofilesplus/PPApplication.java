@@ -228,8 +228,6 @@ public class PPApplication extends Application
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_EXECUTOR]"
 //                                                +"|[EXECUTOR_CALL]"
-//                                                +"|[IN_THREAD_HANDLER]"
-//                                                +"|[IN_BROADCAST]"
 //                                                +"|[IN_BROADCAST_ALARM]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
@@ -260,13 +258,6 @@ public class PPApplication extends Application
                                                 //+"|[PPP_NOTIFICATION]"
                                                 //+"|[DUAL_SIM]"
                                                 //+"|[APPLICATION_FULLY_STARTED]"
-
-                                                //+"|EventPreferencesOrientation"
-                                                //+"|LocationScanner.updateTransitionsByLastKnownLocation"
-                                                //+"|ActivateProfileHelper.changeWallpaperFromFolder"
-                                                //+"|AutostartPermissionNotification"
-
-//                                                +"|EventPreferencesBluetooth.doHandleEvent"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

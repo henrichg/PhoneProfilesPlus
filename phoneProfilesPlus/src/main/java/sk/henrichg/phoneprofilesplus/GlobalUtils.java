@@ -20,7 +20,7 @@ import java.util.Locale;
 class GlobalUtils {
 
     static void switchKeyguard(Context context) {
-//        PPApplicationStatic.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "EXTRA_SWITCH_KEYGUARD");
+//        PPApplicationStatic.logE("[IN_THREAD_HANDLER] GlobalUtils.switchKeyguard", "********");
 
         //boolean isScreenOn;
         //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);

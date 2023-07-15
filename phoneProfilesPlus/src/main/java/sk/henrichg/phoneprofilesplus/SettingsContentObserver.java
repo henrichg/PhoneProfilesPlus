@@ -305,6 +305,7 @@ class SettingsContentObserver  extends ContentObserver {
                     }
                 }
             }
+            /*
             if (PPApplicationStatic.getApplicationStarted(true, true)) {
                 // application is started
 
@@ -341,6 +342,7 @@ class SettingsContentObserver  extends ContentObserver {
                 }
 
             }
+            */
         }
 
         ////// screen timeout change

@@ -1127,11 +1127,11 @@ class ActivateProfileHelper {
         }
     }
     static void setMergedRingNotificationVolumes(Context context/*, boolean force*/) {
-        synchronized (PPApplication.profileActivationMutex) {
+        //synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             setMergedRingNotificationVolumes(context, /*force,*/ editor);
             editor.apply();
-        }
+        //}
     }
 
     private static void setVolumes(Context context, Profile profile, AudioManager audioManager, int systemZenMode,
@@ -3057,13 +3057,6 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
-                if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
-                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
-                    if (Permissions.checkPhone(appContext))
-                        linkUnlink = linkUnlinkVolumes;
-                }
-
                 if (profile != null) {
                     boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences);
 
@@ -3082,6 +3075,16 @@ class ActivateProfileHelper {
                         PPApplication.ringerModeInternalChange = true;
 
                         if (canChangeZenMode(appContext)) {
+                            //TODO
+                            ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
+
+                            int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
+                            if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
+                                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
+                                if (Permissions.checkPhone(appContext))
+                                    linkUnlink = linkUnlinkVolumes;
+                            }
+
                             changeRingerModeForVolumeEqual0(profile, audioManager, appContext);
                             changeNotificationVolumeForVolumeEqual0(/*context,*/ profile);
 
@@ -3111,7 +3114,7 @@ class ActivateProfileHelper {
 
                         int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-                        setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
+                        setVolumes(appContext, profile, audioManager, systemZenMode, PhoneCallsListener.LINKMODE_NONE, forProfileActivation, false);
                     }
 
                     PPExecutors.scheduleDisableInternalChangeExecutor();
@@ -5702,10 +5705,10 @@ class ActivateProfileHelper {
                     type,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
-                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON/* |
-                            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | // deprecated in API level 26
-                            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | // deprecated in API level 27
-                            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON // deprecated in API level 27*/
+                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON //|
+                            //WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD | // deprecated in API level 26
+                            //WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | // deprecated in API level 27
+                            //WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON // deprecated in API level 27
                     , PixelFormat.TRANSLUCENT
             );
             //if (android.os.Build.VERSION.SDK_INT < 17)

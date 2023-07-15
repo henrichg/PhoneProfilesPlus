@@ -70,7 +70,6 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     //}
                                 }
 
-                                //TODO
                                 if (ApplicationPreferences.prefEventBluetoothScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothLEScanRequest ||
                                         ApplicationPreferences.prefEventBluetoothWaitForResult ||
