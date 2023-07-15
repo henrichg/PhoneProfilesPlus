@@ -1111,17 +1111,18 @@ class ActivateProfileHelper {
                             PPApplication.volumesInternalChange = true;
                             audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
-                            PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
-
                             audioManager.setRingerMode(ringerMode);
 
 //                            Log.e("ActivateProfileHelper.setMergedRingNotificationVolumes", "merged="+merged);
                             editor.putBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, merged);
                             ApplicationPreferences.prefMergedRingNotificationVolumes = merged;
+
+                            PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                         }
                     }
                 } catch (Exception e) {
                     //PPApplicationStatic.recordException(e);
+                    PPExecutors.scheduleDisableVolumesInternalChangeExecutor();
                 }
             //}
         }
