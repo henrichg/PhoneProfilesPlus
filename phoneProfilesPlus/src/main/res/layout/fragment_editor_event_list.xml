@@ -157,7 +157,6 @@
         android:layout_height="55dp"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:background="@color/primary"
         android:theme="?attr/bottomToolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu" >
 
@@ -200,5 +199,6 @@
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
+<!--    android:background="@color/primary"-->
 
 </RelativeLayout>

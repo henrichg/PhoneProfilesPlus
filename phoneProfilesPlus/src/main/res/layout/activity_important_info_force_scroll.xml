@@ -20,10 +20,10 @@
             android:id="@+id/activity_important_info_force_scroll_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/primary"
             android:elevation="0dp"
             android:theme="?attr/toolbarTheme"
             app:popupTheme="?attr/toolbarPopupMenu" />
+<!--        android:background="@color/primary"-->
 
         <View
             android:id="@+id/activity_important_info_force_scroll_divider"

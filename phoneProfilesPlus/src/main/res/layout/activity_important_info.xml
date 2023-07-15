@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
-        android:background="@color/primary"
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"/>
+<!--    android:background="@color/primary"-->
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/activity_important_info_tab_layout"
@@ -27,7 +27,6 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/primary"
         android:elevation="0dp"
         android:theme="?attr/toolbarTheme"
         app:tabTextAppearance="@style/ImportantInfoTextAppearanceTab"
@@ -40,6 +39,7 @@
         app:tabPaddingEnd="5dp" />
     <!--    android:minHeight="?attr/actionBarSize"-->
     <!--    app:tabPaddingTop="10dp"-->
+<!--    android:background="@color/primary"-->
 
     <LinearLayout
         android:id="@+id/activity_important_info_frLa1"

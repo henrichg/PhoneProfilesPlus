@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:paddingBottom="3dp"
         android:orientation="vertical"
-        android:background="@color/primary"
         android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -63,6 +62,7 @@
         </androidx.appcompat.widget.Toolbar>
     
     </LinearLayout>
+<!--    android:background="@color/primary"-->
 
     <FrameLayout
         android:id="@+id/act_prof_list_frLa1"
