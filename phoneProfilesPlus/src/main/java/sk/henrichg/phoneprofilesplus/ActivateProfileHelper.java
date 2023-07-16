@@ -3076,8 +3076,12 @@ class ActivateProfileHelper {
                         PPApplication.ringerModeInternalChange = true;
 
                         if (canChangeZenMode(appContext)) {
+
                             //TODO
-                            ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
+                            if (linkUnlinkVolumes == PhoneCallsListener.LINKMODE_NONE)
+                                // call this only when it is not called for link unlink
+                                // (from PhoneCallListener)
+                                ActivateProfileHelper.setMergedRingNotificationVolumes(appContext);
 
                             int linkUnlink = PhoneCallsListener.LINKMODE_NONE;
                             if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
