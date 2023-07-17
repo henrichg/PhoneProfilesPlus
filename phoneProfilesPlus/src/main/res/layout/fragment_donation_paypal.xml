@@ -30,7 +30,7 @@
             android:gravity="center_horizontal"
             android:paddingBottom="5dp"
             android:visibility="gone"
-            android:textColor="#FFFF0000"/>
+            android:textColor="@color/error_color"/>
         -->
         <TextView
             android:id="@+id/donation_paypal_donation_description"

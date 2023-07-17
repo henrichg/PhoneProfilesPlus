@@ -73,7 +73,7 @@
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:paddingTop="5dp"
-                android:textColor="#ffff0000"
+                android:textColor="@color/error_color"
                 android:text="@string/event_pref_dialog_help"
                 android:visibility="gone"/>
 

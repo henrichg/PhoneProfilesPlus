@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pp_rippleRectangeleItemBackgroundColor">#FF606060</color>
-    <color name="pp_dialpad_textColor">#CFFFFFFF</color>
+    <color name="pp_rippleRectangeleItemBackgroundColor">#606060</color>
+    <color name="pp_dialpad_textColor">#DFDFDF</color>
 </resources>
