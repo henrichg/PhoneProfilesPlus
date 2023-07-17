@@ -117,14 +117,14 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/widget_one_row_not_rounded_border"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/not_rounded_widget_border"
-        android:visibility="gone"
-        tools:ignore="ContentDescription" />
+<!--    <ImageView-->
+<!--        android:id="@+id/widget_one_row_not_rounded_border"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/not_rounded_widget_border"-->
+<!--        android:visibility="gone"-->
+<!--        tools:ignore="ContentDescription" />-->
 
     <ImageView
         android:id="@+id/widget_one_row_rounded_border"
