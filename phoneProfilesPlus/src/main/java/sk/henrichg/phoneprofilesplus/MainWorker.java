@@ -248,7 +248,6 @@ public class MainWorker extends Worker {
                         PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                         break;
 
-                    //TODO
                     /*case DETECT_MERGE_RING_NOTIFICATION_VOLUMES_WORK_TAG:
                         if (!PPApplicationStatic.getApplicationStarted(true, true))
                             // application is not started

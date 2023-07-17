@@ -549,7 +549,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
         //if (applicationWidgetListRoundedCorners) {
         widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
-        widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
+        //widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
         if (applicationWidgetListShowBorder)
             widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.VISIBLE);
         else

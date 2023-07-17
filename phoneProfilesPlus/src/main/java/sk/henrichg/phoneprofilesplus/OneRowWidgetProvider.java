@@ -667,7 +667,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     remoteViews.setImageViewResource(R.id.widget_one_row_rounded_border, R.drawable.ic_empty);
 
                 remoteViews.setViewVisibility(R.id.widget_one_row_background, VISIBLE);
-                remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
+                //remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
                 if (applicationWidgetOneRowShowBorder) {
                     remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, VISIBLE);
                 }

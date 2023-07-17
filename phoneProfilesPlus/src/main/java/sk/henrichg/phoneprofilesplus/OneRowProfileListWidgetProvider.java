@@ -606,7 +606,7 @@ public class OneRowProfileListWidgetProvider extends AppWidgetProvider {
                 remoteViews.setImageViewResource(R.id.widget_one_row_profile_list_rounded_border, R.drawable.ic_empty);
 
             remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_background, VISIBLE);
-            remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_not_rounded_border, View.GONE);
+            //remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_not_rounded_border, View.GONE);
             if (applicationWidgetOneRowProfileListShowBorder) {
                 remoteViews.setViewVisibility(R.id.widget_one_row_profile_list_rounded_border, VISIBLE);
             }

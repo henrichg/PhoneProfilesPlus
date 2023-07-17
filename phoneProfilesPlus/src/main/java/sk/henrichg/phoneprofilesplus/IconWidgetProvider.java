@@ -1040,7 +1040,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                 //if (applicationWidgetIconRoundedCorners) {
                 remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
-                remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.GONE);
+                //remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.GONE);
                 if (applicationWidgetIconShowBorder)
                     remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.VISIBLE);
                 else
