@@ -35,7 +35,7 @@
             android:layout_alignStart="@android:id/title"
             android:layout_gravity="start"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="@color/mp_body_color"
             android:singleLine="false"/>
         <!--        android:textColor="@color/activityPreferenceSummaryTextColor"-->
     </RelativeLayout>

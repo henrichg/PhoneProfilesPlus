@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="@color/mp_title_color"
         android:singleLine="false" />
     <!--    android:textColor="@color/activityPreferenceTitleTextColor"-->
     <!--    android:textSize="16sp"-->
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="?android:attr/textColorSecondary"
+        android:textColor="@color/mp_body_color"
         android:layout_alignStart="@android:id/title"
         android:layout_below="@android:id/title"
         android:singleLine="false" />

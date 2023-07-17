@@ -9,7 +9,7 @@
     <!--    <color name="activityBackgroundColor">#FF201a18</color>-->
 
     <color name="activityNormalTextColor">#efefef</color>
-    <color name="activitySecondaryTextColor">#DFDFDF</color>
+    <color name="activitySecondaryTextColor">#C9C9C9</color>
     <color name="activityDisabledTextColor">#707070</color>
     <color name="activityCommandBackgroundColor">#404040</color>
     <color name="activityPopupMenuBackgroundColor">#151515</color>
