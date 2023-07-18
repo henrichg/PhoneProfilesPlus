@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -421,7 +422,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -489,7 +492,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_higher);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_higher);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -557,7 +562,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_highest);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_highest);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -625,7 +632,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_more_compact);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_highest);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -695,7 +704,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -763,7 +774,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_higher);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_higher);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -831,7 +844,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_highest);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_highest);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -900,7 +915,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height_more_compact);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height_highest);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
-                        if (!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) {
+                        if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
+                                applicationWidgetIconShowBorder) {
+                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
