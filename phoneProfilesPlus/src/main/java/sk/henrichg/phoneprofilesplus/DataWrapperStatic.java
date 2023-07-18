@@ -135,7 +135,8 @@ class DataWrapperStatic {
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS),
-                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION)
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY)
                 );
     }
 

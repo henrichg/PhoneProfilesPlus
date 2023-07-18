@@ -390,7 +390,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceVPN,
                         origProfile._vibrationIntensityRinging,
                         origProfile._vibrationIntensityNotifications,
-                        origProfile._vibrationIntensityTouchInteraction
+                        origProfile._vibrationIntensityTouchInteraction,
+                        origProfile._volumeMediaChangeDuringPlay
                 );
                 showSaveMenu = true;
             }
@@ -597,6 +598,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._vibrationIntensityRinging = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_RINGING, "");
             profile._vibrationIntensityNotifications = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, "");
             profile._vibrationIntensityTouchInteraction = preferences.getString(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, "");
+            profile._volumeMediaChangeDuringPlay = preferences.getBoolean(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
         }
 
         return profile;

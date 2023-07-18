@@ -123,6 +123,7 @@ public class Profile {
     String _vibrationIntensityRinging;
     String _vibrationIntensityNotifications;
     String _vibrationIntensityTouchInteraction;
+    boolean _volumeMediaChangeDuringPlay;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -237,6 +238,7 @@ public class Profile {
     static final String PREF_PROFILE_VIBRATION_INTENSITY_RINGING = "prf_pref_vibrationIntensityRinging";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS = "prf_pref_vibrationIntensityNotifications";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION = "prf_pref_vibrationIntensityTouchInteraction";
+    static final String PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY = "prf_pref_volumeMediaChangeDuringPlay";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -247,6 +249,7 @@ public class Profile {
         defaultValuesBoolean.put(PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
         defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
         defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
+        defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, false);
     }
     static final HashMap<String, String> defaultValuesString;
     static {
@@ -1043,7 +1046,8 @@ public class Profile {
                    String deviceVPN,
                    String vibrationIntensityRinging,
                    String vibrationIntensityNotifications,
-                   String vibrationIntensityTouchInteraction
+                   String vibrationIntensityTouchInteraction,
+                   boolean volumeMediaChangeDuringPlay
             )
     {
         this._id = id;
@@ -1152,6 +1156,7 @@ public class Profile {
         this._vibrationIntensityRinging = vibrationIntensityRinging;
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
+        this._volumeMediaChangeDuringPlay = volumeMediaChangeDuringPlay;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1264,7 +1269,8 @@ public class Profile {
             String deviceVPN,
             String vibrationIntensityRinging,
             String vibrationIntensityNotifications,
-            String vibrationIntensityTouchInteraction
+            String vibrationIntensityTouchInteraction,
+            boolean volumeMediaChangeDuringPlay
     )
     {
         this._name = name;
@@ -1372,6 +1378,7 @@ public class Profile {
         this._vibrationIntensityRinging = vibrationIntensityRinging;
         this._vibrationIntensityNotifications = vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = vibrationIntensityTouchInteraction;
+        this._volumeMediaChangeDuringPlay = volumeMediaChangeDuringPlay;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1486,6 +1493,7 @@ public class Profile {
         this._vibrationIntensityRinging = profile._vibrationIntensityRinging;
         this._vibrationIntensityNotifications = profile._vibrationIntensityNotifications;
         this._vibrationIntensityTouchInteraction = profile._vibrationIntensityTouchInteraction;
+        this._volumeMediaChangeDuringPlay = profile._volumeMediaChangeDuringPlay;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1826,9 +1834,10 @@ public class Profile {
                     this._vibrationIntensityNotifications = withProfile._vibrationIntensityNotifications;
                 if (withProfile.getVibrationIntensityTouchInteractionChange())
                     this._vibrationIntensityTouchInteraction = withProfile._vibrationIntensityTouchInteraction;
-
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
+                if (withProfile._volumeMediaChangeDuringPlay)
+                    this._volumeMediaChangeDuringPlay = true;
             }
 
             // set merged profile as activated
@@ -2185,6 +2194,9 @@ public class Profile {
                 return false;
             }
             if (!this._vibrationIntensityTouchInteraction.equals(withProfile._vibrationIntensityTouchInteraction)) {
+                return false;
+            }
+            if (this._volumeMediaChangeDuringPlay != withProfile._volumeMediaChangeDuringPlay) {
                 return false;
             }
 
@@ -3218,6 +3230,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_RINGING, this._vibrationIntensityRinging);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, this._vibrationIntensityNotifications);
         editor.putString(PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, this._vibrationIntensityTouchInteraction);
+        editor.putBoolean(PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY, this._volumeMediaChangeDuringPlay);
 
         editor.apply();
     }

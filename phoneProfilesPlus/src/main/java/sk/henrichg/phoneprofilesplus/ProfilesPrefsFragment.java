@@ -1648,7 +1648,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
                 key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE) ||
                 key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) ||
-                key.endsWith(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
+                key.endsWith(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND) ||
+                key.endsWith(Profile.PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY)) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }

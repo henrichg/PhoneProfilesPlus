@@ -1442,7 +1442,8 @@ class ActivateProfileHelper {
                 boolean musicMuted = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
                 if (!musicMuted) {
                     if (profile.getVolumeMediaChange()) {
-                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue(), false, true);
+                        setMediaVolume(appContext, audioManager, profile.getVolumeMediaValue(),
+                                profile._volumeMediaChangeDuringPlay, true);
                     }
                 }
             }

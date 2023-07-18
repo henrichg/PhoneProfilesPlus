@@ -130,6 +130,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, profile._vibrationIntensityRinging);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, profile._vibrationIntensityTouchInteraction);
+                values.put(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY, (profile._volumeMediaChangeDuringPlay) ? 1 : 0);
 
                 // Insert Row
                 if (!merged) {
@@ -271,7 +272,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_DEVICE_VPN,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
-                                DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                                DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY
                         },
                         DatabaseHandler.KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -386,7 +388,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION))
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1
                         );
                     }
 
@@ -521,7 +524,8 @@ class DatabaseHandlerProfiles {
                         DatabaseHandler.KEY_DEVICE_VPN + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + "," +
                         DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + "," +
-                        DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION +
+                        DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "," +
+                        DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY +
                 " FROM " + DatabaseHandler.TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -640,6 +644,7 @@ class DatabaseHandlerProfiles {
                         profile._vibrationIntensityRinging = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING));
                         profile._vibrationIntensityNotifications = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS));
                         profile._vibrationIntensityTouchInteraction = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION));
+                        profile._volumeMediaChangeDuringPlay = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1;
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -776,6 +781,7 @@ class DatabaseHandlerProfiles {
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, profile._vibrationIntensityRinging);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, profile._vibrationIntensityNotifications);
                 values.put(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, profile._vibrationIntensityTouchInteraction);
+                values.put(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY, (profile._volumeMediaChangeDuringPlay) ? 1 : 0);
 
                 // updating row
                 db.update(DatabaseHandler.TABLE_PROFILES, values, DatabaseHandler.KEY_ID + " = ?",
@@ -1127,7 +1133,8 @@ class DatabaseHandlerProfiles {
                                 DatabaseHandler.KEY_DEVICE_VPN,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING,
                                 DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS,
-                                DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION
+                                DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION,
+                                DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY
                         },
                         DatabaseHandler.KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -1244,7 +1251,8 @@ class DatabaseHandlerProfiles {
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_DEVICE_VPN)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS)),
-                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION))
+                                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION)),
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY)) == 1
                                 );
                     }
 

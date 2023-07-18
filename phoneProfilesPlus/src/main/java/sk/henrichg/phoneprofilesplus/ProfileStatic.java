@@ -724,7 +724,8 @@ class ProfileStatic {
                     profile._deviceVPN,
                     profile._vibrationIntensityRinging,
                     profile._vibrationIntensityNotifications,
-                    profile._vibrationIntensityTouchInteraction
+                    profile._vibrationIntensityTouchInteraction,
+                    profile._volumeMediaChangeDuringPlay
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)

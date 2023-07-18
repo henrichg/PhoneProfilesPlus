@@ -124,7 +124,8 @@ class DatabaseHandlerCreateUpdateDB {
                 + DatabaseHandler.KEY_DEVICE_VPN + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING + " " + DatabaseHandler.TEXT_TYPE + ","
                 + DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS + " " + DatabaseHandler.TEXT_TYPE + ","
-                + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + " " + DatabaseHandler.TEXT_TYPE
+                + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + " " + DatabaseHandler.TEXT_TYPE + ","
+                + DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY + " " + DatabaseHandler.INTEGER_TYPE
                 + ")";
     }
 
@@ -634,6 +635,7 @@ class DatabaseHandlerCreateUpdateDB {
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_RINGING, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_NOTIFICATIONS, DatabaseHandler.TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION, DatabaseHandler.TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY, DatabaseHandler.INTEGER_TYPE, columns);
                 break;
             case DatabaseHandler.TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, DatabaseHandler.KEY_E_NAME, DatabaseHandler.TEXT_TYPE, columns);
@@ -2576,7 +2578,8 @@ class DatabaseHandlerCreateUpdateDB {
                                 "0|0|||0",
                                 "-1|1",
                                 "-1|1",
-                                "-1|1"
+                                "-1|1",
+                                false
                         );
 
                         // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
@@ -3330,6 +3333,13 @@ class DatabaseHandlerCreateUpdateDB {
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "='-1|1'");
             db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VIBRATION_INTENSITY_TOUCH_INTERACTION + "='-1|1'");
         }
+
+        if (oldVersion < 2502)
+        {
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY + "=0");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_VOLUME_MEDIA_CHANGE_DURING_PLAY + "=0");
+        }
+
     }
 
 }

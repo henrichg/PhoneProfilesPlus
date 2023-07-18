@@ -2122,6 +2122,8 @@
     <string name="phone_profiles_pref_applicationWifiControlInfo_sony_summary">\"Wi-Fi control\" special access must NOT be allowed for Sony devices. Click this to show how.</string>
     <string name="phone_profiles_pref_applicationWifiControlInfo_sony_message">\"Wi-Fi control\" special access must NOT be allowed for Sony devices.\n\nIn device Settings disable \"Apps\"/\"Special app access\"/\"Wi-Fi control\" for PhoneProfilesPlus.</string>
 
+    <string name="profile_preferences_volumeMediaChangeDuringPlay">Change media volume while playing music</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>
