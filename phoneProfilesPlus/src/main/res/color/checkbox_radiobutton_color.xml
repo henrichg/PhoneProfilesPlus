@@ -8,7 +8,7 @@
     <item
         android:state_checked="false"
         android:state_enabled="true"
-        android:color="@color/activityNormalTextColor"
+        android:color="@color/activitySecondaryTextColor"
         />
     <item
         android:state_enabled="false"
