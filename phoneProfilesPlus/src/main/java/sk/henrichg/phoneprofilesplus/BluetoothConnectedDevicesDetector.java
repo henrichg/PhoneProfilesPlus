@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-class BluetoothConnectedDevices {
+class BluetoothConnectedDevicesDetector {
 
     private static volatile BluetoothHeadset bluetoothHeadset = null;
     private static volatile BluetoothHealth bluetoothHealth = null;
@@ -42,7 +42,7 @@ class BluetoothConnectedDevices {
                 if (_callEventHandler)
                     callEventHandler(appContext);
 
-//                Log.e("BluetoothConnectedDevices.getConnectedDevices", "(xxx) END of getConnectedDevices");
+//                Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "(xxx) END of getConnectedDevices");
 
                 return;
             }
@@ -53,10 +53,10 @@ class BluetoothConnectedDevices {
                 profileListener = new BluetoothProfile.ServiceListener() {
                     public void onServiceConnected(int profile, BluetoothProfile proxy) {
 
-//                        Log.e("BluetoothConnectedDevices.getConnectedDevices", "[1] start of onServiceConnected");
+//                        Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "[1] start of onServiceConnected");
 
                         if (profile == BluetoothProfile.HEADSET) {
-//                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "BluetoothProfile.HEADSET");
+//                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "BluetoothProfile.HEADSET");
                             bluetoothHeadset = (BluetoothHeadset) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -72,14 +72,14 @@ class BluetoothConnectedDevices {
                                         callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
-                                    //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                    //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
                                     //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, bluetoothHeadset);
                             }
                         }
                         if (profile == BluetoothProfile.HEALTH) {
-//                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "BluetoothProfile.HEALTH");
+//                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "BluetoothProfile.HEALTH");
                             bluetoothHealth = (BluetoothHealth) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -96,14 +96,14 @@ class BluetoothConnectedDevices {
                                         callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
-                                    //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                    //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
                                     //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
                             }
                         }
                         if (profile == BluetoothProfile.A2DP) {
-//                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.onServiceConnected", "BluetoothProfile.A2DP");
+//                            PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.onServiceConnected", "BluetoothProfile.A2DP");
                             bluetoothA2dp = (BluetoothA2dp) proxy;
 
                             final Context appContext = context.getApplicationContext();
@@ -119,7 +119,7 @@ class BluetoothConnectedDevices {
                                         callEventHandler(appContext);
                                 } catch (Exception e) {
                                     // not log this, profile may not exists
-                                    //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                    //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
                                     //PPApplicationStatic.recordException(e);
                                 }
                                 bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, bluetoothA2dp);
@@ -151,6 +151,8 @@ class BluetoothConnectedDevices {
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
                 // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                if (_callEventHandler)
+                    callEventHandler(appContext);
 
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
 
@@ -181,10 +183,10 @@ class BluetoothConnectedDevices {
                         callEventHandler(appContext);
                 }
 
-//                Log.e("BluetoothConnectedDevices.getConnectedDevices", "[1] END of getConnectedDevices");
+//                Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", "[1] END of getConnectedDevices");
 
             } catch (Exception e) {
-                //Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                //Log.e("BluetoothConnectedDevicesDetector.getConnectedDevices", Log.getStackTraceString(e));
                 PPApplicationStatic.recordException(e);
             }
         }
@@ -195,10 +197,10 @@ class BluetoothConnectedDevices {
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             for (BluetoothDevice device : detectedDevices) {
-//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.addConnectedDevices", "device.name="+device.getName());
-//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.addConnectedDevices", "device.address="+device.getAddress());
-//                Log.e("BluetoothConnectedDevices.addConnectedDevices", "[1] device.name="+device.getName());
-//                Log.e("BluetoothConnectedDevices.addConnectedDevices", "[1] device.address="+device.getAddress());
+//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "device.name="+device.getName());
+//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "device.address="+device.getAddress());
+//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] device.name="+device.getName());
+//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] device.address="+device.getAddress());
 
                 boolean found = false;
                 for (BluetoothDeviceData _device : connectedDevices) {
@@ -227,7 +229,7 @@ class BluetoothConnectedDevices {
     }
 
     private static void callEventHandler(Context appContext) {
-//        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevices.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
+//        PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.callEventHandler", "xxxxxxxxxxxxxxxxxxxx");
 
         if (ApplicationPreferences.prefEventBluetoothScanRequest ||
                 ApplicationPreferences.prefEventBluetoothLEScanRequest ||
@@ -236,7 +238,7 @@ class BluetoothConnectedDevices {
                 ApplicationPreferences.prefEventBluetoothEnabledForScan)
             PhoneProfilesServiceStatic.cancelBluetoothWorker(appContext, true, false);
 
-//        Log.e("BluetoothConnectedDevices.callEventHandler", "[1] enqueue MainWorker");
+//        Log.e("BluetoothConnectedDevicesDetector.callEventHandler", "[1] enqueue MainWorker");
 
         OneTimeWorkRequest worker =
                 new OneTimeWorkRequest.Builder(MainWorker.class)

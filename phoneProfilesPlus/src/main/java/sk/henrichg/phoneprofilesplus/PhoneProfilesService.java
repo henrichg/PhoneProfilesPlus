@@ -870,7 +870,7 @@ public class PhoneProfilesService extends Service
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
 
 //                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
-                BluetoothConnectedDevices.getConnectedDevices(appContext, false);
+                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 
                 WifiScanWorker.setScanRequest(appContext, false);
                 WifiScanWorker.setWaitForResults(appContext, false);

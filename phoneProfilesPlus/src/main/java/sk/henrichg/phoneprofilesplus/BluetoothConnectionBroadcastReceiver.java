@@ -110,7 +110,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                              */
 
 //                                Log.e("BluetoothConnectionBroadcastReceiver.onReceive", "**** START of getConnectedDevices");
-                                BluetoothConnectedDevices.getConnectedDevices(appContext, true);
+                                // is needed to call event hander
+                                BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, true);
 
                             //}
                         }

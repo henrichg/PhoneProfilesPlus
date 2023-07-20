@@ -138,7 +138,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
 
-                            BluetoothConnectedDevices.getConnectedDevices(appContext, true);
+                            // is not needed to call event hander, is called from doScreenOnOff()
+                            BluetoothConnectedDevicesDetector.getConnectedDevices(appContext, false);
 
                             break;
                         }

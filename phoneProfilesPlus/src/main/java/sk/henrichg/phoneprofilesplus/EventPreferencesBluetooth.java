@@ -465,11 +465,10 @@ class EventPreferencesBluetooth extends EventPreferences {
                     boolean isBluetoothEnabled = bluetooth.isEnabled();
 
                     if (isBluetoothEnabled) {
-                        //List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(context);
                         BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
 
                         if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
-                            //if (BluetoothConnectedDevices.isBluetoothConnected(connectedDevices,null, "")) {
+                            //if (BluetoothConnectedDevicesDetector.isBluetoothConnected(connectedDevices,null, "")) {
 
                             String[] splits = _adapterName.split("\\|");
                             boolean[] connected = new boolean[splits.length];
