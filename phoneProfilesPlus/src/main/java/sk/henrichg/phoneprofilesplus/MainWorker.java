@@ -405,6 +405,7 @@ public class MainWorker extends Worker {
 //                        }
 
                         PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+                        //TODO toto nie je prave najrychlejsie, da sa to zrychlit?
                         PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                         PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
                         PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
@@ -539,10 +540,16 @@ public class MainWorker extends Worker {
         PPApplication.firstStartAfterInstallation = false;
         //}
 
+//        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache");
+
         // must be first
+//        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (1)");
+        //TODO - toto trva hoodne dlho, 20 sekund - da sa to zrychlit?
         PPApplicationStatic.createContactsCache(appContext, true);
         //must be seconds, this ads groups into contacts
+//        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (2)");
         PPApplicationStatic.createContactGroupsCache(appContext, true);
+//        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (3)");
         EventsHandler eventsHandler = new EventsHandler(appContext);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 

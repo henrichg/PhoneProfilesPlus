@@ -36,7 +36,8 @@ class BluetoothConnectedDevices {
 
                 final Context appContext = context.getApplicationContext();
 
-                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, false);
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
+                // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
                 if (_callEventHandler)
                     callEventHandler(appContext);
@@ -145,8 +146,11 @@ class BluetoothConnectedDevices {
                 bluetoothHealth = null;
                 bluetoothA2dp = null;
 
-                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(context, false);
-                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(context);
+                final Context appContext = context.getApplicationContext();
+
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, false*/);
+                // this also clears shared preferences
+                BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
 
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
 
@@ -156,7 +160,6 @@ class BluetoothConnectedDevices {
                     bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
                 }
 
-                final Context appContext = context.getApplicationContext();
                 final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
                 if (bluetoothManager != null) {
                     final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();

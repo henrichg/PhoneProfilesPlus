@@ -761,35 +761,50 @@ HOTOVO
 
 ------------
 
-Kde testujem link-unlink volumes:
+Bluetooth skener:
 
-ActivateProfileHelper:
-    static void setMergedRingNotificationVolumes(Context context/*, boolean force*/) {
-        synchronized (PPApplication.profileActivationMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            setMergedRingNotificationVolumes(context, /*force,*/ editor);
-            editor.apply();
-        }
-    }
+BluetoothScanWorker.getScanResults()
+- berie data zo shared preferences z:
+  - PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME = "bluetooth_cl_scan_results"
+  - PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME = "bluetooth_le_scan_results";
 
-Volane to je len z PhoneProfilesService.doForFirstStart()
+Takze treba zistit, kedy sa to naplna a kedy sa to maze.
+- cl scan sa maze cez BluetoothScanWorker.clearScanResults()
+  - to sa vola z BluetoothScanWorker.initialize() - PPSStatic.registerEventsReceiversAndWorkers()
+  - vsetko co tam je zmaze a nastavuje count na -1
 
-ActivateProfileHelper.setMergedRingNotificationVolumes(context, /*force,*/ editor);
-- toto je volane este z EditorActivity.importApplicationPreferences();
+- cl scan sa uklada cez BluetoothScanWorker.saveCLScanResults(...  List<BluetoothDeviceData> scanResults)
+  - uklada, co vstupuje ako parameter - v podste to prpeise to, co tam zrovna je
+  - volane z BluetoothScanner.finishCLScan()
+  - uklada sa to co je v BluetoothScanner.tmpBluetoothScanResults, ale len ak nie je null, inac zostava v shared preferences to, co tam uz bolo !!!
 
-Ako vidim, zistujem to aj v SettingsContentObserver. Ze by tam bola chyba?
-Tam to je ale uplne ze zle.
-VYHODENE
+- le scan sa maze cez BluetoothScanWorker.clearScanResults()
+  - to sa vola z BluetoothScanWorker.initialize() - PPSStatic.registerEventsReceiversAndWorkers()
+  - vsetko co tam je zmaze a nastavuje count na -1
 
-Cize vypada to, ze test nie je volany pri, po aktivacii profilu.
-Takze porozmyslaj ci to nevolat aj vtedy. Aby sa to testovalo castejsie.
+- le scan sa uklada cez BluetoothScanWorker.saveLEScanResults(...  List<BluetoothDeviceData> scanResults)
+  - uklada, co vstupuje ako parameter - v podste to prpeise to, co tam zrovna je
+  - volane z BluetoothScanner.finishLEScan()
+  - uklada sa to co je v BluetoothScanner.tmpScanLEResults, ale len ak nie je null, inac zostava v shared preferences to, co tam uz bolo !!!
 
-Alebo:
-Co tak to vratit do SettingsContentObserver, ale volat odtial
-ActivateProfileHelper.setMergedRingNotificationVolumes(context)?
-Len tam mam GlobalUtils.sleep(2000).
-Spravil som na to dalsi tag v MainWorker a ten volam zo SettingsContentObserver.
+Vysledok:
+Cize kludne sa moze stat, ze co posledne naskenoval, to stale bud epokladat za nearby.
+No tak teraz rozmyslaj co s tym spravit. Lebo to je uplne ze zle.
+Inac, mal by to pri starte PPP zmazat. Toto nechapem. Ze by mazanie nefungovalo? Nie je tam ci, preco by to nefungovalo.
 
-Este som opravil:
-ActivateProfileHelpersetMergedRingNotificationVolumes(Context context/*, boolean force*/).
-Len ak je system sound mode audible, tak robim detekciu. Lebo zmena volume meni aj sound mod.
+---
+
+Jedine, ze by nefungoval ta detekcia BT connection. Ale tam mam test na to, ci je BT zapnute.
+Je mozne z to skener zapne takze sa ide robit detekcia, co je connectnute.
+
+BluetoothConnectionBroadcastReceiver.getConnectedDevices() vytahuje zo shared preferences.
+BluetoothConnectionBroadcastReceiver.clearConnectedDevices() maze z connectedDevices, ale nemaze zo shared preferences.
+Len BluetoothConnectionBroadcastReceiver.saveConnectedDevices() maze shared preferences.
+
+A to je presne ta chyba.
+Musim to uplne zmenit, neriesit old devices, proste nech detektor zmaze shared preferences, cize zavola
+BluetoothConnectionBroadcastReceiver.saveConnectedDevices(), aj ked sa nic nezdeteguje.
+Lenze toto neviem ako mam zavolat. To radsej nech detektor connection ho zmaze sam na zaciatku.
+
+
+

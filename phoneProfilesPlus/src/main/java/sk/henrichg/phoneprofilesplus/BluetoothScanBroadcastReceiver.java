@@ -101,6 +101,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                     //btName = btNameE;
                                                     btName = deviceName;
                                                 }
+//                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","btName="+btName);
 
                                                 if (BluetoothScanner.tmpBluetoothScanResults == null)
                                                     BluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();

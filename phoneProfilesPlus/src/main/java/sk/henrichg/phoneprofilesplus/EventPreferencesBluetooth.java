@@ -640,7 +640,8 @@ class EventPreferencesBluetooth extends EventPreferences {
                                         }
                                     }
 
-                                }                            }
+                                }
+                            }
                         }
                     }
                 }

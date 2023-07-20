@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -260,15 +259,15 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 */
-    static void clearConnectedDevices(Context context, boolean onlyOld)
+    static void clearConnectedDevices(/*Context context, boolean onlyOld*/)
     {
-        if (onlyOld) {
-            getConnectedDevices(context);
-        }
+        //if (onlyOld) {
+        //    getConnectedDevices(context);
+        //}
 
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if (connectedDevices != null) {
-                if (onlyOld) {
+                /*if (onlyOld) {
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     for (Iterator<BluetoothDeviceData> it = connectedDevices.iterator(); it.hasNext(); ) {
                         BluetoothDeviceData device = it.next();
@@ -280,7 +279,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             it.remove();
                     }
                 }
-                else
+                else*/
                     connectedDevices.clear();
             }
         }

@@ -865,9 +865,9 @@ public class PhoneProfilesService extends Service
                 //else
                 MobileCellsScanner.startAutoRegistration(appContext, true);
 
-                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
+                BluetoothConnectionBroadcastReceiver.clearConnectedDevices(/*appContext, true*/);
+                // this also clears shared preferences
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                // not needed clearConnectedDevices(.., true) call it
 
 //                Log.e("PhoneProfilesService.doForFirstStart", "**** START of getConnectedDevices");
                 BluetoothConnectedDevices.getConnectedDevices(appContext, false);
