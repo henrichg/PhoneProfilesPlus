@@ -2186,8 +2186,6 @@
     <string name="pppputsettings_permission">PPPPutSettings application permisison</string>
     <string name="pppputsettings_application_releases">Releases:</string>
     <string name="pppputsettings_about_application_version">Version:</string>
-    <string name="pppputsettings_notification_channel_grant_permission">Grant permission</string>
-    <string name="pppputsettings_notification_channel_grant_permission_description">Shows permission which is needed grant it.</string>
     <string name="pppputsettings_notifications_permission_text">Notifications permission is not granted.\n\nPlease enable notifications for PPPPutSettings. Without this enabled, notifications from PPPPutSettings will not be displayed.</string>
     <string name="pppputsettings_web_browser_chooser">View web link using</string>
     <string name="pppputsettings_enable_notificaitons_button">Enable</string>
