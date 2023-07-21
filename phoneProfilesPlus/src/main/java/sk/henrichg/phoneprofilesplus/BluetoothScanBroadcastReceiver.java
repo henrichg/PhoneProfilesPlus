@@ -23,7 +23,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             // application is not started
             return;
         if (ApplicationPreferences.prefForceOneBluetoothScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventBluetoothEnableScanning)
+            boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
+                    GlobalUtils.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
+            if ((!ApplicationPreferences.applicationEventBluetoothEnableScanning) || scanningPaused)
                 // scanning is disabled
                 return;
         }

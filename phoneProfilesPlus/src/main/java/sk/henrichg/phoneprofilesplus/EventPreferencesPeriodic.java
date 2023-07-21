@@ -99,9 +99,18 @@ class EventPreferencesPeriodic extends EventPreferences {
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 } else {
-                    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
-                            "<b>" + getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context) + "</b>";
-                    descr = descr + " • ";
+                    boolean scanningPaused = ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo);
+
+                    if (scanningPaused) {
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + "<br>";
+                    } else {
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
+                                "<b>" + getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context) + "</b>";
+                        descr = descr + " • ";
+                    }
                 }
 
                 descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + ": <b>" + getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context) + "</b>";
@@ -148,11 +157,20 @@ class EventPreferencesPeriodic extends EventPreferences {
                     }
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n";
-                    summary = summary  + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
-                            ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
-                    summary = summary + "\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n";
+                        summary = summary + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
+                                ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
+                        summary = summary + "\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    }
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();

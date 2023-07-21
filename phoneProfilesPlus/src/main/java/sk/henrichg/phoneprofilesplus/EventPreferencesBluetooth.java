@@ -106,6 +106,14 @@ class EventPreferencesBluetooth extends EventPreferences {
                             descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                     } else if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                    } else {
+                        boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
+                                GlobalUtils.isNowTimeBetweenTimes(
+                                        ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                                        ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
+                        if (scanningPaused) {
+                            descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + "<br>";
+                        }
                     }
                 }
 
@@ -215,8 +223,17 @@ class EventPreferencesBluetooth extends EventPreferences {
                     }
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                    }
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -559,86 +576,92 @@ class EventPreferencesBluetooth extends EventPreferences {
                             } else {
                                 eventsHandler.bluetoothPassed = false;
 
-                                List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(eventsHandler.context);
+                                boolean scanningPaused = ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2") &&
+                                        GlobalUtils.isNowTimeBetweenTimes(
+                                                ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                                                ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
 
-                                if (scanResults != null) {
-                                    for (BluetoothDeviceData device : scanResults) {
-                                        String[] splits = _adapterName.split("\\|");
-                                        boolean[] nearby = new boolean[splits.length];
-                                        int i = 0;
-                                        for (String _bluetoothName : splits) {
-                                            nearby[i] = false;
-                                            switch (_bluetoothName) {
-                                                case EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE:
-                                                    nearby[i] = true;
-                                                    break;
-                                                case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                                                    for (BluetoothDeviceData data : boundedDevicesList) {
-                                                        String _device = device.getName().toUpperCase();
-                                                        String _adapterName = data.getName().toUpperCase();
-                                                        if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                            nearby[i] = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                    break;
-                                                default:
-                                                    String _device = device.getName().toUpperCase();
-                                                    if ((device.getName() == null) || device.getName().isEmpty()) {
-                                                        // scanned device has not name (hidden BT?)
-                                                        if ((device.getAddress() != null) && (!device.getAddress().isEmpty())) {
-                                                            // device has address
-                                                            for (BluetoothDeviceData data : boundedDevicesList) {
-                                                                if ((data.getAddress() != null) && data.getAddress().equals(device.getAddress())) {
-                                                                    nearby[i] = true;
-                                                                    break;
-                                                                }
+                                if (!scanningPaused) {
+                                    List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(eventsHandler.context);
+
+                                    if (scanResults != null) {
+                                        for (BluetoothDeviceData device : scanResults) {
+                                            String[] splits = _adapterName.split("\\|");
+                                            boolean[] nearby = new boolean[splits.length];
+                                            int i = 0;
+                                            for (String _bluetoothName : splits) {
+                                                nearby[i] = false;
+                                                switch (_bluetoothName) {
+                                                    case EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE:
+                                                        nearby[i] = true;
+                                                        break;
+                                                    case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
+                                                        for (BluetoothDeviceData data : boundedDevicesList) {
+                                                            String _device = device.getName().toUpperCase();
+                                                            String _adapterName = data.getName().toUpperCase();
+                                                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                                                nearby[i] = true;
+                                                                break;
                                                             }
                                                         }
-                                                    } else {
-                                                        String _adapterName = _bluetoothName.toUpperCase();
-                                                        if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
-                                                            nearby[i] = true;
+                                                        break;
+                                                    default:
+                                                        String _device = device.getName().toUpperCase();
+                                                        if ((device.getName() == null) || device.getName().isEmpty()) {
+                                                            // scanned device has not name (hidden BT?)
+                                                            if ((device.getAddress() != null) && (!device.getAddress().isEmpty())) {
+                                                                // device has address
+                                                                for (BluetoothDeviceData data : boundedDevicesList) {
+                                                                    if ((data.getAddress() != null) && data.getAddress().equals(device.getAddress())) {
+                                                                        nearby[i] = true;
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                        } else {
+                                                            String _adapterName = _bluetoothName.toUpperCase();
+                                                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                                                nearby[i] = true;
+                                                            }
                                                         }
-                                                    }
-                                                    break;
-                                            }
-                                            i++;
-                                        }
-
-                                        //noinspection ConstantConditions
-                                        done = false;
-                                        if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY) {
-                                            eventsHandler.bluetoothPassed = true;
-                                            for (boolean inF : nearby) {
-                                                if (inF) {
-                                                    done = true;
-                                                    eventsHandler.bluetoothPassed = false;
-                                                    break;
+                                                        break;
                                                 }
+                                                i++;
                                             }
-                                        }
-                                        else {
-                                            eventsHandler.bluetoothPassed = false;
-                                            for (boolean inF : nearby) {
-                                                if (inF) {
-                                                    done = true;
-                                                    eventsHandler.bluetoothPassed = true;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        if (done)
-                                            break;
-                                    }
 
-                                    if (!done) {
-                                        if (scanResults.size() == 0) {
-                                            if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)
+                                            //noinspection ConstantConditions
+                                            done = false;
+                                            if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY) {
                                                 eventsHandler.bluetoothPassed = true;
+                                                for (boolean inF : nearby) {
+                                                    if (inF) {
+                                                        done = true;
+                                                        eventsHandler.bluetoothPassed = false;
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                eventsHandler.bluetoothPassed = false;
+                                                for (boolean inF : nearby) {
+                                                    if (inF) {
+                                                        done = true;
+                                                        eventsHandler.bluetoothPassed = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            if (done)
+                                                break;
                                         }
-                                    }
 
+                                        if (!done) {
+                                            if (scanResults.size() == 0) {
+                                                if (_connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY)
+                                                    eventsHandler.bluetoothPassed = true;
+                                            }
+                                        }
+
+                                    }
                                 }
                             }
                         }

@@ -155,69 +155,78 @@ class EventPreferencesNotification extends EventPreferences {
                 } else if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
                     descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
                 } else {
-                    //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
+                    boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + "<br>";
+                    } else {
 
-                    if (this._inCall) {
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context) + "</b>";
-                    }
-                    if (this._missedCall) {
-                        if (this._inCall)
-                            descr = descr + " • ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context) + "</b>";
-                    }
-                    String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-                    if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                        String[] splits = this._applications.split("\\|");
-                        if (splits.length == 1) {
-                            String packageName = Application.getPackageName(splits[0]);
-                            String activityName = Application.getActivityName(splits[0]);
-                            PackageManager packageManager = context.getPackageManager();
-                            if (activityName.isEmpty()) {
-                                ApplicationInfo app;
-                                try {
-                                    app = packageManager.getApplicationInfo(packageName, 0);
-                                    if (app != null)
-                                        selectedApplications = packageManager.getApplicationLabel(app).toString();
-                                } catch (Exception e) {
-                                    selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        //descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
+
+                        if (this._inCall) {
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_inCall), disabled, context) + "</b>";
+                        }
+                        if (this._missedCall) {
+                            if (this._inCall)
+                                descr = descr + " • ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context) + "</b>";
+                        }
+                        String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                            String[] splits = this._applications.split("\\|");
+                            if (splits.length == 1) {
+                                String packageName = Application.getPackageName(splits[0]);
+                                String activityName = Application.getActivityName(splits[0]);
+                                PackageManager packageManager = context.getPackageManager();
+                                if (activityName.isEmpty()) {
+                                    ApplicationInfo app;
+                                    try {
+                                        app = packageManager.getApplicationInfo(packageName, 0);
+                                        if (app != null)
+                                            selectedApplications = packageManager.getApplicationLabel(app).toString();
+                                    } catch (Exception e) {
+                                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                    }
+                                } else {
+                                    Intent intent = new Intent();
+                                    intent.setClassName(packageName, activityName);
+                                    ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                                    if (info != null)
+                                        selectedApplications = info.loadLabel(packageManager).toString();
                                 }
-                            } else {
-                                Intent intent = new Intent();
-                                intent.setClassName(packageName, activityName);
-                                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                                if (info != null)
-                                    selectedApplications = info.loadLabel(packageManager).toString();
-                            }
-                        } else
-                            selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
-                    }
-                    if (this._inCall || this._missedCall)
+                            } else
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        }
+                        if (this._inCall || this._missedCall)
+                            descr = descr + " • ";
+                        descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
+
+                        if (this._checkContacts) {
+                            descr = descr + " • ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + "</b>: ";
+
+                            descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
+
+                            descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + "</b> • ";
+
+                            descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
+                            String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
+                        }
+                        if (this._checkText) {
+                            descr = descr + " • ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + "</b>: ";
+
+                            descr = descr + context.getString(R.string.event_preferences_notifications_text) + ": ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(_text, disabled, context) + "</b>";
+                        }
                         descr = descr + " • ";
-                    descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
-
-                    if (this._checkContacts) {
-                        descr = descr + " • ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + "</b>: ";
-
-                        descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
-
-                        descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + "</b> • ";
-
-                        descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
-                        String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
+                        descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                     }
-                    if (this._checkText) {
-                        descr = descr + " • ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + "</b>: ";
-
-                        descr = descr + context.getString(R.string.event_preferences_notifications_text) + ": ";
-                        descr = descr + "<b>" + getColorForChangedPreferenceValue(_text, disabled, context) + "</b>";
-                    }
-                    descr = descr + " • ";
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                 }
             }
         }
@@ -257,8 +266,17 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventNotificationAppSettings_summary);
+                    }
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -1292,14 +1310,23 @@ class EventPreferencesNotification extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if ((EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
 
-                if (!eventsHandler.notAllowedNotification) {
-                    if (eventsHandler.notificationPassed)
-                        setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
-                    else
-                        setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-                }
+                boolean scanningPaused = ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2") &&
+                        GlobalUtils.isNowTimeBetweenTimes(
+                                ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                                ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo);
+
+                if (!scanningPaused) {
+                    eventsHandler.notificationPassed = isNotificationVisible(eventsHandler.context);
+
+                    if (!eventsHandler.notAllowedNotification) {
+                        if (eventsHandler.notificationPassed)
+                            setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                        else
+                            setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                    }
+                } else
+                    eventsHandler.notificationPassed = false;
             } else
                 eventsHandler.notAllowedNotification = true;
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);

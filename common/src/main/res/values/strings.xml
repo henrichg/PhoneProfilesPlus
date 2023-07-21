@@ -2124,6 +2124,8 @@
 
     <string name="profile_preferences_volumeMediaChangeDuringPlay">Change media volume while playing music</string>
 
+    <string name="phone_profiles_pref_applicationEventScanningPaused">Scanning paused</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

@@ -251,7 +251,12 @@ class LocationScanner
      * Requests location updates from the FusedLocationApi.
      */
     String startLocationUpdates() {
-        if (!ApplicationPreferences.applicationEventLocationEnableScanning)
+        boolean scanningPaused = ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo);
+
+        if ((!ApplicationPreferences.applicationEventLocationEnableScanning) || scanningPaused)
             return "";
 
         String provider = "";
@@ -396,6 +401,13 @@ class LocationScanner
             return;
 
         if (location.getAccuracy() > 500)
+            return;
+
+        boolean scanningPaused = ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo);
+        if (scanningPaused)
             return;
 
         synchronized (PPApplication.locationScannerLastLocationMutex) {

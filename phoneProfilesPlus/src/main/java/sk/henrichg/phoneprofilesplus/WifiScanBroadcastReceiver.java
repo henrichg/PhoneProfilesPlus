@@ -21,7 +21,11 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             return;
 
         if (ApplicationPreferences.prefForceOneWifiScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
-            if (!ApplicationPreferences.applicationEventWifiEnableScanning)
+            boolean scanningPaused = ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2") &&
+                    GlobalUtils.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo);
+            if ((!ApplicationPreferences.applicationEventWifiEnableScanning) || scanningPaused)
                 // scanning is disabled
                 return;
         }

@@ -164,6 +164,12 @@ class MobileCellsListener extends PhoneStateListener {
         if (cellInfo == null)
             return;
 
+        boolean scanningPaused = ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo);
+        if (scanningPaused)
+            return;
 
         final Context appContext = context.getApplicationContext();
         //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
@@ -222,6 +228,13 @@ class MobileCellsListener extends PhoneStateListener {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.onServiceStateChanged", "******** ### *******");
 
         if (serviceState == null)
+            return;
+
+        boolean scanningPaused = ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo);
+        if (scanningPaused)
             return;
 
         final Context appContext = context.getApplicationContext();
@@ -338,6 +351,13 @@ class MobileCellsListener extends PhoneStateListener {
         if (location == null)
             return;
 
+        boolean scanningPaused = ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo);
+        if (scanningPaused)
+            return;
+
         final Context appContext = context.getApplicationContext();
         //PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);
         //final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -392,8 +412,12 @@ class MobileCellsListener extends PhoneStateListener {
     }
 
     void rescanMobileCells() {
-        //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
-        if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
+        boolean scanningPaused = ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo);
+
+        if ((ApplicationPreferences.applicationEventMobileCellEnableScanning && (!scanningPaused)) ||
                 PPApplication.mobileCellsForceStart || PPApplication.mobileCellsRegistraitonForceStart) {
 
 //            PPApplicationStatic.logE("[TEST BATTERY] MobileCellsListener.rescanMobileCells", "******** ### *******");

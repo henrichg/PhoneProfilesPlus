@@ -25,6 +25,13 @@ class OrientationScanner implements SensorEventListener {
         if (PhoneProfilesService.getInstance() == null)
             return;
 
+        boolean scanningPaused = ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2") &&
+                GlobalUtils.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo);
+        if (scanningPaused)
+            return;
+
         final Context appContext = PhoneProfilesService.getInstance().getApplicationContext();
 
         final int sensorType = event.sensor.getType();

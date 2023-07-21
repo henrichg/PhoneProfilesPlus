@@ -380,8 +380,17 @@ class EventPreferencesTime extends EventPreferences {
                     //}
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    }
                     //titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();

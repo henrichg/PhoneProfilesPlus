@@ -88,6 +88,14 @@ class EventPreferencesLocation extends EventPreferences {
                 else
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
                     descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                } else {
+                    boolean scanningPaused = ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + "<br>";
+                    }
                 }
 
                 String selectedLocations;// = "";
@@ -158,8 +166,17 @@ class EventPreferencesLocation extends EventPreferences {
                     }
                 }
                 else {
-                    summary =  context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
+                    boolean scanningPaused = ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2") &&
+                            GlobalUtils.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo);
+                    if (scanningPaused) {
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
+                    } else {
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
+                    }
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -353,54 +370,63 @@ class EventPreferencesLocation extends EventPreferences {
                             eventsHandler.notAllowedLocation = true;
                         }
                     } else {
-                        if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
-                            boolean transitionsUpdated;
-                            synchronized (PPApplication.locationScannerMutex) {
-                                transitionsUpdated = PPApplication.locationScannerTransitionsUpdated;
-                            }
-                            if (transitionsUpdated) {
-                                String[] splits = _geofences.split("\\|");
-                                boolean[] passed = new boolean[splits.length];
 
-                                int i = 0;
-                                for (String _geofence : splits) {
-                                    passed[i] = false;
-                                    if (!_geofence.isEmpty()) {
+                        boolean scanningPaused = ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2") &&
+                                GlobalUtils.isNowTimeBetweenTimes(
+                                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                                        ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo);
 
-                                        int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
-                                        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-                                            passed[i] = true;
-                                        }
-                                    }
-                                    ++i;
+                        if (!scanningPaused) {
+
+                            if ((PhoneProfilesService.getInstance() != null) && (PPApplication.locationScanner != null)) {
+                                boolean transitionsUpdated;
+                                synchronized (PPApplication.locationScannerMutex) {
+                                    transitionsUpdated = PPApplication.locationScannerTransitionsUpdated;
                                 }
+                                if (transitionsUpdated) {
+                                    String[] splits = _geofences.split("\\|");
+                                    boolean[] passed = new boolean[splits.length];
 
-                                if (_whenOutside) {
-                                    // all locations must not be passed
-                                    eventsHandler.locationPassed = true;
-                                    for (boolean pass : passed) {
-                                        if (pass) {
-                                            eventsHandler.locationPassed = false;
-                                            break;
+                                    int i = 0;
+                                    for (String _geofence : splits) {
+                                        passed[i] = false;
+                                        if (!_geofence.isEmpty()) {
+
+                                            int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
+                                            if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
+                                                passed[i] = true;
+                                            }
+                                        }
+                                        ++i;
+                                    }
+
+                                    if (_whenOutside) {
+                                        // all locations must not be passed
+                                        eventsHandler.locationPassed = true;
+                                        for (boolean pass : passed) {
+                                            if (pass) {
+                                                eventsHandler.locationPassed = false;
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        // one location must be passed
+                                        eventsHandler.locationPassed = false;
+                                        for (boolean pass : passed) {
+                                            if (pass) {
+                                                eventsHandler.locationPassed = true;
+                                                break;
+                                            }
                                         }
                                     }
-                                } else {
-                                    // one location must be passed
-                                    eventsHandler.locationPassed = false;
-                                    for (boolean pass : passed) {
-                                        if (pass) {
-                                            eventsHandler.locationPassed = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            else
+                                } else
+                                    eventsHandler.notAllowedLocation = true;
+
+                            } else {
                                 eventsHandler.notAllowedLocation = true;
-
-                        } else {
-                            eventsHandler.notAllowedLocation = true;
-                        }
+                            }
+                        } else
+                            eventsHandler.locationPassed = false;
                     }
                 }
 
