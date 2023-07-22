@@ -51,8 +51,8 @@
     <color name="tabTargetHelpTitleTextColor">#FFFFFF</color>
     <color name="tabTargetHelpDescriptionTextColor">#FFFFFF</color>
 
-    <color name="fastScrollTrackPP">#EFEFEF</color>
-    <color name="fastScrollThumbInactivePP">#AFAFAF</color>
+    <color name="fastScrollTrackPP">#DFDFDF</color>
+    <color name="fastScrollThumbInactivePP">#A35E19</color>
     <color name="fastScrollThumbPP">#A35E19</color>
     <color name="fastScrollPopupBackgroundPP">#A35E19</color>
     <color name="fastScrollPopupTextPP">#FFFFFF</color>

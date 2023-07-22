@@ -47,8 +47,8 @@
     <color name="tabTargetHelpTitleTextColor">#000000</color>
     <color name="tabTargetHelpDescriptionTextColor">#000000</color>
 
-    <color name="fastScrollTrackPP">#272727</color>
-    <color name="fastScrollThumbInactivePP">#606060</color>
+    <color name="fastScrollTrackPP">#303030</color>
+    <color name="fastScrollThumbInactivePP">#f8b367</color>
     <color name="fastScrollThumbPP">#f8b367</color>
     <color name="fastScrollPopupBackgroundPP">#f8b367</color>
     <color name="fastScrollPopupTextPP">#FFFFFF</color>
