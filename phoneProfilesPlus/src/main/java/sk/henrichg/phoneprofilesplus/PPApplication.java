@@ -1465,7 +1465,7 @@ public class PPApplication extends Application
                         serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                        PPApplicationStatic.logE("[START_PP_SERVICE] PPApplication.startPPServiceWhenNotStarted", "(1)");
-                        PPApplicationStatic.startPPService(appContext, serviceIntent);
+                        PPApplicationStatic.startPPService(appContext, serviceIntent, true);
                     }
                     //}
                 }

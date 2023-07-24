@@ -92,7 +92,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                                PPApplicationStatic.logE("[START_PP_SERVICE] BootUpReceiver.onReceive", "xxx");
-                                PPApplicationStatic.startPPService(appContext, serviceIntent);
+                                PPApplicationStatic.startPPService(appContext, serviceIntent, true);
                             } else {
                                 // start events handler
 
@@ -130,7 +130,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 }
                             }
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                            PPApplicationStatic.exitApp(false, appContext, dataWrapper, null, false, true);
+                            PPApplicationStatic.exitApp(false, appContext, dataWrapper, null, false, true, false);
                         }
 
                     } catch (Exception e) {

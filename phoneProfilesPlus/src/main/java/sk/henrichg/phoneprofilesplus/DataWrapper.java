@@ -2203,7 +2203,7 @@ public class DataWrapper {
                             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                    PPApplicationStatic.logE("[START_PP_SERVICE] DataWrapper.restartEventsWithAlert", "xxx");
-                            PPApplicationStatic.startPPService(context, serviceIntent);
+                            PPApplicationStatic.startPPService(context, serviceIntent, true);
                         } else {
                             if (!ApplicationPreferences.applicationApplicationProfileActivationNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationProfileActivationNotificationVibrate) {
                                 PlayRingingNotification.playNotificationSound(

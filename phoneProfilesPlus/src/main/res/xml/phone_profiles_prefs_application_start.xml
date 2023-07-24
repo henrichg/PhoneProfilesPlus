@@ -4,11 +4,11 @@
     app:key="categoryApplicationStart"
     app:title="@string/phone_profiles_pref_category_start">
 
-    <SwitchPreferenceCompat
-        app:key="applicationStartOnBoot"
-        app:title="@string/phone_profiles_pref_applicationStartOnBoot"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <SwitchPreferenceCompat-->
+<!--        app:key="applicationStartOnBoot"-->
+<!--        app:title="@string/phone_profiles_pref_applicationStartOnBoot"-->
+<!--        app:defaultValue="true"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <Preference
         app:key="applicationAutoStartManager"
         app:title="@string/phone_profiles_pref_systemAutoStartManager"

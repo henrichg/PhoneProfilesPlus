@@ -688,7 +688,7 @@ public class EditorActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //            PPApplicationStatic.logE("[START_PP_SERVICE] EditorActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplicationStatic.startPPService(this, serviceIntent);
+            PPApplicationStatic.startPPService(this, serviceIntent, true);
             //return true;
         } /*else {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
@@ -1322,18 +1322,7 @@ public class EditorActivity extends AppCompatActivity
                     getString(R.string.alert_button_no),
                     null, null,
                     (dialog1, which) -> {
-                        //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(getApplicationContext(), true);
-                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                        Editor editor = settings.edit();
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                        editor.apply();
-                        ApplicationPreferences.applicationEventNeverAskForEnableRun(getApplicationContext());
-                        ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
-                        ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
-
-                        PPApplicationStatic.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true);
+                        PPApplicationStatic.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true, true);
                     },
                     null,
                     null,
@@ -4453,7 +4442,7 @@ public class EditorActivity extends AppCompatActivity
             EditorActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (_dataWrapper != null) {
-                    PPApplicationStatic.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true);
+                    PPApplicationStatic.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true, false);
 
                     //File sd = Environment.getExternalStorageDirectory();
                     //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
@@ -4557,7 +4546,7 @@ public class EditorActivity extends AppCompatActivity
                     serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
 //                    PPApplicationStatic.logE("[START_PP_SERVICE] EditorActivity.doImportData", "xxx");
-                    PPApplicationStatic.startPPService(activity, serviceIntent);
+                    PPApplicationStatic.startPPService(activity, serviceIntent, true);
                 }
 
                 if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/))) {

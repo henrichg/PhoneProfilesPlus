@@ -280,7 +280,7 @@ class MobileCellsScanner {
             try {
                 // start registration service
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
-                PPApplicationStatic.startPPService(context, serviceIntent);
+                PPApplicationStatic.startPPService(context, serviceIntent, false);
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }

@@ -41,19 +41,8 @@ public class ExitApplicationActivity extends AppCompatActivity {
 
                     Context appContext = getApplicationContext();
 
-                    //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
-                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(appContext);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
-                    editor.apply();
-                    ApplicationPreferences.applicationEventNeverAskForEnableRun(appContext);
-                    ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
-                    ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
-
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
-                    PPApplicationStatic.exitApp(true, appContext, dataWrapper, this, false, true);
+                    PPApplicationStatic.exitApp(true, appContext, dataWrapper, this, false, true, true);
 
                     // close activities
                     Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);

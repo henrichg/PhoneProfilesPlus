@@ -9,6 +9,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -602,12 +603,23 @@ class PPApplicationStatic {
 
     //--------------------------------------------------------------
 
-    static void startPPService(Context context, Intent serviceIntent) {
+    static void startPPService(Context context, Intent serviceIntent, boolean enableStartOnBoot) {
         //if (isPPService)
         //    PhoneProfilesService.startForegroundNotification = true;
         /*if (Build.VERSION.SDK_INT < 26)
             context.getApplicationContext().startService(serviceIntent);
         else {*/
+
+        Log.e("PPApplicationStatic.startPPService", "*********** enableStartOnBoot="+enableStartOnBoot);
+        if (enableStartOnBoot) {
+            SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, true);
+            editor.apply();
+
+            ApplicationPreferences.applicationStartOnBoot(context);
+        }
+
             boolean notificationsEnbaled = true;
             if (Build.VERSION.SDK_INT >= 33) {
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -2087,7 +2099,7 @@ class PPApplicationStatic {
     */
 
     private static void _exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               final boolean shutdown, final boolean removeNotifications) {
+                               final boolean shutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             PPApplicationStatic.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
@@ -2245,6 +2257,26 @@ class PPApplicationStatic {
             PPApplicationStatic.logE("PPApplication._exitApp", "set application started = false");
             setApplicationStarted(context, false);
 
+            Log.e("PPApplicationStatic.startPPService", "*********** exitByUser="+exitByUser);
+            if (exitByUser) {
+//TODO
+                //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
+                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_G1_PERMISSION, false);
+
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, false);
+                editor.apply();
+
+                ApplicationPreferences.applicationEventNeverAskForEnableRun(context);
+                ApplicationPreferences.applicationNeverAskForGrantRoot(context);
+                ApplicationPreferences.applicationNeverAskForGrantG1Permission(context);
+
+                ApplicationPreferences.applicationStartOnBoot(context);
+            }
+
         } catch (Exception e) {
             //Log.e("PPApplication._exitApp", Log.getStackTraceString(e));
             PPApplicationStatic.recordException(e);
@@ -2252,7 +2284,7 @@ class PPApplicationStatic {
     }
 
     static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
-                                 final boolean shutdown, boolean removeNotifications) {
+                                 final boolean fromShutdown, final boolean removeNotifications, final boolean exitByUser) {
         try {
             if (useHandler) {
                 //PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
@@ -2281,7 +2313,7 @@ class PPApplicationStatic {
                                 } catch (Exception ignored) {
                                 }
                             }
-                            _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
+                            _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
 
                         } catch (Exception e) {
 //                            Log.e("[IN_EXECUTOR] PPApplication.exitApp", Log.getStackTraceString(e));
@@ -2300,7 +2332,7 @@ class PPApplicationStatic {
                 PPApplication.basicExecutorPool.submit(runnable);
             }
             else
-                _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
+                _exitApp(context, dataWrapper, activity, fromShutdown, removeNotifications, exitByUser);
         } catch (Exception e) {
             recordException(e);
         }
