@@ -273,18 +273,36 @@ public class BrightnessDialogPreferenceFragment extends PreferenceDialogFragment
 
     void enableViews() {
         if (Permissions.checkScreenBrightness(context, null)) {
-            valueText.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
-            seekBar.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
-            automaticChBox.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-            changeLevelChBox.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
-            //if (preference.adaptiveAllowed) {
+            if (preference.forBrightnessSensor == 0) {
+                changeLevelChBox.setVisibility(View.VISIBLE);
+
+                valueText.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
+                seekBar.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
+                automaticChBox.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+                changeLevelChBox.setEnabled(/*(preference.adaptiveAllowed || preference.automatic == 0) &&*/ (preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+                //if (preference.adaptiveAllowed) {
                 //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
                 levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
                 //} else
                 //    levelText.setVisibility(View.GONE);
-            //}
-            levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
+                //}
+                levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
+            } else {
+                changeLevelChBox.setVisibility(View.GONE);
+
+                valueText.setEnabled(preference.changeLevel != 0);
+                seekBar.setEnabled(preference.changeLevel != 0);
+                automaticChBox.setEnabled(true);
+                levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
+                levelText.setEnabled((preference.automatic != 0) && (preference.changeLevel != 0));
+            }
         } else {
+            if (preference.forBrightnessSensor == 0) {
+                changeLevelChBox.setVisibility(View.VISIBLE);
+            } else {
+                changeLevelChBox.setVisibility(View.GONE);
+            }
+
             valueText.setEnabled(false);
             seekBar.setEnabled(false);
             automaticChBox.setEnabled(false);

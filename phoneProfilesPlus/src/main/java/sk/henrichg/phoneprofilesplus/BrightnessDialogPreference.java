@@ -20,6 +20,7 @@ public class BrightnessDialogPreference extends DialogPreference {
     //int sharedProfile;
     //int disableSharedProfile;
     int changeLevel;
+    final int forBrightnessSensor;
 
     //private final int defaultValue = 50;
     final int maximumValue = 100;
@@ -56,6 +57,9 @@ public class BrightnessDialogPreference extends DialogPreference {
                 R.styleable.BrightnessDialogPreference_bDisableSharedProfile, 0);*/
         changeLevel = typedArray.getInteger(
                 R.styleable.PPBrightnessDialogPreference_bChangeLevel, 1);
+
+        forBrightnessSensor = typedArray.getInteger(
+                R.styleable.PPBrightnessDialogPreference_bForBrightnessSensor, 0);
 
         typedArray.recycle();
 
@@ -145,7 +149,7 @@ public class BrightnessDialogPreference extends DialogPreference {
     private void setSummaryBDP()
     {
         String prefVolumeDataSummary;
-        if (noChange == 1)
+        if ((forBrightnessSensor == 0) && (noChange == 1))
             prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
         /*else
         if (sharedProfile == 1)
