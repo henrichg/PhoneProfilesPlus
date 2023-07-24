@@ -368,7 +368,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 ProfileListNotification.drawNotification(true, getApplicationContext());
                 DrawOverAppsPermissionNotification.showNotification(getApplicationContext(), true);
                 IgnoreBatteryOptimizationNotification.showNotification(getApplicationContext(), true);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, getApplicationContext());
+                PPAppNotification.drawNotification(true, getApplicationContext());
             }
         }
         else {
@@ -447,7 +447,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         PPApplicationStatic.loadApplicationPreferences(getApplicationContext());
 
-        sk.henrichg.phoneprofilesplus.PPAppNotification.forceDrawNotificationFromSettings(appContext);
+        PPAppNotification.forceDrawNotificationFromSettings(appContext);
 
         // !! must be after PPApplication.loadApplicationPreferences()
         if (ApplicationPreferences.notificationProfileListDisplayNotification)

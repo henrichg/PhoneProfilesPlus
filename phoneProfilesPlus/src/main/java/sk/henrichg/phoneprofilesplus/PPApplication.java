@@ -1627,7 +1627,7 @@ public class PPApplication extends Application
 
         if (alsoNotification) {
 //            PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.forceUpdateGUI", "call of PPAppNotification.drawNotification");
-            sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(true, context);
+            PPAppNotification.drawNotification(true, context);
         }
     }
 
@@ -1697,7 +1697,7 @@ public class PPApplication extends Application
                     PPApplication.forceUpdateGUI(appContext, true, false, false);
                     if (longDelay) {
 //                        PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (1)", "call of PPAppNotification.forceDrawNotification");
-                        sk.henrichg.phoneprofilesplus.PPAppNotification.forceDrawNotification(appContext);
+                        PPAppNotification.forceDrawNotification(appContext);
                         ProfileListNotification.forceDrawNotification(appContext);
                     }
 
@@ -1759,7 +1759,7 @@ public class PPApplication extends Application
             if (!longDelay) {
 //                PPApplicationStatic.logE("[PPP_NOTIFICATION] PPApplication.updateGUI (2)", "call of PPAppNotification.drawNotification");
                 ProfileListNotification.drawNotification(false, context);
-                sk.henrichg.phoneprofilesplus.PPAppNotification.drawNotification(false, context);
+                PPAppNotification.drawNotification(false, context);
             }
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);

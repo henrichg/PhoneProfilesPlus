@@ -18,7 +18,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
             String action = intent.getAction();
             if (action != null) {
 
-                if (action.equals(sk.henrichg.phoneprofilesplus.PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
+                if (action.equals(PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
 
 //                    PPApplicationStatic.logE("[EXECUTOR_CALL]  ***** StartLauncherFromNotificationReceiver.onReceive", "schedule");
 
