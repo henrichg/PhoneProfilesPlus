@@ -1321,9 +1321,7 @@ public class EditorActivity extends AppCompatActivity
                     getString(R.string.alert_button_yes),
                     getString(R.string.alert_button_no),
                     null, null,
-                    (dialog1, which) -> {
-                        PPApplicationStatic.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true, true);
-                    },
+                    (dialog1, which) -> PPApplicationStatic.exitApp(true, getApplicationContext(), getDataWrapper(), EditorActivity.this, false, true, true),
                     null,
                     null,
                     null,

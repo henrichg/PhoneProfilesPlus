@@ -2259,7 +2259,6 @@ class PPApplicationStatic {
 
             Log.e("PPApplicationStatic.startPPService", "*********** exitByUser="+exitByUser);
             if (exitByUser) {
-//TODO
                 //IgnoreBatteryOptimizationNotification.setShowIgnoreBatteryOptimizationNotificationOnStart(appContext, true);
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
                 SharedPreferences.Editor editor = settings.edit();

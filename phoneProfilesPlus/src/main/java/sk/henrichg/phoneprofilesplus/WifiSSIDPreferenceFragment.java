@@ -631,7 +631,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                     fragment.progressLinearLayout.setVisibility(View.VISIBLE);
 
                     if (fragment.mDialog != null) {
-                        Button positive = ((AlertDialog) fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
                         if (positive != null) positive.setEnabled(false);
                     }
                 }
@@ -770,7 +770,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
                     fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
 
                     if (fragment.mDialog != null) {
-                        Button positive = ((AlertDialog) fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
                         if (positive != null) positive.setEnabled(true);
                     }
                 }

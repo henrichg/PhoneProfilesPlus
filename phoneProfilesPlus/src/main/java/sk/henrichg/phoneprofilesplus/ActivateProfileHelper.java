@@ -3078,7 +3078,6 @@ class ActivateProfileHelper {
 
                         if (canChangeZenMode(appContext)) {
 
-                            //TODO
                             if (linkUnlinkVolumes == PhoneCallsListener.LINKMODE_NONE)
                                 // call this only when it is not called for link unlink
                                 // (from PhoneCallListener)

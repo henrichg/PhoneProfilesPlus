@@ -652,7 +652,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                     fragment.progressLinearLayout.setVisibility(View.VISIBLE);
 
                     if (fragment.mDialog != null) {
-                        Button positive = ((AlertDialog) fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
                         if (positive != null) positive.setEnabled(false);
                     }
                 }
@@ -812,7 +812,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                     fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
 
                     if (fragment.mDialog != null) {
-                        Button positive = ((AlertDialog) fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        Button positive = (fragment.mDialog).getButton(DialogInterface.BUTTON_POSITIVE);
                         if (positive != null) positive.setEnabled(true);
                     }
                 }
