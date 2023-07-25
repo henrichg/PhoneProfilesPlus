@@ -424,7 +424,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -494,7 +494,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -564,7 +564,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -634,7 +634,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -700,13 +700,14 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         }
                     }
                 } else {
+//                    Log.e("IconWidgetProvider._onUpdate", "**** applicationWidgetIconLayoutHeight="+applicationWidgetIconLayoutHeight);
                     if (applicationWidgetIconLayoutHeight.equals("0")) {
                         configuredHeight = context.getResources().getDimension(R.dimen.icon_widget_height);
                         //configuredHeight = GlobalGUIRoutines.getRawDimensionInDp(context.getResources(), R.dimen.icon_widget_height);
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -776,7 +777,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -796,6 +797,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             else
                                 remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_no_profile_name_dn);
                         } else {
+//                            Log.e("IconWidgetProvider._onUpdate", "**** _endOfActivationType="+profile._endOfActivationType);
                             if ((profile._endOfActivationType == 0) &&
                                     (profile._duration > 0) &&
                                     (applicationWidgetIconShowProfileDuration)) {
@@ -828,16 +830,24 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             } else {
                                 if (applicationWidgetIconFillBackground ||
                                         (applicationWidgetIconFillBackgroundHeight &&
-                                                applicationWidgetIconFillBackgroundWidth))
+                                                applicationWidgetIconFillBackgroundWidth)) {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_one_line_text_dn);
+//                                    Log.e("IconWidgetProvider._onUpdate", "**** layout 1 ****");
+                                }
                                 else
-                                if (applicationWidgetIconFillBackgroundHeight)
+                                if (applicationWidgetIconFillBackgroundHeight) {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_height_one_line_text_dn);
+//                                    Log.e("IconWidgetProvider._onUpdate", "**** layout 2 ****");
+                                }
                                 else
-                                if (applicationWidgetIconFillBackgroundWidth)
+                                if (applicationWidgetIconFillBackgroundWidth) {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_fill_width_one_line_text_dn);
-                                else
+//                                    Log.e("IconWidgetProvider._onUpdate", "**** layout 3 ****");
+                                }
+                                else {
                                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.widget_icon_higher_one_line_text_dn);
+//                                    Log.e("IconWidgetProvider._onUpdate", "**** layout 4 ****");
+                                }
                             }
                         }
                     } else if (applicationWidgetIconLayoutHeight.equals("2")) {
@@ -846,7 +856,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -917,7 +927,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
 //                        Log.e("IconWidgetProvider._onUpdate", "configuredHeight="+configuredHeight);
                         if ((!applicationWidgetIconBackground.equals(GlobalGUIRoutines.OPAQUENESS_LIGHTNESS_0)) ||
                                 applicationWidgetIconShowBorder) {
-                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
+//                            Log.e("IconWidgetProvider._onUpdate", "**** fill ****");
                             if ((maxHeight < configuredHeight))
                                 applicationWidgetIconFillBackgroundHeight = true;
                             if ((maxWidth < configuredHeight))
@@ -1200,6 +1210,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                         //if ((appContext != null) && (appWidgetManager != null)) {
                             _onUpdate(appContext, appWidgetManager, ids);
+//                        This not working. This uses one row profie list provider. Why???
+//                        Intent updateIntent = new Intent();
+//                        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//                        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+//                        context.sendBroadcast(updateIntent);
                         //}
                     }; //);
                     PPApplicationStatic.createDelayedGuiExecutor();
