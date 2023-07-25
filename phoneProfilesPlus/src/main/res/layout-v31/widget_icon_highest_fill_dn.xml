@@ -60,6 +60,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="20dp"
             android:fontFamily="sans-serif-condensed"
             android:text="@string/profile_name_default"
             android:maxLines="2"
