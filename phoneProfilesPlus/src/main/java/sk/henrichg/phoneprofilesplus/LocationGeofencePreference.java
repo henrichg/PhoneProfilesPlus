@@ -146,7 +146,7 @@ public class LocationGeofencePreference extends DialogPreference {
             }*/
             else {
                 String value = DatabaseHandler.getInstance(context.getApplicationContext()).getCheckedGeofences();
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _geofence : splits) {
                     if (_geofence.isEmpty()) {
                         setSummary(R.string.applications_multiselect_summary_text_not_selected);

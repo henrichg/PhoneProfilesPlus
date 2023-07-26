@@ -77,7 +77,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                     }
                 } else
                     contactList.addAll(localContactList);
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 for (Contact contact : contactList) {
                     if (withoutNumbers || (contact.phoneId != 0)) {
                         contact.checked = false;
@@ -120,7 +120,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
         if (Permissions.checkContacts(context)) {
             if (!value.isEmpty()) {
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length == 1) {
                     boolean found = false;
                     String[] projection = new String[]{

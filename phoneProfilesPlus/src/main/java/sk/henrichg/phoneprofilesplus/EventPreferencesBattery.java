@@ -74,7 +74,7 @@ class EventPreferencesBattery extends EventPreferences {
 
         String[] splits;
         if (this._plugged != null)
-            splits = this._plugged.split("\\|");
+            splits = this._plugged.split(StringConstants.STR_SPLIT_REGEX);
         else
             splits = new String[]{};
         Set<String> set = new HashSet<>(Arrays.asList(splits));
@@ -138,15 +138,15 @@ class EventPreferencesBattery extends EventPreferences {
                 descr = descr + ": <b>" + getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context) + "</b>";
 
                 if (this._powerSaveMode)
-                    descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT+"<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context) + "</b>";
                 else {
-                    descr = descr + " • " + context.getString(R.string.pref_event_battery_charging);
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.pref_event_battery_charging);
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
                     descr = descr + ": <b>" + getColorForChangedPreferenceValue(charging[this._charging], disabled, context) + "</b>";
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
-                        String[] splits = this._plugged.split("\\|");
+                        String[] splits = this._plugged.split(StringConstants.STR_SPLIT_REGEX);
                         List<String> pluggedValues = Arrays.asList(context.getResources().getStringArray(R.array.eventBatteryPluggedValues));
                         String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);
                         //selectedPlugged = "";
@@ -164,7 +164,7 @@ class EventPreferencesBattery extends EventPreferences {
                         }
                         selectedPlugged = value.toString();
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_battery_plugged) + ": <b>" + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + "</b>";
                 }
             }
         }
@@ -489,7 +489,7 @@ class EventPreferencesBattery extends EventPreferences {
                         eventsHandler.batteryPassed = eventsHandler.batteryPassed && (!isCharging);
                     if (/*(!sensorType.equals(EventsHandler.SENSOR_TYPE_BATTERY)) &&*/
                             (_plugged != null) && (!_plugged.isEmpty())) {
-                        String[] splits = _plugged.split("\\|");
+                        String[] splits = _plugged.split(StringConstants.STR_SPLIT_REGEX);
                         if (splits.length > 0) {
                             boolean passed = false;
                             for (String split : splits) {

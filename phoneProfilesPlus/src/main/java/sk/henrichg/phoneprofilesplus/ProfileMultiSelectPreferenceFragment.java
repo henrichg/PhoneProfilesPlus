@@ -98,7 +98,7 @@ public class ProfileMultiSelectPreferenceFragment extends PreferenceDialogFragme
 
             if (notForUnselect) {
                 if (!preference.value.isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
+                    String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         Profile profile = preference.dataWrapper.getProfileById(Long.parseLong(split), false, false, false);
                         if (profile != null)

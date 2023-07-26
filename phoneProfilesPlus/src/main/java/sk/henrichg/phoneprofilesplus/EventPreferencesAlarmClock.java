@@ -100,7 +100,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                    String[] splits = this._applications.split("\\|");
+                    String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
                         String packageName = Application.getPackageName(splits[0]);
                         String activityName = Application.getActivityName(splits[0]);
@@ -125,7 +125,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
 
-                descr = descr + " • ";
+                descr = descr + StringConstants.STR_DOT;
                 descr = descr + context.getString(R.string.event_preferences_alarm_clock_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
             }
         }
@@ -417,7 +417,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             // applications are not configured
             return false;
 
-        String[] splits = this._applications.split("\\|");
+        String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             // get only package name = remove activity
             String packageName = Application.getPackageName(split);

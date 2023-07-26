@@ -96,7 +96,7 @@ class DatabaseHandlerImportExport {
 
                         String value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_RINGTONE));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -122,7 +122,7 @@ class DatabaseHandlerImportExport {
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_NOTIFICATION));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -147,7 +147,7 @@ class DatabaseHandlerImportExport {
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_MEDIA));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -172,7 +172,7 @@ class DatabaseHandlerImportExport {
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ALARM));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -197,7 +197,7 @@ class DatabaseHandlerImportExport {
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_SYSTEM));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -222,7 +222,7 @@ class DatabaseHandlerImportExport {
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_VOICE));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -247,7 +247,7 @@ class DatabaseHandlerImportExport {
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_DTMF));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -273,7 +273,7 @@ class DatabaseHandlerImportExport {
                         //if (Build.VERSION.SDK_INT >= 26) {
                             value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_ACCESSIBILITY));
                             try {
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 int volume = Integer.parseInt(splits[0]);
                                 float fVolume = volume;
                                 float percentage;
@@ -299,7 +299,7 @@ class DatabaseHandlerImportExport {
 
                         value = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_VOLUME_BLUETOOTH_SCO));
                         try {
-                            String[] splits = value.split("\\|");
+                            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                             int volume = Integer.parseInt(splits[0]);
                             float fVolume = volume;
                             float percentage;
@@ -446,7 +446,7 @@ class DatabaseHandlerImportExport {
                     }
 
                     String tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE));
-                    String[] splits = tone.split("\\|");
+                    String[] splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     String ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -471,7 +471,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE_SIM1));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -496,7 +496,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_RINGTONE_SIM2));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -521,7 +521,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -546,7 +546,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM1));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -571,7 +571,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_NOTIFICATION_SIM2));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -596,7 +596,7 @@ class DatabaseHandlerImportExport {
                         }
                     }
                     tone = cursorImportDB.getString(cursorImportDB.getColumnIndexOrThrow(DatabaseHandler.KEY_SOUND_ALARM));
-                    splits = tone.split("\\|");
+                    splits = tone.split(StringConstants.STR_SPLIT_REGEX);
                     ringtone = splits[0];
                     if (!ringtone.isEmpty()) {
                         if (ringtone.contains("content://media/external")) {
@@ -864,7 +864,7 @@ class DatabaseHandlerImportExport {
                                     if (columnNamesExportedDB[i].equals(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE)) {
                                         String fkProfiles = cursorExportedDB.getString(i);
                                         if (!fkProfiles.isEmpty()) {
-                                            String[] splits = fkProfiles.split("\\|");
+                                            String[] splits = fkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                                             StringBuilder newFkProfiles = new StringBuilder();
                                             for (String split : splits) {
                                                 long fkProfile = Long.parseLong(split);

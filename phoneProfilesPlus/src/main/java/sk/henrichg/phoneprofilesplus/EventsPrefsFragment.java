@@ -44,10 +44,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
     //static boolean forceStart;
 
-    private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
-    private static final String PRF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
-    private static final String PRF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
-    private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
+    private static final String PREF_GRANT_PERMISSIONS = "eventGrantPermissions";
+    private static final String PREF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
+    private static final String PREF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
+    private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
     private static final int RESULT_LOCATION_APP_SETTINGS = 1983;
@@ -1515,7 +1515,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled some sensor
             if (event.isEnabledSomeSensor(context)) {
-                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_SOME_SENSOR);
+                Preference preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null)
@@ -1523,12 +1523,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else {
-                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_SOME_SENSOR);
+                Preference preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
-                        preference.setKey(PRF_NOT_ENABLED_SOME_SENSOR);
+                        preference.setKey(PREF_NOT_ENABLED_SOME_SENSOR);
                         preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
@@ -1551,7 +1551,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not some permissions
             if (Permissions.checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL).size() == 0) {
-                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                Preference preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null)
@@ -1559,12 +1559,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else {
-                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                Preference preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
-                        preference.setKey(PRF_GRANT_PERMISSIONS);
+                        preference.setKey(PREF_GRANT_PERMISSIONS);
                         preference.setIconSpaceReserved(false);
                         if (event._id > 0)
                             preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
@@ -1608,7 +1608,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         accessibilityEnabled = 0;
                 }
             }*/
-            Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+            Preference preference = prefMng.findPreference(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (accessibilityEnabled == 1) {
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
@@ -1621,7 +1621,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
-                        preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                        preference.setKey(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                         preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
@@ -1671,7 +1671,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not is runnable
             if (event.isRunnable(context, false)) {
-                preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null)
@@ -1679,12 +1679,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else {
-                preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
                 if (preference == null) {
                     PreferenceScreen preferenceCategory = findPreference(rootScreen);
                     if (preferenceCategory != null) {
                         preference = new Preference(context);
-                        preference.setKey(PRF_NOT_IS_RUNNABLE);
+                        preference.setKey(PREF_NOT_IS_RUNNABLE);
                         preference.setIconSpaceReserved(false);
                         preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                         preference.setLayoutResource(R.layout.mp_preference_material_widget);
@@ -1708,25 +1708,25 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+            Preference preference = prefMng.findPreference(PREF_NOT_IS_RUNNABLE);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference(rootScreen);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = prefMng.findPreference(PRF_NOT_ENABLED_SOME_SENSOR);
+            preference = prefMng.findPreference(PREF_NOT_ENABLED_SOME_SENSOR);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference(rootScreen);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+            preference = prefMng.findPreference(PREF_GRANT_PERMISSIONS);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference(rootScreen);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+            preference = prefMng.findPreference(PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference(rootScreen);
                 if (preferenceCategory != null)

@@ -432,10 +432,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             intentActionEdit.setEnabled(false);
 
             if (ppIntent._categories != null) {
-                String categoryValue = ppIntent._categories.replaceAll("\\|", "\n");
+                String categoryValue = ppIntent._categories.replaceAll(StringConstants.STR_SPLIT_REGEX, "\n");
                 categoryTextView.setText(categoryValue);
                 List<String> stringList = new ArrayList<>(Arrays.asList(categoryArray));
-                String[] splits = ppIntent._categories.split("\\|");
+                String[] splits = ppIntent._categories.split(StringConstants.STR_SPLIT_REGEX);
                 for (String category : splits) {
                     int i = stringList.indexOf(category);
                     if (i != -1) {
@@ -445,10 +445,10 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             }
 
             if (ppIntent._flags != null) {
-                String flagsValue = ppIntent._flags.replaceAll("\\|", "\n");
+                String flagsValue = ppIntent._flags.replaceAll(StringConstants.STR_SPLIT_REGEX, "\n");
                 flagsTextView.setText(flagsValue);
                 List<String> stringList = new ArrayList<>(Arrays.asList(flagArray));
-                String[] splits = ppIntent._flags.split("\\|");
+                String[] splits = ppIntent._flags.split(StringConstants.STR_SPLIT_REGEX);
                 for (String flag : splits) {
                     int i = stringList.indexOf(flag);
                     if (i != -1)
@@ -894,7 +894,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                 intent.setType(ppIntent._mimeType);
 
             if ((ppIntent._categories != null) && (!ppIntent._categories.isEmpty())) {
-                String[] splits = ppIntent._categories.split("\\|");
+                String[] splits = ppIntent._categories.split(StringConstants.STR_SPLIT_REGEX);
                 for (String category : splits) {
                     switch (category) {
                         case "CATEGORY_ALTERNATIVE":
@@ -1012,7 +1012,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             }
 
             if ((ppIntent._flags != null) && (!ppIntent._flags.isEmpty())) {
-                String[] splits = ppIntent._flags.split("\\|");
+                String[] splits = ppIntent._flags.split(StringConstants.STR_SPLIT_REGEX);
                 for (String flag : splits) {
                     switch (flag) {
                         case "FLAG_ACTIVITY_BROUGHT_TO_FRONT":

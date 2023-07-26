@@ -56,7 +56,7 @@ class EventPreferencesAccessories extends EventPreferences {
 
         String[] splits;
         if (this._accessoryType != null)
-            splits = this._accessoryType.split("\\|");
+            splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
         else
             splits = new String[]{};
         Set<String> set = new HashSet<>(Arrays.asList(splits));
@@ -98,7 +98,7 @@ class EventPreferencesAccessories extends EventPreferences {
                 descr = descr + context.getString(R.string.event_preferences_peripheral_type) + ": ";
                 String selectedAccessory = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if ((this._accessoryType != null) && !this._accessoryType.isEmpty() && !this._accessoryType.equals("-")) {
-                    String[] splits = this._accessoryType.split("\\|");
+                    String[] splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
                     List<String> accessoryTypeValues = Arrays.asList(context.getResources().getStringArray(R.array.eventAccessoryTypeValues));
                     String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
                     //selectedAccessory = "";
@@ -282,7 +282,7 @@ class EventPreferencesAccessories extends EventPreferences {
             int oldSensorPassed = getSensorPassed();
             if (EventStatic.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!this._accessoryType.isEmpty()) {
-                    String[] splits = this._accessoryType.split("\\|");
+                    String[] splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         int accessoryType = Integer.parseInt(split);
 

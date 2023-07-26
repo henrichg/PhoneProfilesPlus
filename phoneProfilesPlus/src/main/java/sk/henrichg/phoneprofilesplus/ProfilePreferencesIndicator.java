@@ -1495,7 +1495,7 @@ class ProfilePreferencesIndicator {
             // VPN
             if (!profile._deviceVPN.startsWith("0")) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    String[] splits = profile._deviceVPN.split("\\|");
+                    String[] splits = profile._deviceVPN.split(StringConstants.STR_SPLIT_REGEX);
                     boolean enableVPN;
                     try {
                         enableVPN = splits[1].equals("0");
@@ -2282,7 +2282,7 @@ class ProfilePreferencesIndicator {
                 if (!ind.isEmpty()) ind = ind + "-";
         }
         else*/
-            if (!ind.isEmpty()) ind = ind + " • ";
+            if (!ind.isEmpty()) ind = ind + StringConstants.STR_DOT;
 
         ind = ind + preference;
         return ind;

@@ -101,7 +101,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(profile, appContext);
 
             if (profile._deviceRunApplicationChange == 1) {
-                String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm(appContext, split);
                     //RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, split);

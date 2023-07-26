@@ -689,8 +689,8 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    private static final String SCAN_RESULT_COUNT_PREF = "count";
-    private static final String SCAN_RESULT_DEVICE_PREF = "device";
+    private static final String PREF_SCAN_RESULT_COUNT = "count";
+    private static final String PREF_SCAN_RESULT_DEVICE = "device";
 
     //public static void getBoundedDevicesList(Context context)
     static List<BluetoothDeviceData> getBoundedDevicesList(Context context)
@@ -705,12 +705,12 @@ public class BluetoothScanWorker extends Worker {
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_BOUNDED_DEVICES_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, 0);
 
             Gson gson = new Gson();
 
             for (int i = 0; i < count; i++) {
-                String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                     device.configured = true;
@@ -733,13 +733,13 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, boundedDevicesList.size());
+            editor.putInt(PREF_SCAN_RESULT_COUNT, boundedDevicesList.size());
 
             Gson gson = new Gson();
 
             for (int i = 0; i < boundedDevicesList.size(); i++) {
                 String json = gson.toJson(boundedDevicesList.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();
@@ -752,12 +752,12 @@ public class BluetoothScanWorker extends Worker {
             List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, -1);
 
             if (count >= 0) {
                 Gson gson = new Gson();
                 for (int i = 0; i < count; i++) {
-                    String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                    String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                     if (!json.isEmpty()) {
                         BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                         device.scanned = true;
@@ -767,12 +767,12 @@ public class BluetoothScanWorker extends Worker {
             }
 
             preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-            count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+            count = preferences.getInt(PREF_SCAN_RESULT_COUNT, -1);
 
             if (count >= 0) {
                 Gson gson = new Gson();
                 for (int i = 0; i < count; i++) {
-                    String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                    String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                     if (!json.isEmpty()) {
                         BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
                         device.scanned = true;
@@ -794,7 +794,7 @@ public class BluetoothScanWorker extends Worker {
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.clear();
-            editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
 
             editor.apply();
 
@@ -802,7 +802,7 @@ public class BluetoothScanWorker extends Worker {
             editor = preferences.edit();
 
             editor.clear();
-            editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
 
             editor.apply();
         }
@@ -816,12 +816,12 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+            editor.putInt(PREF_SCAN_RESULT_COUNT, scanResults.size());
 
             Gson gson = new Gson();
             for (int i = 0; i < scanResults.size(); i++) {
                 String json = gson.toJson(scanResults.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();
@@ -836,12 +836,12 @@ public class BluetoothScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+            editor.putInt(PREF_SCAN_RESULT_COUNT, scanResults.size());
 
             Gson gson = new Gson();
             for (int i = 0; i < scanResults.size(); i++) {
                 String json = gson.toJson(scanResults.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();

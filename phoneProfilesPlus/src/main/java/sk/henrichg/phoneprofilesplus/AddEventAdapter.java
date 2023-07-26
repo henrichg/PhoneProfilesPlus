@@ -124,9 +124,9 @@ class AddEventAdapter extends BaseAdapter {
 
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        eventName = eventName + "\n" + eventPriority + "[»»]";
+                        eventName = eventName + "\n" + eventPriority + "["+StringConstants.STR_DOUBLE_ARROW+"]";
                     else
-                        eventName = eventName + "\n" + eventPriority + "[»]";
+                        eventName = eventName + "\n" + eventPriority + "["+StringConstants.CHAR_ARROW +"]";
                 }
                 else
                     eventName = eventName + "\n" + eventPriority;
@@ -134,14 +134,14 @@ class AddEventAdapter extends BaseAdapter {
             else {
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        eventName = eventName + "\n" + "[»»]";
+                        eventName = eventName + "\n" + "["+StringConstants.STR_DOUBLE_ARROW+"]";
                     else
-                        eventName = eventName + "\n" + "[»]";
+                        eventName = eventName + "\n" + "["+StringConstants.CHAR_ARROW +"]";
                 }
             }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
-                String[] splits = event._startWhenActivatedProfile.split("\\|");
+                String[] splits = event._startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                 Profile profile;
                 if (splits.length == 1) {
                     profile = dialog.eventListFragment.activityDataWrapper.getProfileById(Long.parseLong(event._startWhenActivatedProfile), false, false, false);

@@ -112,7 +112,7 @@ public class CalendarsMultiSelectDialogPreferenceFragment extends PreferenceDial
 
         //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","value="+value);
         //Log.d("CalendarsMultiSelectDialogPreference.getValueCMSDP","calendarList.size()="+calendarList.size());
-        String[] splits = preference.value.split("\\|");
+        String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
         for (CalendarEvent calendar : _calendarList)
         {
             calendar.checked = false;

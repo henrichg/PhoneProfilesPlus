@@ -72,7 +72,7 @@ public class MobileCellsPreference extends DialogPreference {
         if (value.isEmpty())
             setSummary(R.string.applications_multiselect_summary_text_not_selected);
         else {
-            String[] splits = value.split("\\|");
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             String selectedCells = prefContext.getString(R.string.applications_multiselect_summary_text_selected);
             selectedCells = selectedCells + " " + splits.length;
             setSummary(selectedCells);
@@ -82,7 +82,7 @@ public class MobileCellsPreference extends DialogPreference {
     }
 
     void addCellId(int cellId) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
         boolean found = false;
         for (String cell : splits) {
@@ -101,7 +101,7 @@ public class MobileCellsPreference extends DialogPreference {
     }
 
     void removeCellId(int cellId) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
         value = "";
         StringBuilder _value = new StringBuilder();
@@ -121,7 +121,7 @@ public class MobileCellsPreference extends DialogPreference {
     }
 
     boolean isCellSelected(int cellId) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
         for (String cell : splits) {
             if (cell.equals(sCellId))

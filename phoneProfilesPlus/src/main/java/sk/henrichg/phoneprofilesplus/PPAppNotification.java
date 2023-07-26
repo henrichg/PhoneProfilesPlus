@@ -788,7 +788,7 @@ public class PPAppNotification {
         }
         if (Build.VERSION.SDK_INT >= 33) {
 //            Log.e("PPAppNotification._showNotification", "add delete intent");
-            Intent deleteIntent = new Intent(PPAppNotificationDeletedReceiver.PP_APP_NOTIFICATION_DELETED_ACTION);
+            Intent deleteIntent = new Intent(PPAppNotificationDeletedReceiver.ACTION_PP_APP_NOTIFICATION_DELETED);
             PendingIntent deletePendingIntent = PendingIntent.getBroadcast(appContext, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setDeleteIntent(deletePendingIntent);
         }

@@ -23,11 +23,11 @@ public class MainWorker extends Worker {
     static final String APPLICATION_FULLY_STARTED_WORK_TAG = "applicationFullyStartedWork";
     static final String ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG = "accessibilityServiceConnectedWork";
 
-    static final String LOCATION_SCANNER_SWITCH_GPS_TAG_WORK = "locationScannerSwitchGPSWork";
-    static final String LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "lockDeviceFinishActivityWork";
-    static final String LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK = "lockDeviceAfterScreenOffWork";
-    static final String EVENT_DELAY_START_TAG_WORK = "eventDelayStartWork";
-    static final String EVENT_DELAY_END_TAG_WORK = "eventDelayEndWork";
+    static final String LOCATION_SCANNER_SWITCH_GPS_WORK_TAG = "locationScannerSwitchGPSWork";
+    static final String LOCK_DEVICE_FINISH_ACTIVITY_WORK_TAG = "lockDeviceFinishActivityWork";
+    static final String LOCK_DEVICE_AFTER_SCREEN_OFF_WORK_TAG = "lockDeviceAfterScreenOffWork";
+    static final String EVENT_DELAY_START_WORK_TAG = "eventDelayStartWork";
+    static final String EVENT_DELAY_END_WORK_TAG = "eventDelayEndWork";
     static final String CLOSE_ALL_APPLICATIONS_WORK_TAG = "closeAllApplicationsWork";
 
     static final String SCHEDULE_AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "scheduleAvoidRescheduleReceiverWork";
@@ -137,7 +137,7 @@ public class MainWorker extends Worker {
 //                        PPApplicationStatic.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         WifiNetworkCallback._doConnection(appContext);
                         break;
-                    case LOCATION_SCANNER_SWITCH_GPS_TAG_WORK:
+                    case LOCATION_SCANNER_SWITCH_GPS_WORK_TAG:
                         if (!PPApplicationStatic.getApplicationStarted(true, true))
                             // application is not started
                             return Result.success();
@@ -279,7 +279,7 @@ public class MainWorker extends Worker {
                             RunApplicationWithDelayBroadcastReceiver.doWork(appContext, profileName, runApplicationData);
                         }
                         else
-                        if (tag.startsWith(EVENT_DELAY_START_TAG_WORK)) {
+                        if (tag.startsWith(EVENT_DELAY_START_WORK_TAG)) {
                             if (!PPApplicationStatic.getApplicationStarted(true, true))
                                 // application is not started
                                 return Result.success();
@@ -287,7 +287,7 @@ public class MainWorker extends Worker {
                             EventDelayStartBroadcastReceiver.doWork(false, appContext);
                         }
                         else
-                        if (tag.startsWith(EVENT_DELAY_END_TAG_WORK)) {
+                        if (tag.startsWith(EVENT_DELAY_END_WORK_TAG)) {
                             if (!PPApplicationStatic.getApplicationStarted(true, true))
                                 // application is not started
                                 return Result.success();

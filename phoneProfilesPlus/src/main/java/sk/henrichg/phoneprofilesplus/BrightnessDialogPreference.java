@@ -102,7 +102,7 @@ public class BrightnessDialogPreference extends DialogPreference {
 
     private void getValueBDP()
     {
-        String[] splits = sValue.split("\\|");
+        String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             value = Integer.parseInt(splits[0]);
             /*if (value == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET) {
@@ -200,7 +200,7 @@ public class BrightnessDialogPreference extends DialogPreference {
     }
 
     static boolean changeEnabled(String value) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 return Integer.parseInt(splits[1]) == 0;

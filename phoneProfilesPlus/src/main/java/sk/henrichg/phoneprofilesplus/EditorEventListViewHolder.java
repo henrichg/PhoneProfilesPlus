@@ -218,9 +218,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (event._ignoreManualActivation) {
                     addedLF = true;
                     if (event._noPauseByManualActivation)
-                        _eventName = event._name + "\n" + "[»»]";
+                        _eventName = event._name + "\n" + "["+StringConstants.STR_DOUBLE_ARROW+"]";
                     else
-                        _eventName = event._name + "\n" + "[»]";
+                        _eventName = event._name + "\n" + "["+StringConstants.CHAR_ARROW +"]";
                 } else
                     _eventName = event._name;
             }
@@ -228,15 +228,15 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 addedLF = true;
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[»»]";
+                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "["+StringConstants.STR_DOUBLE_ARROW+"]";
                     else
-                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[»]";
+                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "["+StringConstants.CHAR_ARROW +"]";
                 } else
                     _eventName = event._name + "\n" + eventStartOrder + eventPriority;
             }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
-                String[] splits = event._startWhenActivatedProfile.split("\\|");
+                String[] splits = event._startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                 Profile profile;
                 if (splits.length == 1) {
                     profile = editorFragment.activityDataWrapper.getProfileById(Long.parseLong(event._startWhenActivatedProfile), false, false, false);

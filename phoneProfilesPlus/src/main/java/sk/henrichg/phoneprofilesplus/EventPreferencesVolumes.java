@@ -108,7 +108,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 boolean _addBullet = false;
 
                 int operator = 0;
-                String[] splits = this._volumeRingtone.split("\\|");
+                String[] splits = this._volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -122,7 +122,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeNotification.split("\\|");
+                splits = this._volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -130,7 +130,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        descr = descr +  " • ";
+                        descr = descr +  StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeNotification) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
@@ -138,7 +138,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeMedia.split("\\|");
+                splits = this._volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -146,7 +146,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        descr = descr +  " • ";
+                        descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeMedia) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
@@ -154,7 +154,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeAlarm.split("\\|");
+                splits = this._volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -162,7 +162,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        descr = descr +  " • ";
+                        descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeAlarm) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
@@ -170,7 +170,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeSystem.split("\\|");
+                splits = this._volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -178,7 +178,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        descr = descr +  " • ";
+                        descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeSystem) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
@@ -186,7 +186,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeVoice.split("\\|");
+                splits = this._volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -194,7 +194,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        descr = descr +  " • ";
+                        descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeVoiceCall) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
@@ -202,7 +202,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
 
                 operator = 0;
-                splits = this._volumeBluetoothSCO.split("\\|");
+                splits = this._volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length > 1) {
                     try {
                         operator = Integer.parseInt(splits[1]);
@@ -210,7 +210,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 }
                 if (operator != 0) {
                     if (_addBullet)
-                        descr = descr +  " • ";
+                        descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeBluetoothSCO) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
@@ -268,6 +268,7 @@ class EventPreferencesVolumes extends EventPreferences {
 
         }*/
 
+        //TODO tu nakonfiguruj default hodnoty vlume ako premenne, vela krat sa to tu pouziva
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesVolumes.saveSharedPreferences(prefMng.getSharedPreferences());
@@ -275,43 +276,43 @@ class EventPreferencesVolumes extends EventPreferences {
         boolean enabled = preferences.getBoolean(PREF_EVENT_VOLUMES_ENABLED, false);
         VolumeDialogPreference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0").split("\\|");
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0").split("\\|");
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0").split("\\|");
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0").split("\\|");
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0").split("\\|");
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0").split("\\|");
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0").split("\\|");
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
@@ -393,7 +394,7 @@ class EventPreferencesVolumes extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         int ringtoneOperator = 0;
-        String[] splits = this._volumeRingtone.split("\\|");
+        String[] splits = this._volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 ringtoneOperator = Integer.parseInt(splits[1]);
@@ -401,7 +402,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int notificationOperator = 0;
-        splits = this._volumeNotification.split("\\|");
+        splits = this._volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 notificationOperator = Integer.parseInt(splits[1]);
@@ -409,7 +410,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int mediaOoperator = 0;
-        splits = this._volumeMedia.split("\\|");
+        splits = this._volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 mediaOoperator = Integer.parseInt(splits[1]);
@@ -417,7 +418,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int alarmOperator = 0;
-        splits = this._volumeAlarm.split("\\|");
+        splits = this._volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 alarmOperator = Integer.parseInt(splits[1]);
@@ -425,7 +426,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int systemOperator = 0;
-        splits = this._volumeSystem.split("\\|");
+        splits = this._volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 systemOperator = Integer.parseInt(splits[1]);
@@ -433,7 +434,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int voiceOperator = 0;
-        splits = this._volumeVoice.split("\\|");
+        splits = this._volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 voiceOperator = Integer.parseInt(splits[1]);
@@ -441,7 +442,7 @@ class EventPreferencesVolumes extends EventPreferences {
         }
 
         int bluetoothSCOOperator = 0;
-        splits = this._volumeBluetoothSCO.split("\\|");
+        splits = this._volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
         if (splits.length > 1) {
             try {
                 bluetoothSCOOperator = Integer.parseInt(splits[1]);
@@ -519,7 +520,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     int actualValue = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                     int configuredValue = -1;
                     int configuredOperator = 0;
-                    String[] splits = this._volumeRingtone.split("\\|");
+                    String[] splits = this._volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -560,7 +561,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeNotification.split("\\|");
+                    splits = this._volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -601,7 +602,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeMedia.split("\\|");
+                    splits = this._volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -642,7 +643,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeAlarm.split("\\|");
+                    splits = this._volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -683,7 +684,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeSystem.split("\\|");
+                    splits = this._volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -724,7 +725,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeVoice.split("\\|");
+                    splits = this._volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);
@@ -765,7 +766,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     actualValue = audioManager.getStreamVolume(AudioManager.STREAM_BLUETOOTH_SCO);
                     configuredValue = -1;
                     configuredOperator = 0;
-                    splits = this._volumeBluetoothSCO.split("\\|");
+                    splits = this._volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length > 1) {
                         try {
                             configuredValue = Integer.parseInt(splits[0]);

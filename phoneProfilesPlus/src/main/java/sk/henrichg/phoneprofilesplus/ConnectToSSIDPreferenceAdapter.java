@@ -67,7 +67,7 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
         }
 
         if (Profile.CONNECTTOSSID_JUSTANY.equals(wifiSSID.ssid)) {
-            holder.SSIDName.setText("[\u00A0" + context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any) + "\u00A0]");
+            holder.SSIDName.setText("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any) + StringConstants.CHAR_HARD_SPACE + "]");
         } else {
             String ssid = wifiSSID.ssid.replace("\"", "");
             holder.SSIDName.setText(ssid);

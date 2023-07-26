@@ -86,9 +86,9 @@ public class EditorEventListFragment extends Fragment
     static final int EDIT_MODE_EDIT = 3;
     static final int EDIT_MODE_DELETE = 4;
 
-    static final String FILTER_TYPE_ARGUMENT = "filter_type";
-    //static final String ORDER_TYPE_ARGUMENT = "order_type";
-    //static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    static final String BUNDLE_FILTER_TYPE = "filter_type";
+    //static final String BUNDLE_ORDER_TYPE_ = "order_type";
+    //static final String BUNDLE_START_TARGET_HELPS = "start_target_helps";
 
     static final int FILTER_TYPE_ALL = 0;
     static final int FILTER_TYPE_RUNNING = 1;
@@ -164,7 +164,7 @@ public class EditorEventListFragment extends Fragment
         setRetainInstance(true);
 
         filterType = getArguments() != null ? 
-                getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorEventListFragment.FILTER_TYPE_START_ORDER) :
+                getArguments().getInt(BUNDLE_FILTER_TYPE, EditorEventListFragment.FILTER_TYPE_START_ORDER) :
                     EditorEventListFragment.FILTER_TYPE_START_ORDER;
 //        orderType = getArguments() != null ?
 //                getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER) :
@@ -1941,7 +1941,7 @@ public class EditorEventListFragment extends Fragment
             // save into shared preferences
             if (getActivity() != null) {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getActivity().getApplicationContext());
-                editor.putInt(ApplicationPreferences.EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
+                editor.putInt(ApplicationPreferences.PREF_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
                 editor.apply();
                 ApplicationPreferences.editorOrderSelectedItem(getActivity().getApplicationContext());
             }

@@ -40,7 +40,7 @@ public class DefaultSIMDialogPreference extends DialogPreference {
 
     private void getValueDSDP()
     {
-        String[] splits = sValue.split("\\|");
+        String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             voiceValue = Integer.parseInt(splits[0]);
         } catch (Exception e) {

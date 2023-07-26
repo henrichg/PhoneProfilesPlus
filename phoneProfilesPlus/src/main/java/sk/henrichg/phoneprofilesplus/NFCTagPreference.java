@@ -56,7 +56,7 @@ public class NFCTagPreference extends DialogPreference {
     }
 
     private void setSummary() {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String _tag : splits) {
             if (_tag.isEmpty()) {
                 setSummary(R.string.applications_multiselect_summary_text_not_selected);
@@ -81,7 +81,7 @@ public class NFCTagPreference extends DialogPreference {
     }*/
 
     void addNfcTag(String tagName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         boolean found = false;
         for (String tag : splits) {
             if (tag.equals(tagName)) {
@@ -97,7 +97,7 @@ public class NFCTagPreference extends DialogPreference {
     }
 
     void removeNfcTag(String tagName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         value = "";
         StringBuilder _value = new StringBuilder();
         for (String tag : splits) {
@@ -116,7 +116,7 @@ public class NFCTagPreference extends DialogPreference {
     }
 
     boolean isNfcTagSelected(String tagName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String tag : splits) {
             if (tag.equals(tagName))
                 return true;

@@ -87,6 +87,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
         //activeLanguage = preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
+        //TODO mas zadefinovane premenne v ApplicaitonPreferences, takze  tu pouzi tie
         String defaultValue = "white";
         if (Build.VERSION.SDK_INT >= 28)
             defaultValue = "night_mode";

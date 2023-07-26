@@ -89,7 +89,7 @@ public class RingtonePreference extends DialogPreference {
     {
         // set ringtone uri from preference value
         String value = getPersistedString((String) defaultValue);
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         ringtoneUri = splits[0];
         this.defaultValue = (String)defaultValue;
         setSummary("");
@@ -376,7 +376,7 @@ public class RingtonePreference extends DialogPreference {
     void resetSummary() {
         if (!savedInstanceState) {
             String value = getPersistedString(defaultValue);
-            String[] splits = value.split("\\|");
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             ringtoneUri = splits[0];
             setSummary("");
             setRingtone("", true);

@@ -38,7 +38,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
-        PPApplicationStatic._cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
+        PPApplicationStatic._cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_WORK_TAG, false);
     }
 
     static void setAlarm(Context context)

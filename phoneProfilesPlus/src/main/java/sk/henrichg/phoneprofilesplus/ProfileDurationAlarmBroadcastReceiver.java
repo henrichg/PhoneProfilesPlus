@@ -400,7 +400,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     size = activateProfilesFIFO.size();
                                     if (size > 0) {
                                         String fromFifo = activateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         activateProfileId = Long.parseLong(splits[0]);
                                     } else
                                         activateProfileId = 0;

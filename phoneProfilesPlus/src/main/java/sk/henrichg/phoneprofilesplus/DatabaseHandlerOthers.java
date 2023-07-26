@@ -1052,7 +1052,7 @@ class DatabaseHandlerOthers {
                             String value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_RINGTONE));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1070,7 +1070,7 @@ class DatabaseHandlerOthers {
                             value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_NOTIFICATION));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1088,7 +1088,7 @@ class DatabaseHandlerOthers {
                             value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_MEDIA));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1106,7 +1106,7 @@ class DatabaseHandlerOthers {
                             value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ALARM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1124,7 +1124,7 @@ class DatabaseHandlerOthers {
                             value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_SYSTEM));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1142,7 +1142,7 @@ class DatabaseHandlerOthers {
                             value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_VOICE));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1160,7 +1160,7 @@ class DatabaseHandlerOthers {
                             value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_BLUETOOTHSCO));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);
@@ -1178,7 +1178,7 @@ class DatabaseHandlerOthers {
                             value = eventsCursor.getString(eventsCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_VOLUMES_ACCESSIBILITY));
                             if (value != null) {
                                 int operator = 0;
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 if (splits.length > 1) {
                                     try {
                                         operator = Integer.parseInt(splits[1]);

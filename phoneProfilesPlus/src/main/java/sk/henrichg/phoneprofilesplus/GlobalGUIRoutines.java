@@ -288,12 +288,12 @@ class GlobalGUIRoutines {
                 // remove bullet
                 String s = title.toString();
                 title = s;
-                if (s.startsWith("• "))
-                    title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
+                if (s.startsWith(StringConstants.CHAR_DOT+" "))
+                    title = TextUtils.replace(title, new String[]{StringConstants.CHAR_DOT+" "}, new CharSequence[]{""});
 
                 // remove arrows
-                if (s.startsWith("» "))
-                    title = TextUtils.replace(title, new String[]{"» "}, new CharSequence[]{""});
+                if (s.startsWith(StringConstants.CHAR_ARROW +" "))
+                    title = TextUtils.replace(title, new String[]{StringConstants.CHAR_ARROW +" "}, new CharSequence[]{""});
 
                 // remove underline
                 //s = title.toString();
@@ -304,10 +304,10 @@ class GlobalGUIRoutines {
                 //if (underline)
                 //    title = TextUtils.concat("[!] ", title);
                 if (bold)
-                    title = TextUtils.concat("• ", title);
+                    title = TextUtils.concat(StringConstants.CHAR_DOT+" ", title);
                 else
                 if (addArrows)
-                    title = TextUtils.concat("» ", title);
+                    title = TextUtils.concat(StringConstants.CHAR_ARROW +" ", title);
 
                 //}
                 Spannable sbt = new SpannableString(title);

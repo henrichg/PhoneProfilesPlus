@@ -53,7 +53,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
             synchronized (PPApplication.contactsCacheMutex) {
                 List<ContactGroup> contactGroupList = contactGroupsCache.getList();
                 if (contactGroupList != null) {
-                    String[] splits = value.split("\\|");
+                    String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                     for (ContactGroup contactGroup : contactGroupList) {
                         contactGroup.checked = false;
                         for (String split : splits) {
@@ -87,7 +87,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
         if (Permissions.checkContacts(context)) {
             if (!value.isEmpty()) {
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length == 1) {
                     boolean found = false;
                     String[] projection = new String[]{

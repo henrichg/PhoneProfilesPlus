@@ -25,7 +25,7 @@ class ProfileStatic {
     {
         String value;
         try {
-            String[] splits = icon.split("\\|");
+            String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[0];
         } catch (Exception e) {
             value = "ic_profile_default";
@@ -38,7 +38,7 @@ class ProfileStatic {
     {
         boolean value;
         try {
-            String[] splits = icon.split("\\|");
+            String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[1].equals("1");
 
         } catch (Exception e) {
@@ -51,7 +51,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = volume.split("\\|");
+            String[] splits = volume.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -63,7 +63,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = volume.split("\\|");
+            String[] splits = volume.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -77,7 +77,7 @@ class ProfileStatic {
         int defaultValue = 50;
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
             if ((value < 0) || (value > maximumValue))
                 value = defaultValue;
@@ -105,7 +105,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 1;
@@ -117,7 +117,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[4]);
         } catch (Exception e) {
             value = 1;
@@ -451,7 +451,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -463,7 +463,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[4]);
         } catch (Exception e) {
             value = 0;
@@ -475,7 +475,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[5]);
         } catch (Exception e) {
             value = 0;
@@ -487,7 +487,7 @@ class ProfileStatic {
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[2];
         } catch (Exception e) {
             value = "";
@@ -499,7 +499,7 @@ class ProfileStatic {
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[3];
         } catch (Exception e) {
             value = "";
@@ -1121,7 +1121,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = sValue.split("\\|");
+            String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -1133,7 +1133,7 @@ class ProfileStatic {
     {
         int value;
         try {
-            String[] splits = sValue.split("\\|");
+            String[] splits = sValue.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;

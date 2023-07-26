@@ -459,7 +459,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
             String toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
-            String[] splits = toneString.split("\\|");
+            String[] splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //Uri soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundRingtone = splits[0]+"|1";
@@ -468,7 +468,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundNotification = splits[0]+"|1";
@@ -477,7 +477,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundAlarm = splits[0]+"|1";
@@ -560,7 +560,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, ""));
             profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //Uri soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundRingtoneSIM1 = splits[0]+"|1";
@@ -568,7 +568,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundRingtoneSIM1 = splits[0];//+"|0";
             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundNotificationSIM1 = splits[0]+"|1";
@@ -576,7 +576,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundNotificationSIM1 = splits[0];//+"|0";
             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //Uri soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundRingtoneSIM2 = splits[0]+"|1";
@@ -584,7 +584,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundRingtoneSIM2 = splits[0];//+"|0";
             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
-            splits = toneString.split("\\|");
+            splits = toneString.split(StringConstants.STR_SPLIT_REGEX);
             //soundUri = Uri.parse(splits[0]);
             /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
                 profile._soundNotificationSIM2 = splits[0]+"|1";

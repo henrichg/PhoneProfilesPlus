@@ -87,7 +87,7 @@ class EventPreferencesNFC extends EventPreferences {
                 descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
                 String selectedNfcTags;// = "";
                 StringBuilder value = new StringBuilder();
-                String[] splits = this._nfcTags.split("\\|");
+                String[] splits = this._nfcTags.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _tag : splits) {
                     if (_tag.isEmpty()) {
                         //selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -104,7 +104,7 @@ class EventPreferencesNFC extends EventPreferences {
                     }
                 }
                 selectedNfcTags = value.toString();
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedNfcTags, disabled, context) + "</b> • ";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(selectedNfcTags, disabled, context) + "</b>"+StringConstants.STR_DOT;
                 if (this._permanentRun)
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
                 else
@@ -382,7 +382,7 @@ class EventPreferencesNFC extends EventPreferences {
 
             boolean tagFound = false;
 
-            String[] splits = this._nfcTags.split("\\|");
+            String[] splits = this._nfcTags.split(StringConstants.STR_SPLIT_REGEX);
             for (String tag : splits) {
                 if (tag.equals(tagName)) {
                     tagFound = true;

@@ -809,7 +809,7 @@ class DatabaseHandlerProfiles {
                 try {
 
                     // unlink shortcuts from profile
-                    String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                    String[] splits = profile._deviceRunApplicationPackageName.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         boolean shortcut = Application.isShortcut(split);
                         if (shortcut) {
@@ -845,7 +845,7 @@ class DatabaseHandlerProfiles {
                         do {
                             String oldFkProfiles = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE));
                             if (!oldFkProfiles.isEmpty()) {
-                                splits = oldFkProfiles.split("\\|");
+                                splits = oldFkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                                 StringBuilder newFkProfiles = new StringBuilder();
                                 for (String split : splits) {
                                     long fkProfile = Long.parseLong(split);

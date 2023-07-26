@@ -109,15 +109,15 @@ class EventPreferencesPeriodic extends EventPreferences {
                     } else {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
                                 "<b>" + getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context) + "</b>";
-                        descr = descr + " • ";
+                        descr = descr + StringConstants.STR_DOT;
                     }
                 }
 
                 descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + ": <b>" + getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context) + "</b>";
-                descr = descr + " • ";
+                descr = descr + StringConstants.STR_DOT;
                 int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
                 descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + ": <b>" + getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, context) + "</b>";
-                descr = descr + " • ";
+                descr = descr + StringConstants.STR_DOT;
                 descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
             }
         }

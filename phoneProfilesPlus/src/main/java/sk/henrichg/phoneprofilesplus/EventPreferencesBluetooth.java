@@ -122,7 +122,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
-                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b> • ";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b>"+StringConstants.STR_DOT;
                 }
 
                 /*
@@ -140,7 +140,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 descr = descr + context.getString(R.string.event_preferences_bluetooth_adapter_name) + ": ";
                 String selectedBluetoothNames;// = "";
                 StringBuilder value = new StringBuilder();
-                String[] splits = this._adapterName.split("\\|");
+                String[] splits = this._adapterName.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _bluetoothName : splits) {
                     if (_bluetoothName.isEmpty()) {
                         //selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -149,11 +149,11 @@ class EventPreferencesBluetooth extends EventPreferences {
                         switch (_bluetoothName) {
                             case ALL_BLUETOOTH_NAMES_VALUE:
                                 //selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]";
-                                value.append("[\u00A0").append(context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb)).append("\u00A0]");
+                                value.append("[").append(StringConstants.CHAR_HARD_SPACE).append(context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb)).append(StringConstants.CHAR_HARD_SPACE).append("]");
                                 break;
                             case CONFIGURED_BLUETOOTH_NAMES_VALUE:
                                 //selectedBluetoothNames = selectedBluetoothNames + "[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]";
-                                value.append("[\u00A0").append(context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb)).append("\u00A0]");
+                                value.append("[").append(StringConstants.CHAR_HARD_SPACE).append(context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb)).append(StringConstants.CHAR_HARD_SPACE).append("]");
                                 break;
                             default:
                                 /*if ((this._connectionType == CTYPE_NEARBY) || (this._connectionType == CTYPE_NOT_NEARBY)) {
@@ -487,7 +487,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
                             //if (BluetoothConnectedDevicesDetector.isBluetoothConnected(connectedDevices,null, "")) {
 
-                            String[] splits = _adapterName.split("\\|");
+                            String[] splits = _adapterName.split(StringConstants.STR_SPLIT_REGEX);
                             boolean[] connected = new boolean[splits.length];
 
                             int i = 0;
@@ -586,7 +586,7 @@ class EventPreferencesBluetooth extends EventPreferences {
 
                                     if (scanResults != null) {
                                         for (BluetoothDeviceData device : scanResults) {
-                                            String[] splits = _adapterName.split("\\|");
+                                            String[] splits = _adapterName.split(StringConstants.STR_SPLIT_REGEX);
                                             boolean[] nearby = new boolean[splits.length];
                                             int i = 0;
                                             for (String _bluetoothName : splits) {

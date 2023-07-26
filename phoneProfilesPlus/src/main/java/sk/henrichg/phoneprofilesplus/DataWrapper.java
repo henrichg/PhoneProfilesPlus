@@ -53,8 +53,8 @@ public class DataWrapper {
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
-    private static final String ACTIVATED_PROFILES_FIFO_COUNT_PREF = "activated_profiles_fifo_count";
-    private static final String ACTIVATED_PROFILES_FIFO_ID_PREF = "activated_profiles_fifo_id";
+    private static final String PREF_ACTIVATED_PROFILES_FIFO_COUNT = "activated_profiles_fifo_count";
+    private static final String PREF_ACTIVATED_PROFILES_FIFO_ID = "activated_profiles_fifo_id";
 
     static final int IT_FOR_EDITOR = 1;
     static final int IT_FOR_NOTIFICATION = 2;
@@ -193,7 +193,7 @@ public class DataWrapper {
 
         switch (index) {
             case 0:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_home), "ic_profile_home_2", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_home), Profile.ic_profile_home_2, index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context)) {
@@ -219,7 +219,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 1:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_outdoor), Profile.ic_profile_outdoors_1, index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context)) {
@@ -245,7 +245,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "255|0|0|0";
                 break;
             case 2:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_work), "ic_profile_work_5", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_work), Profile.ic_profile_work_5, index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context)) {
@@ -271,7 +271,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 3:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_meeting), Profile.ic_profile_meeting_2, index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context)) {
@@ -297,7 +297,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
                 break;
             case 4:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_sleep), Profile.ic_profile_sleep, index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context)) {
@@ -323,7 +323,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "10|0|0|0";
                 break;
             case 5:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), Profile.ic_profile_battery_1, index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 2;
                 if (RootUtils.isRooted(true))
@@ -335,7 +335,7 @@ public class DataWrapper {
                     profile._deviceGPS = 2;
                 break;
             case 6:
-                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), "ic_profile_battery_3", index+1);
+                profile = DataWrapperStatic.getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), Profile.ic_profile_battery_3, index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 1;
                 if (RootUtils.isRooted(true))
@@ -568,7 +568,7 @@ public class DataWrapper {
 
                 String oldFkProfiles = event._startWhenActivatedProfile;
                 if (!oldFkProfiles.isEmpty()) {
-                    String[] splits = oldFkProfiles.split("\\|");
+                    String[] splits = oldFkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                     StringBuilder newFkProfiles = new StringBuilder();
                     for (String split : splits) {
                         long fkProfile = Long.parseLong(split);
@@ -2786,12 +2786,12 @@ public class DataWrapper {
     List<String> fifoGetActivatedProfiles() {
         //synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
-            int count = preferences.getInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
+            int count = preferences.getInt(PREF_ACTIVATED_PROFILES_FIFO_COUNT, -1);
 
             List<String> activateProfilesFifo = new ArrayList<>();
             if (count > -1) {
                 for (int i = 0; i < count; i++) {
-                    String profileId = preferences.getString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, "0|0");
+                    String profileId = preferences.getString(PREF_ACTIVATED_PROFILES_FIFO_ID + i, "0|0");
                     activateProfilesFifo.add(profileId);
                 }
             }
@@ -2808,12 +2808,12 @@ public class DataWrapper {
             editor.clear();
 
             if (activateProfilesFifo == null)
-                editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
+                editor.putInt(PREF_ACTIVATED_PROFILES_FIFO_COUNT, -1);
             else {
-                editor.putInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, activateProfilesFifo.size());
+                editor.putInt(PREF_ACTIVATED_PROFILES_FIFO_COUNT, activateProfilesFifo.size());
 
                 for (int i = 0; i < activateProfilesFifo.size(); i++) {
-                    editor.putString(ACTIVATED_PROFILES_FIFO_ID_PREF + i, activateProfilesFifo.get(i));
+                    editor.putString(PREF_ACTIVATED_PROFILES_FIFO_ID + i, activateProfilesFifo.get(i));
                 }
             }
 

@@ -108,7 +108,7 @@ class EventPreferencesRoaming extends EventPreferences {
                 }
                 if (this._checkData) {
                     if (this._checkNetwork)
-                        descr = descr + " • ";
+                        descr = descr + StringConstants.STR_DOT;
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context) + "</b>";
                 }
 
@@ -129,7 +129,7 @@ class EventPreferencesRoaming extends EventPreferences {
                         }
                     }
                     if (hasSIMCard) {
-                        descr = descr + " • " + context.getString(R.string.event_preferences_roaming_forSimCard);
+                        descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_roaming_forSimCard);
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
                         descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                     }

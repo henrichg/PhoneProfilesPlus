@@ -1966,7 +1966,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info7) + "<br><br>" +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info8) + " " +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info9) + ":<br>" +
-                        "<a href=" + url + ">" + url+ "&nbsp;»»</a>";
+                        "<a href=" + url + ">" + url+ StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW+"</a>";
 
                 infoDialogPreference.setInfoText(infoText);
                 infoDialogPreference.setIsHtml(true);
@@ -2044,13 +2044,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     infoDialogPreference.setInfoText(
                         "<a href='" + InfoDialogPreference.PPP_APP_INFO_SCREEN + "'>" +
-                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + "&nbsp;»»</a><br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW+"</a><br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + "<br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + "<br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + "<br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + "<br><br>" +
                         "<a href='" + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + "'>" +
-                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + "&nbsp;»»</a><br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW+"</a><br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
                         "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\".<br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
@@ -4006,6 +4006,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //boolean addEnd = true;
 
+        //TODO toto sprav cez StringBuilder
+
         String summary = "";
         if (key.equals("applicationInterfaceCategoryRoot")) {
             /*if (DebugVersion.enabled) {
@@ -4015,11 +4017,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             /*summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
             if (!summary.isEmpty()) summary = summary +" • ";*/
             summary = summary + getString(R.string.phone_profiles_pref_applicationTheme);
-            if (!summary.isEmpty()) summary = summary +" • ";
+            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
 //            summary = summary + getString(R.string.phone_profiles_pref_applicationHomeLauncher);
 //            if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLauncher);
-            if (!summary.isEmpty()) summary = summary +" • ";
+            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationLauncher);
         }
         if (key.equals("categoryApplicationStartRoot")) {
@@ -4028,27 +4030,27 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + getString(R.string.phone_profiles_pref_systemAutoStartManager);
             }*/
-            if (!summary.isEmpty()) summary = summary +" • ";
+            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationActivate);
-            if (!summary.isEmpty()) summary = summary +" • ";
+            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationStartEvents);
         }
         if (key.equals("categorySystemRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes);
-            if (!summary.isEmpty()) summary = summary +" • ";
+            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes);
             //if (Build.VERSION.SDK_INT >= 23) {
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationBatteryOptimization);
             //}
             /*if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_POWERSAVING)) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationPowerManager);
             }*/
-            if (!summary.isEmpty()) summary = summary +" • ";
+            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationPowerSaveMode);
             //if (Build.VERSION.SDK_INT >= 21) {
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationBatterySaver);
             //}
         }
@@ -4057,13 +4059,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
             }
             //if (Build.VERSION.SDK_INT >= 23) {
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions);
                 //if (!summary.isEmpty()) summary = summary + " • ";
                 //summary = summary + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_drawOverlaysPermissions);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationPermissions);
             //}
         }
@@ -4079,24 +4081,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarPermanent);
             }*/
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationNotificationStyle);
             //if (Build.VERSION.SDK_INT >= 24) {
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_notificationShowProfileIcon);
             //}
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationBackgroundColor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
             //if (Build.VERSION.SDK_INT >= 24) {
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_notificationUseDecoration);
             //}
         }
@@ -4104,9 +4106,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_backgroundProfileUsage);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationAlert);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
         }
         if (key.equals("specialProfileParametersCategoryRoot")) {
@@ -4117,7 +4119,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("eventRunCategoryRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_eventRunUsePriority);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationRestartEventsAlert);
         }
         if (key.equals("periodicScanningCategoryRoot")) {
@@ -4178,9 +4180,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         + "</b>";
                 summary = summary + "<br><br>";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsEditor);
-                summary = summary + " • ";
+                summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
-                summary = summary + " • ";
+                summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsUseGPS);
             }
             else {
@@ -4248,7 +4250,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             + "</b>";
                     summary = summary + "<br><br>";
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff);
-                    summary = summary + " • ";
+                    summary = summary + StringConstants.STR_DOT;
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
                 } else {
                     if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
@@ -4300,9 +4302,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             + "</b>";
                     summary = summary + "<br><br>";
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff);
-                    summary = summary + " • ";
+                    summary = summary + StringConstants.STR_DOT;
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration);
-                    summary = summary + " • ";
+                    summary = summary + StringConstants.STR_DOT;
                     summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
                 } else {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile)
@@ -4446,156 +4448,156 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationClose);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationGridLayout);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationActivatorNumColumns);
         }
         if (key.equals("categoryEditorRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationHideHeaderOrBottomBar);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationEditorSaveEditorState);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_deleteOldActivityLogs);
         }
         if (key.equals("categoryWidgetListRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationGridLayout);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessT);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
         if (key.equals("categoryWidgetOneRowRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessT);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
         if (key.equals("categoryWidgetIconRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconBackgroundType);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconBackground);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColorB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconShowBorder);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconCornerRadius);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconHideProfileName);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessT);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
         if (key.equals("categoryWidgetOneRowProfileListRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
         if (key.equals("categoryShortcutRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
             if (key.equals("categorySamsungEdgePanelRoot")) {
                 summary = summary + getString(R.string.phone_profiles_pref_applicationSamsungEdgeVerticalPosition);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessT);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-                if (!summary.isEmpty()) summary = summary + " • ";
+                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
             }
         }
         if (key.equals("categoryProfileListNotificationRoot")) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
             summary = summary + getString(R.string.phone_profiles_pref_notificationProfileListDisplayNotification);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationBackgroundColor);
-            if (!summary.isEmpty()) summary = summary + " • ";
+            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness);
             //}
         }

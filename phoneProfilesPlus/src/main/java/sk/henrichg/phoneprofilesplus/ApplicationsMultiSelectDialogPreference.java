@@ -101,7 +101,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         if (PPApplicationStatic.getApplicationsCache() != null) {
             List<Application> cachedApplicationList = PPApplicationStatic.getApplicationsCache().getApplicationList(true);
             if (cachedApplicationList != null) {
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 for (Application application : cachedApplicationList) {
                     application.checked = false;
                     for (String split : splits) {
@@ -209,7 +209,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
         if (ok) {
             if (!value.isEmpty() && !value.equals("-")) {
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 if (splits.length == 1) {
                     PackageManager packageManager = _context.getPackageManager();
@@ -310,7 +310,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         PackageManager packageManager = _context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
 
         if (splits.length == 1) {
             packageIcon.setVisibility(View.VISIBLE);

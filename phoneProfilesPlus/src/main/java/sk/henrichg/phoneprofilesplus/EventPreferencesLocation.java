@@ -107,7 +107,7 @@ class EventPreferencesLocation extends EventPreferences {
                             append(": ").
                             append(context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                 } else {
-                    String[] splits = this._geofences.split("\\|");
+                    String[] splits = this._geofences.split(StringConstants.STR_SPLIT_REGEX);
                     for (String _geofence : splits) {
                         if (_geofence.isEmpty()) {
                             //selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -127,7 +127,7 @@ class EventPreferencesLocation extends EventPreferences {
                 selectedLocations = value.toString();
                 descr = descr + context.getString(R.string.event_preferences_locations_location) + ": <b>" + getColorForChangedPreferenceValue(selectedLocations, disabled, context) + "</b>";
                 if (this._whenOutside)
-                    descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT+"<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context) + "</b>";
             }
         }
 
@@ -384,7 +384,7 @@ class EventPreferencesLocation extends EventPreferences {
                                     transitionsUpdated = PPApplication.locationScannerTransitionsUpdated;
                                 }
                                 if (transitionsUpdated) {
-                                    String[] splits = _geofences.split("\\|");
+                                    String[] splits = _geofences.split(StringConstants.STR_SPLIT_REGEX);
                                     boolean[] passed = new boolean[splits.length];
 
                                     int i = 0;

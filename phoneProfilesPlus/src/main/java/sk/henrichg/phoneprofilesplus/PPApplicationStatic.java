@@ -75,9 +75,9 @@ class PPApplicationStatic {
                     }
                 }
 
-                if (name.startsWith(MainWorker.EVENT_DELAY_START_TAG_WORK))
+                if (name.startsWith(MainWorker.EVENT_DELAY_START_WORK_TAG))
                     PPApplication.elapsedAlarmsEventDelayStartWork.remove(name);
-                if (name.startsWith(MainWorker.EVENT_DELAY_END_TAG_WORK))
+                if (name.startsWith(MainWorker.EVENT_DELAY_END_WORK_TAG))
                     PPApplication.elapsedAlarmsEventDelayEndWork.remove(name);
                 if (name.startsWith(MainWorker.PROFILE_DURATION_WORK_TAG))
                     PPApplication.elapsedAlarmsProfileDurationWork.remove(name);
@@ -147,11 +147,11 @@ class PPApplicationStatic {
         _cancelWork(RestartEventsWithDelayWorker.WORK_TAG_2, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG, false);
         //_cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
-        _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        _cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, false);
         _cancelWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, false);
         //if (atStart)
         //    cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);
-        _cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK, false);
+        _cancelWork(MainWorker.LOCK_DEVICE_AFTER_SCREEN_OFF_WORK_TAG, false);
         /*if (atStart) {
             cancelWork(PACKAGE_REPLACED_WORK_TAG, false);
             cancelWork(AFTER_FIRST_START_WORK_TAG, false);
@@ -467,7 +467,7 @@ class PPApplicationStatic {
     private static boolean logContainsFilterTag(String tag)
     {
         boolean contains = false;
-        String[] filterTags = PPApplication.logFilterTags.split("\\|");
+        String[] filterTags = PPApplication.logFilterTags.split(StringConstants.STR_SPLIT_REGEX);
         for (String filterTag : filterTags) {
             if (!filterTag.contains("!")) {
                 if (tag.contains(filterTag)) {

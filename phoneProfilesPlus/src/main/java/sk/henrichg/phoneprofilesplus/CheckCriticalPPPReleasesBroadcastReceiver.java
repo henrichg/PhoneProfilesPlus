@@ -195,7 +195,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 // check IzzyOnDroid repo
 
                                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
-                                String izzyRepoURL = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplus_";
+                                String izzyRepoURL = PPApplication.DROIDIFY_PPP_LATEST_APK_RELEASE_URL_BEGIN;
                                 izzyRepoURL = izzyRepoURL + pppReleaseData.versionCodeInReleases + ".apk";
 //                                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,

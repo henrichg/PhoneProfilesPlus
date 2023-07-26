@@ -328,7 +328,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 }
                 */
 
-                String[] eventIds = activity.lastPausedEvents.split("\\|");
+                String[] eventIds = activity.lastPausedEvents.split(StringConstants.STR_SPLIT_REGEX);
                 for (String eventId : eventIds) {
                     if (!eventId.isEmpty()) {
                         Event event = db.getEvent(Long.parseLong(eventId));

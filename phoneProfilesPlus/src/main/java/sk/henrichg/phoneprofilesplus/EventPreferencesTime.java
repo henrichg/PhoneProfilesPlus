@@ -121,7 +121,7 @@ class EventPreferencesTime extends EventPreferences {
         this._enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
 
         String sDays = preferences.getString(PREF_EVENT_TIME_DAYS, DaysOfWeekPreference.allValue);
-        String[] splits = sDays.split("\\|");
+        String[] splits = sDays.split(StringConstants.STR_SPLIT_REGEX);
         if (splits[0].equals(DaysOfWeekPreference.allValue))
         {
             this._sunday = true;
@@ -216,7 +216,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
                 }
 
-                descr = descr + "• " + context.getString(R.string.event_preferences_time_timeType) + ": ";
+                descr = descr + StringConstants.CHAR_DOT + " " + context.getString(R.string.event_preferences_time_timeType) + ": ";
                 String _descr = "";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
@@ -232,7 +232,7 @@ class EventPreferencesTime extends EventPreferences {
                 descr = descr + "<b>" + getColorForChangedPreferenceValue(_descr, disabled, context) + "</b>";
 
                 if (_timeType == TIME_TYPE_EXACT) {
-                    descr = descr + " • ";
+                    descr = descr + StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_time_startTime)+"-"+
                             context.getString(R.string.event_preferences_time_endTime)+": ";
@@ -262,14 +262,14 @@ class EventPreferencesTime extends EventPreferences {
                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 descr = descr + "<br>"; //'\n';
-                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
                                 alarmTime = computeAlarm(false, context);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 descr = descr + "<br>"; //'\n';
-                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
                             }
                         }
                     }
@@ -282,7 +282,7 @@ class EventPreferencesTime extends EventPreferences {
                                 long startTime = computeAlarm(true, context);
                                 long endTime = computeAlarm(false, context);
                                 if ((startTime != 0) && (endTime != 0)) {
-                                    descr = descr + " • ";
+                                    descr = descr + StringConstants.STR_DOT;
 
                                     if (_timeType == TIME_TYPE_SUNRISE_SUNSET)
                                         descr = descr + context.getString(R.string.event_preference_sensor_time_sunrise) + "-" +
@@ -311,14 +311,14 @@ class EventPreferencesTime extends EventPreferences {
                                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                                 descr = descr + "<br>"; //'\n';
-                                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
                                             } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
                                                 alarmTime = computeAlarm(false, context);
                                                 // date and time format by user system settings configuration
                                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                                 descr = descr + "<br>"; //'\n';
-                                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
                                             }
                                         }
                                     }

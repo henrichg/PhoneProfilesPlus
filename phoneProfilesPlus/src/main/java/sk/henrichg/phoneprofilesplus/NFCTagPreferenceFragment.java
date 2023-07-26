@@ -264,7 +264,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
             else
             if (itemId == R.id.nfc_tag_pref_dlg_item_menu_change) {
                 if (!nfcTagName.getText().toString().isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
+                    String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                     preference.value = "";
                     StringBuilder value = new StringBuilder();
                     boolean found = false;
@@ -395,7 +395,7 @@ public class NFCTagPreferenceFragment extends PreferenceDialogFragmentCompat {
 
                 // add all from value
                 boolean found;
-                String[] splits = preference.value.split("\\|");
+                String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                 for (String tag : splits) {
                     if (!tag.isEmpty()) {
                         found = false;

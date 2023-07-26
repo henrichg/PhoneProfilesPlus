@@ -727,8 +727,8 @@ public class WifiScanWorker extends Worker {
         saveScanResults(context, scanResults);
     }
 
-    private static final String SCAN_RESULT_COUNT_PREF = "count";
-    private static final String SCAN_RESULT_DEVICE_PREF = "device";
+    private static final String PREF_SCAN_RESULT_COUNT = "count";
+    private static final String PREF_SCAN_RESULT_DEVICE = "device";
 
     //public static void getWifiConfigurationList(Context context)
     static List<WifiSSIDData> getWifiConfigurationList(Context context)
@@ -743,12 +743,12 @@ public class WifiScanWorker extends Worker {
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_CONFIGURATION_LIST_PREFS_NAME, Context.MODE_PRIVATE);
 
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, 0);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, 0);
 
             Gson gson = new Gson();
 
             for (int i = 0; i < count; i++) {
-                String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                 if (!json.isEmpty()) {
                     WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
                     device.configured = true;
@@ -772,13 +772,13 @@ public class WifiScanWorker extends Worker {
 
             editor.clear();
 
-            editor.putInt(SCAN_RESULT_COUNT_PREF, wifiConfigurationList.size());
+            editor.putInt(PREF_SCAN_RESULT_COUNT, wifiConfigurationList.size());
 
             Gson gson = new Gson();
 
             for (int i = 0; i < wifiConfigurationList.size(); i++) {
                 String json = gson.toJson(wifiConfigurationList.get(i));
-                editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
             }
 
             editor.apply();
@@ -790,7 +790,7 @@ public class WifiScanWorker extends Worker {
     {
         synchronized (PPApplication.wifiScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.WIFI_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
-            int count = preferences.getInt(SCAN_RESULT_COUNT_PREF, -1);
+            int count = preferences.getInt(PREF_SCAN_RESULT_COUNT, -1);
 
             if (count > -1) {
                 List<WifiSSIDData> scanResults = new ArrayList<>();
@@ -798,7 +798,7 @@ public class WifiScanWorker extends Worker {
                 Gson gson = new Gson();
 
                 for (int i = 0; i < count; i++) {
-                    String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
+                    String json = preferences.getString(PREF_SCAN_RESULT_DEVICE + i, "");
                     if (!json.isEmpty()) {
                         WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
                         device.scanned = true;
@@ -824,15 +824,15 @@ public class WifiScanWorker extends Worker {
             editor.clear();
 
             if (scanResults == null)
-                editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+                editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
             else {
-                editor.putInt(SCAN_RESULT_COUNT_PREF, scanResults.size());
+                editor.putInt(PREF_SCAN_RESULT_COUNT, scanResults.size());
 
                 Gson gson = new Gson();
 
                 for (int i = 0; i < scanResults.size(); i++) {
                     String json = gson.toJson(scanResults.get(i));
-                    editor.putString(SCAN_RESULT_DEVICE_PREF + i, json);
+                    editor.putString(PREF_SCAN_RESULT_DEVICE + i, json);
                 }
             }
 
@@ -846,7 +846,7 @@ public class WifiScanWorker extends Worker {
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.clear();
-            editor.putInt(SCAN_RESULT_COUNT_PREF, -1);
+            editor.putInt(PREF_SCAN_RESULT_COUNT, -1);
 
             editor.apply();
         }

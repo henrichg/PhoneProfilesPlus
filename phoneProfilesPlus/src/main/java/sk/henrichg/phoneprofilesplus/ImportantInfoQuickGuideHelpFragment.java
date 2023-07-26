@@ -69,7 +69,7 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         String str1 = getString(R.string.about_application_translations);
-        String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + "\u00A0»»";
+        String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW;
         Spannable spannable = new SpannableString(str2);
         //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {

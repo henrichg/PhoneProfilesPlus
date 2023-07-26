@@ -84,9 +84,9 @@ class EventPreferencesScreen extends EventPreferences {
 
                 if (this._whenUnlocked) {
                     if (this._eventType == EventPreferencesScreen.ETYPE_SCREENON)
-                        descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context) + "</b>";
+                        descr = descr + StringConstants.STR_DOT+"<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenUnlocked), disabled, context) + "</b>";
                     else
-                        descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context) + "</b>";
+                        descr = descr + StringConstants.STR_DOT+"<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_screen_startWhenLocked), disabled, context) + "</b>";
                 }
             }
         }

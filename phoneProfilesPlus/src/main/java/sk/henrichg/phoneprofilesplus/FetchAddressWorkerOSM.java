@@ -41,9 +41,9 @@ public class FetchAddressWorkerOSM extends Worker {
 
             // Get the input
             // Get the location passed to this service through an extra.
-            double latitude = getInputData().getDouble(LocationGeofenceEditorActivityOSM.LATITUDE_EXTRA, 0);
-            double longitude = getInputData().getDouble(LocationGeofenceEditorActivityOSM.LONGITUDE_EXTRA, 0);
-            boolean updateName = getInputData().getBoolean(LocationGeofenceEditorActivityOSM.UPDATE_NAME_EXTRA, false);
+            double latitude = getInputData().getDouble(LocationGeofenceEditorActivityOSM.WORKRES_LATITUDE_EXTRA, 0);
+            double longitude = getInputData().getDouble(LocationGeofenceEditorActivityOSM.WORKRES_LONGITUDE_EXTRA, 0);
+            boolean updateName = getInputData().getBoolean(LocationGeofenceEditorActivityOSM.WORKRES_UPDATE_NAME_EXTRA, false);
 
             Geocoder geocoder = new Geocoder(context, Locale.getDefault());
 
@@ -71,7 +71,7 @@ public class FetchAddressWorkerOSM extends Worker {
                 //if (errorMessage.isEmpty()) {
                 //Log.e("FetchAddressWorkerOSM.doWork", "No address found");
                 //}
-                outputData = generateResult(LocationGeofenceEditorActivityOSM.FAILURE_RESULT,
+                outputData = generateResult(LocationGeofenceEditorActivityOSM.WORKRES_FAILURE_RESULT,
                         getApplicationContext().getString(R.string.event_preferences_location_no_address_found),
                         updateName);
             } else {
@@ -86,7 +86,7 @@ public class FetchAddressWorkerOSM extends Worker {
                 String lineSeparator = System.getProperty("line.separator");
                 if (lineSeparator == null)
                     lineSeparator = "\n";
-                outputData = generateResult(LocationGeofenceEditorActivityOSM.SUCCESS_RESULT,
+                outputData = generateResult(LocationGeofenceEditorActivityOSM.WORKRES_SUCCESS_RESULT,
                         TextUtils.join(lineSeparator, addressFragments),
                         updateName);
             }
@@ -111,9 +111,9 @@ public class FetchAddressWorkerOSM extends Worker {
         // Create the output of the work
 
         return new Data.Builder()
-                .putInt(LocationGeofenceEditorActivityOSM.RESULT_CODE, resultCode)
-                .putString(LocationGeofenceEditorActivityOSM.RESULT_DATA_KEY, message)
-                .putBoolean(LocationGeofenceEditorActivityOSM.UPDATE_NAME_EXTRA, updateName)
+                .putInt(LocationGeofenceEditorActivityOSM.WORKRES_RESULT_CODE, resultCode)
+                .putString(LocationGeofenceEditorActivityOSM.WORKRES_RESULT_DATA_KEY, message)
+                .putBoolean(LocationGeofenceEditorActivityOSM.WORKRES_UPDATE_NAME_EXTRA, updateName)
                 .build();
     }
 

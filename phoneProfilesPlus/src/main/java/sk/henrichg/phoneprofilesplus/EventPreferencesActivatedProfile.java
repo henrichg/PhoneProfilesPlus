@@ -90,7 +90,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
                 }
 
-                descr = descr + " • " + context.getString(R.string.event_preferences_activated_profile_endProfile) + ": ";
+                descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_activated_profile_endProfile) + ": ";
                 profile = dataWrapper.getProfileById(this._endProfile, true, true, false);
                 if (profile != null) {
                     descr = descr + "<b>" + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";

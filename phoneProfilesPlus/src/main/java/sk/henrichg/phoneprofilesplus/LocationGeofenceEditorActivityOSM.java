@@ -64,13 +64,13 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     private Runnable errorLocationRunnable = null;
     private boolean errorLocationDisplayed = false;
 
-    static final int SUCCESS_RESULT = 0;
-    static final int FAILURE_RESULT = 1;
-    static final String RESULT_CODE = PPApplication.PACKAGE_NAME + ".RESULT_CODE";
-    static final String RESULT_DATA_KEY = PPApplication.PACKAGE_NAME + ".RESULT_DATA_KEY";
-    static final String LATITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LATITUDE_EXTRA";
-    static final String LONGITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LONGITUDE_EXTRA";
-    static final String UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
+    static final int WORKRES_SUCCESS_RESULT = 0;
+    static final int WORKRES_FAILURE_RESULT = 1;
+    static final String WORKRES_RESULT_CODE = PPApplication.PACKAGE_NAME + ".RESULT_CODE";
+    static final String WORKRES_RESULT_DATA_KEY = PPApplication.PACKAGE_NAME + ".RESULT_DATA_KEY";
+    static final String WORKRES_LATITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LATITUDE_EXTRA";
+    static final String WORKRES_LONGITUDE_EXTRA = PPApplication.PACKAGE_NAME + ".LONGITUDE_EXTRA";
+    static final String WORKRES_UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
     private static final int RESULT_LOCATION_SETTINGS = 2992;
 
     /**
@@ -899,9 +899,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         startService(intent);*/
 
         Data workData = new Data.Builder()
-                .putDouble(LATITUDE_EXTRA, mLocation.getLatitude())
-                .putDouble(LONGITUDE_EXTRA, mLocation.getLongitude())
-                .putBoolean(UPDATE_NAME_EXTRA, updateName)
+                .putDouble(WORKRES_LATITUDE_EXTRA, mLocation.getLatitude())
+                .putDouble(WORKRES_LONGITUDE_EXTRA, mLocation.getLongitude())
+                .putBoolean(WORKRES_UPDATE_NAME_EXTRA, updateName)
                 .build();
 
         OneTimeWorkRequest fetchAddressWorkerOSM =
@@ -936,18 +936,18 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 
                                     Data outputData = workInfo.getOutputData();
 
-                                    int resultCode = outputData.getInt(RESULT_CODE, FAILURE_RESULT);
+                                    int resultCode = outputData.getInt(WORKRES_RESULT_CODE, WORKRES_FAILURE_RESULT);
 
                                     boolean enableAddressButton = false;
-                                    if (resultCode == SUCCESS_RESULT) {
+                                    if (resultCode == WORKRES_SUCCESS_RESULT) {
 
                                         // Display the address string
                                         // or an error message sent from the intent service.
-                                        String addressOutput = outputData.getString(RESULT_DATA_KEY);
+                                        String addressOutput = outputData.getString(WORKRES_RESULT_DATA_KEY);
 
                                         addressText.setText(addressOutput);
 
-                                        if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
+                                        if (outputData.getBoolean(WORKRES_UPDATE_NAME_EXTRA, false))
                                             geofenceNameEditText.setText(addressOutput);
 
                                         //updateEditedMarker(false);

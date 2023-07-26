@@ -210,7 +210,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
         text = layout.findViewById(R.id.install_pppps_from_github_dialog_github_releases);
         CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + "\u00A0»»";
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW;
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -300,7 +300,7 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
 
                 text = layout.findViewById(R.id.install_pppps_from_store_dialog_github_releases);
                 CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-                CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + "\u00A0»»";
+                CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPPS_RELEASES_URL + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW;
                 Spannable sbt = new SpannableString(str2);
                 sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ClickableSpan clickableSpan = new ClickableSpan() {

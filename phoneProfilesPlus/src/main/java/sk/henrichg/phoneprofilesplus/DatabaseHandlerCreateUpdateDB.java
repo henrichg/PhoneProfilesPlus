@@ -972,7 +972,7 @@ class DatabaseHandlerCreateUpdateDB {
                         ContentValues values = new ContentValues();
 
                         try {
-                            String[] splits = icon.split("\\|");
+                            String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
                             String isIconResourceId = splits[1];
                             if (!isIconResourceId.equals("1")) {
                                 values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
@@ -1537,7 +1537,7 @@ class DatabaseHandlerCreateUpdateDB {
                         // 3 = from shared profile
                         // 4 = change level
 
-                        String[] splits = brightness.split("\\|");
+                        String[] splits = brightness.split(StringConstants.STR_SPLIT_REGEX);
 
                         if (splits[2].equals("1")) // automatic is set
                         {
@@ -1587,7 +1587,7 @@ class DatabaseHandlerCreateUpdateDB {
                         // 3 = from shared profile
                         // 4 = change level
 
-                        String[] splits = brightness.split("\\|");
+                        String[] splits = brightness.split(StringConstants.STR_SPLIT_REGEX);
 
                         // change percentage only for manual brightness
                         if (!splits[2].equals("1")) // automatic is not set
@@ -2421,7 +2421,7 @@ class DatabaseHandlerCreateUpdateDB {
                         String calendarSearchString = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_CALENDAR_SEARCH_STRING));
                         //String searchStringNew = "";
                         StringBuilder str = new StringBuilder();
-                        String[] searchStringSplits = calendarSearchString.split("\\|");
+                        String[] searchStringSplits = calendarSearchString.split(StringConstants.STR_SPLIT_REGEX);
                         for (String split : searchStringSplits) {
                             if (!split.isEmpty()) {
                                 //String searchPattern = split;

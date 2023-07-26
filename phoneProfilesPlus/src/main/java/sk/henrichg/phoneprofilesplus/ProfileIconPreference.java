@@ -92,7 +92,7 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     void getValuePIDP() {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         try {
             imageIdentifier = splits[0];
         } catch (Exception e) {
@@ -165,7 +165,7 @@ public class ProfileIconPreference extends DialogPreference {
             useCustomColor = false;
             customColor = 0;
         }
-        String[] splits = newValue.split("\\|");
+        String[] splits = newValue.split(StringConstants.STR_SPLIT_REGEX);
         try {
             imageIdentifier = splits[0];
         } catch (Exception e) {

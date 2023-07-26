@@ -421,7 +421,7 @@ public class ProfileListNotification {
         //}
         if (Build.VERSION.SDK_INT >= 33) {
 //            Log.e("PPAppNotification._showNotification", "add delete intent");
-            Intent deleteIntent = new Intent(ProfileListNotificationDeletedReceiver.PROFILE_LIST_NOTIFICATION_DELETED_ACTION);
+            Intent deleteIntent = new Intent(ProfileListNotificationDeletedReceiver.ACTION_PROFILE_LIST_NOTIFICATION_DELETED);
             PendingIntent deletePendingIntent = PendingIntent.getBroadcast(appContext, 0, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setDeleteIntent(deletePendingIntent);
         }

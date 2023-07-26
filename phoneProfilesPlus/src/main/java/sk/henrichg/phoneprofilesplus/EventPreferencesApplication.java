@@ -104,7 +104,7 @@ class EventPreferencesApplication extends EventPreferences {
                             ": " + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 } else
                     if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                    String[] splits = this._applications.split("\\|");
+                    String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
                         String packageName = Application.getPackageName(splits[0]);
                         String activityName = Application.getActivityName(splits[0]);
@@ -365,7 +365,7 @@ class EventPreferencesApplication extends EventPreferences {
                     String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 
                     if (!foregroundApplication.isEmpty()) {
-                        String[] splits = _applications.split("\\|");
+                        String[] splits = _applications.split(StringConstants.STR_SPLIT_REGEX);
                         for (String split : splits) {
                             String packageName = Application.getPackageName(split);
 

@@ -125,7 +125,7 @@ class PlayRingingNotification
                 int ringtoneChangeFromProfile = intent.getIntExtra(PhoneProfilesService.EXTRA_NEW_RINTONE_CHANGE, 0);
                 if (ringtoneChangeFromProfile != 0) {
                     String __ringtoneFromProfile = intent.getStringExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE);
-                    String[] splits = __ringtoneFromProfile.split("\\|");
+                    String[] splits = __ringtoneFromProfile.split(StringConstants.STR_SPLIT_REGEX);
                     if (!splits[0].isEmpty()) {
                         _ringtoneFromProfile = splits[0];
                     }
@@ -138,7 +138,7 @@ class PlayRingingNotification
                                 ringtoneChangeFromProfile = intent.getIntExtra(PhoneProfilesService.EXTRA_NEW_RINTONE_CHANGE_SIM1, 0);
                                 if (ringtoneChangeFromProfile != 0) {
                                     String __ringtoneFromProfile = intent.getStringExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM1);
-                                    String[] splits = __ringtoneFromProfile.split("\\|");
+                                    String[] splits = __ringtoneFromProfile.split(StringConstants.STR_SPLIT_REGEX);
                                     if (!splits[0].isEmpty()) {
                                         _ringtoneFromProfile = splits[0];
                                     }
@@ -148,7 +148,7 @@ class PlayRingingNotification
                                 ringtoneChangeFromProfile = intent.getIntExtra(PhoneProfilesService.EXTRA_NEW_RINTONE_CHANGE_SIM2, 0);
                                 if (ringtoneChangeFromProfile != 0) {
                                     String __ringtoneFromProfile = intent.getStringExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM2);
-                                    String[] splits = __ringtoneFromProfile.split("\\|");
+                                    String[] splits = __ringtoneFromProfile.split(StringConstants.STR_SPLIT_REGEX);
                                     if (!splits[0].isEmpty()) {
                                         _ringtoneFromProfile = splits[0];
                                     }

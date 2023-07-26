@@ -137,8 +137,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    private static final String CONNECTED_DEVICES_COUNT_PREF = "count";
-    private static final String CONNECTED_DEVICES_DEVICE_PREF = "device";
+    private static final String PREF_CONNECTED_DEVICES_COUNT = "count";
+    private static final String PREF_CONNECTED_DEVICES_DEVICE = "device";
 
     @SuppressLint("MissingPermission")
     static void getConnectedDevices(Context context)
@@ -151,13 +151,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CONNECTED_DEVICES_PREFS_NAME, Context.MODE_PRIVATE);
 
-            int count = preferences.getInt(CONNECTED_DEVICES_COUNT_PREF, 0);
+            int count = preferences.getInt(PREF_CONNECTED_DEVICES_COUNT, 0);
 
             Gson gson = new Gson();
 
             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             for (int i = 0; i < count; i++) {
-                String json = preferences.getString(CONNECTED_DEVICES_DEVICE_PREF + i, "");
+                String json = preferences.getString(PREF_CONNECTED_DEVICES_DEVICE + i, "");
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
 
@@ -185,13 +185,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
             editor.clear();
 
-            editor.putInt(CONNECTED_DEVICES_COUNT_PREF, connectedDevices.size());
+            editor.putInt(PREF_CONNECTED_DEVICES_COUNT, connectedDevices.size());
 
             Gson gson = new Gson();
 
             for (int i = 0; i < connectedDevices.size(); i++) {
                 String json = gson.toJson(connectedDevices.get(i));
-                editor.putString(CONNECTED_DEVICES_DEVICE_PREF + i, json);
+                editor.putString(PREF_CONNECTED_DEVICES_DEVICE + i, json);
             }
 
             editor.apply();

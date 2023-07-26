@@ -512,7 +512,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
             int itemId = item.getItemId();
             if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_change) {
                 if (!SSIDName.getText().toString().isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
+                    String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                     preference.value = "";
                     StringBuilder value = new StringBuilder();
                     boolean found = false;
@@ -684,7 +684,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
 
                 // add all from value
                 boolean found;
-                String[] splits = preference.value.split("\\|");
+                String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _ssid : splits) {
                     if (!_ssid.isEmpty() &&
                             !_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE) &&

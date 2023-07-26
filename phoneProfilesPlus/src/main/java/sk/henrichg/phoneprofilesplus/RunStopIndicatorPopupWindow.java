@@ -18,7 +18,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_important_info);
-        textView.setText(activity.getString(R.string.popup_window_events_status_show_info) + "\u00A0»»");
+        textView.setText(activity.getString(R.string.popup_window_events_status_show_info) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
             Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);

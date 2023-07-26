@@ -166,13 +166,13 @@ class EventPreferencesCall extends EventPreferences {
                 } else {
                     descr = descr + context.getString(R.string.pref_event_call_event);
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context) + "</b> • ";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_call_contact_groups) + ": ";
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_call_contacts) + ": ";
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
@@ -195,7 +195,7 @@ class EventPreferencesCall extends EventPreferences {
                             }
                         }
                         if (hasSIMCard) {
-                            descr = descr + " • " + context.getString(R.string.event_preferences_call_forSimCard);
+                            descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_call_forSimCard);
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventCallForSimCardArray);
                             descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                         }
@@ -205,9 +205,9 @@ class EventPreferencesCall extends EventPreferences {
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         if (this._permanentRun)
-                            descr = descr + " • <b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                            descr = descr + StringConstants.STR_DOT+"<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
                         else
-                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                            descr = descr + StringConstants.STR_DOT + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                     }
                 }
             }
@@ -685,7 +685,7 @@ class EventPreferencesCall extends EventPreferences {
 
         if (this._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
             // find phone number in groups
-            String[] splits = this._contactGroups.split("\\|");
+            String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
                 /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
                 String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
@@ -757,7 +757,7 @@ class EventPreferencesCall extends EventPreferences {
 
             if (!phoneNumberFound) {
                 // find phone number in contacts
-                splits = this._contacts.split("\\|");
+                splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     String[] splits2 = split.split("#");
 

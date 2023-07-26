@@ -170,7 +170,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
                 // check IzzyOnDroid repo
 
                 RequestQueue queueIzzyRepo = Volley.newRequestQueue(appContext);
-                String izzyRepoURL = "https://apt.izzysoft.de/fdroid/repo/sk.henrichg.phoneprofilesplusextender_";
+                String izzyRepoURL = PPApplication.DROIDIFY_PPPE_LATEST_APK_RELEASE_URL_BEGIN;
                 izzyRepoURL = izzyRepoURL + PPApplication.VERSION_CODE_EXTENDER_LATEST + ".apk";
 //                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "izzyRepoURL=" + izzyRepoURL);
                 StringRequest stringRequestIzzyRepo = new StringRequest(Request.Method.GET,

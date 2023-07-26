@@ -934,7 +934,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.GALAXY_STORE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle("» " + getString(R.string.menu_check_releases_galaxy_store));
+                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_galaxy_store));
             else
                 menuItem.setTitle(R.string.menu_check_releases_galaxy_store);
         }
@@ -942,7 +942,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.HUAWEI_APPGALLERY_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle("» " + getString(R.string.menu_check_releases_appgallery));
+                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_appgallery));
             else
                 menuItem.setTitle(R.string.menu_check_releases_appgallery);
         }
@@ -950,7 +950,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.DROIDIFY_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle("» " + getString(R.string.menu_check_releases_droidify));
+                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_droidify));
             else
                 menuItem.setTitle(R.string.menu_check_releases_droidify);
         }
@@ -958,7 +958,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.FDROID_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle("» " + getString(R.string.menu_check_releases_fdroid));
+                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_fdroid));
             else
                 menuItem.setTitle(R.string.menu_check_releases_fdroid);
         }
@@ -966,7 +966,7 @@ public class EditorActivity extends AppCompatActivity
         if (menuItem != null) {
             Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.APKPURE_PACKAGE_NAME);
             if (intent != null)
-                menuItem.setTitle("» " + getString(R.string.menu_check_releases_apkpure));
+                menuItem.setTitle(StringConstants.CHAR_ARROW +" " + getString(R.string.menu_check_releases_apkpure));
             else
                 menuItem.setTitle(R.string.menu_check_releases_apkpure);
         }
@@ -1103,6 +1103,7 @@ public class EditorActivity extends AppCompatActivity
         return ret;
     }
 
+    //TODO - tu su konstanty mojho mailu a PhoneProfilesPlus - pouzi String premennu.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -1596,9 +1597,9 @@ public class EditorActivity extends AppCompatActivity
 
             // save into shared preferences
             Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-            editor.putInt(ApplicationPreferences.EDITOR_SELECTED_VIEW, editorSelectedView);
-            editor.putInt(ApplicationPreferences.EDITOR_PROFILES_VIEW_SELECTED_ITEM, filterProfilesSelectedItem);
-            editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+            editor.putInt(ApplicationPreferences.PREF_EDITOR_SELECTED_VIEW, editorSelectedView);
+            editor.putInt(ApplicationPreferences.PREF_EDITOR_PROFILES_VIEW_SELECTED_ITEM, filterProfilesSelectedItem);
+            editor.putInt(ApplicationPreferences.PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
             editor.apply();
             ApplicationPreferences.editorSelectedView(getApplicationContext());
             ApplicationPreferences.editorProfilesViewSelectedItem(getApplicationContext());
@@ -1618,7 +1619,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                                arguments.putInt(EditorProfileListFragment.BUNDLE_FILTER_TYPE, profilesFilterType);
                                 //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1636,7 +1637,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                                arguments.putInt(EditorProfileListFragment.BUNDLE_FILTER_TYPE, profilesFilterType);
                                 //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1654,7 +1655,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorProfileListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
+                                arguments.putInt(EditorProfileListFragment.BUNDLE_FILTER_TYPE, profilesFilterType);
                                 //arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1676,7 +1677,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putInt(EditorEventListFragment.BUNDLE_FILTER_TYPE, eventsFilterType);
                                 //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1694,7 +1695,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putInt(EditorEventListFragment.BUNDLE_FILTER_TYPE, eventsFilterType);
                                 //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1712,7 +1713,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putInt(EditorEventListFragment.BUNDLE_FILTER_TYPE, eventsFilterType);
                                 //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1730,7 +1731,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putInt(EditorEventListFragment.BUNDLE_FILTER_TYPE, eventsFilterType);
                                 //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1748,7 +1749,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putInt(EditorEventListFragment.BUNDLE_FILTER_TYPE, eventsFilterType);
                                 //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -1766,7 +1767,7 @@ public class EditorActivity extends AppCompatActivity
                             if (viewChanged) {
                                 fragment = new EditorEventListFragment();
                                 arguments = new Bundle();
-                                arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
+                                arguments.putInt(EditorEventListFragment.BUNDLE_FILTER_TYPE, eventsFilterType);
                                 //arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                                 fragment.setArguments(arguments);
                                 getSupportFragmentManager().beginTransaction()
@@ -2374,12 +2375,12 @@ public class EditorActivity extends AppCompatActivity
             message = getString(R.string.import_profiles_alert_error) + ":";
             if (dbResult != DatabaseHandler.IMPORT_OK) {
                 if (dbResult == DatabaseHandler.IMPORT_ERROR_NEVER_VERSION)
-                    message = message + "\n• " + getString(R.string.import_profiles_alert_error_database_newer_version);
+                    message = message + "\n"+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_newer_version);
                 else
-                    message = message + "\n• " + getString(R.string.import_profiles_alert_error_database_bug);
+                    message = message + "\n"+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_bug);
             }
             if (appSettingsResult == 0)
-                message = message + "\n• " + getString(R.string.import_profiles_alert_error_appSettings_bug);
+                message = message + "\n"+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_appSettings_bug);
             //if (sharedProfileResult == 0)
             //    message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
         }
@@ -2477,6 +2478,8 @@ public class EditorActivity extends AppCompatActivity
                             prefEdit.putString(key, ((String) v));
 
                         //if (what == 1) {
+                        //TODO mas zadefinovane premenne v ApplicaitonPreferences, takze  tu pouzi tie
+                        // musis tam dat aj tie stare, tie tam nie su
                             if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
                                 if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight")) {
                                     String defaultValue = "white";
@@ -4240,6 +4243,7 @@ public class EditorActivity extends AppCompatActivity
                     if (!activity.isFinishing()) {
                         CharSequence title;
                         CharSequence message;
+                        //TODO tu mas neprelozene natvrdo retazce, oprav a pohladaj aj inde ci tieto mam.
                         if (share) {
                             title = activity.getString(R.string.restore_shared_settings_alert_title);
                             message = activity.getString(R.string.restore_shared_settings_error_on_backup) +
@@ -4792,6 +4796,8 @@ public class EditorActivity extends AppCompatActivity
                             PPApplicationStatic.recordException(e);
                         }
 
+                        //TODO, tu su natvrdo moj mail a PhoneProfilesPlus. Zmen na orenenee a pouzi.
+                        // pohladaj aj inde, ci sa nepouizva.
                         String emailAddress = "";
                         if (toAuthor)
                             emailAddress = "henrich.gron@gmail.com";

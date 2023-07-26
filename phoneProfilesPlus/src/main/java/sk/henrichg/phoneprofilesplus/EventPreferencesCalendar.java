@@ -180,39 +180,39 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(CalendarsMultiSelectDialogPreference.getSummary(_calendars, context), disabled, context) + "</b> • ";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(CalendarsMultiSelectDialogPreference.getSummary(_calendars, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                 if (this._dayContainsEvent > 0) {
                     descr = descr + context.getString(R.string.event_preferences_calendar_day_contains_event) + ": ";
                     String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarDayContainsEventArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(dayContainsEventArray[this._dayContainsEvent], disabled, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(dayContainsEventArray[this._dayContainsEvent], disabled, context) + "</b>"+StringConstants.STR_DOT;
                 }
                 if (this._allEvents) {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_calendar_all_events), disabled, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_calendar_all_events), disabled, context) + "</b>"+StringConstants.STR_DOT;
                 } else {
                     descr = descr + context.getString(R.string.event_preferences_calendar_search_field) + ": ";
                     String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(searchFields[this._searchField], disabled, context) + "</b> • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue(searchFields[this._searchField], disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_calendar_search_string) + ": ";
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue("\"" + this._searchString + "\"", disabled, context) + "</b>" + " • ";
+                    descr = descr + "<b>" + getColorForChangedPreferenceValue("\"" + this._searchString + "\"", disabled, context) + "</b>" + StringConstants.STR_DOT;
                 }
 
                 //if (this._ignoreAllDayEvents)
                 //    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_calendar_ignore_all_day_events, disabled, context)) + "</b> • ";
                 descr = descr + context.getString(R.string.event_preferences_calendar_all_day_events) + ": ";
                 String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarAllDayEventsArray);
-                descr = descr + "<b>" + getColorForChangedPreferenceValue(dayContainsEventArray[this._allDayEvents], disabled, context) + "</b> • ";
+                descr = descr + "<b>" + getColorForChangedPreferenceValue(dayContainsEventArray[this._allDayEvents], disabled, context) + "</b>"+StringConstants.STR_DOT;
 
 
                 String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": <b>" + getColorForChangedPreferenceValue(availabilities[this._availability], disabled, context) + " • </b>";
+                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": <b>" + getColorForChangedPreferenceValue(availabilities[this._availability], disabled, context) + StringConstants.STR_DOT+"</b>";
 
                 String[] statuses = context.getResources().getStringArray(R.array.eventCalendarStatusArray);
                 descr = descr + context.getString(R.string.event_preference_calendar_status) + ": <b>" + getColorForChangedPreferenceValue(statuses[this._status], disabled, context) + "</b>";
 
                 if (this._startBeforeEvent > 0)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._startBeforeEvent), disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_calendar_start_before_event) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._startBeforeEvent), disabled, context) + "</b>";
 
                 if (addBullet) {
                     if (EventStatic.getGlobalEventsRunning(context)) {
@@ -244,18 +244,18 @@ class EventPreferencesCalendar extends EventPreferences {
                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 descr = descr + "<br>"; //'\n';
-                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
 
                                 alarmTime = computeAlarm(false);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 descr = descr + "<br>"; //'\n';
-                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + alarmTimeS;
                             //}
                         } else {
                             descr = descr + "<br>"; //'\n';
-                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getString(R.string.event_preferences_calendar_no_event);
+                            descr = descr + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML+"-> " + context.getString(R.string.event_preferences_calendar_no_event);
                         }
                     }
                 }
@@ -778,7 +778,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         List<String> selectionArgs = new ArrayList<>();
         if (!_allEvents) {
-            String[] searchStringSplits = _searchString.split("\\|");
+            String[] searchStringSplits = _searchString.split(StringConstants.STR_SPLIT_REGEX);
             //int argsId = 0;
 
             // positive strings
@@ -961,7 +961,7 @@ class EventPreferencesCalendar extends EventPreferences {
         _startTime = 0;
         _endTime = 0;
 
-        String[] calendarsSplits = _calendars.split("\\|");
+        String[] calendarsSplits = _calendars.split(StringConstants.STR_SPLIT_REGEX);
 
         // Submit the query
         boolean ok = true;
@@ -1105,7 +1105,7 @@ class EventPreferencesCalendar extends EventPreferences {
         ContentUris.appendId(builder, startMillis);
         ContentUris.appendId(builder, endMillis);
 
-        String[] calendarsSplits = _calendars.split("\\|");
+        String[] calendarsSplits = _calendars.split(StringConstants.STR_SPLIT_REGEX);
 
         // Submit the query
         try {

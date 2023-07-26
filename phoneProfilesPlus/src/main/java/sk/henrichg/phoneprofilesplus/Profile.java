@@ -378,10 +378,12 @@ public class Profile {
 
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
+    //TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
     static final String CONNECTTOSSID_JUSTANY = "^just_any^";
     //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
 
     //static final long SHARED_PROFILE_ID = -999L;
+    //TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
     static final long RESTART_EVENTS_PROFILE_ID = -888L;
 
@@ -2210,7 +2212,7 @@ public class Profile {
     {
         String value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[0];
         } catch (Exception e) {
             value = "ic_profile_default";
@@ -2223,7 +2225,7 @@ public class Profile {
     {
         boolean value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[1].equals("1");
 
         } catch (Exception e) {
@@ -2236,7 +2238,7 @@ public class Profile {
     boolean getUseCustomColorForIcon() {
         boolean value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[2].equals("1");
 
         } catch (Exception e) {
@@ -2249,7 +2251,7 @@ public class Profile {
     int getIconCustomColor() {
         int value;
         try {
-            String[] splits = _icon.split("\\|");
+            String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[3]);
         } catch (Exception e) {
             value = 0;
@@ -2270,7 +2272,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeRingtone.split("\\|");
+            String[] splits = _volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2280,7 +2282,7 @@ public class Profile {
 
     void setVolumeRingtoneValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
-            String[] splits = _volumeRingtone.split("\\|");
+            String[] splits = _volumeRingtone.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _volumeRingtone = "";
             StringBuilder _volume = new StringBuilder();
@@ -2301,7 +2303,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2313,7 +2315,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2325,7 +2327,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2335,7 +2337,7 @@ public class Profile {
 
     void setVolumeNotificationValue(@SuppressWarnings("SameParameterValue") int value) {
         try {
-            String[] splits = _volumeNotification.split("\\|");
+            String[] splits = _volumeNotification.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _volumeNotification = "";
             StringBuilder _volume = new StringBuilder();
@@ -2356,7 +2358,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeMedia.split("\\|");
+            String[] splits = _volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2368,7 +2370,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeMedia.split("\\|");
+            String[] splits = _volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2380,7 +2382,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeMedia.split("\\|");
+            String[] splits = _volumeMedia.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2392,7 +2394,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAlarm.split("\\|");
+            String[] splits = _volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2404,7 +2406,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAlarm.split("\\|");
+            String[] splits = _volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2416,7 +2418,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAlarm.split("\\|");
+            String[] splits = _volumeAlarm.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2428,7 +2430,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeSystem.split("\\|");
+            String[] splits = _volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2440,7 +2442,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeSystem.split("\\|");
+            String[] splits = _volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2452,7 +2454,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeSystem.split("\\|");
+            String[] splits = _volumeSystem.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2464,7 +2466,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeVoice.split("\\|");
+            String[] splits = _volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2476,7 +2478,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeVoice.split("\\|");
+            String[] splits = _volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2488,7 +2490,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeVoice.split("\\|");
+            String[] splits = _volumeVoice.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2500,7 +2502,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeDTMF.split("\\|");
+            String[] splits = _volumeDTMF.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2512,7 +2514,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeDTMF.split("\\|");
+            String[] splits = _volumeDTMF.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2524,7 +2526,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeDTMF.split("\\|");
+            String[] splits = _volumeDTMF.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2536,7 +2538,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAccessibility.split("\\|");
+            String[] splits = _volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2548,7 +2550,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAccessibility.split("\\|");
+            String[] splits = _volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2560,7 +2562,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeAccessibility.split("\\|");
+            String[] splits = _volumeAccessibility.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2572,7 +2574,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeBluetoothSCO.split("\\|");
+            String[] splits = _volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2584,7 +2586,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeBluetoothSCO.split("\\|");
+            String[] splits = _volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2596,7 +2598,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _volumeBluetoothSCO.split("\\|");
+            String[] splits = _volumeBluetoothSCO.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2610,7 +2612,7 @@ public class Profile {
         int defaultValue = 50;
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
             if ((value < 0) || (value > maximumValue))
                 value = defaultValue;
@@ -2624,7 +2626,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2636,7 +2638,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[3]);
         } catch (Exception e) {
             value = 0;
@@ -2648,7 +2650,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 1;
@@ -2660,7 +2662,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _deviceBrightness.split("\\|");
+            String[] splits = _deviceBrightness.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[4]);
         } catch (Exception e) {
             value = 1;
@@ -2727,7 +2729,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[0]);
         } catch (Exception e) {
             value = 0;
@@ -2739,7 +2741,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[1]);
         } catch (Exception e) {
             value = 1;
@@ -2751,7 +2753,7 @@ public class Profile {
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[2];
         } catch (Exception e) {
             value = "";
@@ -2763,7 +2765,7 @@ public class Profile {
     {
         String value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[3];
         } catch (Exception e) {
             value = "";
@@ -2775,7 +2777,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[4]);
         } catch (Exception e) {
             value = 0;
@@ -2787,7 +2789,7 @@ public class Profile {
     {
         int value;
         try {
-            String[] splits = _generateNotification.split("\\|");
+            String[] splits = _generateNotification.split(StringConstants.STR_SPLIT_REGEX);
             value = Integer.parseInt(splits[5]);
         } catch (Exception e) {
             value = 0;
@@ -3041,7 +3043,7 @@ public class Profile {
                 }
             }
             if (!showEndTime) {
-                durationString = "[\u00A0" + context.getString(R.string.profile_event_name_ask_for_duration) + "\u00A0]";
+                durationString = "[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.profile_event_name_ask_for_duration) + StringConstants.CHAR_HARD_SPACE + "]";
             }
         }
         else
@@ -3140,13 +3142,13 @@ public class Profile {
         editor.putString(PREF_PROFILE_VOLUME_SYSTEM, this._volumeSystem);
         editor.putString(PREF_PROFILE_VOLUME_VOICE, this._volumeVoice);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(this._soundRingtoneChange));
-        String[] splits = this._soundRingtone.split("\\|");
+        String[] splits = this._soundRingtone.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(this._soundNotificationChange));
-        splits = this._soundNotification.split("\\|");
+        splits = this._soundNotification.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(this._soundAlarmChange));
-        splits = this._soundAlarm.split("\\|");
+        splits = this._soundAlarm.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_ALARM, splits[0]);
         editor.putString(PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(this._deviceAirplaneMode));
         editor.putString(PREF_PROFILE_DEVICE_WIFI, Integer.toString(this._deviceWiFi));
@@ -3209,16 +3211,16 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(this._deviceOnOffSIM1));
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(this._deviceOnOffSIM2));
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, Integer.toString(this._soundRingtoneChangeSIM1));
-        splits = this._soundRingtoneSIM1.split("\\|");
+        splits = this._soundRingtoneSIM1.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM1, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, Integer.toString(this._soundNotificationChangeSIM1));
-        splits = this._soundNotificationSIM1.split("\\|");
+        splits = this._soundNotificationSIM1.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM1, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, Integer.toString(this._soundRingtoneChangeSIM2));
-        splits = this._soundRingtoneSIM2.split("\\|");
+        splits = this._soundRingtoneSIM2.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM2, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(this._soundNotificationChangeSIM2));
-        splits = this._soundNotificationSIM2.split("\\|");
+        splits = this._soundNotificationSIM2.split(StringConstants.STR_SPLIT_REGEX);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(this._soundSameRingtoneForBothSIMCards));
         editor.putString(PREF_PROFILE_DEVICE_LIVE_WALLPAPER, this._deviceLiveWallpaper);
@@ -3297,7 +3299,7 @@ public class Profile {
     @SuppressWarnings("unused")
     void setVibrationIntensityRingingValue(int value) {
         try {
-            String[] splits = _vibrationIntensityRinging.split("\\|");
+            String[] splits = _vibrationIntensityRinging.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _vibrationIntensityRinging = "";
             StringBuilder _value = new StringBuilder();
@@ -3326,7 +3328,7 @@ public class Profile {
     @SuppressWarnings("unused")
     void setVibrationIntensityNotificationsValue(int value) {
         try {
-            String[] splits = _vibrationIntensityNotifications.split("\\|");
+            String[] splits = _vibrationIntensityNotifications.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _vibrationIntensityNotifications = "";
             StringBuilder _value = new StringBuilder();
@@ -3355,7 +3357,7 @@ public class Profile {
     @SuppressWarnings("unused")
     void setVibrationIntensityTouchInteractionValue(int value) {
         try {
-            String[] splits = _vibrationIntensityTouchInteraction.split("\\|");
+            String[] splits = _vibrationIntensityTouchInteraction.split(StringConstants.STR_SPLIT_REGEX);
             splits[0] = String.valueOf(value);
             _vibrationIntensityTouchInteraction = "";
             StringBuilder _value = new StringBuilder();

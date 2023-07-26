@@ -117,13 +117,13 @@ class EventPreferencesWifi extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_wifi_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b> • ";
+                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b>"+StringConstants.STR_DOT;
                 }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_ssid) + ": ";
                 String selectedSSIDs;// = "";
                 StringBuilder value = new StringBuilder();
-                String[] splits = this._SSID.split("\\|");
+                String[] splits = this._SSID.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _ssid : splits) {
                     if (_ssid.isEmpty()) {
                         //selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -132,11 +132,11 @@ class EventPreferencesWifi extends EventPreferences {
                         switch (_ssid) {
                             case ALL_SSIDS_VALUE:
                                 //selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]";
-                                value.append("[\u00A0").append(context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb)).append("\u00A0]");
+                                value.append("[").append(StringConstants.CHAR_HARD_SPACE).append(context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb)).append(StringConstants.CHAR_HARD_SPACE).append("]");
                                 break;
                             case CONFIGURED_SSIDS_VALUE:
                                 //selectedSSIDs = selectedSSIDs + "[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]";
-                                value.append("[\u00A0").append(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb)).append("\u00A0]");
+                                value.append("[").append(StringConstants.CHAR_HARD_SPACE).append(context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb)).append(StringConstants.CHAR_HARD_SPACE).append("]");
                                 break;
                             default:
                                 //selectedSSIDs = selectedSSIDs + _ssid;
@@ -471,7 +471,7 @@ class EventPreferencesWifi extends EventPreferences {
 
                         if (wifiConnected) {
 
-                            String[] splits = _SSID.split("\\|");
+                            String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
                             boolean[] connected = new boolean[splits.length];
 
                             int i = 0;
@@ -572,7 +572,7 @@ class EventPreferencesWifi extends EventPreferences {
                                         if (scanResults != null) {
 
                                             for (WifiSSIDData result : scanResults) {
-                                                String[] splits = _SSID.split("\\|");
+                                                String[] splits = _SSID.split(StringConstants.STR_SPLIT_REGEX);
                                                 boolean[] nearby = new boolean[splits.length];
                                                 int i = 0;
                                                 for (String _ssid : splits) {

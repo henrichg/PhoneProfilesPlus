@@ -93,11 +93,11 @@ class EventPreferencesOrientation extends EventPreferences {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_ORIENTATION_ENABLED, _enabled);
 
-        String[] splits = this._display.split("\\|");
+        String[] splits = this._display.split(StringConstants.STR_SPLIT_REGEX);
         Set<String> set = new HashSet<>(Arrays.asList(splits));
         editor.putStringSet(PREF_EVENT_ORIENTATION_DISPLAY, set);
 
-        splits = this._sides.split("\\|");
+        splits = this._sides.split(StringConstants.STR_SPLIT_REGEX);
         set = new HashSet<>(Arrays.asList(splits));
         editor.putStringSet(PREF_EVENT_ORIENTATION_SIDES, set);
 
@@ -179,7 +179,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
                 String selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._display.isEmpty() && !this._display.equals("-")) {
-                    String[] splits = this._display.split("\\|");
+                    String[] splits = this._display.split(StringConstants.STR_SPLIT_REGEX);
                     String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
                     String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
                     //selectedValues = "";
@@ -204,7 +204,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (PPApplication.magneticFieldSensor != null) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._sides.isEmpty() && !this._sides.equals("-")) {
-                        String[] splits = this._sides.split("\\|");
+                        String[] splits = this._sides.split(StringConstants.STR_SPLIT_REGEX);
                         String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
                         String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
                         //selectedValues = "";
@@ -222,21 +222,21 @@ class EventPreferencesOrientation extends EventPreferences {
                         }
                         selectedValues = _value.toString();
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_distance) + ": <b>" + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_distance) + ": <b>" + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + "</b>";
 
                 if (this._checkLight) {
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
                             getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context) + "</b>";
                 }
                 else {
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + ": <b>" +
                             getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context) + "</b>";
                 }
 
@@ -256,7 +256,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 } else if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
-                    String[] splits = this._ignoredApplications.split("\\|");
+                    String[] splits = this._ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
                         String packageName = Application.getPackageName(splits[0]);
                         String activityName = Application.getActivityName(splits[0]);
@@ -280,7 +280,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
-                descr = descr + " • " + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
+                descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
             }
         }
 
@@ -991,7 +991,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                         String foregroundApplication = ApplicationPreferences.prefApplicationInForeground;
 //                                    PPApplicationStatic.logE("EventPreferencesOrientation.doHandleEvent", "foregroundApplication="+foregroundApplication);
                                         if (!foregroundApplication.isEmpty()) {
-                                            String[] splits = _ignoredApplications.split("\\|");
+                                            String[] splits = _ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                                             for (String split : splits) {
                                                 if (!split.isEmpty()) {
                                                     String packageName = Application.getPackageName(split);
@@ -1022,7 +1022,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                     boolean configuredDisplay = false;
                                     if (hasAccelerometer) {
                                         if (!_display.isEmpty()) {
-                                            String[] splits = _display.split("\\|");
+                                            String[] splits = _display.split(StringConstants.STR_SPLIT_REGEX);
                                             if (splits.length > 0) {
                                                 configuredDisplay = true;
                                                 //lDisplayPassed = false;
@@ -1053,7 +1053,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                     boolean configuredSide = false;
                                     if (enabledAll) {
                                         if (!_sides.isEmpty()) {
-                                            String[] splits = _sides.split("\\|");
+                                            String[] splits = _sides.split(StringConstants.STR_SPLIT_REGEX);
                                             if (splits.length > 0) {
                                                 configuredSide = true;
                                                 //lSidePassed = false;

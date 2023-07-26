@@ -57,7 +57,7 @@ public class DaysOfWeekPreference extends DialogPreference {
         // change checked state by value
         if (daysOfWeekList != null)
         {
-            String[] splits = value.split("\\|");
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             boolean allIsConfigured = false;
             for (String split : splits) {
                 if (split.equals(allValue)) {
@@ -86,7 +86,7 @@ public class DaysOfWeekPreference extends DialogPreference {
 
         boolean allIsConfigured = false;
         boolean[] daySet = new boolean[7];
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         if (!value.isEmpty()) {
             for (String split : splits) {
                 if (split.equals(allValue)) {

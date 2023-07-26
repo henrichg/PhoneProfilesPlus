@@ -71,10 +71,10 @@ class WifiSSIDPreferenceAdapter extends BaseAdapter
 
         switch (wifiSSID.ssid) {
             case EventPreferencesWifi.ALL_SSIDS_VALUE:
-                holder.SSIDName.setText("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + "\u00A0]");
+                holder.SSIDName.setText("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb) + StringConstants.CHAR_HARD_SPACE + "]");
                 break;
             case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
-                holder.SSIDName.setText("[\u00A0" + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + "\u00A0]");
+                holder.SSIDName.setText("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb) + StringConstants.CHAR_HARD_SPACE + "]");
                 break;
             default:
                 String ssidName = "";

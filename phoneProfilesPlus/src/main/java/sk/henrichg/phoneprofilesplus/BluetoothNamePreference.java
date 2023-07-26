@@ -50,7 +50,7 @@ public class BluetoothNamePreference extends DialogPreference {
     }
 
     void addBluetoothName(String bluetoothName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         boolean found = false;
         for (String _bluetoothName : splits) {
             if (_bluetoothName.equals(bluetoothName)) {
@@ -66,7 +66,7 @@ public class BluetoothNamePreference extends DialogPreference {
     }
 
     void removeBluetoothName(String bluetoothName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         value = "";
         StringBuilder _value = new StringBuilder();
         for (String _bluetoothName : splits) {
@@ -85,7 +85,7 @@ public class BluetoothNamePreference extends DialogPreference {
     }
 
     boolean isBluetoothNameSelected(String bluetoothName) {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String _bluetoothName : splits) {
             if (_bluetoothName.equals(bluetoothName))
                 return true;
@@ -111,17 +111,17 @@ public class BluetoothNamePreference extends DialogPreference {
     }
 
     private void setSummary() {
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
         for (String _bluetoothName : splits) {
             if (_bluetoothName.isEmpty()) {
                 setSummary(R.string.applications_multiselect_summary_text_not_selected);
             } else if (splits.length == 1) {
                 switch (value) {
                     case EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE:
-                        setSummary("[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + "\u00A0]");
+                        setSummary("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb) + StringConstants.CHAR_HARD_SPACE + "]");
                         break;
                     case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
-                        setSummary("[\u00A0" + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + "\u00A0]");
+                        setSummary("[" + StringConstants.CHAR_HARD_SPACE + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb) + StringConstants.CHAR_HARD_SPACE + "]");
                         break;
                     default:
                         setSummary(_bluetoothName);

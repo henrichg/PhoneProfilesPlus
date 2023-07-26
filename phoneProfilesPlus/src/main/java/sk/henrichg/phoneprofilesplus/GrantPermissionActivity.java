@@ -368,6 +368,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (canShowRationale(context, forceGrant)) {
 
+            //TODO showRequestString sprav ako StringBuilder
+
             /*if (onlyNotification) {
                 showNotification(context);
             }
@@ -439,6 +441,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
             }
 
+            //TODO sprav toto cez StringBuilder
             String whyString = "";
             if (showRequestWriteSettings) {
                 whyString = whyString + "<li>";
@@ -543,6 +546,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
+            //TODO StringBuilder pripoj k showRequestString
             if (!whyString.isEmpty())
                 showRequestString = "<ul>" + whyString + "</ul>";
 
@@ -687,162 +691,162 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 switch (permissionType) {
                     //case Permissions.PERMISSION_PROFILE_VOLUME_PREFERENCES:
                     //    break;
-                    case Permissions.PERMISSION_PROFILE_VIBRATION_ON_TOUCH:
+                    case Permissions.PERMISSION_TYPE_PROFILE_VIBRATION_ON_TOUCH:
                         s = getString(R.string.permission_why_profile_vibration_on_touch);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RINGTONES:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RINGTONES:
                         s = getString(R.string.permission_why_profile_ringtones);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SCREEN_TIMEOUT:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_TIMEOUT:
                         s = getString(R.string.permission_why_profile_screen_timeout);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SCREEN_BRIGHTNESS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_BRIGHTNESS:
                         s = getString(R.string.permission_why_profile_screen_brightness);
                         break;
-                    case Permissions.PERMISSION_PROFILE_AUTOROTATION:
+                    case Permissions.PERMISSION_TYPE_PROFILE_AUTOROTATION:
                         s = getString(R.string.permission_why_profile_autorotation);
                         break;
-                    case Permissions.PERMISSION_PROFILE_IMAGE_WALLPAPER:
-                    case Permissions.PERMISSION_PROFILE_WALLPAPER_FOLDER:
+                    case Permissions.PERMISSION_TYPE_PROFILE_IMAGE_WALLPAPER:
+                    case Permissions.PERMISSION_TYPE_PROFILE_WALLPAPER_FOLDER:
                         s = getString(R.string.permission_why_profile_wallpaper);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RADIO_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RADIO_PREFERENCES:
                         if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && (Build.VERSION.SDK_INT >= 28))
                             s = getString(R.string.permission_why_profile_radio_preferences_emui);
                         else
                             s = getString(R.string.permission_why_profile_radio_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_PHONE_STATE_BROADCAST:
+                    case Permissions.PERMISSION_TYPE_PROFILE_PHONE_STATE_BROADCAST:
                         s = getString(R.string.permission_why_profile_phone_state_broadcast);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CUSTOM_PROFILE_ICON:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CUSTOM_PROFILE_ICON:
                         s = getString(R.string.permission_why_profile_custom_profile_icon);
                         break;
                     /*case Permissions.PERMISSION_INSTALL_TONE:
                         s = getString(R.string.permission_why_install_tone);
                         break;*/
-                    case Permissions.PERMISSION_EXPORT:
+                    case Permissions.PERMISSION_TYPE_EXPORT:
                         s = getString(R.string.permission_why_export);
                         break;
-                    case Permissions.PERMISSION_IMPORT:
+                    case Permissions.PERMISSION_TYPE_IMPORT:
                         s = getString(R.string.permission_why_import);
                         break;
-                    case Permissions.PERMISSION_EVENT_CALENDAR_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_CALENDAR_PREFERENCES:
                         s = getString(R.string.permission_why_event_calendar_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_CALL_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_CALL_PREFERENCES:
                         s = getString(R.string.permission_why_event_call_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_ORIENTATION_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_ORIENTATION_PREFERENCES:
                         s = getString(R.string.permission_why_event_orientation_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_SMS_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_SMS_PREFERENCES:
                         s = getString(R.string.permission_why_event_sms_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_RADIO_SWITCH_PREFERENCES:
                         s = getString(R.string.permission_why_event_radio_switch_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_LOCATION_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_LOCATION_PREFERENCES:
                         s = getString(R.string.permission_why_event_location_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_WIFI_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_WIFI_PREFERENCES:
                         s = getString(R.string.permission_why_event_wifi_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_BLUETOOTH_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_BLUETOOTH_PREFERENCES:
                         s = getString(R.string.permission_why_event_bluetooth_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_BLUETOOTH_SWITCH_PREFERENCES:
                         s = getString(R.string.permission_why_event_bluetooth_preferences_emui);
                         break;
-                    case Permissions.PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_MOBILE_CELLS_PREFERENCES:
                         s = getString(R.string.permission_why_event_mobile_cells_preferences);
                         break;
-                    case Permissions.PERMISSION_EVENT_CONTACTS_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_EVENT_CONTACTS_PREFERENCE:
                         s = getString(R.string.permission_why_event_contacts_preference);
                         break;
-                    case Permissions.PERMISSION_PROFILE_NOTIFICATION_LED:
+                    case Permissions.PERMISSION_TYPE_PROFILE_NOTIFICATION_LED:
                         s = getString(R.string.permission_why_profile_notification_led);
                         break;
-                    case Permissions.PERMISSION_PROFILE_VIBRATE_WHEN_RINGING:
+                    case Permissions.PERMISSION_TYPE_PROFILE_VIBRATE_WHEN_RINGING:
                         s = getString(R.string.permission_why_profile_vibrate_when_ringing);
                         break;
-                    case Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION:
+                    case Permissions.PERMISSION_TYPE_PLAY_RINGTONE_NOTIFICATION:
                         s = getString(R.string.permission_why_play_ringtone_notification);
                         break;
 //                    case Permissions.PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY:
 //                        s = getString(R.string.permission_why_profile_access_notification_policy);
 //                        break;
-                    case Permissions.PERMISSION_PROFILE_LOCK_DEVICE:
+                    case Permissions.PERMISSION_TYPE_PROFILE_LOCK_DEVICE:
                         s = getString(R.string.permission_why_profile_lock_device);
                         break;
-                    case Permissions.PERMISSION_RINGTONE_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_RINGTONE_PREFERENCE:
                         s = getString(R.string.permission_why_ringtone_preference);
                         break;
-                    case Permissions.PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING:
+                    case Permissions.PERMISSION_TYPE_PROFILE_DTMF_TONE_WHEN_DIALING:
                         s = getString(R.string.permission_why_profile_dtmf_tone_when_dialing);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SOUND_ON_TOUCH:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SOUND_ON_TOUCH:
                         s = getString(R.string.permission_why_profile_sound_on_touch);
                         break;
-                    case Permissions.PERMISSION_BRIGHTNESS_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_BRIGHTNESS_PREFERENCE:
                         s = getString(R.string.permission_why_brightness_preference);
                         break;
-                    case Permissions.PERMISSION_IMAGE_WALLPAPER_PREFERENCE:
-                    case Permissions.PERMISSION_WALLPAPER_FOLDER_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_IMAGE_WALLPAPER_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_WALLPAPER_FOLDER_PREFERENCE:
                         s = getString(R.string.permission_why_wallpaper_preference);
                         break;
-                    case Permissions.PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_CUSTOM_PROFILE_ICON_PREFERENCE:
                         s = getString(R.string.permission_why_custom_profile_icon_preference);
                         break;
-                    case Permissions.PERMISSION_LOCATION_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_LOCATION_PREFERENCE:
                         s = getString(R.string.permission_why_location_preference);
                         break;
-                    case Permissions.PERMISSION_CALENDAR_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_CALENDAR_PREFERENCE:
                         s = getString(R.string.permission_why_calendar_preference);
                         break;
                     //case Permissions.PERMISSION_LOG_TO_FILE:
                     //    s = getString(R.string.permission_why_log_to_file);
                     //    break;
-                    case Permissions.PERMISSION_EVENT_TIME_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_TIME_PREFERENCES:
                         s = getString(R.string.permission_why_event_time_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_ALWAYS_ON_DISPLAY:
+                    case Permissions.PERMISSION_TYPE_PROFILE_ALWAYS_ON_DISPLAY:
                         s = getString(R.string.permission_why_profile_always_on_display);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CONNECT_TO_SSID_PREFERENCE:
                         s = getString(R.string.permission_why_profile_connect_to_ssid_preference);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SCREEN_ON_PERMANENT:
+                    case Permissions.PERMISSION_TYPE_PROFILE_SCREEN_ON_PERMANENT:
                         s = getString(R.string.permission_why_profile_screen_on_permanent);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CAMERA_FLASH:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CAMERA_FLASH:
                         s = getString(R.string.permission_why_profile_camera_flash);
                         break;
-                    case Permissions.PERMISSION_BACGROUND_LOCATION:
+                    case Permissions.PERMISSION_TYPE_BACGROUND_LOCATION:
                         s = getString(R.string.permission_why_profile_background_location);
                         break;
-                    case Permissions.PERMISSION_PROFILE_MICROPHONE:
+                    case Permissions.PERMISSION_TYPE_PROFILE_MICROPHONE:
                         s = getString(R.string.permission_why_profile_default_assistant);
                         break;
-                    case Permissions.PERMISSION_EVENT_ROAMING_PREFERENCES:
+                    case Permissions.PERMISSION_TYPE_EVENT_ROAMING_PREFERENCES:
                         s = getString(R.string.permission_why_event_roaming_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_WIREGUARD:
+                    case Permissions.PERMISSION_TYPE_PROFILE_WIREGUARD:
                         s = getString(R.string.permission_why_profile_wireguard);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RUN_APPLICATIONS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RUN_APPLICATIONS:
                         s = getString(R.string.permission_why_profile_run_applications);
                         break;
-                    case Permissions.PERMISSION_PROFILE_INTERACTIVE_PREFEREBCES:
+                    case Permissions.PERMISSION_TYPE_PROFILE_INTERACTIVE_PREFEREBCES:
                         s = getString(R.string.permission_why_profile_interactive_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_CLOSE_ALL_APPLICATIONS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_CLOSE_ALL_APPLICATIONS:
                         s = getString(R.string.permission_why_profile_close_all_applications);
                         break;
-                    case Permissions.PERMISSION_PROFILE_PPP_PUT_SETTINGS:
+                    case Permissions.PERMISSION_TYPE_PROFILE_PPP_PUT_SETTINGS:
                         s = getString(R.string.permission_why_profile_ppp_put_settings);
                         break;
-                    case Permissions.PERMISSION_PROFILE_RINGTONES_DUAL_SIM:
+                    case Permissions.PERMISSION_TYPE_PROFILE_RINGTONES_DUAL_SIM:
                         s = getString(R.string.permission_why_profile_ringtones_dual_sim);
                         break;
                 }

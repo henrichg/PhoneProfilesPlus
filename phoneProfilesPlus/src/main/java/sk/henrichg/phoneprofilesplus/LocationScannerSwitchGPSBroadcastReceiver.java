@@ -46,7 +46,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
             PPApplicationStatic.recordException(e);
         }
 
-        PPApplicationStatic.cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        PPApplicationStatic.cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, false);
     }
 
     static void setAlarm(Context context)
@@ -88,7 +88,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                 keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                 OneTimeWorkRequest worker =
                         new OneTimeWorkRequest.Builder(MainWorker.class)
-                                .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK)
+                                .addTag(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG)
                                 .setInitialDelay(delay, TimeUnit.SECONDS)
                                 .build();
                 try {
@@ -105,7 +105,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                        //}
 
 //                            PPApplicationStatic.logE("[WORKER_CALL] LocationScannerSwitchGPSBroadcastReceiver.setAlarm", "xxx");
-                            workManager.enqueueUniqueWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
+                            workManager.enqueueUniqueWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_WORK_TAG, ExistingWorkPolicy.REPLACE/*KEEP*/, worker);
                         }
                     }
                 } catch (Exception e) {

@@ -530,7 +530,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
             int itemId = item.getItemId();
             if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_change) {
                 if (!bluetoothName.getText().toString().isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
+                    String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                     preference.value = "";
                     StringBuilder value = new StringBuilder();
                     boolean found = false;
@@ -702,7 +702,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
 
                 // add all from value
                 boolean found;
-                String[] splits = preference.value.split("\\|");
+                String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                 for (String _bluetoothName : splits) {
                     if (!_bluetoothName.isEmpty() &&
                             !_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE) &&

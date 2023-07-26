@@ -204,7 +204,7 @@ class DataWrapperStatic {
             if (EventStatic.getGlobalEventsRunning(context)) {
                 if (EventStatic.getEventsBlocked(context)) {
                     if (EventStatic.getForceRunEventRunning(context))
-                        manualIndicators = "[»]";
+                        manualIndicators = "["+StringConstants.CHAR_ARROW +"]";
                     else
                         manualIndicators = "[M]";
                 }
@@ -214,7 +214,7 @@ class DataWrapperStatic {
 
             String _eventName = getLastStartedEventName(dataWrapper, profile, context);
             if (!_eventName.equals("?"))
-                eventName = "[\u00A0" + _eventName + "\u00A0]";
+                eventName = "[" +  StringConstants.CHAR_HARD_SPACE + _eventName + StringConstants.CHAR_HARD_SPACE + "]";
 
             if (!manualIndicators.isEmpty())
                 eventName = manualIndicators + " " + eventName;

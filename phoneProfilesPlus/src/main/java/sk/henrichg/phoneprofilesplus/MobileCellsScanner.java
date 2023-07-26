@@ -31,8 +31,8 @@ class MobileCellsScanner {
     @SuppressWarnings("Convert2Diamond")
     static final List<Long> autoRegistrationEventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    static final String NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
-    static final String NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
+    static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED";
+    static final String ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DISABLE = PPApplication.PACKAGE_NAME + ".MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION";
 
     //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
 
@@ -362,7 +362,7 @@ class MobileCellsScanner {
     static String addCellId(String cells, int cellId) {
 //        PPApplicationStatic.logE("[TEST BATTERY] MobileCellsScanner.addCellId", "******** ### *******");
 
-        String[] splits = cells.split("\\|");
+        String[] splits = cells.split(StringConstants.STR_SPLIT_REGEX);
         String sCellId = Integer.toString(cellId);
         boolean found = false;
         for (String cell : splits) {

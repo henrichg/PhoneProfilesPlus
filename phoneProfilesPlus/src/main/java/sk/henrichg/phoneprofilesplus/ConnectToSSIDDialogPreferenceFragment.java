@@ -64,7 +64,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             listAdapter.notifyDataSetChanged();
         });
 
-        helpTextView.setText(getString(R.string.connect_to_ssid_dialog_help) + "\u00A0»»");
+        helpTextView.setText(getString(R.string.connect_to_ssid_dialog_help) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
         helpTextView.setOnClickListener(v -> {
             boolean ok = false;
             Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);

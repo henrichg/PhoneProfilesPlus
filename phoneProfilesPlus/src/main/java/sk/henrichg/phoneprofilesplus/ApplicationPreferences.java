@@ -350,10 +350,10 @@ class ApplicationPreferences {
     //static final String PREF_EDITOR_PROFILES_FIRST_START = "editorProfilesFirstStart";
     //static final String PREF_EDITOR_EVENTS_FIRST_START = "editorEventsFirstStart";
 
-    static final String EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
-    static final String EDITOR_SELECTED_VIEW = "editor_selected_view";
-    static final String EDITOR_PROFILES_VIEW_SELECTED_ITEM = "editor_profiles_view_selected_item";
-    static final String EDITOR_EVENTS_VIEW_SELECTED_ITEM = "editor_events_view_selected_item";
+    static final String PREF_EDITOR_ORDER_SELECTED_ITEM = "editor_order_selected_item";
+    static final String PREF_EDITOR_SELECTED_VIEW = "editor_selected_view";
+    static final String PREF_EDITOR_PROFILES_VIEW_SELECTED_ITEM = "editor_profiles_view_selected_item";
+    static final String PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM = "editor_events_view_selected_item";
 
     static final String PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI = "applicationEventWifiEnableWifi";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH = "applicationEventBluetoothEnableBluetooth";
@@ -628,6 +628,11 @@ class ApplicationPreferences {
     }
     */
 
+    //TODO "dark", "white", "night_mode" daj ako konstanty, pohladaj, ci s apouizvaju aj inde
+    static private final String PREF_APPLICATION_THEME_VALUE_DARK = "dark";
+    static private final String PREF_APPLICATION_THEME_VALUE_WHITE = "white";
+    static private final String PREF_APPLICATION_THEME_VALUE_NIGHT_MODE = "night_mode";
+
     static String applicationTheme(Context context, boolean useNightMode) {
         synchronized (PPApplication.applicationPreferencesMutex) {
             if (applicationTheme == null)
@@ -637,29 +642,29 @@ class ApplicationPreferences {
                     _applicationTheme.equals("material") ||
                     _applicationTheme.equals("color") ||
                     _applicationTheme.equals("dlight")) {
-                String defaultValue = "dark";
+                String defaultValue = PREF_APPLICATION_THEME_VALUE_DARK;
                 if (Build.VERSION.SDK_INT >= 28)
-                    defaultValue = "night_mode";
+                    defaultValue = PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
                 _applicationTheme = defaultValue;
                 SharedPreferences.Editor editor = ApplicationPreferences.getSharedPreferences(context).edit();
                 editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, _applicationTheme);
                 editor.apply();
                 applicationTheme = _applicationTheme;
             }
-            if (_applicationTheme.equals("night_mode") && useNightMode) {
+            if (_applicationTheme.equals(PREF_APPLICATION_THEME_VALUE_NIGHT_MODE) && useNightMode) {
                 if (GlobalGUIRoutines.isNightModeEnabled(context.getApplicationContext()))
-                    _applicationTheme = "dark";
+                    _applicationTheme = PREF_APPLICATION_THEME_VALUE_DARK;
                 else
-                    _applicationTheme = "white";
+                    _applicationTheme = PREF_APPLICATION_THEME_VALUE_WHITE;
                 /*int nightModeFlags =
                         context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                 switch (nightModeFlags) {
                     case Configuration.UI_MODE_NIGHT_YES:
-                        _applicationTheme = "dark";
+                        _applicationTheme = PREF_APPLICATION_THEME_VALUE_DARK;
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                        _applicationTheme = "white";
+                        _applicationTheme = PREF_APPLICATION_THEME_VALUE_WHITE;
                         break;
                 }*/
             }
@@ -684,22 +689,22 @@ class ApplicationPreferences {
 
     static final int EDITOR_ORDER_SELECTED_ITEM_DEFAULT_VALUE = 0;
     static void editorOrderSelectedItem(Context context) {
-        editorOrderSelectedItem = getSharedPreferences(context).getInt(EDITOR_ORDER_SELECTED_ITEM, EDITOR_ORDER_SELECTED_ITEM_DEFAULT_VALUE);
+        editorOrderSelectedItem = getSharedPreferences(context).getInt(PREF_EDITOR_ORDER_SELECTED_ITEM, EDITOR_ORDER_SELECTED_ITEM_DEFAULT_VALUE);
     }
 
     static final int EDITOR_SELECTED_VIEW_DEFAULT_VALUE = 0;
     static void editorSelectedView(Context context) {
-        editorSelectedView = getSharedPreferences(context).getInt(EDITOR_SELECTED_VIEW, EDITOR_SELECTED_VIEW_DEFAULT_VALUE);
+        editorSelectedView = getSharedPreferences(context).getInt(PREF_EDITOR_SELECTED_VIEW, EDITOR_SELECTED_VIEW_DEFAULT_VALUE);
     }
 
     static final int EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE = 0;
     static void editorProfilesViewSelectedItem(Context context) {
-        editorProfilesViewSelectedItem = getSharedPreferences(context).getInt(EDITOR_PROFILES_VIEW_SELECTED_ITEM, EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
+        editorProfilesViewSelectedItem = getSharedPreferences(context).getInt(PREF_EDITOR_PROFILES_VIEW_SELECTED_ITEM, EDITOR_PROFILES_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
     }
 
     static final int EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE = 0;
     static void editorEventsViewSelectedItem(Context context) {
-        editorEventsViewSelectedItem = getSharedPreferences(context).getInt(EDITOR_EVENTS_VIEW_SELECTED_ITEM, EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
+        editorEventsViewSelectedItem = getSharedPreferences(context).getInt(PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, EDITOR_EVENTS_VIEW_SELECTED_ITEM_DEFAULT_VALUE);
     }
 
     static final boolean PREF_APPLICATION_START_ON_BOOT_DEFAULT_VALUE = true;
@@ -739,12 +744,10 @@ class ApplicationPreferences {
     }
     */
 
-    static private final String PREF_APPLICATION_THEME_DEFAULT_VALUE_DARK = "dark";
-    static private final String PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE = "night_mode";
     static String applicationThemeDefaultValue() {
-        String defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_DARK;
+        String defaultValue = PREF_APPLICATION_THEME_VALUE_DARK;
         if (Build.VERSION.SDK_INT >= 28)
-            defaultValue = PREF_APPLICATION_THEME_DEFAULT_VALUE_NIGHT_MODE;
+            defaultValue = PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
         return defaultValue;
     }
     static void applicationTheme(Context context) {

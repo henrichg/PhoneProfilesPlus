@@ -455,7 +455,7 @@ class DatabaseHandlerEvents {
                         do {
                             String oldFkProfiles = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_START_WHEN_ACTIVATED_PROFILE));
                             if (!oldFkProfiles.isEmpty()) {
-                                String[] splits = oldFkProfiles.split("\\|");
+                                String[] splits = oldFkProfiles.split(StringConstants.STR_SPLIT_REGEX);
                                 StringBuilder newFkProfiles = new StringBuilder();
                                 for (String split : splits) {
                                     long fkProfile = Long.parseLong(split);
@@ -647,7 +647,7 @@ class DatabaseHandlerEvents {
 
                 if (daysOfWeek != null)
                 {
-                    String[] splits = daysOfWeek.split("\\|");
+                    String[] splits = daysOfWeek.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits[0].equals(DaysOfWeekPreference.allValue))
                     {
                         eventPreferences._sunday = true;
@@ -4134,7 +4134,7 @@ class DatabaseHandlerEvents {
                     if (cursor.moveToFirst()) {
                         do {
                             String geofences = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_LOCATION_GEOFENCES));
-                            String[] splits = geofences.split("\\|");
+                            String[] splits = geofences.split(StringConstants.STR_SPLIT_REGEX);
                             boolean found = false;
                             //geofences = "";
                             StringBuilder value = new StringBuilder();
@@ -4197,7 +4197,7 @@ class DatabaseHandlerEvents {
                 try {
                     if (!geofences.isEmpty()) {
                         // check geofences
-                        String[] splits = geofences.split("\\|");
+                        String[] splits = geofences.split(StringConstants.STR_SPLIT_REGEX);
                         for (String geofence : splits) {
                             if (!geofence.isEmpty()) {
                                 int _check = check;
@@ -4410,7 +4410,7 @@ class DatabaseHandlerEvents {
                 if (cursor.moveToFirst()) {
                     do {
                         String geofences = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_E_LOCATION_GEOFENCES));
-                        String[] splits = geofences.split("\\|");
+                        String[] splits = geofences.split(StringConstants.STR_SPLIT_REGEX);
                         for (String geofence : splits) {
                             if (!geofence.isEmpty()) {
                                 if (geofence.equals(Long.toString(geofenceId))) {
@@ -4761,7 +4761,7 @@ class DatabaseHandlerEvents {
                         } else {
                             if (value != null) {
                                 // change selected
-                                String[] splits = value.split("\\|");
+                                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                                 for (String valueCell : splits) {
                                     if (valueCell.equals(Integer.toString(cell.cellId))) {
                                         cell.name = name;

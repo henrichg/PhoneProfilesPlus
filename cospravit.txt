@@ -806,5 +806,18 @@ Musim to uplne zmenit, neriesit old devices, proste nech detektor zmaze shared p
 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(), aj ked sa nic nezdeteguje.
 Lenze toto neviem ako mam zavolat. To radsej nech detektor connection ho zmaze sam na zaciatku.
 
+----------------------
+
+//TODO - prerobit na StringBuilder?
+
+Na stringBuilder prerob vsetky getPreferenceDescription() v senzoroch
+
+Znaky, tagy, retazce ako konstanty:
+- Vsade kde pouzivam StringFormatUtils.formHtml() pozri, ci su prislusne tagy zadefinovane a pouzite. Ak nie, pridaj a pouzi.
+
+Z tohoto sprav komstantu a pouiz ju:
+StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW
+StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW
+
 
 

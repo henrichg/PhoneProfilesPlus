@@ -1151,14 +1151,14 @@ class Event {
                     //if (forceRunChanged)
                     //    summary = summary + "[»] " + context.getString(R.string.event_preferences_ForceRun);
                     if (manualProfileActivationChanged) {
-                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
+                        /*if (!summary.isEmpty())*/ summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_manualProfileActivation);
                     }
                     if (profileStartWhenActivatedChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile) + ": ";
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
-                        String[] splits = startWhenActivatedProfile.split("\\|");
+                        String[] splits = startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                         Profile profile;
                         if (splits.length == 1) {
                             profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
@@ -1171,20 +1171,20 @@ class Event {
                         }
                     }
                     if (delayStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
                         summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_notificationSound);
                     }
                     if (notificationVibrateStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
                     }
                     if (notificationRepeatStartChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_notificationRepeat) + ": ";
                         summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
 
@@ -1205,20 +1205,20 @@ class Event {
                 if (bold) {
                     String summary = "";
                     if (manualProfileActivationAtEndChanged) {
-                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
+                        /*if (!summary.isEmpty())*/ summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_manualProfileActivationAtEnd);
                     }
                     if (delayEndChanged) {
-                        /*if (!summary.isEmpty())*/ summary = summary + " • ";
+                        /*if (!summary.isEmpty())*/ summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
                         summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundEndChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_notificationSound);
                     }
                     if (notificationVibrateEndChanged) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_notificationVibrate);
                     }
                     preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
@@ -1362,10 +1362,10 @@ class Event {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_IGNORE_MANUAL_ACTIVATION);
         if (preference != null)
-            preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
+            preference.setTitle("["+StringConstants.CHAR_ARROW +"] " + context.getString(R.string.event_preferences_ForceRun));
         preference = prefMng.findPreference(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION);
         if (preference != null)
-            preference.setTitle("[»»] " + context.getString(R.string.event_preferences_noPauseByManualActivation));
+            preference.setTitle("["+StringConstants.STR_DOUBLE_ARROW+"] " + context.getString(R.string.event_preferences_noPauseByManualActivation));
 
         setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context, false);
         setSummary(prefMng, PREF_EVENT_NAME, preferences, context, false);
@@ -1724,7 +1724,7 @@ class Event {
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if (activatedProfile != null) {
                 boolean found = false;
-                String[] splits = _startWhenActivatedProfile.split("\\|");
+                String[] splits = _startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     if (activatedProfile._id == Long.parseLong(split)) {
                         found = true;
@@ -1938,7 +1938,7 @@ class Event {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
                                     // remove profiles from this event
                                     for (String fromFifo : activateProfilesFIFO) {
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         if (!splits[1].equals(String.valueOf(_id))) {
                                             // profile is not from this event
                                             newActivateProfilesFIFO.add(fromFifo);
@@ -1949,7 +1949,7 @@ class Event {
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {
                                         String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         activateProfile = Long.parseLong(splits[0]);
                                     } else
                                         activateProfile = 0;
@@ -2030,7 +2030,7 @@ class Event {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
                                     // remove profiles from this event
                                     for (String fromFifo : activateProfilesFIFO) {
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         if (!splits[1].equals(String.valueOf(_id))) {
                                             // profile is not from this event
                                             newActivateProfilesFIFO.add(fromFifo);
@@ -2041,7 +2041,7 @@ class Event {
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {
                                         String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                        String[] splits = fromFifo.split("\\|");
+                                        String[] splits = fromFifo.split(StringConstants.STR_SPLIT_REGEX);
                                         activateProfile = Long.parseLong(splits[0]);
                                     } else
                                         activateProfile = 0;
@@ -2497,7 +2497,7 @@ class Event {
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id)
+                                    .addTag(MainWorker.EVENT_DELAY_START_WORK_TAG + "_" + (int) this._id)
                                     .setInitialDelay(this._delayStart, TimeUnit.SECONDS)
                                     .build();
                     try {
@@ -2514,9 +2514,9 @@ class Event {
 //                            //}
 
 //                                PPApplicationStatic.logE("[WORKER_CALL] Event.setDelayStartAlarm", "xxx");
-                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id,
+                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_START_WORK_TAG + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
-                                PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_TAG_WORK + "_" + (int) this._id);
+                                PPApplication.elapsedAlarmsEventDelayStartWork.add(MainWorker.EVENT_DELAY_START_WORK_TAG + "_" + (int) this._id);
 
                                 Calendar now = Calendar.getInstance();
                                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2635,7 +2635,7 @@ class Event {
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
-        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id), false);
+        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_START_WORK_TAG +"_"+((int) this._id), false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsEventDelayStartWork.remove(MainWorker.EVENT_DELAY_START_TAG_WORK +"_"+((int) this._id));
 
@@ -2722,7 +2722,7 @@ class Event {
                     keepResultsDelay = PPApplication.WORK_PRUNE_DELAY;*/
                     OneTimeWorkRequest worker =
                             new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id)
+                                    .addTag(MainWorker.EVENT_DELAY_END_WORK_TAG + "_" + (int) this._id)
                                     .setInitialDelay(this._delayEnd, TimeUnit.SECONDS)
                                     .build();
                     try {
@@ -2739,9 +2739,9 @@ class Event {
 //                            //}
 
 //                                PPApplicationStatic.logE("[WORKER_CALL] Event.setDelayEndAlarm", "xxx");
-                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id,
+                                workManager.enqueueUniqueWork(MainWorker.EVENT_DELAY_END_WORK_TAG + "_" + (int) this._id,
                                         ExistingWorkPolicy.REPLACE, worker);
-                                PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_TAG_WORK + "_" + (int) this._id);
+                                PPApplication.elapsedAlarmsEventDelayEndWork.add(MainWorker.EVENT_DELAY_END_WORK_TAG + "_" + (int) this._id);
 
                                 Calendar now = Calendar.getInstance();
                                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -2873,7 +2873,7 @@ class Event {
         } catch (Exception e) {
             PPApplicationStatic.recordException(e);
         }
-        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id), false);
+        PPApplicationStatic.cancelWork(MainWorker.EVENT_DELAY_END_WORK_TAG +"_"+((int) this._id), false);
         // moved to cancelWork
         //PPApplication.elapsedAlarmsEventDelayEndWork.remove(MainWorker.EVENT_DELAY_END_TAG_WORK +"_"+((int) this._id));
 
@@ -2950,7 +2950,7 @@ class Event {
                 //}
 
                 // Android 12 - this do not starts activity - OK
-                Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
+                Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.ACTION_START_EVENT_NOTIFICATION_DELETED);
                 deleteIntent.putExtra(PPApplication.EXTRA_EVENT_ID, _id);
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);

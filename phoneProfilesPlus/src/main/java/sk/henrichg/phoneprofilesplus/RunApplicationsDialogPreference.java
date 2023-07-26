@@ -120,7 +120,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
             //String notPassedIntents = "";
             StringBuilder _notPassedIntents = new StringBuilder();
 
-            String[] splits = _value.split("\\|");
+            String[] splits = _value.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
                 boolean applicationPassed = false;
 
@@ -307,7 +307,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
             if (_notPassedIntents.length() > 0) {
                 String notPassedIntents = _notPassedIntents.toString();
                 // add not passed intents
-                splits = notPassedIntents.split("\\|");
+                splits = notPassedIntents.split(StringConstants.STR_SPLIT_REGEX);
                 for (String split : splits) {
                     String[] packageNameActivity = split.split("/"); // (shortcut)package name/activity
                     if (split.length() > 2) {
@@ -354,7 +354,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
     {
         String prefSummary = context.getString(R.string.applications_multiselect_summary_text_not_selected);
         if (!value.isEmpty() && !value.equals("-")) {
-            String[] splits = value.split("\\|");
+            String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
             prefSummary = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             if (splits.length == 1) {
                 PackageManager packageManager = context.getPackageManager();
@@ -497,7 +497,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         PackageManager packageManager = context.getApplicationContext().getPackageManager();
         ApplicationInfo app;
 
-        String[] splits = value.split("\\|");
+        String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
 
         if (!value.isEmpty() && !value.equals("-")) {
             if (splits.length == 1) {

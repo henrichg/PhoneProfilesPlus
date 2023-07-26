@@ -613,7 +613,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             getString(R.string.alert_button_no),
                             null, null,
                             (dialog1, which) -> {
-                                String[] splits = preference.value.split("\\|");
+                                String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     for (String valueCell : splits) {
@@ -650,7 +650,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                             getString(R.string.alert_button_no),
                             null, null,
                             (dialog1, which) -> {
-                                String[] splits = preference.value.split("\\|");
+                                String[] splits = preference.value.split(StringConstants.STR_SPLIT_REGEX);
                                 DatabaseHandler db = DatabaseHandler.getInstance(_context);
                                 for (MobileCellsData cell : preference.filteredCellsList) {
                                     boolean isSelected = false;
@@ -969,7 +969,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     }
 
                     // add all from value
-                    String[] splits = _value.split("\\|");
+                    String[] splits = _value.split(StringConstants.STR_SPLIT_REGEX);
                     for (String cell : splits) {
                         if (cell.isEmpty())
                             continue;
@@ -1034,7 +1034,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     for (MobileCellsData cellData : _cellsList) {
                         if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
                             // add only cell in _value = selected for edited event
-                            splits = _value.split("\\|");
+                            splits = _value.split(StringConstants.STR_SPLIT_REGEX);
                             for (String cell : splits) {
                                 if (cell.equals(Integer.toString(cellData.cellId))) {
                                     _filteredCellsList.add(cellData);

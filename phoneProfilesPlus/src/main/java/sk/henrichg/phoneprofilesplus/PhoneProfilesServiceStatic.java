@@ -212,14 +212,14 @@ class PhoneProfilesServiceStatic
             if (PPApplication.startEventNotificationDeletedReceiver == null) {
                 PPApplication.startEventNotificationDeletedReceiver = new StartEventNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
+                intentFilter5.addAction(StartEventNotificationDeletedReceiver.ACTION_START_EVENT_NOTIFICATION_DELETED);
                 appContext.registerReceiver(PPApplication.startEventNotificationDeletedReceiver, intentFilter5);
             }
 
             if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver == null) {
                 PPApplication.notUsedMobileCellsNotificationDeletedReceiver = new NotUsedMobileCellsNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
+                intentFilter5.addAction(MobileCellsScanner.ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED);
                 appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver, intentFilter5);
             }
 
@@ -272,7 +272,7 @@ class PhoneProfilesServiceStatic
             if (PPApplication.notUsedMobileCellsNotificationDisableReceiver == null) {
                 PPApplication.notUsedMobileCellsNotificationDisableReceiver = new NotUsedMobileCellsNotificationDisableReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
+                intentFilter5.addAction(MobileCellsScanner.ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DISABLE);
                 appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
             }
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver == null) {
@@ -322,19 +322,19 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.ppAppNotificationDeletedReceiver == null) {
                     PPApplication.ppAppNotificationDeletedReceiver = new PPAppNotificationDeletedReceiver();
                     IntentFilter intentFilter5 = new IntentFilter();
-                    intentFilter5.addAction(PPAppNotificationDeletedReceiver.PP_APP_NOTIFICATION_DELETED_ACTION);
+                    intentFilter5.addAction(PPAppNotificationDeletedReceiver.ACTION_PP_APP_NOTIFICATION_DELETED);
                     appContext.registerReceiver(PPApplication.ppAppNotificationDeletedReceiver, intentFilter5);
                 }
                 if (PPApplication.keepScreenOnNotificationDeletedReceiver == null) {
                     PPApplication.keepScreenOnNotificationDeletedReceiver = new KeepScreenOnNotificationDeletedReceiver();
                     IntentFilter intentFilter5 = new IntentFilter();
-                    intentFilter5.addAction(KeepScreenOnNotificationDeletedReceiver.KEEP_SCREEN_ON_NOTIFICATION_DELETED_ACTION);
+                    intentFilter5.addAction(KeepScreenOnNotificationDeletedReceiver.ACTION_KEEP_SCREEN_ON_NOTIFICATION_DELETED);
                     appContext.registerReceiver(PPApplication.keepScreenOnNotificationDeletedReceiver, intentFilter5);
                 }
                 if (PPApplication.profileListNotificationDeletedReceiver == null) {
                     PPApplication.profileListNotificationDeletedReceiver = new ProfileListNotificationDeletedReceiver();
                     IntentFilter intentFilter5 = new IntentFilter();
-                    intentFilter5.addAction(ProfileListNotificationDeletedReceiver.PROFILE_LIST_NOTIFICATION_DELETED_ACTION);
+                    intentFilter5.addAction(ProfileListNotificationDeletedReceiver.ACTION_PROFILE_LIST_NOTIFICATION_DELETED);
                     appContext.registerReceiver(PPApplication.profileListNotificationDeletedReceiver, intentFilter5);
                 }
             }

@@ -44,7 +44,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference {
         String summary = context.getString(R.string.calendars_multiselect_summary_text_not_selected);
         if (Permissions.checkCalendar(context)) {
             if (!value.isEmpty()) {
-                String[] splits = value.split("\\|");
+                String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
                 if (splits.length == 1) {
                     boolean found = false;
                     Cursor cur;

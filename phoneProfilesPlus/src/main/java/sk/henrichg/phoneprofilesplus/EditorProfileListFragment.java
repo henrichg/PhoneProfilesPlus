@@ -76,8 +76,8 @@ public class EditorProfileListFragment extends Fragment
     static final int EDIT_MODE_EDIT = 3;
     static final int EDIT_MODE_DELETE = 4;
 
-    static final String FILTER_TYPE_ARGUMENT = "filter_type";
-    //static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    static final String BUNDLE_FILTER_TYPE = "filter_type";
+    //static final String BUNDLE_START_TARGET_HELPS = "start_target_helps";
 
     static final int FILTER_TYPE_ALL = 0;
     static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
@@ -140,7 +140,7 @@ public class EditorProfileListFragment extends Fragment
         setRetainInstance(true);
 
         filterType = getArguments() != null ? 
-                getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) :
+                getArguments().getInt(BUNDLE_FILTER_TYPE, EditorProfileListFragment.FILTER_TYPE_ALL) :
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
         //noinspection ConstantConditions
@@ -688,7 +688,7 @@ public class EditorProfileListFragment extends Fragment
             List<String> activateProfilesFIFO = activityDataWrapper.fifoGetActivatedProfiles();
             List<String> newActivateProfilesFIFO = new ArrayList<>();
             for (String toFifo : activateProfilesFIFO) {
-                String[] splits = toFifo.split("\\|");
+                String[] splits = toFifo.split(StringConstants.STR_SPLIT_REGEX);
                 long profileId = Long.parseLong(splits[0]);
                 if (profileId != profile._id)
                     newActivateProfilesFIFO.add(toFifo);

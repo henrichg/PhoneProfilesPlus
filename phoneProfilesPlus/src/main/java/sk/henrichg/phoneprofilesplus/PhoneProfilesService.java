@@ -1257,7 +1257,7 @@ public class PhoneProfilesService extends Service
                             String searchStringOrig = event._eventPreferencesCalendar._searchString;
                             //String searchStringNew = "";
                             StringBuilder str = new StringBuilder();
-                            String[] searchStringSplits = searchStringOrig.split("\\|");
+                            String[] searchStringSplits = searchStringOrig.split(StringConstants.STR_SPLIT_REGEX);
                             for (String split : searchStringSplits) {
                                 if (!split.isEmpty()) {
                                     //String searchPattern = split;
@@ -1327,7 +1327,7 @@ public class PhoneProfilesService extends Service
                         int filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
                         if (filterEventsSelectedItem == 2)
                             filterEventsSelectedItem++;
-                        editor.putInt(ApplicationPreferences.EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
+                        editor.putInt(ApplicationPreferences.PREF_EDITOR_EVENTS_VIEW_SELECTED_ITEM, filterEventsSelectedItem);
                         editor.apply();
                         ApplicationPreferences.editorEventsViewSelectedItem(appContext);
                     }

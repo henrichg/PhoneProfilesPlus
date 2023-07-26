@@ -170,12 +170,12 @@ class EventPreferencesNotification extends EventPreferences {
                         }
                         if (this._missedCall) {
                             if (this._inCall)
-                                descr = descr + " • ";
+                                descr = descr + StringConstants.STR_DOT;
                             descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_missedCall), disabled, context) + "</b>";
                         }
                         String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                         if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                            String[] splits = this._applications.split("\\|");
+                            String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                             if (splits.length == 1) {
                                 String packageName = Application.getPackageName(splits[0]);
                                 String activityName = Application.getActivityName(splits[0]);
@@ -200,31 +200,31 @@ class EventPreferencesNotification extends EventPreferences {
                                 selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                         }
                         if (this._inCall || this._missedCall)
-                            descr = descr + " • ";
+                            descr = descr + StringConstants.STR_DOT;
                         descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": <b>" + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
 
                         if (this._checkContacts) {
-                            descr = descr + " • ";
+                            descr = descr + StringConstants.STR_DOT;
                             descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + "</b>: ";
 
                             descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
-                            descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b> • ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                             descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
-                            descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + "</b> • ";
+                            descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                             descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
                             String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
                             descr = descr + "<b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
                         }
                         if (this._checkText) {
-                            descr = descr + " • ";
+                            descr = descr + StringConstants.STR_DOT;
                             descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + "</b>: ";
 
                             descr = descr + context.getString(R.string.event_preferences_notifications_text) + ": ";
                             descr = descr + "<b>" + getColorForChangedPreferenceValue(_text, disabled, context) + "</b>";
                         }
-                        descr = descr + " • ";
+                        descr = descr + StringConstants.STR_DOT;
                         descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                     }
                 }
@@ -784,7 +784,7 @@ class EventPreferencesNotification extends EventPreferences {
                                     continue;
                             }
 
-                            String[] textSplits = _text.split("\\|");
+                            String[] textSplits = _text.split(StringConstants.STR_SPLIT_REGEX);
 
                             String[] positiveList = new String[textSplits.length];
                             String[] negativeList = new String[textSplits.length];
@@ -1027,7 +1027,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 }
                             }
 
-                            String[] splits = this._applications.split("\\|");
+                            String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                             for (String split : splits) {
                                 // get only package name = remove activity
                                 String packageName = Application.getPackageName(split);
@@ -1155,7 +1155,7 @@ class EventPreferencesNotification extends EventPreferences {
                         }
                     }
 
-                    String[] splits = this._applications.split("\\|");
+                    String[] splits = this._applications.split(StringConstants.STR_SPLIT_REGEX);
                     for (String split : splits) {
                         // get only package name = remove activity
                         String packageName = Application.getPackageName(split);
@@ -1180,7 +1180,7 @@ class EventPreferencesNotification extends EventPreferences {
         boolean phoneNumberFound = false;
 
         // find phone number in groups
-        String[] splits = this._contactGroups.split("\\|");
+        String[] splits = this._contactGroups.split(StringConstants.STR_SPLIT_REGEX);
         for (String split : splits) {
             /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
             String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
@@ -1243,7 +1243,7 @@ class EventPreferencesNotification extends EventPreferences {
 
         if (!phoneNumberFound) {
             // find phone number in contacts
-            splits = this._contacts.split("\\|");
+            splits = this._contacts.split(StringConstants.STR_SPLIT_REGEX);
             for (String split : splits) {
                 String[] splits2 = split.split("#");
 
