@@ -59,7 +59,7 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal|top"
             android:autoSizeTextType="uniform"
-            android:autoSizeMaxTextSize="20dp"
+            android:autoSizeMaxTextSize="@dimen/auto_size_max_text_size_fill"
             android:fontFamily="sans-serif-condensed"
             android:text="@string/profile_name_default"
             android:maxLines="1"
