@@ -107,7 +107,7 @@ public class CustomColorDialogPreference extends DialogPreference {
 
                 // Update color
                 String applicationTheme = ApplicationPreferences.applicationTheme(prefContext, true);
-                boolean nightModeOn = !applicationTheme.equals("white");
+                boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
                 //if (GlobalGUIRoutines.isNightModeEnabled(prefContext.getApplicationContext()))
                 if (nightModeOn)
                     colorPreview.getDrawable()

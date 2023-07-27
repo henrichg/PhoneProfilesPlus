@@ -1103,7 +1103,6 @@ public class EditorActivity extends AppCompatActivity
         return ret;
     }
 
-    //TODO - tu su konstanty mojho mailu a PhoneProfilesPlus - pouzi String premennu.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -1219,7 +1218,7 @@ public class EditorActivity extends AppCompatActivity
         if (itemId == R.id.menu_email_to_author) {
             intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
-            String[] email = {"henrich.gron@gmail.com"};
+            String[] email = {StringConstants.AUTHOR_EMAIL};
             intent.putExtra(Intent.EXTRA_EMAIL, email);
             String packageVersion = "";
             try {
@@ -1228,7 +1227,7 @@ public class EditorActivity extends AppCompatActivity
             } catch (Exception e) {
                 PPApplicationStatic.recordException(e);
             }
-            intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.about_application_support_subject));
+            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + getString(R.string.about_application_support_subject));
             intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.email_chooser)));
@@ -1262,7 +1261,7 @@ public class EditorActivity extends AppCompatActivity
             }
 
             if (uris.size() != 0) {
-                String emailAddress = "henrich.gron@gmail.com";
+                String emailAddress = StringConstants.AUTHOR_EMAIL;
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                         StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
@@ -1273,7 +1272,7 @@ public class EditorActivity extends AppCompatActivity
                 } catch (Exception e) {
                     PPApplicationStatic.recordException(e);
                 }
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                 emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                 emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -1283,7 +1282,7 @@ public class EditorActivity extends AppCompatActivity
                     intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                     intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + getString(R.string.email_debug_log_files_subject));
                     intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
                     intent.setType("*/*"); // gmail will only match with type set
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -2478,13 +2477,14 @@ public class EditorActivity extends AppCompatActivity
                             prefEdit.putString(key, ((String) v));
 
                         //if (what == 1) {
-                        //TODO mas zadefinovane premenne v ApplicaitonPreferences, takze  tu pouzi tie
-                        // musis tam dat aj tie stare, tie tam nie su
                             if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
-                                if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight")) {
-                                    String defaultValue = "white";
+                                if (v.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_LIGHT) ||
+                                        v.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_MATERIAL) ||
+                                        v.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_COLOR) ||
+                                        v.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DLIGHT)) {
+                                    String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
                                     if (Build.VERSION.SDK_INT >= 28)
-                                        defaultValue = "night_mode";
+                                        defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
                                     prefEdit.putString(key, defaultValue);
                                 }
                             }
@@ -3973,7 +3973,7 @@ public class EditorActivity extends AppCompatActivity
                         if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
                             // if directory exists, create new = "PhoneProfilesPlus (x)"
                             // create subdirectory
-                            pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
+                            pickedDir = pickedDir.createDirectory(StringConstants.PHONE_PROFLES_PLUS);
                             if (pickedDir == null) {
                                 // error for create directory
                                 ok = -10;
@@ -4027,7 +4027,7 @@ public class EditorActivity extends AppCompatActivity
                         PPAlertDialog dialog = new PPAlertDialog(
                                 activity.getString(R.string.backup_settings_alert_title),
                                 activity.getString(R.string.backup_settings_error_on_backup) +
-                                        " (error code " + result + ")",
+                                        " (" + activity.getString(R.string.error_code) + " " + result + ")",
                                 activity.getString(android.R.string.ok),
                                 null,
                                 null, null,
@@ -4243,15 +4243,14 @@ public class EditorActivity extends AppCompatActivity
                     if (!activity.isFinishing()) {
                         CharSequence title;
                         CharSequence message;
-                        //TODO tu mas neprelozene natvrdo retazce, oprav a pohladaj aj inde ci tieto mam.
                         if (share) {
                             title = activity.getString(R.string.restore_shared_settings_alert_title);
                             message = activity.getString(R.string.restore_shared_settings_error_on_backup) +
-                                    " (error code " + result + ")";
+                                    " (" + activity.getString(R.string.error_code) + " " + result + ")";
                         } else {
                             title = activity.getString(R.string.restore_settings_alert_title);
                             message = activity.getString(R.string.restore_settings_error_on_backup) +
-                                    " (error code " + result + ")";
+                                    " (" + activity.getString(R.string.error_code) + " " + result + ")";
                         }
                         PPAlertDialog dialog = new PPAlertDialog(
                                 title,
@@ -4796,11 +4795,9 @@ public class EditorActivity extends AppCompatActivity
                             PPApplicationStatic.recordException(e);
                         }
 
-                        //TODO, tu su natvrdo moj mail a PhoneProfilesPlus. Zmen na orenenee a pouzi.
-                        // pohladaj aj inde, ci sa nepouizva.
                         String emailAddress = "";
                         if (toAuthor)
-                            emailAddress = "henrich.gron@gmail.com";
+                            emailAddress = StringConstants.AUTHOR_EMAIL;
                         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                 StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
@@ -4812,7 +4809,7 @@ public class EditorActivity extends AppCompatActivity
                             //Log.e("EditorActivity.ExportAsyncTask.onPostExecute", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
                         }
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
                         emailIntent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
                         emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
@@ -4825,7 +4822,7 @@ public class EditorActivity extends AppCompatActivity
                             intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
                             if (!emailAddress.isEmpty())
                                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                            intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                            intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
                             intent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
                             intent.setType("*/*"); // gmail will only match with type set
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

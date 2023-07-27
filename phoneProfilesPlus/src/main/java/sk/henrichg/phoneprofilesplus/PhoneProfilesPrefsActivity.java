@@ -87,10 +87,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
         //activeLanguage = preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
-        //TODO mas zadefinovane premenne v ApplicaitonPreferences, takze  tu pouzi tie
-        String defaultValue = "white";
+        String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
         if (Build.VERSION.SDK_INT >= 28)
-            defaultValue = "night_mode";
+            defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
         activeTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
         //activeNightModeOffTheme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
         showEditorPrefIndicator = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);

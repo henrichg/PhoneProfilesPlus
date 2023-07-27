@@ -1129,7 +1129,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
 
         if (forGitHub) {
-            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + "GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify.";
+            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + activity.getString(R.string.check_releases_github_download_not_supported);
         }
 
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));

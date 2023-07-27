@@ -462,7 +462,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
                         final String bodyText, /*final boolean boldLink,*/ final Context context) {
         String strNoLink = text + " " + linkText;
-        String str2 = strNoLink + "\nhenrich.gron@gmail.com" + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        String str2 = strNoLink + "\n" + StringConstants.AUTHOR_EMAIL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, strNoLink.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -476,7 +476,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             public void onClick(@NonNull View textView) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
-                String[] email = { "henrich.gron@gmail.com" };
+                String[] email = { StringConstants.AUTHOR_EMAIL };
                 intent.putExtra(Intent.EXTRA_EMAIL, email);
                 String packageVersion = "";
                 try {
@@ -486,9 +486,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     PPApplicationStatic.recordException(e);
                 }
                 if (subjectText.isEmpty())
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion);
                 else
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + subjectText);
+                    intent.putExtra(Intent.EXTRA_SUBJECT, StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + subjectText);
                 if (!bodyText.isEmpty())
                     intent.putExtra(Intent.EXTRA_TEXT, bodyText);
                 try {

@@ -289,7 +289,7 @@ class ActivityLogAdapter extends CursorAdapter {
 
     private int shiftColor(int color, Context context) {
         String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
-        if (!applicationTheme.equals("dark")) {
+        if (!applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK)) {
             float[] hsv = new float[3];
             Color.colorToHSV(color, hsv);
             hsv[2] = 0.75f; // value component

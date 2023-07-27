@@ -222,13 +222,13 @@ class GlobalGUIRoutines {
 
     private static void switchNightMode(Context appContext) {
         switch (ApplicationPreferences.applicationTheme(appContext, false)) {
-            case "white":
+            case ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
-            case "dark":
+            case ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 break;
-            case "night_mode":
+            case ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;
         }
@@ -688,7 +688,7 @@ class GlobalGUIRoutines {
 //                (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
 
-        if (ApplicationPreferences.applicationTheme(context, true).equals("white")/*!nightModeOn*/) {
+        if (ApplicationPreferences.applicationTheme(context, true).equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE)/*!nightModeOn*/) {
             timeDurationPicker.setDisplayTextAppearance(R.style.TextAppearance_TimeDurationPicker_Display);
             timeDurationPicker.setUnitTextAppearance(R.style.TextAppearance_TimeDurationPicker_Unit);
         } else {

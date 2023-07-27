@@ -2913,7 +2913,7 @@ public class Profile {
             //(context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
             //== Configuration.UI_MODE_NIGHT_YES;
             String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
-            boolean nightModeOn = !applicationTheme.equals("white");
+            boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
             if (nightModeOn) {
                 int iconColor;
@@ -2949,7 +2949,7 @@ public class Profile {
                 //(activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 //== Configuration.UI_MODE_NIGHT_YES;
                 String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
-                boolean nightModeOn = !applicationTheme.equals("white");
+                boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
                 if (nightModeOn) {
                     int iconColor;

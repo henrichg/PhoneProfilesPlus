@@ -64,7 +64,7 @@ class ProfilePreferencesIndicator {
 
             // must be used check for theme, because context is application context, not activity context
             String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
-            if (applicationTheme.equals("dark")) {
+            if (applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK)) {
                 if (disabled)
                     paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP));
                 else

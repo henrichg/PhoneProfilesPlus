@@ -628,20 +628,25 @@ class ApplicationPreferences {
     }
     */
 
-    //TODO "dark", "white", "night_mode" daj ako konstanty, pohladaj, ci s apouizvaju aj inde
-    static private final String PREF_APPLICATION_THEME_VALUE_DARK = "dark";
-    static private final String PREF_APPLICATION_THEME_VALUE_WHITE = "white";
-    static private final String PREF_APPLICATION_THEME_VALUE_NIGHT_MODE = "night_mode";
+    // old themes
+    static final String PREF_APPLICATION_THEME_VALUE_LIGHT = "light";
+    static final String PREF_APPLICATION_THEME_VALUE_MATERIAL = "material";
+    static final String PREF_APPLICATION_THEME_VALUE_COLOR = "color";
+    static final String PREF_APPLICATION_THEME_VALUE_DLIGHT = "dlight";
+
+    static final String PREF_APPLICATION_THEME_VALUE_DARK = "dark";
+    static final String PREF_APPLICATION_THEME_VALUE_WHITE = "white";
+    static final String PREF_APPLICATION_THEME_VALUE_NIGHT_MODE = "night_mode";
 
     static String applicationTheme(Context context, boolean useNightMode) {
         synchronized (PPApplication.applicationPreferencesMutex) {
             if (applicationTheme == null)
                 applicationTheme(context);
             String _applicationTheme = applicationTheme;
-            if (_applicationTheme.equals("light") ||
-                    _applicationTheme.equals("material") ||
-                    _applicationTheme.equals("color") ||
-                    _applicationTheme.equals("dlight")) {
+            if (_applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_LIGHT) ||
+                    _applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_MATERIAL) ||
+                    _applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_COLOR) ||
+                    _applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DLIGHT)) {
                 String defaultValue = PREF_APPLICATION_THEME_VALUE_DARK;
                 if (Build.VERSION.SDK_INT >= 28)
                     defaultValue = PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;

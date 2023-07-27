@@ -1,8 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 class StringConstants {
+    static final String PHONE_PROFLES_PLUS = "PhoneProfilesPlus";
+    static final String AUTHOR_EMAIL = "henrich.gron@gmail.com";
 
-    //TODO zmen vsade, kde sa pouizva na toto, pohladaj aj HTML verziu
     static final String CHAR_HARD_SPACE = "\u00A0";
     static final String CHAR_HARD_SPACE_HTML = "&nbsp;";
     static final String CHAR_SQUARE_HTML = "&#x25a0;";

@@ -2126,6 +2126,9 @@
 
     <string name="phone_profiles_pref_applicationEventScanningPaused">Scanning paused</string>
 
+    <string name="error_code">error code</string>
+    <string name="check_releases_github_download_not_supported">"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_accessibility_service_description">Extender for PhoneProfilesPlus. It working only in conjunction with PhoneProfilesPlus.</string>

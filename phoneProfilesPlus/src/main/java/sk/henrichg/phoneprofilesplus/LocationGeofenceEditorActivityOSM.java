@@ -172,7 +172,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
 //                (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
 //                                    == Configuration.UI_MODE_NIGHT_YES;
         String applicationTheme = ApplicationPreferences.applicationTheme(this, true);
-        boolean nightModeOn = !applicationTheme.equals("white");
+        boolean nightModeOn = !applicationTheme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE);
 
         /*boolean isNightMode;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);

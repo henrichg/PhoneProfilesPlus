@@ -268,51 +268,51 @@ class EventPreferencesVolumes extends EventPreferences {
 
         }*/
 
-        //TODO tu nakonfiguruj default hodnoty vlume ako premenne, vela krat sa to tu pouziva
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesVolumes.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesVolumes.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_VOLUMES_ENABLED, false);
         VolumeDialogPreference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_RINGTONE);
+        String defaultValue = "0|0|0";
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_RINGTONE, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_NOTIFICATION);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_NOTIFICATION, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_MEDIA);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_MEDIA, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_ALARM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_ALARM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_SYSTEM);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_SYSTEM, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_VOICE);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_VOICE, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_VOLUMES_BLUETOOTHSCO);
         if (preference != null) {
-            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, "0|0|0").split(StringConstants.STR_SPLIT_REGEX);
+            String[] splits = prefMng.getSharedPreferences().getString(PREF_EVENT_VOLUMES_BLUETOOTHSCO, defaultValue).split(StringConstants.STR_SPLIT_REGEX);
             boolean bold =  (splits.length > 1) && (!splits[1].equals("0"));
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, true, !isRunnable, false);
         }

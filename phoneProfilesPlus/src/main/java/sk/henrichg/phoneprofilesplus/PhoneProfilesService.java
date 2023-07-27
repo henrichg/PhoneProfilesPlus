@@ -1287,10 +1287,12 @@ public class PhoneProfilesService extends Service
                     editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
 
                     String theme = ApplicationPreferences.applicationTheme(appContext, false);
-                    if (!(theme.equals("white") || theme.equals("dark") || theme.equals("night_mode"))) {
-                        String defaultValue = "white";
+                    if (!(theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE) ||
+                            theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_DARK) ||
+                            theme.equals(ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE))) {
+                        String defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_WHITE;
                         if (Build.VERSION.SDK_INT >= 28)
-                            defaultValue = "night_mode";
+                            defaultValue = ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE;
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, defaultValue);
                         GlobalGUIRoutines.switchNightMode(appContext, true);
                     }
@@ -1301,7 +1303,7 @@ public class PhoneProfilesService extends Service
                 if (actualVersionCode <= 5020) {
                     if (Build.VERSION.SDK_INT >= 28) {
                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(appContext);
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "night_mode");
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.PREF_APPLICATION_THEME_VALUE_NIGHT_MODE);
                         GlobalGUIRoutines.switchNightMode(appContext, true);
                         editor.apply();
                     }

@@ -1405,8 +1405,8 @@ public class PPApplication extends Application
                         .withEnabled(true)
                         .build(),
                 new MailSenderConfigurationBuilder()
-                        .withMailTo("henrich.gron@gmail.com")
-                        .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
+                        .withMailTo(StringConstants.AUTHOR_EMAIL)
+                        .withSubject(StringConstants.PHONE_PROFLES_PLUS + packageVersion + " - " + getString(R.string.acra_email_subject_text))
                         .withBody(body)
                         .withReportAsFile(true)
                         .withReportFileName("crash_report.txt")
