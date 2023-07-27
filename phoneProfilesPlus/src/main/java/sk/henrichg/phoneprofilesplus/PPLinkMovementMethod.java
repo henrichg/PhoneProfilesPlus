@@ -118,7 +118,7 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
         }
 
         private LinkType getLinkTye(String link) {
-            String emailLink = link.replace("mailto:", "");
+            String emailLink = link.replace(StringConstants.INTENT_DATA_MAIL_TO_COLON, "");
             if (Patterns.PHONE.matcher(link).matches())
                 return LinkType.PHONE;
             else if (Patterns.WEB_URL.matcher(link).matches())
@@ -138,10 +138,10 @@ public class PPLinkMovementMethod extends LinkMovementMethod {
                     PPApplicationStatic.recordException(e);
                 }
             } else if (linkType == LinkType.EMAIL_ADDRESS) {
-                String emailLink = link.replace("mailto:", "");
+                String emailLink = link.replace(StringConstants.INTENT_DATA_MAIL_TO_COLON, "");
 
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
                 String[] email = {emailLink};
                 intent.putExtra(Intent.EXTRA_EMAIL, email);
                 try {

@@ -475,7 +475,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             @Override
             public void onClick(@NonNull View textView) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
                 String[] email = { "henrich.gron@gmail.com" };
                 intent.putExtra(Intent.EXTRA_EMAIL, email);
                 String packageVersion = "";

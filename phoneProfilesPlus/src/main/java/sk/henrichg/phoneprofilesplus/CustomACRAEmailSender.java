@@ -64,7 +64,7 @@ public class CustomACRAEmailSender implements ReportSender {
 
                     String emailAddress = mailConfig.getMailTo();
                     Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                            "mailto", emailAddress, null));
+                            StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, mailConfig.getSubject());
 

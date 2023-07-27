@@ -1218,7 +1218,7 @@ public class EditorActivity extends AppCompatActivity
         else
         if (itemId == R.id.menu_email_to_author) {
             intent = new Intent(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.setData(Uri.parse(StringConstants.INTENT_DATA_MAIL_TO_COLON)); // only email apps should handle this
             String[] email = {"henrich.gron@gmail.com"};
             intent.putExtra(Intent.EXTRA_EMAIL, email);
             String packageVersion = "";
@@ -1264,7 +1264,7 @@ public class EditorActivity extends AppCompatActivity
             if (uris.size() != 0) {
                 String emailAddress = "henrich.gron@gmail.com";
                 Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                        "mailto", emailAddress, null));
+                        StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
                 String packageVersion = "";
                 try {
@@ -4802,7 +4802,7 @@ public class EditorActivity extends AppCompatActivity
                         if (toAuthor)
                             emailAddress = "henrich.gron@gmail.com";
                         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                                "mailto", emailAddress, null));
+                                StringConstants.INTENT_DATA_MAIL_TO, emailAddress, null));
 
                         String packageVersion = "";
                         try {
