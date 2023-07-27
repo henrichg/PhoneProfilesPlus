@@ -36,12 +36,13 @@ class StringConstants {
     //static final String TAG_NUMBERED_LIST_END_HTML = "</ol>";
     static final String TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML = "<ol><li>";
     static final String TAG_NUMBERED_LIST_END_LAST_ITEM_HTML = "</li></ol>";
-
     static final String TAG_LIST_ITEM_START_HTML = "<li>";
     static final String TAG_LIST_ITEM_END_HTML = "</li>";
 
-    static final String TAG_LINK_START_HTML = "<a href=";
-    static final String TAG_LINK_END_HTML = "</a>";
+    static final String TAG_URL_LINK_START_HTML = "<a href='";
+    static final String TAG_URL_LINK_START_URL_END_HTML = "'>";
+    static final String TAG_URL_LINK_END_HTML = "</a>";
+
     static final String TAG_MAIL_TO_HTML = "mailto:";
 
 }

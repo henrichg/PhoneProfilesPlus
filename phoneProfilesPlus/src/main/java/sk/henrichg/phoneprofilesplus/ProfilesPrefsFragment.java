@@ -733,14 +733,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
                             getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            "<a href='" + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
-                            R.id.activity_info_notification_profile_pppps_howTo_1 + "'>" +
-                            getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
+                            R.id.activity_info_notification_profile_pppps_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                             StringConstants.TAG_LIST_ITEM_END_HTML +
                             StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_grant) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            "<a href='" + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
-                            R.id.activity_info_notification_profile_grant_1_howTo_1 + "'>" +
-                            getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
+                            R.id.activity_info_notification_profile_grant_1_howTo_1 + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                            getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                             StringConstants.TAG_LIST_ITEM_END_HTML +
                             StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_root) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                             StringConstants.TAG_LIST_ITEM_END_HTML +
@@ -1551,7 +1551,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     StringConstants.TAG_BOLD_START_HTML+getString(R.string.profile_preferences_deviceAirplaneModeRadios_info1) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info2) + " " +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info3) + ":"+StringConstants.TAG_BREAK_HTML +
-                            "<a href=" + url + ">" + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML;
+                            StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
 
             String configuredRadios = Settings.Global.getString(context.getContentResolver(), "airplane_mode_radios");
 

@@ -1966,7 +1966,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info7) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info8) + " " +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info9) + ":"+StringConstants.TAG_BREAK_HTML +
-                        "<a href=" + url + ">" + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>";
+                        StringConstants.TAG_URL_LINK_START_HTML + url + StringConstants.TAG_URL_LINK_START_URL_END_HTML + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML;
 
                 infoDialogPreference.setInfoText(infoText);
                 infoDialogPreference.setIsHtml(true);
@@ -2043,14 +2043,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                    Log.e("PhoneProfilesPrefsFragment.onActivityCreated", "preference clicked");
 
                     infoDialogPreference.setInfoText(
-                        "<a href='" + InfoDialogPreference.PPP_APP_INFO_SCREEN + "'>" +
-                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                        StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.PPP_APP_INFO_SCREEN + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + StringConstants.TAG_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                        "<a href='" + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + "'>" +
-                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                        StringConstants.TAG_URL_LINK_START_HTML + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + StringConstants.TAG_URL_LINK_START_URL_END_HTML +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+StringConstants.TAG_URL_LINK_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
                         "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\"."+StringConstants.TAG_DOUBLE_BREAK_HTML +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +
