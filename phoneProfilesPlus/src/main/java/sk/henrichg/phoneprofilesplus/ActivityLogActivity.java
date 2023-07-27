@@ -197,39 +197,39 @@ public class ActivityLogActivity extends AppCompatActivity {
             message = message + StringConstants.TAG_DOUBLE_BREAK_HTML;
             message = message + StringConstants.TAG_BOLD_START_HTML + getString(R.string.activity_log_help_message) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML;
 
-            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X"+StringConstants.CHAR_HARD_SPACE_HTML+"["+StringConstants.CHAR_HARD_SPACE_HTML+"Y"+StringConstants.CHAR_HARD_SPACE_HTML+"]\":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + "</li></ul>";
+            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
 
             message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_profileActivation) + "\":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
             message = message + getString(R.string.activity_log_help_message_data_profileName) + StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
 
             message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
             message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
 
             message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes) + "</li></ul>";
+            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
 
             message = message + StringConstants.TAG_BREAK_HTML;
-            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
             message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
-            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + "</li></ul>";
+            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
 
             infoTextView.setText(StringFormatUtils.fromHtml(message, true, true, false, 0, 0, true));
 

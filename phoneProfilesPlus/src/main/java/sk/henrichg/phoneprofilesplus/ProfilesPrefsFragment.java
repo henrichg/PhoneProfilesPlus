@@ -731,8 +731,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     "• " + getString(R.string.important_info_profile_interactive)
                     */
 
-                    "<ul>" +
-                            "<li>" + getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                    StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                            getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                             "<a href='" + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                             R.id.activity_info_notification_profile_pppps_howTo_1 + "'>" +
                             getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
@@ -745,13 +745,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             "<li>" + getString(R.string.important_info_profile_root) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                             "</li>" +
                             "<li>" + getString(R.string.important_info_profile_interactive) +
-                            "</li>" +
                             /*
+                            "</li>" +
                             "<li>" + "<a href=mailto:henrich.gron@gmail.com>E-mail to Henrisko&nbsp;»»</a><br>" +
                             "</li>" +
                             "<li>" + "<a href=" + PPApplication.HELP_WIFI_SCAN_THROTTLING + "> Show web aboyt wi-fi throttling&nbsp;»»</a>" +
                             */
-                            "</ul>"
+                            StringConstants.TAG_LIST_END_LAST_ITEM_HTML
             );
             infoDialogPreference.setIsHtml(true);
         }

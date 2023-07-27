@@ -1451,145 +1451,145 @@ class Event {
         if (_eventPreferencesTime._enabled) {
             String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesPeriodic._enabled) {
             String desc = _eventPreferencesPeriodic.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesCalendar._enabled) {
             String desc = _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesBattery._enabled) {
             String desc = _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesCall._enabled) {
             String desc = _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesSMS._enabled) {
             String desc = _eventPreferencesSMS.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesRoaming._enabled) {
             String desc = _eventPreferencesRoaming.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesRadioSwitch._enabled) {
             String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesVPN._enabled) {
             String desc = _eventPreferencesVPN.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesLocation._enabled) {
             String desc = _eventPreferencesLocation.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesWifi._enabled) {
             String desc = _eventPreferencesWifi.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesBluetooth._enabled) {
             String desc = _eventPreferencesBluetooth.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesMobileCells._enabled) {
             String desc = _eventPreferencesMobileCells.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesAccessories._enabled) {
             String desc = _eventPreferencesAccessories.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesScreen._enabled) {
             String desc = _eventPreferencesScreen.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesNotification._enabled) {
             String desc = _eventPreferencesNotification.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesSoundProfile._enabled) {
             String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesVolumes._enabled) {
             String desc = _eventPreferencesVolumes.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesApplication._enabled) {
             String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesOrientation._enabled) {
             String desc = _eventPreferencesOrientation.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesNFC._enabled) {
             String desc = _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesAlarmClock._enabled) {
             String desc = _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesDeviceBoot._enabled) {
             String desc = _eventPreferencesDeviceBoot.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (_eventPreferencesActivatedProfile._enabled) {
             String desc = _eventPreferencesActivatedProfile.getPreferencesDescription(true, addPassStatus, false, context);
             if (desc != null)
-                description = description + "<ul><li>" + desc + "</li></ul>";
+                description = description + StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + desc + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         }
 
         if (description.isEmpty())

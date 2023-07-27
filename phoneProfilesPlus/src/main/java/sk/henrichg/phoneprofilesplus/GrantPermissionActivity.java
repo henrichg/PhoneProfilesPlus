@@ -548,7 +548,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             //TODO StringBuilder pripoj k showRequestString
             if (!whyString.isEmpty())
-                showRequestString = "<ul>" + whyString + "</ul>";
+                showRequestString = StringConstants.TAG_LIST_START_HTML + whyString + StringConstants.TAG_LIST_END_HTML;
 
             showRequestString = showRequestString + StringConstants.TAG_BREAK_HTML;
 

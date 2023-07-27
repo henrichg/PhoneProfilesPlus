@@ -209,8 +209,8 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
         InfoDialogPreference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS);
         if (preference != null) {
-            String supportedApps = "<ul>" +
-                    "<li>Google Clock</li>" +
+            String supportedApps = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
+                         "Google Clock</li>" +
                     "<li>Samsung Clock</li>" +
                     "<li>Sony Clock</li>" +
                     "<li>AMdroid</li>" +
@@ -222,8 +222,8 @@ class EventPreferencesAlarmClock extends EventPreferences {
                     "<li>I Can't Wake Up! Alarm Clock</li>" +
                     "<li>Sleep as Android</li>" +
                     "<li>Timely</li>" +
-                    "<li>Alarm Klock</li>" +
-                    "</ul>"
+                    "<li>Alarm Klock" +
+                    StringConstants.TAG_LIST_END_LAST_ITEM_HTML
                     ;
             preference.setInfoText(supportedApps);
             preference.setIsHtml(true);
