@@ -50,23 +50,23 @@ public class PPPPSDialogPreference extends DialogPreference {
 
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(_context);
         if (ppppsVersion == 0) {
-            prefVolumeDataSummary = "<b>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary) + "</b>";
-            prefVolumeDataSummary = prefVolumeDataSummary + "<br>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
+            prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary) + "</b>";
+            prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
         }
         else {
             String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(_context);
             prefVolumeDataSummary =  _context.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) +
-                    " <b>" + ppppsVersionName + " (" + ppppsVersion + ")</b><br>";
+                    " "+StringConstants.TAG_BOLD_START_HTML + ppppsVersionName + " (" + ppppsVersion + ")</b>"+StringConstants.TAG_BREAK_HTML;
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                    " <b>" + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b>";
+                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b>";
             if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br><b>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary) + "</b>";
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary) + "</b>";
             else
-                prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
         }
 
-        prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" +
-                "<b>" + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings) + "</b>";
+        prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.pppps_pref_dialog_PPPPutSettings_modify_system_settings) + "</b>";
 
 //        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
         setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));

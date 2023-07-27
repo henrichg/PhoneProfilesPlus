@@ -490,7 +490,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_20);
         if (infoText100 != null) {
-            String text = fragment.getString(R.string.important_info_profile_grant_1_howTo_20_1) + "<br>" +
+            String text = fragment.getString(R.string.important_info_profile_grant_1_howTo_20_1) + StringConstants.TAG_BREAK_HTML +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_2) +
                     "<ul>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_3) + "</li>" +

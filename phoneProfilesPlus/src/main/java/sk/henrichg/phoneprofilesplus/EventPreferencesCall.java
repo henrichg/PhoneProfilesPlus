@@ -142,7 +142,7 @@ class EventPreferencesCall extends EventPreferences {
                 descr = context.getString(R.string.event_preference_sensor_call_summary);
         } else {
             if (addBullet) {
-                descr = descr + "<b>";
+                descr = descr + StringConstants.TAG_BOLD_START_HTML;
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context);
                 descr = descr + "</b> ";
             }
@@ -166,17 +166,17 @@ class EventPreferencesCall extends EventPreferences {
                 } else {
                     descr = descr + context.getString(R.string.pref_event_call_event);
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context) + "</b>"+StringConstants.STR_DOT;
+                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(callEvents[this._callEvent], disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_call_contact_groups) + ": ";
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_call_contacts) + ": ";
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, false, context), disabled, context) + "</b>"+StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-                    descr = descr + ": <b>" + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
+                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + "</b>";
 
                     //if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
@@ -197,7 +197,7 @@ class EventPreferencesCall extends EventPreferences {
                         if (hasSIMCard) {
                             descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_call_forSimCard);
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventCallForSimCardArray);
-                            descr = descr + ": <b>" + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
+                            descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
                         }
                     //}
 
@@ -205,9 +205,9 @@ class EventPreferencesCall extends EventPreferences {
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         if (this._permanentRun)
-                            descr = descr + StringConstants.STR_DOT+"<b>" + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                            descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
                         else
-                            descr = descr + StringConstants.STR_DOT + context.getString(R.string.pref_event_duration) + ": <b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                            descr = descr + StringConstants.STR_DOT + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
                     }
                 }
             }

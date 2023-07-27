@@ -1163,17 +1163,17 @@ class Event {
                         if (splits.length == 1) {
                             profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
                             if (profile != null) {
-                                summary = summary + "<b>" + getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context) + "</b>";
+                                summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context) + "</b>";
                             }
                         }
                         else {
-                            summary = summary + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context) + "</b>";
+                            summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context) + "</b>";
                         }
                     }
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + "</b>";
+                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundStartChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
@@ -1186,7 +1186,7 @@ class Event {
                     if (notificationRepeatStartChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_notificationRepeat) + ": ";
-                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
+                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
 
                     }
                     preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
@@ -1211,7 +1211,7 @@ class Event {
                     if (delayEndChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + "<b>" + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + "</b>";
+                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + "</b>";
                     }
                     if (notificationSoundEndChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
@@ -3016,8 +3016,8 @@ class Event {
     String getColorForChangedPreferenceValue(String preferenceValue, boolean disabled, Context context) {
         if (!disabled) {
             int labelColor = ContextCompat.getColor(context, R.color.activityNormalTextColor);
-            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            return String.format("<font color=\"#%s\">%s</font>"/*+":"*/, colorString, preferenceValue);
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, labelColor).substring(2); // !!strip alpha value!!
+            return String.format(StringConstants.TAG_FONT_COLOR_HTML/*+":"*/, colorString, preferenceValue);
         } else
             return preferenceValue;
     }

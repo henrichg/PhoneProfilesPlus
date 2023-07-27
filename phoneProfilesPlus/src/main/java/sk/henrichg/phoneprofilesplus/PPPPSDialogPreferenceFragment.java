@@ -65,19 +65,19 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
             String prefVolumeDataSummary;
             int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(prefContext);
             if (ppppsVersion == 0) {
-                prefVolumeDataSummary = "<b>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary) + "</b>";
-                prefVolumeDataSummary = prefVolumeDataSummary +  "<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
+                prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_not_installed_summary) + "</b>";
+                prefVolumeDataSummary = prefVolumeDataSummary +  StringConstants.TAG_DOUBLE_BREAK_HTML + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_install_summary);
             }
             else {
                 String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(prefContext);
                 prefVolumeDataSummary =  prefContext.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) +
-                        " <b>" + ppppsVersionName + " (" + ppppsVersion + ")</b><br>";
+                        " "+StringConstants.TAG_BOLD_START_HTML + ppppsVersionName + " (" + ppppsVersion + ")</b>"+StringConstants.TAG_BREAK_HTML;
                 prefVolumeDataSummary = prefVolumeDataSummary + prefContext.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                        " <b>" + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b>";
+                        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b>";
                 if (ppppsVersion < PPApplication.VERSION_CODE_PPPPS_LATEST)
-                    prefVolumeDataSummary = prefVolumeDataSummary + "<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_new_version_summary);
                 else
-                    prefVolumeDataSummary = prefVolumeDataSummary + "<br> "; //"<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
+                    prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_BREAK_HTML+StringConstants.CHAR_HARD_SPACE_HTML; //"<br><br>" + prefContext.getString(R.string.pppps_pref_dialog_PPPPutSettings_upgrade_summary);
             }
             ppppsVersionText.setText(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));
 
@@ -136,26 +136,26 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
         int ppppsVersion = ActivateProfileHelper.isPPPPutSettingsInstalled(activity.getApplicationContext());
         if (ppppsVersion != 0) {
             String ppppsVersionName = ActivateProfileHelper.getPPPPutSettingsVersionName(activity.getApplicationContext());
-            dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " <b>" + ppppsVersionName + " (" + ppppsVersion + ")</b><br>";
+            dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + ppppsVersionName + " (" + ppppsVersion + ")</b>"+StringConstants.TAG_BREAK_HTML;
         }
         dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                " <b>" + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b><br><br>";
+                " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_PPPPS_LATEST + " (" + PPApplication.VERSION_CODE_PPPPS_LATEST + ")</b>"+StringConstants.TAG_DOUBLE_BREAK_HTML;
 
         if (Build.VERSION.SDK_INT < 34) {
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\"<br>";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + "<br>";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + "<br><br>";
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\""+StringConstants.TAG_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text2) + StringConstants.TAG_BREAK_HTML;
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text3) + StringConstants.TAG_DOUBLE_BREAK_HTML;
         } else {
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text6) + "<br><br>";
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text6) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text7) + " \"" + activity.getString(R.string.install_pppps_alert_button_how_to_install) + "\" ";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text7a) + "<br>";
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text7a) + StringConstants.TAG_BREAK_HTML;
             dialogText = dialogText + activity.getString(R.string.install_pppps_text8) + " ";
-            dialogText = dialogText + activity.getString(R.string.install_pppps_text9) + ".<br><br>";
+            dialogText = dialogText + activity.getString(R.string.install_pppps_text9) + "."+StringConstants.TAG_DOUBLE_BREAK_HTML;
         }
-        dialogText = dialogText + "<b>" + activity.getString(R.string.install_pppps_text5) + "</b><br><br>";
+        dialogText = dialogText + StringConstants.TAG_BOLD_START_HTML + activity.getString(R.string.install_pppps_text5) + "</b>"+StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_pppps_text4);
 
-        dialogText = dialogText.replace("\n", "<br>");
+        dialogText = dialogText.replace("\n", StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 
         if (Build.VERSION.SDK_INT < 34) {
@@ -291,10 +291,10 @@ public class PPPPSDialogPreferenceFragment extends PreferenceDialogFragmentCompa
                 int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(activity.getApplicationContext());
                 if (extenderVersion != 0) {
                     String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(activity.getApplicationContext());
-                    dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " <b>" + extenderVersionName + " (" + extenderVersion + ")</b><br>";
+                    dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")</b>"+StringConstants.TAG_BREAK_HTML;
                 }
                 dialogText = dialogText + activity.getString(R.string.pppps_pref_dialog_install_pppps_latest_version) +
-                        " <b>" + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b><br><br>";
+                        " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b>"+StringConstants.TAG_DOUBLE_BREAK_HTML;
                 dialogText = dialogText + activity.getString(R.string.install_pppps_text1) + " \"" + activity.getString(R.string.alert_button_install) + "\".";
                 text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 

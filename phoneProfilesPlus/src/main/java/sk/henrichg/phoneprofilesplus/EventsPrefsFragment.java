@@ -1147,7 +1147,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         InfoDialogPreference infoDialogPreference = prefMng.findPreference("eventSensorsInfo");
         if (infoDialogPreference != null) {
             String info = "<ul><li>" + getString(R.string.event_preferences_sensorsInfo_summary) + "</li></ul>" +
-                    "<br>" +
+                    StringConstants.TAG_BREAK_HTML +
                     "<ul><li>" + getString(R.string.event_preferences_sensorsInfo_summary_2) + "</li></ul>";
             infoDialogPreference.setInfoText(info);
             infoDialogPreference.setIsHtml(true);

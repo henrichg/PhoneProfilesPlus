@@ -816,7 +816,13 @@ Znaky, tagy, retazce ako konstanty:
 - Vsade kde pouzivam StringFormatUtils.formHtml() pozri, ci su prislusne tagy zadefinovane a pouzite. Ak nie, pridaj a pouzi.
 
 Z tohoto sprav komstantu a pouiz ju:
-[#]
+
+----------
+
+Nasiel som retazec, ktory nemam asi v strings:
+"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."
+Oprav to!!!
+Je v CheckPPPReleasesActivity.checkInDroidIfy()
 
 
 

@@ -76,7 +76,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACTIVATED_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_activated_profile), addPassStatus, DatabaseHandler.ETYPE_ACTIVATED_PROFILE, context);
                     descr = descr + "</b> ";
                 }
@@ -85,17 +85,17 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
                 Profile profile = dataWrapper.getProfileById(this._startProfile, true, true, false);
                 if (profile != null) {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
                 } else {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
                 }
 
                 descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_activated_profile_endProfile) + ": ";
                 profile = dataWrapper.getProfileById(this._endProfile, true, true, false);
                 if (profile != null) {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(profile._name, disabled, context) + "</b>";
                 } else {
-                    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context) + "</b>";
                 }
             }
         }

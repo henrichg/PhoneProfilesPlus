@@ -157,78 +157,78 @@ public class ActivityLogActivity extends AppCompatActivity {
             //TODO - prerobit na StringBuilder?
             String message = "";
 
-            message = message + "<b>" + getString(R.string.activity_log_help_message_colors) + ":</b><br>";
+            message = message + StringConstants.TAG_BOLD_START_HTML + getString(R.string.activity_log_help_message_colors) + ":</b>"+StringConstants.TAG_BREAK_HTML;
 
             int color = ContextCompat.getColor(this, R.color.altype_profile);
-            String colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_profile_activation) + "<br>";
+            String colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
+            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_profile_activation) + StringConstants.TAG_BREAK_HTML;
 
             color = ContextCompat.getColor(this, R.color.altype_eventStart);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_start) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
+            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_start) + StringConstants.TAG_BREAK_HTML;
 
             color = ContextCompat.getColor(this, R.color.altype_eventEnd);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_end) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
+            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_end) + StringConstants.TAG_BREAK_HTML;
 
             color = ContextCompat.getColor(this, R.color.altype_restartEvents);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_restart_events) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
+            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_restart_events) + StringConstants.TAG_BREAK_HTML;
 
             color = ContextCompat.getColor(this, R.color.altype_eventDelayStartEnd);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
+            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_event_delay_start_end) + StringConstants.TAG_BREAK_HTML;
 
             color = ContextCompat.getColor(this, R.color.altype_error);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, StringConstants.CHAR_SQUARE_HTML);
-            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_error) + "<br>";
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
+            message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_error) + StringConstants.TAG_BREAK_HTML;
 
             color = ContextCompat.getColor(this, R.color.altype_other);
-            colorString = String.format("%X", color).substring(2); // !!strip alpha value!!
-            message = message + String.format("<font color=\"#%s\">%s</font>", colorString, StringConstants.CHAR_SQUARE_HTML);
+            colorString = String.format(StringConstants.STR_FORMAT_INT, color).substring(2); // !!strip alpha value!!
+            message = message + String.format(StringConstants.TAG_FONT_COLOR_HTML, colorString, StringConstants.CHAR_SQUARE_HTML);
             message = message + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.CHAR_HARD_SPACE_HTML + getString(R.string.activity_log_help_message_colors_others);
 
-            message = message + "<br><br>";
-            message = message + "<b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
+            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML;
+            message = message + StringConstants.TAG_BOLD_START_HTML + getString(R.string.activity_log_help_message) + ":</b>"+StringConstants.TAG_DOUBLE_BREAK_HTML;
 
-            message = message + "<ul><li><b>" + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X"+StringConstants.CHAR_HARD_SPACE_HTML+"["+StringConstants.CHAR_HARD_SPACE_HTML+"Y"+StringConstants.CHAR_HARD_SPACE_HTML+"]\":</b><br>";
+            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X"+StringConstants.CHAR_HARD_SPACE_HTML+"["+StringConstants.CHAR_HARD_SPACE_HTML+"Y"+StringConstants.CHAR_HARD_SPACE_HTML+"]\":</b>"+StringConstants.TAG_BREAK_HTML;
             message = message + getString(R.string.activity_log_help_message_mergedProfileActivation) + "</li></ul>";
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_BREAK_HTML;
+            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_profileActivation) + "\":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_profileName) + "<br>";
+            message = message + "\"" + getString(R.string.altype_profileActivation) + "\":</b>"+StringConstants.TAG_BREAK_HTML;
+            message = message + getString(R.string.activity_log_help_message_data_profileName) + StringConstants.TAG_BREAK_HTML;
             message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_BREAK_HTML;
+            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":</b><br>";
-            message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + "<br>";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":</b>"+StringConstants.TAG_BREAK_HTML;
+            message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + StringConstants.TAG_BREAK_HTML;
             message = message + getString(R.string.activity_log_help_message_data_displayedInGUI) + "</li></ul>";
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_BREAK_HTML;
+            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":</b>"+StringConstants.TAG_BREAK_HTML;
             message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes) + "</li></ul>";
 
-            message = message + "<br>";
-            message = message + "<ul><li><b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + StringConstants.TAG_BREAK_HTML;
+            message = message + "<ul><li>"+StringConstants.TAG_BOLD_START_HTML + " \"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
             message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
-            message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b>"+StringConstants.TAG_BREAK_HTML;
             message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes) + "</li></ul>";
 
             infoTextView.setText(StringFormatUtils.fromHtml(message, true, true, false, 0, 0, true));

@@ -91,17 +91,17 @@ public class ProfileIconPreferenceFragment extends PreferenceDialogFragmentCompa
                 if (getActivity() != null) {
                     int itemId = item.getItemId();
                     if (itemId == R.id.menu_profile_icon_help_icon_color) {
-                        String helpString = getString(R.string.profile_icon_preference_iconColor_help_info_1) + "<br>" +
+                        String helpString = getString(R.string.profile_icon_preference_iconColor_help_info_1) + StringConstants.TAG_BREAK_HTML +
                                 getString(R.string.profile_icon_preference_iconColor_help_info_2);
                         DialogHelpPopupWindow.showPopup(helpButton, R.string.profile_icon_preference_iconColor_help, (Activity)prefContext, helpString, true);
                         return true;
                     }
                     else
                     if (itemId == R.id.menu_profile_icon_help_menu_custom_icon_pack) {
-                        String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + "<br><br>" +
+                        String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                                 getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
                                 " \"ThemeX: Extract Launcher Theme\". " +
-                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + "<br><br>" +
+                                getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                                 getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4);
                         DialogHelpPopupWindow.showPopup(helpButton, R.string.profile_icon_preference_custumIconFromIconPack_help, (Activity)prefContext, helpString, true);
                         return true;

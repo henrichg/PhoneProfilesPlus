@@ -379,43 +379,43 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
                 showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
-                showRequestString = context.getString(R.string.permissions_for_play_ringtone_notification_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_play_ringtone_notification_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
-                showRequestString = context.getString(R.string.permissions_for_wallpaper_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_wallpaper_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
-                showRequestString = context.getString(R.string.permissions_for_wallpaper_folder_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_wallpaper_folder_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
-                showRequestString = context.getString(R.string.permissions_for_custom_profile_icon_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_custom_profile_icon_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_EXPORT)
-                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL)
-                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_IMPORT)
-                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_SHARED_IMPORT)
-                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_import_app_data_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_wifi_bt_scan_dialog_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_calendar_dialog_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_calendar_dialog_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_contacts_dialog_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_contacts_dialog_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY)
-                showRequestString = context.getString(R.string.permissions_for_location_geofence_editor_activity_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_location_geofence_editor_activity_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_brightness_dialog_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_brightness_dialog_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_mobile_cells_registration_dialog_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_mobile_cells_registration_dialog_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             //else if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE)
             //    showRequestString = context.getString(R.string.permissions_for_log_to_file_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR)
-                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)
-                showRequestString = context.getString(R.string.permissions_for_connect_to_ssid_dialog_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_connect_to_ssid_dialog_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else if (grantType == Permissions.GRANT_TYPE_BACKGROUND_LOCATION)
-                showRequestString = context.getString(R.string.permissions_for_background_location_text1) + "<br><br>";
+                showRequestString = context.getString(R.string.permissions_for_background_location_text1) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             else
             if (grantType == Permissions.GRANT_TYPE_EVENT){
                     /*if (mergedNotification) {
@@ -426,7 +426,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_event_text1) + " ";
                 if (event != null)
                     showRequestString = showRequestString + "\"" + event._name + "\" ";
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + "<br><br>";
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_event_text2) + StringConstants.TAG_DOUBLE_BREAK_HTML;
                 //}
             }
             else {
@@ -438,14 +438,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     if (profile != null)
                         showRequestString = showRequestString + "\"" + profile._name + "\" ";
                 }
-                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             }
 
             //TODO sprav toto cez StringBuilder
             String whyString = "";
             if (showRequestWriteSettings) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_write_settings) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_write_settings) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[0]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
@@ -453,7 +453,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_storage) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_storage) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[3][i] || whyPermissionType[6][i];
@@ -465,7 +465,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestReadPhoneState) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_phone) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_phone) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i];
@@ -477,7 +477,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestReadCalendar) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_calendar) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_calendar) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[7]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
@@ -485,7 +485,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestReadContacts) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_contacts) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_contacts) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[8]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
@@ -493,7 +493,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestAccessCoarseLocation || showRequestAccessFineLocation /*|| showRequestAccessBackgroundLocation*/) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_location) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_location) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i] /*|| whyPermissionType[14][i]*/;
@@ -505,7 +505,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestAccessBackgroundLocation) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_background_location) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_background_location) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[14]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
@@ -522,9 +522,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (showRequestDrawOverlays) {
                 whyString = whyString + "<li>";
                 if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                    whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
+                    whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
                 else
-                    whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
+                    whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[2]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
@@ -532,7 +532,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestCamera) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_camera) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_camera) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[15]);
                 //if (whyPermissionString != null)
                 whyString = whyString + whyPermissionString;
@@ -540,7 +540,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             if (showRequestMicrophone) {
                 whyString = whyString + "<li>";
-                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_microphone) + "</b>";
+                whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_microphone) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[16]);
                 //if (whyPermissionString != null)
                 whyString = whyString + whyPermissionString;
@@ -550,7 +550,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (!whyString.isEmpty())
                 showRequestString = "<ul>" + whyString + "</ul>";
 
-            showRequestString = showRequestString + "<br>";
+            showRequestString = showRequestString + StringConstants.TAG_BREAK_HTML;
 
             /*if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);

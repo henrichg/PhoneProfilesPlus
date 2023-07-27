@@ -261,17 +261,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             dialogBuilder.setTitle(R.string.menu_check_github_releases);
         }
 
-        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
+        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + "</b>"+StringConstants.TAG_BREAK_HTML;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
+            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "<br>";
+            message = StringConstants.TAG_BREAK_HTML;
         }
 
-        message = message + "<br>";
+        message = message + StringConstants.TAG_BREAK_HTML;
         if (newVersionDataExists) {
-            message = message + activity.getString(R.string.check_github_releases_released_version) + " <b>" + newVersionName + " (" + newVersionCode + ")</b>";
+            message = message + activity.getString(R.string.check_github_releases_released_version) + " "+StringConstants.TAG_BOLD_START_HTML + newVersionName + " (" + newVersionCode + ")</b>";
             if (newVersionCritical)
                 message = message + " - " + activity.getString(R.string.check_github_releases_version_critical);
         }
@@ -280,17 +280,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         newVersionDataExists = newVersionDataExists && (newVersionCode > pppVersionCode);
 
-        message = message + "<br><br>";
+        message = message + StringConstants.TAG_DOUBLE_BREAK_HTML;
         message = message + activity.getString(R.string.check_github_releases_install_info_1);
 
         if (!newVersionDataExists) {
-            message = message + "<br>";
+            message = message + StringConstants.TAG_BREAK_HTML;
             message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
             message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
         }
 
         if (criticalCheck) {
-            message = message + "<br><br>";
+            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML;
             message = message + activity.getString(R.string.check_github_releases_install_info_app_stores_release);
         }
 
@@ -302,7 +302,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
-        message = message.replace("\n", "<br>");
+        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
@@ -428,12 +428,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
-        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
+        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + "</b>"+StringConstants.TAG_BREAK_HTML;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
+            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "<br>";
+            message = StringConstants.TAG_BREAK_HTML;
         }
 
         View layout;
@@ -454,7 +454,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_fdroid_info_text);
-        message = message.replace("\n", "<br>");
+        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
@@ -617,16 +617,16 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
-        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
+        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + "</b>"+StringConstants.TAG_BREAK_HTML;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
+            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "<br>";
+            message = StringConstants.TAG_BREAK_HTML;
         }
 
         if (!galaxyStoreInstalled) {
-            message = message + "<br><br>" + activity.getString(R.string.check_releases_web_galaxy_store_install_restriction);
+            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + activity.getString(R.string.check_releases_web_galaxy_store_install_restriction);
         }
 
         View layout;
@@ -636,7 +636,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
-        message = message.replace("\n", "<br>");
+        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         if (!galaxyStoreInstalled) {
@@ -820,12 +820,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
-        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
+        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + "</b>"+StringConstants.TAG_BREAK_HTML;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
+            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "<br>";
+            message = StringConstants.TAG_BREAK_HTML;
         }
 
         View layout;
@@ -835,7 +835,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_appgallery_info_text);
-        message = message.replace("\n", "<br>");
+        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         boolean appGalleryInstalled = false;
@@ -955,12 +955,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
-        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
+        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + "</b>"+StringConstants.TAG_BREAK_HTML;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
+            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "<br>";
+            message = StringConstants.TAG_BREAK_HTML;
         }
 
         View layout;
@@ -984,7 +984,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_apkpure_info_text);
-        message = message.replace("\n", "<br>");
+        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1097,12 +1097,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
 
-        String message = "<b>" + getString(R.string.ppp_app_name) + "</b><br>";
+        String message = StringConstants.TAG_BOLD_START_HTML + getString(R.string.ppp_app_name) + "</b>"+StringConstants.TAG_BREAK_HTML;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = message + "<br>" + activity.getString(R.string.check_github_releases_installed_version) + " <b>" + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
+            message = message + StringConstants.TAG_BREAK_HTML + activity.getString(R.string.check_github_releases_installed_version) + " "+StringConstants.TAG_BOLD_START_HTML + pInfo.versionName + " (" + PPApplicationStatic.getVersionCode(pInfo) + ")</b>";
         } catch (Exception e) {
-            message = "<br>";
+            message = StringConstants.TAG_BREAK_HTML;
         }
 
         View layout;
@@ -1126,10 +1126,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_droidify_info_text);
-        message = message.replace("\n", "<br>");
+        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
 
         if (forGitHub) {
-            message = message + "<br><br>" + "GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify.";
+            message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + "GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify.";
         }
 
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
