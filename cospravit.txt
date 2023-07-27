@@ -810,14 +810,9 @@ Lenze toto neviem ako mam zavolat. To radsej nech detektor connection ho zmaze s
 
 //TODO - prerobit na StringBuilder?
 
-Na stringBuilder prerob vsetky getPreferenceDescription() v senzoroch
+Na stringBuilder prerob aj vsetky getPreferenceDescription() v senzoroch
 
 ----------
-
-Nasiel som retazec, ktory nemam asi v strings:
-"GitHub download is not supported. Please install PhoneProfilesPlus with Droid-ify."
-Oprav to!!!
-Je v CheckPPPReleasesActivity.checkInDroidIfy()
 
 
 

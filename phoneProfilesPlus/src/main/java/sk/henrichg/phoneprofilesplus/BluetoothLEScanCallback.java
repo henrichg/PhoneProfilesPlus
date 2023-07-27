@@ -60,7 +60,7 @@ class BluetoothLEScanCallback extends ScanCallback {
 
                     @SuppressLint("MissingPermission")
                     String btName = device.getName();
-                    if (btName != null) {
+                    if ((btName != null) && (!btName.isEmpty())) {
 //                        PPApplicationStatic.logE("[IN_EXECUTOR] BluetoothLEScanCallback.onScanResult", "btName="+btName);
 
                         BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
@@ -132,7 +132,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                         @SuppressLint("MissingPermission")
                         String btName = device.getName();
 
-                        if (btName != null) {
+                        if ((btName != null) && (!btName.isEmpty())) {
 //                            PPApplicationStatic.logE("[IN_EXECUTOR] BluetoothLEScanCallback.onBatchScanResults", "btName="+btName);
 
                             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),

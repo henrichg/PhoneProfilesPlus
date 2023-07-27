@@ -679,7 +679,9 @@ public class BluetoothScanWorker extends Worker {
                     //boundedDevicesList.clear();
                     if (boundedDevices != null) {
                         for (BluetoothDevice device : boundedDevices) {
-                            boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
+                            String name = device.getName();
+                            if ((name != null) && (!name.isEmpty()))
+                                boundedDevicesList.add(new BluetoothDeviceData(name, device.getAddress(),
                                     getBluetoothType(device), false, 0, true, false));
                         }
                     }

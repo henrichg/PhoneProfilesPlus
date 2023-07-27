@@ -94,13 +94,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             }
 
                                             synchronized (PPApplication.bluetoothCLScanMutex) {
-                                                //String btNameD = device.getName();
-                                                //String btNameE = "";
                                                 @SuppressLint("MissingPermission")
                                                 String btName = device.getName();
 //                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","btName="+btName);
 //                                                PPApplicationStatic.logE("[IN_BROADCAST] BluetoothScanBroadcastReceiver.onReceive","deviceName="+deviceName);
-                                                if (deviceName != null) {
+                                                if ((deviceName != null) && (!deviceName.isEmpty())) {
                                                     //btNameE = deviceName;
                                                     //btName = btNameE;
                                                     btName = deviceName;
@@ -119,7 +117,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                 }
                                                 if (!found) {
                                                     for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                        if (_device.getName().equalsIgnoreCase(/*device.getName()*/btName)) {
+                                                        if (_device.getName().equalsIgnoreCase(btName)) {
                                                             found = true;
                                                             break;
                                                         }
