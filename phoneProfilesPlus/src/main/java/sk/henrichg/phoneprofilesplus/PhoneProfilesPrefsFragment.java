@@ -1966,7 +1966,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info7) + "<br><br>" +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info8) + " " +
                         getString(R.string.phone_profiles_pref_applicationEventWifiScanThrottling_info9) + ":<br>" +
-                        "<a href=" + url + ">" + url+ StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW+"</a>";
+                        "<a href=" + url + ">" + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>";
 
                 infoDialogPreference.setInfoText(infoText);
                 infoDialogPreference.setIsHtml(true);
@@ -2044,13 +2044,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     infoDialogPreference.setInfoText(
                         "<a href='" + InfoDialogPreference.PPP_APP_INFO_SCREEN + "'>" +
-                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW+"</a><br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a><br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_3) + "<br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_4) + "<br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_5) + "<br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_6) + "<br><br>" +
                         "<a href='" + InfoDialogPreference.DROIDIFY_INSTALLATION_SITE + "'>" +
-                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW+"</a><br><br>" +
+                        getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_10) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a><br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_7) + " " +
                         "\"" + getString(R.string.menu_import_export) + "\"/\"" + getString(R.string.menu_export) + "\".<br><br>" +
                         getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary_restrictedSettings_8) + " " +

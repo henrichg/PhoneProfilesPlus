@@ -218,9 +218,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (event._ignoreManualActivation) {
                     addedLF = true;
                     if (event._noPauseByManualActivation)
-                        _eventName = event._name + "\n" + "["+StringConstants.STR_DOUBLE_ARROW+"]";
+                        _eventName = event._name + "\n" + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
                     else
-                        _eventName = event._name + "\n" + "["+StringConstants.CHAR_ARROW +"]";
+                        _eventName = event._name + "\n" + StringConstants.STR_ARROW_INDICATOR;
                 } else
                     _eventName = event._name;
             }
@@ -281,7 +281,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             {
                 String profileName = profile._name;
                 if (event._manualProfileActivation)
-                    profileName = "[M] " + profileName;
+                    profileName = StringConstants.STR_MANUAL_SPACE + profileName;
                 if (event._delayStart > 0)
                     profileName = "[" + StringFormatUtils.getDurationString(event._delayStart) + "] " + profileName;
                 profileStartName.setText(profileName);
@@ -378,7 +378,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     String profileName;
                     //if (event._atEndHowUndo == 0) {
                         if (event._manualProfileActivationAtEnd)
-                            profileName = "[M] " +profile._name;
+                            profileName = StringConstants.STR_MANUAL_SPACE +profile._name;
                         else
                             profileName = profile._name;
                         if (event._delayEnd > 0)
@@ -437,7 +437,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         profileName = "[" + StringFormatUtils.getDurationString(event._delayEnd) + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
                         if (event._manualProfileActivationAtEnd)
-                            profileName = "[M] ";
+                            profileName = StringConstants.STR_MANUAL_SPACE;
                         profileName = profileName + context.getString(R.string.event_preference_profile_undone);
                     }
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)

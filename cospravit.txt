@@ -816,8 +816,7 @@ Znaky, tagy, retazce ako konstanty:
 - Vsade kde pouzivam StringFormatUtils.formHtml() pozri, ci su prislusne tagy zadefinovane a pouzite. Ak nie, pridaj a pouzi.
 
 Z tohoto sprav komstantu a pouiz ju:
-StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW
-StringConstants.CHAR_HARD_SPACE_HTML+StringConstants.STR_DOUBLE_ARROW
+[#]
 
 
 

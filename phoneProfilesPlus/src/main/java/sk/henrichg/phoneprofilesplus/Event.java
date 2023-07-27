@@ -1362,10 +1362,10 @@ class Event {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_IGNORE_MANUAL_ACTIVATION);
         if (preference != null)
-            preference.setTitle("["+StringConstants.CHAR_ARROW +"] " + context.getString(R.string.event_preferences_ForceRun));
+            preference.setTitle(StringConstants.STR_ARROW_INDICATOR +" " + context.getString(R.string.event_preferences_ForceRun));
         preference = prefMng.findPreference(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION);
         if (preference != null)
-            preference.setTitle("["+StringConstants.STR_DOUBLE_ARROW+"] " + context.getString(R.string.event_preferences_noPauseByManualActivation));
+            preference.setTitle(StringConstants.STR_DOUBLE_ARROW_INDICATOR+" " + context.getString(R.string.event_preferences_noPauseByManualActivation));
 
         setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context, false);
         setSummary(prefMng, PREF_EVENT_NAME, preferences, context, false);

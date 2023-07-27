@@ -107,7 +107,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
-            infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+            infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> ExtenderDialogPreferenceFragment.installPPPExtender(getActivity(), null, false));
         }
@@ -123,7 +123,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version);
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_pppps_new_version_2);
-            infoText1.setText(getString(R.string.important_info_pppps_new_version_2) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+            infoText1.setText(getString(R.string.important_info_pppps_new_version_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> PPPPSDialogPreferenceFragment.installPPPPutSettings(getActivity(), null, false));
         }
@@ -209,7 +209,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
         if (infoText22 != null) {
             if (Build.VERSION.SDK_INT >= 28) {
-                infoText22.setText(context.getString(R.string.important_info_profile_mobileCellsScanning_location) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+                infoText22.setText(context.getString(R.string.important_info_profile_mobileCellsScanning_location) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
                 infoText22.setOnClickListener(v -> {
                     boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -252,7 +252,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
         if (infoText20 != null) {
-            infoText20.setText(context.getString(R.string.important_info_profile_wifiScanning_location) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+            infoText20.setText(context.getString(R.string.important_info_profile_wifiScanning_location) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText20.setOnClickListener(v -> {
                 boolean ok = false;
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -290,7 +290,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
         if (infoText22 != null) {
-            infoText22.setText(context.getString(R.string.important_info_profile_bluetoothScanning_location) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+            infoText22.setText(context.getString(R.string.important_info_profile_bluetoothScanning_location) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText22.setOnClickListener(v -> {
                 boolean ok = false;
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -329,7 +329,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
         if (infoText10a != null) {
-            infoText10a.setText(context.getString(R.string.important_info_android_doze_mode) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+            infoText10a.setText(context.getString(R.string.important_info_android_doze_mode) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText10a.setOnClickListener(v -> {
 //                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 //                    String packageName = PPApplication.PACKAGE_NAME;
@@ -375,13 +375,13 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (infoText670 != null) {
             infoText670.setText(fragment.getString(R.string.important_info_do_not_kill_my_app1) + " " +
                     fragment.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
-                    fragment.getString(R.string.important_info_do_not_kill_my_app2) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+                    fragment.getString(R.string.important_info_do_not_kill_my_app2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText670.setOnClickListener(v -> PPApplicationStatic.showDoNotKillMyAppDialog(activity));
         }
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
         if (infoText40 != null) {
-            infoText40.setText(context.getString(R.string.important_info_default_profile) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+            infoText40.setText(context.getString(R.string.important_info_default_profile) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText40.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -393,7 +393,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         infoText10a = view.findViewById(R.id.activity_info_notification_application_settings);
         if (infoText10a != null) {
-            infoText10a.setText(context.getString(R.string.important_info_android_look_application_settings) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW);
+            infoText10a.setText(context.getString(R.string.important_info_android_look_application_settings) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW);
             infoText10a.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -674,7 +674,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         if (translationTextView != null) {
             String str1 = fragment.getString(R.string.about_application_translations);
-            String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + StringConstants.CHAR_HARD_SPACE +StringConstants.STR_DOUBLE_ARROW;
+            String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -714,9 +714,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
             String str2;
             if (DebugVersion.enabled)
-                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW;
+                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             else
-                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW;
+                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -806,7 +806,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 */
         TextView helpForPPPPSTextView = view.findViewById(R.id.activity_info_notification_profile_pppps_howTo_2);
         if (helpForPPPPSTextView != null) {
-            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) + StringConstants.CHAR_HARD_SPACE + StringConstants.STR_DOUBLE_ARROW;
+            String str1 = fragment.getString(R.string.important_info_profile_pppps_howTo_2) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str1);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {

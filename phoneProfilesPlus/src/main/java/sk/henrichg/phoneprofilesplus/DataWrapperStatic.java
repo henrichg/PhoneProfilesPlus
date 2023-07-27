@@ -204,13 +204,13 @@ class DataWrapperStatic {
             if (EventStatic.getGlobalEventsRunning(context)) {
                 if (EventStatic.getEventsBlocked(context)) {
                     if (EventStatic.getForceRunEventRunning(context))
-                        manualIndicators = "["+StringConstants.CHAR_ARROW +"]";
+                        manualIndicators = StringConstants.STR_ARROW_INDICATOR;
                     else
-                        manualIndicators = "[M]";
+                        manualIndicators = StringConstants.STR_MANUAL;
                 }
             }
             else
-                manualIndicators = "[M]";
+                manualIndicators = StringConstants.STR_MANUAL;
 
             String _eventName = getLastStartedEventName(dataWrapper, profile, context);
             if (!_eventName.equals("?"))
@@ -225,7 +225,7 @@ class DataWrapperStatic {
 
         Spannable sName;
         if (addDuration) {
-            if (!addEventName || manualIndicators.equals("[M]"))
+            if (!addEventName || manualIndicators.equals(StringConstants.STR_MANUAL))
                 sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, durationInNextLine, context);
             else {
                 String name = profile._name;
