@@ -75,13 +75,13 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_device_boot), addPassStatus, DatabaseHandler.ETYPE_DEVICE_BOOT, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 if (this._permanentRun)
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

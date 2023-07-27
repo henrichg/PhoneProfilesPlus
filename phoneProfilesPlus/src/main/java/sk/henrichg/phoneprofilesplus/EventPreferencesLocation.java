@@ -76,7 +76,7 @@ class EventPreferencesLocation extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, DatabaseHandler.ETYPE_LOCATION, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning) {
@@ -125,9 +125,9 @@ class EventPreferencesLocation extends EventPreferences {
                     }
                 }
                 selectedLocations = value.toString();
-                descr = descr + context.getString(R.string.event_preferences_locations_location) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedLocations, disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_locations_location) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedLocations, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 if (this._whenOutside)
-                    descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

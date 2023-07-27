@@ -81,7 +81,7 @@ class EventPreferencesNFC extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
@@ -104,11 +104,11 @@ class EventPreferencesNFC extends EventPreferences {
                     }
                 }
                 selectedNfcTags = value.toString();
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedNfcTags, disabled, context) + "</b>"+StringConstants.STR_DOT;
+                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedNfcTags, disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
                 if (this._permanentRun)
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

@@ -98,18 +98,18 @@ class EventPreferencesRoaming extends EventPreferences {
             if (addBullet) {
                 descr = descr + StringConstants.TAG_BOLD_START_HTML;
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_roaming), addPassStatus, DatabaseHandler.ETYPE_ROAMING, context);
-                descr = descr + "</b> ";
+                descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_ROAMING_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (this._checkNetwork) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_network), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
                 if (this._checkData) {
                     if (this._checkNetwork)
                         descr = descr + StringConstants.STR_DOT;
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_roaming_check_data), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
 
                 //if (Build.VERSION.SDK_INT >= 26) {
@@ -131,7 +131,7 @@ class EventPreferencesRoaming extends EventPreferences {
                     if (hasSIMCard) {
                         descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_roaming_forSimCard);
                         String[] forSimCard = context.getResources().getStringArray(R.array.eventRoamingForSimCardArray);
-                        descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
+                        descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     }
                 //}
             }

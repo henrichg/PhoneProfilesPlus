@@ -86,7 +86,7 @@ class EventPreferencesMobileCells extends EventPreferences {
             if (addBullet) {
                 descr = descr + StringConstants.TAG_BOLD_START_HTML;
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context);
-                descr = descr + "</b> ";
+                descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
@@ -121,9 +121,9 @@ class EventPreferencesMobileCells extends EventPreferences {
                     selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
                     selectedCells = selectedCells + " " + splits.length;
                 }
-                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedCells, disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedCells, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 if (this._whenOutside)
-                    descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 //if (Build.VERSION.SDK_INT >= 26) {
                 boolean hasSIMCard = false;
@@ -144,7 +144,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 if (hasSIMCard) {
                     descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_mobile_cells_forSimCard);
                     String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
-                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + "</b>";
+                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
                 //}
             }

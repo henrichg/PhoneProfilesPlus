@@ -95,7 +95,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, DatabaseHandler.ETYPE_BLUETOOTH, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {
@@ -122,7 +122,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
-                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b>"+StringConstants.STR_DOT;
+                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
                 }
 
                 /*
@@ -177,7 +177,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                     }
                 }
                 selectedBluetoothNames = value.toString();
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context) + "</b>";
+                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedBluetoothNames, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

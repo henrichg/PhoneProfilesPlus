@@ -90,13 +90,13 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 if (this._permanentRun)
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -126,7 +126,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 }
 
                 descr = descr + StringConstants.STR_DOT;
-                descr = descr + context.getString(R.string.event_preferences_alarm_clock_applications) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_alarm_clock_applications) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

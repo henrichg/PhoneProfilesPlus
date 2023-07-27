@@ -53,14 +53,14 @@ class EventPreferencesVPN extends EventPreferences {
             if (addBullet) {
                 descr = descr + StringConstants.TAG_BOLD_START_HTML;
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_vpn), addPassStatus, DatabaseHandler.ETYPE_VPN, context);
-                descr = descr + "</b> ";
+                descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
             }
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + ": ";
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context) + "</b>";
+                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
             }
             else {

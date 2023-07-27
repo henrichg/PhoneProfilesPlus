@@ -99,7 +99,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_soundProfile), addPassStatus, DatabaseHandler.ETYPE_SOUND_PROFILE, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 boolean dndChecked = false;
@@ -127,7 +127,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     }
                     selectedValues = _value.toString();
                 }
-                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 if (dndChecked) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -150,7 +150,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         }
                         selectedValues = _value.toString();
                     }
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_soundProfile_zenModes) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_soundProfile_zenModes) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
             }
         }

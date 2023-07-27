@@ -102,7 +102,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_volumes), addPassStatus, DatabaseHandler.ETYPE_VOLUMES, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 boolean _addBullet = false;
@@ -117,7 +117,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     descr = descr + context.getString(R.string.profile_preferences_volumeRingtone) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
                 }
 
@@ -133,7 +133,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr +  StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeNotification) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
                 }
 
@@ -149,7 +149,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeMedia) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
                 }
 
@@ -165,7 +165,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeAlarm) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
                 }
 
@@ -181,7 +181,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeSystem) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
                 }
 
@@ -197,7 +197,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeVoiceCall) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
                 }
 
@@ -213,7 +213,7 @@ class EventPreferencesVolumes extends EventPreferences {
                         descr = descr + StringConstants.STR_DOT;
                     descr = descr + context.getString(R.string.profile_preferences_volumeBluetoothSCO) + ": ";
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + "</b>";
+                    descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     //_addBullet = true;
                 }
 

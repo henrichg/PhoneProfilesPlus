@@ -1163,17 +1163,17 @@ class Event {
                         if (splits.length == 1) {
                             profile = dataWrapper.getProfileById(Long.parseLong(startWhenActivatedProfile), false, false, false);
                             if (profile != null) {
-                                summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context) + "</b>";
+                                summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(profile._name, !preference.isEnabled(), context) + StringConstants.TAG_BOLD_END_HTML;
                             }
                         }
                         else {
-                            summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context) + "</b>";
+                            summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length, !preference.isEnabled(), context) + StringConstants.TAG_BOLD_END_HTML;
                         }
                     }
                     if (delayStartChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + "</b>";
+                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context) + StringConstants.TAG_BOLD_END_HTML;
                     }
                     if (notificationSoundStartChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
@@ -1186,7 +1186,7 @@ class Event {
                     if (notificationRepeatStartChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_notificationRepeat) + ": ";
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + "</b>";
+                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context) + StringConstants.TAG_BOLD_END_HTML;
 
                     }
                     preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
@@ -1211,7 +1211,7 @@ class Event {
                     if (delayEndChanged) {
                         /*if (!summary.isEmpty())*/ summary = summary + StringConstants.STR_DOT;
                         summary = summary + context.getString(R.string.event_preferences_delayStart) + ": ";
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + "</b>";
+                        summary = summary + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context) + StringConstants.TAG_BOLD_END_HTML;
                     }
                     if (notificationSoundEndChanged) {
                         if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;

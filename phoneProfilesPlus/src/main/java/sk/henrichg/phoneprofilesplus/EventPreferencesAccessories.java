@@ -92,7 +92,7 @@ class EventPreferencesAccessories extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_peripheral_type) + ": ";
@@ -116,7 +116,7 @@ class EventPreferencesAccessories extends EventPreferences {
                     }
                     selectedAccessory = value.toString();
                 }
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedAccessory, disabled, context) + "</b>";
+                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedAccessory, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

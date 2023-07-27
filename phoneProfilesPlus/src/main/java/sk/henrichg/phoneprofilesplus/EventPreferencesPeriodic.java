@@ -90,7 +90,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_periodic), addPassStatus, DatabaseHandler.ETYPE_PERIODIC, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
@@ -108,17 +108,17 @@ class EventPreferencesPeriodic extends EventPreferences {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.TAG_BREAK_HTML;
                     } else {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context) + "</b>";
+                                StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                         descr = descr + StringConstants.STR_DOT;
                     }
                 }
 
-                descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 descr = descr + StringConstants.STR_DOT;
                 int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
-                descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 descr = descr + StringConstants.STR_DOT;
-                descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

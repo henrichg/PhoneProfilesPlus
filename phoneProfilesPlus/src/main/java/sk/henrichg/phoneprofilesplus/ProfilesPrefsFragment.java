@@ -1548,7 +1548,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 url = PPApplication.HELP_AIRPLANE_MODE_RADIOS_CONFIG;
 
             String infoText =
-                    StringConstants.TAG_BOLD_START_HTML+getString(R.string.profile_preferences_deviceAirplaneModeRadios_info1) + "</b>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
+                    StringConstants.TAG_BOLD_START_HTML+getString(R.string.profile_preferences_deviceAirplaneModeRadios_info1) + StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_DOUBLE_BREAK_HTML +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info2) + " " +
                             getString(R.string.profile_preferences_deviceAirplaneModeRadios_info3) + ":"+StringConstants.TAG_BREAK_HTML +
                             "<a href=" + url + ">" + url+ StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML;
@@ -2122,7 +2122,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title +
                                 ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                                + "</b>"+StringConstants.STR_DOT;
+                                + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
 
                         String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
@@ -2130,7 +2130,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
                         cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
 
                         if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
                             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
@@ -2145,7 +2145,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, context);
                             cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT + _title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                                    + "</b>";
+                                    + StringConstants.TAG_BOLD_END_HTML;
                         }
                     } else
                         cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
@@ -2162,7 +2162,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     value = StringFormatUtils.getTimeString(Integer.parseInt(value));
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                            + "</b>"+StringConstants.STR_DOT;
+                            + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
 
                     String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
@@ -2170,7 +2170,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
                     cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                            + "</b>";
+                            + StringConstants.TAG_BOLD_END_HTML;
 
                     if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
@@ -2185,7 +2185,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, context);
                         cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT + _title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     }
                     //} else
                     //    cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
@@ -2197,7 +2197,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             askForDurationTitle = StringConstants.STR_MANUAL_SPACE + askForDurationTitle;
             cattegorySummaryData.summary = cattegorySummaryData.summary + askForDurationTitle + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(getString(R.string.profile_preferences_enabled), prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         if (cattegorySummaryData.bold) {
             // any of duration preferences are set
@@ -2207,7 +2207,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name>", prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
 
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -2218,7 +2218,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(getString(R.string.profile_preferences_enabled), prefMng, "prf_pref_activationDurationCategoryRoot", context)
-                            + "</b>";
+                            + StringConstants.TAG_BOLD_END_HTML;
                 }
             }
 
@@ -2268,7 +2268,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_soundProfileCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         if (cattegorySummaryData.bold) {
             int titleRes;
@@ -2285,7 +2285,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_soundProfileCategoryRoot", context)
-                            + "</b>";
+                            + StringConstants.TAG_BOLD_END_HTML;
                 }
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, R.string.profile_preferences_vibrateWhenRinging, context);
@@ -2302,7 +2302,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_soundProfileCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     } else
                         //noinspection DuplicateExpressions
                         if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
@@ -2316,7 +2316,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_soundProfileCategoryRoot", context)
-                                    + "</b>";
+                                    + StringConstants.TAG_BOLD_END_HTML;
                         }
                 }
             }
@@ -2335,7 +2335,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_soundProfileCategoryRoot", context)
-                                    + "</b>";
+                                    + StringConstants.TAG_BOLD_END_HTML;
                         } else
                             //noinspection DuplicateExpressions
                             if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
@@ -2349,7 +2349,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_soundProfileCategoryRoot", context)
-                                        + "</b>";
+                                        + StringConstants.TAG_BOLD_END_HTML;
                             }
                     }
                 }
@@ -2398,7 +2398,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                            + "</b>";
+                            + StringConstants.TAG_BOLD_END_HTML;
                 } else
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
@@ -2418,7 +2418,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     } else
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title;
                 }
@@ -2436,7 +2436,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                            + "</b>";
+                            + StringConstants.TAG_BOLD_END_HTML;
                 } else
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
@@ -2454,7 +2454,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
@@ -2473,7 +2473,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                            + "</b>";
+                            + StringConstants.TAG_BOLD_END_HTML;
                 } else
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
@@ -2491,7 +2491,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
@@ -2510,7 +2510,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                             ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                            + "</b>";
+                            + StringConstants.TAG_BOLD_END_HTML;
                 } else
                     cattegorySummaryData.summary = cattegorySummaryData.summary + title;
             }
@@ -2528,7 +2528,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
@@ -2546,7 +2546,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
@@ -2564,7 +2564,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_volumeCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         Profile profile = new Profile();
@@ -2586,7 +2586,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name>", prefMng, "prf_pref_soundsCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_RINGTONE);
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, R.string.profile_preferences_soundNotificationChange, context);
@@ -2596,7 +2596,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue("<notification_name>", prefMng, "prf_pref_soundsCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, R.string.profile_preferences_soundAlarmChange, context);
@@ -2606,7 +2606,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue("<alarm_name>", prefMng, "prf_pref_soundsCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_ALARM);
 
@@ -2714,7 +2714,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_touchEffectsCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, R.string.profile_preferences_vibrationOnTouch, context);
         if (!title.isEmpty()) {
@@ -2729,7 +2729,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_touchEffectsCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, R.string.profile_preferences_dtmfToneWhenDialing, context);
         if (!title.isEmpty()) {
@@ -2744,7 +2744,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_touchEffectsCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         Profile profile = new Profile();
@@ -2779,7 +2779,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_vibrationIntensityCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS, R.string.profile_preferences_vibrationIntensityNotificatiions, context);
             if (!title.isEmpty()) {
@@ -2794,7 +2794,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_vibrationIntensityCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION, R.string.profile_preferences_vibrationIntensityTouchInteraction, context);
             if (!title.isEmpty()) {
@@ -2809,7 +2809,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_vibrationIntensityCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
 
             /*
@@ -2852,7 +2852,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
 
             Profile profile = new Profile();
             profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0"));
@@ -2881,7 +2881,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, R.string.profile_preferences_deviceMobileData_21, context);
         if (!title.isEmpty()) {
@@ -2896,7 +2896,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, R.string.profile_preferences_deviceMobileDataPrefs, context);
         if (!title.isEmpty()) {
@@ -2911,7 +2911,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         //_permissionGranted = true;
@@ -3002,7 +3002,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, R.string.profile_preferences_deviceConnectToSSID, context);
         if (!title.isEmpty()) {
@@ -3019,7 +3019,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
@@ -3038,7 +3038,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
         //}
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, R.string.profile_preferences_deviceWiFiAPPrefs, context);
@@ -3054,7 +3054,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, R.string.profile_preferences_deviceBluetooth, context);
         if (!title.isEmpty()) {
@@ -3069,7 +3069,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, R.string.profile_preferences_deviceLocationMode, context);
         if (!title.isEmpty()) {
@@ -3084,7 +3084,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_GPS, R.string.profile_preferences_deviceGPS, context);
         if (!title.isEmpty()) {
@@ -3099,7 +3099,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, R.string.profile_preferences_deviceLocationServicePrefs, context);
         if (!title.isEmpty()) {
@@ -3114,7 +3114,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NFC, R.string.profile_preferences_deviceNFC, context);
         if (!title.isEmpty()) {
@@ -3129,7 +3129,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, R.string.profile_preferences_deviceNetworkType, context);
         if (!title.isEmpty()) {
@@ -3160,7 +3160,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, R.string.profile_preferences_deviceNetworkTypePrefs, context);
         if (!title.isEmpty()) {
@@ -3175,7 +3175,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, R.string.profile_preferences_deviceVPNSettingsPrefs, context);
         if (!title.isEmpty()) {
@@ -3190,7 +3190,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_VPN, R.string.profile_preferences_deviceVPN, context);
         if (!title.isEmpty()) {
@@ -3237,7 +3237,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_radiosCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         Profile profile = new Profile();
@@ -3269,7 +3269,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, R.string.profile_preferences_deviceBrightness, context);
         if (!title.isEmpty()) {
@@ -3303,7 +3303,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(summaryString, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, R.string.profile_preferences_deviceAutoRotation,context);
         if (!title.isEmpty()) {
@@ -3318,7 +3318,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, R.string.profile_preferences_deviceScreenOnPermanent, context);
         if (!title.isEmpty()) {
@@ -3333,7 +3333,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_KEYGUARD, R.string.profile_preferences_deviceKeyguard, context);
         if (!title.isEmpty()) {
@@ -3348,7 +3348,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, context);
         if (!title.isEmpty()) {
@@ -3364,7 +3364,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(sValue, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
 
             if (wallpaperChangeValue.equals("1") ||
                     wallpaperChangeValue.equals("3")) {
@@ -3379,7 +3379,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         context.getString(R.string.profile_preferences_deviceWallpaperFor)
                         + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, context);
@@ -3395,7 +3395,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, R.string.profile_preferences_headsUpNotifications, context);
         if (!title.isEmpty()) {
@@ -3410,7 +3410,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, context);
         if (!title.isEmpty()) {
@@ -3425,7 +3425,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SCREEN_DARK_MODE, R.string.profile_preferences_screenDarkMode, context);
@@ -3441,7 +3441,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_screenCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         Profile profile = new Profile();
@@ -3482,7 +3482,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_ledAccessoriesCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_CAMERA_FLASH, R.string.profile_preferences_cameraFlash, context);
         if (!title.isEmpty()) {
@@ -3497,7 +3497,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_ledAccessoriesCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         Profile profile = new Profile();
@@ -3525,7 +3525,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_othersCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, R.string.profile_preferences_deviceRunApplicationsShortcutsChange, context);
         if (!title.isEmpty()) {
@@ -3540,7 +3540,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length, prefMng, "prf_pref_othersCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
@@ -3558,7 +3558,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_othersCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, R.string.profile_preferences_deviceForceStopApplicationsChange, context);
         if (!title.isEmpty()) {
@@ -3574,7 +3574,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(context.getString(R.string.applications_multiselect_summary_text_selected) + " " + splits.length, prefMng, "prf_pref_othersCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
@@ -3619,7 +3619,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(summaryString, prefMng, "prf_pref_othersCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         return false;
@@ -3643,7 +3643,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         cattegorySummaryData.summary = title + ": " +
                 ((index >= 0) ? StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(entries[index], prefMng, "prf_pref_forceStopApplicationsCategoryRoot", context)
-                        + "</b>" : null);
+                        + StringConstants.TAG_BOLD_END_HTML : null);
 
         boolean ok = true;
         int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -3679,7 +3679,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         ProfileStatic.getColorForChangedPreferenceValue(
                                 ApplicationsMultiSelectDialogPreference.getSummaryForPreferenceCategory(sValue, "accessibility_2.0", context, false),
                                 prefMng, "prf_pref_forceStopApplicationsCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 
@@ -3713,7 +3713,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         else
             cattegorySummaryData.summary = StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(entries[index], prefMng, "prf_pref_lockDeviceCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
 
         if ((sValue != null) && sValue.equals("3")) {
             int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
@@ -3773,7 +3773,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, R.string.profile_preferences_applicationEnableBluetoothScanning, context);
         if (!title.isEmpty()) {
@@ -3788,7 +3788,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, R.string.profile_preferences_applicationEnableLocationScanning,context);
         if (!title.isEmpty()) {
@@ -3803,7 +3803,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, R.string.profile_preferences_applicationEnableMobileCellScanning, context);
         if (!title.isEmpty()) {
@@ -3818,7 +3818,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, R.string.profile_preferences_applicationEnableOrientationScanning, context);
         if (!title.isEmpty()) {
@@ -3833,7 +3833,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, R.string.profile_preferences_applicationEnableNotificationScanning, context);
         if (!title.isEmpty()) {
@@ -3848,7 +3848,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_PERIODIC_SCANNING, R.string.profile_preferences_applicationEnablePeriodicScanning, context);
         if (!title.isEmpty()) {
@@ -3863,7 +3863,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, R.string.profile_preferences_applicationEnableGlobalEventsRun, context);
@@ -3879,7 +3879,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_applicationCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
         }
 
         return false;
@@ -3911,7 +3911,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_deviceRadiosDualSIMSupportCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     }
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, context);
                     if (!title.isEmpty()) {
@@ -3926,7 +3926,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_deviceRadiosDualSIMSupportCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     }
 
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, context);
@@ -3964,7 +3964,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ProfileStatic.getColorForChangedPreferenceValue(
                                         voiceStr + "; " + smsStr + "; " + dataStr,
                                         prefMng, "prf_pref_deviceRadiosDualSIMSupportCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     }
 
                     /*
@@ -4028,7 +4028,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_deviceRadiosDualSIMSupportCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     }
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, context);
                     //PPApplicationStatic.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
@@ -4058,7 +4058,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                 ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_deviceRadiosDualSIMSupportCategoryRoot", context)
-                                + "</b>";
+                                + StringConstants.TAG_BOLD_END_HTML;
                     }
 
                     Profile profile = new Profile();
@@ -4104,7 +4104,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                     ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name_sim1>", prefMng, "prf_pref_soundsDualSIMSupportCategoryRoot", context)
-                                    + "</b>";
+                                    + StringConstants.TAG_BOLD_END_HTML;
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, context);
                         if (!title.isEmpty()) {
@@ -4113,7 +4113,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                     ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name_sim2>", prefMng, "prf_pref_soundsDualSIMSupportCategoryRoot", context)
-                                    + "</b>";
+                                    + StringConstants.TAG_BOLD_END_HTML;
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, context);
                         if (!title.isEmpty()) {
@@ -4122,7 +4122,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                     ProfileStatic.getColorForChangedPreferenceValue("<notification_name_sim1>", prefMng, "prf_pref_soundsDualSIMSupportCategoryRoot", context)
-                                    + "</b>";
+                                    + StringConstants.TAG_BOLD_END_HTML;
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, context);
                         if (!title.isEmpty()) {
@@ -4131,7 +4131,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                     ProfileStatic.getColorForChangedPreferenceValue("<notification_name_sim2>", prefMng, "prf_pref_soundsDualSIMSupportCategoryRoot", context)
-                                    + "</b>";
+                                    + StringConstants.TAG_BOLD_END_HTML;
                         }
 
                         if ((PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
@@ -4149,7 +4149,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_soundsDualSIMSupportCategoryRoot", context)
-                                        + "</b>";
+                                        + StringConstants.TAG_BOLD_END_HTML;
                             }
                         }
 
@@ -4224,7 +4224,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
                     ProfileStatic.getColorForChangedPreferenceValue(sValue, prefMng, "prf_pref_deviceWallpaperCategoryRoot", context)
-                    + "</b>";
+                    + StringConstants.TAG_BOLD_END_HTML;
 
             if (wallpaperChangeValue.equals("1") ||
                     wallpaperChangeValue.equals("3")) {
@@ -4239,7 +4239,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         context.getString(R.string.profile_preferences_deviceWallpaperFor)
                         + ": "+StringConstants.TAG_BOLD_START_HTML +
                         ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, "prf_pref_deviceWallpaperCategoryRoot", context)
-                        + "</b>";
+                        + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

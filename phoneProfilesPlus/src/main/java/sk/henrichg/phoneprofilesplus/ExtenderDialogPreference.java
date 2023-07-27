@@ -62,7 +62,7 @@ public class ExtenderDialogPreference extends DialogPreference {
 
         int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(_context);
         if (extenderVersion == 0) {
-            prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + "</b>";
+            prefVolumeDataSummary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.profile_preferences_PPPExtender_not_installed_summary) + StringConstants.TAG_BOLD_END_HTML;
 
             if ((installSummary != null) && (!installSummary.isEmpty()))
                 prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + installSummary;
@@ -70,11 +70,11 @@ public class ExtenderDialogPreference extends DialogPreference {
         else {
             String extenderVersionName = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.getExtenderVersionName(_context);
             prefVolumeDataSummary =  _context.getString(R.string.install_extender_installed_version) +
-                    " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")</b>"+StringConstants.TAG_BREAK_HTML;
+                    " "+StringConstants.TAG_BOLD_START_HTML + extenderVersionName + " (" + extenderVersion + ")"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.install_extender_required_version) +
-                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")</b>";
+                    " "+StringConstants.TAG_BOLD_START_HTML + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")"+StringConstants.TAG_BOLD_END_HTML;
             if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)
-                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + "</b>";
+                prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary) + StringConstants.TAG_BOLD_END_HTML;
             else
                 prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML + _context.getString(R.string.pppextender_pref_dialog_PPPExtender_upgrade_summary);
         }
@@ -110,14 +110,14 @@ public class ExtenderDialogPreference extends DialogPreference {
         String summary;
         if (preferenceValueOK) {
             if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
-                summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_enabled) + "</b>";
+                summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_enabled) + StringConstants.TAG_BOLD_END_HTML;
             else {
                 if (accessibilityEnabled == -1) {
-                    summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_not_used) + "</b>";
+                    summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_not_used) + StringConstants.TAG_BOLD_END_HTML;
                     summary = summary + StringConstants.TAG_BREAK_HTML + _context.getString(R.string.preference_not_used_extender_reason) + " " +
                             _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else {
-                    summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_disabled) + "</b>";
+                    summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_disabled) + StringConstants.TAG_BOLD_END_HTML;
                     if ((enableExtenderSummaryDisabled != null) && (!enableExtenderSummaryDisabled.isEmpty()))
                         summary = summary + StringConstants.TAG_BREAK_HTML + enableExtenderSummaryDisabled;
                     else
@@ -126,14 +126,14 @@ public class ExtenderDialogPreference extends DialogPreference {
             }
         }
         else {
-            summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_not_used) + "</b>";
+            summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_not_used) + StringConstants.TAG_BOLD_END_HTML;
         }
         prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +
                 _context.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + ": " +
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))
-            prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + lauchSummary + "</b>";
+            prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +StringConstants.TAG_BOLD_START_HTML + lauchSummary + StringConstants.TAG_BOLD_END_HTML;
 
 //        Log.e("PPPPSDialogPreference.setSummaryPPPPSDP", "xxxxx");
         setSummary(StringFormatUtils.fromHtml(prefVolumeDataSummary, false, false, false, 0, 0, true));

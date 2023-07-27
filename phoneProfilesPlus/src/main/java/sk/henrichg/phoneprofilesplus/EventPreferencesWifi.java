@@ -90,7 +90,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 if ((this._connectionType == 1) || (this._connectionType == 3)) {
@@ -117,7 +117,7 @@ class EventPreferencesWifi extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_wifi_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + "</b>"+StringConstants.STR_DOT;
+                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
                 }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_ssid) + ": ";
@@ -152,7 +152,7 @@ class EventPreferencesWifi extends EventPreferences {
                     }
                 }
                 selectedSSIDs = value.toString();
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedSSIDs, disabled, context) + "</b>";
+                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedSSIDs, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 

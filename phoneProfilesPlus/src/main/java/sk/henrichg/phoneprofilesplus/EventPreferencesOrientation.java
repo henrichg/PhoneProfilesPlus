@@ -158,7 +158,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (addBullet) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML;
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
-                    descr = descr + "</b> ";
+                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning) {
@@ -197,7 +197,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     }
                     selectedValues = _value.toString();
                 }
-                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
@@ -222,22 +222,22 @@ class EventPreferencesOrientation extends EventPreferences {
                         }
                         selectedValues = _value.toString();
                     }
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_sides) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_sides) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_distance) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + "</b>";
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_distance) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 if (this._checkLight) {
                     descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + ": "+StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context) + "</b>";
+                            getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
                 else {
                     descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + ": "+StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context) + "</b>";
+                            getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -280,7 +280,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
-                descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + "</b>";
+                descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 
