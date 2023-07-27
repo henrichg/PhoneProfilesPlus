@@ -55,10 +55,10 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
         textView.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
 
         textView = view.findViewById(R.id.activity_info_quick_guide_text_2);
-        text = "<ol>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_2) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_3) + "</li>";
-        text = text + "</ol>";
+        text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML;
+        text = text +          getString(R.string.important_info_quick_guide_2) + "</li>";
+        text = text + "<li>" + getString(R.string.important_info_quick_guide_3);
+        text = text + StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML;
         textView.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
 
         AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),

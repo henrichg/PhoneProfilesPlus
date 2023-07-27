@@ -28,14 +28,13 @@ class StringConstants {
     static final String TAG_BOLD_START_HTML = "<b>";
     static final String TAG_BOLD_END_HTML = "</b>";
     static final String TAG_FONT_COLOR_HTML = "<font color=\"#%s\">%s</font>";
-
     static final String TAG_LIST_START_HTML = "<ul>";
     static final String TAG_LIST_END_HTML = "</ul>";
     static final String TAG_LIST_START_FIRST_ITEM_HTML = "<ul><li>";
     static final String TAG_LIST_END_LAST_ITEM_HTML = "</li></ul>";
 
-    static final String TAG_NUMBERED_LIST_START_HTML = "<ol>";
-    static final String TAG_NUMBERED_LIST_END_HTML = "</ol>";
+    //static final String TAG_NUMBERED_LIST_START_HTML = "<ol>";
+    //static final String TAG_NUMBERED_LIST_END_HTML = "</ol>";
     static final String TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML = "<ol><li>";
     static final String TAG_NUMBERED_LIST_END_LAST_ITEM_HTML = "</li></ol>";
 
