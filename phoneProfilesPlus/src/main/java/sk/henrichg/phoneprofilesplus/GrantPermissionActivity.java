@@ -444,15 +444,15 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //TODO sprav toto cez StringBuilder
             String whyString = "";
             if (showRequestWriteSettings) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_write_settings) + StringConstants.TAG_BOLD_END_HTML;
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[0]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_storage) + StringConstants.TAG_BOLD_END_HTML;
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
@@ -461,10 +461,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestReadPhoneState) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_phone) + StringConstants.TAG_BOLD_END_HTML;
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
@@ -473,26 +473,26 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestReadCalendar) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_calendar) + StringConstants.TAG_BOLD_END_HTML;
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[7]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestReadContacts) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_contacts) + StringConstants.TAG_BOLD_END_HTML;
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[8]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestAccessCoarseLocation || showRequestAccessFineLocation /*|| showRequestAccessBackgroundLocation*/) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_location) + StringConstants.TAG_BOLD_END_HTML;
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
@@ -501,15 +501,15 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestAccessBackgroundLocation) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_background_location) + StringConstants.TAG_BOLD_END_HTML;
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[14]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             /*if (showRequestAccessNotificationPolicy) {
                 whyString = whyString + "<li>";
@@ -520,7 +520,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + "</li>";
             }*/
             if (showRequestDrawOverlays) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
                     whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_draw_overlays) + StringConstants.TAG_BOLD_END_HTML;
                 else
@@ -528,23 +528,23 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[2]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestCamera) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_camera) + StringConstants.TAG_BOLD_END_HTML;
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[15]);
                 //if (whyPermissionString != null)
                 whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             if (showRequestMicrophone) {
-                whyString = whyString + "<li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
                 whyString = whyString + StringConstants.TAG_BOLD_START_HTML + context.getString(R.string.permission_group_name_microphone) + StringConstants.TAG_BOLD_END_HTML;
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[16]);
                 //if (whyPermissionString != null)
                 whyString = whyString + whyPermissionString;
-                whyString = whyString + "</li>";
+                whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
             //TODO StringBuilder pripoj k showRequestString
             if (!whyString.isEmpty())

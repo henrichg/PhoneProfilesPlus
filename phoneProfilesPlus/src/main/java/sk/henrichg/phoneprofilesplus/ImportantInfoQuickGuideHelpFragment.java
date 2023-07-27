@@ -43,21 +43,21 @@ public class ImportantInfoQuickGuideHelpFragment extends Fragment {
 
         TextView textView = view.findViewById(R.id.activity_info_quick_guide_sensors_texts);
         String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML;
-        text = text +          getString(R.string.important_info_quick_guide_sensors_2) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_3) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_4) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_5) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_6) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_7) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_8) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_9);
+        text = text +                                            getString(R.string.important_info_quick_guide_sensors_2) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_sensors_3) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_sensors_4) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_sensors_5) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_sensors_6) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_sensors_7) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_sensors_8) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_sensors_9);
         text = text + StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
         textView.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
 
         textView = view.findViewById(R.id.activity_info_quick_guide_text_2);
         text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML;
-        text = text +          getString(R.string.important_info_quick_guide_2) + "</li>";
-        text = text + "<li>" + getString(R.string.important_info_quick_guide_3);
+        text = text +                                            getString(R.string.important_info_quick_guide_2) + StringConstants.TAG_LIST_ITEM_END_HTML;
+        text = text + StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_quick_guide_3);
         text = text + StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML;
         textView.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
 

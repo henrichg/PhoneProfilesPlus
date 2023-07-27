@@ -406,8 +406,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation2);
         if (infoText100 != null) {
             String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.important_info_profile_activation_text2) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text3) +
+                             fragment.getString(R.string.important_info_profile_activation_text2) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text3) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
         }
@@ -424,18 +424,18 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.important_info_profile_activation_text9) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) +
+                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
         infoText100 = view.findViewById(R.id.activity_info_event_activation9);
         if (infoText100 != null) {
             String text = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.important_info_profile_activation_text9) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) +
+                                                               fragment.getString(R.string.important_info_profile_activation_text9) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text10) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_activation_text11) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, true, false, 0, 0, false));
         }
@@ -443,11 +443,11 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
             String text =StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.important_info_profile_install_pppps) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_root) + "</li>" +
+                                                               fragment.getString(R.string.important_info_profile_install_pppps) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_root) + StringConstants.TAG_LIST_ITEM_END_HTML +
                     //"<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_interactive) +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_interactive) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML
                     ;
             infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
@@ -473,9 +473,9 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
         if (infoText100 != null) {
             String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.important_info_profile_grant_1_howTo_6) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_7) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
+                                                               fragment.getString(R.string.important_info_profile_grant_1_howTo_6) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_7) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
@@ -493,9 +493,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             String text = fragment.getString(R.string.important_info_profile_grant_1_howTo_20_1) + StringConstants.TAG_BREAK_HTML +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_2) +
                     StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.important_info_profile_grant_1_howTo_20_3) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_4) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
+                                                               fragment.getString(R.string.important_info_profile_grant_1_howTo_20_3) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_4) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_profile_grant_1_howTo_20_5) +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_20_6);
             infoText100.setText(StringFormatUtils.fromHtml(text, true, false, false, 0, 0, false));
@@ -504,10 +504,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
         if (infoText100 != null) {
             String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.info_notification_event_not_started_2) + "</li>" +
-                    "<li>" + fragment.getString(R.string.info_notification_event_not_started_3) + "</li>" +
-                    "<li>" + fragment.getString(R.string.info_notification_event_not_started_4) + "</li>" +
-                    "<li>" + fragment.getString(R.string.info_notification_event_priority_new) +
+                                                               fragment.getString(R.string.info_notification_event_not_started_2) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.info_notification_event_not_started_3) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.info_notification_event_not_started_4) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.info_notification_event_priority_new) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
             ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));
@@ -516,9 +516,9 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_notification_event_event_sensors_2);
         if (infoText100 != null) {
             String text = StringConstants.TAG_NUMBERED_LIST_START_FIRST_ITEM_HTML +
-                             fragment.getString(R.string.important_info_event_event_sensors_waiting) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_passed) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_not_pased) +
+                                                               fragment.getString(R.string.important_info_event_event_sensors_waiting) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_event_event_sensors_passed) + StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML + fragment.getString(R.string.important_info_event_event_sensors_not_pased) +
                     StringConstants.TAG_NUMBERED_LIST_END_LAST_ITEM_HTML
                     ;
             infoText100.setText(StringFormatUtils.fromHtml(text, false, false, true, 1, 17, false));

@@ -736,15 +736,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             "<a href='" + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                             R.id.activity_info_notification_profile_pppps_howTo_1 + "'>" +
                             getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            "</li>" +
-                            "<li>" + getString(R.string.important_info_profile_grant) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            StringConstants.TAG_LIST_ITEM_END_HTML +
+                            StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_grant) + StringConstants.TAG_DOUBLE_BREAK_HTML +
                             "<a href='" + InfoDialogPreference.ACTIVITY_IMPORTANT_INFO_PROFILES + "__" +
                             R.id.activity_info_notification_profile_grant_1_howTo_1 + "'>" +
                             getString(R.string.profile_preferences_types_G1_show_info) + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW_HTML+"</a>"+StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            "</li>" +
-                            "<li>" + getString(R.string.important_info_profile_root) + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                            "</li>" +
-                            "<li>" + getString(R.string.important_info_profile_interactive) +
+                            StringConstants.TAG_LIST_ITEM_END_HTML +
+                            StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_root) + StringConstants.TAG_DOUBLE_BREAK_HTML +
+                            StringConstants.TAG_LIST_ITEM_END_HTML +
+                            StringConstants.TAG_LIST_ITEM_START_HTML + getString(R.string.important_info_profile_interactive) +
                             /*
                             "</li>" +
                             "<li>" + "<a href=mailto:henrich.gron@gmail.com>E-mail to Henrisko&nbsp;»»</a><br>" +

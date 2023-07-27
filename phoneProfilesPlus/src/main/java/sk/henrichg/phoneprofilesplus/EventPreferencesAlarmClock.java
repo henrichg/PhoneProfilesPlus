@@ -210,19 +210,19 @@ class EventPreferencesAlarmClock extends EventPreferences {
         InfoDialogPreference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_SUPPORTED_APPS);
         if (preference != null) {
             String supportedApps = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML +
-                         "Google Clock</li>" +
-                    "<li>Samsung Clock</li>" +
-                    "<li>Sony Clock</li>" +
-                    "<li>AMdroid</li>" +
-                    "<li>Alarm Clock XTreme free</li>" +
-                    "<li>Alarm Clock XTreme</li>" +
-                    "<li>Alarmy (Sleep if u can)</li>" +
-                    "<li>Early Bird Alarm Clock</li>" +
-                    "<li>Good Morning Alarm Clock</li>" +
-                    "<li>I Can't Wake Up! Alarm Clock</li>" +
-                    "<li>Sleep as Android</li>" +
-                    "<li>Timely</li>" +
-                    "<li>Alarm Klock" +
+                                                             "Google Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Samsung Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Sony Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"AMdroid"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarm Clock XTreme free"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarm Clock XTreme"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarmy (Sleep if u can)"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Early Bird Alarm Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Good Morning Alarm Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"I Can't Wake Up! Alarm Clock"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Sleep as Android"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Timely"+StringConstants.TAG_LIST_ITEM_END_HTML +
+                    StringConstants.TAG_LIST_ITEM_START_HTML+"Alarm Klock" +
                     StringConstants.TAG_LIST_END_LAST_ITEM_HTML
                     ;
             preference.setInfoText(supportedApps);
