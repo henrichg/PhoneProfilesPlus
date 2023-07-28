@@ -608,6 +608,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                         }
                                                         break;
                                                     default:
+                                                        /* Removed, hidden BT are not supported
                                                         if ((device.getName() == null) || device.getName().isEmpty()) {
                                                             // scanned device has not name (hidden BT?)
                                                             String deviceAddress = device.getAddress();
@@ -623,7 +624,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                                     }
                                                                 }
                                                             }
-                                                        } else {
+                                                        } else*/ {
                                                             String _deviceName = device.getName().toUpperCase();
                                                             String _adapterName = _bluetoothName.toUpperCase();
                                                             if ((!_adapterName.isEmpty()) &&

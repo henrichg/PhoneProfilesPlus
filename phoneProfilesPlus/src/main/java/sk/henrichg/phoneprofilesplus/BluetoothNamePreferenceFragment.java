@@ -133,14 +133,14 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         bluetoothListView.setAdapter(listAdapter);
 
         bluetoothListView.setOnItemClickListener((parent, item, position, id) -> {
-            String ssid = preference.bluetoothList.get(position).name;
+            String btName = preference.bluetoothList.get(position).getName();
             BluetoothNamePreferenceViewHolder viewHolder =
                     (BluetoothNamePreferenceViewHolder) item.getTag();
-            viewHolder.checkBox.setChecked(!preference.isBluetoothNameSelected(ssid));
+            viewHolder.checkBox.setChecked(!preference.isBluetoothNameSelected(btName));
             if (viewHolder.checkBox.isChecked())
-                preference.addBluetoothName(ssid);
+                preference.addBluetoothName(btName);
             else
-                preference.removeBluetoothName(ssid);
+                preference.removeBluetoothName(btName);
         });
 
         /*
@@ -186,8 +186,10 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                         break;
                                     case 1:
                                         for (BluetoothDeviceData bluetooth : preference.bluetoothList) {
-                                            if (bluetooth.name.equals(bluetoothName.getText().toString()))
-                                                preference.addBluetoothName(bluetooth.name);
+                                            if (!bluetooth.getName().isEmpty()) {
+                                                if (bluetooth.getName().equals(bluetoothName.getText().toString()))
+                                                    preference.addBluetoothName(bluetooth.getName());
+                                            }
                                         }
                                         break;
                                     default:
@@ -558,7 +560,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                     preference.value = value.toString();
                     for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
                         if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
-                            customBluetoothName.name = bluetoothName.getText().toString();
+                            customBluetoothName.setName(bluetoothName.getText().toString());
                             break;
                         }
                     }
@@ -678,7 +680,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanWorker.getBoundedDevicesList(prefContext);
                 //if (boundedDevicesList != null) {
                 for (BluetoothDeviceData device : boundedDevicesList) {
-                    _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, true, false));
+                    _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.getAddress(), device.type, false, 0, true, false));
                 }
                 //}
 
@@ -694,7 +696,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
                                 }
                             }
                             if (!exists) {
-                                _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
+                                _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.getAddress(), device.type, false, 0, false, true));
                             }
                         }
                     }

@@ -2,8 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 class BluetoothDeviceData {
 
-    String name;
-    final String address;
+    private String name;
+    private final String address;
     final int type;
     final boolean custom;
     final long timestamp;
@@ -38,10 +38,8 @@ class BluetoothDeviceData {
             return "";
     }
 
-    /*
     void setName(String name) {
         this.name = name;
     }
-    */
 
 }

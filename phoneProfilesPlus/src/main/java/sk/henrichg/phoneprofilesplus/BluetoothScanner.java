@@ -371,7 +371,7 @@ class BluetoothScanner {
 
                 if (BluetoothScanner.tmpBluetoothScanResults != null) {
                     for (BluetoothDeviceData device : BluetoothScanner.tmpBluetoothScanResults) {
-                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
+                        scanResults.add(new BluetoothDeviceData(device.getName(), device.getAddress(), device.type, false, 0, false, true));
                     }
                 }
 
@@ -556,7 +556,7 @@ class BluetoothScanner {
 
             if (BluetoothScanner.tmpScanLEResults != null) {
                 for (BluetoothDeviceData device : BluetoothScanner.tmpScanLEResults) {
-                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
+                    scanResults.add(new BluetoothDeviceData(device.getName(), device.getAddress(), device.type, false, 0, false, true));
                 }
                 //tmpScanLEResults = null;
             }

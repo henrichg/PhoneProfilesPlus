@@ -108,24 +108,31 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                 if (BluetoothScanner.tmpBluetoothScanResults == null)
                                                     BluetoothScanner.tmpBluetoothScanResults = new ArrayList<>();
 
-                                                boolean found = false;
-                                                for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                    if (_device.address.equals(device.getAddress())) {
-                                                        found = true;
-                                                        break;
-                                                    }
-                                                }
-                                                if (!found) {
-                                                    for (BluetoothDeviceData _device : BluetoothScanner.tmpBluetoothScanResults) {
-                                                        if (_device.getName().equalsIgnoreCase(btName)) {
+                                                if (!btName.isEmpty()) {
+                                                    // do not add device without name
+
+                                                    boolean found = false;
+                                                    for (BluetoothDeviceData tmpDevice : BluetoothScanner.tmpBluetoothScanResults) {
+                                                        if ((!tmpDevice.getAddress().isEmpty()) &&
+                                                                (!device.getAddress().isEmpty()) &&
+                                                                tmpDevice.getAddress().equals(device.getAddress())) {
                                                             found = true;
                                                             break;
                                                         }
                                                     }
-                                                }
-                                                if (!found) {
-                                                    BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
-                                                            BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
+                                                    if (!found) {
+                                                        for (BluetoothDeviceData tmpDevice : BluetoothScanner.tmpBluetoothScanResults) {
+                                                            if ((!tmpDevice.getName().isEmpty()) &&
+                                                                    tmpDevice.getName().equalsIgnoreCase(btName)) {
+                                                                found = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    if (!found) {
+                                                        BluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
+                                                                BluetoothScanWorker.getBluetoothType(device), false, 0, false, true));
+                                                    }
                                                 }
                                             }
                                             break;

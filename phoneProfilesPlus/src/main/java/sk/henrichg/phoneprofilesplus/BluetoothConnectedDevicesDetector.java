@@ -196,33 +196,45 @@ class BluetoothConnectedDevicesDetector {
     private static void addConnectedDevices(List<BluetoothDevice> detectedDevices, List<BluetoothDeviceData> connectedDevices)
     {
         //synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            for (BluetoothDevice device : detectedDevices) {
-//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "device.name="+device.getName());
-//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "device.address="+device.getAddress());
-//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] device.name="+device.getName());
-//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] device.address="+device.getAddress());
+            for (BluetoothDevice detecedDevice : detectedDevices) {
+//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "detecedDevice.name="+detecedDevice.getName());
+//                PPApplicationStatic.logE("[IN_LISTENER] BluetoothConnectedDevicesDetector.addConnectedDevices", "detecedDevice.address="+detecedDevice.getAddress());
+//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] detecedDevice.name="+detecedDevice.getName());
+//                Log.e("BluetoothConnectedDevicesDetector.addConnectedDevices", "[1] detecedDevice.address="+detecedDevice.getAddress());
 
                 boolean found = false;
-                for (BluetoothDeviceData _device : connectedDevices) {
-                    if (_device.address.equals(device.getAddress())) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    for (BluetoothDeviceData _device : connectedDevices) {
-                        if (_device.getName().equalsIgnoreCase(device.getName())) {
-                            found = true;
-                            break;
+
+                String detectedName = detecedDevice.getAddress();
+                if (!detectedName.isEmpty()) {
+                    // do not add device without name
+
+                    String detectedAddress = detecedDevice.getAddress();
+                    if (!detectedAddress.isEmpty()) {
+                        for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                            if ((!connectedDevice.getAddress().isEmpty()) &&
+                                    connectedDevice.getAddress().equals(detectedAddress)) {
+                                found = true;
+                                break;
+                            }
                         }
                     }
-                }
-                if (!found) {
-                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                    Calendar now = Calendar.getInstance();
-                    long timestamp = now.getTimeInMillis() - gmtOffset;
-                    connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                            BluetoothScanWorker.getBluetoothType(device), false, timestamp, false, false));
+                    if (!found) {
+                        for (BluetoothDeviceData connectedDevice : connectedDevices) {
+                            String connectedName = connectedDevice.getName();
+                            if ((!connectedName.isEmpty()) &&
+                                    connectedName.equalsIgnoreCase(detectedName)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!found) {
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        Calendar now = Calendar.getInstance();
+                        long timestamp = now.getTimeInMillis() - gmtOffset;
+                        connectedDevices.add(new BluetoothDeviceData(detecedDevice.getName(), detecedDevice.getAddress(),
+                                BluetoothScanWorker.getBluetoothType(detecedDevice), false, timestamp, false, false));
+                    }
                 }
             }
         //}
