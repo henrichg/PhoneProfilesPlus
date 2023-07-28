@@ -29,11 +29,11 @@
 // 6730 = changed one row widget "Higher layout" parameter to "Layout height"
 // 6800 = removed widgets parameter "Rounded corners", Force set rounded corners = true, radius = 1.
 // 6920 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
-// 6960 = enabled PPP notification decorator for Pixel (Android 12+) and OneUI 5 (Samsung Galaxy).
+// 6960 = Increased default value for "Bluetooth LE scan duration".
 
 ext.ppVersions = [
         publishVersion    : '6.2.1b',
-        publishVersionCode: 6968,
+        publishVersionCode: 6969,
 
         minSdk            : 26,
         targetSdk         : 28,
