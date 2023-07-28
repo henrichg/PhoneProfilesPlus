@@ -610,7 +610,6 @@ class PPApplicationStatic {
             context.getApplicationContext().startService(serviceIntent);
         else {*/
 
-        Log.e("PPApplicationStatic.startPPService", "*********** enableStartOnBoot="+enableStartOnBoot);
         if (enableStartOnBoot) {
             SharedPreferences settings = ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = settings.edit();
