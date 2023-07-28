@@ -599,28 +599,36 @@ class EventPreferencesBluetooth extends EventPreferences {
                                                         for (BluetoothDeviceData data : boundedDevicesList) {
                                                             String _device = device.getName().toUpperCase();
                                                             String _adapterName = data.getName().toUpperCase();
-                                                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                                            if ((!_device.isEmpty()) &&
+                                                                    (!_adapterName.isEmpty()) &&
+                                                                    Wildcard.match(_device, _adapterName, '_', '%', true)) {
                                                                 nearby[i] = true;
                                                                 break;
                                                             }
                                                         }
                                                         break;
                                                     default:
-                                                        String _device = device.getName().toUpperCase();
                                                         if ((device.getName() == null) || device.getName().isEmpty()) {
                                                             // scanned device has not name (hidden BT?)
-                                                            if ((device.getAddress() != null) && (!device.getAddress().isEmpty())) {
+                                                            String deviceAddress = device.getAddress();
+                                                            if ((deviceAddress != null) && (!deviceAddress.isEmpty())) {
                                                                 // device has address
                                                                 for (BluetoothDeviceData data : boundedDevicesList) {
-                                                                    if ((data.getAddress() != null) && data.getAddress().equals(device.getAddress())) {
+                                                                    String dataAddress = data.getAddress();
+                                                                    if ((dataAddress != null) &&
+                                                                            (!dataAddress.isEmpty()) &&
+                                                                            dataAddress.equals(deviceAddress)) {
                                                                         nearby[i] = true;
                                                                         break;
                                                                     }
                                                                 }
                                                             }
                                                         } else {
+                                                            String _deviceName = device.getName().toUpperCase();
                                                             String _adapterName = _bluetoothName.toUpperCase();
-                                                            if (Wildcard.match(_device, _adapterName, '_', '%', true)) {
+                                                            if ((!_adapterName.isEmpty()) &&
+                                                                    (!_deviceName.isEmpty()) &&
+                                                                    Wildcard.match(_deviceName, _adapterName, '_', '%', true)) {
                                                                 nearby[i] = true;
                                                             }
                                                         }

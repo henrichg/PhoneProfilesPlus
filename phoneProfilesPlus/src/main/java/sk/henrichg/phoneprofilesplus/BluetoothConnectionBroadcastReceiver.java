@@ -352,7 +352,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         boolean found = false;
                         for (BluetoothDeviceData _device : connectedDevices) {
-                            if (_device.address.equals(deviceData.getAddress())) {
+                            String deviceDataAddress = deviceData.getAddress();
+                            if ((!deviceDataAddress.isEmpty()) &&
+                                    (!_device.address.isEmpty()) &&
+                                    _device.address.equals(deviceDataAddress)) {
                                 found = true;
                                 break;
                             }
@@ -361,7 +364,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             for (BluetoothDeviceData _device : connectedDevices) {
                                 String _deviceName = _device.getName().trim();
                                 String deviceDataName = deviceData.getName().trim();
-                                if (_deviceName.equalsIgnoreCase(deviceDataName)) {
+                                if ((!_deviceName.isEmpty()) &&
+                                        (!deviceDataName.isEmpty()) &&
+                                        _deviceName.equalsIgnoreCase(deviceDataName)) {
                                     found = true;
                                     break;
                                 }
@@ -375,7 +380,9 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         for (BluetoothDeviceData _device : connectedDevices) {
                             String device = _device.getName().trim().toUpperCase();
                             String _adapterName = sensorDeviceName.trim().toUpperCase();
-                            if (Wildcard.match(device, _adapterName, '_', '%', true)) {
+                            if ((!device.isEmpty()) &&
+                                    (!_adapterName.isEmpty()) &&
+                                    Wildcard.match(device, _adapterName, '_', '%', true)) {
                                 return true;
                             }
                         }
