@@ -174,7 +174,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    //TODO change it back to not log crash for releases
+    // TODO change it back to not log crash for releases
     static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;

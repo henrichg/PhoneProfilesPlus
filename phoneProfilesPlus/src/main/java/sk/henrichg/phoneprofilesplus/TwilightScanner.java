@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
+
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -11,6 +13,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -50,7 +53,10 @@ class TwilightScanner {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(TwilightScanner.ACTION_UPDATE_TWILIGHT_STATE);
-        context.registerReceiver(mUpdateLocationReceiver, filter);
+        int receiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            receiverFlags = RECEIVER_NOT_EXPORTED;
+        context.registerReceiver(mUpdateLocationReceiver, filter, receiverFlags);
 
         mLocationHandler.enableLocationUpdates();
     }

@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -1999,7 +2001,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (shortcutAddedReceiver == null) {
                         shortcutAddedReceiver = new ShortcutAddedReceiver();
                         IntentFilter shortcutAddedFilter = new IntentFilter(ACTION_SHORTCUT_TO_EDITOR_ADDED);
-                        getActivity().registerReceiver(shortcutAddedReceiver, shortcutAddedFilter);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_NOT_EXPORTED;
+                        getActivity().registerReceiver(shortcutAddedReceiver, shortcutAddedFilter, receiverFlags);
                     }
 
                     preference.setVisible(true);
@@ -4006,7 +4011,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //boolean addEnd = true;
 
-        //TODO toto sprav cez StringBuilder
+        // TODO toto sprav cez StringBuilder
 
         String summary = "";
         if (key.equals("applicationInterfaceCategoryRoot")) {

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
 import static android.view.View.VISIBLE;
 
 import android.app.ActivityManager;
@@ -940,7 +941,10 @@ public class ProfileListNotification {
             IntentFilter intentFilter5 = new IntentFilter();
             intentFilter5.addAction(ACTION_RIGHT_ARROW_CLICK);
             intentFilter5.addAction(ACTION_LEFT_ARROW_CLICK);
-            appContext.registerReceiver(arrowsBroadcastReceiver, intentFilter5);
+            int receiverFlags = 0;
+            if (Build.VERSION.SDK_INT >= 34)
+                receiverFlags = RECEIVER_NOT_EXPORTED;
+            appContext.registerReceiver(arrowsBroadcastReceiver, intentFilter5, receiverFlags);
         }
 
         synchronized (PPApplication.applicationPreferencesMutex) {

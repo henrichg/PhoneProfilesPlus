@@ -5,7 +5,7 @@ package com.noob.noobcameraflash.utilities;
  */
 
 public enum TorchMode {
-    None,
+    /** @noinspection unused*/ None,
     Unavailable,
     SwitchedOn,
     SwitchedOff

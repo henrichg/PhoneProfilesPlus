@@ -374,7 +374,7 @@ class SettingsContentObserver  extends ContentObserver {
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
 
-                //TODO Brightness sensor - call MainWorker with HANDLE_EVENTS_BRIGHTNRESS_WORK_TAG
+                // TODO Brightness sensor - call MainWorker with HANDLE_EVENTS_BRIGHTNRESS_WORK_TAG
                 //  not implemented yet
 
             }

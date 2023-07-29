@@ -10,6 +10,7 @@ import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.text.Spannable;
@@ -656,8 +657,13 @@ class DataWrapperStatic {
 //                    PPApplicationStatic.logE("DataWrapperStatic.setDynamicLauncherShortcuts", "shortcuts.size()="+shortcuts.size());
 
                     shortcutManager.removeAllDynamicShortcuts();
-                    if (shortcuts.size() > 0)
+                    if (shortcuts.size() > 0) {
                         shortcutManager.addDynamicShortcuts(shortcuts);
+                        if (Build.VERSION.SDK_INT >= 30) {
+                            for (ShortcutInfo shortcut : shortcuts)
+                                shortcutManager.pushDynamicShortcut(shortcut);
+                        }
+                    }
                 }
             } catch (Exception e) {
 //                java.lang.IllegalStateException: Launcher activity not found for package sk.henrichg.phoneprofilesplus

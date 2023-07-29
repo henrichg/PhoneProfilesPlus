@@ -11,7 +11,7 @@ buildscript {
 //        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.2'
+        classpath 'com.android.tools.build:gradle:8.1.0'
         //classpath 'com.google.gms:google-services:4.3.4' // google-services plugin
         //classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
     }
@@ -33,6 +33,6 @@ allprojects {
     }*/
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }

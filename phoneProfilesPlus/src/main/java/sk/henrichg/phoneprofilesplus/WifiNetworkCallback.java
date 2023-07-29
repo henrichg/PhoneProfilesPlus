@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 
+import androidx.annotation.NonNull;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -20,7 +21,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     @Override
-    public void onLost(Network network) {
+    public void onLost(@NonNull Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
         PPApplication.wifiNetworkconnected = false;
         doConnection();
@@ -34,20 +35,20 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     @Override
-    public void onLosing(Network network, int maxMsToLive) {
+    public void onLosing(@NonNull Network network, int maxMsToLive) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
-    public void onAvailable(Network network) {
+    public void onAvailable(@NonNull Network network) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
         PPApplication.wifiNetworkconnected = true;
         doConnection();
     }
 
     @Override
-    public void onCapabilitiesChanged (Network network, NetworkCapabilities networkCapabilities) {
+    public void onCapabilitiesChanged (@NonNull Network network, @NonNull NetworkCapabilities networkCapabilities) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onCapabilitiesChanged", "xxx");
         doConnection();
     }

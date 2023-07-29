@@ -405,7 +405,6 @@ public class MainWorker extends Worker {
 //                        }
 
                         PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-                        //TODO toto nie je prave najrychlejsie, da sa to zrychlit?
                         PhoneProfilesServiceStatic.disableNotUsedScanners(dataWrapper);
                         PhoneProfilesServiceStatic.registerAllTheTimeRequiredSystemReceivers(true, appContext);
                         PhoneProfilesServiceStatic.registerAllTheTimeContentObservers(true, appContext);
@@ -544,7 +543,6 @@ public class MainWorker extends Worker {
 
         // must be first
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (1)");
-        //TODO - toto trva hoodne dlho, 20 sekund - da sa to zrychlit?
         PPApplicationStatic.createContactsCache(appContext, true);
         //must be seconds, this ads groups into contacts
 //        PPApplicationStatic.logE("MainWorker.doAfterFirstStart", "call of createContactsCache (2)");

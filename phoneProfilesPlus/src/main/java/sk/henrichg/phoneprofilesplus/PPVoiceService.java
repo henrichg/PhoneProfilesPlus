@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.service.voice.VoiceInteractionService;
 //import kotlin.Metadata;
 //import kotlin.jvm.internal.C0326f;
@@ -22,7 +23,9 @@ public final class PPVoiceService extends VoiceInteractionService {
 
     /* renamed from: com.arlosoft.macrodroid.voiceservice.MacroDroidVoiceService$a */
     /* compiled from: MacroDroidVoiceService.kt */
+    /** @noinspection unused*/
     public static final class PPPVoiceServiceInternal {
+        /** @noinspection unused*/
         private PPPVoiceServiceInternal() {
         }
 
@@ -39,7 +42,10 @@ public final class PPVoiceService extends VoiceInteractionService {
 
     public void onReady() {
         super.onReady();
-        registerReceiver(this.voiceServiceBroadcastReceiver, new IntentFilter(ACTION_ASSISTANT));
+        int receiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            receiverFlags = RECEIVER_NOT_EXPORTED;  // maybe working (???)
+        registerReceiver(this.voiceServiceBroadcastReceiver, new IntentFilter(ACTION_ASSISTANT), receiverFlags);
     }
 
     public void onShutdown() {

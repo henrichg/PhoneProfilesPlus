@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.content.Context.RECEIVER_EXPORTED;
+import static android.content.Context.RECEIVER_NOT_EXPORTED;
+
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -213,50 +216,74 @@ class PhoneProfilesServiceStatic
                 PPApplication.startEventNotificationDeletedReceiver = new StartEventNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(StartEventNotificationDeletedReceiver.ACTION_START_EVENT_NOTIFICATION_DELETED);
-                appContext.registerReceiver(PPApplication.startEventNotificationDeletedReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.startEventNotificationDeletedReceiver, intentFilter5, receiverFlags);
             }
 
             if (PPApplication.notUsedMobileCellsNotificationDeletedReceiver == null) {
                 PPApplication.notUsedMobileCellsNotificationDeletedReceiver = new NotUsedMobileCellsNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(MobileCellsScanner.ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DELETED);
-                appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver, intentFilter5, receiverFlags);
             }
 
             if (PPApplication.eventDelayStartBroadcastReceiver == null) {
                 PPApplication.eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
-                appContext.registerReceiver(PPApplication.eventDelayStartBroadcastReceiver, intentFilter14);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.eventDelayStartBroadcastReceiver, intentFilter14, receiverFlags);
             }
 
             if (PPApplication.eventDelayEndBroadcastReceiver == null) {
                 PPApplication.eventDelayEndBroadcastReceiver = new EventDelayEndBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
-                appContext.registerReceiver(PPApplication.eventDelayEndBroadcastReceiver, intentFilter14);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.eventDelayEndBroadcastReceiver, intentFilter14, receiverFlags);
             }
 
             if (PPApplication.profileDurationAlarmBroadcastReceiver == null) {
                 PPApplication.profileDurationAlarmBroadcastReceiver = new ProfileDurationAlarmBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
-                appContext.registerReceiver(PPApplication.profileDurationAlarmBroadcastReceiver, intentFilter14);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.profileDurationAlarmBroadcastReceiver, intentFilter14, receiverFlags);
             }
 
             if (PPApplication.runApplicationWithDelayBroadcastReceiver == null) {
                 PPApplication.runApplicationWithDelayBroadcastReceiver = new RunApplicationWithDelayBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
-                appContext.registerReceiver(PPApplication.runApplicationWithDelayBroadcastReceiver, intentFilter14);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.runApplicationWithDelayBroadcastReceiver, intentFilter14, receiverFlags);
             }
 
             if (PPApplication.startEventNotificationBroadcastReceiver == null) {
                 PPApplication.startEventNotificationBroadcastReceiver = new StartEventNotificationBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
-                appContext.registerReceiver(PPApplication.startEventNotificationBroadcastReceiver, intentFilter14);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.startEventNotificationBroadcastReceiver, intentFilter14, receiverFlags);
             }
 
             if (PPApplication.lockDeviceActivityFinishBroadcastReceiver == null) {
                 PPApplication.lockDeviceActivityFinishBroadcastReceiver = new LockDeviceActivityFinishBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
-                appContext.registerReceiver(PPApplication.lockDeviceActivityFinishBroadcastReceiver, intentFilter14);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.lockDeviceActivityFinishBroadcastReceiver, intentFilter14, receiverFlags);
             }
 
             if (PPApplication.pppExtenderBroadcastReceiver == null) {
@@ -265,52 +292,76 @@ class PhoneProfilesServiceStatic
                 intentFilter14.addAction(PPApplication.ACTION_PPPEXTENDER_STARTED);
                 intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
                 intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_EXPORTED;
                 appContext.registerReceiver(PPApplication.pppExtenderBroadcastReceiver, intentFilter14,
-                        PPApplication.PPP_EXTENDER_PERMISSION, null);
+                        PPApplication.PPP_EXTENDER_PERMISSION, null, receiverFlags);
             }
 
             if (PPApplication.notUsedMobileCellsNotificationDisableReceiver == null) {
                 PPApplication.notUsedMobileCellsNotificationDisableReceiver = new NotUsedMobileCellsNotificationDisableReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(MobileCellsScanner.ACTION_NEW_MOBILE_CELLS_NOTIFICATION_DISABLE);
-                appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDisableReceiver, intentFilter5, receiverFlags);
             }
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver == null) {
                 PPApplication.lockDeviceAfterScreenOffBroadcastReceiver = new LockDeviceAfterScreenOffBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(LockDeviceAfterScreenOffBroadcastReceiver.ACTION_LOCK_DEVICE_AFTER_SCREEN_OFF);
-                appContext.registerReceiver(PPApplication.lockDeviceAfterScreenOffBroadcastReceiver, intentFilter14);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.lockDeviceAfterScreenOffBroadcastReceiver, intentFilter14, receiverFlags);
             }
 
             if (PPApplication.donationBroadcastReceiver == null) {
                 PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_DONATION);
-                appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5, receiverFlags);
             }
             if (PPApplication.checkPPPReleasesBroadcastReceiver == null) {
                 PPApplication.checkPPPReleasesBroadcastReceiver = new CheckPPPReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkPPPReleasesBroadcastReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.checkPPPReleasesBroadcastReceiver, intentFilter5, receiverFlags);
             }
             if (PPApplication.checkCriticalPPPReleasesBroadcastReceiver == null) {
                 PPApplication.checkCriticalPPPReleasesBroadcastReceiver = new CheckCriticalPPPReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkCriticalPPPReleasesBroadcastReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.checkCriticalPPPReleasesBroadcastReceiver, intentFilter5, receiverFlags);
             }
             if (PPApplication.checkRequiredExtenderReleasesBroadcastReceiver == null) {
                 PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = new CheckRequiredExtenderReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES);
-                appContext.registerReceiver(PPApplication.checkRequiredExtenderReleasesBroadcastReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.checkRequiredExtenderReleasesBroadcastReceiver, intentFilter5, receiverFlags);
             }
             if (PPApplication.checkLatestPPPPSReleasesBroadcastReceiver == null) {
                 PPApplication.checkLatestPPPPSReleasesBroadcastReceiver = new CheckLatestPPPPSReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_LATEST_PPPPS_RELEASES);
-                appContext.registerReceiver(PPApplication.checkLatestPPPPSReleasesBroadcastReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.checkLatestPPPPSReleasesBroadcastReceiver, intentFilter5, receiverFlags);
             }
             /*if (PPApplication.restartEventsWithDelayBroadcastReceiver == null) {
                 PPApplication.restartEventsWithDelayBroadcastReceiver = new RestartEventsWithDelayBroadcastReceiver();
@@ -323,19 +374,28 @@ class PhoneProfilesServiceStatic
                     PPApplication.ppAppNotificationDeletedReceiver = new PPAppNotificationDeletedReceiver();
                     IntentFilter intentFilter5 = new IntentFilter();
                     intentFilter5.addAction(PPAppNotificationDeletedReceiver.ACTION_PP_APP_NOTIFICATION_DELETED);
-                    appContext.registerReceiver(PPApplication.ppAppNotificationDeletedReceiver, intentFilter5);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.ppAppNotificationDeletedReceiver, intentFilter5, receiverFlags);
                 }
                 if (PPApplication.keepScreenOnNotificationDeletedReceiver == null) {
                     PPApplication.keepScreenOnNotificationDeletedReceiver = new KeepScreenOnNotificationDeletedReceiver();
                     IntentFilter intentFilter5 = new IntentFilter();
                     intentFilter5.addAction(KeepScreenOnNotificationDeletedReceiver.ACTION_KEEP_SCREEN_ON_NOTIFICATION_DELETED);
-                    appContext.registerReceiver(PPApplication.keepScreenOnNotificationDeletedReceiver, intentFilter5);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.keepScreenOnNotificationDeletedReceiver, intentFilter5, receiverFlags);
                 }
                 if (PPApplication.profileListNotificationDeletedReceiver == null) {
                     PPApplication.profileListNotificationDeletedReceiver = new ProfileListNotificationDeletedReceiver();
                     IntentFilter intentFilter5 = new IntentFilter();
                     intentFilter5.addAction(ProfileListNotificationDeletedReceiver.ACTION_PROFILE_LIST_NOTIFICATION_DELETED);
-                    appContext.registerReceiver(PPApplication.profileListNotificationDeletedReceiver, intentFilter5);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.profileListNotificationDeletedReceiver, intentFilter5, receiverFlags);
                 }
             }
 
@@ -454,7 +514,10 @@ class PhoneProfilesServiceStatic
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(Intent.ACTION_SHUTDOWN);
                 intentFilter5.addAction("android.intent.action.QUICKBOOT_POWEROFF");
-                appContext.registerReceiver(PPApplication.shutdownBroadcastReceiver, intentFilter5);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                appContext.registerReceiver(PPApplication.shutdownBroadcastReceiver, intentFilter5, receiverFlags);
             }
 
             // required for Lock device, Hide notification in lock screen, screen timeout +
@@ -938,7 +1001,10 @@ class PhoneProfilesServiceStatic
                     IntentFilter intentFilter12 = new IntentFilter();
                     intentFilter12.addAction(Intent.ACTION_DOCK_EVENT);
                     intentFilter12.addAction("android.intent.action.ACTION_DOCK_EVENT");
-                    appContext.registerReceiver(PPApplication.dockConnectionBroadcastReceiver, intentFilter12);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED; // maybe working (???)
+                    appContext.registerReceiver(PPApplication.dockConnectionBroadcastReceiver, intentFilter12, receiverFlags);
                 }
             }
             else
@@ -1005,7 +1071,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.smsEventEndBroadcastReceiver == null) {
                     PPApplication.smsEventEndBroadcastReceiver = new SMSEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.smsEventEndBroadcastReceiver, intentFilter22);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.smsEventEndBroadcastReceiver, intentFilter22, receiverFlags);
                 }
 
 //                Log.e("PhoneProfilesService.registerReceiverForSMSSensor", "xxx");
@@ -1054,12 +1123,18 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.eventCalendarBroadcastReceiver == null) {
                     PPApplication.eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.eventCalendarBroadcastReceiver, intentFilter23);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.eventCalendarBroadcastReceiver, intentFilter23, receiverFlags);
                 }
                 if (PPApplication.calendarEventExistsCheckBroadcastReceiver == null) {
                     PPApplication.calendarEventExistsCheckBroadcastReceiver = new CalendarEventExistsCheckBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.calendarEventExistsCheckBroadcastReceiver, intentFilter23);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.calendarEventExistsCheckBroadcastReceiver, intentFilter23, receiverFlags);
                 }
                 if (PPApplication.calendarProviderChangedBroadcastReceiver == null) {
                     PPApplication.calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
@@ -1068,7 +1143,10 @@ class PhoneProfilesServiceStatic
                     intentFilter23.addDataScheme("content");
                     intentFilter23.addDataAuthority("com.android.calendar", null);
                     intentFilter23.setPriority(Integer.MAX_VALUE);
-                    appContext.registerReceiver(PPApplication.calendarProviderChangedBroadcastReceiver, intentFilter23);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_EXPORTED; // !!! must be exported !!!
+                    appContext.registerReceiver(PPApplication.calendarProviderChangedBroadcastReceiver, intentFilter23, receiverFlags);
                 }
             }
             else
@@ -1286,13 +1364,19 @@ class PhoneProfilesServiceStatic
                     if (PPApplication.alarmClockBroadcastReceiver == null) {
                         PPApplication.alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
                         IntentFilter intentFilter21 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
-                        appContext.registerReceiver(PPApplication.alarmClockBroadcastReceiver, intentFilter21);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_NOT_EXPORTED;
+                        appContext.registerReceiver(PPApplication.alarmClockBroadcastReceiver, intentFilter21, receiverFlags);
                     }
                 //}
                 if (PPApplication.alarmClockEventEndBroadcastReceiver == null) {
                     PPApplication.alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.alarmClockEventEndBroadcastReceiver, intentFilter22);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.alarmClockEventEndBroadcastReceiver, intentFilter22, receiverFlags);
                 }
             }
             else
@@ -1323,7 +1407,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.notificationEventEndBroadcastReceiver == null) {
                     PPApplication.notificationEventEndBroadcastReceiver = new NotificationEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.notificationEventEndBroadcastReceiver, intentFilter22);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.notificationEventEndBroadcastReceiver, intentFilter22, receiverFlags);
                 }
             }
             else
@@ -1357,7 +1444,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.deviceBootEventEndBroadcastReceiver == null) {
                     PPApplication.deviceBootEventEndBroadcastReceiver = new DeviceBootEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.deviceBootEventEndBroadcastReceiver, intentFilter22);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.deviceBootEventEndBroadcastReceiver, intentFilter22, receiverFlags);
                 }
             }
             else
@@ -1391,7 +1481,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.periodicEventEndBroadcastReceiver == null) {
                     PPApplication.periodicEventEndBroadcastReceiver = new PeriodicEventEndBroadcastReceiver();
                     IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.periodicEventEndBroadcastReceiver, intentFilter22);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.periodicEventEndBroadcastReceiver, intentFilter22, receiverFlags);
                 }
             }
             else
@@ -1422,7 +1515,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.activatedProfileEventBroadcastReceiver == null) {
                     PPApplication.activatedProfileEventBroadcastReceiver = new ActivatedProfileEventBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_ACTIVATED_PROFILE_EVENT_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.activatedProfileEventBroadcastReceiver, intentFilter23);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.activatedProfileEventBroadcastReceiver, intentFilter23, receiverFlags);
                 }
             }
             else
@@ -1538,8 +1634,11 @@ class PhoneProfilesServiceStatic
                         PPApplication.pppExtenderSMSBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_EXPORTED;
                         appContext.registerReceiver(PPApplication.pppExtenderSMSBroadcastReceiver, intentFilter23,
-                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                                PPApplication.PPP_EXTENDER_PERMISSION, null, receiverFlags);
                     }
 
                     // send broadcast to Extender for register sms
@@ -1558,8 +1657,11 @@ class PhoneProfilesServiceStatic
                         PPApplication.pppExtenderCallBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_EXPORTED;
                         appContext.registerReceiver(PPApplication.pppExtenderCallBroadcastReceiver, intentFilter23,
-                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                                PPApplication.PPP_EXTENDER_PERMISSION, null, receiverFlags);
                     }
 
                     // send broadcast to Extender for register call
@@ -1630,8 +1732,11 @@ class PhoneProfilesServiceStatic
                         PPApplication.pppExtenderForceStopApplicationBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_EXPORTED;
                         appContext.registerReceiver(PPApplication.pppExtenderForceStopApplicationBroadcastReceiver, intentFilter23,
-                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                                PPApplication.PPP_EXTENDER_PERMISSION, null, receiverFlags);
                     }
 
                     // send broadcast to Extender for register force stop applications
@@ -1659,8 +1764,11 @@ class PhoneProfilesServiceStatic
                         PPApplication.pppExtenderForegroundApplicationBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_EXPORTED;
                         appContext.registerReceiver(PPApplication.pppExtenderForegroundApplicationBroadcastReceiver, intentFilter23,
-                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                                PPApplication.PPP_EXTENDER_PERMISSION, null, receiverFlags);
                     }
 
                     // send broadcast to Extender for register foreground application
@@ -1677,8 +1785,11 @@ class PhoneProfilesServiceStatic
                         PPApplication.pppExtenderSMSBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_EXPORTED;
                         appContext.registerReceiver(PPApplication.pppExtenderSMSBroadcastReceiver, intentFilter23,
-                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                                PPApplication.PPP_EXTENDER_PERMISSION, null, receiverFlags);
                     }
 
                     // send broadcast to Extender for register sms
@@ -1695,8 +1806,11 @@ class PhoneProfilesServiceStatic
                         PPApplication.pppExtenderCallBroadcastReceiver = new PPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
                         intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_EXPORTED;
                         appContext.registerReceiver(PPApplication.pppExtenderCallBroadcastReceiver, intentFilter23,
-                                PPApplication.PPP_EXTENDER_PERMISSION, null);
+                                PPApplication.PPP_EXTENDER_PERMISSION, null, receiverFlags);
                     }
 
                     // send broadcast to Extender for register call
@@ -2012,7 +2126,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.eventTimeBroadcastReceiver == null) {
                     PPApplication.eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.eventTimeBroadcastReceiver, intentFilter23);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.eventTimeBroadcastReceiver, intentFilter23, receiverFlags);
                 }
             }
             else
@@ -2043,7 +2160,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.nfcEventEndBroadcastReceiver == null) {
                     PPApplication.nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.nfcEventEndBroadcastReceiver, intentFilter23);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.nfcEventEndBroadcastReceiver, intentFilter23, receiverFlags);
                 }
             }
             else
@@ -2074,7 +2194,10 @@ class PhoneProfilesServiceStatic
                 if (PPApplication.missedCallEventEndBroadcastReceiver == null) {
                     PPApplication.missedCallEventEndBroadcastReceiver = new MissedCallEventEndBroadcastReceiver();
                     IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
-                    appContext.registerReceiver(PPApplication.missedCallEventEndBroadcastReceiver, intentFilter23);
+                    int receiverFlags = 0;
+                    if (Build.VERSION.SDK_INT >= 34)
+                        receiverFlags = RECEIVER_NOT_EXPORTED;
+                    appContext.registerReceiver(PPApplication.missedCallEventEndBroadcastReceiver, intentFilter23, receiverFlags);
                 }
 
 //                Log.e("PhoneProfilesService.registerReceiverForCallSensor", "xxx");
@@ -2170,7 +2293,10 @@ class PhoneProfilesServiceStatic
                     if (PPApplication.locationScannerSwitchGPSBroadcastReceiver == null) {
                         PPApplication.locationScannerSwitchGPSBroadcastReceiver = new LocationScannerSwitchGPSBroadcastReceiver();
                         IntentFilter intentFilter4 = new IntentFilter(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
-                        appContext.registerReceiver(PPApplication.locationScannerSwitchGPSBroadcastReceiver, intentFilter4);
+                        int receiverFlags = 0;
+                        if (Build.VERSION.SDK_INT >= 34)
+                            receiverFlags = RECEIVER_NOT_EXPORTED;
+                        appContext.registerReceiver(PPApplication.locationScannerSwitchGPSBroadcastReceiver, intentFilter4, receiverFlags);
                     }
                 } else
                     registerLocationScannerReceiver(false, dataWrapper, appContext);

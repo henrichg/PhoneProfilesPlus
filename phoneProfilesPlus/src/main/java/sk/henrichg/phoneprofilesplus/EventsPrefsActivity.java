@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -135,14 +136,20 @@ public class EventsPrefsActivity extends AppCompatActivity
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
             mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver(this);
-            registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter);
+            int receiverFlags = 0;
+            if (Build.VERSION.SDK_INT >= 34)
+                receiverFlags = RECEIVER_NOT_EXPORTED;
+            registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter, receiverFlags);
         }
 
         if (mobileCellsRegistrationNewCellsBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELL);
             mobileCellsRegistrationNewCellsBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver(this);
-            registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter);
+            int receiverFlags = 0;
+            if (Build.VERSION.SDK_INT >= 34)
+                receiverFlags = RECEIVER_NOT_EXPORTED;
+            registerReceiver(mobileCellsRegistrationNewCellsBroadcastReceiver, intentFilter, receiverFlags);
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,

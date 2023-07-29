@@ -154,7 +154,7 @@ public class ActivityLogActivity extends AppCompatActivity {
 
             TextView infoTextView = layout.findViewById(R.id.info_pref_dialog_info_text);
 
-            //TODO - prerobit na StringBuilder?
+            // TODO - prerobit na StringBuilder?
             String message = "";
 
             message = message + StringConstants.TAG_BOLD_START_HTML + getString(R.string.activity_log_help_message_colors) + ":"+StringConstants.TAG_BOLD_END_HTML+StringConstants.TAG_BREAK_HTML;

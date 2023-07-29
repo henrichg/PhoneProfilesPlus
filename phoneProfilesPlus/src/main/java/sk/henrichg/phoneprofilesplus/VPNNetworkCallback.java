@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.PowerManager;
 
+import androidx.annotation.NonNull;
+
 public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
 
     private final Context context;
@@ -14,7 +16,7 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     @Override
-    public void onLost(Network network) {
+    public void onLost(@NonNull Network network) {
         //record vpn disconnect event
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onLost", "xxx");
         PPApplication.vpnNetworkConnected = false;
@@ -29,13 +31,13 @@ public class VPNNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     @Override
-    public void onLosing(Network network, int maxMsToLive) {
+    public void onLosing(@NonNull Network network, int maxMsToLive) {
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onLosing", "xxx");
         doConnection();
     }
 
     @Override
-    public void onAvailable(Network network) {
+    public void onAvailable(@NonNull Network network) {
         //record vpn connect event
 //        PPApplicationStatic.logE("[IN_LISTENER] ----------- VPNNetworkCallback.onAvailable", "xxx");
         PPApplication.vpnNetworkConnected = true;

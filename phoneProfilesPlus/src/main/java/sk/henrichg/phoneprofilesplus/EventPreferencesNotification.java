@@ -934,6 +934,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (service != null) {
                 try {
                     StatusBarNotification[] statusBarNotifications = service.getActiveNotifications();
+                    //noinspection RedundantLengthCheck
                     if ((statusBarNotifications != null) && (statusBarNotifications.length > 0)) {
                         for (StatusBarNotification statusBarNotification : statusBarNotifications) {
 

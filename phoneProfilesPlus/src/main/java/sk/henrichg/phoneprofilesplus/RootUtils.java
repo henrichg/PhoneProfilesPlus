@@ -197,6 +197,7 @@ class RootUtils {
      *
      * @return true if SELinux set to enforcing, or false in the case of
      *         permissive or not present
+     * @noinspection MismatchedJavadocCode
      */
     /*public static boolean isSELinuxEnforcing()
     {

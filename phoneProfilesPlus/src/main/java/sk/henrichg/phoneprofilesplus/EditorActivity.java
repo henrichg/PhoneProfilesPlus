@@ -587,7 +587,10 @@ public class EditorActivity extends AppCompatActivity
         */
 
         finishBroadcastReceiver = new FinishActivityBroadcastReceiver(this);
-        getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY));
+        int receiverFlags = 0;
+        if (Build.VERSION.SDK_INT >= 34)
+            receiverFlags = RECEIVER_NOT_EXPORTED;
+        getApplicationContext().registerReceiver(finishBroadcastReceiver, new IntentFilter(PPApplication.ACTION_FINISH_ACTIVITY), receiverFlags);
     }
 
     @Override

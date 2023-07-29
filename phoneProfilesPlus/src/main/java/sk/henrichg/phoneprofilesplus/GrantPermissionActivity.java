@@ -368,7 +368,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (canShowRationale(context, forceGrant)) {
 
-            //TODO showRequestString sprav ako StringBuilder
+            // TODO showRequestString sprav ako StringBuilder
 
             /*if (onlyNotification) {
                 showNotification(context);
@@ -441,7 +441,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + StringConstants.TAG_DOUBLE_BREAK_HTML;
             }
 
-            //TODO sprav toto cez StringBuilder
+            // TODO sprav toto cez StringBuilder
             String whyString = "";
             if (showRequestWriteSettings) {
                 whyString = whyString + StringConstants.TAG_LIST_ITEM_START_HTML;
@@ -546,7 +546,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + whyPermissionString;
                 whyString = whyString + StringConstants.TAG_LIST_ITEM_END_HTML;
             }
-            //TODO StringBuilder pripoj k showRequestString
+            // TODO StringBuilder pripoj k showRequestString
             if (!whyString.isEmpty())
                 showRequestString = StringConstants.TAG_LIST_START_HTML + whyString + StringConstants.TAG_LIST_END_HTML;
 

@@ -131,9 +131,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                         //if (ApplicationPreferences.prefEventsBlocked) {
                         if (EventStatic.getEventsBlocked(appContext)) {
                             if (EventStatic.getForceRunEventRunning(appContext)) {
-                                /*if (android.os.Build.VERSION.SDK_INT >= 16)
-                                    status = "\u23E9";
-                                else*/
                                 status = StringConstants.STR_ARROW_INDICATOR;
                             } else {
                                 /*if (android.os.Build.VERSION.SDK_INT >= 16)

@@ -93,6 +93,7 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
         }
     }
 
+    /** @noinspection SameParameterValue*/
     static void showPopup(ImageView helpIcon,
                           int titleStringId,
                           Activity activity,

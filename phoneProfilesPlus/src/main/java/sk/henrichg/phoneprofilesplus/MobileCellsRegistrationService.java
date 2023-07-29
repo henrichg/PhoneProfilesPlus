@@ -80,7 +80,10 @@ public class MobileCellsRegistrationService extends Service
                 intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
                 mobileCellsRegistrationStopButtonBroadcastReceiver =
                         new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver(this);
-                context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
+                int receiverFlags = 0;
+                if (Build.VERSION.SDK_INT >= 34)
+                    receiverFlags = RECEIVER_NOT_EXPORTED;
+                context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter, receiverFlags);
             }
 
             PPApplicationStatic.createMobileCellsRegistrationNotificationChannel(getApplicationContext(), false);

@@ -150,6 +150,7 @@ public class PhoneProfilesService extends Service
 
     //public static SipManager mSipManager = null;
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     public void onCreate() {
         super.onCreate();
@@ -221,7 +222,10 @@ public class PhoneProfilesService extends Service
         if (Build.VERSION.SDK_INT < 31) {
             IntentFilter intentFilter5 = new IntentFilter();
             intentFilter5.addAction(PPAppNotification.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-            appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5);
+            int receiverFlags = 0;
+            //if (Build.VERSION.SDK_INT >= 34)
+            //    receiverFlags = RECEIVER_NOT_EXPORTED;
+            appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5, receiverFlags);
         }
 
         //appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));

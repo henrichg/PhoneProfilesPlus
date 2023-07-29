@@ -433,6 +433,7 @@ class EventPreferencesWifi extends EventPreferences {
                         if (connManager != null) {
                             //if (android.os.Build.VERSION.SDK_INT >= 21) {
                             Network[] networks = connManager.getAllNetworks();
+                            //noinspection ConstantValue,RedundantLengthCheck
                             if ((networks != null) && (networks.length > 0)) {
                                 for (Network network : networks) {
                                     try {

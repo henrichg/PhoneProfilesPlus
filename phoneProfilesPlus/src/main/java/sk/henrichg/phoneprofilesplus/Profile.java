@@ -378,12 +378,12 @@ public class Profile {
 
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
-    //TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
+    // TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
     static final String CONNECTTOSSID_JUSTANY = "^just_any^";
     //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
 
     //static final long SHARED_PROFILE_ID = -999L;
-    //TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
+    // TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
     static final long RESTART_EVENTS_PROFILE_ID = -888L;
 

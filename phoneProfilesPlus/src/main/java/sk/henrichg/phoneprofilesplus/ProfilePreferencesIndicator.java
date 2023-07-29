@@ -88,7 +88,7 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null) {
                 try {
                     bitmapResult.recycle();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
             }
         }
         else
@@ -196,7 +196,7 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null) {
                 try {
                     bitmapResult.recycle();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
             }
         }
         else
@@ -256,7 +256,7 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null) {
                 try {
                     bitmapResult.recycle();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
             }
         }
         else
@@ -343,7 +343,7 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null) {
                 try {
                     bitmapResult.recycle();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
             }
         }
         else
@@ -403,13 +403,13 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null) {
                 try {
                     bitmapResult.recycle();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
             }
         }
 
         try {
             preferenceBitmap.recycle();
-        } catch (Exception ignored) {};
+        } catch (Exception ignored) {}
 
     }
 
