@@ -18,9 +18,15 @@
     <output url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/intermediates/javac/debug/classes" />
     <output-test url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/ap_generated_sources/debugAndroidTest/out" />
-    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/res/resValues/androidTest/debug" />
-    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/source/buildConfig/androidTest/debug" />
+    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/ap_generated_sources/debugAndroidTest/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/ap_generated_sources/debugAndroidTest/out" isTestSource="true" generated="true" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/res/resValues/androidTest/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/res/resValues/androidTest/debug" type="java-test-resource" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/source/buildConfig/androidTest/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/build/generated/source/buildConfig/androidTest/debug" isTestSource="true" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/androidTest" />
     <content url="file://$MODULE_DIR$/../../../recyclerview-fastscroll/src/androidTestDebug" />
     <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
