@@ -182,16 +182,22 @@ class ApplicationsCache {
         synchronized (PPApplication.applicationCacheMutex) {
             for (Application application : applicationsList) {
                 Bitmap icon = getApplicationIcon(application, false);
-                if ((icon != null) && (!icon.isRecycled()))
-                    icon.recycle();
+                if ((icon != null) && (!icon.isRecycled())) {
+                    try {
+                        icon.recycle();
+                    } catch (Exception ignored) {}
+                }
             }
             applicationsList.clear();
             applicationIconsLru.evictAll();
 
             for (Application application : applicationsNoShortcutsList) {
                 Bitmap icon = getApplicationIcon(application, true);
-                if ((icon != null) && (!icon.isRecycled()))
-                    icon.recycle();
+                if ((icon != null) && (!icon.isRecycled())) {
+                    try {
+                        icon.recycle();
+                    } catch (Exception ignored) {}
+                }
             }
             applicationsNoShortcutsList.clear();
             applicationNoShortcutIconsLru.evictAll();

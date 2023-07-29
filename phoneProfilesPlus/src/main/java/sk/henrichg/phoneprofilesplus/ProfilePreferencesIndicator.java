@@ -85,8 +85,11 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
-            if (bitmapResult != null)
-                bitmapResult.recycle();
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {};
+            }
         }
         else
         if ((indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
@@ -190,8 +193,11 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
-            if (bitmapResult != null)
-                bitmapResult.recycle();
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {};
+            }
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION_DYNAMIC_COLORS) {
@@ -247,8 +253,11 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
-            if (bitmapResult != null)
-                bitmapResult.recycle();
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {};
+            }
         }
         else
         if ((indicatorsType == DataWrapper.IT_FOR_WIDGET) ||
@@ -331,8 +340,11 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
-            if (bitmapResult != null)
-                bitmapResult.recycle();
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {};
+            }
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_WIDGET_DYNAMIC_COLORS) {
@@ -388,11 +400,17 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
 
-            if (bitmapResult != null)
-                bitmapResult.recycle();
+            if (bitmapResult != null) {
+                try {
+                    bitmapResult.recycle();
+                } catch (Exception ignored) {};
+            }
         }
 
-        preferenceBitmap.recycle();
+        try {
+            preferenceBitmap.recycle();
+        } catch (Exception ignored) {};
+
     }
 
     void fillArrays(Profile profile, boolean fillStrings, //boolean monochrome,
