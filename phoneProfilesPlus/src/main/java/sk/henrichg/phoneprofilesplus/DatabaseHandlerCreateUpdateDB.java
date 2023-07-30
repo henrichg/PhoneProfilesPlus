@@ -975,12 +975,12 @@ class DatabaseHandlerCreateUpdateDB {
                             String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
                             String isIconResourceId = splits[1];
                             if (!isIconResourceId.equals("1")) {
-                                values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
+                                values.put(DatabaseHandler.KEY_ICON, StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0");
                             }
                         } catch (Exception e) {
                             //Log.e("DatabaseHandlerCreateUpdateDB.changePictureFilePathToUri", Log.getStackTraceString(e));
                             PPApplicationStatic.recordException(e);
-                            values.put(DatabaseHandler.KEY_ICON, "ic_profile_default|1|0|0");
+                            values.put(DatabaseHandler.KEY_ICON, StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0");
                         }
                         if (wallpaperChange == 1) {
                             values.put(DatabaseHandler.KEY_DEVICE_WALLPAPER_CHANGE, 0);
@@ -2075,8 +2075,8 @@ class DatabaseHandlerCreateUpdateDB {
 
         if (oldVersion < 1860)
         {
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "=\""+Profile.CONNECTTOSSID_JUSTANY+"\"");
-            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "=\""+Profile.CONNECTTOSSID_JUSTANY+"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_PROFILES + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "=\""+StringConstants.CONNECTTOSSID_JUSTANY+"\"");
+            db.execSQL("UPDATE " + DatabaseHandler.TABLE_MERGED_PROFILE + " SET " + DatabaseHandler.KEY_DEVICE_CONNECT_TO_SSID + "=\""+StringConstants.CONNECTTOSSID_JUSTANY+"\"");
         }
 
         if (oldVersion < 1870)

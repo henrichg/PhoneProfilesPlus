@@ -28,7 +28,7 @@ class ProfileStatic {
             String[] splits = icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[0];
         } catch (Exception e) {
-            value = "ic_profile_default";
+            value = StringConstants.PROFILE_ICON_DEFAULT;
         }
         return value;
     }
@@ -569,7 +569,7 @@ class ProfileStatic {
                 return entry.getKey().toString();
             }
         }
-        return "ic_profile_default";
+        return StringConstants.PROFILE_ICON_DEFAULT;
     }
 
     static int getIconDefaultColor(String imageIdentifier/*, Context context*/) {

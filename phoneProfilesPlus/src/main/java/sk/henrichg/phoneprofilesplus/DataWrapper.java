@@ -639,7 +639,7 @@ public class DataWrapper {
             boolean isIconResourceID = profile.getIsIconResourceID();
             String iconIdentifier = profile.getIconIdentifier();
             DatabaseHandler.getInstance(context).getProfileIcon(profile);
-            if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
+            if (isIconResourceID && iconIdentifier.equals(StringConstants.PROFILE_ICON_DEFAULT) && (!profile.getIsIconResourceID())) {
                 if (generateIcon)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
@@ -2764,7 +2764,7 @@ public class DataWrapper {
                 boolean profileEnabled;
                 switch (profileType) {
                     case DatabaseHandler.PTYPE_CONNECT_TO_SSID:
-                        profileEnabled = !_profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY);
+                        profileEnabled = !_profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY);
                         break;
                     case DatabaseHandler.PTYPE_FORCE_STOP:
                         profileEnabled = _profile._deviceForceStopApplicationChange != 0;

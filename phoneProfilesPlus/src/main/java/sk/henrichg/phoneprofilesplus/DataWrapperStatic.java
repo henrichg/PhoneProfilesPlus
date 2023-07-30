@@ -32,7 +32,7 @@ class DataWrapperStatic {
         //noinspection ConstantConditions
         return new Profile(
                 name,
-                icon + Profile.defaultValuesString.get("prf_pref_profileIcon_withoutIcon"),
+                icon + Profile.defaultValuesString.get(Profile.PREF_PROFILE_ICON_WITHOUT_ICON),
                 false,
                 order,
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGER_MODE)),
@@ -52,7 +52,7 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BLUETOOTH)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT)),
-                Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + Profile.defaultValuesString.get("prf_pref_deviceBrightness_withoutLevel"),
+                Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS_WITHOUT_LEVEL),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)),
@@ -61,7 +61,7 @@ class DataWrapperStatic {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOSYNC)),
-                Profile.defaultValuesBoolean.get("prf_pref_showInActivator_notShow"),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR_NOT_SHOW),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOROTATE)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS)),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE)),

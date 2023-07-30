@@ -45,4 +45,8 @@ class StringConstants {
     static final String INTENT_DATA_MAIL_TO = "mailto";
     static final String INTENT_DATA_MAIL_TO_COLON = "mailto:";
 
+    static final String CONNECTTOSSID_JUSTANY = "^just_any^";
+    //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
+    static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
+
 }

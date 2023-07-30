@@ -130,10 +130,15 @@ public class Profile {
     //int _ringerModeForZenMode;
 
     static final long PROFILE_NO_ACTIVATE = -999;
+    static final long RESTART_EVENTS_PROFILE_ID = -888L;
+    //static final long SHARED_PROFILE_ID = -999L;
+    //static final int SHARED_PROFILE_VALUE = 99;
+    //static final String SHARED_PROFILE_VALUE_STR = "99";
 
     //private static final String PREF_PROFILE_ID = "prf_pref_id";
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";
+    static final String PREF_PROFILE_ICON_WITHOUT_ICON = "prf_pref_profileIcon_withoutIcon";
     //private static final String PREF_PROFILE_CHECKED = "prf_pref_checked";
     static final String PREF_PROFILE_VOLUME_RINGER_MODE = "prf_pref_volumeRingerMode";
     static final String PREF_PROFILE_VOLUME_ZEN_MODE = "prf_pref_volumeZenMode";
@@ -154,6 +159,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_BLUETOOTH = "prf_pref_deviceBluetooth";
     static final String PREF_PROFILE_DEVICE_SCREEN_TIMEOUT = "prf_pref_deviceScreenTimeout";
     static final String PREF_PROFILE_DEVICE_BRIGHTNESS = "prf_pref_deviceBrightness";
+    static final String PREF_PROFILE_DEVICE_BRIGHTNESS_WITHOUT_LEVEL = "prf_pref_deviceBrightness_withoutLevel";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_CHANGE = "prf_pref_deviceWallpaperChange";
     static final String PREF_PROFILE_DEVICE_WALLPAPER = "prf_pref_deviceWallpaper";
     static final String PREF_PROFILE_DEVICE_MOBILE_DATA = "prf_pref_deviceMobileData";
@@ -163,6 +169,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME = "prf_pref_deviceRunApplicationPackageName";
     static final String PREF_PROFILE_DEVICE_AUTOSYNC = "prf_pref_deviceAutosync";
     static final String PREF_PROFILE_SHOW_IN_ACTIVATOR = "prf_pref_showInActivator";
+    static final String PREF_PROFILE_SHOW_IN_ACTIVATOR_NOT_SHOW = "prf_pref_showInActivator_notShow";
     static final String PREF_PROFILE_DEVICE_AUTOROTATE = "prf_pref_deviceAutoRotation";
     static final String PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS = "prf_pref_deviceLocationServicePrefs";
     static final String PREF_PROFILE_VOLUME_SPEAKER_PHONE = "prf_pref_volumeSpeakerPhone";
@@ -239,12 +246,15 @@ public class Profile {
     static final String PREF_PROFILE_VIBRATION_INTENSITY_NOTIFICATIONS = "prf_pref_vibrationIntensityNotifications";
     static final String PREF_PROFILE_VIBRATION_INTENSITY_TOUCH_INTERACTION = "prf_pref_vibrationIntensityTouchInteraction";
     static final String PREF_PROFILE_VOLUME_MEDIA_CHANGE_DURING_PLAY = "prf_pref_volumeMediaChangeDuringPlay";
+    //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
+    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
+    //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
         defaultValuesBoolean = new HashMap<>();
         defaultValuesBoolean.put(PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
-        defaultValuesBoolean.put("prf_pref_showInActivator_notShow", false);
+        defaultValuesBoolean.put(PREF_PROFILE_SHOW_IN_ACTIVATOR_NOT_SHOW, false);
         defaultValuesBoolean.put(PREF_PROFILE_ASK_FOR_DURATION, false);
         defaultValuesBoolean.put(PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
         defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
@@ -255,8 +265,8 @@ public class Profile {
     static {
         defaultValuesString = new HashMap<>();
         defaultValuesString.put(PREF_PROFILE_NAME, "");
-        defaultValuesString.put(PREF_PROFILE_ICON, "ic_profile_default|1|0|0");
-        defaultValuesString.put("prf_pref_profileIcon_withoutIcon", "|1|0|0");
+        defaultValuesString.put(PREF_PROFILE_ICON, StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0");
+        defaultValuesString.put(PREF_PROFILE_ICON_WITHOUT_ICON, "|1|0|0");
         defaultValuesString.put(PREF_PROFILE_DURATION, "0");
         defaultValuesString.put(PREF_PROFILE_AFTER_DURATION_DO, "0");
         defaultValuesString.put(PREF_PROFILE_DURATION_NOTIFICATION_SOUND, "");
@@ -289,7 +299,7 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_KEYGUARD, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_BRIGHTNESS, "50|1|1|0");
-        defaultValuesString.put("prf_pref_deviceBrightness_withoutLevel", "|1|1|0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_BRIGHTNESS_WITHOUT_LEVEL, "|1|1|0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_AUTOROTATE, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0");
@@ -301,7 +311,7 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_VIBRATE_WHEN_RINGING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0");
         defaultValuesString.put(PREF_PROFILE_LOCK_DEVICE, "0");
-        defaultValuesString.put(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "^just_any^");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, StringConstants.CONNECTTOSSID_JUSTANY);
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0");
@@ -378,25 +388,10 @@ public class Profile {
 
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
-    // TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
-    static final String CONNECTTOSSID_JUSTANY = "^just_any^";
-    //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
-
-    //static final long SHARED_PROFILE_ID = -999L;
-    // TODO pozri, ci tento retazec nepouzivas aj inde, ak ako tak to pouiz aj tam
-    static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
-    static final long RESTART_EVENTS_PROFILE_ID = -888L;
-
     static final int NO_CHANGE_VALUE = 0;
-    //static final int SHARED_PROFILE_VALUE = 99;
     static final String NO_CHANGE_VALUE_STR = "0";
-    //static final String SHARED_PROFILE_VALUE_STR = "99";
+
     static final int BRIGHTNESS_VALUE_FOR_DARK_MODE = 30;
-
-    //private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
-    static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
-    //private static final String PREF_ACTIVATED_PROFILE_FOR_EVENT_UNDO = "activatedProfileForEventUndo";
-
     static final double MIN_PROFILE_ICON_LUMINANCE = 0.3d;
 
     static final int[] profileIconId = {
@@ -608,7 +603,7 @@ public class Profile {
 
         profileIconIdMap.put("ic_profile_restart_events", R.drawable.ic_profile_restart_events);
 
-        profileIconIdMap.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default);
+        profileIconIdMap.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default);
         profileIconIdMap.put(ic_profile_home, R.drawable.ic_profile_home);
         profileIconIdMap.put(ic_profile_home_2, R.drawable.ic_profile_home_2);
         profileIconIdMap.put(ic_profile_home_3, R.drawable.ic_profile_home_3);
@@ -716,7 +711,7 @@ public class Profile {
     static final HashMap<String, Integer> profileIconNotifyId;
     static {
         profileIconNotifyId = new HashMap<>();
-        profileIconNotifyId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify);
+        profileIconNotifyId.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify);
         profileIconNotifyId.put(ic_profile_home, R.drawable.ic_profile_home_notify);
         profileIconNotifyId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify);
         profileIconNotifyId.put(ic_profile_home_3, R.drawable.ic_profile_home_3_notify);
@@ -824,7 +819,7 @@ public class Profile {
     static final HashMap<String, Integer> profileIconNotifyColorId;
     static {
         profileIconNotifyColorId = new HashMap<>();
-        profileIconNotifyColorId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify_color);
+        profileIconNotifyColorId.put(StringConstants.PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify_color);
         profileIconNotifyColorId.put(ic_profile_home, R.drawable.ic_profile_home_notify_color);
         profileIconNotifyColorId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify_color);
         profileIconNotifyColorId.put(ic_profile_home_3, R.drawable.ic_profile_home_3_notify_color);
@@ -2215,7 +2210,7 @@ public class Profile {
             String[] splits = _icon.split(StringConstants.STR_SPLIT_REGEX);
             value = splits[0];
         } catch (Exception e) {
-            value = "ic_profile_default";
+            value = StringConstants.PROFILE_ICON_DEFAULT;
         }
         return value;
     }
@@ -2827,7 +2822,7 @@ public class Profile {
             if (_iconBitmap == null)
             {
                 // no icon found, set default icon
-                _icon = "ic_profile_default|1|0|0";
+                _icon = StringConstants.PROFILE_ICON_DEFAULT+"|1|0|0";
                 if (monochrome)
                 {
                     //int iconResource = context.getResources().getIdentifier(getIconIdentifier(), "drawable", context.PPApplication.PACKAGE_NAME);
