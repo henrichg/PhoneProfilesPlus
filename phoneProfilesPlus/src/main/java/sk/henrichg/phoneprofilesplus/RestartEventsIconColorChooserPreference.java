@@ -70,7 +70,7 @@ public class RestartEventsIconColorChooserPreference extends DialogPreference {
 
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
         Profile restartEvents = DataWrapperStatic.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events),
-                "ic_profile_restart_events|1|1|"+color, 0);
+                StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+color, 0);
         restartEvents.generateIconBitmap(dataWrapper.context, false, 0, false);
 
         Bitmap bitmap = restartEvents.increaseProfileIconBrightnessForContext(context, restartEvents._iconBitmap);

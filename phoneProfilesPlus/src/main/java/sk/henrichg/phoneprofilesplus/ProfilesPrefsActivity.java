@@ -41,6 +41,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     //public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
     //public static final String PREF_START_TARGET_HELPS_FINISHED = "profile_preferences_activity_start_target_helps_finished";
 
+    private static final String BUNDLE_NEW_PROFILE_MODE = "newProfileMode";
+    private static final String BUNDLE_PREDEFINED_PROFILE_INDEX = "predefinedProfileIndex";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, true);
@@ -87,11 +90,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     .commit();
         }
         else {
-            profile_id = savedInstanceState.getLong("profile_id", 0);
-            newProfileMode = savedInstanceState.getInt("newProfileMode", EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-            predefinedProfileIndex = savedInstanceState.getInt("predefinedProfileIndex", 0);
+            profile_id = savedInstanceState.getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+            newProfileMode = savedInstanceState.getInt(BUNDLE_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+            predefinedProfileIndex = savedInstanceState.getInt(BUNDLE_PREDEFINED_PROFILE_INDEX, 0);
 
-            showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
+            showSaveMenu = savedInstanceState.getBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, false);
         }
     }
 
@@ -235,11 +238,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putLong("profile_id", profile_id);
-        savedInstanceState.putInt("newProfileMode", newProfileMode);
-        savedInstanceState.putInt("predefinedProfileIndex", predefinedProfileIndex);
+        savedInstanceState.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
+        savedInstanceState.putInt(BUNDLE_NEW_PROFILE_MODE, newProfileMode);
+        savedInstanceState.putInt(BUNDLE_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
 
-        savedInstanceState.putBoolean("showSaveMenu", showSaveMenu);
+        savedInstanceState.putBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
     }
 
     @Override

@@ -161,6 +161,8 @@ public class EditorActivity extends AppCompatActivity
     static final String EXTRA_PREDEFINED_EVENT_INDEX = "predefined_event_index";
     //static final String EXTRA_SELECTED_FILTER = "selected_filter";
 
+    static final String BUNDLE_SHOW_SAVE_MENU = "showSaveMenu";
+
     private static final int IMPORTEXPORT_IMPORT = 1;
     private static final int IMPORTEXPORT_EXPORT = 2;
 
@@ -2731,6 +2733,16 @@ public class EditorActivity extends AppCompatActivity
             dialog.show();
     }
 
+    static final String PREF_MAXIMUM_VOLUME_RING = "maximumVolume_ring";
+    static final String PREF_MAXIMUM_VOLUME_NOTIFICATION = "maximumVolume_notification";
+    static final String PREF_MAXIMUM_VOLUME_MUSIC = "maximumVolume_music";
+    static final String PREF_MAXIMUM_VOLUME_ALARM = "maximumVolume_alarm";
+    static final String PREF_MAXIMUM_VOLUME_SYSTEM = "maximumVolume_system";
+    static final String PREF_MAXIMUM_VOLUME_VOICE_CALL = "maximumVolume_voiceCall";
+    static final String PREF_MAXIMUM_VOLUME_DTMF = "maximumVolume_dtmf";
+    static final String PREF_MAXIMUM_VOLUME_ACCESSIBILITY = "maximumVolume_accessibility";
+    static final String PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO = "maximumVolume_bluetoothSCO";
+
     @SuppressLint({"SetWorldReadable", "SetWorldWritable", "ApplySharedPref"})
     private boolean exportApplicationPreferences(File dst, boolean runStopEvents/*, int what*/) {
         boolean res = true;
@@ -2750,33 +2762,33 @@ public class EditorActivity extends AppCompatActivity
                 AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
                 if (audioManager != null) {
                     try {
-                        editor.putInt("maximumVolume_ring", audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_RING, audioManager.getStreamMaxVolume(AudioManager.STREAM_RING));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt("maximumVolume_notification", audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_NOTIFICATION, audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt("maximumVolume_music", audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_MUSIC, audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt("maximumVolume_alarm", audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt("maximumVolume_system", audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_SYSTEM, audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt("maximumVolume_voiceCall", audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_VOICE_CALL, audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL));
                     } catch (Exception ignored) {}
                     try {
-                        editor.putInt("maximumVolume_dtmf", audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_DTMF, audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF));
                     } catch (Exception ignored) {}
                     //if (Build.VERSION.SDK_INT >= 26) {
                         try {
-                            editor.putInt("maximumVolume_accessibility", audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
+                            editor.putInt(PREF_MAXIMUM_VOLUME_ACCESSIBILITY, audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY));
                         } catch (Exception ignored) {}
                     //}
                     try {
-                        editor.putInt("maximumVolume_bluetoothSCO", audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
+                        editor.putInt(PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO));
                     } catch (Exception ignored) {}
                 }
 

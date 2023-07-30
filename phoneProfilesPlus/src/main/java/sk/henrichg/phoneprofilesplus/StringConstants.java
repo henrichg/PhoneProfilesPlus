@@ -48,6 +48,7 @@ class StringConstants {
     static final String CONNECTTOSSID_JUSTANY = "^just_any^";
     //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
+    static final String PROFILE_ICON_RESTART_EVENTS = "ic_profile_restart_events";
 
     static final String MIME_TYPE_EXTRA = "mimeType";
     static final String MIME_TYPE_IMAGE = "image/*";

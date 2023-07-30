@@ -77,15 +77,15 @@ class DatabaseHandlerImportExport {
             if (audioManager != null) {
                 // these values are saved during export of PPP data
                 SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(instance.context);
-                int maximumVolumeRing = sharedPreferences.getInt("maximumVolume_ring", 0);
-                int maximumVolumeNotification = sharedPreferences.getInt("maximumVolume_notification", 0);
-                int maximumVolumeMusic = sharedPreferences.getInt("maximumVolume_music", 0);
-                int maximumVolumeAlarm = sharedPreferences.getInt("maximumVolume_alarm", 0);
-                int maximumVolumeSystem = sharedPreferences.getInt("maximumVolume_system", 0);
-                int maximumVolumeVoiceCall = sharedPreferences.getInt("maximumVolume_voiceCall", 0);
-                int maximumVolumeDTFM = sharedPreferences.getInt("maximumVolume_dtmf", 0);
-                int maximumVolumeAccessibility = sharedPreferences.getInt("maximumVolume_accessibility", 0);
-                int maximumVolumeBluetoothSCO = sharedPreferences.getInt("maximumVolume_bluetoothSCO", 0);
+                int maximumVolumeRing = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_RING, 0);
+                int maximumVolumeNotification = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_NOTIFICATION, 0);
+                int maximumVolumeMusic = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_MUSIC, 0);
+                int maximumVolumeAlarm = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ALARM, 0);
+                int maximumVolumeSystem = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_SYSTEM, 0);
+                int maximumVolumeVoiceCall = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_VOICE_CALL, 0);
+                int maximumVolumeDTFM = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_DTMF, 0);
+                int maximumVolumeAccessibility = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_ACCESSIBILITY, 0);
+                int maximumVolumeBluetoothSCO = sharedPreferences.getInt(EditorActivity.PREF_MAXIMUM_VOLUME_BLUETOOTH_SCO, 0);
 
                 if (cursorImportDB.moveToFirst()) {
                     do {

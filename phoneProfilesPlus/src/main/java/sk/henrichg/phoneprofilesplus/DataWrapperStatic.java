@@ -629,7 +629,7 @@ class DataWrapperStatic {
 
                     //Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_profile_restart_events|1|0|0", 0);
                     Profile _profile = getNonInitializedProfile(appContext.getString(R.string.menu_restart_events),
-                            "ic_profile_restart_events|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
+                            StringConstants.PROFILE_ICON_RESTART_EVENTS+"|1|1|"+ApplicationPreferences.applicationRestartEventsIconColor, 0);
                     _profile.generateIconBitmap(appContext, false, 0, false);
                     // first profile is restart events
                     shortcuts.add(createShortcutInfo(_profile, true, appContext));

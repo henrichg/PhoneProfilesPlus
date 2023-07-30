@@ -305,10 +305,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
+        final String ASSETS = " \"Assets\"?";
+
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         if (newVersionDataExists) {
             Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
-            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
+            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + ASSETS);
             button.setVisibility(View.GONE);
 
             CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
@@ -345,7 +347,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setVisibility(View.GONE);
 
             Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
-            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
+            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + ASSETS);
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(v -> {
                 Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);

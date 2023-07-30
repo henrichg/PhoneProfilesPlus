@@ -52,6 +52,10 @@ public class EventsPrefsActivity extends AppCompatActivity
 
     static final String ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver";
 
+    private static final String BUNDLE_OLD_EVENT_STATUS = "old_event_status";
+    private static final String BUNDLE_NEW_EVENT_MODE = "newEventMode";
+    private static final String BUNDLE_PREDEFINED_EVENT_INDEX = "predefinedEventIndex";
+
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
         private final RefreshGUIActivatorEditorListener listener;
@@ -117,12 +121,12 @@ public class EventsPrefsActivity extends AppCompatActivity
                     .commit();
         }
         else {
-            event_id = savedInstanceState.getLong("event_id", 0);
-            old_event_status = savedInstanceState.getInt("old_event_status", -1);
-            newEventMode = savedInstanceState.getInt("newEventMode", EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-            predefinedEventIndex = savedInstanceState.getInt("predefinedEventIndex", 0);
+            event_id = savedInstanceState.getLong(PPApplication.EXTRA_EVENT_ID, 0);
+            old_event_status = savedInstanceState.getInt(BUNDLE_OLD_EVENT_STATUS, -1);
+            newEventMode = savedInstanceState.getInt(BUNDLE_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+            predefinedEventIndex = savedInstanceState.getInt(BUNDLE_PREDEFINED_EVENT_INDEX, 0);
 
-            showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
+            showSaveMenu = savedInstanceState.getBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, false);
         }
     }
 
@@ -326,12 +330,12 @@ public class EventsPrefsActivity extends AppCompatActivity
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
-        savedInstanceState.putLong("event_id", event_id);
-        savedInstanceState.putInt("old_event_status", old_event_status);
-        savedInstanceState.putInt("newEventMode", newEventMode);
-        savedInstanceState.putInt("predefinedEventIndex", predefinedEventIndex);
+        savedInstanceState.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
+        savedInstanceState.putInt(BUNDLE_OLD_EVENT_STATUS, old_event_status);
+        savedInstanceState.putInt(BUNDLE_NEW_EVENT_MODE, newEventMode);
+        savedInstanceState.putInt(BUNDLE_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
 
-        savedInstanceState.putBoolean("showSaveMenu", showSaveMenu);
+        savedInstanceState.putBoolean(EditorActivity.BUNDLE_SHOW_SAVE_MENU, showSaveMenu);
     }
 
     @Override
