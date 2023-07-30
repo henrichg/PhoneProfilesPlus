@@ -254,6 +254,9 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
                 break;
         }*/
 
+        final String COLOR1 = "#6E6E6E";
+        final String COLOR2 = "#AEAEAE";
+
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
@@ -261,12 +264,12 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         } else {
             //if (position == 0) // white color
             //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-            coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(1, Color.parseColor(COLOR1));
         }
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
@@ -275,12 +278,12 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-            coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+            coloredCircle.setStroke(2, Color.parseColor(COLOR1));
         } else {
             //if (position == 0) // white color
             //    darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-            darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+            darkerCircle.setStroke(2, Color.parseColor(COLOR2));
         }
 
         StateListDrawable stateListDrawable = new StateListDrawable();
