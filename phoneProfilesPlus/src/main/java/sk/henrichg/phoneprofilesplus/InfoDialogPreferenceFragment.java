@@ -191,7 +191,7 @@ public class InfoDialogPreferenceFragment extends PreferenceDialogFragmentCompat
         if (showPPPAppInfoScreen) {
             Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-            intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
             if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
                 //noinspection deprecation
                 startActivity(intent);

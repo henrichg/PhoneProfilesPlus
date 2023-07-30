@@ -116,7 +116,7 @@ class IgnoreBatteryOptimizationNotification {
         //    DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
         //    But in ONEPLUS it IS ONLY SOLUTION !!!
             intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            intent.setData(Uri.parse("package:" + packageName));
+            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + packageName));
         //    if (!GlobalGUIRoutines.activityIntentExists(intent, context)) {
         //        intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         //    }

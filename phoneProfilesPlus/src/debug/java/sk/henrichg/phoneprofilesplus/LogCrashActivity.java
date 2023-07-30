@@ -30,6 +30,8 @@ public class LogCrashActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> logCrashAdapter;
 
+    private static final String LOG_CRASH_TITLE = "Log/crash file";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false, false, false, false, false); // must by called before super.onCreate()
@@ -203,9 +205,9 @@ public class LogCrashActivity extends AppCompatActivity {
 
                 if (activity.getSupportActionBar() != null) {
                     if (_showLog)
-                        activity.getSupportActionBar().setTitle("Log/crash file - log.txt");
+                        activity.getSupportActionBar().setTitle(LOG_CRASH_TITLE+" - log.txt");
                     else
-                        activity.getSupportActionBar().setTitle("Log/crash file - crash.txt");
+                        activity.getSupportActionBar().setTitle(LOG_CRASH_TITLE+" - crash.txt");
                 }
 
                 activity.logCrashAdapter.clear();

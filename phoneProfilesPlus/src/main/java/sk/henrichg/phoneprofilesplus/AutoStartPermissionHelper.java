@@ -298,7 +298,7 @@ class AutoStartPermissionHelper  {
             try {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
                 try {
                     context.startActivity(intent);
                     ok = true;
@@ -430,7 +430,7 @@ class AutoStartPermissionHelper  {
             try {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
                 try {
                     context.startActivity(intent);
                     ok = true;
@@ -476,7 +476,7 @@ class AutoStartPermissionHelper  {
             try {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                intent.setData(Uri.parse(PPApplication.DATA_PACKAGE+PPApplication.PACKAGE_NAME));
                 try {
                     context.startActivity(intent);
                     ok = true;

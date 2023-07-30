@@ -1347,7 +1347,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                         intent.setClassName("com.miui.securitycenter",
                                 "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                        intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                        intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                         if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                             try {
                                 startActivity(intent);
@@ -1402,7 +1402,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 intent.setClassName("com.miui.securitycenter",
                                         "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                                intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                                intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                                 if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                                     try {
                                         startActivity(intent);

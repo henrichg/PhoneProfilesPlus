@@ -664,6 +664,8 @@ public class PPApplication extends Application
     static final String CRASHLYTICS_LOG_RESTORE_BACKUP_OK = "RESTORE_BACKUP_OK";
 
     static final String SYS_PROP_MOD_VERSION = "ro.modversion";
+    static final String INTENT_DATA_PACKAGE = "package:";
+    static final String EXTRA_PKG_NAME = "extra_pkgname";
 
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
@@ -1814,9 +1816,10 @@ public class PPApplication extends Application
     // others ------------------------------------------------------------------
 
     private static boolean isXiaomi() {
-        return Build.BRAND.equalsIgnoreCase("xiaomi") ||
-               Build.MANUFACTURER.equalsIgnoreCase("xiaomi") ||
-               Build.FINGERPRINT.toLowerCase().contains("xiaomi");
+        final String XIOMI = "xiaomi";
+        return Build.BRAND.equalsIgnoreCase(XIOMI) ||
+               Build.MANUFACTURER.equalsIgnoreCase(XIOMI) ||
+               Build.FINGERPRINT.toLowerCase().contains(XIOMI);
     }
 
     private static boolean isMIUIROM() {
@@ -1874,9 +1877,10 @@ public class PPApplication extends Application
     }
 
     private static boolean isHuawei() {
-        return Build.BRAND.equalsIgnoreCase("huawei") ||
-                Build.MANUFACTURER.equalsIgnoreCase("huawei") ||
-                Build.FINGERPRINT.toLowerCase().contains("huawei");
+        final String HUAWEI = "huawei";
+        return Build.BRAND.equalsIgnoreCase(HUAWEI) ||
+                Build.MANUFACTURER.equalsIgnoreCase(HUAWEI) ||
+                Build.FINGERPRINT.toLowerCase().contains(HUAWEI);
     }
 
     private static boolean isEMUIROM() {
@@ -1887,9 +1891,10 @@ public class PPApplication extends Application
     }
 
     private static boolean isSamsung() {
-        return Build.BRAND.equalsIgnoreCase("samsung") ||
-                Build.MANUFACTURER.equalsIgnoreCase("samsung") ||
-                Build.FINGERPRINT.toLowerCase().contains("samsung");
+        final String SAMSUNG = "samsung";
+        return Build.BRAND.equalsIgnoreCase(SAMSUNG) ||
+                Build.MANUFACTURER.equalsIgnoreCase(SAMSUNG) ||
+                Build.FINGERPRINT.toLowerCase().contains(SAMSUNG);
     }
 
     private static String getOneUiVersion() throws Exception {
@@ -1929,51 +1934,59 @@ public class PPApplication extends Application
     }
 
     private static boolean isLG() {
-        return Build.BRAND.equalsIgnoreCase("lge") ||
-                Build.MANUFACTURER.equalsIgnoreCase("lge") ||
-                Build.FINGERPRINT.toLowerCase().contains("lge");
+        final String LGE = "lge";
+        return Build.BRAND.equalsIgnoreCase(LGE) ||
+                Build.MANUFACTURER.equalsIgnoreCase(LGE) ||
+                Build.FINGERPRINT.toLowerCase().contains(LGE);
     }
 
     private static boolean isOnePlus() {
-        return Build.BRAND.equalsIgnoreCase("oneplus") ||
-                Build.MANUFACTURER.equalsIgnoreCase("oneplus") ||
-                Build.FINGERPRINT.toLowerCase().contains("oneplus");
+        final String ONEPLUS = "oneplus";
+        return Build.BRAND.equalsIgnoreCase(ONEPLUS) ||
+                Build.MANUFACTURER.equalsIgnoreCase(ONEPLUS) ||
+                Build.FINGERPRINT.toLowerCase().contains(ONEPLUS);
     }
 
     private static boolean isOppo() {
-        return Build.BRAND.equalsIgnoreCase("oppo") ||
-                Build.MANUFACTURER.equalsIgnoreCase("oppo") ||
-                Build.FINGERPRINT.toLowerCase().contains("oppo");
+        final String OPPO = "oppo";
+        return Build.BRAND.equalsIgnoreCase(OPPO) ||
+                Build.MANUFACTURER.equalsIgnoreCase(OPPO) ||
+                Build.FINGERPRINT.toLowerCase().contains(OPPO);
     }
 
     private static boolean isRealme() {
-        return Build.BRAND.equalsIgnoreCase("realme") ||
-                Build.MANUFACTURER.equalsIgnoreCase("realme") ||
-                Build.FINGERPRINT.toLowerCase().contains("realme");
+        final String REALME = "realme";
+        return Build.BRAND.equalsIgnoreCase(REALME) ||
+                Build.MANUFACTURER.equalsIgnoreCase(REALME) ||
+                Build.FINGERPRINT.toLowerCase().contains(REALME);
     }
 
     private static boolean isLenovo() {
-        return Build.BRAND.equalsIgnoreCase("lenovo") ||
-                Build.MANUFACTURER.equalsIgnoreCase("lenovo") ||
-                Build.FINGERPRINT.toLowerCase().contains("lenovo");
+        final String LENOVO = "lenovo";
+        return Build.BRAND.equalsIgnoreCase(LENOVO) ||
+                Build.MANUFACTURER.equalsIgnoreCase(LENOVO) ||
+                Build.FINGERPRINT.toLowerCase().contains(LENOVO);
     }
 
     private static boolean isPixel() {
-        return Build.BRAND.equalsIgnoreCase("google") ||
-                Build.MANUFACTURER.equalsIgnoreCase("google") ||
-                Build.FINGERPRINT.toLowerCase().contains("google");
+        final String GOOGLE = "google";
+        return Build.BRAND.equalsIgnoreCase(GOOGLE) ||
+                Build.MANUFACTURER.equalsIgnoreCase(GOOGLE) ||
+                Build.FINGERPRINT.toLowerCase().contains(GOOGLE);
     }
 
     private static boolean isSony() {
-        return Build.BRAND.equalsIgnoreCase("sony") ||
-                Build.MANUFACTURER.equalsIgnoreCase("sony") ||
-                Build.FINGERPRINT.toLowerCase().contains("sony");
+        final String SONY = "sony";
+        return Build.BRAND.equalsIgnoreCase(SONY) ||
+                Build.MANUFACTURER.equalsIgnoreCase(SONY) ||
+                Build.FINGERPRINT.toLowerCase().contains(SONY);
     }
 
     private static boolean isDoogee() {
-        return Build.BRAND.equalsIgnoreCase("doogee") ||
-                Build.MANUFACTURER.equalsIgnoreCase("doogee") ||
-                Build.FINGERPRINT.toLowerCase().contains("doogee");
+        final String DOOGEE = "doogee";
+        return Build.BRAND.equalsIgnoreCase(DOOGEE) ||
+                Build.MANUFACTURER.equalsIgnoreCase(DOOGEE) ||
+                Build.FINGERPRINT.toLowerCase().contains(DOOGEE);
     }
 
     private static String getReadableModVersion() {

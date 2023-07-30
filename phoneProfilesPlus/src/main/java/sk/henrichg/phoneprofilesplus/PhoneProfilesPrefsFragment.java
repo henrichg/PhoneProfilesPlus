@@ -111,6 +111,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private static final String ACTION_SHORTCUT_TO_EDITOR_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_EDITOR_ADDED";
 
+    private static final String EXTRA_APP_PACKAGE = "app_package";
+    private static final String EXTRA_APP_UID = "app_uid";
+
+    private static final String SHORTCU_ID_PPP = "ppp_editor";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -462,7 +467,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     boolean ok = false;
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                    intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                         try {
                             startActivityForResult(intent, RESULT_APPLICATION_PERMISSIONS);
@@ -507,7 +512,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
                         try {
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                            intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
+                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                             ok = true;
@@ -542,14 +547,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             // MIUI 8
                             Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                             localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                            localIntent.putExtra("extra_pkgname", getActivity().PPApplication.PACKAGE_NAME);
+                            localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, getActivity().PPApplication.PACKAGE_NAME);
                             startActivityForResult(localIntent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                         } catch (Exception e) {
                             try {
                                 // MIUI 5/6/7
                                 Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                localIntent.putExtra("extra_pkgname", getActivity().PPApplication.PACKAGE_NAME);
+                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, getActivity().PPApplication.PACKAGE_NAME);
                                 startActivityForResult(localIntent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                             } catch (Exception e1) {
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -608,7 +613,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
                         try {
                             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                             ok = true;
@@ -643,14 +648,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 // MIUI 8
                                 Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                                localIntent.putExtra("extra_pkgname", getActivity().PPApplication.PACKAGE_NAME);
+                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, getActivity().PPApplication.PACKAGE_NAME);
                                 startActivityForResult(localIntent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                             } catch (Exception e) {
                                 try {
                                     // MIUI 5/6/7
                                     Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                     localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                    localIntent.putExtra("extra_pkgname", getActivity().PPApplication.PACKAGE_NAME);
+                                    localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, getActivity().PPApplication.PACKAGE_NAME);
                                     startActivityForResult(localIntent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                                 } catch (Exception e1) {
                                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -893,7 +898,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                        DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
 //                        boolean ok = false;
 //                        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-//                        intent.setData(Uri.parse("package:" + packageName));
+//                        intent.setData(Uri.parse(PPApplication.DATA_PACKAGE + packageName));
 //                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
 //                            try {
 //                                startActivity(intent);
@@ -1309,8 +1314,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     intent.putExtra("android.provider.extra.APP_PACKAGE", PPApplication.PACKAGE_NAME);
                 } else {
                     intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-                    intent.putExtra("app_package", PPApplication.PACKAGE_NAME);
-                    intent.putExtra("app_uid", getActivity().getApplicationInfo().uid);
+                    intent.putExtra(EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
+                    intent.putExtra(EXTRA_APP_UID, getActivity().getApplicationInfo().uid);
                 }
 
                 if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
@@ -1362,8 +1367,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     intent.putExtra("android.provider.extra.APP_PACKAGE", PPApplication.PACKAGE_NAME);
                 } else {
                     intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-                    intent.putExtra("app_package", PPApplication.PACKAGE_NAME);
-                    intent.putExtra("app_uid", getActivity().getApplicationInfo().uid);
+                    intent.putExtra(EXTRA_APP_PACKAGE, PPApplication.PACKAGE_NAME);
+                    intent.putExtra(EXTRA_APP_UID, getActivity().getApplicationInfo().uid);
                 }
 
                 if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
@@ -1660,7 +1665,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                         intent.setClassName("com.miui.securitycenter",
                                 "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                        intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                        intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                         if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                             try {
                                 startActivity(intent);
@@ -1715,7 +1720,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 intent.setClassName("com.miui.securitycenter",
                                         "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                                intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                                intent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                                 if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                                     try {
                                         startActivity(intent);
@@ -1992,7 +1997,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 List<ShortcutInfoCompat> shortcuts = ShortcutManagerCompat.getShortcuts(appContext, ShortcutManagerCompat.FLAG_MATCH_PINNED);
                 boolean exists = false;
                 for (ShortcutInfoCompat shortcut : shortcuts) {
-                    if (shortcut.getId().equals("ppp_editor")) {
+                    if (shortcut.getId().equals(SHORTCU_ID_PPP)) {
                         exists = true;
                         break;
                     }
@@ -2013,7 +2018,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         shortcutIntent.setAction(Intent.ACTION_MAIN);
                         shortcutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, "ppp_editor");
+                        ShortcutInfoCompat.Builder shortcutBuilderCompat = new ShortcutInfoCompat.Builder(appContext, SHORTCU_ID_PPP);
                         shortcutBuilderCompat.setIntent(shortcutIntent);
                         shortcutBuilderCompat.setShortLabel(getString(R.string.editor_launcher_label));
                         shortcutBuilderCompat.setLongLabel(getString(R.string.editor_launcher_label));

@@ -24,15 +24,16 @@ public class GitHubAssetsScreenshotActivity extends AppCompatActivity {
         setContentView(R.layout.activity_github_assets_screenshot);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
+        final String ASSETS = "GitHub \"Assets\" ";
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("GitHub \"Assets\" " + getString(R.string.github_assets_screenshot_label));
+            getSupportActionBar().setTitle(ASSETS + getString(R.string.github_assets_screenshot_label));
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
         ImageView imageView = findViewById(R.id.github_assets_screenshot_activity_image);
-        imageView.setContentDescription("GitHub \"Assets\" " + getString(R.string.github_assets_screenshot_label));
+        imageView.setContentDescription(ASSETS + getString(R.string.github_assets_screenshot_label));
         int image = getIntent().getIntExtra(EXTRA_IMAGE, R.drawable.ic_empty);
         imageView.setImageResource(image);
 

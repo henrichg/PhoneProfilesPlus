@@ -89,6 +89,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     //static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".GrantPermissionActivity.PERMISSIONS_NOTIFICATION_DELETED";
 
+    private static final String BUNDLE_STARTED = "started";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +134,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         restoredInstanceState = savedInstanceState != null;
         if (restoredInstanceState) {
-            started = savedInstanceState.getBoolean("started", false);
+            started = savedInstanceState.getBoolean(BUNDLE_STARTED, false);
         }
 
         if (!started && onlyNotification) {
@@ -267,7 +269,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putBoolean("started", started);
+        savedInstanceState.putBoolean(BUNDLE_STARTED, started);
     }
 
     private boolean canShowRationale(Context context, boolean forceGrant) {
@@ -1531,7 +1533,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
                             writeSettingsFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                            intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
+                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             //noinspection deprecation
                             startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
@@ -1543,7 +1545,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             // MIUI 8
                             Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                             localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                            localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                            localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             startActivityForResult(localIntent, WRITE_SETTINGS_REQUEST_CODE);
                             writeSettingsFound = true;
@@ -1552,7 +1554,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                                 // MIUI 5/6/7
                                 Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                                 intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                                 startActivityForResult(localIntent, WRITE_SETTINGS_REQUEST_CODE);
                                 writeSettingsFound = true;
@@ -1593,7 +1595,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
                             drawOverlaysFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                            intent.setData(Uri.parse("package:" + PPApplication.PACKAGE_NAME));
+                            intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE + PPApplication.PACKAGE_NAME));
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             //noinspection deprecation
                             startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
@@ -1605,7 +1607,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             // MIUI 8
                             Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                             localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
-                            localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                            localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                             intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                             startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
                             drawOverlaysFound = true;
@@ -1615,7 +1617,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                                 // MIUI 5/6/7
                                 Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                                 localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                                localIntent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                                localIntent.putExtra(PPApplication.EXTRA_PKG_NAME, PPApplication.PACKAGE_NAME);
                                 intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
                                 startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
                                 drawOverlaysFound = true;
@@ -1652,7 +1654,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+                    intent.setData(Uri.parse(PPApplication.INTENT_DATA_PACKAGE +PPApplication.PACKAGE_NAME));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getApplicationContext())) {
                         //noinspection deprecation
                         startActivityForResult(intent, Permissions.REQUEST_CODE/*_FORCE_GRANT*/ + grantType);

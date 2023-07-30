@@ -109,7 +109,7 @@ class ChooseLanguageDialog
 
         for (String languageValue : languageValues) {
             Language language = new Language();
-            if (languageValue.equals("[sys]")) {
+            if (languageValue.equals(LocaleHelper.LANG_SYS)) {
                 language.language = languageValue;
                 language.country = "";
                 language.script = "";

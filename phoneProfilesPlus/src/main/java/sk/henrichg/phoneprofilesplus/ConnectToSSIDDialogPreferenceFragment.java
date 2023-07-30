@@ -69,7 +69,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
             boolean ok = false;
             Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-            //intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
+            //intent.setData(Uri.parse(PPApplication.DATA_PACKAGE+PPApplication.PACKAGE_NAME));
             if (GlobalGUIRoutines.activityIntentExists(intent, prefContext)) {
                 try {
                     startActivity(intent);
