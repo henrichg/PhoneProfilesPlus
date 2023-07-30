@@ -160,7 +160,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((PPListPreference)preference).fragment = new PPListPreferenceFragment();
             dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -169,7 +169,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((PPMultiSelectListPreference)preference).fragment = new PPMultiSelectListPreferenceFragment();
             dialogFragment = ((PPMultiSelectListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -178,7 +178,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((DurationDialogPreference)preference).fragment = new DurationDialogPreferenceFragment();
             dialogFragment = ((DurationDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -187,7 +187,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((ProfilePreference)preference).fragment = new ProfilePreferenceFragment();
             dialogFragment = ((ProfilePreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -196,7 +196,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((RingtonePreference)preference).fragment = new RingtonePreferenceFragment();
             dialogFragment = ((RingtonePreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -205,7 +205,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((LocationGeofencePreference)preference).fragment = new LocationGeofencePreferenceFragment();
             dialogFragment = ((LocationGeofencePreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -214,7 +214,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((BetterNumberPickerPreference)preference).fragment = new BetterNumberPickerPreferenceFragment();
             dialogFragment = ((BetterNumberPickerPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -223,7 +223,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((ColorChooserPreference)preference).fragment = new ColorChooserPreferenceFragment();
             dialogFragment = ((ColorChooserPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -232,7 +232,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((CustomColorDialogPreference)preference).fragment = new CustomColorDialogPreferenceFragment();
             dialogFragment = ((CustomColorDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -240,7 +240,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((TimeDialogPreference) preference).fragment = new TimeDialogPreferenceFragment();
             dialogFragment = ((TimeDialogPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -248,7 +248,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((OpaquenessLightingPreference) preference).fragment = new OpaquenessLightingPreferenceFragment();
             dialogFragment = ((OpaquenessLightingPreference) preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -257,7 +257,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((InfoDialogPreference)preference).fragment = new InfoDialogPreferenceFragment();
             dialogFragment = ((InfoDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -266,7 +266,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             ((RestartEventsIconColorChooserPreference)preference).fragment = new RestartEventsIconColorChooserPreferenceFragment();
             dialogFragment = ((RestartEventsIconColorChooserPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
 

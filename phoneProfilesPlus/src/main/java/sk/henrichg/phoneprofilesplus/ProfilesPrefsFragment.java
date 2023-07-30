@@ -137,7 +137,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((PPListPreference)preference).fragment = new PPListPreferenceFragment();
             dialogFragment = ((PPListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -146,7 +146,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((PPMultiSelectListPreference)preference).fragment = new PPMultiSelectListPreferenceFragment();
             dialogFragment = ((PPMultiSelectListPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -155,7 +155,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((DurationDialogPreference)preference).fragment = new DurationDialogPreferenceFragment();
             dialogFragment = ((DurationDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -164,7 +164,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((TimeDialogPreference)preference).fragment = new TimeDialogPreferenceFragment();
             dialogFragment = ((TimeDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -173,7 +173,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((RingtonePreference)preference).fragment = new RingtonePreferenceFragment();
             dialogFragment = ((RingtonePreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -182,7 +182,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((InfoDialogPreference)preference).fragment = new InfoDialogPreferenceFragment();
             dialogFragment = ((InfoDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -191,7 +191,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((ProfileIconPreference)preference).fragment = new ProfileIconPreferenceFragment();
             dialogFragment = ((ProfileIconPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -200,7 +200,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((VolumeDialogPreference)preference).fragment = new VolumeDialogPreferenceFragment();
             dialogFragment = ((VolumeDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -209,7 +209,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((NotificationVolume0DialogPreference)preference).fragment = new NotificationVolume0DialogPreferenceFragment();
             dialogFragment = ((NotificationVolume0DialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -218,7 +218,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((ConnectToSSIDDialogPreference)preference).fragment = new ConnectToSSIDDialogPreferenceFragment();
             dialogFragment = ((ConnectToSSIDDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -227,7 +227,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((BrightnessDialogPreference)preference).fragment = new BrightnessDialogPreferenceFragment();
             dialogFragment = ((BrightnessDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -236,7 +236,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((RunApplicationsDialogPreference)preference).fragment = new RunApplicationsDialogPreferenceFragment();
             dialogFragment = ((RunApplicationsDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -245,7 +245,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((ApplicationsMultiSelectDialogPreference)preference).fragment = new ApplicationsMultiSelectDialogPreferenceFragment();
             dialogFragment = ((ApplicationsMultiSelectDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -253,7 +253,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((ProfilePreference) preference).fragment = new ProfilePreferenceFragment();
             dialogFragment = ((ProfilePreference) preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -262,7 +262,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((GenerateNotificationDialogPreference)preference).fragment = new GenerateNotificationDialogPreferenceFragment();
             dialogFragment = ((GenerateNotificationDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -275,7 +275,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ((ConfiguredProfilePreferencesDialogPreference)preference).profile_id = 0;
             dialogFragment = ((ConfiguredProfilePreferencesDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -284,7 +284,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((DefaultSIMDialogPreference)preference).fragment = new DefaultSIMDialogPreferenceFragment();
             dialogFragment = ((DefaultSIMDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -293,7 +293,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((LiveWallpapersDialogPreference)preference).fragment = new LiveWallpapersDialogPreferenceFragment();
             dialogFragment = ((LiveWallpapersDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -302,7 +302,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((VPNDialogPreference)preference).fragment = new VPNDialogPreferenceFragment();
             dialogFragment = ((VPNDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -311,7 +311,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((VibrationIntensityPreference)preference).fragment = new VibrationIntensityPreferenceFragment();
             dialogFragment = ((VibrationIntensityPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -320,7 +320,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((PPPPSDialogPreference)preference).fragment = new PPPPSDialogPreferenceFragment();
             dialogFragment = ((PPPPSDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
         else
@@ -329,7 +329,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ((ExtenderDialogPreference)preference).fragment = new ExtenderDialogPreferenceFragment();
             dialogFragment = ((ExtenderDialogPreference)preference).fragment;
             Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
+            bundle.putString(PPApplication.BUNDLE_KEY, preference.getKey());
             dialogFragment.setArguments(bundle);
         }
 

@@ -380,6 +380,8 @@ public class PPApplication extends Application
     static final String EXTRA_APPLICATION_START = "application_start";
     static final String EXTRA_DEVICE_BOOT = "device_boot";
 
+    static final String BUNDLE_KEY = "key";
+
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;
     static final int STARTUP_SOURCE_SHORTCUT = 3;
