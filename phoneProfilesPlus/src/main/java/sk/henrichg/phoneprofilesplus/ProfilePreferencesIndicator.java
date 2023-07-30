@@ -1291,7 +1291,7 @@ class ProfilePreferencesIndicator {
                 }
             }
             // connect to ssid
-            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+            if (!profile._deviceConnectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                 if (ProfileStatic.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (fillPreferences)
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceConnectToSSID);

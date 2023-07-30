@@ -3012,7 +3012,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID));
             if (value != null) {
-                if (value.equals(Profile.CONNECTTOSSID_JUSTANY))
+                if (value.equals(StringConstants.CONNECTTOSSID_JUSTANY))
                     value = "[" + StringConstants.CHAR_HARD_SPACE + getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any) + StringConstants.CHAR_HARD_SPACE + "]";
                 else
                     value = value.replace("\"", "");
@@ -3245,7 +3245,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, "0"));
         profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
         profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
-        profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+        profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, StringConstants.CONNECTTOSSID_JUSTANY);
         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
         ArrayList<PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileRadioPreferences(context, profile, permissions);
@@ -5706,11 +5706,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(true);
 
                     String sValue = value.toString();
-                    boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
+                    boolean bold = !sValue.equals(StringConstants.CONNECTTOSSID_JUSTANY);
 
                     Profile profile = new Profile();
                     ArrayList<PermissionType> permissions = new ArrayList<>();
-                    profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+                    profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, StringConstants.CONNECTTOSSID_JUSTANY);
                     Permissions.checkProfileRadioPreferences(context, profile, permissions);
                     boolean _permissionGranted = permissions.size() == 0;
 

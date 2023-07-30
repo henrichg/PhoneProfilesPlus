@@ -108,7 +108,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                             profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, dataWrapper);
                         } else {
                             isIconResourceID = true;
-                            iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
+                            iconIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
                             profileName = appContext.getString(R.string.profiles_header_profile_name_no_activated);
                         }
                         int iconResource;
@@ -117,7 +117,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                             iconResource = ProfileStatic.getIconResource(iconIdentifier);
                         else
                             //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", PPApplication.PACKAGE_NAME);
-                            iconResource = ProfileStatic.getIconResource(Profile.PROFILE_ICON_DEFAULT);
+                            iconResource = ProfileStatic.getIconResource(StringConstants.PROFILE_ICON_DEFAULT);
 
                         /////////////////////////////////////////////////////////////
 

@@ -159,7 +159,7 @@ class AddProfileDialog
                 Profile profile;
                 profile = DataWrapperStatic.getNonInitializedProfile(
                         activity.getString(R.string.profile_name_default),
-                        Profile.PROFILE_ICON_DEFAULT, 0);
+                        StringConstants.PROFILE_ICON_DEFAULT, 0);
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                 if (applicationEditorPrefIndicator)
                     profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR, 0f);

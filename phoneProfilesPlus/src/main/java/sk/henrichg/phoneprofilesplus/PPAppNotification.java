@@ -470,7 +470,7 @@ public class PPAppNotification {
         else
         {
             isIconResourceID = true;
-            iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
+            iconIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
             if (!forFirstStart)
                 pName = appContext.getString(R.string.profiles_header_profile_name_no_activated);
             else

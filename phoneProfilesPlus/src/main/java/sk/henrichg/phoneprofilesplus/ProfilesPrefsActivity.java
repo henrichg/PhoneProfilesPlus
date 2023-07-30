@@ -270,7 +270,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             if (predefinedProfileIndex == 0) {
                 profile = DataWrapperStatic.getNonInitializedProfile(
                         getBaseContext().getString(R.string.profile_name_default),
-                        Profile.PROFILE_ICON_DEFAULT, 0);
+                        StringConstants.PROFILE_ICON_DEFAULT, 0);
             }
             else {
                 profile = dataWrapper.getPredefinedProfile(predefinedProfileIndex-1, false, getBaseContext());

@@ -66,7 +66,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         //if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_SHAREDPROFILE))
         //    prefSummary = context.getString(R.string.array_pref_default_profile);
         //else
-        if (!value.isEmpty() && !value.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+        if (!value.isEmpty() && !value.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
             prefSummary = value.replace("\"", "");
         }
         setSummary(prefSummary);

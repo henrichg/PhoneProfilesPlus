@@ -270,7 +270,7 @@ public class ConnectToSSIDDialogPreferenceFragment extends PreferenceDialogFragm
 
                 //if (preference.disableSharedProfile == 0)
                 //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
-                _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, /*"",*/ false, false, false));
+                _SSIDList.add(0, new WifiSSIDData(StringConstants.CONNECTTOSSID_JUSTANY, /*"",*/ false, false, false));
             }
 
             return null;

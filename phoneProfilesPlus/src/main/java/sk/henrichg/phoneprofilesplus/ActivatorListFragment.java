@@ -333,7 +333,7 @@ public class ActivatorListFragment extends Fragment {
                         for (int i = 0; i < numColumns - modulo; i++) {
                             Profile profile = DataWrapperStatic.getNonInitializedProfile(
                                     dataWrapper.context.getString(R.string.profile_name_default),
-                                    Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
+                                    StringConstants.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
                             profile._showInActivator = true;
                             this.dataWrapper.profileList.add(profile);
                         }
