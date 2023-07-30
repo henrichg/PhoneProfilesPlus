@@ -321,7 +321,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS) ||

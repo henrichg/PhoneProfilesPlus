@@ -1090,14 +1090,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference126 -> {
                 boolean activityExists;
                 Intent intent;
-                /*if (Build.VERSION.SDK_INT == 21) {
-                    intent = new Intent();
-                    intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
-                    activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
-                } else*/ {
-                    activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, context);
-                    intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
-                }
+                activityExists = GlobalGUIRoutines.activityActionExists(Settings.ACTION_BATTERY_SAVER_SETTINGS, context);
+                intent = new Intent(Settings.ACTION_BATTERY_SAVER_SETTINGS);
                 if (activityExists) {
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
                     try {
@@ -1105,7 +1099,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     } catch (Exception e) {
                         //if (Build.VERSION.SDK_INT > 21) {
                             intent = new Intent();
-                            intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$BatterySaverSettingsActivity"));
+                            intent.setComponent(new ComponentName(StringConstants.SETTINGS_PACKAGE_NAME, StringConstants.SETTINGS_BATTERY_SAVER_CLASS_NAME));
                             activityExists = GlobalGUIRoutines.activityIntentExists(intent, context);
                             if (activityExists) {
                                 try {

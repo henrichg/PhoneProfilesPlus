@@ -142,7 +142,7 @@ public class WallpaperViewPreference extends Preference {
             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setType("image/*");
+            intent.setType(StringConstants.MIME_TYPE_IMAGE);
 
             //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;

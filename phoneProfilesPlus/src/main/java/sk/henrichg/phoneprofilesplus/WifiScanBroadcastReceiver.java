@@ -61,7 +61,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                         if (forceOneScan != WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                         {
-                            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, "SENSOR_TYPE_WIFI_SCANNER", 5);
+                            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER, PPExecutors.SENSOR_NAME_SENSOR_TYPE_WIFI_SCANNER, 5);
                         }
 
                     }

@@ -360,7 +360,7 @@ class EventPreferencesBluetooth extends EventPreferences {
 
         if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME) ||
             key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE)||

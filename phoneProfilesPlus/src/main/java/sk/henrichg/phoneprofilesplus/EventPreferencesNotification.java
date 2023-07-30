@@ -352,21 +352,21 @@ class EventPreferencesNotification extends EventPreferences {
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACTS);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_GROUPS);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
             preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CONTACT_LIST_TYPE);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_TEXT);
             if (preference != null) {
-                preference.setEnabled(value.equals("true"));
+                preference.setEnabled(value.equals(StringConstants.TRUE_STRING));
             }
         }
 
@@ -439,7 +439,7 @@ class EventPreferencesNotification extends EventPreferences {
             key.equals(PREF_EVENT_NOTIFICATION_CHECK_CONTACTS) ||
             key.equals(PREF_EVENT_NOTIFICATION_CHECK_TEXT)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)||
             key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS) ||
@@ -1005,7 +1005,7 @@ class EventPreferencesNotification extends EventPreferences {
                                         return true;
                                 }
                                 // LG
-                                activeNotification = isNotificationActive(statusBarNotification, "com.android.phone", false/*, context*/);
+                                activeNotification = isNotificationActive(statusBarNotification, StringConstants.PHONE_PACKAGE_NAME, false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
                                         long postTime = activeNotification.getPostTime() + this._duration * 1000L;
@@ -1141,7 +1141,7 @@ class EventPreferencesNotification extends EventPreferences {
                             }
                         }
                         // LG
-                        activeNotification = isNotificationActive(statusBarNotification, "com.android.phone", false/*, context*/);
+                        activeNotification = isNotificationActive(statusBarNotification, StringConstants.PHONE_PACKAGE_NAME, false/*, context*/);
                         if (activeNotification != null) {
                             if ((newestNotification == null) || (activeNotification.getPostTime() > newestNotification.getPostTime())) {
                                 newestNotification = activeNotification;

@@ -153,7 +153,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_DURATION);
             if (preference != null) {
-                preference.setEnabled(value.equals("false"));
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
             }
         }
         if (key.equals(PREF_EVENT_ALARM_CLOCK_DURATION)) {
@@ -191,7 +191,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         if (key.equals(PREF_EVENT_ALARM_CLOCK_ENABLED) ||
             key.equals(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_ALARM_CLOCK_DURATION)||
             key.equals(PREF_EVENT_ALARM_CLOCK_APPLICATIONS))

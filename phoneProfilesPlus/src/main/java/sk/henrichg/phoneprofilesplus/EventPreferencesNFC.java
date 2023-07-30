@@ -135,7 +135,7 @@ class EventPreferencesNFC extends EventPreferences {
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
             if (preference != null) {
-                preference.setEnabled(value.equals("false"));
+                preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
             }
         }
         if (key.equals(PREF_EVENT_NFC_DURATION)) {
@@ -173,7 +173,7 @@ class EventPreferencesNFC extends EventPreferences {
         if (key.equals(PREF_EVENT_NFC_ENABLED) ||
             key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_NFC_NFC_TAGS) ||
             key.equals(PREF_EVENT_NFC_DURATION))

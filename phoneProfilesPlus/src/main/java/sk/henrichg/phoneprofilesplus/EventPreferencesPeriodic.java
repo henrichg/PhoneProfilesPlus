@@ -239,7 +239,7 @@ class EventPreferencesPeriodic extends EventPreferences {
 
         if (key.equals(PREF_EVENT_PERIODIC_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL) ||
                 key.equals(PREF_EVENT_PERIODIC_RESULTING_INTERVAL) ||
@@ -423,43 +423,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                     _counter = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
-                    PPExecutors.handleEvents(dataWrapper.context, EventsHandler.SENSOR_TYPE_PERIODIC, "SENSOR_TYPE_PERIODIC", 5);
-                    /*
-                    //enqueueWork();
-                    Data workData = new Data.Builder()
-                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PERIODIC)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG)
-                                    .setInputData(workData)
-                                    .setInitialDelay(5, TimeUnit.SECONDS)
-                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                    .build();
-                    try {
-                        if (PPApplicationStatic.getApplicationStarted(true)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null) {
-
-//                            //if (PPApplicationStatic.logEnabled()) {
-//                            ListenableFuture<List<WorkInfo>> statuses;
-//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
-//                            try {
-//                                List<WorkInfo> workInfoList = statuses.get();
-//                            } catch (Exception ignored) {
-//                            }
-//                            //}
-//
-//                                PPApplicationStatic.logE("[WORKER_CALL] EventPreferencesPeriodic.increaseCounter", "xxx");
-                                //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                            }
-                        }
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                    */
+                    PPExecutors.handleEvents(dataWrapper.context, EventsHandler.SENSOR_TYPE_PERIODIC, PPExecutors.SENSOR_NAME_SENSOR_TYPE_PERIODIC, 5);
                 }
             } else {
                 _counter = 0;

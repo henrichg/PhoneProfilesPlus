@@ -274,7 +274,7 @@ class EventPreferencesCall extends EventPreferences {
             } else {
                 Preference preference = prefMng.findPreference(PREF_EVENT_CALL_DURATION);
                 if (preference != null) {
-                    preference.setEnabled(value.equals("false"));
+                    preference.setEnabled(value.equals(StringConstants.FALSE_STRING));
                 }
             }
         }
@@ -428,7 +428,7 @@ class EventPreferencesCall extends EventPreferences {
         if (key.equals(PREF_EVENT_CALL_ENABLED) ||
                 key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_CALL_EVENT) ||
                 key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE) ||

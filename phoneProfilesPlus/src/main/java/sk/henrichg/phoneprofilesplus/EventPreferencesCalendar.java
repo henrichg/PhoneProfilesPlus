@@ -425,8 +425,8 @@ class EventPreferencesCalendar extends EventPreferences {
             key.equals(PREF_EVENT_CALENDAR_ALL_EVENTS)/* ||
             key.equals(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS)*/) {
             boolean value = preferences.getBoolean(key, false);
-            String sValue = "false";
-            if (value) sValue = "true";
+            String sValue = StringConstants.FALSE_STRING;
+            if (value) sValue = StringConstants.TRUE_STRING;
             setSummary(prefMng, key, sValue, context);
         }
         if (key.equals(PREF_EVENT_CALENDAR_CALENDARS) ||

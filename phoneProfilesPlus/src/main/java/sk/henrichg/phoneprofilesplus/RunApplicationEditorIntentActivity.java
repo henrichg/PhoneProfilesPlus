@@ -1146,7 +1146,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey1, Double.valueOf(ppIntent._extraValue1));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue1.equalsIgnoreCase("true") || ppIntent._extraValue1.equals("1");
+                        boolean value = ppIntent._extraValue1.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue1.equals("1");
                         intent.putExtra(ppIntent._extraKey1, value);
                         break;
                 }
@@ -1170,7 +1170,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey2, Double.valueOf(ppIntent._extraValue2));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue2.equalsIgnoreCase("true") || ppIntent._extraValue2.equals("1");
+                        boolean value = ppIntent._extraValue2.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue2.equals("1");
                         intent.putExtra(ppIntent._extraKey2, value);
                         break;
                 }
@@ -1194,7 +1194,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey3, Double.valueOf(ppIntent._extraValue3));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue3.equalsIgnoreCase("true") || ppIntent._extraValue3.equals("1");
+                        boolean value = ppIntent._extraValue3.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue3.equals("1");
                         intent.putExtra(ppIntent._extraKey3, value);
                         break;
                 }
@@ -1218,7 +1218,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey4, Double.valueOf(ppIntent._extraValue4));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue4.equalsIgnoreCase("true") || ppIntent._extraValue4.equals("1");
+                        boolean value = ppIntent._extraValue4.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue4.equals("1");
                         intent.putExtra(ppIntent._extraKey4, value);
                         break;
                 }
@@ -1242,7 +1242,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                         intent.putExtra(ppIntent._extraKey5, Double.valueOf(ppIntent._extraValue5));
                         break;
                     case 5:
-                        boolean value = ppIntent._extraValue5.equalsIgnoreCase("true") || ppIntent._extraValue5.equals("1");
+                        boolean value = ppIntent._extraValue5.equalsIgnoreCase(StringConstants.TRUE_STRING) || ppIntent._extraValue5.equals("1");
                         intent.putExtra(ppIntent._extraKey5, value);
                         break;
                 }

@@ -56,7 +56,7 @@ public class ProfileIconPreference extends DialogPreference {
             R.styleable.ProfileIconPreference_iconSource);
         */
 
-        imageIdentifier = Profile.PROFILE_ICON_DEFAULT;
+        imageIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
         isImageResourceID = true;
         useCustomColor = false;
         customColor = 0;
@@ -96,7 +96,7 @@ public class ProfileIconPreference extends DialogPreference {
         try {
             imageIdentifier = splits[0];
         } catch (Exception e) {
-            imageIdentifier = Profile.PROFILE_ICON_DEFAULT;
+            imageIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
         }
         try {
             isImageResourceID = splits[1].equals("1");
@@ -169,7 +169,7 @@ public class ProfileIconPreference extends DialogPreference {
         try {
             imageIdentifier = splits[0];
         } catch (Exception e) {
-            imageIdentifier = Profile.PROFILE_ICON_DEFAULT;
+            imageIdentifier = StringConstants.PROFILE_ICON_DEFAULT;
         }
         try {
             isImageResourceID = splits[1].equals("1");
@@ -221,7 +221,7 @@ public class ProfileIconPreference extends DialogPreference {
             //    intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setType("image/*");
+            intent.setType(StringConstants.MIME_TYPE_IMAGE);
 
             //if (Build.VERSION.SDK_INT >= 26) {
                 boolean ok = false;
@@ -259,7 +259,7 @@ public class ProfileIconPreference extends DialogPreference {
                 intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setType("image/*");
+                intent.setType(StringConstants.MIME_TYPE_IMAGE);
 
                 // is not possible to get activity from preference, used is static method
                 ProfilesPrefsFragment.setChangedProfileIconPreference(this);

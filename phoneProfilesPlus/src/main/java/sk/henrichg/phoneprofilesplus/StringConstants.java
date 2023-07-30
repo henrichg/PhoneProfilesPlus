@@ -49,4 +49,14 @@ class StringConstants {
     //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
 
+    static final String MIME_TYPE_EXTRA = "mimeType";
+    static final String MIME_TYPE_IMAGE = "image/*";
+
+    static final String TRUE_STRING = "true";
+    static final String FALSE_STRING = "false";
+
+    static final String SETTINGS_PACKAGE_NAME = "com.android.settings";
+    static final String PHONE_PACKAGE_NAME = "com.android.phone";
+    static final String SETTINGS_BATTERY_SAVER_CLASS_NAME = "com.android.settings.Settings$BatterySaverSettingsActivity";
+
 }

@@ -1044,7 +1044,7 @@ class Event {
             if (hasVibrator) {
                 if (preference != null)
                     preference.setVisible(true);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals(StringConstants.TRUE_STRING), false, false, false, false);
             } else {
                 if (preference != null)
                     preference.setVisible(false);

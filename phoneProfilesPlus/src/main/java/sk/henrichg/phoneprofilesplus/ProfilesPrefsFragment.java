@@ -4441,7 +4441,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String sValue = value.toString();
             SwitchPreferenceCompat checkBoxPreference = prefMng.findPreference(key);
             if (checkBoxPreference != null) {
-                boolean show = sValue.equals("true");
+                boolean show = sValue.equals(StringConstants.TRUE_STRING);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(checkBoxPreference, true, show, false, false, false, false);
             }
         }
@@ -4576,7 +4576,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String sValue = value.toString();
             SwitchPreferenceCompat checkBoxPreference = prefMng.findPreference(key);
             if (checkBoxPreference != null) {
-                boolean show = sValue.equals("true");
+                boolean show = sValue.equals(StringConstants.TRUE_STRING);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(checkBoxPreference, true, show, false, false, false, false);
             }
         }
@@ -4597,7 +4597,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 SwitchPreferenceCompat checkBoxPreference = prefMng.findPreference(key);
                 if (checkBoxPreference != null) {
                     checkBoxPreference.setVisible(true);
-                    boolean show = sValue.equals("true");
+                    boolean show = sValue.equals(StringConstants.TRUE_STRING);
                     GlobalGUIRoutines.setPreferenceTitleStyleX(checkBoxPreference, true, show, false, false, false, false);
                 }
             }

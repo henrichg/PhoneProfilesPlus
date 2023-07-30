@@ -330,7 +330,7 @@ class EventPreferencesVolumes extends EventPreferences {
 
         if (key.equals(PREF_EVENT_VOLUMES_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_VOLUMES_RINGTONE) ||
                 key.equals(PREF_EVENT_VOLUMES_NOTIFICATION) ||

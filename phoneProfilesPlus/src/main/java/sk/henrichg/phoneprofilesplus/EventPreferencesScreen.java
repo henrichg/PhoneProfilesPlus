@@ -140,7 +140,7 @@ class EventPreferencesScreen extends EventPreferences {
         if (key.equals(PREF_EVENT_SCREEN_ENABLED) ||
             key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING/*, context*/);
         }
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {

@@ -384,70 +384,7 @@ class BluetoothScanner {
 
                 if (forceOneScan != BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
-                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, "SENSOR_TYPE_BLUETOOTH_SCANNER", 5);
-
-                    /*
-                    Data workData = new Data.Builder()
-                            .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)
-                            .build();
-
-                    OneTimeWorkRequest worker =
-                            new OneTimeWorkRequest.Builder(MainWorker.class)
-                                    .addTag(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG)
-                                    .setInputData(workData)
-                                    .setInitialDelay(5, TimeUnit.SECONDS)
-                                    //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                    .build();
-                    try {
-                        if (PPApplicationStatic.getApplicationStarted(true)) {
-                            WorkManager workManager = PPApplication.getWorkManagerInstance();
-                            if (workManager != null) {
-
-//                                //if (PPApplicationStatic.logEnabled()) {
-//                                ListenableFuture<List<WorkInfo>> statuses;
-//                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG);
-//                                try {
-//                                    List<WorkInfo> workInfoList = statuses.get();
-//                                } catch (Exception ignored) {
-//                                }
-//                                //}
-
-//                                PPApplicationStatic.logE("[WORKER_CALL] BluetoothScanWorker.finishCLScan", "xxx");
-                                //workManager.enqueue(worker);
-                                workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_BLUETOOTH_CE_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                            }
-                        }
-                    } catch (Exception e) {
-                        PPApplicationStatic.recordException(e);
-                    }
-                    */
-
-                    /*PPApplication.startHandlerThread("BluetoothScanWorker.finishCLScan");
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothScanWorker_finishCLScan");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                // start events handler
-                                EventsHandler eventsHandler = new EventsHandler(context);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {}
-                                }
-                            }
-                        }
-                    }, 5000);*/
-                    //PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, context);
+                    PPExecutors.handleEvents(context, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, PPExecutors.SENSOR_NAME_SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
                 }
 
                 BluetoothScanner.tmpBluetoothScanResults = null;

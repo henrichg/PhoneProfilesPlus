@@ -117,7 +117,7 @@ class EventPreferencesVPN extends EventPreferences {
 
         if (key.equals(PREF_EVENT_VPN_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true" : "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
 
         if (key.equals(PREF_EVENT_VPN_CONNECTION_STATUS))

@@ -3183,43 +3183,7 @@ class PhoneProfilesServiceStatic
 
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
                                     if (PPApplication.notificationScannerRunning) {
-                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
-
-                                        /*
-                                        Data workData = new Data.Builder()
-                                                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
-                                                .build();
-
-                                        OneTimeWorkRequest worker =
-                                                new OneTimeWorkRequest.Builder(MainWorker.class)
-                                                        .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG)
-                                                        .setInputData(workData)
-                                                        .setInitialDelay(5, TimeUnit.SECONDS)
-                                                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                                                        .build();
-                                        try {
-                                            if (PPApplicationStatic.getApplicationStarted(true)) {
-                                                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                                                if (workManager != null) {
-
-//                                                //if (PPApplicationStatic.logEnabled()) {
-//                                                ListenableFuture<List<WorkInfo>> statuses;
-//                                                statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
-//                                                try {
-//                                                    List<WorkInfo> workInfoList = statuses.get();
-//                                                } catch (Exception ignored) {
-//                                                }
-//                                                //}
-
-//                                                PPApplicationStatic.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
-                                                    //workManager.enqueue(worker);
-                                                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                                                }
-                                            }
-                                        } catch (Exception e) {
-                                            PPApplicationStatic.recordException(e);
-                                        }
-                                        */
+                                        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
                                     }
                                 }
                             }

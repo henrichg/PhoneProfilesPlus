@@ -294,7 +294,7 @@ class EventPreferencesWifi extends EventPreferences {
 
         if (key.equals(PREF_EVENT_WIFI_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
+            setSummary(prefMng, key, value ? StringConstants.TRUE_STRING : StringConstants.FALSE_STRING, context);
         }
         if (key.equals(PREF_EVENT_WIFI_SSID) ||
             key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE) ||

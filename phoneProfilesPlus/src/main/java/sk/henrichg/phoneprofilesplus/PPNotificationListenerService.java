@@ -118,74 +118,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             return;
 
         if (EventStatic.getGlobalEventsRunning(appContext)) {
-            /*
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPNotificationListenerService_onNotificationPosted");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
-
-                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPNotificationListenerService.onNotificationPosted", "sensorType=SENSOR_TYPE_NOTIFICATION");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        //eventsHandler.setEventNotificationParameters("posted");
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
-                    }
-                }
-            });
-            */
-
-            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
-            /*
-            Data workData = new Data.Builder()
-                    .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
-                    .build();
-
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(MainWorker.class)
-                            .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG)
-                            .setInputData(workData)
-                            .setInitialDelay(5, TimeUnit.SECONDS)
-                            //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                            .build();
-            try {
-                if (PPApplicationStatic.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
-
-//                        //if (PPApplicationStatic.logEnabled()) {
-//                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
-//                        try {
-//                            List<WorkInfo> workInfoList = statuses.get();
-//                        } catch (Exception ignored) {
-//                        }
-//                        //}
-
-//                        PPApplicationStatic.logE("[WORKER_CALL] PPNotificationListenerService.onNotificationPosted", "xxx");
-                        //workManager.enqueue(worker);
-                        workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
-                }
-            } catch (Exception e) {
-                PPApplicationStatic.recordException(e);
-            }
-            */
+            PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
         }
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationPosted", "END");
@@ -245,76 +178,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             // application is not started
             return;
 
-        /*
-        if (Event.getGlobalEventsRunning()) {
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPNotificationListenerService_onNotificationRemoved");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
-
-                        PPApplicationStatic.logE("[EVENTS_HANDLER_CALL] PPNotificationListenerService.onNotificationRemoved", "sensorType=SENSOR_TYPE_NOTIFICATION");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        //eventsHandler.setEventNotificationParameters("removed");
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
-                    }
-                }
-            });
-        }
-        */
-
-        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, "SENSOR_TYPE_NOTIFICATION", 5);
-        /*
-        Data workData = new Data.Builder()
-                .putInt(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_NOTIFICATION)
-                .build();
-
-        OneTimeWorkRequest worker =
-                new OneTimeWorkRequest.Builder(MainWorker.class)
-                        .addTag(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG)
-                        .setInputData(workData)
-                        .setInitialDelay(5, TimeUnit.SECONDS)
-                        //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
-                        .build();
-        try {
-            if (PPApplicationStatic.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-
-//                        //if (PPApplicationStatic.logEnabled()) {
-//                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
-//                        try {
-//                            List<WorkInfo> workInfoList = statuses.get();
-//                        } catch (Exception ignored) {
-//                        }
-//                        //}
-
-//                    PPApplicationStatic.logE("[WORKER_CALL] PPNotificationListenerService.onNotificationRemoved", "xxx");
-                    //workManager.enqueue(worker);
-                    workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                }
-            }
-        } catch (Exception e) {
-            PPApplicationStatic.recordException(e);
-        }
-        */
+        PPExecutors.handleEvents(appContext, EventsHandler.SENSOR_TYPE_NOTIFICATION, PPExecutors.SENSOR_NAME_SENSOR_TYPE_NOTIFICATION, 5);
 
 //        PPApplicationStatic.logE("[IN_LISTENER] PPNotificationListenerService.onNotificationRemoved", "END");
     }
