@@ -42,7 +42,7 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                     };
                     PPApplicationStatic.createDelayedGuiExecutor();
                     if ((Build.VERSION.SDK_INT >= 29) &&
-                            ApplicationPreferences.applicationNotificationLauncher.equals("activator")) {
+                            ApplicationPreferences.applicationNotificationLauncher.equals(StringConstants.EXTRA_ACTIVATOR)) {
                         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
                             if (Build.VERSION.SDK_INT >= 30)
                                 PPApplication.delayedGuiExecutor.schedule(runnable, 500, TimeUnit.MILLISECONDS);

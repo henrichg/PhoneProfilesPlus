@@ -47,7 +47,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ScreenOnOffBroadcastReceiver_onReceive");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_ScreenOnOffBroadcastReceiver_onReceive);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -193,7 +193,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             });
                             */
                             if (PPApplication.lockDeviceActivityDisplayed) {
-                                Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
+                                Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
                                 LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
                             }
 

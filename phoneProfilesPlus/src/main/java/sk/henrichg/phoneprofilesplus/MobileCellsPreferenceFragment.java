@@ -90,7 +90,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
 
         refreshListViewBroadcastReceiver = new RefreshListViewBroadcastReceiver(this);
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
+                new IntentFilter(MobileCellsPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER));
 
         PPApplication.mobileCellsForceStart = true;
         PPApplicationStatic.forceStartMobileCellsScanner(prefContext);

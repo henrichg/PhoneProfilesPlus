@@ -45,10 +45,10 @@ public class ExitApplicationActivity extends AppCompatActivity {
 
                     // close activities
                     Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-                    intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
+                    intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_ACTIVATOR);
                     appContext.sendBroadcast(intent);
                     intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-                    intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
+                    intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_EDITOR);
                     appContext.sendBroadcast(intent);
 
                     finish();

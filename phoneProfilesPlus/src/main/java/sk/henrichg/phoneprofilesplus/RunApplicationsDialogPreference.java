@@ -140,10 +140,10 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                                 shortcutIntent = packageNameActivity[0].substring(0, 3);
 
                             switch (shortcutIntent) {
-                                case "(i)":
+                                case StringConstants.INTENT_ID:
                                     // skip intents
                                     continue;
-                                case "(s)":
+                                case StringConstants.SHORTCUT_ID:
                                     // shortcut
                                     if (packageNameActivity[0].length() > 3) {
                                         packageName = packageNameActivity[0].substring(3);
@@ -252,7 +252,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                             if (intentIdDelay[0].length() > 2)
                                 shortcutIntent = intentIdDelay[0].substring(0, 3);
 
-                            if ("(i)".equals(shortcutIntent)) {// intent
+                            if (StringConstants.INTENT_ID.equals(shortcutIntent)) {// intent
                                 if (intentIdDelay.length == 2) {
                                     intentId = intentIdDelay[0].substring(3);
                                     startApplicationDelay = intentIdDelay[1];
@@ -318,10 +318,10 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                         Application _application = new Application();
 
                         switch (shortcutIntent) {
-                            case "(i)":
+                            case StringConstants.INTENT_ID:
                                 _application.type = Application.TYPE_INTENT;
                                 break;
-                            case "(s)":
+                            case StringConstants.SHORTCUT_ID:
                                 // shortcut
                                 _application.type = Application.TYPE_SHORTCUT;
                                 break;
@@ -446,9 +446,9 @@ public class RunApplicationsDialogPreference extends DialogPreference {
                     _val.append("|");
 
                 if (application.type == Application.TYPE_SHORTCUT)
-                    _val.append("(s)");
+                    _val.append(StringConstants.SHORTCUT_ID);
                 if (application.type == Application.TYPE_INTENT)
-                    _val.append("(i)");
+                    _val.append(StringConstants.INTENT_ID);
 
                 if (application.type != Application.TYPE_INTENT)
                     _val.append(application.packageName).append("/").append(application.activityName);

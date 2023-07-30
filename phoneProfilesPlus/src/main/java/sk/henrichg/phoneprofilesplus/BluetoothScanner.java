@@ -212,7 +212,7 @@ class BluetoothScanner {
                                         // send broadcast for start EventsHandler
                                         /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                                         sendBroadcast(btLEIntent);*/
-                                        Intent btLEIntent = new Intent(PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver");
+                                        Intent btLEIntent = new Intent(PhoneProfilesService.ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER);
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
                                     }
 

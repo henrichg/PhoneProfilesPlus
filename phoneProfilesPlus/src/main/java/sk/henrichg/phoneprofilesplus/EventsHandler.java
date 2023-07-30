@@ -736,7 +736,7 @@ class EventsHandler {
             }
             else {
                 // refresh only Editor
-                Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver");
+                Intent refreshIntent = new Intent(EditorActivity.ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER);
                 refreshIntent.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
                 //refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
                 //refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);

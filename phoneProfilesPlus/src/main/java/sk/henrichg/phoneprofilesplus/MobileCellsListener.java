@@ -187,7 +187,7 @@ class MobileCellsListener extends PhoneStateListener {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsListener_onCellInfoChanged");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileCellsListener_onCellInfoChanged);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -253,7 +253,7 @@ class MobileCellsListener extends PhoneStateListener {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsListener_onServiceStateChanged");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileCellsListener_onServiceStateChanged);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -374,7 +374,7 @@ class MobileCellsListener extends PhoneStateListener {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsListener_onCellLocationChanged");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileCellsListener_onCellLocationChanged);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -438,7 +438,7 @@ class MobileCellsListener extends PhoneStateListener {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsListener_rescanMobileCells");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_MobileCellsListener_rescanMobileCells);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -580,7 +580,7 @@ class MobileCellsListener extends PhoneStateListener {
                                         context.sendBroadcast(intent);
 
 //                                    PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(1)");
-                                        Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+                                        Intent refreshIntent = new Intent(PhoneProfilesService.ACTION_REFRESH_ACTIVITIES_GUI_BROADCAST_RECEIVER);
                                         refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
                                         LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                                     }
@@ -755,7 +755,7 @@ class MobileCellsListener extends PhoneStateListener {
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 //                PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PhoneProfilesService.doAutoRegistration", "(2)");
                     // broadcast for event preferences
-                    Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView");
+                    Intent refreshIntent = new Intent(MobileCellsPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                 }
             }

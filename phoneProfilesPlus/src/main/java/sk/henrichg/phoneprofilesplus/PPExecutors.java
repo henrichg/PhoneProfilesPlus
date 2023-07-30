@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 class PPExecutors {
 
+    private static final String WAKELOCK_TAG = PPApplication.PACKAGE_NAME + ":PPPExecutors_handleEvents_";
+
     static final String SENSOR_NAME_SENSOR_TYPE_SOUND_PROFILE = "SENSOR_TYPE_SOUND_PROFILE";
     static final String SENSOR_NAME_SENSOR_TYPE_RADIO_SWITCH = "SENSOR_TYPE_RADIO_SWITCH";
     static final String SENSOR_NAME_SENSOR_TYPE_ALARM_CLOCK_EVENT_END = "SENSOR_TYPE_ALARM_CLOCK_EVENT_END";
@@ -178,7 +180,7 @@ class PPExecutors {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExecutors_handleEvents_"+sensorName);
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK_TAG + sensorName);
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 

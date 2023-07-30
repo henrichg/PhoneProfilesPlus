@@ -380,7 +380,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX))
         {
 //            PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EventPreferencesOrientation.setSummary", "xxx");
-            Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
+            Intent intent = new Intent(EventsPrefsActivity.ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);

@@ -54,7 +54,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onScanResult");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothLEScanCallback21_onScanResult);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -124,7 +124,7 @@ class BluetoothLEScanCallback extends ScanCallback {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothLEScanCallback21_onBatchScanResults");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_BluetoothLEScanCallback21_onBatchScanResults);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

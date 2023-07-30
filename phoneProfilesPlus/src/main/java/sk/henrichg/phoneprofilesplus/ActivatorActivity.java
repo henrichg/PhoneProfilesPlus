@@ -47,6 +47,9 @@ public class ActivatorActivity extends AppCompatActivity
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
 
+    static final String ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver";
+    static final String ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver";
+
     //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_FINISHED = "activate_profiles_activity_start_target_helps_finished";
@@ -216,13 +219,13 @@ public class ActivatorActivity extends AppCompatActivity
 
         if (activityStarted) {
             Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "editor");
+            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_EDITOR);
             getApplicationContext().sendBroadcast(intent);
 
             LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
+                    new IntentFilter(ACTION_REFRESH_ACTIVATOR_GUI_BROADCAST_RECEIVER));
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
+                    new IntentFilter(ActivatorActivity.ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER));
 
             refreshGUI(/*true,*/ false);
 
@@ -707,7 +710,7 @@ public class ActivatorActivity extends AppCompatActivity
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ActivatorActivity.showTargetHelps (2)");
 
 //                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] ActivatorActivity.showTargetHelps", "xxx");
-                    Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
+                    Intent intent = new Intent(ACTION_SHOW_ACTIVATOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     intent.putExtra(ActivatorActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                     /*if (ActivatorActivity.getInstance() != null) {
@@ -796,7 +799,7 @@ public class ActivatorActivity extends AppCompatActivity
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals("activator")) {
+                if (what.equals(StringConstants.EXTRA_ACTIVATOR)) {
                     try {
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();

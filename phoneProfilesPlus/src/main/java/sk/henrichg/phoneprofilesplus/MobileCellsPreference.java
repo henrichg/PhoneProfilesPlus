@@ -40,6 +40,8 @@ public class MobileCellsPreference extends DialogPreference {
 
     private final Context prefContext;
 
+    static final String ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView";
+
     public MobileCellsPreference(Context prefContext, AttributeSet attrs) {
         super(prefContext, attrs);
         

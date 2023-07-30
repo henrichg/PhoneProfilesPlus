@@ -152,6 +152,9 @@ public class EditorActivity extends AppCompatActivity
 
     private static final String PREF_BACKUP_CREATE_PPP_SUBFOLDER = "backup_create_ppp_subfolder";
 
+    static final String ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver";
+    static final String ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver";
+
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
@@ -619,15 +622,15 @@ public class EditorActivity extends AppCompatActivity
 
         if (activityStarted) {
             Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);
-            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, "activator");
+            intent.putExtra(PPApplication.EXTRA_WHAT_FINISH, StringConstants.EXTRA_ACTIVATOR);
             getApplicationContext().sendBroadcast(intent);
 
             refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
+                    new IntentFilter(ACTION_REFRESH_EDITOR_GUI_BROADCAST_RECEIVER));
             showTargetHelpsBroadcastReceiver = new ShowTargetHelpsBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
+                    new IntentFilter(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER));
 
             refreshGUI(/*true,*/ false, true, 0, 0);
 
@@ -3892,7 +3895,7 @@ public class EditorActivity extends AppCompatActivity
 //                        PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorActivity.showTargetHelps");
 
 //                        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] EditorProfileActivity.showTargetHelps", "xxx");
-                    Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver");
+                    Intent intent = new Intent(ACTION_SHOW_EDITOR_TARGET_HELPS_BROADCAST_RECEIVER);
                     LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                     /*if (EditorActivity.getInstance() != null) {
                         Fragment fragment = EditorActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -5012,7 +5015,7 @@ public class EditorActivity extends AppCompatActivity
         if (action != null) {
             if (action.equals(PPApplication.ACTION_FINISH_ACTIVITY)) {
                 String what = intent.getStringExtra(PPApplication.EXTRA_WHAT_FINISH);
-                if (what.equals("editor")) {
+                if (what.equals(StringConstants.EXTRA_EDITOR)) {
                     try {
                         setResult(Activity.RESULT_CANCELED);
                         finishAffinity();

@@ -35,7 +35,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager1 != null) {
-                                wakeLock = powerManager1.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DeviceIdleModeBroadcastReceiver_onReceive");
+                                wakeLock = powerManager1.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_DeviceIdleModeBroadcastReceiver_onReceive);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 

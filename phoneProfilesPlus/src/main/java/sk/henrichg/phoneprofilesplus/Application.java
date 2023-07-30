@@ -37,7 +37,7 @@ class Application  implements Parcelable {
     static boolean isShortcut(String value) {
         if (value.length() > 2) {
             String shortcut = value.substring(0, 3);
-            return shortcut.equals("(s)");
+            return shortcut.equals(StringConstants.SHORTCUT_ID);
         }
         return false;
     }
@@ -45,7 +45,7 @@ class Application  implements Parcelable {
     static boolean isIntent(String value) {
         if (value.length() > 2) {
             String intent = value.substring(0, 3);
-            return intent.equals("(i)");
+            return intent.equals(StringConstants.INTENT_ID);
         }
         return false;
     }
@@ -60,13 +60,13 @@ class Application  implements Parcelable {
                 if (packageNameActivity[0].length() > 2)
                     shortcutIntent = packageNameActivity[0].substring(0, 3);
                 packageName = packageNameActivity[0];
-                if (shortcutIntent.equals("(s)")) {
+                if (shortcutIntent.equals(StringConstants.SHORTCUT_ID)) {
                     // shortcut
                     if (packageNameActivity[0].length() > 3)
                         packageName = packageNameActivity[0].substring(3);
                 }
                 else
-                if (shortcutIntent.equals("(i)")) {
+                if (shortcutIntent.equals(StringConstants.INTENT_ID)) {
                     // intent
                     packageName = "";
                 }
@@ -74,7 +74,7 @@ class Application  implements Parcelable {
             else {
                 // activity not exists
                 shortcutIntent = value.substring(0, 3);
-                if (!shortcutIntent.equals("(s)") && !shortcutIntent.equals("(i)"))
+                if (!shortcutIntent.equals(StringConstants.SHORTCUT_ID) && !shortcutIntent.equals(StringConstants.INTENT_ID))
                     // application
                     packageName = value;
             }
@@ -92,7 +92,7 @@ class Application  implements Parcelable {
                 // activity exists
                 if (packageNameActivity[0].length() > 2) {
                     String shortcutIntent = packageNameActivity[0].substring(0, 3);
-                    if (!shortcutIntent.equals("(i)")) {
+                    if (!shortcutIntent.equals(StringConstants.INTENT_ID)) {
                         // application, shortcut
                         String[] activityShortcutIdDelay = packageNameActivity[1].split("#");
                         activityName = activityShortcutIdDelay[0];
@@ -116,7 +116,7 @@ class Application  implements Parcelable {
                 if (packageNameActivity[0].length() > 2) {
                     String shortcut = packageNameActivity[0].substring(0, 3);
                     String[] activityShortcutIdDelay = packageNameActivity[1].split("#");
-                    if (shortcut.equals("(s)")) {
+                    if (shortcut.equals(StringConstants.SHORTCUT_ID)) {
                         // shortcut
                         if (activityShortcutIdDelay.length >= 2)
                             try {
@@ -139,7 +139,7 @@ class Application  implements Parcelable {
             String[] intentIdDelay = value.split("#");
             if (intentIdDelay[0].length() > 2) {
                 String intent = intentIdDelay[0].substring(0, 3);
-                if (intent.equals("(i)")) {
+                if (intent.equals(StringConstants.INTENT_ID)) {
                     // intent
                     try {
                         intentId = Long.parseLong(intentIdDelay[0].substring(3));
@@ -164,7 +164,7 @@ class Application  implements Parcelable {
                 if (packageNameActivity[0].length() > 2)
                     shortcutIntent = packageNameActivity[0].substring(0, 3);
                 String[] activityShortcutIdDelay = packageNameActivity[1].split("#");
-                if (shortcutIntent.equals("(s)")) {
+                if (shortcutIntent.equals(StringConstants.SHORTCUT_ID)) {
                     // shortcut
                     if (activityShortcutIdDelay.length >= 3) {
                         try {
@@ -184,7 +184,7 @@ class Application  implements Parcelable {
                     }
                 }
                 else
-                if (!shortcutIntent.equals("(i)")) {
+                if (!shortcutIntent.equals(StringConstants.INTENT_ID)) {
                     // application
                     if (activityShortcutIdDelay.length >= 2) {
                         try {

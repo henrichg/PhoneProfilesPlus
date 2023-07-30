@@ -73,6 +73,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
     static final String WORKRES_UPDATE_NAME_EXTRA = PPApplication.PACKAGE_NAME + ".UPDATE_NAME_EXTRA";
     private static final int RESULT_LOCATION_SETTINGS = 2992;
 
+    static final String ACTION_LOCATION_GEOFENCE_EDITOR_ONLINE_STATUS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver";
+
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
@@ -472,7 +474,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity
         if (checkOnlineStatusBroadcatReceiver == null) {
             checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(checkOnlineStatusBroadcatReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver"));
+                    new IntentFilter(ACTION_LOCATION_GEOFENCE_EDITOR_ONLINE_STATUS_BROADCAST_RECEIVER));
         }
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

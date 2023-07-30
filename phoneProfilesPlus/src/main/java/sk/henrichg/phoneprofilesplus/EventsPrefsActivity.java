@@ -50,6 +50,8 @@ public class EventsPrefsActivity extends AppCompatActivity
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
     private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationNewCellsBroadcastReceiver = null;
 
+    static final String ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver";
+
     static private class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
 
         private final RefreshGUIActivatorEditorListener listener;
@@ -153,7 +155,7 @@ public class EventsPrefsActivity extends AppCompatActivity
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver"));
+                new IntentFilter(ACTION_REFRESH_EVENTS_PREFS_GUI_BROADCAST_RECEIVER));
     }
 
     @Override
@@ -610,7 +612,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_1");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EventsPrefsActivity_saveUpdateOfPreferences_1);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -665,7 +667,7 @@ public class EventsPrefsActivity extends AppCompatActivity
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_2");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_EventsPrefsActivity_saveUpdateOfPreferences_2);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

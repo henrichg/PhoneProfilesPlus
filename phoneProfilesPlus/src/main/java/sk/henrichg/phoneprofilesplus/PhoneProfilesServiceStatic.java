@@ -1990,7 +1990,7 @@ class PhoneProfilesServiceStatic
                     if (PPApplication.bluetoothLEScanReceiver == null) {
                         PPApplication.bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
                         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.bluetoothLEScanReceiver,
-                                new IntentFilter(PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver"));
+                                new IntentFilter(PhoneProfilesService.ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER));
                     }
                     if (PPApplication.bluetoothScanReceiver == null) {
                         PPApplication.bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
@@ -2990,7 +2990,7 @@ class PhoneProfilesServiceStatic
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PhoneProfilesService_doCommand);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -3292,7 +3292,7 @@ class PhoneProfilesServiceStatic
                                         AvoidRescheduleReceiverWorker.enqueueWork();
 
                                         if (PPApplication.mobileCellsForceStart) {
-                                            Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView");
+                                            Intent refreshIntent = new Intent(MobileCellsPreference.ACTION_MOBILE_CELLS_PREF_REFRESH_LISTVIEW_BROADCAST_RECEIVER);
                                             LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
                                         }
 

@@ -59,4 +59,10 @@ class StringConstants {
     static final String PHONE_PACKAGE_NAME = "com.android.phone";
     static final String SETTINGS_BATTERY_SAVER_CLASS_NAME = "com.android.settings.Settings$BatterySaverSettingsActivity";
 
+    static final String SHORTCUT_ID = "(s)";
+    static final String INTENT_ID = "(i)";
+
+    static final String EXTRA_ACTIVATOR = "activator";
+    static final String EXTRA_EDITOR = "editor";
+
 }

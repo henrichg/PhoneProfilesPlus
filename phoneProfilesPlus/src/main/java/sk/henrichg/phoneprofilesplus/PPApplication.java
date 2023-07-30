@@ -943,7 +943,7 @@ public class PPApplication extends Application
     static long prefLastActivatedProfile;
     static long wallpaperChangeTime;
 
-    static volatile String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
+    static volatile String connectToSSID = StringConstants.CONNECTTOSSID_JUSTANY;
     static volatile boolean connectToSSIDStarted = false;
 
     static volatile boolean disableScreenTimeoutInternalChange = false;
@@ -1446,7 +1446,7 @@ public class PPApplication extends Application
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_startPPServiceWhenNotStarted");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPApplication_startPPServiceWhenNotStarted);
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -1577,13 +1577,13 @@ public class PPApplication extends Application
 
         // dash clock extension
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "dash clock extension)");
-        Intent intent3 = new Intent(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver");
+        Intent intent3 = new Intent(PhoneProfilesService.ACTION_DASH_CLOCK_BROADCAST_RECEIVER);
         //intent3.putExtra(DashClockBroadcastReceiver.EXTRA_REFRESH, true);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
 //        PPApplicationStatic.logE("[LOCAL_BROADCAST_CALL] PPApplication.forceUpdateGUI", "activities");
-        Intent intent5 = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
+        Intent intent5 = new Intent(PhoneProfilesService.ACTION_REFRESH_ACTIVITIES_GUI_BROADCAST_RECEIVER);
         //intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_RELOAD_ACTIVITY, reloadActivity);
@@ -1650,7 +1650,7 @@ public class PPApplication extends Application
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_updateGUI_0");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPApplication_updateGUI_0);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -1691,7 +1691,7 @@ public class PPApplication extends Application
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_updateGUI");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PPApplication_updateGUI);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 

@@ -62,6 +62,9 @@ public class PhoneProfilesService extends Service
     static final String ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".PeriodicEventEndBroadcastReceiver";
     //static final String ACTION_RESTART_EVENTS_WITH_DELAY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RestartEventsWithDelayBroadcastReceiver";
     static final String ACTION_ACTIVATED_PROFILE_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ActivatedProfileEventBroadcastReceiver";
+    static final String ACTION_REFRESH_ACTIVITIES_GUI_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver";
+    static final String ACTION_DASH_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver";
+    static final String ACTION_BLUETOOTHLE_SCAN_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -231,9 +234,9 @@ public class PhoneProfilesService extends Service
         //appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
         //appContext.registerReceiver(PPApplication.updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.refreshActivitiesBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver"));
+                new IntentFilter(ACTION_REFRESH_ACTIVITIES_GUI_BROADCAST_RECEIVER));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.dashClockBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".DashClockBroadcastReceiver"));
+                new IntentFilter(ACTION_DASH_CLOCK_BROADCAST_RECEIVER));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.iconWidgetBroadcastReceiver,
                 new IntentFilter(IconWidgetProvider.ACTION_REFRESH_ICONWIDGET));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.oneRowWidgetBroadcastReceiver,
@@ -581,7 +584,7 @@ public class PhoneProfilesService extends Service
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doForFirstStart");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_PhoneProfilesService_doForFirstStart);
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 

@@ -102,7 +102,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsDetectedActivity_onStart_1");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_NotUsedMobileCellsDetectedActivity_onStart_1);
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 

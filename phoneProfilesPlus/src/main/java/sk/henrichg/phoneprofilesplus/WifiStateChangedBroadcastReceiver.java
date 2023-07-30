@@ -50,7 +50,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver_onReceive");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_WifiStateChangedBroadcastReceiver_onReceive);
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -64,7 +64,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // ignore for wifi scanning
 
                                     if (PhoneProfilesService.getInstance() != null) {
-                                        if (!PPApplication.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                                        if (!PPApplication.connectToSSID.equals(StringConstants.CONNECTTOSSID_JUSTANY)) {
                                             WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                             if (wifiManager != null) {
                                                 List<WifiConfiguration> list = null;

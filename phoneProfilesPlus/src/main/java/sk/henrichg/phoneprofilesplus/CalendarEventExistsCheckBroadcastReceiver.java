@@ -40,7 +40,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarEventExistsCheckBroadcastReceiver_doWork");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WakelockTags.WAKELOCK_TAG_CalendarEventExistsCheckBroadcastReceiver_doWork);
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

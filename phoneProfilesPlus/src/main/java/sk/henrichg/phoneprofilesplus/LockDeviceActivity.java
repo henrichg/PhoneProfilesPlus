@@ -21,6 +21,8 @@ public class LockDeviceActivity extends AppCompatActivity
     private View view = null;
     private boolean displayed = false;
 
+    static final String ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver";
+
     static private class FinishActivityBroadcastReceiver extends BroadcastReceiver {
 
         private final FinishLockDeviceActivityListener listener;
@@ -53,7 +55,7 @@ public class LockDeviceActivity extends AppCompatActivity
 
             finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
             LocalBroadcastManager.getInstance(this).registerReceiver(finishActivityBroadcastReceiver,
-                        new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));
+                        new IntentFilter(ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER));
             //finishActivityBroadcastReceiver = new LockDeviceActivity.FinishActivityBroadcastReceiver(this);
             //registerReceiver(finishActivityBroadcastReceiver, new IntentFilter(
             //        PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver"));

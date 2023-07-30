@@ -1012,13 +1012,13 @@ class GlobalGUIRoutines {
 
         switch (startupSource) {
             case PPApplication.STARTUP_SOURCE_NOTIFICATION:
-                if (ApplicationPreferences.applicationNotificationLauncher.equals("activator"))
+                if (ApplicationPreferences.applicationNotificationLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
                     intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
                 else
                     intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);
                 break;
             case PPApplication.STARTUP_SOURCE_WIDGET:
-                if (ApplicationPreferences.applicationWidgetLauncher.equals("activator"))
+                if (ApplicationPreferences.applicationWidgetLauncher.equals(StringConstants.EXTRA_ACTIVATOR))
                     intentLaunch = new Intent(context.getApplicationContext(), ActivatorActivity.class);
                 else
                     intentLaunch = new Intent(context.getApplicationContext(), EditorActivity.class);

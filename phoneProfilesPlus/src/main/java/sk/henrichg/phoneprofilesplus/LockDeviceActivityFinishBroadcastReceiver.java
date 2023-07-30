@@ -194,7 +194,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         //if (PhoneProfilesService.getInstance() != null) {
             //if (PPApplication.lockDeviceActivity != null) {
             if (PPApplication.lockDeviceActivityDisplayed) {
-                Intent finishIntent = new Intent(PPApplication.PACKAGE_NAME + ".FinishLockDeviceActivityBroadcastReceiver");
+                Intent finishIntent = new Intent(LockDeviceActivity.ACTION_FINISH_LOCK_DEVICE_ACTIVITY_BROADCAST_RECEIVER);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(finishIntent);
             }
         //}
