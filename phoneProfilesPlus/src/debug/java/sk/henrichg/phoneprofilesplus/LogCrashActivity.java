@@ -45,7 +45,7 @@ public class LogCrashActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Log/crash file");
+            getSupportActionBar().setTitle(LOG_CRASH_TITLE);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 

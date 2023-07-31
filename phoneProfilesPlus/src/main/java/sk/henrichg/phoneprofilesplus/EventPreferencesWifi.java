@@ -39,7 +39,8 @@ class EventPreferencesWifi extends EventPreferences {
     static final String PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS = "eventWiFiLocationSystemSettings";
     static final String PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS = "eventWiFiKeepOnSystemSettings";
 
-    private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategoryRoot";
+    private static final String PREF_EVENT_WIFI_CATEGORY_ROOT = "eventWifiCategoryRoot";
+    static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
     static final String CONFIGURED_SSIDS_VALUE = "^configured_ssids^";
     static final String ALL_SSIDS_VALUE = "%";
@@ -335,7 +336,7 @@ class EventPreferencesWifi extends EventPreferences {
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
-            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY_ROOT);
             if (preference != null) {
                 boolean enabled = tmp._enabled; //(preferences != null) && preferences.getBoolean(PREF_EVENT_WIFI_ENABLED, false);
                 boolean permissionGranted = true;
@@ -349,7 +350,7 @@ class EventPreferencesWifi extends EventPreferences {
             }
         }
         else {
-            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY_ROOT);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));

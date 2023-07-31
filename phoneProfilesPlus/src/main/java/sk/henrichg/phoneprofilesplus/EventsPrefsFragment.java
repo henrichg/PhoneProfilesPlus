@@ -48,6 +48,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
     private static final String PREF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
     private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
+    private static final String PREF_EVENT_SENSORS_INFO = "eventSensorsInfo";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
     private static final int RESULT_LOCATION_APP_SETTINGS = 1983;
@@ -604,7 +605,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (Build.VERSION.SDK_INT >= 27) {
             preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("eventWifiCategory");
+                PreferenceScreen preferenceCategory = findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
@@ -1138,7 +1139,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
-        InfoDialogPreference infoDialogPreference = prefMng.findPreference("eventSensorsInfo");
+        InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_EVENT_SENSORS_INFO);
         if (infoDialogPreference != null) {
             String info = StringConstants.TAG_LIST_START_FIRST_ITEM_HTML + getString(R.string.event_preferences_sensorsInfo_summary) + StringConstants.TAG_LIST_END_LAST_ITEM_HTML +
                     StringConstants.TAG_BREAK_HTML +
