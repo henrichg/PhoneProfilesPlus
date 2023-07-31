@@ -463,7 +463,7 @@ class WifiScanner {
                         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
                         int requestCode;
-                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "wifiScanningCategory");
+                        //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_WIFI_SCANNING_CATEGORY);
                         requestCode = 1;
                         //notificationIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
 

@@ -6484,7 +6484,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Context context = activity.getApplicationContext();
 
-        String rootScreen = "rootScreen";
+        String rootScreen = PPApplication.PREF_ROOT_SCREEN;
 
         int errorColor = ContextCompat.getColor(context, R.color.error_color);
 

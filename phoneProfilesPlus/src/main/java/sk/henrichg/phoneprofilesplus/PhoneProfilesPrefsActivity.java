@@ -143,13 +143,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             }
 
             if (widgetType == PPApplication.WIDGET_TYPE_ICON)
-                extraScrollTo = "categoryWidgetIconRoot";
+                extraScrollTo = PREF_WIDGET_ICON_CATEGORY;
             else
             if (widgetType == PPApplication.WIDGET_TYPE_ONE_ROW)
-                extraScrollTo = "categoryWidgetOneRowRoot";
+                extraScrollTo = PREF_WIDGET_ONE_ROW_CATEGORY;
             else
             if (widgetType == PPApplication.WIDGET_TYPE_LIST)
-                extraScrollTo = "categoryWidgetListRoot";
+                extraScrollTo = PREF_WIDGET_LISY_CATEGORY;
         }*/
         //else {
             extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);

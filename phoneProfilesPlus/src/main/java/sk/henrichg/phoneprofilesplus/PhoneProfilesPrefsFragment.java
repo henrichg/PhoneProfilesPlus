@@ -132,6 +132,41 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
     static final String PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT = "categorySamsungEdgePanelRoot";
 
+    static final String PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO = "applicationUnlinkRingerNotificationVolumesInfo";
+    static final String PREF_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_INFO = "applicationEventPeriodicScanningScanIntervalInfo";
+    static final String PREF_EVENT_LOCATION_UPDATE_INTEFVAL_INFO = "applicationEventLocationUpdateIntervalInfo";
+    static final String PREF_EVENT_WIFI_SCAN_INTERVAL_INFO = "applicationEventWifiScanIntervalInfo";
+    static final String PREF_EVENT_BLUETOOTH_SCAN_INTERVAL_INFO = "applicationEventBluetoothScanIntervalInfo";
+    static final String PREF_EVENT_ORIENTATION_SCAN_INTERVAL_INFO = "applicationEventOrientationScanIntervalInfo";
+    static final String PREF_UNLINK_RINGER_NOTIFICATION_VLUMES_IMPORTANT_INFO = "applicationUnlinkRingerNotificationVolumesImportantInfo";
+    static final String PREF_COLOR_OS_WIFI_BLUETOOTH_DIALOG_INFO = "applicationColorOsWifiBluetoothDialogsInfo";
+    static final String PREF_MIUI_WIFI_BLUETOOTH_DIALOG_INFO = "applicationMIUIWifiBluetoothDialogsInfo";
+    static final String PREF_WIDGET_ICON_NOT_WORKING_NIUI_INFO = "applicationWidgetIconNotWorkingMIUIInfo";
+    static final String PREF_WIDGET_ONE_ROW_NOT_WORKING_MIUI_INFO = "applicationWidgetOneRowNotWorkingMIUIInfo";
+    static final String PREF_WIDGET_LIST_NOT_WORKING_MIUI_INFO = "applicationWidgetListNotWorkingMIUIInfo";
+    static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_NOT_WORKING_MIUI_INFO = "applicationWidgetOneRowProfileListNotWorkingMIUIInfo";
+    static final String PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO = "notificationAppInstedProfileIconInStatusBarInfo";
+    static final String PREF_WIFI_CONTROL_INFO = "applicationWifiControlInfo";
+    static final String PREF_EVENT_WIFI_SCAN_THROTTLING_INFO = "applicationEventWifiScanThrottlingInfo";
+    static final String PREF_NOTIFICATION_BACKGROUND_COLOR_INFO = "notificationBackgroundColorInfo";
+    static final String PREF_NOTIFICATION_USE_DECORATOR_INFO = "notificationUseDecoratorInfo";
+
+    static final String PREF_DO_NOT_KILL_MY_APP = "applicationDoNotKillMyApp";
+    static final String PREF_CREATE_EDITOR_SHORTCUT = "applicationCreateEditorShortcut";
+
+    static final String PREF_WIFI_SCANNING_CATEGORY = "wifiScanningCategory";
+    static final String PREF_BLUETOOTH_SCANNING_CATEGORY = "bluetoothScanningCategory";
+    static final String PREF_MOBILE_CELLS_SCANNING_CATEGORY = "mobileCellsScanningCategory";
+    static final String PREF_ORIENTATION_SCANNING_CATEGORY = "orientationScanningCategory";
+    static final String PREF_APLICATION_START_CATEGORY = "categoryApplicationStart";
+    static final String PREF_NOTIFICATION_STATUS_BAR_CATEGORY = "notificationStatusBarCategory";
+    static final String PREF_PERMISSIONS_CATEGORY = "categoryPermissions";
+    static final String PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY = "specialProfileParametersCategory";
+    static final String PREF_WIDGET_ICON_CATEGORY = "categoryWidgetIcon";
+    static final String PREF_WIDGET_ONE_ROW_CATEGORY = "categoryWidgetOneRow";
+    static final String PREF_WIDGET_LISY_CATEGORY = "categoryWidgetList";
+    static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY = "categoryWidgetOneRowProfileList";
+
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
     private static final String ACTION_SHORTCUT_TO_EDITOR_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_EDITOR_ADDED";
@@ -447,7 +482,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        Preference preference;/* = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
+        Preference preference;/* = findPreference(PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO);
         if (preference != null) {
             preference.setShouldDisableView(false);
             preference.setEnabled(false);
@@ -456,7 +491,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //if (!ActivateProfileHelper.getMergedRingNotificationVolumes(getActivity().getApplicationContext())) {
         if (!ApplicationPreferences.prefMergedRingNotificationVolumes) {
             // detection of volumes merge = volumes are not merged
-            preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
+            preference = findPreference(PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO);
             if (preference != null) {
                 //preference.setEnabled(false);
                 preference.setTitle(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary);
@@ -464,7 +499,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
+            preference = findPreference(PREF_UNLINK_RINGER_NOTIFICATION_VOLUMES_INFO);
             if (preference != null) {
                 //preference.setEnabled(true);
                 preference.setTitle(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary);
@@ -619,7 +654,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     });
                 } else {
-                    PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+                    PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
                     if (preferenceCategory != null)
                         preferenceCategory.removePreference(preference);
                 }
@@ -968,7 +1003,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         /*}
         else {
             // hide user permissions
-            PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+            PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
             if (preferenceCategory != null) {
                 preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                 if (preference != null)
@@ -991,7 +1026,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
 
 //            if (PPApplication.isRooted(true)) {
-//                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+//                PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
 //                if (preferenceCategory != null) {
 //                    preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
 //                    if (preference != null)
@@ -1008,18 +1043,18 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //                }
 //            }
 //            else {
-//                PreferenceScreen preferenceScreen = findPreference("rootScreen");
-//                Preference preferenceCategory = findPreference("categoryPermissionsRoot");
+//                PreferenceScreen preferenceScreen = findPreference(PPApplication.PREF_ROOT_SCREEN);
+//                Preference preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
 //                if ((preferenceScreen != null) && (preferenceCategory != null))
 //                        preferenceScreen.removePreference(preferenceCategory);
 //            }
 
-            preferenceCategory = findPreference("wifiScanningCategory");
+            preferenceCategory = findPreference(PREF_WIFI_SCANNING_CATEGORY);
             preference = findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
             if ((preferenceCategory != null) && (preference != null))
                 preferenceCategory.removePreference(preference);
 
-            preferenceCategory = findPreference("bluetoothScanningCategory");
+            preferenceCategory = findPreference(PREF_BLUETOOTH_SCANNING_CATEGORY);
             preference = findPreference(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
             if ((preferenceCategory != null) && (preference != null))
                 preferenceCategory.removePreference(preference);
@@ -1060,7 +1095,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (!BluetoothScanner.bluetoothLESupported(/*getActivity().getApplicationContext()*/)) {
-            PreferenceScreen preferenceCategory = findPreference("bluetoothScanningCategory");
+            PreferenceScreen preferenceCategory = findPreference(PREF_BLUETOOTH_SCANNING_CATEGORY);
             preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);
             if ((preferenceCategory != null) && (preference != null))
                 preferenceCategory.removePreference(preference);
@@ -1104,16 +1139,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 return false;
             });
         }
-        /*
-        if (android.os.Build.VERSION.SDK_INT < 21) {
-            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categoryNotificationsStatusBar");
-            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
-            if (preference != null)
-                preferenceCategory.removePreference(preference);
-        }
-        */
         if ((PPApplication.sLook == null) || (!PPApplication.sLookCocktailPanelEnabled)) {
-            PreferenceScreen preferenceScreen = findPreference("rootScreen");
+            PreferenceScreen preferenceScreen = findPreference(PPApplication.PREF_ROOT_SCREEN);
             Preference preferenceCategory = findPreference(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT);
             if ((preferenceScreen != null) && (preferenceCategory != null))
                 preferenceScreen.removePreference(preferenceCategory);
@@ -1187,7 +1214,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preferenceCategory != null)
                         preferenceScreen.removePreference(preferenceCategory);
                 }*/
-                PreferenceScreen preferenceScreen = findPreference("categoryApplicationStart");
+                PreferenceScreen preferenceScreen = findPreference(PREF_APLICATION_START_CATEGORY);
                 if (preferenceScreen != null) {
                     preference = findPreference(PREF_AUTOSTART_MANAGER);
                     if (preference != null)
@@ -1200,23 +1227,23 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
                 workMinInterval + " " +
                 getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary2);
-        preference = findPreference("applicationEventPeriodicScanningScanIntervalInfo");
+        preference = findPreference(PREF_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL_INFO);
         if (preference != null) {
             preference.setSummary(summary);
         }
-        preference = findPreference("applicationEventLocationUpdateIntervalInfo");
+        preference = findPreference(PREF_EVENT_LOCATION_UPDATE_INTEFVAL_INFO);
         if (preference != null) {
             preference.setSummary(summary);
         }
-        preference = findPreference("applicationEventWifiScanIntervalInfo");
+        preference = findPreference(PREF_EVENT_WIFI_SCAN_INTERVAL_INFO);
         if (preference != null) {
             preference.setSummary(summary);
         }
-        preference = findPreference("applicationEventBluetoothScanIntervalInfo");
+        preference = findPreference(PREF_EVENT_BLUETOOTH_SCAN_INTERVAL_INFO);
         if (preference != null) {
             preference.setSummary(summary);
         }
-        preference = findPreference("applicationEventOrientationScanIntervalInfo");
+        preference = findPreference(PREF_EVENT_ORIENTATION_SCAN_INTERVAL_INFO);
         if (preference != null) {
             summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " 10 " +
                     getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary3);
@@ -1226,7 +1253,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (Build.VERSION.SDK_INT >= 27) {
             preference = findPreference(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("wifiScanningCategory");
+                PreferenceScreen preferenceCategory = findPreference(PREF_WIFI_SCANNING_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
@@ -1534,7 +1561,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 //            if ((preferenceCategory != null) && (preference != null))
 //                preferenceCategory.removePreference(preference);
 //        }
-        preference = findPreference("applicationUnlinkRingerNotificationVolumesImportantInfo");
+        preference = findPreference(PREF_UNLINK_RINGER_NOTIFICATION_VLUMES_IMPORTANT_INFO);
         if (preference != null) {
             preference.setOnPreferenceClickListener(preference115 -> {
                 Intent intentLaunch = new Intent(getActivity(), ImportantInfoActivityForceScroll.class);
@@ -1546,7 +1573,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
-        preference = findPreference("applicationDoNotKillMyApp");
+        preference = findPreference(PREF_DO_NOT_KILL_MY_APP);
         if (preference != null) {
             preference.setSummary(getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_summary1) + " " +
                     getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
@@ -1602,7 +1629,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 */
 
-        preference = findPreference("applicationWidgetLauncher");
+        preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER);
         if (preference != null) {
             preference.setTitle(getString(R.string.phone_profiles_pref_applicationWidgetLauncher) +
                                     " (" + getString(R.string.widget_label_icon) +
@@ -1623,7 +1650,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }*/
 
         if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
-            preference = findPreference("applicationColorOsWifiBluetoothDialogsInfo");
+            preference = findPreference(PREF_COLOR_OS_WIFI_BLUETOOTH_DIALOG_INFO);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference117 -> {
                     /*
@@ -1669,15 +1696,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            preference = findPreference("applicationColorOsWifiBluetoothDialogsInfo");
+            preference = findPreference(PREF_COLOR_OS_WIFI_BLUETOOTH_DIALOG_INFO);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+                PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
         }
         if (PPApplication.deviceIsXiaomi || PPApplication.romIsMIUI) {
-            preference = findPreference("applicationMIUIWifiBluetoothDialogsInfo");
+            preference = findPreference(PREF_MIUI_WIFI_BLUETOOTH_DIALOG_INFO);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference118 -> {
                     /*
@@ -1793,42 +1820,42 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            preference = findPreference("applicationMIUIWifiBluetoothDialogsInfo");
+            preference = findPreference(PREF_MIUI_WIFI_BLUETOOTH_DIALOG_INFO);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+                PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
         }
 
         if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
-            preference = findPreference("applicationWidgetIconNotWorkingMIUIInfo");
+            preference = findPreference(PREF_WIDGET_ICON_NOT_WORKING_NIUI_INFO);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("categoryWidgetIcon");
+                PreferenceScreen preferenceCategory = findPreference(PREF_WIDGET_ICON_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = findPreference("applicationWidgetOneRowNotWorkingMIUIInfo");
+            preference = findPreference(PREF_WIDGET_ONE_ROW_NOT_WORKING_MIUI_INFO);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("categoryWidgetOneRow");
+                PreferenceScreen preferenceCategory = findPreference(PREF_WIDGET_ONE_ROW_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = findPreference("applicationWidgetListNotWorkingMIUIInfo");
+            preference = findPreference(PREF_WIDGET_LIST_NOT_WORKING_MIUI_INFO);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("categoryWidgetList");
+                PreferenceScreen preferenceCategory = findPreference(PREF_WIDGET_LISY_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = findPreference("applicationWidgetOneRowProfileListNotWorkingMIUIInfo");
+            preference = findPreference(PREF_WIDGET_ONE_ROW_PROFILE_LIST_NOT_WORKING_MIUI_INFO);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("categoryWidgetOneRowProfileList");
+                PreferenceScreen preferenceCategory = findPreference(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = findPreference("notificationAppInstedProfileIconInStatusBarInfo");
+            preference = findPreference(PREF_NOTIFICATION_APP_INSTEAD_PROFILE_ICON_IN_STATUS_BAR_INFO);
             if (preference != null) {
-                PreferenceCategory preferenceCategory = findPreference("notificationStatusBarCategory");
+                PreferenceCategory preferenceCategory = findPreference(PREF_NOTIFICATION_STATUS_BAR_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
@@ -1836,7 +1863,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if ((Build.VERSION.SDK_INT >= 28) &&
                 (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
-            preference = findPreference("applicationWifiControlInfo");
+            preference = findPreference(PREF_WIFI_CONTROL_INFO);
             if (preference != null) {
                 if (PPApplication.deviceIsSony)
                     preference.setSummary(R.string.phone_profiles_pref_applicationWifiControlInfo_sony_summary);
@@ -1900,9 +1927,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            preference = findPreference("applicationWifiControlInfo");
+            preference = findPreference(PREF_WIFI_CONTROL_INFO);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
+                PreferenceScreen preferenceCategory = findPreference(PREF_PERMISSIONS_CATEGORY);
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
@@ -1959,7 +1986,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
             preference = findPreference(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
             if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("specialProfileParametersCategory");
+                PreferenceScreen preferenceCategory = findPreference(PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY);
                 if (preferenceCategory != null) {
                     preferenceCategory.removePreference(preference);
                     if (preferenceCategory.getPreferenceCount() == 0) {
@@ -1979,7 +2006,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 29) {
-            InfoDialogPreference infoDialogPreference = prefMng.findPreference("applicationEventWifiScanThrottlingInfo");
+            InfoDialogPreference infoDialogPreference = prefMng.findPreference(PREF_EVENT_WIFI_SCAN_THROTTLING_INFO);
             if (infoDialogPreference != null) {
 
                 String url;
@@ -2014,7 +2041,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
-        preference = prefMng.findPreference("applicationCreateEditorShortcut");
+        preference = prefMng.findPreference(PREF_CREATE_EDITOR_SHORTCUT);
         if (preference != null) {
             Context appContext = getActivity().getApplicationContext();
             if (ShortcutManagerCompat.isRequestPinShortcutSupported(appContext)) {
@@ -2725,7 +2752,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, false);
             editor.apply();
-            Preference preference = prefMng.findPreference("wifiScanningCategory");
+            Preference preference = prefMng.findPreference(PREF_WIFI_SCANNING_CATEGORY);
             if (preference != null)
                 preference.setEnabled(false);
         }
@@ -2742,7 +2769,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
             editor.apply();
-            Preference preference = prefMng.findPreference("bluetoothScanningCategory");
+            Preference preference = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_CATEGORY);
             if (preference != null)
                 preference.setEnabled(false);
         }
@@ -2750,7 +2777,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
-            Preference preference = prefMng.findPreference("orientationScanningCategory");
+            Preference preference = prefMng.findPreference(PREF_ORIENTATION_SCANNING_CATEGORY);
             if (preference != null)
                 preference.setEnabled(false);
         }
@@ -2759,7 +2786,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
 
-            Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
+            Preference preference = prefMng.findPreference(PREF_MOBILE_CELLS_SCANNING_CATEGORY);
             if (preference != null)
                 preference.setEnabled(false);
         }
@@ -3415,7 +3442,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     //else
                     _preference.setEnabled(backgroundColor.equals("0"));
                 }
-                _preference = findPreference("notificationUseDecoratorInfo");
+                _preference = findPreference(PREF_NOTIFICATION_USE_DECORATOR_INFO);
                 if (_preference != null) {
                     //if (Build.VERSION.SDK_INT < 29)
                     //    _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
@@ -3442,7 +3469,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(backgroundColor.equals("5"));
 
-                _preference = findPreference("notificationBackgroundColorInfo");
+                _preference = findPreference(PREF_NOTIFICATION_BACKGROUND_COLOR_INFO);
                 if (_preference != null)
                     _preference.setEnabled(true);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
@@ -3487,7 +3514,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(false);
 
-                _preference = findPreference("notificationBackgroundColorInfo");
+                _preference = findPreference(PREF_NOTIFICATION_BACKGROUND_COLOR_INFO);
                 if (_preference != null)
                     _preference.setEnabled(false);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
@@ -3505,7 +3532,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
                 if (_preference != null)
                     _preference.setEnabled(false);
-                _preference = findPreference("notificationUseDecoratorInfo");
+                _preference = findPreference(PREF_NOTIFICATION_USE_DECORATOR_INFO);
                 if (_preference != null)
                     _preference.setEnabled(false);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
@@ -3753,7 +3780,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
                 preference.setSummary("");
-            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("notififcationScanningCategoryRoot");
+            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
 

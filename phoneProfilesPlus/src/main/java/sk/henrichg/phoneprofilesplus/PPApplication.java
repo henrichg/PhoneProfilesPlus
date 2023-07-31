@@ -678,6 +678,8 @@ public class PPApplication extends Application
     static final String TMP_SHARED_PREFS_PROFILE_PREFERENCES_INDICATOR = "temp_profilePreferencesIndicator";
     static final String TMP_SHARED_PREFS_IS_PROFILE_PREFERENCE_ALLOWED = "temp_isProfilePreferenceAllowed";
 
+    static final String PREF_ROOT_SCREEN = "rootScreen";
+
     //public static long lastUptimeTime;
     //public static long lastEpochTime;
 

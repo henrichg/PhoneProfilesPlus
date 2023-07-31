@@ -1495,7 +1495,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         Context context = activity.getApplicationContext();
 
-        String rootScreen = "rootScreen";
+        String rootScreen = PPApplication.PREF_ROOT_SCREEN;
 
         long event_id = activity.event_id;
         int newEventMode = activity.newEventMode;
