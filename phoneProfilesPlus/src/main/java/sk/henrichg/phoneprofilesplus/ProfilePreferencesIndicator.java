@@ -419,7 +419,7 @@ class ProfilePreferencesIndicator {
         countPreferences = 0;
         if (profile != null)
         {
-            SharedPreferences sharedPreferences = appContext.getSharedPreferences("temp_profilePreferencesIndicator", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = appContext.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PROFILE_PREFERENCES_INDICATOR, Context.MODE_PRIVATE);
             profile.saveProfileToSharedPreferences(sharedPreferences);
 
             if (profile._volumeRingerMode != 0) {

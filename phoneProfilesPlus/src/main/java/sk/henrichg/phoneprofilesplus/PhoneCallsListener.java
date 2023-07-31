@@ -285,7 +285,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
                         final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
                         if (profile != null) {
-                            SharedPreferences sharedPreferences = context.getSharedPreferences("temp_phoneCallBroadcastReceiver", Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = context.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PHONE_CALL_BROADCAST_RECEIVER, Context.MODE_PRIVATE);
                             profile.saveProfileToSharedPreferences(sharedPreferences);
                             ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context, sharedPreferences);
                             return true;

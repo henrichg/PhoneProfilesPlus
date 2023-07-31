@@ -287,7 +287,7 @@ public class PPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                             Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
                             if (profile != null) {
-                                SharedPreferences sharedPreferences = appContext.getSharedPreferences("temp_pppExtenderBroadcastReceiver", Context.MODE_PRIVATE);
+                                SharedPreferences sharedPreferences = appContext.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_PPP_EXTENDER_BROADCAST_RECEIVER, Context.MODE_PRIVATE);
                                 profile.saveProfileToSharedPreferences(sharedPreferences);
 //                                Log.e("PPExtenderBroadcastReceiver.onReceive", "call of ActivateProfileHelper.executeForInteractivePreferences");
                                 ActivateProfileHelper.executeForInteractivePreferences(profile, appContext, sharedPreferences);

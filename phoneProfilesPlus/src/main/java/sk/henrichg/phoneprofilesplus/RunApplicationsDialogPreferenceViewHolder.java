@@ -56,17 +56,17 @@ class RunApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder 
         }
         else
             imageViewIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
-        String text = "(A) " + application.appLabel;
+        String text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_APPLICATION + application.appLabel;
         if (application.shortcutId > 0) {
             Shortcut shortcut = DatabaseHandler.getInstance(context.getApplicationContext()).getShortcut(application.shortcutId);
             if (shortcut != null)
-                text = "(S) " + shortcut._name;
+                text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_SHORTCUT + shortcut._name;
         }
         else
         if (application.intentId > 0) {
             PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(application.intentId);
             if (intent != null)
-                text = "(I) " + intent._name;
+                text = RunApplicationEditorDialog.RUN_APPLICATIONS_TYPE_MARK_INTENT + intent._name;
         }
         textViewAppName.setText(text);
         boolean errorColor = false;

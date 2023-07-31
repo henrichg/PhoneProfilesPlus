@@ -233,7 +233,7 @@ class ProfileStatic {
                 percentage = getBrightnessPercentageWithLookup(value/*, minValue, maxValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains(PPApplication.MODEL_NEXUS)) {// Nexus may be LG, Samsung, Huawei, ...
                 percentage = getBrightnessPercentageWithLookup(value/*, minValue, maxValue*/);
             }
             else
@@ -331,7 +331,7 @@ class ProfileStatic {
                 defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains(PPApplication.MODEL_NEXUS)) {// Nexus may be LG, Samsung, Huawei, ...
                 defaultValue = getBrightnessManualValueWithLookup(50/*, minimumValue, maximumValue*/);
             }
             else
@@ -352,7 +352,7 @@ class ProfileStatic {
                 value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else
-            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
+            if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains(PPApplication.MODEL_NEXUS)) {// Nexus may be LG, Samsung, Huawei, ...
                 value = getBrightnessManualValueWithLookup(percentage/*, minimumValue, maximumValue*/);
             }
             else
@@ -867,7 +867,7 @@ class ProfileStatic {
                                                         SharedPreferences sharedPreferences,
                                                         boolean fromUIThread, Context context) {
         if ((profile != null) && (!preferenceKey.equals("-")) && (sharedPreferences == null)) {
-            sharedPreferences = context.getApplicationContext().getSharedPreferences("temp_isProfilePreferenceAllowed", Context.MODE_PRIVATE);
+            sharedPreferences = context.getApplicationContext().getSharedPreferences(PPApplication.TMP_SHARED_PREFS_IS_PROFILE_PREFERENCE_ALLOWED, Context.MODE_PRIVATE);
             profile.saveProfileToSharedPreferences(sharedPreferences);
             profile = null;
         }

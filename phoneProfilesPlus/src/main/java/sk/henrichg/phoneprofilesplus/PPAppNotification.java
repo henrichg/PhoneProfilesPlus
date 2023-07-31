@@ -1322,10 +1322,10 @@ public class PPAppNotification {
 
     static void clearOldNotification(Context context) {
         boolean clear = false;
-        if (Build.MANUFACTURER.equals("HMD Global"))
+        if (Build.MANUFACTURER.equals(PPApplication.MANUFACTURER_HMD_GLOBAL))
             // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
             clear = true;
-        if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
+        if (PPApplication.deviceIsLG && (!Build.MODEL.contains(PPApplication.MODEL_NEXUS)) && (Build.VERSION.SDK_INT == 28))
             // clear it for redraw icon in "Glance view" for LG with Android 9
             clear = true;
         if (clear) {

@@ -70,6 +70,11 @@ class RunApplicationEditorDialog
     static final String EXTRA_APPLICATION = "application";
     static final String EXTRA_PP_INTENT = "ppIntent";
 
+    static final String RUN_APPLICATIONS_TYPE_MARK_APPLICATION = "(A) ";
+    static final String RUN_APPLICATIONS_TYPE_MARK_SHORTCUT = "(S) ";
+    static final String RUN_APPLICATIONS_TYPE_MARK_INTENT = "(I) ";
+
+
     RunApplicationEditorDialog(Activity activity, RunApplicationsDialogPreference preference,
                                final Application application)
     {
@@ -355,13 +360,13 @@ class RunApplicationEditorDialog
             String appName = "";
             switch (selectedApplication.type) {
                 case Application.TYPE_APPLICATION:
-                    appName = "(A) ";
+                    appName = RUN_APPLICATIONS_TYPE_MARK_APPLICATION;
                     break;
                 case Application.TYPE_SHORTCUT:
-                    appName = "(S) ";
+                    appName = RUN_APPLICATIONS_TYPE_MARK_SHORTCUT;
                     break;
                 case Application.TYPE_INTENT:
-                    appName = "(I) ";
+                    appName = RUN_APPLICATIONS_TYPE_MARK_INTENT;
                     break;
             }
             appName = appName + selectedApplication.appLabel;

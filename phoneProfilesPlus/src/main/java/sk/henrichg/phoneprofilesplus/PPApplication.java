@@ -339,6 +339,9 @@ public class PPApplication extends Application
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED = 112;
     static final int ALTYPE_EXTENDER_ACCESSIBILITY_SERVICE_UNBIND = 113;
 
+    static final String MODEL_NEXUS = "Nexus";
+    static final String MANUFACTURER_HMD_GLOBAL = "HMD Global";
+
     //static final String romManufacturer = getROMManufacturer();
     static final boolean deviceIsXiaomi = isXiaomi();
     static final boolean deviceIsHuawei = isHuawei();
@@ -666,6 +669,14 @@ public class PPApplication extends Application
     static final String SYS_PROP_MOD_VERSION = "ro.modversion";
     static final String INTENT_DATA_PACKAGE = "package:";
     static final String EXTRA_PKG_NAME = "extra_pkgname";
+
+    // teporary saherd preference names used for Profile.saveProfileToSharedPreferences()
+    static final String TMP_SHARED_PREFS_ACTIVATE_PROFILE_HELPER_EXECUTE = "temp_activateProfileHelper_execute";
+    static final String TMP_SHARED_PREFS_DISABLE_NOT_ALLOWED_PREFERENCES = "temp_disableNotAllowedPreferences";
+    static final String TMP_SHARED_PREFS_PHONE_CALL_BROADCAST_RECEIVER = "temp_phoneCallBroadcastReceiver";
+    static final String TMP_SHARED_PREFS_PPP_EXTENDER_BROADCAST_RECEIVER = "temp_pppExtenderBroadcastReceiver";
+    static final String TMP_SHARED_PREFS_PROFILE_PREFERENCES_INDICATOR = "temp_profilePreferencesIndicator";
+    static final String TMP_SHARED_PREFS_IS_PROFILE_PREFERENCE_ALLOWED = "temp_isProfilePreferenceAllowed";
 
     //public static long lastUptimeTime;
     //public static long lastEpochTime;

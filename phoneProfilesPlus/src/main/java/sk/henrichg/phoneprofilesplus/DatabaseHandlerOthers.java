@@ -206,7 +206,7 @@ class DatabaseHandlerOthers {
                 db.beginTransaction();
                 //noinspection TryFinallyCanBeTryWithResources
                 try {
-                    SharedPreferences sharedPreferences = instance.context.getApplicationContext().getSharedPreferences("temp_disableNotAllowedPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = instance.context.getApplicationContext().getSharedPreferences(PPApplication.TMP_SHARED_PREFS_DISABLE_NOT_ALLOWED_PREFERENCES, Context.MODE_PRIVATE);
 
                     if (profilesCursor.moveToFirst()) {
                         do {

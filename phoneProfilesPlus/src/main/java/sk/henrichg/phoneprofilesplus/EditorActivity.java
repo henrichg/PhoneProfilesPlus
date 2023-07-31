@@ -2532,7 +2532,7 @@ public class EditorActivity extends AppCompatActivity
                             ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND,
                             ApplicationPreferences.PREF_APPLICATION_APPLICATION_PROFILE_ACTIVATION_NOTIFICATION_SOUND_DEFAULT_VALUE);
                     if (!tone.isEmpty()) {
-                        if (tone.contains("content://media/external")) {
+                        if (tone.contains(StringConstants.RINGTONE_CONTENT_EXTERNAL)) {
                             boolean isGranted = false;
                             Uri uri = Uri.parse(tone);
                             if (uri != null) {
@@ -2556,7 +2556,7 @@ public class EditorActivity extends AppCompatActivity
                             ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
                             ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND_DEFAULT_VALUE);
                     if (!tone.isEmpty()) {
-                        if (tone.contains("content://media/external")) {
+                        if (tone.contains(StringConstants.RINGTONE_CONTENT_EXTERNAL)) {
                             boolean isGranted = false;
                             Uri uri = Uri.parse(tone);
                             if (uri != null) {

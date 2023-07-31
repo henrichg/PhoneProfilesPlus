@@ -77,7 +77,7 @@ class RingtonePreferenceRefreshListViewAsyncTask extends AsyncTask<Void, Integer
             boolean typeIsSet = false;
 
             switch (preference.ringtoneType) {
-                case "ringtone":
+                case RingtonePreference.RINGTONE_TYPE_RINGTONE:
                     manager.setType(RingtoneManager.TYPE_RINGTONE);
                     typeIsSet = true;
                     if (preference.showDefault) {
@@ -92,7 +92,7 @@ class RingtonePreferenceRefreshListViewAsyncTask extends AsyncTask<Void, Integer
                         _toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
                     }
                     break;
-                case "notification":
+                case RingtonePreference.RINGTONE_TYPE_NOTIFICATION:
                     manager.setType(RingtoneManager.TYPE_NOTIFICATION);
                     typeIsSet = true;
                     if (preference.showDefault) {
@@ -107,7 +107,7 @@ class RingtonePreferenceRefreshListViewAsyncTask extends AsyncTask<Void, Integer
                         _toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
                     }
                     break;
-                case "alarm":
+                case RingtonePreference.RINGTONE_TYPE_ALARM:
                     manager.setType(RingtoneManager.TYPE_ALARM);
                     typeIsSet = true;
                     if (preference.showDefault) {
@@ -142,9 +142,9 @@ class RingtonePreferenceRefreshListViewAsyncTask extends AsyncTask<Void, Integer
                         // for Samsung do not allow external tones
                         boolean add = true;
                         if (PPApplication.deviceIsSamsung && PPApplication.romIsGalaxy) {
-                            if (preference.ringtoneType.equals("ringtone") && (preference.simCard != 0) && (!_uri.contains("content://media/internal")))
+                            if (preference.ringtoneType.equals(RingtonePreference.RINGTONE_TYPE_RINGTONE) && (preference.simCard != 0) && (!_uri.contains(StringConstants.RINGTONE_CONTENT_INTERNAL)))
                                 add = false;
-                            if (preference.ringtoneType.equals("notification") && (preference.simCard != 0) && (!_uri.contains("content://media/internal")))
+                            if (preference.ringtoneType.equals(RingtonePreference.RINGTONE_TYPE_NOTIFICATION) && (preference.simCard != 0) && (!_uri.contains(StringConstants.RINGTONE_CONTENT_INTERNAL)))
                                 add = false;
                         }
 

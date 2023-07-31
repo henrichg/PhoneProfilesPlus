@@ -49,6 +49,10 @@ public class RingtonePreference extends DialogPreference {
     private static volatile Timer playTimer = null;
     private static volatile boolean ringtoneIsPlayed = false;
 
+    static final String RINGTONE_TYPE_RINGTONE = "ringtone";
+    static final String RINGTONE_TYPE_NOTIFICATION = "notification";
+    static final String RINGTONE_TYPE_ALARM = "alarm";
+
     public RingtonePreference(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -66,13 +70,13 @@ public class RingtonePreference extends DialogPreference {
         if (!showSilent && showDefault) {
             if (ringtoneType != null) {
                 switch (ringtoneType) {
-                    case "ringtone":
+                    case RINGTONE_TYPE_RINGTONE:
                         ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
                         break;
-                    case "notification":
+                    case RINGTONE_TYPE_NOTIFICATION:
                         ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
                         break;
-                    case "alarm":
+                    case RINGTONE_TYPE_ALARM:
                         ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
                         break;
                 }
@@ -240,21 +244,21 @@ public class RingtonePreference extends DialogPreference {
                         int maximumRingtoneValue = 0;
 
                         switch (ringtoneType) {
-                            case "ringtone":
+                            case RINGTONE_TYPE_RINGTONE:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                                 if (!oldMediaMuted)
                                     ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
                                 else
                                     ringtoneVolume = Math.round(maximumRingtoneValue * 0.75f);
                                 break;
-                            case "notification":
+                            case RINGTONE_TYPE_NOTIFICATION:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
                                 if (!oldMediaMuted)
                                     ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
                                 else
                                     ringtoneVolume = Math.round(maximumRingtoneValue * 0.75f);
                                 break;
-                            case "alarm":
+                            case RINGTONE_TYPE_ALARM:
                                 maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
                                 if (!oldMediaMuted)
                                     ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);

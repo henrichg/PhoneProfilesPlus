@@ -4696,7 +4696,7 @@ class ActivateProfileHelper {
     {
         final Context appContext = context.getApplicationContext();
 
-        SharedPreferences executedProfileSharedPreferences = appContext.getSharedPreferences("temp_activateProfileHelper_execute", Context.MODE_PRIVATE);
+        SharedPreferences executedProfileSharedPreferences = appContext.getSharedPreferences(PPApplication.TMP_SHARED_PREFS_ACTIVATE_PROFILE_HELPER_EXECUTE, Context.MODE_PRIVATE);
         profile.saveProfileToSharedPreferences(executedProfileSharedPreferences);
 
         // unlink ring and notifications - it is @Hide :-(

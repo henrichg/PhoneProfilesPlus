@@ -122,6 +122,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_OTHERS_CATTEGORY_ROOT = "prf_pref_othersCategoryRoot";
     private static final String PREF_PROFILE_APPLICATION_CATTEGORY_ROOT = "prf_pref_applicationCategoryRoot";
 
+    private static final String TAG_RINGTONE_NAME = "<ringtone_name>";
+    private static final String TAG_NOTIFICATION_NAME = "<notification_name>";
+    private static final String TAG_ALARM_NAME = "<alarm_name>";
+    private static final String TAG_RINGTONE_NAME_SIM1 = "<ringtone_name_sim1>";
+    private static final String TAG_RINGTONE_NAME_SIM2 = "<ringtone_name_sim2>";
+    private static final String TAG_NOTIFICATION_NAME_SIM1 = "<notification_name_sim1>";
+    private static final String TAG_NOTIFICATION_NAME_SIM2 = "<notification_name_sim2>";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -2235,7 +2243,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!cattegorySummaryData.summary.isEmpty())
                     cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                        ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name>", prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context)
+                        ProfileStatic.getColorForChangedPreferenceValue(TAG_RINGTONE_NAME, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context)
                         + StringConstants.TAG_BOLD_END_HTML;
             }
 
@@ -2614,7 +2622,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                    ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name>", prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context)
+                    ProfileStatic.getColorForChangedPreferenceValue(TAG_RINGTONE_NAME, prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context)
                     + StringConstants.TAG_BOLD_END_HTML;
         }
         //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_RINGTONE);
@@ -2624,7 +2632,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!cattegorySummaryData.summary.isEmpty())
                 cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                    ProfileStatic.getColorForChangedPreferenceValue("<notification_name>", prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context)
+                    ProfileStatic.getColorForChangedPreferenceValue(TAG_NOTIFICATION_NAME, prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context)
                     + StringConstants.TAG_BOLD_END_HTML;
         }
         //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
@@ -2634,7 +2642,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!cattegorySummaryData.summary.isEmpty())
                 cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                    ProfileStatic.getColorForChangedPreferenceValue("<alarm_name>", prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context)
+                    ProfileStatic.getColorForChangedPreferenceValue(TAG_ALARM_NAME, prefMng, PREF_PROFILE_SOUNDS_CATTEGORY_ROOT, context)
                     + StringConstants.TAG_BOLD_END_HTML;
         }
         //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_ALARM);
@@ -4132,7 +4140,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (!title.isEmpty()) {
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                                    ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name_sim1>", prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
+                                    ProfileStatic.getColorForChangedPreferenceValue(TAG_RINGTONE_NAME_SIM1, prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
                                     + StringConstants.TAG_BOLD_END_HTML;
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, context);
@@ -4141,7 +4149,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                                    ProfileStatic.getColorForChangedPreferenceValue("<ringtone_name_sim2>", prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
+                                    ProfileStatic.getColorForChangedPreferenceValue(TAG_RINGTONE_NAME_SIM2, prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
                                     + StringConstants.TAG_BOLD_END_HTML;
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, context);
@@ -4150,7 +4158,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                                    ProfileStatic.getColorForChangedPreferenceValue("<notification_name_sim1>", prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
+                                    ProfileStatic.getColorForChangedPreferenceValue(TAG_NOTIFICATION_NAME_SIM1, prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
                                     + StringConstants.TAG_BOLD_END_HTML;
                         }
                         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, context);
@@ -4159,7 +4167,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + StringConstants.STR_DOT;
                             cattegorySummaryData.bold = true;
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": "+StringConstants.TAG_BOLD_START_HTML +
-                                    ProfileStatic.getColorForChangedPreferenceValue("<notification_name_sim2>", prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
+                                    ProfileStatic.getColorForChangedPreferenceValue(TAG_NOTIFICATION_NAME_SIM2, prefMng, PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context)
                                     + StringConstants.TAG_BOLD_END_HTML;
                         }
 
@@ -7375,7 +7383,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Context context = contextWeakReference.get();
             androidx.preference.Preference preference = preferenceWeakRef.get();
             if ((context != null) && (preference != null)) {
-                String summary = TextUtils.replace(initSummary, new String[]{"<ringtone_name>"}, new String[]{ringtoneName}).toString();
+                String summary = TextUtils.replace(initSummary, new String[]{TAG_RINGTONE_NAME}, new String[]{ringtoneName}).toString();
                 preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
             }
         }
@@ -7471,7 +7479,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             androidx.preference.Preference preference = preferenceWeakRef.get();
             if ((context != null) && (preference != null)) {
                 String summary = TextUtils.replace(initSummary,
-                        new String[]{"<ringtone_name>", "<notification_name>", "<alarm_name>"},
+                        new String[]{TAG_RINGTONE_NAME, TAG_NOTIFICATION_NAME, TAG_ALARM_NAME},
                         new String[]{ringtoneName, notificationName, alarmName}).toString();
                 preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
             }
@@ -7586,7 +7594,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             androidx.preference.Preference preference = preferenceWeakRef.get();
             if ((context != null) && (preference != null)) {
                 String summary = TextUtils.replace(initSummary,
-                        new String[]{"<ringtone_name_sim1>", "<ringtone_name_sim2>", "<notification_name_sim1>", "<notification_name_sim2>"},
+                        new String[]{TAG_RINGTONE_NAME_SIM1, TAG_RINGTONE_NAME_SIM2, TAG_NOTIFICATION_NAME_SIM1, TAG_NOTIFICATION_NAME_SIM2},
                         new String[]{ringtoneNameSIM1, ringtoneNameSIM2, notificationNameSIM1, notificationNameSIM2}).toString();
                 preference.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
             }
