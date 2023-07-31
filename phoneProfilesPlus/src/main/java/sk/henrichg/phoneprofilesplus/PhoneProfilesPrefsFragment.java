@@ -107,6 +107,31 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOTIFICATION_PROFILE_LIST_SYSTEM_SETTINGS = "notificationProfileListSystemSettingsProfileList";
     private static final String PREF_NOTIFICATION_SCANNING_NOTIFICATION_ACCESS_RESTRICTED_SETTINGS = "applicationEventNotificationNotificationsAccessSettingsRestrictedSettings";
 
+    static final String PREF_APPLICATION_INTERFACE_CATEGORY_ROOT = "applicationInterfaceCategoryRoot";
+    static final String PREF_APPLICATION_START_CATEGORY_ROOT = "categoryApplicationStartRoot";
+    static final String PREF_SYSTEM_CATEGORY_ROOT = "categorySystemRoot";
+    static final String PREF_PERMISSIONS_CATEGORY_ROOT = "categoryPermissionsRoot";
+    static final String PREF_PROFILE_ACTIVATION_CATEGORY_ROOT = "profileActivationCategoryRoot";
+    static final String PREF_EVENT_RUN_CATEGORY_ROOT = "eventRunCategoryRoot";
+    static final String PREF_APP_NOTIFICATION_CATEGORY_ROOT = "categoryAppNotificationRoot";
+    static final String PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT = "specialProfileParametersCategoryRoot";
+    static final String PREF_PERIODIC_SCANNING_CATEGORY_ROOT = "periodicScanningCategoryRoot";
+    static final String PREF_LOCATION_SCANNING_CATEGORY_ROOT = "locationScanningCategoryRoot";
+    static final String PREF_WIFI_SCANNING_CATEGORY_ROOT = "wifiScanningCategoryRoot";
+    static final String PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT = "bluetoothScanningCategoryRoot";
+    static final String PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT = "mobileCellsScanningCategoryRoot";
+    static final String PREF_ORIENTATION_SCANNING_CATEGORY_ROOT = "orientationScanningCategoryRoot";
+    static final String PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT = "notificationScanningCategoryRoot";
+    static final String PREF_ACTIVATOR_CATEGORY_ROOT = "categoryActivatorRoot";
+    static final String PREF_EDITOR_CATEGORY_ROOT = "categoryEditorRoot";
+    static final String PREF_WIDGET_LIST_CATEGORY_ROOT = "categoryWidgetListRoot";
+    static final String PREF_WIDGET_ONE_ROW_CATEGORY_ROOT = "categoryWidgetOneRowRoot";
+    static final String PREF_WIDGET_ICON_CATEGORY_ROOT = "categoryWidgetIconRoot";
+    static final String PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT = "categoryWidgetOneRowProfileListRoot";
+    static final String PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT = "categoryProfileListNotificationRoot";
+    static final String PREF_SHORTCUT_CATEGORY_ROOT = "categoryShortcutRoot";
+    static final String PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT = "categorySamsungEdgePanelRoot";
+
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
 
     private static final String ACTION_SHORTCUT_TO_EDITOR_ADDED = PPApplication.PACKAGE_NAME + ".ACTION_SHORTCUT_TO_EDITOR_ADDED";
@@ -353,70 +378,70 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         */
         if (!nestedFragment) {
             Preference preferenceCategoryScreen;
-            preferenceCategoryScreen = findPreference("applicationInterfaceCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_APPLICATION_INTERFACE_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) {
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("categoryApplicationStartRoot");
+            preferenceCategoryScreen = findPreference(PREF_APPLICATION_START_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
-            preferenceCategoryScreen = findPreference("categorySystemRoot");
+            preferenceCategoryScreen = findPreference(PREF_SYSTEM_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("categoryPermissionsRoot");
+            preferenceCategoryScreen = findPreference(PREF_PERMISSIONS_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("profileActivationCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_PROFILE_ACTIVATION_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("eventRunCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_EVENT_RUN_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryScreen, true, false, true, false, false, false);
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("categoryAppNotificationRoot");
+            preferenceCategoryScreen = findPreference(PREF_APP_NOTIFICATION_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("specialProfileParametersCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("periodicScanningCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_PERIODIC_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("locationScanningCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_LOCATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("wifiScanningCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_WIFI_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("bluetoothScanningCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("mobileCellsScanningCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("orientationScanningCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_ORIENTATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("notificationScanningCategoryRoot");
+            preferenceCategoryScreen = findPreference(PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("categoryActivatorRoot");
+            preferenceCategoryScreen = findPreference(PREF_ACTIVATOR_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("categoryEditorRoot");
+            preferenceCategoryScreen = findPreference(PREF_EDITOR_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("categoryWidgetListRoot");
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_LIST_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("categoryWidgetOneRowRoot");
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_ONE_ROW_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("categoryWidgetIconRoot");
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_ICON_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("categoryWidgetOneRowProfileListRoot");
+            preferenceCategoryScreen = findPreference(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
-            preferenceCategoryScreen = findPreference("categoryProfileListNotificationRoot");
+            preferenceCategoryScreen = findPreference(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
 
-            preferenceCategoryScreen = findPreference("categoryShortcutRoot");
+            preferenceCategoryScreen = findPreference(PREF_SHORTCUT_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
-                preferenceCategoryScreen = findPreference("categorySamsungEdgePanelRoot");
+                preferenceCategoryScreen = findPreference(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT);
                 if (preferenceCategoryScreen != null)
                     setCategorySummary(preferenceCategoryScreen);
             }
@@ -1089,7 +1114,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         */
         if ((PPApplication.sLook == null) || (!PPApplication.sLookCocktailPanelEnabled)) {
             PreferenceScreen preferenceScreen = findPreference("rootScreen");
-            Preference preferenceCategory = findPreference("categorySamsungEdgePanelRoot");
+            Preference preferenceCategory = findPreference(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT);
             if ((preferenceScreen != null) && (preferenceCategory != null))
                 preferenceScreen.removePreference(preferenceCategory);
         }
@@ -3652,7 +3677,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
                 preference.setSummary("");
-            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("periodicScanningCategoryRoot");
+            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_PERIODIC_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING) ||
@@ -3665,7 +3690,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
                 preference.setSummary("");
-            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("locationScanningCategoryRoot");
+            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_LOCATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING) ||
@@ -3678,7 +3703,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
                 preference.setSummary("");
-            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("wifiScanningCategoryRoot");
+            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_WIFI_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING) ||
@@ -3691,7 +3716,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
                 preference.setSummary("");
-            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("bluetoothScanningCategoryRoot");
+            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING)) {
@@ -3703,7 +3728,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
                 preference.setSummary("");
-            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("mobileCellsScanningCategoryRoot");
+            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING) ||
@@ -3716,7 +3741,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             else
                 preference.setSummary("");
-            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference("orientationScanningCategoryRoot");
+            PreferenceScreen preferenceCategoryScreen = prefMng.findPreference(PREF_ORIENTATION_SCANNING_CATEGORY_ROOT);
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING)) {
@@ -4013,7 +4038,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         // TODO toto sprav cez StringBuilder
 
         String summary = "";
-        if (key.equals("applicationInterfaceCategoryRoot")) {
+        if (key.equals(PREF_APPLICATION_INTERFACE_CATEGORY_ROOT)) {
             /*if (DebugVersion.enabled) {
                 // force set it to english for debug mode
                 preferenceCategory.setTitle("Application interface (not translated in DEBUG)");
@@ -4028,7 +4053,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationLauncher);
         }
-        if (key.equals("categoryApplicationStartRoot")) {
+        if (key.equals(PREF_APPLICATION_START_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationStartOnBoot);
             /*if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_AUTOSTART)) {
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -4039,7 +4064,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationStartEvents);
         }
-        if (key.equals("categorySystemRoot")) {
+        if (key.equals(PREF_SYSTEM_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes);
             if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes);
@@ -4058,7 +4083,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationBatterySaver);
             //}
         }
-        if (key.equals("categoryPermissionsRoot")) {
+        if (key.equals(PREF_PERMISSIONS_CATEGORY_ROOT)) {
             if (RootUtils.isRooted(true)) {
                 summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
             }
@@ -4073,7 +4098,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationPermissions);
             //}
         }
-        if (key.equals("categoryAppNotificationRoot")) {
+        if (key.equals(PREF_APP_NOTIFICATION_CATEGORY_ROOT)) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
             //if (Build.VERSION.SDK_INT >= 26) {
                 //if (!summary.isEmpty()) summary = summary + " • ";
@@ -4106,7 +4131,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_notificationUseDecoration);
             //}
         }
-        if (key.equals("profileActivationCategoryRoot")) {
+        if (key.equals(PREF_PROFILE_ACTIVATION_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_backgroundProfileUsage);
@@ -4115,18 +4140,18 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
         }
-        if (key.equals("specialProfileParametersCategoryRoot")) {
+        if (key.equals(PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT)) {
             if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                 summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetBrightnessAtScreenOn);
                 //if (!summary.isEmpty()) summary = summary + " • ";
             }
         }
-        if (key.equals("eventRunCategoryRoot")) {
+        if (key.equals(PREF_EVENT_RUN_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_eventRunUsePriority);
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationRestartEventsAlert);
         }
-        if (key.equals("periodicScanningCategoryRoot")) {
+        if (key.equals(PREF_PERIODIC_SCANNING_CATEGORY_ROOT)) {
             ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(context);
             ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInterval(context);
@@ -4154,7 +4179,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             + StringConstants.TAG_BOLD_END_HTML;
             }
         }
-        if (key.equals("locationScanningCategoryRoot")) {
+        if (key.equals(PREF_LOCATION_SCANNING_CATEGORY_ROOT)) {
             ApplicationPreferences.applicationEventLocationEnableScanning(context);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventLocationUpdateInterval(context);
@@ -4200,7 +4225,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             + StringConstants.TAG_BOLD_END_HTML;
             }
         }
-        if (key.equals("wifiScanningCategoryRoot")) {
+        if (key.equals(PREF_WIFI_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
@@ -4267,7 +4292,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals("bluetoothScanningCategoryRoot")) {
+        if (key.equals(PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
@@ -4321,7 +4346,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals("mobileCellsScanningCategoryRoot")) {
+        if (key.equals(PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
@@ -4366,7 +4391,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals("orientationScanningCategoryRoot")) {
+        if (key.equals(PREF_ORIENTATION_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
@@ -4404,7 +4429,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals("notificationScanningCategoryRoot")) {
+        if (key.equals(PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
@@ -4447,7 +4472,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals("categoryActivatorRoot")) {
+        if (key.equals(PREF_ACTIVATOR_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
@@ -4458,7 +4483,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationActivatorNumColumns);
         }
-        if (key.equals("categoryEditorRoot")) {
+        if (key.equals(PREF_EDITOR_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
             //if (!summary.isEmpty()) summary = summary + " • ";
             //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
@@ -4469,7 +4494,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_deleteOldActivityLogs);
         }
-        if (key.equals("categoryWidgetListRoot")) {
+        if (key.equals(PREF_WIDGET_LIST_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
@@ -4496,7 +4521,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
-        if (key.equals("categoryWidgetOneRowRoot")) {
+        if (key.equals(PREF_WIDGET_ONE_ROW_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
@@ -4519,7 +4544,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
-        if (key.equals("categoryWidgetIconRoot")) {
+        if (key.equals(PREF_WIDGET_ICON_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconBackgroundType);
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconBackground);
@@ -4544,7 +4569,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
-        if (key.equals("categoryWidgetOneRowProfileListRoot")) {
+        if (key.equals(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage);
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
@@ -4565,13 +4590,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
-        if (key.equals("categoryShortcutRoot")) {
+        if (key.equals(PREF_SHORTCUT_CATEGORY_ROOT)) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
             summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
         }
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
-            if (key.equals("categorySamsungEdgePanelRoot")) {
+            if (key.equals(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT)) {
                 summary = summary + getString(R.string.phone_profiles_pref_applicationSamsungEdgeVerticalPosition);
                 if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
                 summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
@@ -4591,7 +4616,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
             }
         }
-        if (key.equals("categoryProfileListNotificationRoot")) {
+        if (key.equals(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT)) {
             //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
             summary = summary + getString(R.string.phone_profiles_pref_notificationProfileListDisplayNotification);
             if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;

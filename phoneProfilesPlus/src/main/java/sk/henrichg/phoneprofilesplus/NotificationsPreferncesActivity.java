@@ -43,7 +43,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
                                 case 0:
                                     try {
                                         Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
-                                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryAppNotificationRoot");
+                                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_APP_NOTIFICATION_CATEGORY_ROOT);
                                         //noinspection deprecation
                                         startActivityForResult(intent, 100);
                                     } catch (Exception e) {
@@ -53,7 +53,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
                                 case 1:
                                     try {
                                         Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
-                                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryProfileListNotificationRoot");
+                                        intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT);
                                         //noinspection deprecation
                                         startActivityForResult(intent, 100);
                                     } catch (Exception e) {
@@ -73,7 +73,7 @@ public class NotificationsPreferncesActivity extends AppCompatActivity {
             } else {
                 try {
                     Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryAppNotificationRoot");
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_APP_NOTIFICATION_CATEGORY_ROOT);
                     //noinspection deprecation
                     startActivityForResult(intent, 100);
                 } catch (Exception e) {

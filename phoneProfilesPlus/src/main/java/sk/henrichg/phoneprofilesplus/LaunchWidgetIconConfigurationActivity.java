@@ -36,7 +36,7 @@ public class LaunchWidgetIconConfigurationActivity extends AppCompatActivity {
 
         try {
             Intent intent = new Intent(this, PhoneProfilesPrefsActivity.class);
-            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categoryWidgetIconRoot");
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_WIDGET_ICON_CATEGORY_ROOT);
             //noinspection deprecation
             startActivityForResult(intent, 100);
         } catch (Exception e) {

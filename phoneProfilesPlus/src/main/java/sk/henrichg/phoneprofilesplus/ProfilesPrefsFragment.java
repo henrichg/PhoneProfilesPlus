@@ -737,7 +737,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 // start preferences activity for default profile
                 if (getActivity() != null) {
                     Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categorySystemRoot");
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_SYSTEM_CATEGORY_ROOT);
                     //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                     getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
                 }
@@ -1550,7 +1550,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setOnPreferenceClickListener(preference116 -> {
                     Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "specialProfileParametersCategoryRoot");
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT);
                     //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                     startActivityForResult(intent, RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS);
                     return false;

@@ -385,7 +385,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText40.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PROFILE_ACTIVATION_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 fragment.startActivity(intent);
             });

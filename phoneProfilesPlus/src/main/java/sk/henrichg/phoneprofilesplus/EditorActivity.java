@@ -1190,7 +1190,7 @@ public class EditorActivity extends AppCompatActivity
         */
         if (itemId == R.id.menu_appliction_theme) {
             intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
-            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "applicationInterfaceCategoryRoot");
+            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_APPLICATION_INTERFACE_CATEGORY_ROOT);
             //noinspection deprecation
             startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
             return true;

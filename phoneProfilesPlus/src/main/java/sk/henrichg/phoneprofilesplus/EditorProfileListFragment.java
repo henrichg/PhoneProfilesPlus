@@ -293,7 +293,7 @@ public class EditorProfileListFragment extends Fragment
             else
             if (itemId == R.id.menu_default_profile) {
                 Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PROFILE_ACTIVATION_CATEGORY_ROOT);
                 startActivity(intent);
                 return true;
             }

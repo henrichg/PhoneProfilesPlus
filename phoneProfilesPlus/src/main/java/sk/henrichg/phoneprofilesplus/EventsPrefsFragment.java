@@ -391,7 +391,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             notificationAccessPreference.setOnPreferenceClickListener(preference -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "notificationScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_NOTIFICATION_SCANNING_APP_SETTINGS);
                 /*
@@ -460,7 +460,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference1 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "locationScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_LOCATION_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_LOCATION_APP_SETTINGS);
                 return false;
@@ -513,7 +513,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference13 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "wifiScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_WIFI_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_WIFI_SCANNING_APP_SETTINGS);
                 return false;
@@ -659,7 +659,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference17 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_APP_SETTINGS);
                 return false;
@@ -712,7 +712,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference19 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "orientationScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_ORIENTATION_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_ORIENTATION_SCANNING_SETTINGS);
                 return false;
@@ -744,7 +744,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference112 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_MOBILE_CELLS_SCANNING_SETTINGS);
                 return false;
@@ -797,7 +797,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference114 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PERIODIC_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_TIME_SCANNING_APP_SETTINGS);
                 return false;
@@ -809,7 +809,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference115 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PERIODIC_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_CALENDAR_SCANNING_APP_SETTINGS);
                 return false;
@@ -821,7 +821,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference13 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_PERIODIC_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_PERIODIC_SCANNING_APP_SETTINGS);
                 return false;
@@ -834,7 +834,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference116 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "eventRunCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_EVENT_RUN_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_USE_PRIORITY_SETTINGS);
                 return false;
@@ -846,7 +846,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference117 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "notificationScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, PhoneProfilesPrefsFragment.PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT);
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 startActivityForResult(intent, RESULT_NOTIFICATION_SCANNING_APP_SETTINGS);
                 return false;

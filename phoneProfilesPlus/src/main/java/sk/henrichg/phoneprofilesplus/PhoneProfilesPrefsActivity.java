@@ -159,76 +159,76 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         PhoneProfilesPrefsFragment preferenceFragment = new PhoneProfilesPrefsRoot();
         if (extraScrollTo != null) {
             switch (extraScrollTo) {
-                case "categorySystemRoot":
+                case PhoneProfilesPrefsFragment.PREF_SYSTEM_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsSystem();
                     break;
-                case "categoryPermissionsRoot":
+                case PhoneProfilesPrefsFragment.PREF_PERMISSIONS_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsPermissions();
                     break;
-                case "profileActivationCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_PROFILE_ACTIVATION_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileActivation();
                     break;
-                case "eventRunCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_EVENT_RUN_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsEventRun();
                     break;
-                case "categoryAppNotificationRoot":
+                case PhoneProfilesPrefsFragment.PREF_APP_NOTIFICATION_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsAppNotification();
                     break;
-                case "specialProfileParametersCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
                     break;
-                case "periodicScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_PERIODIC_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsPeriodicScanning();
                     break;
-                case "locationScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_LOCATION_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsLocationScanning();
                     break;
-                case "wifiScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIFI_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWifiScanning();
                     break;
-                case "bluetoothScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsBluetoothScanning();
                     break;
-                case "mobileCellsScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsMobileCellsScanning();
                     break;
-                case "orientationScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_ORIENTATION_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsOrientationScanning();
                     break;
-                case "notificationScanningCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsNotificationScanning();
                     break;
-                case "applicationInterfaceCategoryRoot":
+                case PhoneProfilesPrefsFragment.PREF_APPLICATION_INTERFACE_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsInterface();
                     break;
-                case "categoryApplicationStartRoot":
+                case PhoneProfilesPrefsFragment.PREF_APPLICATION_START_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsApplicationStart();
                     break;
-                case "categoryActivatorRoot":
+                case PhoneProfilesPrefsFragment.PREF_ACTIVATOR_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsActivator();
                     break;
-                case "categoryEditorRoot":
+                case PhoneProfilesPrefsFragment.PREF_EDITOR_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsEditor();
                     break;
-                case "categoryWidgetListRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_LIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetList();
                     break;
-                case "categoryWidgetOneRowRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_ONE_ROW_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetOneRow();
                     break;
-                case "categoryWidgetIconRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_ICON_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
                     break;
-                case "categoryShortcutRoot":
+                case PhoneProfilesPrefsFragment.PREF_SHORTCUT_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsShortcut();
                     break;
-                case "categorySamsungEdgePanelRoot":
+                case PhoneProfilesPrefsFragment.PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
                     break;
-                case "categoryWidgetOneRowProfileListRoot":
+                case PhoneProfilesPrefsFragment.PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsWidgetOneRowProfileList();
                     break;
-                case "categoryProfileListNotificationRoot":
+                case PhoneProfilesPrefsFragment.PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT:
                     preferenceFragment = new PhoneProfilesPrefsProfileListNotification();
                     break;
             }
