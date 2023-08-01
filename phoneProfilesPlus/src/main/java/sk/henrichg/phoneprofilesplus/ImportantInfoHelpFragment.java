@@ -414,8 +414,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText100 = view.findViewById(R.id.activity_info_profile_activation3);
         if (infoText100 != null) {
             String text =
-                    fragment.getString(R.string.important_info_profile_activation_text4) + "\n" +
-                            fragment.getString(R.string.important_info_profile_activation_text5) + "\n\n" +
+                    fragment.getString(R.string.important_info_profile_activation_text4) + StringConstants.CHAR_NEW_LINE +
+                            fragment.getString(R.string.important_info_profile_activation_text5) + StringConstants.STR_DOUBLE_NEWLINE +
                             fragment.getString(R.string.important_info_profile_activation_text6)
             ;
             infoText100.setText(text);
@@ -561,10 +561,10 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
         if (infoText41 != null) {
-            String str = "Send Intent [\n" +  //↵
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE\n" +
-                    " Extra:profile_name:profile name\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +  //↵
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE"+StringConstants.CHAR_NEW_LINE +
+                    " Extra:profile_name:profile name"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -577,9 +577,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText42 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
         if (infoText42 != null) {
-            String str = "Send Intent [\n" +
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -591,10 +591,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         TextView infoText43 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
         if (infoText43 != null) {
-            String str = "Send Intent [\n" +
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT\n" +
-                    " Extra:event_name:event name\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_ENABLE_RUN_FOR_EVENT"+StringConstants.CHAR_NEW_LINE +
+                    " Extra:event_name:event name"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -623,10 +623,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         */
         TextView infoText45 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
         if (infoText45 != null) {
-            String str = "Send Intent [\n" +
-                    " Action:sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT\n" +
-                    " Extra:event_name:event name\n" +
-                    " Target:Activity\n" +
+            String str = "Send Intent ["+StringConstants.CHAR_NEW_LINE +
+                    " Action:sk.henrichg.phoneprofilesplus.ACTION_STOP_EVENT"+StringConstants.CHAR_NEW_LINE +
+                    " Extra:event_name:event name"+StringConstants.CHAR_NEW_LINE +
+                    " Target:Activity"+StringConstants.CHAR_NEW_LINE +
                     "]";
             Spannable spannable = new SpannableString(str);
             //spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
@@ -674,7 +674,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         if (translationTextView != null) {
             String str1 = fragment.getString(R.string.about_application_translations);
-            String str2 = str1 + "\n" + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+            String str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -714,9 +714,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
             String str2;
             if (DebugVersion.enabled)
-                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.HELP_HOW_TO_GRANT_G1_URL_DEVEL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             else
-                str2 = str1 + "\n" + PPApplication.HELP_HOW_TO_GRANT_G1_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+                str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.HELP_HOW_TO_GRANT_G1_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {

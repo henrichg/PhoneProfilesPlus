@@ -3841,7 +3841,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = getString(R.string.permission_granted);
             else
                 summary = getString(R.string.permission_not_granted);
-            summary = summary + "\n\n" + getString(R.string.important_info_profile_grant) + " " +
+            summary = summary + StringConstants.STR_DOUBLE_NEWLINE + getString(R.string.important_info_profile_grant) + " " +
                     getString(R.string.profile_preferences_types_G1_show_info);
             preference.setSummary(summary);
         }
@@ -3856,11 +3856,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventLocationSystemSettings_summary);
             if (!GlobalUtils.isLocationEnabled(context)) {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             else {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             preference.setSummary(summary);
@@ -3868,11 +3868,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_WIFI_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
             if (!GlobalUtils.isLocationEnabled(context)) {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             else {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             preference.setSummary(summary);
@@ -3880,11 +3880,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
             if (!GlobalUtils.isLocationEnabled(context)) {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             else {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             preference.setSummary(summary);
@@ -3896,11 +3896,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             else
                 summary = getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
             if (!GlobalUtils.isLocationEnabled(context)) {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             else {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             preference.setSummary(summary);
@@ -3909,10 +3909,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (Build.VERSION.SDK_INT < 27) {
                 String summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
                 if (GlobalUtils.isWifiSleepPolicySetToNever(context)) {
-                    summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
+                    summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                             summary;
                 } else {
-                    summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
+                    summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                             summary;
                 }
                 preference.setSummary(summary);
@@ -3921,11 +3921,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_NOTIFICATION_NOTIFICATION_ACCESS_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventNotificationNotificationAccessSystemSettings_summary);
             if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
-                summary = "* " + getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + "! *\n\n" +
+                summary = "* " + getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                         summary;
             }
             else {
-                summary = getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                         summary;
             }
             preference.setSummary(summary);
@@ -3936,12 +3936,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (rooted) {
                 summary = getString(R.string.phone_profiles_pref_grantRootPermission_summary);
                 if (ApplicationPreferences.applicationNeverAskForGrantRoot)
-                    summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_set_summary) + "\n\n" +
+                    summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_set_summary) + StringConstants.STR_DOUBLE_NEWLINE +
                             summary;
                 else
-                    summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2) + "\n\n" +
+                    summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2) + StringConstants.STR_DOUBLE_NEWLINE +
                             summary;
-                summary = getString(R.string.phone_profiles_pref_device_is_rooted) + "\n\n" + summary;
+                summary = getString(R.string.phone_profiles_pref_device_is_rooted) + StringConstants.STR_DOUBLE_NEWLINE + summary;
             }
             else
                 summary = getString(R.string.phone_profiles_pref_device_is_not_rooted);
@@ -3972,7 +3972,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     */
                     Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO2);
                     if (infoPref != null)
-                        infoPref.setSummary(sSummary + "\n\n" + getString(R.string.phone_profiles_pref_notificationProfileIconColor_info_summary));
+                        infoPref.setSummary(sSummary + StringConstants.STR_DOUBLE_NEWLINE + getString(R.string.phone_profiles_pref_notificationProfileIconColor_info_summary));
                 } else {
                     /*
                     Preference infoPref = findPreference(PREF_NOTIFICATION_PROFILE_ICON_COLOR_INFO1);
@@ -4062,599 +4062,540 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         //boolean addEnd = true;
 
-        // TODO toto sprav cez StringBuilder
-
-        String summary = "";
+        StringBuilder _value = new StringBuilder();
         if (key.equals(PREF_APPLICATION_INTERFACE_CATEGORY_ROOT)) {
-            /*if (DebugVersion.enabled) {
-                // force set it to english for debug mode
-                preferenceCategory.setTitle("Application interface (not translated in DEBUG)");
-            }*/
-            /*summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
-            if (!summary.isEmpty()) summary = summary +" • ";*/
-            summary = summary + getString(R.string.phone_profiles_pref_applicationTheme);
-            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
-//            summary = summary + getString(R.string.phone_profiles_pref_applicationHomeLauncher);
-//            if (!summary.isEmpty()) summary = summary +" • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLauncher);
-            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationLauncher);
+            _value.append(getString(R.string.phone_profiles_pref_applicationTheme));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLauncher));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationLauncher));
         }
         if (key.equals(PREF_APPLICATION_START_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationStartOnBoot);
-            /*if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_AUTOSTART)) {
-                if (!summary.isEmpty()) summary = summary +" • ";
-                summary = summary + getString(R.string.phone_profiles_pref_systemAutoStartManager);
-            }*/
-            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationActivate);
-            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationStartEvents);
+            _value.append(getString(R.string.phone_profiles_pref_applicationStartOnBoot));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationActivate));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationStartEvents));
         }
         if (key.equals(PREF_SYSTEM_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes);
-            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes);
-            //if (Build.VERSION.SDK_INT >= 23) {
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationBatteryOptimization);
-            //}
-            /*if (KillerManager.isActionAvailable(context, KillerManager.Actions.ACTION_POWERSAVING)) {
-                if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_applicationPowerManager);
-            }*/
-            if (!summary.isEmpty()) summary = summary +StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationPowerSaveMode);
-            //if (Build.VERSION.SDK_INT >= 21) {
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationBatterySaver);
-            //}
+            _value.append(getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationBatteryOptimization));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationPowerSaveMode));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationBatterySaver));
         }
         if (key.equals(PREF_PERMISSIONS_CATEGORY_ROOT)) {
             if (RootUtils.isRooted(true)) {
-                summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
+                _value.append(getString(R.string.phone_profiles_pref_grantRootPermission));
             }
-            //if (Build.VERSION.SDK_INT >= 23) {
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions);
-                //if (!summary.isEmpty()) summary = summary + " • ";
-                //summary = summary + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_drawOverlaysPermissions);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationPermissions);
-            //}
+            if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_writeSystemSettingPermissions));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_drawOverlaysPermissions));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationPermissions));
         }
         if (key.equals(PREF_APP_NOTIFICATION_CATEGORY_ROOT)) {
-            //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
-            //if (Build.VERSION.SDK_INT >= 26) {
-                //if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_notificationSystemSettings);
-            //}
-            /*else {
-                if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBar);
-                if (!summary.isEmpty()) summary = summary + " • ";
-                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarPermanent);
-            }*/
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationNotificationStyle);
-            //if (Build.VERSION.SDK_INT >= 24) {
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_notificationShowProfileIcon);
-            //}
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationBackgroundColor);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
-            //if (Build.VERSION.SDK_INT >= 24) {
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_notificationUseDecoration);
-            //}
+            _value.append(getString(R.string.phone_profiles_pref_notificationSystemSettings));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationStatusBarStyle));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationNotificationStyle));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationShowProfileIcon));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationLayoutType));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationPrefIndicator));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationBackgroundColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationTextColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationUseDecoration));
         }
         if (key.equals(PREF_PROFILE_ACTIVATION_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_backgroundProfileUsage);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationAlert);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
+            _value.append(getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationAlert));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationsToast));
         }
         if (key.equals(PREF_SPECIAL_PROFILE_PARAMETERS_CATEGORY_ROOT)) {
             if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
-                summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetBrightnessAtScreenOn);
-                //if (!summary.isEmpty()) summary = summary + " • ";
+                _value.append(getString(R.string.phone_profiles_pref_applicationForceSetBrightnessAtScreenOn));
             }
         }
         if (key.equals(PREF_EVENT_RUN_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_eventRunUsePriority);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationRestartEventsAlert);
+            _value.append(getString(R.string.phone_profiles_pref_eventRunUsePriority));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationRestartEventsAlert));
         }
         if (key.equals(PREF_PERIODIC_SCANNING_CATEGORY_ROOT)) {
             ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(context);
             ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInterval(context);
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningEnableScanning) + ": ";
+            _value.append(getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningEnableScanning)).append(": ");
             if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
-                summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
 
-                summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
-                        StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
-                summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+                _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval)).append(": ")
+                        .append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
             } else {
                 if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile)
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                 else
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
         if (key.equals(PREF_LOCATION_SCANNING_CATEGORY_ROOT)) {
             ApplicationPreferences.applicationEventLocationEnableScanning(context);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context);
             ApplicationPreferences.applicationEventLocationUpdateInterval(context);
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationEnableScanning) + ": ";
+            _value.append(getString(R.string.phone_profiles_pref_applicationEventLocationEnableScanning)).append(": ");
             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-                summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
                 if (!GlobalUtils.isLocationEnabled(context)) {
-                    summary = summary + StringConstants.TAG_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                 } else {
-                    summary = summary + StringConstants.TAG_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationScanInterval) + ": " +
-                        StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventLocationUpdateInterval), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
-                summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsEditor);
-                summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
-                summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsUseGPS);
+                _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventLocationScanInterval)).append(": ")
+                        .append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventLocationUpdateInterval), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
+                _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventLocationsEditor));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventLocationsUseGPS));
             }
             else {
                 if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile)
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                 else
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
         if (key.equals(PREF_WIFI_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
-                        ": "+StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
             }
             else {
                 ApplicationPreferences.applicationEventWifiEnableScanning(context);
                 ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context);
                 ApplicationPreferences.applicationEventWifiScanInterval(context);
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiEnableScanning) + ": ";
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventWifiEnableScanning)).append(": ");
                 if (ApplicationPreferences.applicationEventWifiEnableScanning) {
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                     if (!GlobalUtils.isLocationEnabled(context)) {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     } else {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     }
                     if (Build.VERSION.SDK_INT < 27) {
                         if (GlobalUtils.isWifiSleepPolicySetToNever(context)) {
-                            summary = summary + StringConstants.TAG_BREAK_HTML;
-                            summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
-                                    StringConstants.TAG_BOLD_START_HTML +
-                                    getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary), prefMng, key, getActivity())
-                                    + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.TAG_BREAK_HTML);
+                            _value.append(getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings)).append(": ")
+                                    .append(StringConstants.TAG_BOLD_START_HTML)
+                                    .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary), prefMng, key, getActivity()))
+                                    .append(StringConstants.TAG_BOLD_END_HTML);
                         } else {
-                            summary = summary + StringConstants.TAG_BREAK_HTML;
-                            summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
-                                    StringConstants.TAG_BOLD_START_HTML +
-                                    getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary), prefMng, key, getActivity())
-                                    + StringConstants.TAG_BOLD_END_HTML;
+                            _value.append(StringConstants.TAG_BREAK_HTML);
+                            _value.append(getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings)).append(": ")
+                                    .append(StringConstants.TAG_BOLD_START_HTML)
+                                    .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary), prefMng, key, getActivity()))
+                                    .append(StringConstants.TAG_BOLD_END_HTML);
                         }
                     }
 
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanInterval) + ": " +
-                            StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventWifiScanInterval), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff);
-                    summary = summary + StringConstants.STR_DOT;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventWifiScanInterval)).append(": ")
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventWifiScanInterval), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff));
+                    _value.append(StringConstants.STR_DOT);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {
                     if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
         if (key.equals(PREF_BLUETOOTH_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
-                        ": "+StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
             }
             else {
                 ApplicationPreferences.applicationEventBluetoothEnableScanning(context);
                 ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context);
                 ApplicationPreferences.applicationEventBluetoothScanInterval(context);
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableScanning) + ": ";
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableScanning)).append(": ");
                 if (ApplicationPreferences.applicationEventBluetoothEnableScanning) {
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                     if (!GlobalUtils.isLocationEnabled(context)) {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     } else {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     }
 
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanInterval) + ": " +
-                            StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventBluetoothScanInterval), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff);
-                    summary = summary + StringConstants.STR_DOT;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration);
-                    summary = summary + StringConstants.STR_DOT;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventBluetoothScanInterval)).append(": ")
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventBluetoothScanInterval), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff));
+                    _value.append(StringConstants.STR_DOT);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration));
+                    _value.append(StringConstants.STR_DOT);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile)
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
         if (key.equals(PREF_MOBILE_CELLS_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
-                        ": "+StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
                 //addEnd = false;
             }
             else {
                 ApplicationPreferences.applicationEventMobileCellEnableScanning(context);
                 ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context);
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning)).append(": ");
                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                     if (!GlobalUtils.isLocationEnabled(context)) {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     } else {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventLocationSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     }
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile)
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
         if (key.equals(PREF_ORIENTATION_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
-                        ": "+StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
             }
             else {
                 ApplicationPreferences.applicationEventOrientationEnableScanning(context);
                 ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context);
                 ApplicationPreferences.applicationEventOrientationScanInterval(context);
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning) + ": ";
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning)).append(": ");
                 if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
 //                    PPApplicationStatic.logE("[TEST BATTERY] PhoneProfilesPrefsFragment.setCategorySummary", "******** ### *******");
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval) + ": " +
-                            StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventOrientationScanInterval), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval)).append(": ")
+                            .append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventOrientationScanInterval), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 }
                 else {
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile)
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
         if (key.equals(PREF_NOTIFICATION_SCANNING_CATEGORY_ROOT)) {
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
-                        ": "+StringConstants.TAG_BOLD_START_HTML +
-                        getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity())
-                        + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(getString(R.string.profile_preferences_device_not_allowed))
+                        .append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(preferenceAllowed.getNotAllowedPreferenceReasonString(context), prefMng, key, getActivity()))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
             }
             else {
                 ApplicationPreferences.applicationEventNotificationEnableScanning(context);
                 ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile(context);
-                summary = summary + getString(R.string.phone_profiles_pref_applicationEventNotificationEnableScanning) + ": ";
+                _value.append(getString(R.string.phone_profiles_pref_applicationEventNotificationEnableScanning)).append(": ");
                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
-                    summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                            getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity())
-                            + StringConstants.TAG_BOLD_END_HTML;
+                    _value.append(StringConstants.TAG_BOLD_START_HTML)
+                            .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_enabled), prefMng, key, getActivity()))
+                            .append(StringConstants.TAG_BOLD_END_HTML);
                     if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context, true)) {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventNotificationAccessSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue("* " + getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + "! *", prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventNotificationAccessSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue("* " + getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsDisabled_summary) + "! *", prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     } else {
-                        summary = summary + StringConstants.TAG_BREAK_HTML;
-                        summary = summary + getString(R.string.phone_profiles_pref_eventNotificationAccessSystemSettings) + ": " +
-                                StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BREAK_HTML);
+                        _value.append(getString(R.string.phone_profiles_pref_eventNotificationAccessSystemSettings)).append(": ")
+                                .append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     }
-                    summary = summary + StringConstants.TAG_DOUBLE_BREAK_HTML;
-                    summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+                    _value.append(StringConstants.TAG_DOUBLE_BREAK_HTML);
+                    _value.append(getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn));
                 } else {
                     if (!ApplicationPreferences.applicationEventNotificationDisabledScannigByProfile)
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.array_pref_applicationDisableScanning_disabled), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                     else
-                        summary = summary + StringConstants.TAG_BOLD_START_HTML +
-                                getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity())
-                                + StringConstants.TAG_BOLD_END_HTML;
+                        _value.append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(getColorForChangedPreferenceValue(getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile), prefMng, key, getActivity()))
+                                .append(StringConstants.TAG_BOLD_END_HTML);
                 }
             }
         }
         if (key.equals(PREF_ACTIVATOR_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationClose);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationGridLayout);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationActivatorNumColumns);
+            _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationClose));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationGridLayout));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationActivatorNumColumns));
         }
         if (key.equals(PREF_EDITOR_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationHideHeaderOrBottomBar);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_applicationEditorSaveEditorState);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_deleteOldActivityLogs);
+            _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationHideHeaderOrBottomBar));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_deleteOldActivityLogs));
         }
         if (key.equals(PREF_WIDGET_LIST_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationGridLayout);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessT);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
+            _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationHeader));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationGridLayout));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetShowBorder));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessT));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessT);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
+            _value.append(getString(R.string.phone_profiles_pref_applicationPrefIndicator));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetShowBorder));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessT));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ICON_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconBackgroundType);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconBackground);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColorB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconShowBorder);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconCornerRadius);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconHideProfileName);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessT);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackgroundType));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconBackground));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColorB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconShowBorder));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconCornerRadius));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconHideProfileName));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconLightnessT));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_WIDGET_ONE_ROW_PROFILE_LIST_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetShowBorder);
-            //if (!summary.isEmpty()) summary = summary + " • ";
-            //summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetRoundedCorners);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetShowBorder));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetCornerRadius));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if (key.equals(PREF_SHORTCUT_CATEGORY_ROOT)) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
         }
         if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
             if (key.equals(PREF_SAMSUNG_EDGE_PANEL_CATEGORY_ROOT)) {
-                summary = summary + getString(R.string.phone_profiles_pref_applicationSamsungEdgeVerticalPosition);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetBackground);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessB);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetColorB);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessT);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetIconColor);
-                if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-                summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
+                _value.append(getString(R.string.phone_profiles_pref_applicationSamsungEdgeVerticalPosition));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationHeader));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackgroundType));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetBackground));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessB));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetColorB));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessT));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetIconColor));
+                _value.append(StringConstants.STR_DOT);
+                _value.append(getString(R.string.phone_profiles_pref_applicationWidgetLightnessI));
             }
         }
         if (key.equals(PREF_PROFILE_LIST_NOTIFICATIONLIST_CATEGORY_ROOT)) {
-            //summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
-            summary = summary + getString(R.string.phone_profiles_pref_notificationProfileListDisplayNotification);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_notificationBackgroundColor);
-            if (!summary.isEmpty()) summary = summary + StringConstants.STR_DOT;
-            summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness);
-            //}
+            _value.append(getString(R.string.phone_profiles_pref_notificationProfileListDisplayNotification));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileListNumberOfProfilesPerPage));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationStatusBarStyle));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_notificationBackgroundColor));
+            _value.append(StringConstants.STR_DOT);
+            _value.append(getString(R.string.phone_profiles_pref_applicationWidgetOneRowProfileLisArrowsMarkLightness));
         }
 
         /*if (addEnd) {
@@ -4662,8 +4603,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + "…";
         }*/
 
-        preferenceCategory.setSummary(StringFormatUtils.fromHtml(summary, false, false, false, 0, 0, true));
-        //preferenceCategory.setSummary(summary);
+        preferenceCategory.setSummary(StringFormatUtils.fromHtml(_value.toString(), false, false, false, 0, 0, true));
     }
 
     static String getColorForChangedPreferenceValue(String preferenceValue,

@@ -370,8 +370,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (canShowRationale(context, forceGrant)) {
 
-            // TODO showRequestString sprav ako StringBuilder
-
             /*if (onlyNotification) {
                 showNotification(context);
             }

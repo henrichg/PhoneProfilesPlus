@@ -48,7 +48,7 @@ public class CheckLatestPPPPSReleasesBroadcastReceiver extends BroadcastReceiver
 
         long alarmTime;
 
-        // TODO remove for release
+        //TODO remove for release
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 

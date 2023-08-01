@@ -85,7 +85,7 @@ public class FetchAddressWorkerOSM extends Worker {
                 }
                 String lineSeparator = System.getProperty("line.separator");
                 if (lineSeparator == null)
-                    lineSeparator = "\n";
+                    lineSeparator = StringConstants.CHAR_NEW_LINE;
                 outputData = generateResult(LocationGeofenceEditorActivityOSM.WORKRES_SUCCESS_RESULT,
                         TextUtils.join(lineSeparator, addressFragments),
                         updateName);

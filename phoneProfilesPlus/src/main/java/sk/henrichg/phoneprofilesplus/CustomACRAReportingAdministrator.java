@@ -102,36 +102,36 @@ public class CustomACRAReportingAdministrator implements ReportingAdministrator 
                     StackTraceElement[] arr = _exception.getStackTrace();
                     StringBuilder report = new StringBuilder(_exception.toString());
 
-                    report.append("\n\n");
+                    report.append(StringConstants.STR_DOUBLE_NEWLINE);
 
-                    report.append("----- App version code: ").append(actualVersionCode).append("\n\n");
+                    report.append("----- App version code: ").append(actualVersionCode).append(StringConstants.STR_DOUBLE_NEWLINE);
 
                     /*
                     for (StackTraceElement anArr : arr) {
                         report.append("    ").append(anArr.toString()).append("\n");
                     }
-                    report.append("-------------------------------\n\n");
+                    report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
                     */
 
-                    report.append("--------- Stack trace ---------\n\n");
+                    report.append("--------- Stack trace ---------").append(StringConstants.STR_DOUBLE_NEWLINE);
                     for (StackTraceElement anArr : arr) {
-                        report.append("    ").append(anArr.toString()).append("\n");
+                        report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
                     }
-                    report.append("\n");
+                    report.append(StringConstants.CHAR_NEW_LINE);
 
                     // If the exception was thrown in a background thread inside
                     // AsyncTask, then the actual exception can be found with getCause
                     Throwable cause = _exception.getCause();
                     if (cause != null) {
-                        report.append("-------------------------------\n\n");
-                        report.append("--------- Cause ---------------\n\n");
-                        report.append(cause).append("\n\n");
+                        report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                        report.append("--------- Cause ---------------").append(StringConstants.STR_DOUBLE_NEWLINE);
+                        report.append(cause).append(StringConstants.STR_DOUBLE_NEWLINE);
                         arr = cause.getStackTrace();
                         for (StackTraceElement anArr : arr) {
-                            report.append("    ").append(anArr.toString()).append("\n");
+                            report.append("    ").append(anArr.toString()).append(StringConstants.CHAR_NEW_LINE);
                         }
                     }
-                    report.append("-------------------------------\n\n");
+                    report.append("-------------------------------").append(StringConstants.STR_DOUBLE_NEWLINE);
 
                     logIntoFile(context, "E", "CustomACRAReportingAdministrator", report.toString());
                 };

@@ -81,7 +81,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
 
         String cellName = "";
         if (!cellData.name.isEmpty())
-            cellName = cellData.name + "\n";
+            cellName = cellData.name + StringConstants.CHAR_NEW_LINE;
         String cellFlags = "";
         if (cellData._new)
             cellFlags = cellFlags + "N";

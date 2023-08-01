@@ -289,7 +289,7 @@ class StringFormatUtils {
             }
             if (tag.equals("li") && !opening) {
                 //output.append("\n\n");
-                output.append("\n");
+                output.append(StringConstants.CHAR_NEW_LINE);
                 Bullet[] spans = output.getSpans(0, output.length(), Bullet.class);
                 if (spans != null) {
                     Bullet lastMark = spans[spans.length - 1];

@@ -302,7 +302,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
-        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
+        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         final String ASSETS = " \"Assets\"?";
@@ -456,7 +456,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_fdroid_info_text);
-        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
+        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
@@ -638,7 +638,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
-        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
+        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         if (!galaxyStoreInstalled) {
@@ -837,7 +837,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_appgallery_info_text);
-        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
+        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         boolean appGalleryInstalled = false;
@@ -986,7 +986,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_apkpure_info_text);
-        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
+        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(message, false, false, false, 0, 0, true));
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -1128,7 +1128,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         TextView text;
         text = layout.findViewById(R.id.dialog_for_droidify_info_text);
-        message = message.replace("\n", StringConstants.TAG_BREAK_HTML);
+        message = message.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
 
         if (forGitHub) {
             message = message + StringConstants.TAG_DOUBLE_BREAK_HTML + activity.getString(R.string.check_releases_github_download_not_supported);

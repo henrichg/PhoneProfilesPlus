@@ -872,7 +872,7 @@ class GlobalGUIRoutines {
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
 
-            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
+            nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.profile_preferences_red_texts_text_4);
         }
 
         if (event != null) {
@@ -892,7 +892,7 @@ class GlobalGUIRoutines {
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
 
-            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
+            nText = nText + StringConstants.STR_DOUBLE_NEWLINE + activity.getString(R.string.event_preferences_red_texts_text_4);
         }
 
         String positiveText;

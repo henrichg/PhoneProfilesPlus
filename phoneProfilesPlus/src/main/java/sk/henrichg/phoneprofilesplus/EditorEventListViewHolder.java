@@ -218,9 +218,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (event._ignoreManualActivation) {
                     addedLF = true;
                     if (event._noPauseByManualActivation)
-                        _eventName = event._name + "\n" + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
                     else
-                        _eventName = event._name + "\n" + StringConstants.STR_ARROW_INDICATOR;
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + StringConstants.STR_ARROW_INDICATOR;
                 } else
                     _eventName = event._name;
             }
@@ -228,11 +228,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 addedLF = true;
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "["+StringConstants.STR_DOUBLE_ARROW+"]";
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority + "["+StringConstants.STR_DOUBLE_ARROW+"]";
                     else
-                        _eventName = event._name + "\n" + eventStartOrder + eventPriority + "["+StringConstants.CHAR_ARROW +"]";
+                        _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority + "["+StringConstants.CHAR_ARROW +"]";
                 } else
-                    _eventName = event._name + "\n" + eventStartOrder + eventPriority;
+                    _eventName = event._name + StringConstants.CHAR_NEW_LINE + eventStartOrder + eventPriority;
             }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
@@ -244,14 +244,14 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         if (addedLF)
                             _eventName = _eventName + " ";
                         else
-                            _eventName = _eventName + "\n";
+                            _eventName = _eventName + StringConstants.CHAR_NEW_LINE;
                         _eventName = _eventName + "[#:" + profile._name + "]";
                     }
                 } else {
                     if (addedLF)
                         _eventName = _eventName + " ";
                     else
-                        _eventName = _eventName + "\n";
+                        _eventName = _eventName + StringConstants.CHAR_NEW_LINE;
                     _eventName = _eventName + "[#:" + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length + "]";
                 }
             }

@@ -2382,12 +2382,12 @@ public class EditorActivity extends AppCompatActivity
             message = getString(R.string.import_profiles_alert_error) + ":";
             if (dbResult != DatabaseHandler.IMPORT_OK) {
                 if (dbResult == DatabaseHandler.IMPORT_ERROR_NEVER_VERSION)
-                    message = message + "\n"+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_newer_version);
+                    message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_newer_version);
                 else
-                    message = message + "\n"+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_bug);
+                    message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_database_bug);
             }
             if (appSettingsResult == 0)
-                message = message + "\n"+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_appSettings_bug);
+                message = message + StringConstants.CHAR_NEW_LINE+StringConstants.CHAR_DOT+" " + getString(R.string.import_profiles_alert_error_appSettings_bug);
             //if (sharedProfileResult == 0)
             //    message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
         }
@@ -2876,10 +2876,10 @@ public class EditorActivity extends AppCompatActivity
         if (email)
             message = getString(R.string.export_profiles_alert_message_note);
         else if (share) {
-            message = getString(R.string.share_settings_alert_message) + "\n\n" +
+            message = getString(R.string.share_settings_alert_message) + StringConstants.STR_DOUBLE_NEWLINE +
                     getString(R.string.export_profiles_alert_message_note);
         } else
-            message = getString(R.string.export_profiles_alert_message) + "\n\n" +
+            message = getString(R.string.export_profiles_alert_message) + StringConstants.STR_DOUBLE_NEWLINE +
                     getString(R.string.export_profiles_alert_message_note);
 
         PPAlertDialog dialog = new PPAlertDialog(title, message,
@@ -3928,7 +3928,7 @@ public class EditorActivity extends AppCompatActivity
         //if (Build.VERSION.SDK_INT >= 25)
             body = getString(R.string.important_info_email_body_device) + " " +
                     Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
-                    " (" + Build.MODEL + ")" + " \n";
+                    " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
         /*else {
             String manufacturer = Build.MANUFACTURER;
             String model = Build.MODEL;
@@ -3937,7 +3937,7 @@ public class EditorActivity extends AppCompatActivity
             else
                 body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
         }*/
-        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
+        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         return body;
     }
 

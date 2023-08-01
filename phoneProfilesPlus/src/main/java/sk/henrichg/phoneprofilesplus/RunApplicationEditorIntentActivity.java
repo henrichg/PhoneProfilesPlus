@@ -217,7 +217,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                 //    categoryValue = categoryValue + "\n";
                                 //categoryValue = categoryValue + categoryArray[i];
                                 if (value.length() > 0)
-                                    value.append("\n");
+                                    value.append(StringConstants.CHAR_NEW_LINE);
                                 value.append(categoryArray[i]);
                             }
                             ++i;
@@ -260,7 +260,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
                                 //    flagsValue = flagsValue + "\n";
                                 //flagsValue = flagsValue + flagArray[i];
                                 if (value.length() > 0)
-                                    value.append("\n");
+                                    value.append(StringConstants.CHAR_NEW_LINE);
                                 value.append(flagArray[i]);
                             }
                             ++i;
@@ -432,7 +432,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             intentActionEdit.setEnabled(false);
 
             if (ppIntent._categories != null) {
-                String categoryValue = ppIntent._categories.replaceAll(StringConstants.STR_SPLIT_REGEX, "\n");
+                String categoryValue = ppIntent._categories.replaceAll(StringConstants.STR_SPLIT_REGEX, StringConstants.CHAR_NEW_LINE);
                 categoryTextView.setText(categoryValue);
                 List<String> stringList = new ArrayList<>(Arrays.asList(categoryArray));
                 String[] splits = ppIntent._categories.split(StringConstants.STR_SPLIT_REGEX);
@@ -445,7 +445,7 @@ public class RunApplicationEditorIntentActivity extends AppCompatActivity {
             }
 
             if (ppIntent._flags != null) {
-                String flagsValue = ppIntent._flags.replaceAll(StringConstants.STR_SPLIT_REGEX, "\n");
+                String flagsValue = ppIntent._flags.replaceAll(StringConstants.STR_SPLIT_REGEX, StringConstants.CHAR_NEW_LINE);
                 flagsTextView.setText(flagsValue);
                 List<String> stringList = new ArrayList<>(Arrays.asList(flagArray));
                 String[] splits = ppIntent._flags.split(StringConstants.STR_SPLIT_REGEX);

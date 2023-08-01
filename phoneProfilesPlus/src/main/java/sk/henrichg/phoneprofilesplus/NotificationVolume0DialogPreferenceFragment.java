@@ -60,7 +60,7 @@ public class NotificationVolume0DialogPreferenceFragment extends PreferenceDialo
             //else {
                 message = message + " " + TonesHandler.getToneName(preference.prefContext, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
             //}
-            message = message + "\n\n";
+            message = message + StringConstants.STR_DOUBLE_NEWLINE;
         }
 
         message = message + getString(R.string.profile_preferences_volumeNotificationVolume0_radioButtonsLabel);

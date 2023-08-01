@@ -966,13 +966,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference = findPreference(PREF_PROFILE_DEVICE_WIFI_AP_INFO);
                 if (preference != null) {
                     preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
-                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
-                        "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary));
+                            StringConstants.CHAR_NEW_LINE + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
+                            StringConstants.CHAR_NEW_LINE + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary));
                 }
             //}
             preference = findPreference(PREF_PROFILE_DEVICE_COSE_ALL_APPLICATIONS_INFO);
             if (preference != null) {
-                preference.setSummary(getString(R.string.profile_preferences_deviceCloseAllApplicationsInfo_summary) + "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary));
+                preference.setSummary(getString(R.string.profile_preferences_deviceCloseAllApplicationsInfo_summary) + StringConstants.CHAR_NEW_LINE +
+                        getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary));
             }
         }
 
@@ -1531,7 +1532,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On);
             else
                 summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off);
-            summary = summary + "\n\n";
+            summary = summary + StringConstants.STR_DOUBLE_NEWLINE;
             summary = summary + "\"" + getString(R.string.profile_preferences_deviceScreenTimeout) + "\" " +
                     getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1) +
                     " \"" + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\" " +
@@ -4657,7 +4658,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 else
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled);
 
-                summary = summary + "\n" + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes) + ": ";
+                summary = summary + StringConstants.CHAR_NEW_LINE + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes) + ": ";
                 int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes;
                 String[] valuesArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesValues);
                 String[] labelsArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesArray);
@@ -4672,10 +4673,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 if (!ApplicationPreferences.prefMergedRingNotificationVolumes)
                     // detection of volumes merge = volumes are not merged
-                    summary = summary + "\n\n" + getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged);
+                    summary = summary + StringConstants.STR_DOUBLE_NEWLINE + getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged);
                 else
                     // detection of volumes merge = volumes are merged
-                    summary = summary + "\n\n" + getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_merged);
+                    summary = summary + StringConstants.STR_DOUBLE_NEWLINE + getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_merged);
 
                 preference.setSummary(summary);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, false, false, false);
@@ -5033,9 +5034,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         boolean forceSetBrightnessAtScreenOn = ApplicationPreferences.applicationForceSetBrightnessAtScreenOn;
                         String summary = context.getString(R.string.profile_preferences_forceSetBrightnessAtScreenOn_summary);
                         if (forceSetBrightnessAtScreenOn)
-                            summary = context.getString(R.string.profile_preferences_enabled) + "\n\n" + summary;
+                            summary = context.getString(R.string.profile_preferences_enabled) + StringConstants.STR_DOUBLE_NEWLINE + summary;
                         else {
-                            summary = context.getString(R.string.profile_preferences_disabled) + "\n\n" + summary;
+                            summary = context.getString(R.string.profile_preferences_disabled) + StringConstants.STR_DOUBLE_NEWLINE + summary;
                         }
                         preference.setSummary(summary);
                         GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, forceSetBrightnessAtScreenOn, false, false, false, false);
@@ -5192,18 +5193,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion == 0) {
                         //ok = false;
-                        changeSummary = changeSummary + "\n\n" +
+                        changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                     } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                         //ok = false;
-                        changeSummary = changeSummary + "\n\n" +
+                        changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                     } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, false, true
                             /*, "ProfilesPrefsFragment.setSummary (PREF_PROFILE_LOCK_DEVICE)"*/)) {
                         //ok = false;
-                        changeSummary = changeSummary + "\n\n" +
+                        changeSummary = changeSummary + StringConstants.STR_DOUBLE_NEWLINE +
                                 getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                     } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
@@ -5713,11 +5714,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
                     summary = getString(R.string.profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1) +
-                            "\n\n" + summary;
+                            StringConstants.STR_DOUBLE_NEWLINE + summary;
                 }
                 else {
                     summary = getString(R.string.profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0) +
-                            "\n\n" + summary;
+                            StringConstants.STR_DOUBLE_NEWLINE + summary;
                 }
                 preference.setSummary(summary);
             }

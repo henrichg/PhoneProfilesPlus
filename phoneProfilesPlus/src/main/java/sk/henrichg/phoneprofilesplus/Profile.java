@@ -3094,16 +3094,16 @@ public class Profile {
         int startSpan = profileName.length();
         if (!indicators.isEmpty()) {
             if (multiLine)
-                profileName = profileName + "\n" + indicators;
+                profileName = profileName + StringConstants.CHAR_NEW_LINE + indicators;
             else
                 profileName = profileName + " " + indicators;
         }
         if (!durationString.isEmpty()) {
             if (durationInNextLine) {
                 if (showEndTime /*_checked*/)
-                    profileName = durationString + "\n" + profileName;
+                    profileName = durationString + StringConstants.CHAR_NEW_LINE + profileName;
                 else
-                    profileName = profileName + "\n" + durationString;
+                    profileName = profileName + StringConstants.CHAR_NEW_LINE + durationString;
             }
             else
                 profileName = profileName + " " + durationString;

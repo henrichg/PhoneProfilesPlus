@@ -157,7 +157,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         final ImageView helpIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {
-            String helpString = getString(R.string.event_preference_bluetooth_btName_type)+"\n\n"+
+            String helpString = getString(R.string.event_preference_bluetooth_btName_type)+StringConstants.STR_DOUBLE_NEWLINE+
                     //getString(R.string.event_preference_bluetooth_bt_types)+"\n\n"+
                     getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
                     getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
@@ -423,7 +423,7 @@ public class BluetoothNamePreferenceFragment extends PreferenceDialogFragmentCom
         //if (Build.VERSION.SDK_INT >= 23) {
             String statusText;
             if (!GlobalUtils.isLocationEnabled(prefContext)) {
-                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + StringConstants.STR_NEWLINE_WITH_COLON +
                         "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
 
                 locationEnabledStatusTextView.setText(statusText);

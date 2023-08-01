@@ -207,17 +207,17 @@ class EventPreferencesBluetooth extends EventPreferences {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) {
                         int connectionType = Integer.parseInt(preferences.getString(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "1"));
                         if ((connectionType == 1) || (connectionType == 3)) {
-                            summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
+                            summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                             titleColor = ContextCompat.getColor(context, R.color.error_color);
                         } else {
-                            summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "\n\n" +
+                            summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + StringConstants.STR_DOUBLE_NEWLINE +
                                     context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                             titleColor = 0;
                         }
                     }
                     else {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                         titleColor = 0;
                     }
@@ -228,10 +228,10 @@ class EventPreferencesBluetooth extends EventPreferences {
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo);
                     if (scanningPaused) {
-                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + ".\n\n" +
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                     } else {
-                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                        summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT +
                                 context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                     }
                     titleColor = 0;
@@ -259,11 +259,11 @@ class EventPreferencesBluetooth extends EventPreferences {
             if (preference != null) {
                 String summary = context.getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
                 if (!GlobalUtils.isLocationEnabled(context.getApplicationContext())) {
-                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n" +
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *"+StringConstants.STR_DOUBLE_NEWLINE +
                             summary;
                 }
                 else {
-                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n"+
+                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + StringConstants.STR_DOUBLE_NEWLINE_WITH_DOT+
                             summary;
                 }
                 preference.setSummary(summary);

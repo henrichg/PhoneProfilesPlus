@@ -164,7 +164,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
             String title = prefContext.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + ":";
             if (Build.VERSION.SDK_INT >= 33) {
                 if (!(_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1)))
-                    title = title + "\n" + prefContext.getString(R.string.event_preferences_applications_AccessibilitySettings_subTitle_A13);
+                    title = title + StringConstants.CHAR_NEW_LINE + prefContext.getString(R.string.event_preferences_applications_AccessibilitySettings_subTitle_A13);
             }
             extenderAccessibilitySettings.setText(title);
 
@@ -240,7 +240,7 @@ public class ExtenderDialogPreferenceFragment extends PreferenceDialogFragmentCo
         dialogText = dialogText + activity.getString(R.string.install_extender_text2) + StringConstants.TAG_DOUBLE_BREAK_HTML;
         dialogText = dialogText + activity.getString(R.string.install_extender_text3);
 
-        dialogText = dialogText.replace("\n", StringConstants.TAG_BREAK_HTML);
+        dialogText = dialogText.replace(StringConstants.CHAR_NEW_LINE, StringConstants.TAG_BREAK_HTML);
         text.setText(StringFormatUtils.fromHtml(dialogText, false, false, false, 0, 0, true));
 
         text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);

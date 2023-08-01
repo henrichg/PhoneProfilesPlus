@@ -174,7 +174,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    // TODO change it back to not log crash for releases
+    //TODO change it back to not log crash for releases
     static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
@@ -1363,7 +1363,7 @@ public class PPApplication extends Application
         //if (Build.VERSION.SDK_INT >= 25)
             body = getString(R.string.important_info_email_body_device) + " " +
                     Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
-                    " (" + Build.MODEL + ")" + " \n";
+                    " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
         /*else {
             String manufacturer = Build.MANUFACTURER;
             String model = Build.MODEL;
@@ -1372,7 +1372,7 @@ public class PPApplication extends Application
             else
                 body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
         }*/
-        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
+        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         body = body + getString(R.string.acra_email_body_text);
 
 /*

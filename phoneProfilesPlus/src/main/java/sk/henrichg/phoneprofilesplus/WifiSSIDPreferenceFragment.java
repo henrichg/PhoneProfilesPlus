@@ -152,7 +152,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         final ImageView helpIcon = layout.findViewById(R.id.wifi_ssid_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
         helpIcon.setOnClickListener(v -> {
-            String helpString = getString(R.string.event_preference_wifi_ssidName_type)+"\n\n"+
+            String helpString = getString(R.string.event_preference_wifi_ssidName_type)+StringConstants.STR_DOUBLE_NEWLINE+
                     getString(R.string.pref_dlg_info_about_wildcards_1) + " " +
                     getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
                     getString(R.string.wifi_ssid_pref_dlg_info_about_wildcards) + " " +
@@ -402,7 +402,7 @@ public class WifiSSIDPreferenceFragment extends PreferenceDialogFragmentCompat {
         //if (Build.VERSION.SDK_INT >= 23) {
             String statusText;
             if (!GlobalUtils.isLocationEnabled(prefContext)) {
-                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + StringConstants.STR_NEWLINE_WITH_COLON +
                         "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
 
                 locationEnabledStatusTextView.setText(statusText);

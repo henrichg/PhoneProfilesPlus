@@ -362,7 +362,7 @@ class SettingsContentObserver  extends ContentObserver {
                 PPApplication.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
                 //PPApplication.savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
-                // TODO this is for log brightness values to log file
+                //TODO this is for log brightness values to log file
                 //  use only for check brightness values 0%, 50%, 100% by user,
                 //  when in his device brightness not working good
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "savedBrightnessModeForDialog=" + PPApplication.savedBrightnessModeForDialog);
@@ -374,7 +374,7 @@ class SettingsContentObserver  extends ContentObserver {
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "maximum brightnress="+pm.getMaximumScreenBrightnessSetting());
                 //PPApplicationStatic.logE("SettingsContentObserver.onChange", "default brightnress="+pm.getDefaultScreenBrightnessSetting());
 
-                // TODO Brightness sensor - call MainWorker with HANDLE_EVENTS_BRIGHTNRESS_WORK_TAG
+                //TODO Brightness sensor - call MainWorker with HANDLE_EVENTS_BRIGHTNRESS_WORK_TAG
                 //  not implemented yet
 
             }

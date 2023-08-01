@@ -1587,7 +1587,7 @@ public class PhoneProfilesService extends Service
 
         if (!serviceHasFirstStart) {
             if (intent != null) {
-                // TODO remove for release
+                //TODO remove for release
                 //ApplicationPreferences.startStopTargetHelps(appContext, false);
 
                 String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);

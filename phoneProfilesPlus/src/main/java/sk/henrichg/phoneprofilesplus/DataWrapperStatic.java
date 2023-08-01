@@ -234,7 +234,7 @@ class DataWrapperStatic {
                     name = name + " " + eventName;
                 if (!indicators.isEmpty()) {
                     if (multiLine)
-                        name = name + "\n" + indicators;
+                        name = name + StringConstants.CHAR_NEW_LINE + indicators;
                     else
                         name = name + " " + indicators;
                 }
@@ -247,7 +247,7 @@ class DataWrapperStatic {
                 name = name + " " + eventName;
             if (!indicators.isEmpty()) {
                 if (multiLine)
-                    name = name + "\n" + indicators;
+                    name = name + StringConstants.CHAR_NEW_LINE + indicators;
                 else
                     name = name + " " + indicators;
             }

@@ -20,6 +20,12 @@ class StringConstants {
     static final String STR_PPPPS_ROOT = "(S)(R) ";
     //static final String STR_INTERFACE = "(I) ";
     //static final String STR_G1 = "(G1) ";
+    static final String CHAR_NEW_LINE = "\n";
+    static final String STR_NEWLINE_WITH_SPACE = " \n";
+    static final String STR_NEWLINE_WITH_COLON = ":\n";
+    static final String STR_DOUBLE_NEWLINE = "\n\n";
+    static final String STR_DOUBLE_NEWLINE_WITH_SPACE = " \n\n";
+    static final String STR_DOUBLE_NEWLINE_WITH_DOT = ".\n\n";
     static final String STR_MANUAL = "[M]";
     static final String STR_MANUAL_SPACE = "[M] ";
     static final String STR_FORMAT_INT = "%X";

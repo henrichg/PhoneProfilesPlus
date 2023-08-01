@@ -99,7 +99,7 @@ class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHol
                 (!contact.accountType.equals("vnd.sec.contact.sim2")) &&
                 (!contact.accountType.equals("vnd.sec.contact.phone")) &&
                 (!contact.accountName.equals(accountType)))
-            accountType = accountType + "\n  - " + contact.accountName;
+            accountType = accountType + StringConstants.CHAR_NEW_LINE+"  - " + contact.accountName;
         textViewAccountType.setText(accountType);
 
         // Tag the CheckBox with the Contact it is displaying, so that we

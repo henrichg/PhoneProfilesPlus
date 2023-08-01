@@ -124,19 +124,19 @@ class AddEventAdapter extends BaseAdapter {
 
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        eventName = eventName + "\n" + eventPriority + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
                     else
-                        eventName = eventName + "\n" + eventPriority + StringConstants.STR_ARROW_INDICATOR;
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority + StringConstants.STR_ARROW_INDICATOR;
                 }
                 else
-                    eventName = eventName + "\n" + eventPriority;
+                    eventName = eventName + StringConstants.CHAR_NEW_LINE + eventPriority;
             }
             else {
                 if (event._ignoreManualActivation) {
                     if (event._noPauseByManualActivation)
-                        eventName = eventName + "\n" + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_DOUBLE_ARROW_INDICATOR;
                     else
-                        eventName = eventName + "\n" + StringConstants.STR_ARROW_INDICATOR;
+                        eventName = eventName + StringConstants.CHAR_NEW_LINE + StringConstants.STR_ARROW_INDICATOR;
                 }
             }
 

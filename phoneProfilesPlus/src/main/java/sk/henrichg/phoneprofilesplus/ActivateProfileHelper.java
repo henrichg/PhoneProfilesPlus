@@ -5627,7 +5627,6 @@ class ActivateProfileHelper {
     */
 
     static void showKeepScreenOnNotificaiton(Context context) {
-        // TODO - prerobit na StringBuilder?
         String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
                 "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\"";
         String nText = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"" +

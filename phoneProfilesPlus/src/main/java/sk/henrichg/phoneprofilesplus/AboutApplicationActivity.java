@@ -88,7 +88,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_translations);
-        str2 = str1 + "\n" + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.CROWDIN_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -124,7 +124,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
-        str2 = str1 + "\n" + PPApplication.PRIVACY_POLICY_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.PRIVACY_POLICY_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         /*ClickableSpan*/ clickableSpan = new ClickableSpan() {
@@ -153,7 +153,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_releases);
         str1 = getString(R.string.about_application_releases);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPP_RELEASES_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.GITHUB_PPP_RELEASES_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -182,7 +182,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_source_code);
         str1 = getString(R.string.about_application_source_code);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPP_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.GITHUB_PPP_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -211,7 +211,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_extender_source_code);
         str1 = getString(R.string.about_application_extender_source_code);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPPE_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.GITHUB_PPPE_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -240,7 +240,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_pppps_source_code);
         str1 = getString(R.string.about_application_pppps_source_code);
-        str2 = str1 + "\n" + PPApplication.GITHUB_PPPPS_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.GITHUB_PPPPS_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -269,7 +269,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_xda_developers_community);
         str1 = getString(R.string.about_application_xda_developers_community);
-        str2 = str1 + "\n" + PPApplication.XDA_DEVELOPERS_PPP_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        str2 = str1 + StringConstants.CHAR_NEW_LINE + PPApplication.XDA_DEVELOPERS_PPP_URL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -462,7 +462,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
                         final String bodyText, /*final boolean boldLink,*/ final Context context) {
         String strNoLink = text + " " + linkText;
-        String str2 = strNoLink + "\n" + StringConstants.AUTHOR_EMAIL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
+        String str2 = strNoLink + StringConstants.CHAR_NEW_LINE + StringConstants.AUTHOR_EMAIL + StringConstants.STR_HARD_SPACE_DOUBLE_ARROW;
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, strNoLink.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -514,7 +514,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 //if (Build.VERSION.SDK_INT >= 25)
                     body = context.getString(R.string.important_info_email_body_device) + " " +
                             Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
-                            " (" + Build.MODEL + ")" + " \n";
+                            " (" + Build.MODEL + ")" + StringConstants.STR_NEWLINE_WITH_SPACE;
                 /*else {
                     String manufacturer = Build.MANUFACTURER;
                     String model = Build.MODEL;
@@ -523,13 +523,13 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     else
                         body = context.getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
                 }*/
-                body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
-                body = body + context.getString(R.string.important_info_email_body_problems) + " \n";
-                body = body + context.getString(R.string.important_info_email_body_questions) + " \n";
-                body = body + context.getString(R.string.important_info_email_body_suggestions) + " \n\n";
+                body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
+                body = body + context.getString(R.string.important_info_email_body_problems) + StringConstants.STR_NEWLINE_WITH_SPACE;
+                body = body + context.getString(R.string.important_info_email_body_questions) + StringConstants.STR_NEWLINE_WITH_SPACE;
+                body = body + context.getString(R.string.important_info_email_body_suggestions) + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
         /*        break;
             case EMAIL_BODY_TRANSLATIONS:
-                body = context.getString(R.string.important_info_email_body_translation_language_to) + " \n\n";
+                body = context.getString(R.string.important_info_email_body_translation_language_to) + StringConstants.STR_DOUBLE_NEWLINE_WITH_SPACE;
                 break;
         }*/
         return body;

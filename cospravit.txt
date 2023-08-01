@@ -808,11 +808,5 @@ Lenze toto neviem ako mam zavolat. To radsej nech detektor connection ho zmaze s
 
 ----------------------
 
-// TODO - prerobit na StringBuilder?
-
-Na stringBuilder prerob aj vsetky getPreferenceDescription() v senzoroch
-
-----------
-
 
 

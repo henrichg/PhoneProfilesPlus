@@ -142,7 +142,7 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                                     found = true;
                                     summary = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
                                     if (!withoutNumbers)
-                                        summary = summary + "\n" + phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                        summary = summary + StringConstants.CHAR_NEW_LINE + phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                     //break;
                                 }
                                 phones.close();

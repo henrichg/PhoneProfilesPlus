@@ -421,7 +421,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                     statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
                             prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
                 else*/
-                    statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                    statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + StringConstants.STR_NEWLINE_WITH_COLON +
                             "* " + prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
 
                 locationEnabledStatusTextView.setText(statusText);
@@ -575,7 +575,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 if (getActivity() != null) {
                     PPAlertDialog dialog = new PPAlertDialog(
                             getString(R.string.profile_context_item_delete),
-                            getString(R.string.delete_mobile_cell_alert_message) + "\n\n" +
+                            getString(R.string.delete_mobile_cell_alert_message) + StringConstants.STR_DOUBLE_NEWLINE +
                             getString(R.string.delete_mobile_cell_alert_message_warning),
                             getString(R.string.alert_button_yes),
                             getString(R.string.alert_button_no),
@@ -607,7 +607,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 if (getActivity() != null) {
                     PPAlertDialog dialog = new PPAlertDialog(
                             getString(R.string.profile_context_item_delete),
-                            getString(R.string.delete_selected_mobile_cells_alert_message) + "\n\n" +
+                            getString(R.string.delete_selected_mobile_cells_alert_message) + StringConstants.STR_DOUBLE_NEWLINE +
                                     getString(R.string.delete_selected_mobile_cells_alert_message_warning),
                             getString(R.string.alert_button_yes),
                             getString(R.string.alert_button_no),
@@ -644,7 +644,7 @@ public class MobileCellsPreferenceFragment extends PreferenceDialogFragmentCompa
                 if (getActivity() != null) {
                     PPAlertDialog dialog = new PPAlertDialog(
                             getString(R.string.profile_context_item_delete),
-                            getString(R.string.delete_unselected_mobile_cells_alert_message) + "\n\n" +
+                            getString(R.string.delete_unselected_mobile_cells_alert_message) + StringConstants.STR_DOUBLE_NEWLINE +
                                     getString(R.string.delete_unselected_mobile_cells_alert_message_warning),
                             getString(R.string.alert_button_yes),
                             getString(R.string.alert_button_no),

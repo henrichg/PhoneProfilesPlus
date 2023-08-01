@@ -75,7 +75,7 @@ public class CustomACRAEmailSender implements ReportSender {
 
                     String reportText;
                     try {
-                        reportText = coreConfiguration.getReportFormat().toFormattedString(errorContent, coreConfiguration.getReportContent(), "\n", "\n\t", false);
+                        reportText = coreConfiguration.getReportFormat().toFormattedString(errorContent, coreConfiguration.getReportContent(), StringConstants.CHAR_NEW_LINE, "\n\t", false);
                     } catch (Exception e) {
                         throw new ReportSenderException("Failed to convert Report to text", e);
                     }

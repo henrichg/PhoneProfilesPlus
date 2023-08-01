@@ -56,7 +56,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
         long alarmTime;
 
-        // TODO remove for release
+        //TODO remove for release
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
@@ -183,7 +183,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
                         boolean forceDoData = false;
 
-                        // TODO remove for release
+                        //TODO remove for release
                         //if (DebugVersion.enabled)
                         //    forceDoData = true;
 
