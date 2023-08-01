@@ -88,7 +88,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         @SuppressLint("InflateParams")
         View titleView = layoutInflater.inflate(R.layout.custom_dialog_title_wtih_subtitle, null);
         TextView titleText = titleView.findViewById(R.id.custom_dialog_title);
-        titleText.setText(activity.getString(R.string.profile_string_0) + ": " + profile._name);
+        titleText.setText(activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name);
         TextView subtitleText = titleView.findViewById(R.id.custom_dialog_subtitle);
         subtitleText.setText(activity.getString(R.string.profile_preferences_duration));
         dialogBuilder.setCustomTitle(titleView);

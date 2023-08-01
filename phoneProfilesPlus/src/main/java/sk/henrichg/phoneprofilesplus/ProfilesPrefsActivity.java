@@ -421,7 +421,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ProfilePrefsActivity.loadPreferences");
                 //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                 //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profileName);
-                toolbar.setTitle(getString(R.string.profile_string_0) + ": " + profileName);
+                toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
             }, 200);
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

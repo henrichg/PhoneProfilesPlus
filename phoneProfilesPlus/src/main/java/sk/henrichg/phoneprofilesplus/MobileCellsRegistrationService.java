@@ -181,7 +181,7 @@ public class MobileCellsRegistrationService extends Service
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_started);
             String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
             long iValue = millisUntilFinished / 1000;
-            time = time + ": " + StringFormatUtils.getDurationString((int) iValue);
+            time = time + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString((int) iValue);
             text = text + "; " + time;
 //            if (android.os.Build.VERSION.SDK_INT < 24) {
 //                text = text + " (" + getString(R.string.ppp_app_name) + ")";

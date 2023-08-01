@@ -62,7 +62,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference {
                 summary = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_started);
                 String time = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
                 long iValue = millisUntilFinished / 1000;
-                time = time + ": " + StringFormatUtils.getDurationString((int)iValue);
+                time = time + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString((int)iValue);
                 summary = summary + "; " + time;
                 started = true;
             }

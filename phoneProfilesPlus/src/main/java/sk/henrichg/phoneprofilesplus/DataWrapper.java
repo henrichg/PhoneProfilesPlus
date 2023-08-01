@@ -1612,7 +1612,7 @@ public class DataWrapper {
         try {
             String profileName = DataWrapperStatic.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
             PPApplication.showToast(context.getApplicationContext(),
-                    context.getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
+                    context.getString(R.string.toast_profile_activated_0) + StringConstants.STR_COLON_WITH_SPACE + profileName + " " +
                             context.getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
         }
@@ -1649,7 +1649,7 @@ public class DataWrapper {
             }
             else {
                 PPAlertDialog dialog = new PPAlertDialog(
-                        activity.getString(R.string.profile_string_0) + ": " + profile._name,
+                        activity.getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profile._name,
                         activity.getString(R.string.activate_profile_alert_message),
                         activity.getString(R.string.alert_button_yes),
                         activity.getString(R.string.alert_button_no),

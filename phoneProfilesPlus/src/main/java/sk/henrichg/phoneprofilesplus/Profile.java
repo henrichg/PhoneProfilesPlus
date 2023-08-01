@@ -3079,7 +3079,7 @@ public class Profile {
 
                         if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
                             // configured time is not expired
-                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + ": " +
+                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + StringConstants.STR_COLON_WITH_SPACE +
                                     StringFormatUtils.getTimeString(endOfActivationTime) + ")";
                             showEndTime = true;
                         }
@@ -3087,7 +3087,7 @@ public class Profile {
                 }
                 if (!showEndTime) {
                     //if (!_checked)
-                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
+                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getTimeString(_endOfActivationTime) + "]";
                 }
             }
         }

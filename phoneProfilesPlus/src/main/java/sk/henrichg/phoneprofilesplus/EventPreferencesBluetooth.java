@@ -122,7 +122,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_bluetooth_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
-                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
                 }
 
                 /*

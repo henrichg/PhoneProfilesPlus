@@ -35,7 +35,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
             final Event _event = event;
 
             TextView eventName = popupView.findViewById(R.id.event_status_popup_window_text0);
-            eventName.setText(fragment.getString(R.string.event_string_0)+": "+event._name);
+            eventName.setText(fragment.getString(R.string.event_string_0)+StringConstants.STR_COLON_WITH_SPACE+event._name);
 
             final SwitchCompat checkBox = popupView.findViewById(R.id.event_status_popup_window_checkbox);
             checkBox.setChecked(event.getStatus() != Event.ESTATUS_STOP);

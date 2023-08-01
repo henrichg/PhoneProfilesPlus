@@ -234,7 +234,7 @@ class EventPreferencesAccessories extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ACCESSORIES_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

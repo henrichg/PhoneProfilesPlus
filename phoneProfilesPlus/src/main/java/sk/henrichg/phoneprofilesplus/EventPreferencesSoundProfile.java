@@ -127,7 +127,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     }
                     selectedValues = _value.toString();
                 }
-                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 if (dndChecked) {
                     selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -150,7 +150,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         }
                         selectedValues = _value.toString();
                     }
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_soundProfile_zenModes) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_soundProfile_zenModes) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
             }
         }
@@ -321,7 +321,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

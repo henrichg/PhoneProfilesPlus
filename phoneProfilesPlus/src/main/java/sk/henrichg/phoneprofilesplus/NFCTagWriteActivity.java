@@ -102,7 +102,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 //                    PPApplicationStatic.logE("[IN_LISTENER] NFCTagWriteActivity.onTagWriteError", "xxx");
 
                 String text = getString(R.string.write_nfc_tag_error);
-                text = text + ": " + exception.getType().toString();
+                text = text + StringConstants.STR_COLON_WITH_SPACE + exception.getType().toString();
                 if (nfcManager.tagRead) {
                     if (nfcManager.tagIsWritable)
                         text = text + " (" + getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable) + ")";

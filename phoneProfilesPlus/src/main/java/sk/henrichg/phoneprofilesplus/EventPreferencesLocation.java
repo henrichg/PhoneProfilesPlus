@@ -104,7 +104,7 @@ class EventPreferencesLocation extends EventPreferences {
                     //selectedLocations = context.getString(R.string.profile_preferences_device_not_allowed) +
                     //        ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
                     value.append(context.getString(R.string.profile_preferences_device_not_allowed)).
-                            append(": ").
+                            append(StringConstants.STR_COLON_WITH_SPACE).
                             append(context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                 } else {
                     String[] splits = this._geofences.split(StringConstants.STR_SPLIT_REGEX);
@@ -125,7 +125,7 @@ class EventPreferencesLocation extends EventPreferences {
                     }
                 }
                 selectedLocations = value.toString();
-                descr = descr + context.getString(R.string.event_preferences_locations_location) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedLocations, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.event_preferences_locations_location) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedLocations, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 if (this._whenOutside)
                     descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_location_when_outside_description), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
@@ -286,7 +286,7 @@ class EventPreferencesLocation extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

@@ -62,7 +62,7 @@ public class DefaultSIMDialogPreference extends DialogPreference {
     {
         String prefVolumeDataSummary;
 
-        prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + ": ";
+        prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + StringConstants.STR_COLON_WITH_SPACE;
         String[] arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
         try {
             prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[voiceValue];
@@ -71,7 +71,7 @@ public class DefaultSIMDialogPreference extends DialogPreference {
 
         prefVolumeDataSummary = prefVolumeDataSummary + "; ";
 
-        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_sms) + ": ";
+        prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_sms) + StringConstants.STR_COLON_WITH_SPACE;
         arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMSMSArray);
         try {
             prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[smsValue];

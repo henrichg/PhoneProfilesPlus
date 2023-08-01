@@ -103,7 +103,7 @@ public class GenerateNotificationDialogPreference extends DialogPreference {
         if (generate == 0)
             prefVolumeDataSummary = _context.getString(R.string.preference_profile_generate_notification_no_generate);
         else {
-            prefVolumeDataSummary = _context.getString(R.string.preference_profile_generate_notification_generate) + ": ";
+            prefVolumeDataSummary = _context.getString(R.string.preference_profile_generate_notification_generate) + StringConstants.STR_COLON_WITH_SPACE;
             if (iconType == 0)
                 prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_generate_notification_information_icon) + "; ";
             else

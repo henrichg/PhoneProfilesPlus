@@ -118,10 +118,10 @@ class EventPreferencesWifi extends EventPreferences {
                 if (index != -1) {
                     descr = descr + context.getString(R.string.event_preferences_wifi_connection_type);
                     String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
+                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(connectionListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
                 }
 
-                descr = descr + context.getString(R.string.pref_event_wifi_ssid) + ": ";
+                descr = descr + context.getString(R.string.pref_event_wifi_ssid) + StringConstants.STR_COLON_WITH_SPACE;
                 String selectedSSIDs;// = "";
                 StringBuilder value = new StringBuilder();
                 String[] splits = this._SSID.split(StringConstants.STR_SPLIT_REGEX);
@@ -353,7 +353,7 @@ class EventPreferencesWifi extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY_ROOT);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

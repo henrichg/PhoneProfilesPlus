@@ -90,7 +90,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(context.getString(R.string.profile_preference_profile_not_set), disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
                 }
 
-                _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_activated_profile_endProfile)).append(": ");
+                _value.append(StringConstants.STR_DOT).append(context.getString(R.string.event_preferences_activated_profile_endProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                 profile = dataWrapper.getProfileById(this._endProfile, true, true, false);
                 if (profile != null) {
                     _value.append(StringConstants.TAG_BOLD_START_HTML).append(getColorForChangedPreferenceValue(profile._name, disabled, context)).append(StringConstants.TAG_BOLD_END_HTML);
@@ -199,7 +199,7 @@ class EventPreferencesActivatedProfile extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ACTIVATED_PROFILE_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

@@ -153,9 +153,9 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
                         mCursor.close();
                     }
                     if (!found)
-                        summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+                        summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 } else
-                    summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + ": " + splits.length;
+                    summary = context.getString(R.string.contacts_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
             }
         }
         return summary;

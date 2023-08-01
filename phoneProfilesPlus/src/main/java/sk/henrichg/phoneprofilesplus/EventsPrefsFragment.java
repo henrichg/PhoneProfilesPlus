@@ -354,7 +354,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             final String eventName = preferences.getString(Event.PREF_EVENT_NAME, "");
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             toolbar.setSubtitle(getString(R.string.title_activity_event_preferences));
-            toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
+            toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
         }, 200);
 
         // subtitle
@@ -1219,7 +1219,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
                     Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + _value);
-                    toolbar.setTitle(getString(R.string.event_string_0) + ": " + _value);
+                    toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
         }

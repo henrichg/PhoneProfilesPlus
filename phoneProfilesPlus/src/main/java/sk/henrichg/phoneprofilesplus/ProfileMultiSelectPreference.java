@@ -81,7 +81,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
         String prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_not_selected);
         if (!value.isEmpty() && !value.equals("-")) {
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-            prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_selected) + ": " + splits.length;
+            prefSummary = prefContext.getString(R.string.profile_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
             if (splits.length == 1) {
                 Profile profile = dataWrapper.getProfileById(Long.parseLong(value), false, false, false);
                 if (profile != null)

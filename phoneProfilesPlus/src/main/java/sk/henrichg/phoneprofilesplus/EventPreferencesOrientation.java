@@ -197,7 +197,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     }
                     selectedValues = _value.toString();
                 }
-                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.event_preferences_orientation_display) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
@@ -222,21 +222,21 @@ class EventPreferencesOrientation extends EventPreferences {
                         }
                         selectedValues = _value.toString();
                     }
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_sides) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_sides) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedValues, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_distance) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_distance) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(distanceNames[i], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 if (this._checkLight) {
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + ": "+StringConstants.TAG_BOLD_START_HTML +
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML +
                             getColorForChangedPreferenceValue(this._lightMin + "-" + this._lightMax, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
                 else {
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + ": "+StringConstants.TAG_BOLD_START_HTML +
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_light) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML +
                             getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_orientation_light_not_enabled), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
 
@@ -244,17 +244,17 @@ class EventPreferencesOrientation extends EventPreferences {
                 int extenderVersion = sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!sk.henrichg.phoneprofilesplus.PPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), false, true
                         /*, "EventPreferencesOrientation.getPreferencesDescription"*/)) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     selectedApplications = context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
+                            StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 } else if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
                     String[] splits = this._ignoredApplications.split(StringConstants.STR_SPLIT_REGEX);
                     if (splits.length == 1) {
@@ -268,7 +268,7 @@ class EventPreferencesOrientation extends EventPreferences {
                                 if (app != null)
                                     selectedApplications = packageManager.getApplicationLabel(app).toString();
                             } catch (Exception e) {
-                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                             }
                         } else {
                             Intent intent = new Intent();
@@ -278,9 +278,9 @@ class EventPreferencesOrientation extends EventPreferences {
                                 selectedApplications = info.loadLabel(packageManager).toString();
                         }
                     } else
-                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 }
-                descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_orientation_ignoreForApplications) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 
@@ -666,7 +666,7 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -733,14 +733,14 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (preference != null) {
                     if (!hasAccelerometer)
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     preference.setEnabled(hasAccelerometer);
                 }
                 preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
                 if (preference != null) {
                     if (!enabledAll)
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     preference.setEnabled(enabledAll);
                 }
                 boolean enabled = hasProximity;
@@ -748,7 +748,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (preference != null) {
                     if (!enabled)
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     preference.setEnabled(enabled);
                 }
 
@@ -757,21 +757,21 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (currentValuePreference != null) {
                     if (!enabled)
                         currentValuePreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     currentValuePreference.setEnabled(enabled);
                 }
                 Preference minLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MIN);
                 if (minLightPreference != null) {
                     if (!enabled)
                         minLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     minLightPreference.setEnabled(enabled);
                 }
                 Preference maxLightPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_MAX);
                 if (maxLightPreference != null) {
                     if (!enabled)
                         maxLightPreference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + context.getString(R.string.preference_not_allowed_reason_no_hardware));
+                                StringConstants.STR_COLON_WITH_SPACE + context.getString(R.string.preference_not_allowed_reason_no_hardware));
                     maxLightPreference.setEnabled(enabled);
                 }
                 if (enabled) {
@@ -800,7 +800,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
                             if (!OK) {
                                 PPApplication.showToast(_context.getApplicationContext(),
-                                        _context.getString(R.string.event_preferences_orientation_light_level_min) + ": " +
+                                        _context.getString(R.string.event_preferences_orientation_light_level_min) + StringConstants.STR_COLON_WITH_SPACE +
                                                 _context.getString(R.string.event_preferences_orientation_light_level_bad_value),
                                         Toast.LENGTH_SHORT);
                             }
@@ -831,7 +831,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
                             if (!OK) {
                                 PPApplication.showToast(_context.getApplicationContext(),
-                                        _context.getString(R.string.event_preferences_orientation_light_level_max) + ": " +
+                                        _context.getString(R.string.event_preferences_orientation_light_level_max) + StringConstants.STR_COLON_WITH_SPACE +
                                                 _context.getString(R.string.event_preferences_orientation_light_level_bad_value),
                                         Toast.LENGTH_SHORT);
                             }

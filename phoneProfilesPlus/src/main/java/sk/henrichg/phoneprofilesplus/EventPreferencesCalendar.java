@@ -179,40 +179,40 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";
+                descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + StringConstants.STR_COLON_WITH_SPACE;
                 descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(CalendarsMultiSelectDialogPreference.getSummary(_calendars, context), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
 
                 if (this._dayContainsEvent > 0) {
-                    descr = descr + context.getString(R.string.event_preferences_calendar_day_contains_event) + ": ";
+                    descr = descr + context.getString(R.string.event_preferences_calendar_day_contains_event) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarDayContainsEventArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(dayContainsEventArray[this._dayContainsEvent], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
                 }
                 if (this._allEvents) {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_calendar_all_events), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
                 } else {
-                    descr = descr + context.getString(R.string.event_preferences_calendar_search_field) + ": ";
+                    descr = descr + context.getString(R.string.event_preferences_calendar_search_field) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(searchFields[this._searchField], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
 
-                    descr = descr + context.getString(R.string.event_preferences_calendar_search_string) + ": ";
+                    descr = descr + context.getString(R.string.event_preferences_calendar_search_string) + StringConstants.STR_COLON_WITH_SPACE;
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue("\"" + this._searchString + "\"", disabled, context) + StringConstants.TAG_BOLD_END_HTML + StringConstants.STR_DOT;
                 }
 
                 //if (this._ignoreAllDayEvents)
                 //    descr = descr + "<b>" + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_calendar_ignore_all_day_events, disabled, context)) + "</b> • ";
-                descr = descr + context.getString(R.string.event_preferences_calendar_all_day_events) + ": ";
+                descr = descr + context.getString(R.string.event_preferences_calendar_all_day_events) + StringConstants.STR_COLON_WITH_SPACE;
                 String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarAllDayEventsArray);
                 descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(dayContainsEventArray[this._allDayEvents], disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
 
 
                 String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(availabilities[this._availability], disabled, context) + StringConstants.STR_DOT+StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.event_preference_calendar_availability) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(availabilities[this._availability], disabled, context) + StringConstants.STR_DOT+StringConstants.TAG_BOLD_END_HTML;
 
                 String[] statuses = context.getResources().getStringArray(R.array.eventCalendarStatusArray);
-                descr = descr + context.getString(R.string.event_preference_calendar_status) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(statuses[this._status], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.event_preference_calendar_status) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(statuses[this._status], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 if (this._startBeforeEvent > 0)
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_calendar_start_before_event) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._startBeforeEvent), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_calendar_start_before_event) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._startBeforeEvent), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 if (addBullet) {
                     if (EventStatic.getGlobalEventsRunning(context)) {
@@ -485,7 +485,7 @@ class EventPreferencesCalendar extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

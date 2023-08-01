@@ -430,7 +430,7 @@ public class EventsPrefsActivity extends AppCompatActivity
 //                    PPApplicationStatic.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.loadPreferences");
                 //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
                 //toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
-                toolbar.setTitle(getString(R.string.event_string_0) + ": " + eventName);
+                toolbar.setTitle(getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + eventName);
             }, 200);
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

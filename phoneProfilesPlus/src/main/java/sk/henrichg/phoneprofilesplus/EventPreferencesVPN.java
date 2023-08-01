@@ -58,14 +58,14 @@ class EventPreferencesVPN extends EventPreferences {
 
             PreferenceAllowed preferenceAllowed = EventStatic.isEventPreferenceAllowed(PREF_EVENT_VPN_ENABLED, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + ": ";
+                descr = descr + context.getString(R.string.pref_event_vpn_connection_status) + StringConstants.STR_COLON_WITH_SPACE;
                 String[] fields = context.getResources().getStringArray(R.array.eventVPNArray);
                 descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[this._connectionStatus], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
             }
             else {
                 descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
         }
 
@@ -155,7 +155,7 @@ class EventPreferencesVPN extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_VPN_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

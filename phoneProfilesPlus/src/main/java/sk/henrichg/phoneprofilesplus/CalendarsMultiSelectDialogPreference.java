@@ -63,9 +63,9 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference {
                         cur.close();
                     }
                     if (!found)
-                        summary = context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+                        summary = context.getString(R.string.calendars_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                 } else
-                    summary = context.getString(R.string.calendars_multiselect_summary_text_selected) + ": " + splits.length;
+                    summary = context.getString(R.string.calendars_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
             }
         }
         return summary;

@@ -121,7 +121,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
                     selectedCells = selectedCells + " " + splits.length;
                 }
-                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedCells, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedCells, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 if (this._whenOutside)
                     descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_mobile_cells_when_outside_description), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
@@ -144,13 +144,13 @@ class EventPreferencesMobileCells extends EventPreferences {
                 if (hasSIMCard) {
                     descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_mobile_cells_forSimCard);
                     String[] forSimCard = context.getResources().getStringArray(R.array.eventMobileCellsForSimCardArray);
-                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(forSimCard[this._forSIMCard], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
                 //}
             }
             else {
                 descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
         }
 
@@ -281,7 +281,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
                 }
                 else if (!hasSIMCard) {
@@ -291,7 +291,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_TWO_SIM_CARDS;
                         preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                StringConstants.STR_COLON_WITH_SPACE + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
                 }
             }
@@ -367,7 +367,7 @@ class EventPreferencesMobileCells extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

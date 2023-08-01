@@ -77,7 +77,7 @@ class EventPreferencesScreen extends EventPreferences {
                 String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
                 int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
                 if (index != -1) {
-                    descr = descr + context.getString(R.string.event_preferences_screen_event_type) + ": ";
+                    descr = descr + context.getString(R.string.event_preferences_screen_event_type) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(eventListTypeNames[index], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
@@ -179,7 +179,7 @@ class EventPreferencesScreen extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

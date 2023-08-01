@@ -271,7 +271,7 @@ public class MobileCellsRegistrationDialogPreferenceFragment extends PreferenceD
                     mRemainingTime.setVisibility(View.VISIBLE);
                     String time = getString(R.string.mobile_cells_registration_pref_dlg_status_remaining_time);
                     long iValue = millisUntilFinished / 1000;
-                    time = time + ": " + StringFormatUtils.getDurationString((int)iValue);
+                    time = time + StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString((int)iValue);
                     mRemainingTime.setText(time);
                     started = true;
                 }

@@ -84,7 +84,7 @@ class EventPreferencesNFC extends EventPreferences {
                     descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
+                descr = descr + context.getString(R.string.event_preferences_nfc_nfcTags) + StringConstants.STR_COLON_WITH_SPACE;
                 String selectedNfcTags;// = "";
                 StringBuilder value = new StringBuilder();
                 String[] splits = this._nfcTags.split(StringConstants.STR_SPLIT_REGEX);
@@ -108,7 +108,7 @@ class EventPreferencesNFC extends EventPreferences {
                 if (this._permanentRun)
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_permanentRun), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + context.getString(R.string.pref_event_duration) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 
@@ -225,7 +225,7 @@ class EventPreferencesNFC extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

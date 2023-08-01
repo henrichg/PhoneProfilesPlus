@@ -107,18 +107,18 @@ class EventPreferencesPeriodic extends EventPreferences {
                     if (scanningPaused) {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningPaused) + StringConstants.TAG_BREAK_HTML;
                     } else {
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + StringConstants.STR_COLON_WITH_SPACE +
                                 StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(ApplicationPreferences.applicationEventPeriodicScanningScanInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                         descr = descr + StringConstants.STR_DOT;
                     }
                 }
 
-                descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(this._multipleInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 descr = descr + StringConstants.STR_DOT;
                 int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
-                descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(String.valueOf(resultingInterval), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 descr = descr + StringConstants.STR_DOT;
-                descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + context.getString(R.string.pref_event_duration) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
             }
         }
 
@@ -166,7 +166,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     } else {
                         summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + "."+StringConstants.CHAR_NEW_LINE;
-                        summary = summary + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
+                        summary = summary + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + StringConstants.STR_COLON_WITH_SPACE +
                                 ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
                         summary = summary + StringConstants.STR_DOUBLE_NEWLINE +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
@@ -283,7 +283,7 @@ class EventPreferencesPeriodic extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_PERIODIC_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

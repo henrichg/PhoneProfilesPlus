@@ -342,7 +342,7 @@ class PPApplicationStatic {
                             break;
                     }
                     if (!text.isEmpty()) {
-                        text = appContext.getString(R.string.profile_activation_activation_error) + ": " + text + ".";
+                        text = appContext.getString(R.string.profile_activation_activation_error) + StringConstants.STR_COLON_WITH_SPACE + text + ".";
 
                         PPApplicationStatic.createExclamationNotificationChannel(appContext, false);
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
@@ -493,7 +493,7 @@ class PPApplicationStatic {
         if (logContainsFilterTag(tag))
         {
             //if (logIntoLogCat) Log.i(tag, text);
-            if (PPApplication.logIntoLogCat) Log.i(tag, "[ "+tag+" ]" + ": " + text);
+            if (PPApplication.logIntoLogCat) Log.i(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("I", tag, text);
         }
     }
@@ -507,7 +507,7 @@ class PPApplicationStatic {
         if (logContainsFilterTag(tag))
         {
             //if (logIntoLogCat) Log.w(tag, text);
-            if (PPApplication.logIntoLogCat) Log.w(tag, "[ "+tag+" ]" + ": " + text);
+            if (PPApplication.logIntoLogCat) Log.w(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("W", tag, text);
         }
     }
@@ -520,7 +520,7 @@ class PPApplicationStatic {
         if (logContainsFilterTag(tag))
         {
             //if (logIntoLogCat) Log.e(tag, text);
-            if (PPApplication.logIntoLogCat) Log.e(tag, "[ "+tag+" ]" + ": " + text);
+            if (PPApplication.logIntoLogCat) Log.e(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("E", tag, text);
         }
     }
@@ -534,7 +534,7 @@ class PPApplicationStatic {
         if (logContainsFilterTag(tag))
         {
             //if (logIntoLogCat) Log.d(tag, text);
-            if (PPApplication.logIntoLogCat) Log.d(tag, "[ "+tag+" ]" + ": " + text);
+            if (PPApplication.logIntoLogCat) Log.d(tag, "[ "+tag+" ]" + StringConstants.STR_COLON_WITH_SPACE + text);
             logIntoFile("D", tag, text);
         }
     }

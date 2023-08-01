@@ -135,14 +135,14 @@ class EventPreferencesBattery extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.pref_event_battery_level);
-                descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(this._levelLow + "% - " + this._levelHight + "%", disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                 if (this._powerSaveMode)
                     descr = descr + StringConstants.STR_DOT+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.pref_event_battery_power_save_mode), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 else {
                     descr = descr + StringConstants.STR_DOT + context.getString(R.string.pref_event_battery_charging);
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                    descr = descr + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(charging[this._charging], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(charging[this._charging], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
@@ -164,7 +164,7 @@ class EventPreferencesBattery extends EventPreferences {
                         }
                         selectedPlugged = value.toString();
                     }
-                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_battery_plugged) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                    descr = descr + StringConstants.STR_DOT + context.getString(R.string.event_preferences_battery_plugged) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedPlugged, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
             }
         }
@@ -312,7 +312,7 @@ class EventPreferencesBattery extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
@@ -354,7 +354,7 @@ class EventPreferencesBattery extends EventPreferences {
 
                         if (!OK) {
                             PPApplication.showToast(_context.getApplicationContext(),
-                                    _context.getString(R.string.event_preferences_battery_level_low) + ": " +
+                                    _context.getString(R.string.event_preferences_battery_level_low) + StringConstants.STR_COLON_WITH_SPACE +
                                             _context.getString(R.string.event_preferences_battery_level_bad_value),
                                     Toast.LENGTH_SHORT);
                         }
@@ -385,7 +385,7 @@ class EventPreferencesBattery extends EventPreferences {
 
                         if (!OK) {
                             PPApplication.showToast(_context.getApplicationContext(),
-                                    _context.getString(R.string.event_preferences_battery_level_hight) + ": " +
+                                    _context.getString(R.string.event_preferences_battery_level_hight) + StringConstants.STR_COLON_WITH_SPACE +
                                             _context.getString(R.string.event_preferences_battery_level_bad_value),
                                     Toast.LENGTH_SHORT);
                         }

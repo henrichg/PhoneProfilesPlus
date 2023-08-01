@@ -115,7 +115,7 @@ class EventPreferencesVolumes extends EventPreferences {
                     } catch (Exception ignored) {}
                 }
                 if (operator != 0) {
-                    descr = descr + context.getString(R.string.profile_preferences_volumeRingtone) + ": ";
+                    descr = descr + context.getString(R.string.profile_preferences_volumeRingtone) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
@@ -131,7 +131,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     if (_addBullet)
                         descr = descr +  StringConstants.STR_DOT;
-                    descr = descr + context.getString(R.string.profile_preferences_volumeNotification) + ": ";
+                    descr = descr + context.getString(R.string.profile_preferences_volumeNotification) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
@@ -147,7 +147,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     if (_addBullet)
                         descr = descr + StringConstants.STR_DOT;
-                    descr = descr + context.getString(R.string.profile_preferences_volumeMedia) + ": ";
+                    descr = descr + context.getString(R.string.profile_preferences_volumeMedia) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
@@ -163,7 +163,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     if (_addBullet)
                         descr = descr + StringConstants.STR_DOT;
-                    descr = descr + context.getString(R.string.profile_preferences_volumeAlarm) + ": ";
+                    descr = descr + context.getString(R.string.profile_preferences_volumeAlarm) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
@@ -179,7 +179,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     if (_addBullet)
                         descr = descr + StringConstants.STR_DOT;
-                    descr = descr + context.getString(R.string.profile_preferences_volumeSystem) + ": ";
+                    descr = descr + context.getString(R.string.profile_preferences_volumeSystem) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
@@ -195,7 +195,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     if (_addBullet)
                         descr = descr + StringConstants.STR_DOT;
-                    descr = descr + context.getString(R.string.profile_preferences_volumeVoiceCall) + ": ";
+                    descr = descr + context.getString(R.string.profile_preferences_volumeVoiceCall) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     _addBullet = true;
@@ -211,7 +211,7 @@ class EventPreferencesVolumes extends EventPreferences {
                 if (operator != 0) {
                     if (_addBullet)
                         descr = descr + StringConstants.STR_DOT;
-                    descr = descr + context.getString(R.string.profile_preferences_volumeBluetoothSCO) + ": ";
+                    descr = descr + context.getString(R.string.profile_preferences_volumeBluetoothSCO) + StringConstants.STR_COLON_WITH_SPACE;
                     String[] fields = context.getResources().getStringArray(R.array.volumesSensorOperatorArray);
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(fields[operator] + " " + splits[0], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     //_addBullet = true;
@@ -382,7 +382,7 @@ class EventPreferencesVolumes extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_VOLUMES_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

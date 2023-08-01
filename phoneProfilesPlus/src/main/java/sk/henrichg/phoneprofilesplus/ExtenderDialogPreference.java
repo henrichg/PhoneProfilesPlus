@@ -129,7 +129,7 @@ public class ExtenderDialogPreference extends DialogPreference {
             summary = StringConstants.TAG_BOLD_START_HTML + _context.getString(R.string.accessibility_service_not_used) + StringConstants.TAG_BOLD_END_HTML;
         }
         prefVolumeDataSummary = prefVolumeDataSummary + StringConstants.TAG_DOUBLE_BREAK_HTML +
-                _context.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + ": " +
+                _context.getString(R.string.event_preferences_applications_AccessibilitySettings_title) + StringConstants.STR_COLON_WITH_SPACE +
                 summary;
 
         if ((lauchSummary != null) && (!lauchSummary.isEmpty()))

@@ -1153,7 +1153,7 @@ class Event {
                     }
                     if (profileStartWhenActivatedChanged) {
                         if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
-                        _value.append(context.getString(R.string.event_preferences_eventStartWhenActivatedProfile)).append(": ");
+                        _value.append(context.getString(R.string.event_preferences_eventStartWhenActivatedProfile)).append(StringConstants.STR_COLON_WITH_SPACE);
                         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
                         String[] splits = startWhenActivatedProfile.split(StringConstants.STR_SPLIT_REGEX);
                         Profile profile;
@@ -1173,7 +1173,7 @@ class Event {
                     }
                     if (delayStartChanged) {
                         if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
-                        _value.append(context.getString(R.string.event_preferences_delayStart)).append(": ");
+                        _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayStart), !preference.isEnabled(), context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
@@ -1188,7 +1188,7 @@ class Event {
                     }
                     if (notificationRepeatStartChanged) {
                         if (_value.length() > 0) _value.append(StringConstants.STR_DOT);
-                        _value.append(context.getString(R.string.event_preferences_notificationRepeat)).append(": ");
+                        _value.append(context.getString(R.string.event_preferences_notificationRepeat)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(repeatInterval), !preference.isEnabled(), context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
@@ -1215,7 +1215,7 @@ class Event {
                     }
                     if (delayEndChanged) {
                         /*if (_value.length() > 0)*/ _value.append(StringConstants.STR_DOT);
-                        _value.append(context.getString(R.string.event_preferences_delayStart)).append(": ");
+                        _value.append(context.getString(R.string.event_preferences_delayStart)).append(StringConstants.STR_COLON_WITH_SPACE);
                         _value.append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(delayEnd), !preference.isEnabled(), context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
@@ -2594,7 +2594,7 @@ class Event {
 
         if (_isInDelayStart) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
-                    ": " + StringFormatUtils.getDurationString(_delayStart) +")";
+                    StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayStart) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
 
@@ -2822,7 +2822,7 @@ class Event {
 
         if (_isInDelayEnd) {
             String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
-                    ": " + StringFormatUtils.getDurationString(_delayEnd) +")";
+                    StringConstants.STR_COLON_WITH_SPACE + StringFormatUtils.getDurationString(_delayEnd) +")";
             PPApplicationStatic.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
 
@@ -2930,7 +2930,7 @@ class Event {
 
                 String nTitle = context.getString(R.string.start_event_notification_title);
                 String nText = context.getString(R.string.start_event_notification_text1);
-                nText = nText + ": " + _name;
+                nText = nText + StringConstants.STR_COLON_WITH_SPACE + _name;
                 nText = nText + ". " + context.getString(R.string.start_event_notification_text2);
 //                if (android.os.Build.VERSION.SDK_INT < 24) {
 //                    nTitle = context.getString(R.string.ppp_app_name);

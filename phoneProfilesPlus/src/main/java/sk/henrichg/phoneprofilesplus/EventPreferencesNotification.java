@@ -187,7 +187,7 @@ class EventPreferencesNotification extends EventPreferences {
                                         if (app != null)
                                             selectedApplications = packageManager.getApplicationLabel(app).toString();
                                     } catch (Exception e) {
-                                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                                     }
                                 } else {
                                     Intent intent = new Intent();
@@ -197,35 +197,35 @@ class EventPreferencesNotification extends EventPreferences {
                                         selectedApplications = info.loadLabel(packageManager).toString();
                                 }
                             } else
-                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
                         }
                         if (this._inCall || this._missedCall)
                             descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        descr = descr + context.getString(R.string.event_preferences_notifications_applications) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedApplications, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
 
                         if (this._checkContacts) {
                             descr = descr + StringConstants.STR_DOT;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + StringConstants.TAG_BOLD_END_HTML+": ";
+                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkContacts), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_COLON_WITH_SPACE;
 
-                            descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + ": ";
+                            descr = descr + context.getString(R.string.event_preferences_notifications_contact_groups) + StringConstants.STR_COLON_WITH_SPACE;
                             descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactGroupsMultiSelectDialogPreference.getSummary(_contactGroups, context), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
 
-                            descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + ": ";
+                            descr = descr + context.getString(R.string.event_preferences_notifications_contacts) + StringConstants.STR_COLON_WITH_SPACE;
                             descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(ContactsMultiSelectDialogPreference.getSummary(_contacts, true, context), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT;
 
-                            descr = descr + context.getString(R.string.event_preferences_contactListType) + ": ";
+                            descr = descr + context.getString(R.string.event_preferences_contactListType) + StringConstants.STR_COLON_WITH_SPACE;
                             String[] contactListTypes = context.getResources().getStringArray(R.array.eventNotificationContactListTypeArray);
                             descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(contactListTypes[this._contactListType], disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                         }
                         if (this._checkText) {
                             descr = descr + StringConstants.STR_DOT;
-                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + StringConstants.TAG_BOLD_END_HTML+": ";
+                            descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(context.getString(R.string.event_preferences_notifications_checkText), disabled, context) + StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_COLON_WITH_SPACE;
 
-                            descr = descr + context.getString(R.string.event_preferences_notifications_text) + ": ";
+                            descr = descr + context.getString(R.string.event_preferences_notifications_text) + StringConstants.STR_COLON_WITH_SPACE;
                             descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(_text, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                         }
                         descr = descr + StringConstants.STR_DOT;
-                        descr = descr + context.getString(R.string.pref_event_duration) + ": "+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                        descr = descr + context.getString(R.string.pref_event_duration) + StringConstants.STR_COLON_WITH_SPACE+StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(StringFormatUtils.getDurationString(this._duration), disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                     }
                 }
             }
@@ -498,7 +498,7 @@ class EventPreferencesNotification extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }

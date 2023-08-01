@@ -285,11 +285,11 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         String nTitle;
         String nText;
         if (critical) {
-            nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.critical_github_release);
+            nTitle = appContext.getString(R.string.ppp_app_name) + StringConstants.STR_COLON_WITH_SPACE + appContext.getString(R.string.critical_github_release);
             nText = appContext.getString(R.string.critical_github_release_notification);
         }
         else {
-            nTitle = appContext.getString(R.string.ppp_app_name) + ": " + appContext.getString(R.string.normal_github_release);
+            nTitle = appContext.getString(R.string.ppp_app_name) + StringConstants.STR_COLON_WITH_SPACE + appContext.getString(R.string.normal_github_release);
             nText = appContext.getString(R.string.normal_github_release_notification);
         }
         mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)

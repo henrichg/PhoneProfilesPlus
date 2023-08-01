@@ -977,7 +977,7 @@ public class EditorEventListFragment extends Fragment
 
         SingleSelectListDialog dialog = new SingleSelectListDialog(
                 true,
-                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + event._name,
                 getString(R.string.tooltip_options_menu),
                 itemsRes,
                 SingleSelectListDialog.NOT_USE_RADIO_BUTTONS,
@@ -1063,7 +1063,7 @@ public class EditorEventListFragment extends Fragment
         final Event _event = event;
 
         PPAlertDialog dialog = new PPAlertDialog(
-                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + event._name,
                 getString(R.string.delete_event_alert_message),
                 getString(R.string.alert_button_yes),
                 getString(R.string.alert_button_no),
@@ -2008,7 +2008,7 @@ public class EditorEventListFragment extends Fragment
 
         SingleSelectListDialog dialog = new SingleSelectListDialog(
                 true,
-                getString(R.string.event_string_0) + ": " + event._name,
+                getString(R.string.event_string_0) + StringConstants.STR_COLON_WITH_SPACE + event._name,
                 getString(R.string.event_preferences_ForceRun),
                 R.array.eventListItemIgnoreManualActivationArray,
                 value,

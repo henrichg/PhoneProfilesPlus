@@ -355,7 +355,7 @@ public class RunApplicationsDialogPreference extends DialogPreference {
         String prefSummary = context.getString(R.string.applications_multiselect_summary_text_not_selected);
         if (!value.isEmpty() && !value.equals("-")) {
             String[] splits = value.split(StringConstants.STR_SPLIT_REGEX);
-            prefSummary = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+            prefSummary = context.getString(R.string.applications_multiselect_summary_text_selected) + StringConstants.STR_COLON_WITH_SPACE + splits.length;
             if (splits.length == 1) {
                 PackageManager packageManager = context.getPackageManager();
                 if (Application.isShortcut(splits[0])) {

@@ -412,7 +412,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             final String profileName = preferences.getString(Profile.PREF_PROFILE_NAME, "");
             Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
             toolbar.setSubtitle(getString(R.string.title_activity_profile_preferences));
-            toolbar.setTitle(getString(R.string.profile_string_0) + ": " + profileName);
+            toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + profileName);
         }, 200);
 
         // subtitle
@@ -1527,7 +1527,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title) +
                     " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"";
             preference.setTitle(title);
-            String summary = getString(R.string.profile_preferences_deviceScreenOnPermanent) + ": ";
+            String summary = getString(R.string.profile_preferences_deviceScreenOnPermanent) + StringConstants.STR_COLON_WITH_SPACE;
             if (ApplicationPreferences.keepScreenOnPermanent)
                 summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On);
             else
@@ -1672,7 +1672,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
                     //toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + _value);
-                    toolbar.setTitle(getString(R.string.profile_string_0) + ": " + _value);
+                    toolbar.setTitle(getString(R.string.profile_string_0) + StringConstants.STR_COLON_WITH_SPACE + _value);
                 }, 200);
             }
         }
@@ -2161,7 +2161,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (value != null) {
                         value = StringFormatUtils.getDurationString(Integer.parseInt(value));
                         _value.append(title)
-                                .append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                                .append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML).append(StringConstants.STR_DOT);
 
@@ -2169,7 +2169,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
                         value = StringFormatUtils.getListPreferenceString(afterDurationDoValue,
                                 R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
-                        _value.append(afterDurationDoTitle).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                        _value.append(afterDurationDoTitle).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                                 .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                                 .append(StringConstants.TAG_BOLD_END_HTML);
 
@@ -2184,7 +2184,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     value = context.getString(R.string.profile_preference_profile_end_no_activate);
                             }
                             String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, context);
-                            _value.append(StringConstants.STR_DOT).append(_title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                            _value.append(StringConstants.STR_DOT).append(_title).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                                     .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                                     .append(StringConstants.TAG_BOLD_END_HTML);
                         }
@@ -2201,7 +2201,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     value = String.valueOf(iValue);
                     //if (value != null) {
                     value = StringFormatUtils.getTimeString(Integer.parseInt(value));
-                    _value.append(title).append(": ").append(StringConstants.TAG_BOLD_START_HTML)
+                    _value.append(title).append(StringConstants.STR_COLON_WITH_SPACE).append(StringConstants.TAG_BOLD_START_HTML)
                             .append(ProfileStatic.getColorForChangedPreferenceValue(value, prefMng, PREF_PROFILE_ACTIVATION_DURATION_CATTEGORY_ROOT, context))
                             .append(StringConstants.TAG_BOLD_END_HTML+StringConstants.STR_DOT);
 

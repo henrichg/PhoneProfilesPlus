@@ -255,7 +255,7 @@ class ActivityLogAdapter extends CursorAdapter {
         if (logType == PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION) {
             String profileEventCount = cursor.getString(KEY_AL_PROFILE_EVENT_COUNT);
             if (profileEventCount != null)
-                logTypeText = logTypeText + ": " + profileEventCount;
+                logTypeText = logTypeText + StringConstants.STR_COLON_WITH_SPACE + profileEventCount;
         }
         rowData.logType.setText(logTypeText);
 

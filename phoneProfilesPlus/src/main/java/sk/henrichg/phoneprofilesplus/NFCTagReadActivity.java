@@ -59,7 +59,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         */
         nfcManager.setOnTagReadListener(tagData -> {
             if (EventStatic.getGlobalEventsRunning(this)) {
-                PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + ": " + tagData, Toast.LENGTH_LONG);
+                PPApplication.showToast(getApplicationContext(), "(" + getString(R.string.ppp_app_name) + ") " + getString(R.string.read_nfc_tag_read) + StringConstants.STR_COLON_WITH_SPACE + tagData, Toast.LENGTH_LONG);
 
                 final String _tagData = tagData;
 

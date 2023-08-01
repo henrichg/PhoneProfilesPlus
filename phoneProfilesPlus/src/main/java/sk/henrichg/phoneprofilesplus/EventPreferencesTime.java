@@ -194,7 +194,7 @@ class EventPreferencesTime extends EventPreferences {
                 for (int i = 0; i < 7; i++)
                     allDays = allDays && daySet[i];
 
-                descr = descr + context.getString(R.string.event_preferences_time_timeDays) + ": ";
+                descr = descr + context.getString(R.string.event_preferences_time_timeDays) + StringConstants.STR_COLON_WITH_SPACE;
                 //if (allDays) {
                 //    descr = descr + "<b>" + context.getString(R.string.array_pref_event_all) + "</b>";
                 //    descr = descr + " ";
@@ -216,7 +216,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(_descr, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
                 }
 
-                descr = descr + StringConstants.CHAR_DOT + " " + context.getString(R.string.event_preferences_time_timeType) + ": ";
+                descr = descr + StringConstants.CHAR_DOT + " " + context.getString(R.string.event_preferences_time_timeType) + StringConstants.STR_COLON_WITH_SPACE;
                 String _descr = "";
                 switch (_timeType) {
                     case TIME_TYPE_EXACT:
@@ -235,7 +235,7 @@ class EventPreferencesTime extends EventPreferences {
                     descr = descr + StringConstants.STR_DOT;
 
                     descr = descr + context.getString(R.string.event_preferences_time_startTime)+"-"+
-                            context.getString(R.string.event_preferences_time_endTime)+": ";
+                            context.getString(R.string.event_preferences_time_endTime)+StringConstants.STR_COLON_WITH_SPACE;
 
                     _descr = "";
                     Calendar calendar = Calendar.getInstance();
@@ -286,10 +286,10 @@ class EventPreferencesTime extends EventPreferences {
 
                                     if (_timeType == TIME_TYPE_SUNRISE_SUNSET)
                                         descr = descr + context.getString(R.string.event_preference_sensor_time_sunrise) + "-" +
-                                                context.getString(R.string.event_preference_sensor_time_sunset) + ": ";
+                                                context.getString(R.string.event_preference_sensor_time_sunset) + StringConstants.STR_COLON_WITH_SPACE;
                                     else
                                         descr = descr + context.getString(R.string.event_preference_sensor_time_sunset) + "-" +
-                                                context.getString(R.string.event_preference_sensor_time_sunrise) + ": ";
+                                                context.getString(R.string.event_preference_sensor_time_sunrise) + StringConstants.STR_COLON_WITH_SPACE;
 
                                     _descr = "";
                                     Calendar calendar = Calendar.getInstance();
@@ -520,7 +520,7 @@ class EventPreferencesTime extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                        StringConstants.STR_COLON_WITH_SPACE+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
