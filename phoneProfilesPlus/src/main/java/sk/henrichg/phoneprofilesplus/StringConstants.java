@@ -15,6 +15,7 @@ class StringConstants {
     static final String STR_DOT = " "+CHAR_DOT+" ";
     static final String STR_HARD_SPACE_DOUBLE_ARROW = CHAR_HARD_SPACE + STR_DOUBLE_ARROW;
     static final String STR_HARD_SPACE_DOUBLE_ARROW_HTML = CHAR_HARD_SPACE_HTML + STR_DOUBLE_ARROW;
+    static final String STR_COLON_WITH_SPACE = ": ";
     static final String STR_ROOT = "(R) ";
     //static final String STR_PPPPS = "(S) ";
     static final String STR_PPPPS_ROOT = "(S)(R) ";
@@ -34,6 +35,7 @@ class StringConstants {
     static final String TAG_DOUBLE_BREAK_HTML = "<br><br>";
     static final String TAG_BOLD_START_HTML = "<b>";
     static final String TAG_BOLD_END_HTML = "</b>";
+    static final String TAG_BOLD_END_WITH_SPACE_HTML = "</b> ";
     static final String TAG_FONT_COLOR_HTML = "<font color=\"#%s\">%s</font>";
     static final String TAG_LIST_START_HTML = "<ul>";
     static final String TAG_LIST_END_HTML = "</ul>";

@@ -82,20 +82,20 @@ class EventPreferencesAccessories extends EventPreferences {
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, boolean disabled, Context context) {
-        String descr = "";
+        StringBuilder _value = new StringBuilder();
 
         if (!this._enabled) {
             if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_accessories_summary);
+                _value.append(context.getString(R.string.event_preference_sensor_accessories_summary));
         } else {
             if (EventStatic.isEventPreferenceAllowed(PREF_EVENT_ACCESSORIES_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + StringConstants.TAG_BOLD_START_HTML;
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context);
-                    descr = descr + StringConstants.TAG_BOLD_END_HTML+" ";
+                    _value.append(StringConstants.TAG_BOLD_START_HTML);
+                    _value.append(getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_ACCESSORY, context));
+                    _value.append(StringConstants.TAG_BOLD_END_WITH_SPACE_HTML);
                 }
 
-                descr = descr + context.getString(R.string.event_preferences_peripheral_type) + ": ";
+                _value.append(context.getString(R.string.event_preferences_peripheral_type)).append(StringConstants.STR_COLON_WITH_SPACE);
                 String selectedAccessory = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if ((this._accessoryType != null) && !this._accessoryType.isEmpty() && !this._accessoryType.equals("-")) {
                     String[] splits = this._accessoryType.split(StringConstants.STR_SPLIT_REGEX);
@@ -116,11 +116,13 @@ class EventPreferencesAccessories extends EventPreferences {
                     }
                     selectedAccessory = value.toString();
                 }
-                descr = descr + StringConstants.TAG_BOLD_START_HTML + getColorForChangedPreferenceValue(selectedAccessory, disabled, context) + StringConstants.TAG_BOLD_END_HTML;
+                _value.append(StringConstants.TAG_BOLD_START_HTML)
+                        .append(getColorForChangedPreferenceValue(selectedAccessory, disabled, context))
+                        .append(StringConstants.TAG_BOLD_END_HTML);
             }
         }
 
-        return descr;
+        return _value.toString();
     }
 
     private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
