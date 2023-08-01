@@ -128,7 +128,6 @@ class Event {
     private static final String PREF_EVENT_START_WHEN_ACTIVATED_PROFILE = "eventStartWhenActivatedProfile";
     private static final String PREF_EVENT_DELAY_END = "eventDelayEnd";
     private static final String PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION = "eventNoPauseByManualActivation";
-    private static final String PREF_EVENT_END_OTHERS = "eventEndOthersCategoryRoot";
     //private static final String PREF_EVENT_AT_END_HOW_UNDO = "eventAtEndHowUndo";
     private static final String PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
     private  static final String PREF_EVENT_NOTIFICATION_SOUND_START_PLAY_ALSO_IN_SILENT_MODE = "eventStartNotificationSoundPlayAlsoInSilentMode";
@@ -1135,7 +1134,7 @@ class Event {
                 manualProfileActivationAtEndChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
                 repeatInterval = Integer.parseInt(preferences.getString(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, "0"));
             }
-            Preference preference = prefMng.findPreference("eventStartOthersCategoryRoot");
+            Preference preference = prefMng.findPreference(EventsPrefsFragment.PREF_EVENT_START_OTHERS_CATEGORY_ROOT);
             if (preference != null) {
                 boolean bold = (//forceRunChanged ||
                                 manualProfileActivationChanged ||
@@ -1194,7 +1193,7 @@ class Event {
                 else
                     preference.setSummary("");
             }
-            preference = prefMng.findPreference("eventEndOthersCategoryRoot");
+            preference = prefMng.findPreference(EventsPrefsFragment.PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
             if (preference != null) {
                 boolean bold = (delayEndChanged ||
                                 notificationSoundEndChanged ||
@@ -1269,7 +1268,7 @@ class Event {
                 key.equals(PREF_EVENT_PROFILE_END) ||
                 key.equals(PREF_EVENT_AT_END_DO) ||
                 //key.equals(PREF_EVENT_AT_END_HOW_UNDO) ||
-                key.equals(PREF_EVENT_END_OTHERS)) {
+                key.equals(EventsPrefsFragment.PREF_EVENT_END_OTHERS_CATEGORY_ROOT)) {
             //boolean value = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION, false);
             /*if (value) {
                 Preference preference = prefMng.findPreference(PREF_EVENT_PROFILE_END);
@@ -1299,7 +1298,7 @@ class Event {
                     //preference.setEnabled(value2.equals("0"));
                     preference.setEnabled(true);
 
-                preference = prefMng.findPreference(PREF_EVENT_END_OTHERS);
+                preference = prefMng.findPreference(EventsPrefsFragment.PREF_EVENT_END_OTHERS_CATEGORY_ROOT);
                 if (preference != null)
                     preference.setEnabled(true);
             }

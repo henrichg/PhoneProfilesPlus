@@ -49,6 +49,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
     private static final String PREF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
     private static final String PREF_EVENT_SENSORS_INFO = "eventSensorsInfo";
+    static final String PREF_EVENT_START_OTHERS_CATEGORY_ROOT = "eventStartOthersCategoryRoot";
+    static final String PREF_EVENT_END_OTHERS_CATEGORY_ROOT = "eventEndOthersCategoryRoot";
+
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
     private static final int RESULT_LOCATION_APP_SETTINGS = 1983;
